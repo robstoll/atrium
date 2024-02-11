@@ -33,9 +33,6 @@ abstract class CharSequenceToContainAtLeastExpectationsSpec(
     fun describeFun(vararg funName: String, body: Suite.() -> Unit) =
         describeFunTemplate(describePrefix, funName, body = body)
 
-    val fluent = expect(text as CharSequence)
-    val fluentHelloWorld = expect(helloWorld as CharSequence)
-
 
     fun Expect<CharSequence>.toContainAtLeastFun(atLeast: Int, a: Any, vararg aX: Any) =
         toContainAtLeast(this, atLeast, a, aX)
@@ -56,70 +53,70 @@ abstract class CharSequenceToContainAtLeastExpectationsSpec(
 
         context("throws an $illegalArgumentException") {
             val (exactly, errorMsgExactly) = exactlyPair
-            val (notToContain, errorMsgnotToContain) = notToContainPair
+            val (notToContain, errorMsgNotToContain) = notToContainPair
 
             it("for at least -1 -- only positive numbers") {
                 expect {
-                    fluent.toContainAtLeastFun(-1, "")
+                    expect(text).toContainAtLeastFun(-1, "")
                 }.toThrow<IllegalArgumentException> { messageToContain("positive number", -1) }
             }
             it("for at least 0 -- points to $notToContain") {
                 expect {
-                    fluent.toContainAtLeastFun(0, "")
-                }.toThrow<IllegalArgumentException> { message { toEqual(errorMsgnotToContain(0)) } }
+                    expect(text).toContainAtLeastFun(0, "")
+                }.toThrow<IllegalArgumentException> { message { toEqual(errorMsgNotToContain(0)) } }
             }
             it("if an object is passed as first expected") {
                 expect {
-                    fluent.toContainAtLeastFun(1, fluent)
+                    expect(text).toContainAtLeastFun(1, expect(text))
                 }.toThrow<IllegalArgumentException> { messageToContain("CharSequence", "Number", "Char") }
             }
             it("if an object is passed as second expected") {
                 expect {
-                    fluent.toContainAtLeastFun(1, "that's fine", fluent)
+                    expect(text).toContainAtLeastFun(1, "that's fine", expect(text))
                 }.toThrow<IllegalArgumentException> { messageToContain("CharSequence", "Number", "Char") }
             }
 
             context("using $toContainAtLeastButAtMost") {
                 it("for at least 1 but at most -1 -- since -1 is smaller than 1") {
                     expect {
-                        fluent.toContainAtLeastButAtMostFun(1, -1, "")
+                        expect(text).toContainAtLeastButAtMostFun(1, -1, "")
                     }.toThrow<IllegalArgumentException> { message { toEqual(errorMsgAtLeastButAtMost(1, -1)) } }
                 }
                 it("for at least 1 but at most 0 -- since 0 is smaller than 1") {
                     expect {
-                        fluent.toContainAtLeastButAtMostFun(1, 0, "")
+                        expect(text).toContainAtLeastButAtMostFun(1, 0, "")
                     }.toThrow<IllegalArgumentException> { message { toEqual(errorMsgAtLeastButAtMost(1, 0)) } }
                 }
                 it("for at least 2 but at most 1 -- since 1 is smaller than 2") {
                     expect {
-                        fluent.toContainAtLeastButAtMostFun(2, 1, "")
+                        expect(text).toContainAtLeastButAtMostFun(2, 1, "")
                     }.toThrow<IllegalArgumentException> { message { toEqual(errorMsgAtLeastButAtMost(2, 1)) } }
                 }
                 it("for at least 1 but at most 1 -- points to $exactly") {
                     expect {
-                        fluent.toContainAtLeastButAtMostFun(1, 1, "")
+                        expect(text).toContainAtLeastButAtMostFun(1, 1, "")
                     }.toThrow<IllegalArgumentException> { message { toEqual(errorMsgExactly(1)) } }
                 }
                 it("if an object is passed as first expected") {
                     expect {
-                        fluent.toContainAtLeastButAtMostFun(1, 2, fluent)
+                        expect(text).toContainAtLeastButAtMostFun(1, 2, expect(text))
                     }.toThrow<IllegalArgumentException> { messageToContain("CharSequence", "Number", "Char") }
                 }
                 it("if an object is passed as second expected") {
                     expect {
-                        fluent.toContainAtLeastButAtMostFun(1, 2, "that's fine", fluent)
+                        expect(text).toContainAtLeastButAtMostFun(1, 2, "that's fine", expect(text))
                     }.toThrow<IllegalArgumentException> { messageToContain("CharSequence", "Number", "Char") }
                 }
             }
 
             it("searching for an empty String - warns the user that the assertion is useless") {
                 expect {
-                    fluent.toContainAtLeastFun(1, "that's fine", "" /* <- that's not */)
+                    expect(text).toContainAtLeastFun(1, "that's fine", "" /* <- that's not */)
                 }.toThrow<IllegalArgumentException> { messageToContain("empty string", "forgot") }
             }
             it("searching for an empty CharSequence - warns the user that the assertion is useless") {
                 expect {
-                    fluent.toContainAtLeastFun(1, "that's fine", StringBuilder() /* <- that's not */)
+                    expect(text).toContainAtLeastFun(1, "that's fine", StringBuilder() /* <- that's not */)
                 }.toThrow<IllegalArgumentException> { messageToContain("empty CharSequence", "forgot") }
             }
         }
@@ -128,38 +125,38 @@ abstract class CharSequenceToContainAtLeastExpectationsSpec(
 
             context("happy case with $toContainAtLeast once") {
                 it("${toContainAtLeastPair.first("'H'", "once")} does not throw") {
-                    fluentHelloWorld.toContainAtLeastFun(1, 'H')
+                    expect(helloWorld).toContainAtLeastFun(1, 'H')
                 }
                 it("${toContainAtLeastPair.first("'H' and 'e' and 'W'", "once")} does not throw") {
-                    fluentHelloWorld.toContainAtLeastFun(1, 'H', 'e', 'W')
+                    expect(helloWorld).toContainAtLeastFun(1, 'H', 'e', 'W')
                 }
                 it("${toContainAtLeastPair.first("'W' and 'H' and 'e'", "once")} does not throw") {
-                    fluentHelloWorld.toContainAtLeastFun(1, 'W', 'H', 'e')
+                    expect(helloWorld).toContainAtLeastFun(1, 'W', 'H', 'e')
                 }
             }
 
             context("failing cases; search string at different positions with $toContainAtLeast once") {
                 it("${toContainAtLeastPair.first("'h'", "once")} throws AssertionError") {
                     expect {
-                        fluentHelloWorld.toContainAtLeastFun(1, 'h')
+                        expect(helloWorld).toContainAtLeastFun(1, 'h')
                     }.toThrow<AssertionError> { messageToContain(noMatchFoundDescr, "$valueWithIndent: 'h'") }
                 }
                 it("${toContainAtLeastIgnoringCasePair.first("'h'", "once")} does not throw") {
-                    fluentHelloWorld.toContainAtLeastIgnoringCaseFun(1, 'h')
+                    expect(helloWorld).toContainAtLeastIgnoringCaseFun(1, 'h')
                 }
 
                 it("${toContainAtLeastPair.first("'H', 'E'", "once")} throws AssertionError") {
                     expect {
-                        fluentHelloWorld.toContainAtLeastFun(1, 'H', 'E')
+                        expect(helloWorld).toContainAtLeastFun(1, 'H', 'E')
                     }.toThrow<AssertionError> { messageToContain(noMatchFoundDescr, 'E') }
                 }
                 it("${toContainAtLeastIgnoringCasePair.first("'H', 'E'", "once")} does not throw") {
-                    fluentHelloWorld.toContainAtLeastIgnoringCaseFun(1, 'H', 'E')
+                    expect(helloWorld).toContainAtLeastIgnoringCaseFun(1, 'H', 'E')
                 }
 
                 it("${toContainAtLeastPair.first("'E', 'H'", "once")} throws AssertionError mentioning only 'E'") {
                     expect {
-                        fluentHelloWorld.toContainAtLeastFun(1, 'E', 'H')
+                        expect(helloWorld).toContainAtLeastFun(1, 'E', 'H')
                     }.toThrow<AssertionError> {
                         message {
                             toContain(noMatchFoundDescr, "$valueWithIndent: 'E'")
@@ -168,7 +165,7 @@ abstract class CharSequenceToContainAtLeastExpectationsSpec(
                     }
                 }
                 it("${toContainAtLeastIgnoringCasePair.first("'E', 'H'", "once")} does not throw") {
-                    fluentHelloWorld.toContainAtLeastIgnoringCaseFun(1, 'E', 'H')
+                    expect(helloWorld).toContainAtLeastIgnoringCaseFun(1, 'E', 'H')
                 }
 
                 it(
@@ -178,7 +175,7 @@ abstract class CharSequenceToContainAtLeastExpectationsSpec(
                     )} throws AssertionError mentioning 'E' and 'w'"
                 ) {
                     expect {
-                        fluentHelloWorld.toContainAtLeastFun(1, 'H', 'E', 'w', 'r')
+                        expect(helloWorld).toContainAtLeastFun(1, 'H', 'E', 'w', 'r')
                     }.toThrow<AssertionError> {
                         message {
                             toContain(noMatchFoundDescr, "$valueWithIndent: 'E'", "$valueWithIndent: 'w'")
@@ -187,16 +184,16 @@ abstract class CharSequenceToContainAtLeastExpectationsSpec(
                     }
                 }
                 it("${toContainAtLeastIgnoringCasePair.first("'H', 'E', 'w' and 'r'", "once")} does not throw") {
-                    fluentHelloWorld.toContainAtLeastIgnoringCaseFun(1, 'H', 'E', 'w', 'r')
+                    expect(helloWorld).toContainAtLeastIgnoringCaseFun(1, 'H', 'E', 'w', 'r')
                 }
             }
 
             context("multiple occurrences of the search string") {
                 it("${toContainAtLeastPair.first("'o'", "once")} does not throw") {
-                    fluentHelloWorld.toContainAtLeastFun(1, 'o')
+                    expect(helloWorld).toContainAtLeastFun(1, 'o')
                 }
                 it("${toContainAtLeastPair.first("'o'", "twice")} does not throw") {
-                    fluentHelloWorld.toContainAtLeastFun(2, 'o')
+                    expect(helloWorld).toContainAtLeastFun(2, 'o')
                 }
 
                 it(
@@ -204,7 +201,7 @@ abstract class CharSequenceToContainAtLeastExpectationsSpec(
                         "how many times we expected (3) and how many times it actually contained 'o' (2)"
                 ) {
                     expect {
-                        fluentHelloWorld.toContainAtLeastFun(3, 'o')
+                        expect(helloWorld).toContainAtLeastFun(3, 'o')
                     }.toThrow<AssertionError> {
                         message {
                             toContain(
@@ -217,14 +214,14 @@ abstract class CharSequenceToContainAtLeastExpectationsSpec(
                     }
                 }
                 it("${toContainAtLeastIgnoringCasePair.first("'o'", "3 times")} does not throw") {
-                    fluentHelloWorld.toContainAtLeastIgnoringCaseFun(3, 'o')
+                    expect(helloWorld).toContainAtLeastIgnoringCaseFun(3, 'o')
                 }
 
                 it("${toContainAtLeastPair.first("'o' and 'l'", "twice")} does not throw") {
-                    fluentHelloWorld.toContainAtLeastFun(2, 'o', 'l')
+                    expect(helloWorld).toContainAtLeastFun(2, 'o', 'l')
                 }
                 it("${toContainAtLeastPair.first("'l'", "3 times")} does not throw") {
-                    fluentHelloWorld.toContainAtLeastFun(3, 'l')
+                    expect(helloWorld).toContainAtLeastFun(3, 'l')
                 }
 
                 it(
@@ -232,7 +229,7 @@ abstract class CharSequenceToContainAtLeastExpectationsSpec(
                         "and message contains both, at least: 3 and how many times it actually contained 'o' (2)"
                 ) {
                     expect {
-                        fluentHelloWorld.toContainAtLeastFun(3, 'o', 'l')
+                        expect(helloWorld).toContainAtLeastFun(3, 'o', 'l')
                     }.toThrow<AssertionError> {
                         message {
                             toContain(
@@ -246,20 +243,20 @@ abstract class CharSequenceToContainAtLeastExpectationsSpec(
                     }
                 }
                 it("${toContainAtLeastIgnoringCasePair.first("'o' and 'l'", "3 times")} does not throw") {
-                    fluentHelloWorld.toContainAtLeastIgnoringCaseFun(3, 'o', 'l')
+                    expect(helloWorld).toContainAtLeastIgnoringCaseFun(3, 'o', 'l')
                 }
             }
 
             context("using $toContainAtLeastButAtMost") {
                 it("${toContainAtLeastButAtMostPair.first("'o'", "once", "twice")} does not throw") {
-                    fluentHelloWorld.toContainAtLeastButAtMostFun(1, 2, 'o')
+                    expect(helloWorld).toContainAtLeastButAtMostFun(1, 2, 'o')
                 }
                 it(
                     "${toContainAtLeastButAtMostPair.first("'o' and 'l'", "once", "twice")} throws AssertionError " +
                         "and message contains both, at most: 2 and how many times it actually contained 'l' (3)"
                 ) {
                     expect {
-                        fluentHelloWorld.toContainAtLeastButAtMostFun(1, 2, 'o', 'l')
+                        expect(helloWorld).toContainAtLeastButAtMostFun(1, 2, 'o', 'l')
                     }.toThrow<AssertionError> {
                         message {
                             toContain(
@@ -273,13 +270,13 @@ abstract class CharSequenceToContainAtLeastExpectationsSpec(
                     }
                 }
                 it("${toContainAtLeastButAtMostPair.first("'o' and 'l'", "twice", "3 times")} does not throw") {
-                    fluentHelloWorld.toContainAtLeastButAtMostFun(2, 3, 'o', 'l')
+                    expect(helloWorld).toContainAtLeastButAtMostFun(2, 3, 'o', 'l')
                 }
                 it(
                     "${toContainAtLeastButAtMostIgnoringCasePair.first("'o' and 'l'", "twice", "3 times")} " +
                         "does not throw"
                 ) {
-                    fluentHelloWorld.toContainAtLeastButAtMostIgnoringCaseFun(2, 3, 'o', 'l')
+                    expect(helloWorld).toContainAtLeastButAtMostIgnoringCaseFun(2, 3, 'o', 'l')
                 }
 
                 it(
@@ -287,7 +284,7 @@ abstract class CharSequenceToContainAtLeastExpectationsSpec(
                         "AssertionError and message contains both, at least: 3 and how many times it actually contained 'o' (2)"
                 ) {
                     expect {
-                        fluentHelloWorld.toContainAtLeastButAtMostFun(3, 4, 'o', 'l')
+                        expect(helloWorld).toContainAtLeastButAtMostFun(3, 4, 'o', 'l')
                     }.toThrow<AssertionError> {
                         message {
                             toContain(
@@ -301,7 +298,7 @@ abstract class CharSequenceToContainAtLeastExpectationsSpec(
                     }
                 }
                 it("${toContainAtLeastIgnoringCasePair.first("'o' and 'l'", " 3 times")} does not throw") {
-                    fluentHelloWorld.toContainAtLeastButAtMostIgnoringCaseFun(3, 4, 'o', 'l')
+                    expect(helloWorld).toContainAtLeastButAtMostIgnoringCaseFun(3, 4, 'o', 'l')
                 }
             }
         }

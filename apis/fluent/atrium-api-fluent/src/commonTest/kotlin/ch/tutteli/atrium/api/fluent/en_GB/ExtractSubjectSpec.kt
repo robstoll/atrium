@@ -3,9 +3,11 @@ package ch.tutteli.atrium.api.fluent.en_GB
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.fun2
 import ch.tutteli.atrium.specs.notImplemented
+import ch.tutteli.atrium.specs.withNullableSuffix
 
 class ExtractSubjectSpec : ch.tutteli.atrium.specs.integration.ExtractSubjectSpec(
     fun2(Expect<Int>::extractSubject),
+    fun2(Expect<Int?>::extractSubject).withNullableSuffix(),
     extractSubjectDefaultFailureDescription = "❗❗ subject extraction not possible, previous expectation failed, cannot show sub-expectations"
 ) {
 

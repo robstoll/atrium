@@ -26,9 +26,6 @@ abstract class CharSequenceToContainExactlyExpectationsSpec(
     fun describeFun(vararg funName: String, body: Suite.() -> Unit) =
         describeFunTemplate(describePrefix, funName, body = body)
 
-    val fluent = expect(text as CharSequence)
-    val fluentHelloWorld = expect(helloWorld as CharSequence)
-
     fun Expect<CharSequence>.toContainExactlyFun(exactly: Int, a: Any, vararg aX: Any) =
         toContainExactly(this, exactly, a, aX)
 
@@ -45,22 +42,22 @@ abstract class CharSequenceToContainExactlyExpectationsSpec(
 
             it("for exactly -1 -- only positive numbers") {
                 expect {
-                    fluent.toContainExactlyFun(-1, "")
+                    expect(text).toContainExactlyFun(-1, "")
                 }.toThrow<IllegalArgumentException> { messageToContain("positive number", -1) }
             }
             it("for exactly 0 -- points to $notToContain") {
                 expect {
-                    fluent.toContainExactlyFun(0, "")
+                    expect(text).toContainExactlyFun(0, "")
                 }.toThrow<IllegalArgumentException> { message { toEqual(errorMsgContainsNot(0)) } }
             }
             it("if an object is passed as first expected") {
                 expect {
-                    fluent.toContainExactlyFun(1, fluent)
+                    expect(text).toContainExactlyFun(1, expect(text))
                 }.toThrow<IllegalArgumentException> { messageToContain("CharSequence", "Number", "Char") }
             }
             it("if an object is passed as second expected") {
                 expect {
-                    fluent.toContainExactlyFun(1, "that's fine", fluent)
+                    expect(text).toContainExactlyFun(1, "that's fine", expect(text))
                 }.toThrow<IllegalArgumentException> { messageToContain("CharSequence", "Number", "Char") }
             }
         }
@@ -74,29 +71,29 @@ abstract class CharSequenceToContainExactlyExpectationsSpec(
 
             context("happy case with $toContainExactly once") {
                 it("${toContainExactlyPair.first("'H'", "once")} does not throw") {
-                    fluentHelloWorld.toContainExactlyFun(1, 'H')
+                    expect(helloWorld).toContainExactlyFun(1, 'H')
                 }
                 it("${toContainExactlyPair.first("'H' and 'e' and 'W'", "once")} does not throw") {
-                    fluentHelloWorld.toContainExactlyFun(1, 'H', 'e', 'W')
+                    expect(helloWorld).toContainExactlyFun(1, 'H', 'e', 'W')
                 }
                 it("${toContainExactlyPair.first("'W' and 'H' and 'e'", "once")} does not throw") {
-                    fluentHelloWorld.toContainExactlyFun(1, 'W', 'H', 'e')
+                    expect(helloWorld).toContainExactlyFun(1, 'W', 'H', 'e')
                 }
             }
 
             context("failing cases; search string at different positions with $toContainExactly once") {
                 it("${toContainExactlyPair.first("'h'", "once")} throws AssertionError") {
                     expect {
-                        fluentHelloWorld.toContainExactlyFun(1, 'h')
+                        expect(helloWorld).toContainExactlyFun(1, 'h')
                     }.toThrow<AssertionError> { messageToContain("$exactlyDescr: 1", "$valueWithIndent: 'h'") }
                 }
                 it("${toContainExactlyIgnoringCasePair.first("'h'", "once")} throws AssertionError") {
-                    fluentHelloWorld.toContainExactlyIgnoringCaseFun(1, 'h')
+                    expect(helloWorld).toContainExactlyIgnoringCaseFun(1, 'h')
                 }
 
                 it("${toContainExactlyPair.first("'H', 'E'", "once")} throws AssertionError mentioning only 'E'") {
                     expect {
-                        fluentHelloWorld.toContainExactlyFun(1, 'H', 'E')
+                        expect(helloWorld).toContainExactlyFun(1, 'H', 'E')
                     }.toThrow<AssertionError> {
                         message {
                             toContain("$exactlyDescr: 1", "$valueWithIndent: 'E'")
@@ -105,12 +102,12 @@ abstract class CharSequenceToContainExactlyExpectationsSpec(
                     }
                 }
                 it("${toContainExactlyIgnoringCasePair.first("'H', 'E'", "once")} throws AssertionError") {
-                    fluentHelloWorld.toContainExactlyIgnoringCaseFun(1, 'H', 'E')
+                    expect(helloWorld).toContainExactlyIgnoringCaseFun(1, 'H', 'E')
                 }
 
                 it("${toContainExactlyPair.first("'E', 'H'", "once")} throws AssertionError mentioning only 'E'") {
                     expect {
-                        fluentHelloWorld.toContainExactlyFun(1, 'E', 'H')
+                        expect(helloWorld).toContainExactlyFun(1, 'E', 'H')
                     }.toThrow<AssertionError> {
                         message {
                             toContain("$exactlyDescr: 1", "$valueWithIndent: 'E'")
@@ -119,31 +116,31 @@ abstract class CharSequenceToContainExactlyExpectationsSpec(
                     }
                 }
                 it("${toContainExactlyIgnoringCasePair.first("'E', 'H'", "once")} throws AssertionError") {
-                    fluentHelloWorld.toContainExactlyIgnoringCaseFun(1, 'E', 'H')
+                    expect(helloWorld).toContainExactlyIgnoringCaseFun(1, 'E', 'H')
                 }
 
                 it("${toContainExactlyPair.first("'H' and 'E' and 'w'", "once")} throws AssertionError") {
                     expect {
-                        fluentHelloWorld.toContainExactlyFun(1, 'H', 'E', 'w')
+                        expect(helloWorld).toContainExactlyFun(1, 'H', 'E', 'w')
                     }.toThrow<AssertionError> { messageToContain(exactlyDescr, 'E', 'w') }
                 }
                 it("${toContainExactlyIgnoringCasePair.first("'H' and 'E' and 'w'", "once")} throws AssertionError") {
-                    fluentHelloWorld.toContainExactlyIgnoringCaseFun(1, 'H', 'E', 'w')
+                    expect(helloWorld).toContainExactlyIgnoringCaseFun(1, 'H', 'E', 'w')
                 }
             }
 
             context("multiple occurrences of the search string") {
                 it("${toContainExactlyPair.first("'o'", "once")} throws AssertionError") {
                     expect {
-                        fluentHelloWorld.toContainExactlyFun(1, 'o')
+                        expect(helloWorld).toContainExactlyFun(1, 'o')
                     }.toThrow<AssertionError> { messageToContain("$exactlyDescr: 1", "$valueWithIndent: 'o'") }
                 }
                 it("${toContainExactlyPair.first("'o'", "twice")} does not throw") {
-                    fluentHelloWorld.toContainExactlyFun(2, 'o')
+                    expect(helloWorld).toContainExactlyFun(2, 'o')
                 }
                 it("${toContainExactlyIgnoringCasePair.first("'o'", "twice")} throws") {
                     expect {
-                        fluentHelloWorld.toContainExactlyIgnoringCaseFun(2, 'o')
+                        expect(helloWorld).toContainExactlyIgnoringCaseFun(2, 'o')
                     }.toThrow<AssertionError> {
                         message {
                             toContain(
@@ -161,7 +158,7 @@ abstract class CharSequenceToContainExactlyExpectationsSpec(
                         "how many times we expected (3) and how many times it actually contained 'o' (2)"
                 ) {
                     expect {
-                        fluentHelloWorld.toContainExactlyFun(3, 'o')
+                        expect(helloWorld).toContainExactlyFun(3, 'o')
                     }.toThrow<AssertionError> {
                         message {
                             toContain(
@@ -174,15 +171,15 @@ abstract class CharSequenceToContainExactlyExpectationsSpec(
                     }
                 }
                 it("${toContainExactlyIgnoringCasePair.first("'o'", "3 times")} does not throw") {
-                    fluentHelloWorld.toContainExactlyIgnoringCaseFun(3, 'o')
+                    expect(helloWorld).toContainExactlyIgnoringCaseFun(3, 'o')
                 }
                 it("${toContainExactlyIgnoringCasePair.first("'o' and 'o'", "3 times")} does not throw") {
-                    fluentHelloWorld.toContainExactlyIgnoringCaseFun(3, 'o', 'o')
+                    expect(helloWorld).toContainExactlyIgnoringCaseFun(3, 'o', 'o')
                 }
 
                 it("${toContainExactlyPair.first("'o' and 'l'", "twice")} throws AssertionError") {
                     expect {
-                        fluentHelloWorld.toContainExactlyFun(2, 'o', 'l')
+                        expect(helloWorld).toContainExactlyFun(2, 'o', 'l')
                     }.toThrow<AssertionError> {
                         message {
                             toContain(
@@ -196,7 +193,7 @@ abstract class CharSequenceToContainExactlyExpectationsSpec(
                     }
                 }
                 it("${toContainExactlyPair.first("'l'", "3 times")} does not throw") {
-                    fluentHelloWorld.toContainExactlyFun(3, 'l')
+                    expect(helloWorld).toContainExactlyFun(3, 'l')
                 }
                 it(
                     "${toContainExactlyPair.first(
@@ -205,7 +202,7 @@ abstract class CharSequenceToContainExactlyExpectationsSpec(
                     )} throws AssertionError and message contains both, how many times we expected (3) and how many times it actually contained 'o' (2)"
                 ) {
                     expect {
-                        fluentHelloWorld.toContainExactlyFun(3, 'o', 'l')
+                        expect(helloWorld).toContainExactlyFun(3, 'o', 'l')
                     }.toThrow<AssertionError> {
                         message {
                             toContain(

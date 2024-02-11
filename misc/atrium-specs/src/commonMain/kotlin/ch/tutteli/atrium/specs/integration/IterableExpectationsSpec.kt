@@ -81,14 +81,14 @@ abstract class IterableExpectationsSpec(
         val maxFunctions = unifySignatures(maxFeature, max)
 
         context("list with 4 and 3") {
-            val fluent = expect(listOf(4, 3) as Iterable<Int>)
+            val iterableWith4And3 = listOf(4, 3) as Iterable<Int>
             minFunctions.forEach { (name, minFun, _) ->
                 it("$name - is greater than 2 holds") {
-                    fluent.minFun { toBeGreaterThan(2) }
+                    expect(iterableWith4And3).minFun { toBeGreaterThan(2) }
                 }
                 it("$name - is less than 2 fails") {
                     expect {
-                        fluent.minFun { toBeLessThan(2) }
+                        expect(iterableWith4And3).minFun { toBeLessThan(2) }
                     }.toThrow<AssertionError> {
                         messageToContain("min(): 3")
                     }
@@ -96,11 +96,11 @@ abstract class IterableExpectationsSpec(
             }
             maxFunctions.forEach { (name, maxFun, _) ->
                 it("$name - toBe(4) holds") {
-                    fluent.maxFun { toEqual(4) }
+                    expect(iterableWith4And3).maxFun { toEqual(4) }
                 }
                 it("$name - $toEqualDescr(3) fails") {
                     expect {
-                        fluent.maxFun { toEqual(3) }
+                        expect(iterableWith4And3).maxFun { toEqual(3) }
                     }.toThrow<AssertionError> {
                         messageToContain("max(): 4")
                     }

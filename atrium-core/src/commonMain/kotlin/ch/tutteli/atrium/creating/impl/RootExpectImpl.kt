@@ -58,7 +58,7 @@ internal class RootExpectImpl<T>(
         if (!assertion.holds()) {
             val assertionGroup = assertionBuilder.root
                 .withDescriptionAndRepresentation(expectationVerb, representation)
-                .withAssertion(assertion)
+                .withAssertions(assertions)
                 .build()
 
             val sb = StringBuilder()

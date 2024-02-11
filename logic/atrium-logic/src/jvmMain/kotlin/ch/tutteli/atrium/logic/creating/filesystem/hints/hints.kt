@@ -5,14 +5,13 @@ import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.builders.*
 import ch.tutteli.atrium.core.getOrElse
 import ch.tutteli.atrium.core.polyfills.fullName
+import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic._logic
 import ch.tutteli.atrium.logic.creating.transformers.impl.ThrowableThrownFailureHandler
 import ch.tutteli.atrium.logic.creating.filesystem.Failure
 import ch.tutteli.atrium.logic.creating.filesystem.IoResult
 import ch.tutteli.atrium.logic.creating.filesystem.Success
-import ch.tutteli.atrium.reporting.SHOULD_NOT_BE_SHOWN_TO_THE_USER_BUG
-import ch.tutteli.atrium.reporting.Text
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.translations.DescriptionBasic
 import ch.tutteli.atrium.translations.DescriptionPathAssertion.*
@@ -30,15 +29,14 @@ inline fun <T> Descriptive.DescriptionOption<Descriptive.FinalStep>.withHelpOnIO
     expect: Expect<IoResult<T>>,
     crossinline f: (Path, IOException) -> Assertion?
 ): Descriptive.DescriptionOption<DescriptiveAssertionWithFailureHint.FinalStep> =
-    withHelpOnFailureBasedOnSubject(expect) {
-        ifDefined { result ->
-            explainForResolvedLink(result.path) { realPath ->
-                val exception = (result as Failure).exception
-                f(realPath, exception) ?: hintForIoException(realPath, exception)
-            }
-        }.ifAbsent(::createShouldNotBeShownToUserWarning)
-    }.showOnlyIf {
-        expect._logic.maybeSubject.map { it is Failure }.getOrElse { false }
+    withHelpOnFailureBasedOnDefinedSubject(
+        expect,
+        showOnlyIf = { it is Failure }
+    ){ result ->
+        explainForResolvedLink(result.path) { realPath ->
+            val exception = (result as Failure).exception
+            f(realPath, exception) ?: expect._logic.hintForIoException(realPath, exception)
+        }
     }
 
 fun Descriptive.DescriptionOption<Descriptive.FinalStep>.withHelpOnFileAttributesFailure(
@@ -48,7 +46,7 @@ fun Descriptive.DescriptionOption<Descriptive.FinalStep>.withHelpOnFileAttribute
         explainForResolvedLink(result.path) { realPath ->
             when (result) {
                 is Success -> describeWas(result.value.fileType)
-                is Failure -> hintForIoException(realPath, result.exception)
+                is Failure -> expect._logic.hintForIoException(realPath, result.exception)
             }
         }
     }
@@ -147,7 +145,7 @@ private fun addOneStepResolvedSymlinkHint(absolutePath: Path, hintList: Deque<As
     }
 }
 
-fun hintForIoException(path: Path, exception: IOException): Assertion = when (exception) {
+fun AssertionContainer<*>.hintForIoException(path: Path, exception: IOException): Assertion = when (exception) {
     is NoSuchFileException -> hintForFileNotFound(path)
     else -> findHintForProblemWithParent(path) ?: hintForFileSpecificIoException(path, exception)
 }
@@ -156,7 +154,7 @@ fun hintForIoException(path: Path, exception: IOException): Assertion = when (ex
  * Searches for any problem with a parent directory that is not that the directory does not exist.
  * @return an appropriate hint if a problem with a parent is found that is not that that parent does not exist.
  */
-fun findHintForProblemWithParent(path: Path): Assertion? {
+fun AssertionContainer<*>.findHintForProblemWithParent(path: Path): Assertion? {
     val absolutePath = path.toAbsolutePath()
     var currentParentPart = absolutePath.root
     for (part in absolutePath) {
@@ -336,7 +334,7 @@ private fun describeWas(actual: Translatable) =
         .build()
 
 
-private fun hintForFileSpecificIoException(path: Path, exception: IOException) =
+private fun AssertionContainer<*>.hintForFileSpecificIoException(path: Path, exception: IOException) =
     when (exception) {
         is AccessDeniedException -> hintForAccessDenied(path)
         else -> hintForOtherIoException(exception)
@@ -394,9 +392,10 @@ private fun hintForNotDirectory(actualType: Translatable) =
         )
         .build()
 
-private fun hintForOtherIoException(exception: IOException) =
+private fun AssertionContainer<*>.hintForOtherIoException(exception: IOException) =
     ThrowableThrownFailureHandler.propertiesOfThrowable(
         exception,
+        this,
         explanation = assertionBuilder.explanatory
             .withExplanation(
                 FAILURE_DUE_TO_ACCESS_EXCEPTION,

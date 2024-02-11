@@ -142,7 +142,7 @@ class DefaultPathAssertions : PathAssertions {
             }
             .withHelpOnIOExceptionFailure(checkAccessResultExpect) { realPath, exception ->
                 when (exception) {
-                    is AccessDeniedException -> findHintForProblemWithParent(realPath)
+                    is AccessDeniedException -> checkAccessResultExpect._logic.findHintForProblemWithParent(realPath)
                         ?: assertionBuilder.explanatoryGroup
                             .withDefaultType
                             .withAssertions(
@@ -245,7 +245,7 @@ class DefaultPathAssertions : PathAssertions {
                                         )
                                         .build()
                                 }
-                                is Failure -> hintForIoException(realPath, ioResult.exception)
+                                is Failure -> expectResult._logic.hintForIoException(realPath, ioResult.exception)
                             }
                         }
                     }

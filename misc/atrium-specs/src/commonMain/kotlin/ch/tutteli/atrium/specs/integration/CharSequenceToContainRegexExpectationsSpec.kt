@@ -37,10 +37,9 @@ abstract class CharSequenceToContainRegexExpectationsSpec(
         describeFunTemplate(describePrefix, funName, body = body)
 
 
-    val text = "Hello my name is Robert"
+    val text : CharSequence = "Hello my name is Robert"
     val hello = "[hH][ea]llo"
     val roberto = "Roberto?"
-    val fluent = expect(text as CharSequence)
 
     fun Expect<CharSequence>.toContainAtLeastFun(atLeast: Int, a: String, vararg aX: String) =
         toContainAtLeast(this, atLeast, a, aX)
@@ -118,17 +117,17 @@ abstract class CharSequenceToContainRegexExpectationsSpec(
 
         context("text $text") {
             it("${toContainAtLeastPair.first("'$hello'", "once")} does not throw") {
-                fluent.toContainAtLeastFun(1, hello)
+                expect(text).toContainAtLeastFun(1, hello)
             }
             it("${toContainAtLeastPair.first("'$hello', '$hello' and '$hello'", "once")} does not throw") {
-                fluent.toContainAtLeastFun(1, hello, hello, hello)
+                expect(text).toContainAtLeastFun(1, hello, hello, hello)
             }
             it("${toContainAtLeastPair.first("'$hello' and '$roberto'", "once")} does not throw") {
-                fluent.toContainAtLeastFun(1, hello, roberto)
+                expect(text).toContainAtLeastFun(1, hello, roberto)
             }
             it("${toContainAtLeastPair.first("'${roberto.toLowerCase()}'", "once")} throws AssertionError") {
                 expect {
-                    fluent.toContainAtLeastFun(1, roberto.toLowerCase())
+                    expect(text).toContainAtLeastFun(1, roberto.toLowerCase())
                 }.toThrow<AssertionError> {
                     message {
                         toContain(
@@ -140,32 +139,32 @@ abstract class CharSequenceToContainRegexExpectationsSpec(
                 }
             }
             it("${toContainAtLeastIgnoringCasePair.first("'${roberto.toLowerCase()}'", "once")} does not throw") {
-                fluent.toContainAtLeastIgnoringCaseFun(1, roberto.toLowerCase())
+                expect(text).toContainAtLeastIgnoringCaseFun(1, roberto.toLowerCase())
             }
 
             it("${toContainShortcutPair.first("'$hello'", "once")} does not throw") {
-                fluent.toContainShortcutFun(hello)
+                expect(text).toContainShortcutFun(hello)
             }
             it("${toContainShortcutPair.first("'$hello', '$hello' and '$hello'", "once")} does not throw") {
-                fluent.toContainShortcutFun(hello, hello, hello)
+                expect(text).toContainShortcutFun(hello, hello, hello)
             }
             it("${toContainShortcutPair.first("'$hello' and '$roberto'", "once")} does not throw") {
-                fluent.toContainShortcutFun(hello, roberto)
+                expect(text).toContainShortcutFun(hello, roberto)
             }
 
             it("${toContainAtMostPair.first("'[a-z]'", "17 times")} does not throw") {
-                fluent.toContainAtMostFun(17, "[a-z]")
+                expect(text).toContainAtMostFun(17, "[a-z]")
             }
             it("${toContainAtMostIgnoringCasePair.first("'[a-z]'", "19 times")} does not throw") {
-                fluent.toContainAtMostIgnoringCaseFun(19, "[a-z]")
+                expect(text).toContainAtMostIgnoringCaseFun(19, "[a-z]")
             }
             it("${toContainAtMostIgnoringCasePair.first("'[a-z]' and '[A-Z]'", "19 times")} does not throw") {
-                fluent.toContainAtMostIgnoringCaseFun(19, "[a-z]", "[A-Z]")
+                expect(text).toContainAtMostIgnoringCaseFun(19, "[a-z]", "[A-Z]")
             }
 
             it("${toContainAtMostPair.first("'[a-z]'", "16 times")} throws AssertionError") {
                 expect {
-                    fluent.toContainAtMostFun(16, "[a-z]")
+                    expect(text).toContainAtMostFun(16, "[a-z]")
                 }.toThrow<AssertionError> {
                     message {
                         toContain(
@@ -179,7 +178,7 @@ abstract class CharSequenceToContainRegexExpectationsSpec(
             }
             it("${toContainAtMostIgnoringCasePair.first("'[a-z]'", "18 times")} throws AssertionError") {
                 expect {
-                    fluent.toContainAtMostIgnoringCaseFun(18, "[a-z]")
+                    expect(text).toContainAtMostIgnoringCaseFun(18, "[a-z]")
                 }.toThrow<AssertionError> {
                     message {
                         toContain(

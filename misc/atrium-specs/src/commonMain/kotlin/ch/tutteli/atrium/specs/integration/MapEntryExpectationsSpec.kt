@@ -51,7 +51,6 @@ abstract class MapEntryExpectationsSpec(
         describeFunTemplate(describePrefix, pairs.map { it.name }.toTypedArray(), body = body)
 
     val mapEntry = mapEntry("hello", 1)
-    val fluent = expect(mapEntry)
 
     describeFun(toEqualKeyValue, toEqualKeyValueNullable) {
         val toEqualKeyValueFunctions = uncheckedToNonNullable(toEqualKeyValue, toEqualKeyValueNullable)
@@ -59,12 +58,12 @@ abstract class MapEntryExpectationsSpec(
         context("map $mapEntry") {
             toEqualKeyValueFunctions.forEach { (name, toEqualKeyValueFun) ->
                 it("$name - hello to 1 does not throw") {
-                    fluent.toEqualKeyValueFun("hello", 1)
+                    expect(mapEntry).toEqualKeyValueFun("hello", 1)
                 }
 
                 it("$name - hello to 2 throws AssertionError") {
                     expect {
-                        fluent.toEqualKeyValueFun("hello", 2)
+                        expect(mapEntry).toEqualKeyValueFun("hello", 2)
                     }.toThrow<AssertionError> {
                         message {
                             toContain("value: 1", "$toEqualDescr: 2")
@@ -74,7 +73,7 @@ abstract class MapEntryExpectationsSpec(
                 }
                 it("$name - b to 1 throws AssertionError") {
                     expect {
-                        fluent.toEqualKeyValueFun("b", 1)
+                        expect(mapEntry).toEqualKeyValueFun("b", 1)
                     }.toThrow<AssertionError> {
                         message {
                             toContain("key: \"hello\"", "$toEqualDescr: \"b\"")
@@ -89,16 +88,15 @@ abstract class MapEntryExpectationsSpec(
     describeFun(toEqualKeyValueNullable) {
         val toEqualKeyValueFun = toEqualKeyValueNullable.lambda
         val mapEntryNullable2 = mapEntry(null as String?, null as Int?)
-        val fluentNullable = expect(mapEntryNullable2)
 
         context("map $mapEntryNullable2") {
             it("null to null does not throw") {
-                fluentNullable.toEqualKeyValueFun(null, null)
+                expect(mapEntryNullable2).toEqualKeyValueFun(null, null)
             }
 
             it("null to 2 throws AssertionError") {
                 expect {
-                    fluentNullable.toEqualKeyValueFun(null, 2)
+                    expect(mapEntryNullable2).toEqualKeyValueFun(null, 2)
                 }.toThrow<AssertionError> {
                     message {
                         toContain("value: null", "$toEqualDescr: 2")
@@ -108,7 +106,7 @@ abstract class MapEntryExpectationsSpec(
             }
             it("b to null throws AssertionError") {
                 expect {
-                    fluentNullable.toEqualKeyValueFun("b", null)
+                    expect(mapEntryNullable2).toEqualKeyValueFun("b", null)
                 }.toThrow<AssertionError> {
                     message {
                         toContain("key: null", "$toEqualDescr: \"b\"")

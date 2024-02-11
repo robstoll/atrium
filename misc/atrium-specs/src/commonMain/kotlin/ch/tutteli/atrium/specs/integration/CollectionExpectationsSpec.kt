@@ -33,7 +33,6 @@ abstract class CollectionExpectationsSpec(
         describeFunTemplate(describePrefix, pairs.map { it.name }.toTypedArray(), body = body)
 
     val empty = DescriptionCollectionExpectation.EMPTY.getDefault()
-    val fluent = expect(listOf(1, 2) as Collection<Int>)
     val sizeDescr = DescriptionCollectionExpectation.SIZE.getDefault()
 
     describeFun(isEmpty, isNotEmpty) {
@@ -69,11 +68,11 @@ abstract class CollectionExpectationsSpec(
         context("list with two entries") {
             sizeFunctions.forEach { (name, sizeFun, _) ->
                 it("$name - is greater than 1 holds") {
-                    fluent.sizeFun { toBeGreaterThan(1) }
+                    expect(listOf(1, 2) as Collection<Int>).sizeFun { toBeGreaterThan(1) }
                 }
                 it("$name - is less than 1 fails") {
                     expect {
-                        fluent.sizeFun { toBeLessThan(1) }
+                        expect(listOf(1, 2) as Collection<Int>).sizeFun { toBeLessThan(1) }
                     }.toThrow<AssertionError> {
                         messageToContain("$sizeDescr: 2")
                     }

@@ -59,12 +59,11 @@ abstract class IterableNotToContainEntriesExpectationsSpec(
             vararg aX: Expect<Double>.() -> Unit
         ) = notToContainFunArr(a, aX)
 
-        context("empty collection") {
-            val fluent = expect(setOf<Double>().asIterable())
+        context("empty iterable") {
 
             it("$toEqualFun(4.0) throws AssertionError") {
                 expect {
-                    fluent.notToContainFun({ toEqual(4.0) })
+                    expect(setOf<Double>().asIterable()).notToContainFun({ toEqual(4.0) })
                 }.toThrow<AssertionError> {
                     message {
                         toContainRegex(

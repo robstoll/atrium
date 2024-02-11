@@ -11,6 +11,7 @@ import ch.tutteli.atrium.reporting.text.TextObjectFormatter
 import ch.tutteli.atrium.reporting.text.impl.AbstractTextObjectFormatter
 import ch.tutteli.atrium.reporting.translating.Translator
 import ch.tutteli.atrium.api.verbs.expect as atriumsExpect
+import ch.tutteli.atrium.api.verbs.expectGrouped as atriumsExpectGrouped
 
 @OptIn(ExperimentalWithOptions::class, ExperimentalComponentFactoryContainer::class)
 fun <T> expect(t: T): Expect<T> =
@@ -22,7 +23,7 @@ fun <T> expect(t: T): Expect<T> =
 fun expectGrouped(
     groupingActions: ExpectGrouping.() -> Unit,
 ): ExpectGrouping =
-    ch.tutteli.atrium.api.verbs.expectGrouped(
+    atriumsExpectGrouped(
         configuration = {
             withSingletonComponent(TextObjectFormatter::class) { c -> ReadmeObjectFormatter(c.build()) }
         },

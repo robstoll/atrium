@@ -152,19 +152,18 @@ abstract class MapToContainInOrderOnlyKeyValuePairsExpectationsSpec(
         }
 
         context("map $map") {
-            val fluent = expect(map)
 
             listOf(
                 listOf("a" to 1, "b" to 2)
             ).forEach {
                 it("${it.joinToString()} does not throw") {
-                    fluent.toContainFun(it.first(), *it.drop(1).toTypedArray())
+                    expect(map).toContainFun(it.first(), *it.drop(1).toTypedArray())
                 }
             }
 
             it("a to 1 throws AssertionError, missing b") {
                 expect {
-                    fluent.toContainFun("a" to 1)
+                    expect(map).toContainFun("a" to 1)
                 }.toThrow<AssertionError> {
                     message {
                         elementSuccess(0, "a=1", "a", 1)
@@ -176,7 +175,7 @@ abstract class MapToContainInOrderOnlyKeyValuePairsExpectationsSpec(
 
             it("b 2, a to 1 throws AssertionError, wrong order") {
                 expect {
-                    fluent.toContainFun("b" to 2, "a" to 1)
+                    expect(map).toContainFun("b" to 2, "a" to 1)
                 }.toThrow<AssertionError> {
                     message {
                         elementFailing(0, "a=1", "b", 2)
@@ -189,7 +188,7 @@ abstract class MapToContainInOrderOnlyKeyValuePairsExpectationsSpec(
 
             it("a to 1, b to 1, c to 4 throws AssertionError, reports b and c") {
                 expect {
-                    fluent.toContainFun("a" to 1, "b" to 1, "c" to 4)
+                    expect(map).toContainFun("a" to 1, "b" to 1, "c" to 4)
                 }.toThrow<AssertionError> {
                     message {
                         elementSuccess(0, "a=1", "a", 1)
@@ -206,7 +205,7 @@ abstract class MapToContainInOrderOnlyKeyValuePairsExpectationsSpec(
             context("report options") {
                 it("shows only failing with report option `showOnlyFailing`") {
                     expect {
-                        fluent.toContainFun("a" to 1, "b" to 1, "c" to 3,
+                        expect(map).toContainFun("a" to 1, "b" to 1, "c" to 3,
                             report = { showOnlyFailing() }
                         )
                     }.toThrow<AssertionError> {
@@ -220,7 +219,7 @@ abstract class MapToContainInOrderOnlyKeyValuePairsExpectationsSpec(
                 }
                 it("shows only failing with report option `showOnlyFailingIfMoreExpectedElementsThan(2)` because there are 3") {
                     expect {
-                        fluent.toContainFun(
+                        expect(map).toContainFun(
                             "a" to 1,
                             "b" to 2,
                             "c" to 3,
@@ -237,7 +236,7 @@ abstract class MapToContainInOrderOnlyKeyValuePairsExpectationsSpec(
                 }
                 it("shows summary with report option `showOnlyFailingIfMoreExpectedElementsThan(3)` because there are 2") {
                     expect {
-                        fluent.toContainFun(
+                        expect(map).toContainFun(
                             "a" to 1,
                             "b" to 1,
                             report = { showOnlyFailingIfMoreExpectedElementsThan(3) }
@@ -331,8 +330,6 @@ abstract class MapToContainInOrderOnlyKeyValuePairsExpectationsSpec(
             report: InOrderOnlyReportingOptions.() -> Unit = emptyInOrderOnlyReportOptions
         ) = keyValuePairsNullable(this, t, tX, report)
 
-        val nullableFluent = expect(nullableMap)
-
         context("map: $nullableMap") {
             listOf(
                 listOf("a" to null, null to 1, "b" to 2)
@@ -344,7 +341,7 @@ abstract class MapToContainInOrderOnlyKeyValuePairsExpectationsSpec(
 
             it("a to null throws AssertionError, missing b") {
                 expect {
-                    nullableFluent.toContainFun("a" to null)
+                    expect(nullableMap).toContainFun("a" to null)
                 }.toThrow<AssertionError> {
                     message {
                         elementSuccess(0, "a=null", "a", null)
@@ -356,7 +353,7 @@ abstract class MapToContainInOrderOnlyKeyValuePairsExpectationsSpec(
 
             it("b to 2, a to null, null to 1 throws AssertionError, wrong order") {
                 expect {
-                    nullableFluent.toContainFun("b" to 2, "a" to null, null to 1)
+                    expect(nullableMap).toContainFun("b" to 2, "a" to null, null to 1)
                 }.toThrow<AssertionError> {
                     message {
                         elementFailing(0, "a=null", "b", 2)
@@ -371,7 +368,7 @@ abstract class MapToContainInOrderOnlyKeyValuePairsExpectationsSpec(
 
             it("a to null, c to 3, b to 3 throws AssertionError, reports b and c") {
                 expect {
-                    nullableFluent.toContainFun("a" to null, "c" to 3, "b" to 3)
+                    expect(nullableMap).toContainFun("a" to null, "c" to 3, "b" to 3)
                 }.toThrow<AssertionError> {
                     message {
                         elementSuccess(0, "a=null", "a", null)

@@ -59,11 +59,13 @@ Please have a look at the README of the corresponding release/git tag. Latest ve
     - [Others](#others)
   - [Path Expectations](#path-expectations)
   - [Attaching a Reason](#attaching-a-reason)
+  - [Integrate other Assertion/Expectation Libraries](#integrate-other-assertionexpectation-libraries)
   - [Data Driven Testing](#data-driven-testing)
   - [Further Examples](#further-examples)
 - [How is Atrium different from other Expectation/Assertion Libraries](#how-is-atrium-different-from-other-expectationassertion-libraries)
 - [Write own Expectation Functions](#write-own-expectation-functions)
     - [Boolean based Expectation Functions](#boolean-based-expectation-functions)
+    - [Throwable based Expectation Functions](#throwable-based-expectation-functions) 
     - [Compose Functions](#compose-expectation-functions)
     - [Enhanced Reporting](#enhanced-reporting)
     - [Own Sophisticated Expectation Builders](#own-sophisticated-expectation-builders)
@@ -186,8 +188,7 @@ We start off with a simple example:
 <ex-first>
 
 ```kotlin
-import ch.tutteli.atrium.api.fluent.en_GB.*
-import ch.tutteli.atrium.api.verbs.expect
+import ch.tutteli.atrium.logic._logic
 
 val x = 10
 expect(x).toEqual(9)
@@ -1713,6 +1714,113 @@ Just like code comments, `because` can be valuable, but should not be overused.
 
 </details>
 
+## Integrate other Assertion/Expectation Libraries
+
+If you are in the situation where you either want to migrate a large number of own assertion functions written for a 
+third party assertion library (e.g. AssertJ) to Atrium or where you want to integrate an assertion library into
+the reporting of Atrium, the expectation function `toHoldThirdPartyExpectation` comes in handy.
+
+It basically allows you to carry out any (expectation) functionality and give it a description and representation in 
+reporting. The third party expectation is considered to hold if no exception is thrown and to fail otherwise.
+
+Following an example:
+
+<ex-third-party-1>
+
+```kotlin
+expect(listOf(1, 2, 3, -1)).toHaveElementsAndAll {
+    toHoldThirdPartyExpectation("not to be", Text("negative")) { subject ->
+        // in the following we use assertJ
+        assertThat(subject).isNotNegative()
+    }
+}
+```
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/main/misc/tools/readme-examples/src/main/kotlin/readme/examples/ThirdPartySpec.kt#L33)</sub> ↓ <sub>[Output](#ex-third-party-1)</sub>
+<a name="ex-third-party-1"></a>
+```text
+I expected subject: [1, 2, 3, -1]        (java.util.Arrays.ArrayList <1234789>)
+◆ elements need all: 
+    » not to be: negative
+    ❗❗ following elements were mismatched: 
+       ⚬ index 3: -1        (kotlin.Int <1234789>)
+```
+</ex-third-party-1>
+
+Please, [open a feature request](https://github.com/robstoll/atrium/issues/new?template=feature_request.md&title=[Feature])
+for features you miss in Atrium. We happily add further functionality as long as it is used by someone.
+If you should use this third party expectation often, then it makes sense to write an own expectation function:
+
+<ex-third-party-2>
+
+```kotlin
+fun <T : Number> Expect<T>.notToBeNegative() =
+    toHoldThirdPartyExpectation("not to be", Text("negative")) { subject ->
+        when (subject) {
+            is Int -> assertThat(subject).isNotNegative()
+            is Long -> assertThat(subject).isNotNegative()
+            is Float -> assertThat(subject).isNotNegative()
+            is Double -> assertThat(subject).isNotNegative()
+            is BigDecimal -> assertThat(subject).isNotNegative()
+            // we might lose precision with toDouble but in most cases it should be OK
+            else -> assertThat(subject.toDouble()).isNotNegative()
+        }
+    }
+
+expect(-10).notToBeNegative()
+```
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/main/misc/tools/readme-examples/src/main/kotlin/readme/examples/ThirdPartySpec.kt#L42)</sub> ↓ <sub>[Output](#ex-third-party-2)</sub>
+<a name="ex-third-party-2"></a>
+```text
+I expected subject: -10        (kotlin.Int <1234789>)
+◆ not to be: negative
+  ℹ Properties of the unexpected AssertionError
+    » message: "
+Expecting actual:
+  -10
+to be greater than or equal to:
+  0
+"        <1234789>
+    » stacktrace: 
+      ⚬ readme.examples.ThirdPartySpec$1$2$1$1.invoke(ThirdPartySpec.kt:46)
+      ⚬ readme.examples.ThirdPartySpec$1$2$1$1.invoke(ThirdPartySpec.kt:31)
+      ⚬ readme.examples.ThirdPartySpec$1$2$1.invoke(ThirdPartySpec.kt:44)
+      ⚬ readme.examples.ThirdPartySpec$1$2.invoke(ThirdPartySpec.kt:56)
+      ⚬ readme.examples.ThirdPartySpec$1$2.invoke(ThirdPartySpec.kt:31)
+```
+</ex-third-party-2>
+
+As you can see, in case of failure we see our defined description and representation as well as properties of the 
+thrown `Exception`. Of course, if we start writing that much code, it might also be easier to just migrate it to 
+Atrium (and create PR so that others benefit as well 😉):
+
+<ex-third-party-3>
+
+```kotlin
+import ch.tutteli.atrium.logic._logic
+
+fun <T : Number> Expect<T>.notToBeNegative() =
+    _logic.createAndAppend("not to be", Text("negative")) { subject ->
+        when (subject) {
+            is Int -> subject.sign >= 0
+            is Long -> subject.sign >= 0
+            is Float -> subject.sign >= 0
+            is Double -> subject.sign >= 0
+            is BigDecimal -> subject.signum() >= 0
+            //  we might lose precision with toDouble but in most cases it should be OK
+            else -> sign(subject.toDouble()) >= 0
+        }
+    }
+
+expect(-10).notToBeNegative()
+```
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/main/misc/tools/readme-examples/src/main/kotlin/readme/examples/ThirdPartySpec.kt#L59)</sub> ↓ <sub>[Output](#ex-third-party-3)</sub>
+<a name="ex-third-party-3"></a>
+```text
+I expected subject: -10        (kotlin.Int <1234789>)
+◆ not to be: negative
+```
+</ex-third-party-3>
+
 ## Data Driven Testing
 See also
 [GroupingSamples](https://github.com/robstoll/atrium/blob/main/apis/fluent/atrium-api-fluent/src/commonTest/kotlin/ch/tutteli/atrium/api/fluent/en_GB/samples/GroupingSamples.kt)
@@ -1745,7 +1853,7 @@ expectGrouped {
     }
 }
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/main/misc/tools/readme-examples/src/main/kotlin/readme/examples/DataDrivenSpec.kt#L32)</sub> ↓ <sub>[Output](#ex-data-driven-1)</sub>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/main/misc/tools/readme-examples/src/main/kotlin/readme/examples/DataDrivenSpec.kt#L29)</sub> ↓ <sub>[Output](#ex-data-driven-1)</sub>
 <a name="ex-data-driven-1"></a>
 ```text
 my expectations: 
@@ -1788,7 +1896,7 @@ expectGrouped {
     }
 }
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/main/misc/tools/readme-examples/src/main/kotlin/readme/examples/DataDrivenSpec.kt#L48)</sub> ↓ <sub>[Output](#ex-data-driven-2)</sub>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/main/misc/tools/readme-examples/src/main/kotlin/readme/examples/DataDrivenSpec.kt#L45)</sub> ↓ <sub>[Output](#ex-data-driven-2)</sub>
 <a name="ex-data-driven-2"></a>
 ```text
 my expectations: 
@@ -1833,7 +1941,7 @@ expectGrouped {
     }
 }
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/main/misc/tools/readme-examples/src/main/kotlin/readme/examples/DataDrivenSpec.kt#L85)</sub> ↓ <sub>[Output](#ex-data-driven-nesting)</sub>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/main/misc/tools/readme-examples/src/main/kotlin/readme/examples/DataDrivenSpec.kt#L82)</sub> ↓ <sub>[Output](#ex-data-driven-nesting)</sub>
 <a name="ex-data-driven-nesting"></a>
 ```text
 my expectations: 
@@ -1880,7 +1988,7 @@ expectGrouped {
     }
 }
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/main/misc/tools/readme-examples/src/main/kotlin/readme/examples/DataDrivenSpec.kt#L66)</sub> ↓ <sub>[Output](#ex-data-driven-3)</sub>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/main/misc/tools/readme-examples/src/main/kotlin/readme/examples/DataDrivenSpec.kt#L63)</sub> ↓ <sub>[Output](#ex-data-driven-3)</sub>
 <a name="ex-data-driven-3"></a>
 ```text
 my expectations: 
@@ -2177,6 +2285,44 @@ I expected subject: 13        (kotlin.Int <1234789>)
 ◆ is: an even number
 ```
 </ex-own-boolean-2>
+
+## Throwable based expectation functions
+
+You might already implement functions (e.g. in your business code) which check/validate certain things and throw if 
+the expectations are not met. If those functions are well tested by itself, then they can very well also act as 
+expectation functions in other tests. To integrate those functions into the reporting of Atrium you can use
+`toHoldThirdPartyExpectation`. Take a look at [Integrate other Assertion/Expectation Libraries](#integrate-other-assertionexpectation-libraries)
+for a first explanation. Assuming, that are you going to use your existing functionality more than once in tests, 
+an expectation function could look as follows:
+
+<ex-third-party-10>
+
+```kotlin
+fun Expect<MyDomainModel>.toComplyValidation() =
+    toHoldThirdPartyExpectation("to comply", Text("validation")) { subject ->
+        subject.validateMinThreshold()
+        subject.validateMaxThreshold()
+        //...
+    }
+
+expect(MyDomainModel(alpha1 = 1204)).toComplyValidation()
+```
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/main/misc/tools/readme-examples/src/main/kotlin/readme/examples/ThirdPartySpec.kt#L85)</sub> ↓ <sub>[Output](#ex-third-party-10)</sub>
+<a name="ex-third-party-10"></a>
+```text
+I expected subject: MyDomainModel(alpha1=1204)        (readme.examples.ThirdPartySpec$1$MyDomainModel <1234789>)
+◆ to comply: validation
+  ℹ Properties of the unexpected IllegalStateException
+    » message: "threshold value for alpha1 exceeded, expected <= 1000, was 1204"        <1234789>
+    » stacktrace: 
+      ⚬ readme.examples.ThirdPartySpec$1$5.invoke(ThirdPartySpec.kt:82)
+      ⚬ readme.examples.ThirdPartySpec$1$6$1$1.invoke(ThirdPartySpec.kt:89)
+      ⚬ readme.examples.ThirdPartySpec$1$6$1$1.invoke(ThirdPartySpec.kt:31)
+      ⚬ readme.examples.ThirdPartySpec$1$6$1.invoke(ThirdPartySpec.kt:87)
+      ⚬ readme.examples.ThirdPartySpec$1$6.invoke(ThirdPartySpec.kt:93)
+      ⚬ readme.examples.ThirdPartySpec$1$6.invoke(ThirdPartySpec.kt:31)
+```
+</ex-third-party-10>
 
 ## Compose Expectation Functions
 

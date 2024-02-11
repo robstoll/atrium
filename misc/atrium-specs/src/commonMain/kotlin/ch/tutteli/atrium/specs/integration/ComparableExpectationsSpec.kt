@@ -40,22 +40,21 @@ abstract class ComparableExpectationsSpec(
 
 
     describe("$describePrefix context subject is 10") {
-        val fluent = expect(10)
 
         context("${toBeLessThan.name} ...") {
             val toBeLessThanFun = toBeLessThan.lambda
 
             it("... 11 does not throw") {
-                fluent.toBeLessThanFun(11)
+                expect(10).toBeLessThanFun(11)
             }
             it("... 10 throws an AssertionError containing ${DescriptionComparableExpectation::class.simpleName}.$TO_BE_LESS_THAN and `: 10`") {
                 expect {
-                    fluent.toBeLessThanFun(10)
+                    expect(10).toBeLessThanFun(10)
                 }.toThrow<AssertionError> { messageToContain("$toBeLessThanDescr: 10") }
             }
             it("... 9 throws an AssertionError containing ${DescriptionComparableExpectation::class.simpleName}.$TO_BE_LESS_THAN and `: 10`") {
                 expect {
-                    fluent.toBeLessThanFun(9)
+                    expect(10).toBeLessThanFun(9)
                 }.toThrow<AssertionError> { messageToContain("$toBeLessThanDescr: 9") }
             }
         }
@@ -64,14 +63,14 @@ abstract class ComparableExpectationsSpec(
             val toBeLessThanOrEqualToFun = toBeLessThanOrEqualTo.lambda
 
             it("... 11 does not throw") {
-                fluent.toBeLessThanOrEqualToFun(11)
+                expect(10).toBeLessThanOrEqualToFun(11)
             }
             it("... 10 does not throw") {
-                fluent.toBeLessThanOrEqualToFun(10)
+                expect(10).toBeLessThanOrEqualToFun(10)
             }
             it("... 9 throws an AssertionError containing ${DescriptionComparableExpectation::class.simpleName}.$TO_BE_LESS_THAN_OR_EQUAL_TO and `: 10`") {
                 expect {
-                    fluent.toBeLessThanOrEqualToFun(9)
+                    expect(10).toBeLessThanOrEqualToFun(9)
                 }.toThrow<AssertionError> { messageToContain("$toBeLessThanOrEqualToDescr: 9") }
             }
         }
@@ -81,15 +80,15 @@ abstract class ComparableExpectationsSpec(
 
             it("... 11 throws an AssertionError containing ${DescriptionComparableExpectation::class.simpleName}.$TO_BE_EQUAL_COMPARING_TO and `: 11`") {
                 expect {
-                    fluent.toBeEqualComparingToFun(11)
+                    expect(10).toBeEqualComparingToFun(11)
                 }.toThrow<AssertionError> { messageToContain("$toBeEqualComparingToDescr: 11") }
             }
             it("... 10 does not throw") {
-                fluent.toBeEqualComparingToFun(10)
+                expect(10).toBeEqualComparingToFun(10)
             }
             it("... 9 throws an AssertionError containing ${DescriptionComparableExpectation::class.simpleName}.$TO_BE_EQUAL_COMPARING_TO and `: 9`") {
                 expect {
-                    fluent.toBeEqualComparingToFun(9)
+                    expect(10).toBeEqualComparingToFun(9)
                 }.toThrow<AssertionError> { messageToContain("$toBeEqualComparingToDescr: 9") }
             }
         }
@@ -99,14 +98,14 @@ abstract class ComparableExpectationsSpec(
 
             it("... 11 throws an AssertionError containing ${DescriptionComparableExpectation::class.simpleName}.$TO_BE_GREATER_THAN_OR_EQUAL_TO and `: 11`") {
                 expect {
-                    fluent.toBeGreaterThanOrEqualFun(11)
+                    expect(10).toBeGreaterThanOrEqualFun(11)
                 }.toThrow<AssertionError> { messageToContain("$toBeGreaterThanOrEqualToDescr: 11") }
             }
             it("... 10 does not throw") {
-                fluent.toBeGreaterThanOrEqualFun(10)
+                expect(10).toBeGreaterThanOrEqualFun(10)
             }
             it("... 9 does not throw") {
-                fluent.toBeGreaterThanOrEqualFun(9)
+                expect(10).toBeGreaterThanOrEqualFun(9)
             }
         }
 
@@ -115,16 +114,16 @@ abstract class ComparableExpectationsSpec(
 
             it("... 11 throws an AssertionError containing ${DescriptionComparableExpectation::class.simpleName}.$TO_BE_GREATER_THAN and `: 11`") {
                 expect {
-                    fluent.toBeGreaterThanFun(11)
+                    expect(10).toBeGreaterThanFun(11)
                 }.toThrow<AssertionError> { messageToContain("$toBeGreaterThanDescr: 11") }
             }
             it("... 10 throws an AssertionError containing ${DescriptionComparableExpectation::class.simpleName}.$TO_BE_GREATER_THAN and `: 10`") {
                 expect {
-                    fluent.toBeGreaterThanFun(10)
+                    expect(10).toBeGreaterThanFun(10)
                 }.toThrow<AssertionError> { messageToContain("$toBeGreaterThanDescr: 10") }
             }
             it("... 9 does not throw") {
-                fluent.toBeGreaterThanFun(9)
+                expect(10).toBeGreaterThanFun(9)
             }
         }
     }
