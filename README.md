@@ -844,10 +844,10 @@ expect(a)
 `extractSubject` allows to get hold on the subject of the current `Expect` in case it is defined and reports an error
 otherwise. There is rarely a good reason to use it as there are better options:
 - [feature extractor](#feature-extractors) (`feature`, `its` or _logic.extractFeature...)
+- toHoldThirdPartyExpectation (see [Integrate other Assertion/Expectation Libraries](#integrate-other-assertionexpectation-libraries)).
 - subject changer (_logic.changeSubject...)
-- toHoldThirdLibExpectation (coming soon, see https://github.com/robstoll/atrium/issues/1702).
 
-The only case where it makes sense (which we are aware of so far) is if your method under test generates random results
+The only case where it makes sense (which we are aware of so far) is, if your method under test generates random results
 (e.g. a data generator) and you want to state expectations which depend on the random generated data. 
 For instance:
 
@@ -1791,7 +1791,7 @@ to be greater than or equal to:
 
 As you can see, in case of failure we see our defined description and representation as well as properties of the 
 thrown `Exception`. Of course, if we start writing that much code, it might also be easier to just migrate it to 
-Atrium (and create PR so that others benefit as well 😉):
+Atrium (and create a PR so that others benefit as well 😉):
 
 <ex-third-party-3>
 
