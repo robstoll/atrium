@@ -16,15 +16,15 @@ import ch.tutteli.atrium.translations.DescriptionFunLikeExpectation
 
 class DefaultFeatureExtractor : FeatureExtractor {
     @OptIn(ExperimentalNewExpectTypes::class, ExperimentalComponentFactoryContainer::class)
-    override fun <T, R> extract(
-        container: AssertionContainer<T>,
+    override fun <SubjectT, FeatureT> extract(
+        container: AssertionContainer<SubjectT>,
         description: Translatable,
         representationForFailure: Any,
-        featureExtraction: (T) -> Option<R>,
-        maybeSubAssertions: Option<Expect<R>.() -> Unit>,
-        featureExpectOptions: FeatureExpectOptions<R>
-    ): FeatureExpect<T, R> {
-        fun createFeatureExpect(subject: Option<R>, assertions: List<Assertion>) =
+        featureExtraction: (SubjectT) -> Option<FeatureT>,
+        maybeSubAssertions: Option<Expect<FeatureT>.() -> Unit>,
+        featureExpectOptions: FeatureExpectOptions<FeatureT>
+    ): FeatureExpect<SubjectT, FeatureT> {
+        fun createFeatureExpect(subject: Option<FeatureT>, assertions: List<Assertion>) =
             FeatureExpect(
                 container.toExpect(),
                 subject,
@@ -33,7 +33,7 @@ class DefaultFeatureExtractor : FeatureExtractor {
                 featureExpectOptions
             )
 
-        val either: Either<Option<Throwable>, R> = container.maybeSubject.fold({ Left(None) }, { subject ->
+        val either: Either<Option<Throwable>, FeatureT> = container.maybeSubject.fold({ Left(None) }, { subject ->
             try {
                 featureExtraction(subject).fold({ Left(None) }, { Right(it) })
             } catch (throwable: Throwable) {

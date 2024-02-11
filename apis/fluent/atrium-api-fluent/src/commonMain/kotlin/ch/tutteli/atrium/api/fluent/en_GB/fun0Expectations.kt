@@ -8,33 +8,33 @@ import ch.tutteli.atrium.logic.toThrow
 import kotlin.reflect.KClass
 
 /**
- * Expects that invoking the subject (a function with arity 0, i.e. without arguments) throws a [TExpected]
- * (the same type or a sub-type).
+ * Expects that invoking the subject (a function with arity 0, i.e. without arguments) throws a [Throwable]
+ * of type [ExpectedThrowableT] or a subtype.
  *
  * Notice, that asserting a generic type is [flawed](https://youtrack.jetbrains.com/issue/KT-27826).
  * For instance `toThrow<MyException<String>>` would only check if the subject is a `MyException` without checking if
  * the element type is actually `String`.
  *
- * @return An [Expect] with the new type [TExpected].
+ * @return An [Expect] with the new type [ExpectedThrowableT].
  *
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.Fun0ExpectationSamples.toThrowFeature
  */
-inline fun <reified TExpected : Throwable> Expect<out () -> Any?>.toThrow(): Expect<TExpected> =
-    toThrow(TExpected::class).transform()
+inline fun <reified ExpectedThrowableT : Throwable> Expect<out () -> Any?>.toThrow(): Expect<ExpectedThrowableT> =
+    toThrow(ExpectedThrowableT::class).transform()
 
 @PublishedApi // in order that _logic does not become part of the API we have this extra function
-internal fun <TExpected : Throwable> Expect<out () -> Any?>.toThrow(
-    kClass: KClass<TExpected>
-): SubjectChangerBuilder.ExecutionStep<*, TExpected> = _logic.toThrow(kClass)
+internal fun <ExpectedThrowableT : Throwable> Expect<out () -> Any?>.toThrow(
+    kClass: KClass<ExpectedThrowableT>
+): SubjectChangerBuilder.ExecutionStep<*, ExpectedThrowableT> = _logic.toThrow(kClass)
 
 /**
- * Expects that invoking the subject (a function with arity 0, i.e. without arguments) throws a [TExpected]
- * (the same type or a sub-type) and that it holds all assertions the given [assertionCreator] creates.
+ * Expects that invoking the subject (a function with arity 0, i.e. without arguments) throws a [Throwable]
+ * of type [ExpectedThrowableT] or a subtype and that it holds all assertions the given [assertionCreator] creates.
  *
  * Notice, in contrast to other assertion functions which expect an [assertionCreator], this function returns not
- * [Expect] of the initial type, which was `Throwable?` but an [Expect] of the specified type [TExpected].
+ * [Expect] of the initial type, which was `Throwable?` but an [Expect] of the specified type [ExpectedThrowableT].
  * This has the side effect that a subsequent call has only assertion functions available which are suited
- * for [TExpected]. Since [Expect] is invariant it especially means that an assertion function which was not
+ * for [ExpectedThrowableT]. Since [Expect] is invariant it especially means that an assertion function which was not
  * written in a generic way will not be available. Fixing such a function is easy (in most cases),
  * you need to transform it into a generic from. Following an example:
  *
@@ -57,13 +57,13 @@ internal fun <TExpected : Throwable> Expect<out () -> Any?>.toThrow(
  * For instance `toThrow<MyException<String>>` would only check if the subject is a `MyException` without checking if
  * the element type is actually `String`.
  *
- * @return An [Expect] with the new type [TExpected].
+ * @return An [Expect] with the new type [ExpectedThrowableT].
  *
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.Fun0ExpectationSamples.toThrow
  */
-inline fun <reified TExpected : Throwable> Expect<out () -> Any?>.toThrow(
-    noinline assertionCreator: Expect<TExpected>.() -> Unit
-): Expect<TExpected> = toThrow(TExpected::class).transformAndAppend(assertionCreator)
+inline fun <reified ExpectedThrowableT : Throwable> Expect<out () -> Any?>.toThrow(
+    noinline assertionCreator: Expect<ExpectedThrowableT>.() -> Unit
+): Expect<ExpectedThrowableT> = toThrow(ExpectedThrowableT::class).transformAndAppend(assertionCreator)
 
 
 /**

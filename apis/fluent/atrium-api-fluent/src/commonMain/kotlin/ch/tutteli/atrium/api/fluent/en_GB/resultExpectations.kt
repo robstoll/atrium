@@ -32,28 +32,28 @@ fun <E, T : Result<E>> Expect<T>.toBeASuccess(assertionCreator: Expect<E>.() -> 
 
 /**
  * Expects that the subject of `this` expectation (a [Result]) is a failure ([Result.isFailure]) and
- * that it encapsulates an exception of type [TExpected].
+ * that it encapsulates a [Throwable] of type [ExpectedThrowableT] or a subtype thereof.
  *
- * @return An [Expect] with the new type [TExpected]
+ * @return An [Expect] with the new type [ExpectedThrowableT]
  *
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.ResultExpectationSamples.toBeAFailureFeature
  *
  * @since 1.1.0 (was in kotlin_1_3 extension since 0.17.0)
  */
-inline fun <reified TExpected : Throwable> Expect<out Result<*>>.toBeAFailure(): Expect<TExpected> =
-    _logic.isFailureOfType(TExpected::class).transform()
+inline fun <reified ExpectedThrowableT : Throwable> Expect<out Result<*>>.toBeAFailure(): Expect<ExpectedThrowableT> =
+    _logic.isFailureOfType(ExpectedThrowableT::class).transform()
 
 /**
  * Expects that the subject of `this` expectation (a [Result]) is a failure ([Result.isFailure]) ,
- * that it encapsulates an exception of type [TExpected] and
- * that the exception holds all assertions the given [assertionCreator] creates.
+ * that it encapsulates a [Throwable] of type [ExpectedThrowableT] or a subtype thereof and
+ * that the [ExpectedThrowableT] holds all assertions the given [assertionCreator] creates.
  *
- * @return An [Expect] with the new type [TExpected]
+ * @return An [Expect] with the new type [ExpectedThrowableT]
  *
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.ResultExpectationSamples.toBeAFailure
  *
  * @since 1.1.0 (was in kotlin_1_3 extension since 0.17.0)
  */
-inline fun <reified TExpected : Throwable> Expect<out Result<*>>.toBeAFailure(
-    noinline assertionCreator: Expect<TExpected>.() -> Unit
-): Expect<TExpected> = _logic.isFailureOfType(TExpected::class).transformAndAppend(assertionCreator)
+inline fun <reified ExpectedThrowableT : Throwable> Expect<out Result<*>>.toBeAFailure(
+    noinline assertionCreator: Expect<ExpectedThrowableT>.() -> Unit
+): Expect<ExpectedThrowableT> = _logic.isFailureOfType(ExpectedThrowableT::class).transformAndAppend(assertionCreator)

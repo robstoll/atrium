@@ -13,48 +13,48 @@ import ch.tutteli.atrium.logic.creating.transformers.featureExtractor
 import ch.tutteli.atrium.logic.creating.transformers.impl.BaseTransformationExecutionStep
 import ch.tutteli.atrium.reporting.translating.Translatable
 
-class DescriptionStepImpl<T>(
-    override val container: AssertionContainer<T>
-) : FeatureExtractorBuilder.DescriptionStep<T> {
+class DescriptionStepImpl<SubjectT>(
+    override val container: AssertionContainer<SubjectT>
+) : FeatureExtractorBuilder.DescriptionStep<SubjectT> {
 
     override fun withDescription(
         translatable: Translatable
-    ): FeatureExtractorBuilder.RepresentationInCaseOfFailureStep<T> =
+    ): FeatureExtractorBuilder.RepresentationInCaseOfFailureStep<SubjectT> =
         FeatureExtractorBuilder.RepresentationInCaseOfFailureStep(container, translatable)
 }
 
-internal class RepresentationInCaseOfFailureStepImpl<T>(
-    override val container: AssertionContainer<T>,
+internal class RepresentationInCaseOfFailureStepImpl<SubjectT>(
+    override val container: AssertionContainer<SubjectT>,
     override val description: Translatable
-) : FeatureExtractorBuilder.RepresentationInCaseOfFailureStep<T> {
-    override fun withRepresentationForFailure(representation: Any): FeatureExtractorBuilder.FeatureExtractionStep<T> =
+) : FeatureExtractorBuilder.RepresentationInCaseOfFailureStep<SubjectT> {
+    override fun withRepresentationForFailure(representation: Any): FeatureExtractorBuilder.FeatureExtractionStep<SubjectT> =
         FeatureExtractorBuilder.FeatureExtractionStep(container, description, representation)
 }
 
-class FeatureExtractionStepImpl<T>(
-    override val container: AssertionContainer<T>,
+class FeatureExtractionStepImpl<SubjectT>(
+    override val container: AssertionContainer<SubjectT>,
     override val description: Translatable,
     override val representationForFailure: Any
-) : FeatureExtractorBuilder.FeatureExtractionStep<T> {
+) : FeatureExtractorBuilder.FeatureExtractionStep<SubjectT> {
 
-    override fun <R> withFeatureExtraction(extraction: (T) -> Option<R>): FeatureExtractorBuilder.OptionsStep<T, R> =
+    override fun <FeatureT> withFeatureExtraction(extraction: (SubjectT) -> Option<FeatureT>): FeatureExtractorBuilder.OptionsStep<SubjectT, FeatureT> =
         FeatureExtractorBuilder.OptionsStep(this, extraction)
 }
 
-class OptionsStepImpl<T, R>(
-    override val featureExtractionStep: FeatureExtractorBuilder.FeatureExtractionStep<T>,
-    override val featureExtraction: (T) -> Option<R>
-) : FeatureExtractorBuilder.OptionsStep<T, R> {
+class OptionsStepImpl<SubjectT, FeatureT>(
+    override val featureExtractionStep: FeatureExtractorBuilder.FeatureExtractionStep<SubjectT>,
+    override val featureExtraction: (SubjectT) -> Option<FeatureT>
+) : FeatureExtractorBuilder.OptionsStep<SubjectT, FeatureT> {
 
     @ExperimentalNewExpectTypes
-    override fun withOptions(expectOptions: FeatureExpectOptions<R>): FeatureExtractorBuilder.FinalStep<T, R> =
+    override fun withOptions(expectOptions: FeatureExpectOptions<FeatureT>): FeatureExtractorBuilder.FinalStep<SubjectT, FeatureT> =
         createFinalStep(expectOptions)
 
     @OptIn(ExperimentalNewExpectTypes::class)
-    override fun withoutOptions(): FeatureExtractorBuilder.FinalStep<T, R> = createFinalStep(FeatureExpectOptions())
+    override fun withoutOptions(): FeatureExtractorBuilder.FinalStep<SubjectT, FeatureT> = createFinalStep(FeatureExpectOptions())
 
     @ExperimentalNewExpectTypes
-    private fun createFinalStep(featureExpectOptions: FeatureExpectOptions<R>) =
+    private fun createFinalStep(featureExpectOptions: FeatureExpectOptions<FeatureT>) =
         FeatureExtractorBuilder.FinalStep(
             featureExtractionStep,
             featureExtraction,
@@ -63,20 +63,20 @@ class OptionsStepImpl<T, R>(
 }
 
 @OptIn(ExperimentalNewExpectTypes::class)
-class FinalStepImpl<T, R>(
-    override val featureExtractionStep: FeatureExtractorBuilder.FeatureExtractionStep<T>,
-    override val featureExtraction: (T) -> Option<R>,
-    override val featureExpectOptions: FeatureExpectOptions<R>
-) : FeatureExtractorBuilder.FinalStep<T, R> {
+class FinalStepImpl<SubjectT, FeatureT>(
+    override val featureExtractionStep: FeatureExtractorBuilder.FeatureExtractionStep<SubjectT>,
+    override val featureExtraction: (SubjectT) -> Option<FeatureT>,
+    override val featureExpectOptions: FeatureExpectOptions<FeatureT>
+) : FeatureExtractorBuilder.FinalStep<SubjectT, FeatureT> {
 
-    override fun build(): FeatureExtractorBuilder.ExecutionStep<T, R> =
+    override fun build(): FeatureExtractorBuilder.ExecutionStep<SubjectT, FeatureT> =
         FeatureExtractorBuilder.ExecutionStep(
             featureExtractionStep.container,
             action = { container -> extractIt(container, None) },
             actionAndApply = { container, assertionCreator -> extractIt(container, Some(assertionCreator)) }
         )
 
-    private fun extractIt(container: AssertionContainer<T>, maybeSubAssertions: Option<Expect<R>.() -> Unit>): FeatureExpect<T, R> =
+    private fun extractIt(container: AssertionContainer<SubjectT>, maybeSubAssertions: Option<Expect<FeatureT>.() -> Unit>): FeatureExpect<SubjectT, FeatureT> =
         container.featureExtractor.extract(
             container,
             featureExtractionStep.description,
@@ -87,9 +87,9 @@ class FinalStepImpl<T, R>(
         )
 }
 
-class ExecutionStepImpl<T, R>(
-    container: AssertionContainer<T>,
-    action: AssertionContainer<T>.() -> FeatureExpect<T, R>,
-    actionAndApply: AssertionContainer<T>.(Expect<R>.() -> Unit) -> Expect<R>
-) : FeatureExtractorBuilder.ExecutionStep<T, R>,
-    BaseTransformationExecutionStep<T, R, FeatureExpect<T, R>>(container, action, actionAndApply)
+class ExecutionStepImpl<SubjectT, FeatureT>(
+    container: AssertionContainer<SubjectT>,
+    action: AssertionContainer<SubjectT>.() -> FeatureExpect<SubjectT, FeatureT>,
+    actionAndApply: AssertionContainer<SubjectT>.(Expect<FeatureT>.() -> Unit) -> Expect<FeatureT>
+) : FeatureExtractorBuilder.ExecutionStep<SubjectT, FeatureT>,
+    BaseTransformationExecutionStep<SubjectT, FeatureT, FeatureExpect<SubjectT, FeatureT>>(container, action, actionAndApply)

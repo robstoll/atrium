@@ -44,12 +44,12 @@ interface FeatureExtractor {
      * @return The newly created [Expect] for the extracted feature.
      */
     @OptIn(ExperimentalNewExpectTypes::class)
-    fun <T, R> extract(
-        container: AssertionContainer<T>,
+    fun <SubjectT, FeatureT> extract(
+        container: AssertionContainer<SubjectT>,
         description: Translatable,
         representationForFailure: Any,
-        featureExtraction: (T) -> Option<R>,
-        maybeSubAssertions: Option<Expect<R>.() -> Unit>,
-        featureExpectOptions: FeatureExpectOptions<R>
-    ): FeatureExpect<T, R>
+        featureExtraction: (SubjectT) -> Option<FeatureT>,
+        maybeSubAssertions: Option<Expect<FeatureT>.() -> Unit>,
+        featureExpectOptions: FeatureExpectOptions<FeatureT>
+    ): FeatureExpect<SubjectT, FeatureT>
 }

@@ -14,7 +14,7 @@ import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
 import ch.tutteli.atrium.logic.impl.DefaultFun0Assertions
 
 
-fun <TExpected : Throwable> AssertionContainer<out () -> Any?>.toThrow(expectedType: KClass<TExpected>): SubjectChangerBuilder.ExecutionStep<*, TExpected> = impl.toThrow(this, expectedType)
+fun <ExpectedThrowableT : Throwable> AssertionContainer<out () -> Any?>.toThrow(expectedType: KClass<ExpectedThrowableT>): SubjectChangerBuilder.ExecutionStep<*, ExpectedThrowableT> = impl.toThrow(this, expectedType)
 
 fun <R, T : () -> R> AssertionContainer<T>.notToThrow(): FeatureExtractorBuilder.ExecutionStep<*, R> = impl.notToThrow(this)
 

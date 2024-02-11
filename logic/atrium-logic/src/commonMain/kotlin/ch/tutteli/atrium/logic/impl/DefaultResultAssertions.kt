@@ -26,10 +26,10 @@ class DefaultResultAssertions : ResultAssertions {
             .build()
 
     @OptIn(ExperimentalNewExpectTypes::class, ExperimentalComponentFactoryContainer::class)
-    override fun <TExpected : Throwable> isFailureOfType(
+    override fun <ExpectedThrowableT : Throwable> isFailureOfType(
         container: AssertionContainer<out Result<*>>,
-        expectedType: KClass<TExpected>
-    ): SubjectChangerBuilder.ExecutionStep<Throwable?, TExpected> =
+        expectedType: KClass<ExpectedThrowableT>
+    ): SubjectChangerBuilder.ExecutionStep<Throwable?, ExpectedThrowableT> =
         container.manualFeature(EXCEPTION) {
             // fix is here for bug in kotlin 1.3, 1.4, 1.5 (fixed in 1.6) => https://youtrack.jetbrains.com/issue/KT-509747
             // due to the unwrap bug KT-50974, in case of a Failure, `exceptionOrNull` ...

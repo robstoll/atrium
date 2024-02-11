@@ -36,10 +36,10 @@ interface SubjectChanger {
      *
      * @return The newly created [Expect] for the extracted feature.
      */
-    fun <T, R> unreported(
-        container: AssertionContainer<T>,
-        transformation: (T) -> R
-    ): Expect<R>
+    fun <SubjectT, SubjectAfterChangeT> unreported(
+        container: AssertionContainer<SubjectT>,
+        transformation: (SubjectT) -> SubjectAfterChangeT
+    ): Expect<SubjectAfterChangeT>
 
 
     /**
@@ -70,14 +70,14 @@ interface SubjectChanger {
      *
      * @return The newly created [Expect] for the extracted feature.
      */
-    fun <T, R> reported(
-        container: AssertionContainer<T>,
+    fun <SubjectT, SubjectAfterChangeT> reported(
+        container: AssertionContainer<SubjectT>,
         description: Translatable,
         representation: Any,
-        transformation: (T) -> Option<R>,
-        failureHandler: FailureHandler<T, R>,
-        maybeSubAssertions: Option<Expect<R>.() -> Unit>
-    ): Expect<R>
+        transformation: (SubjectT) -> Option<SubjectAfterChangeT>,
+        failureHandler: FailureHandler<SubjectT, SubjectAfterChangeT>,
+        maybeSubAssertions: Option<Expect<SubjectAfterChangeT>.() -> Unit>
+    ): Expect<SubjectAfterChangeT>
 
     /**
      * Represents a handler which is responsible to create the assertion resulting from a failed subject change.
@@ -86,10 +86,10 @@ interface SubjectChanger {
      * assertionCreator lambda. Yet, a failure handler might also add additional information -- e.g. regarding the
      * current subject.
      *
-     * @param T The type of the subject
-     * @param R The type of the subject after the subject change (if it were possible).
+     * @param SubjectT The type of the subject
+     * @param SubjectAfterChangeT The type of the subject after the subject change (if it were possible).
      */
-    interface FailureHandler<T, R> {
+    interface FailureHandler<SubjectT, SubjectAfterChangeT> {
         /**
          * Creates the failing assertion most likely based on the given [descriptiveAssertion] -- which in turn
          * is based on the previously specified description, representation etc. -- and should incorporate
@@ -98,33 +98,34 @@ interface SubjectChanger {
          * @return A failing assertion.
          */
         fun createAssertion(
-            container: AssertionContainer<T>,
+            container: AssertionContainer<SubjectT>,
             descriptiveAssertion: Assertion,
-            maybeAssertionCreator: Option<Expect<R>.() -> Unit>
+            maybeAssertionCreator: Option<Expect<SubjectAfterChangeT>.() -> Unit>
         ): Assertion
     }
 }
 
 /**
  * Represents a [SubjectChanger.FailureHandler] which acts as an adapter for another failure handler by mapping first
- * the given subject to another type [R1] which is understood as input of the other failure handler.
+ * the given subject to another type [SubjectIntermediateT] which is understood as input of the other failure handler.
  *
- * Effectively turning a `FailureHandler<R1, R>` into a `FailureHandler<T, R>` with the help of a mapping
- * function `(T) -> R1`
+ * Effectively turning a `FailureHandler<SubjectIntermediateT, SubjectAfterChangeT>` into a
+ * `FailureHandler<SubjectT, SubjectAfterChangeT>` with the help of a mapping
+ * function `(SubjectT) -> SubjectIntermediateT`
  *
- * @param T The type of the subject
- * @param R1 The type of the mapped subject
- * @param R The type of the subject after the subject change (if it were possible).
+ * @param SubjectT The type of the subject
+ * @param SubjectIntermediateT The type of the mapped subject
+ * @param SubjectAfterChangeT The type of the subject after the subject change (if it were possible).
  */
-class FailureHandlerAdapter<T, R1, R>(
-    val failureHandler: SubjectChanger.FailureHandler<R1, R>,
-    val map: (T) -> R1
-) : SubjectChanger.FailureHandler<T, R> {
+class FailureHandlerAdapter<SubjectT, SubjectIntermediateT, SubjectAfterChangeT>(
+    val failureHandler: SubjectChanger.FailureHandler<SubjectIntermediateT, SubjectAfterChangeT>,
+    val map: (SubjectT) -> SubjectIntermediateT
+) : SubjectChanger.FailureHandler<SubjectT, SubjectAfterChangeT> {
 
     override fun createAssertion(
-        container: AssertionContainer<T>,
+        container: AssertionContainer<SubjectT>,
         descriptiveAssertion: Assertion,
-        maybeAssertionCreator: Option<Expect<R>.() -> Unit>
+        maybeAssertionCreator: Option<Expect<SubjectAfterChangeT>.() -> Unit>
     ): Assertion =
         container.changeSubject.unreported(map).let {
             failureHandler.createAssertion(it._logic, descriptiveAssertion, maybeAssertionCreator)

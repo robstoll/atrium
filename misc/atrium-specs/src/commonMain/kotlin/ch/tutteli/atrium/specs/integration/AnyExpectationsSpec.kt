@@ -871,7 +871,7 @@ abstract class AnyExpectationsSpec(
                     }
                 }
             }
-            it("${notToBeInstanceOfKClasses.name} -- throws if first type is a sub-type") {
+            it("${notToBeInstanceOfKClasses.name} -- throws if first type is a subtype") {
                 expect {
                     expect(SubType() as Any).notToBeInstanceOfKClassesFun(
                         SuperType::class,
@@ -886,7 +886,7 @@ abstract class AnyExpectationsSpec(
                     }
                 }
             }
-            it("${notToBeInstanceOfKClasses.name} -- throws if one of the other types is a sub-type ") {
+            it("${notToBeInstanceOfKClasses.name} -- throws if one of the other types is a subtype ") {
                 expect {
                     expect(SubType() as Any).notToBeInstanceOfKClassesFun(
                         Int::class,

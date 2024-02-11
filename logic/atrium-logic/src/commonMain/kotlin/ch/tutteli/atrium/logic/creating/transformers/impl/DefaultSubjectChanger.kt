@@ -11,7 +11,10 @@ import ch.tutteli.atrium.logic.creating.transformers.SubjectChanger
 import ch.tutteli.atrium.reporting.translating.Translatable
 
 class DefaultSubjectChanger : SubjectChanger {
-    override fun <T, R> unreported(container: AssertionContainer<T>, transformation: (T) -> R): Expect<R> =
+    override fun <SubjectT, SubjectAfterChangeT> unreported(
+        container: AssertionContainer<SubjectT>,
+        transformation: (SubjectT) -> SubjectAfterChangeT
+    ): Expect<SubjectAfterChangeT> =
         DelegatingExpect(
             container,
             //TODO https://github.com/robstoll/atrium/issues/387 wrap transformation with error handling.
@@ -19,14 +22,14 @@ class DefaultSubjectChanger : SubjectChanger {
             container.maybeSubject.map(transformation)
         )
 
-    override fun <T, R> reported(
-        container: AssertionContainer<T>,
+    override fun <SubjectT, SubjectAfterChangeT> reported(
+        container: AssertionContainer<SubjectT>,
         description: Translatable,
         representation: Any,
-        transformation: (T) -> Option<R>,
-        failureHandler: SubjectChanger.FailureHandler<T, R>,
-        maybeSubAssertions: Option<Expect<R>.() -> Unit>
-    ): Expect<R> {
+        transformation: (SubjectT) -> Option<SubjectAfterChangeT>,
+        failureHandler: SubjectChanger.FailureHandler<SubjectT, SubjectAfterChangeT>,
+        maybeSubAssertions: Option<Expect<SubjectAfterChangeT>.() -> Unit>
+    ): Expect<SubjectAfterChangeT> {
         val expect = DelegatingExpect(
             container,
             // TODO https://github.com/robstoll/atrium/issues/387 wrap transformation with error handling.

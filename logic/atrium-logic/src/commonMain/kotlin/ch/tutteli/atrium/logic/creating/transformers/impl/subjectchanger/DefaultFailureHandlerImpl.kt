@@ -10,12 +10,12 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic.creating.collectors.collectAssertions
 import ch.tutteli.atrium.logic.creating.transformers.SubjectChanger
 
-class DefaultFailureHandlerImpl<T, R> : SubjectChanger.FailureHandler<T, R> {
+class DefaultFailureHandlerImpl<SubjectT, SubjectAfterChangeT> : SubjectChanger.FailureHandler<SubjectT, SubjectAfterChangeT> {
 
     override fun createAssertion(
-        container: AssertionContainer<T>,
+        container: AssertionContainer<SubjectT>,
         descriptiveAssertion: Assertion,
-        maybeAssertionCreator: Option<Expect<R>.() -> Unit>
+        maybeAssertionCreator: Option<Expect<SubjectAfterChangeT>.() -> Unit>
     ): Assertion = maybeAssertionCreator.fold({
         descriptiveAssertion
     }) { assertionCreator ->
