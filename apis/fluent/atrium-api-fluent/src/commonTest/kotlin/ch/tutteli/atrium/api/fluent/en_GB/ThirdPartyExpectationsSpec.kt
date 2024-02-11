@@ -5,7 +5,7 @@ import ch.tutteli.atrium.specs.fun3
 import ch.tutteli.atrium.specs.notImplemented
 import ch.tutteli.atrium.specs.withNullableSuffix
 
-class ThirdPartyExpectationSpec : ch.tutteli.atrium.specs.integration.ThirdPartyExpectationsSpec(
+class ThirdPartyExpectationsSpec : ch.tutteli.atrium.specs.integration.ThirdPartyExpectationsSpec(
     fun3(Expect<Int>::toHoldThirdPartyExpectation),
     fun3(Expect<Int?>::toHoldThirdPartyExpectation).withNullableSuffix(),
 ) {

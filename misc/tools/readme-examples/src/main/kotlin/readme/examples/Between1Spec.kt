@@ -1,12 +1,10 @@
 package readme.examples
 
-import ch.tutteli.atrium.api.fluent.en_GB.*
+import ch.tutteli.atrium.api.fluent.en_GB.and
+import ch.tutteli.atrium.api.fluent.en_GB.toBeGreaterThanOrEqualTo
+import ch.tutteli.atrium.api.fluent.en_GB.toBeLessThan
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.creating.FeatureExpect
 import org.spekframework.spek2.Spek
-import java.sql.BatchUpdateException
-import java.sql.SQLDataException
-import java.sql.SQLException
 import java.util.*
 
 /**
@@ -23,7 +21,6 @@ import java.util.*
  *
  * Moreover, all tags can reuse snippets defined in this file with corresponding markers
  */
-
 object Between1Spec : Spek({
     test("code-own-compose-1") {
         fun <T : Date> Expect<T>.toBeBetween(lowerBoundInclusive: T, upperBoundExclusive: T) =
