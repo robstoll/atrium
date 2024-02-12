@@ -69,8 +69,8 @@ infix fun <T : Throwable> Expect<T>.messageToContain(values: Values<Any>): Expec
 
 
 /**
- * Expects that the property [Throwable.cause] of the subject *is a* [TExpected] (the same type or a sub-type),
- * creates an [Expect] of the [TExpected] type for it and returns it.
+ * Expects that the property [Throwable.cause] of the subject *is a* [ExpectedThrowableT] or a subtype thereof,
+ * creates an [Expect] of the [ExpectedThrowableT] type for it and returns it.
  *
  * @return The newly created [Expect] for the property [Throwable.cause] of the subject of `this` expectation
  *
@@ -78,22 +78,21 @@ infix fun <T : Throwable> Expect<T>.messageToContain(values: Values<Any>): Expec
  *
  * @since 0.12.0
  */
-inline fun <reified TExpected : Throwable> Expect<out Throwable>.cause(): Expect<TExpected> =
-    causeToBeAnInstanceOf(TExpected::class).transform()
+inline fun <reified ExpectedThrowableT : Throwable> Expect<out Throwable>.cause(): Expect<ExpectedThrowableT> =
+    causeToBeAnInstanceOf(ExpectedThrowableT::class).transform()
 
 @PublishedApi // in order that _logic does not become part of the API we have this extra function
-internal fun <TExpected : Throwable> Expect<out Throwable>.causeToBeAnInstanceOf(
-    kClass: KClass<TExpected>
-): SubjectChangerBuilder.ExecutionStep<Throwable?, TExpected> = _logic.causeIsA(kClass)
+internal fun <ExpectedThrowableT : Throwable> Expect<out Throwable>.causeToBeAnInstanceOf(
+    kClass: KClass<ExpectedThrowableT>
+): SubjectChangerBuilder.ExecutionStep<Throwable?, ExpectedThrowableT> = _logic.causeIsA(kClass)
 
 
 /**
- *
- * Expects that the property [Throwable.cause] of the subject *is a* [TExpected] (the same type or a sub-type) and
+ * Expects that the property [Throwable.cause] of the subject *is a* [ExpectedThrowableT] or a subtype thereof and
  * holds all assertions the given [assertionCreator] creates for it.
  *
  * Notice, in contrast to other assertion functions which expect an [assertionCreator], this function returns not
- * [Expect] of the initial type, which was some type `T `, but an [Expect] of the specified type [TExpected].
+ * [Expect] of the initial type, which was some type `T `, but an [Expect] of the specified type [ExpectedThrowableT].
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
@@ -101,6 +100,6 @@ internal fun <TExpected : Throwable> Expect<out Throwable>.causeToBeAnInstanceOf
  *
  * @since 0.12.0
  */
-inline infix fun <reified TExpected : Throwable> Expect<out Throwable>.cause(
-    noinline assertionCreator: Expect<TExpected>.() -> Unit
-): Expect<TExpected> = causeToBeAnInstanceOf(TExpected::class).transformAndAppend(assertionCreator)
+inline infix fun <reified ExpectedThrowableT : Throwable> Expect<out Throwable>.cause(
+    noinline assertionCreator: Expect<ExpectedThrowableT>.() -> Unit
+): Expect<ExpectedThrowableT> = causeToBeAnInstanceOf(ExpectedThrowableT::class).transformAndAppend(assertionCreator)

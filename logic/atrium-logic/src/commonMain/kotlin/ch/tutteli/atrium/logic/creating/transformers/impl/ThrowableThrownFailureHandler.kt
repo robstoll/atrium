@@ -20,12 +20,12 @@ import ch.tutteli.atrium.reporting.Text
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.translations.DescriptionThrowableExpectation.*
 
-class ThrowableThrownFailureHandler<T : Throwable?, R> : SubjectChanger.FailureHandler<T, R> {
+class ThrowableThrownFailureHandler<SubjectT : Throwable?, SubjectAfterChangeT> : SubjectChanger.FailureHandler<SubjectT, SubjectAfterChangeT> {
 
     override fun createAssertion(
-        container: AssertionContainer<T>,
+        container: AssertionContainer<SubjectT>,
         descriptiveAssertion: Assertion,
-        maybeAssertionCreator: Option<Expect<R>.() -> Unit>
+        maybeAssertionCreator: Option<Expect<SubjectAfterChangeT>.() -> Unit>
     ): Assertion {
         val assertions = mutableListOf(descriptiveAssertion)
         maybeAssertionCreator.fold({ /* nothing to do */ }) { assertionCreator ->

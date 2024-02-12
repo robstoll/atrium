@@ -17,10 +17,10 @@ import kotlin.reflect.KClass
 class DefaultThrowableAssertions : ThrowableAssertions {
 
     @OptIn(ExperimentalNewExpectTypes::class, ExperimentalComponentFactoryContainer::class)
-    override fun <TExpected : Throwable> causeIsA(
+    override fun <ExpectedThrowableT : Throwable> causeIsA(
         container: AssertionContainer<out Throwable>,
-        expectedType: KClass<TExpected>
-    ):  SubjectChangerBuilder.ExecutionStep<Throwable?, TExpected> =
+        expectedType: KClass<ExpectedThrowableT>
+    ):  SubjectChangerBuilder.ExecutionStep<Throwable?, ExpectedThrowableT> =
         container.manualFeature(DescriptionThrowableExpectation.CAUSE) { cause }.transform().let { previousExpect ->
             //TODO 1.3.0 factor out a pattern, we are doing this more than once, in API we have withOptions
             FeatureExpect(

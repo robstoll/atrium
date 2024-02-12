@@ -96,8 +96,8 @@ inline fun <reified T : Any> Expect<T?>.notToEqualNull(noinline assertionCreator
     notToEqualNullButToBeAnInstanceOf(T::class).transformAndAppend(assertionCreator)
 
 /**
- * Expects that the subject of `this` expectation *is a* [TSub] (the same type or a sub-type)
- * and changes the subject to this type.
+ * Expects that the type of the subject of `this` expectation is the defined [SubTypeOfSubjectT] or a subtype thereof
+ * and down-casts the subject to [SubTypeOfSubjectT].
  *
  * Notice, that asserting a function type is [flawed](https://youtrack.jetbrains.com/issue/KT-27846).
  * The actual types are ignored as function types erase to Function0,
@@ -111,22 +111,23 @@ inline fun <reified T : Any> Expect<T?>.notToEqualNull(noinline assertionCreator
  * the element type is actually `String`. Or in other words
  * `expect(listOf(1, 2)).toBeAnInstanceOf<List<String>>{}` holds, even though `List<Int>` is clearly not a `List<String>`.
  *
- * @return An [Expect] with the new type [TSub].
+ * @param SubTypeOfSubjectT Typically a type which is a subtype of `SubjectT` in this `Expect<SubjectT>`.
+ * @return An [Expect] with the new type [SubTypeOfSubjectT].
  *
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.AnyExpectationSamples.toBeAnInstanceOfFeature
  *
  * @since 0.17.0
  */
-inline fun <reified TSub : Any> Expect<*>.toBeAnInstanceOf(): Expect<TSub> = toBeAnInstanceOf(TSub::class).transform()
+inline fun <reified SubTypeOfSubjectT : Any> Expect<*>.toBeAnInstanceOf(): Expect<SubTypeOfSubjectT> = toBeAnInstanceOf(SubTypeOfSubjectT::class).transform()
 
 @PublishedApi // in order that _logic does not become part of the API we have this extra function
-internal fun <TSub : Any> Expect<*>.toBeAnInstanceOf(
-    kClass: KClass<TSub>
-): SubjectChangerBuilder.ExecutionStep<out Any?, TSub> {
+internal fun <SubTypeOfSubjectT : Any> Expect<*>.toBeAnInstanceOf(
+    kClass: KClass<SubTypeOfSubjectT>
+): SubjectChangerBuilder.ExecutionStep<out Any?, SubTypeOfSubjectT> {
     @Suppress(
         // AssertionContainer is invariant hence the cast from `out Any?` to `Any?` is unsafe but in this case it is
-        // safe as the only action we carry out here is down-casting from whatever to TSub if the subject is actually
-        // a TSub
+        // safe as the only action we carry out here is down-casting from whatever to SubTypeOfSubjectT if the subject is actually
+        // a SubTypeOfSubjectT
         "UNCHECKED_CAST"
     )
     val assertionContainer = _logic as AssertionContainer<Any?>
@@ -134,12 +135,12 @@ internal fun <TSub : Any> Expect<*>.toBeAnInstanceOf(
 }
 
 /**
- * Expects that the subject of `this` expectation *is a* [TSub] (the same type or a sub-type) and
- * that it holds all assertions the given [assertionCreator] creates.
+ * Expects that the type of the subject of `this` expectation is the defined [SubTypeOfSubjectT] or a subtype thereof
+ * and that it holds all assertions the given [assertionCreator] creates.
  *
- * Notice, in contrast to other assertion functions which expect an [assertionCreator], this function returns not
- * [Expect] of the initial type, which was some type `T `, but an [Expect] of the specified type [TSub].
- * This has the side effect that a subsequent call has only assertion functions available which are suited for [TSub].
+ * Notice, in contrast to other expectation functions which expect an [assertionCreator], this function returns not
+ * [Expect] of the initial type, which was some type `T `, but an [Expect] of the specified type [SubTypeOfSubjectT].
+ * This has the side effect that a subsequent call has only assertion functions available which are suited for [SubTypeOfSubjectT].
  * Since [Expect] is invariant it especially means that an assertion function which was not written in a generic way
  * will not be available. Fixing such a function is easy (in most cases),
  * you need to transform it into a generic from. Following an example:
@@ -153,7 +154,7 @@ internal fun <TSub : Any> Expect<*>.toBeAnInstanceOf(
  *
  * val p: Person = Student()
  * expect(p)                 // subject of type Person
- *   .toBeAnInstanceOfnInstanceOf<Student> { ... } // subject now refined to Student
+ *   .toBeAnInstanceOf<Student> { ... } // subject now refined to Student
  *   .baz()                  // available via Student
  *   .foo()                  // not available to Student, only to Person, results in compilation error
  *   .bar()                  // available via T : Person
@@ -171,42 +172,44 @@ internal fun <TSub : Any> Expect<*>.toBeAnInstanceOf(
  * the element type is actually `String`. Or in other words
  * `expect(listOf(1, 2)).toBeAnInstanceOfnInstanceOf<List<String>>{}` holds, even though `List<Int>` is clearly not a `List<String>`.
  *
- * @return An [Expect] with the new type [TSub].
+ * @param SubTypeOfSubjectT Typically a type which is a subtype of `SubjectT` in this `Expect<SubjectT>`.
+ * @return An [Expect] with the new type [SubTypeOfSubjectT].
  *
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.AnyExpectationSamples.toBeAnInstanceOf
  *
  * @since 0.17.0
  */
-inline fun <reified TSub : Any> Expect<*>.toBeAnInstanceOf(noinline assertionCreator: Expect<TSub>.() -> Unit): Expect<TSub> =
-    toBeAnInstanceOf(TSub::class).transformAndAppend(assertionCreator)
+inline fun <reified SubTypeOfSubjectT : Any> Expect<*>.toBeAnInstanceOf(noinline assertionCreator: Expect<SubTypeOfSubjectT>.() -> Unit): Expect<SubTypeOfSubjectT> =
+    toBeAnInstanceOf(SubTypeOfSubjectT::class).transformAndAppend(assertionCreator)
 
 /**
- * Expects that the subject of `this` expectation *is not a* [TNotExpected] (the same type or a sub-type).
+ * Expects that the type of the subject of `this` expectation is **not** the defined [SubTypeOfSubjectT] neither
+ * a subtype thereof.
  *
  * Notice, this function has only one type parameter in order that you do not have to restate the type of the current
  * subject. But that also means that we need to return `Expect<*>` or in other words, we loose the type of the subject.
  * Which means, if you want to state a further expectation after [notToBeAnInstanceOf] then you most likely want to
  * use the overload which expects one (or more) [KClass] instead which keeps the type of the initial subject.
  *
- * @param TNotExpected the type which we do not expect to be the same or a super-type of the subject of `this`
- *        expectation.
+ * @param SubTypeOfSubjectT the type which we do not expect to be the same or a super-type of the subject
+ *   of `this` expectation.
  * @return an [Expect] for the subject of `this` expectation but untyped (with a star projection).
  *
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.AnyExpectationSamples.notToBeAnInstanceOf
  *
  * @since 1.1.0
  */
-inline fun <reified TNotExpected : Any> Expect<*>.notToBeAnInstanceOf(): Expect<*> =
-    notToBeAnInstanceOf(TNotExpected::class)
+inline fun <reified SubTypeOfSubjectT : Any> Expect<*>.notToBeAnInstanceOf(): Expect<*> =
+    notToBeAnInstanceOf(SubTypeOfSubjectT::class)
 
 /**
- * Expects that the subject of `this` expectation *is not* the given [type] neither one of the [otherTypes]
- * (the same type or a sub-type).
+ * Expects that the type of the subject of `this` expectation is **not** the given [type] neither
+ * a subtype thereof and same same for the [otherTypes].
  *
- * @param type one of the types which we do not expect to be the same or a super-type of the subject of `this`
- *        expectation.
- * @param otherTypes all types which we do not expect to be the same or a super-type of the subject of `this`
- *        expectation.
+ * @param type one of the types which we do not expect to be the same or a super-type of the type of the subject
+ *   of `this` expectation.
+ * @param otherTypes all types which we do not expect to be the same or a super-type of the type of the subject
+ *   of `this` expectation.
  * @return an [Expect] for the subject of `this` expectation.
  *
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.AnyExpectationSamples.notToBeAnInstanceOfKClasses

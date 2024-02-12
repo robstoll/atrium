@@ -11,8 +11,8 @@ import kotlin.reflect.KClass
 interface ResultAssertions {
     fun <E, T : Result<E>> isSuccess(container: AssertionContainer<T>): FeatureExtractorBuilder.ExecutionStep<T, E>
 
-    fun <TExpected : Throwable> isFailureOfType(
+    fun <ExpectedThrowableT : Throwable> isFailureOfType(
         container: AssertionContainer<out Result<*>>,
-        expectedType: KClass<TExpected>
-    ): SubjectChangerBuilder.ExecutionStep<Throwable?, TExpected>
+        expectedType: KClass<ExpectedThrowableT>
+    ): SubjectChangerBuilder.ExecutionStep<Throwable?, ExpectedThrowableT>
 }

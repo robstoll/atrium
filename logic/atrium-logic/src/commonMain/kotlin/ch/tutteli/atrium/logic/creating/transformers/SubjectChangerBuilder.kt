@@ -23,29 +23,29 @@ interface SubjectChangerBuilder {
         /**
          * Entry point to use the [SubjectChangerBuilder].
          */
-        operator fun <T> invoke(container: AssertionContainer<T>): KindStep<T> =
+        operator fun <SubjectT> invoke(container: AssertionContainer<SubjectT>): KindStep<SubjectT> =
             KindStepImpl(container)
     }
 
     /**
      * Step where one has to decide the kind of subject change.
      *
-     * @param T the type of the current subject.
+     * @param SubjectT the type of the current subject.
      */
-    interface KindStep<T> {
+    interface KindStep<SubjectT> {
         /**
          * The previously specified assertion container to which the new [Expect] will delegate.
          */
-        val container: AssertionContainer<T>
+        val container: AssertionContainer<SubjectT>
 
 
         /**
          * First, [FinalStep] as well as [ExecutionStep] in the change-subject-process --
          * changes the subject without showing the change as such in reporting.
          *
-         * @return The newly created [Expect] for the new subject of type [R].
+         * @return The newly created [Expect] for the new subject of type [SubjectAfterChangeT].
          */
-        fun <R> unreported(transformation: (T) -> R): Expect<R> =
+        fun <SubjectAfterChangeT> unreported(transformation: (SubjectT) -> SubjectAfterChangeT): Expect<SubjectAfterChangeT> =
             container.subjectChanger.unreported(container, transformation)
 
         /**
@@ -56,27 +56,27 @@ interface SubjectChangerBuilder {
          * This is basically a guide towards [SubjectChanger.reported],
          * hence in a more verbose manner but also more readable in many cases.
          */
-        fun reportBuilder(): DescriptionRepresentationStep<T>
+        fun reportBuilder(): DescriptionRepresentationStep<SubjectT>
     }
 
     /**
      * Step which allows to specify the description and representation of the change.
      *
-     * @param T the type of the current subject.
+     * @param SubjectT the type of the current subject.
      */
-    interface DescriptionRepresentationStep<T> {
+    interface DescriptionRepresentationStep<SubjectT> {
         /**
          * The previously specified assertion container to which the new [Expect] will delegate assertion checking.
          */
-        val container: AssertionContainer<T>
+        val container: AssertionContainer<SubjectT>
 
         /**
          * Uses [DescriptionAnyExpectation.TO_BE_AN_INSTANCE_OF] as description of the change,
          * the given [subType] as representation and tries to perform a down-cast of [container]'s
-         * [AssertionContainer.maybeSubject] to the given type [TSub]
+         * [AssertionContainer.maybeSubject] to the given type [SubTypeOfSubjectT]
          */
         @Suppress("BOUNDS_NOT_ALLOWED_IF_BOUNDED_BY_TYPE_PARAMETER")
-        fun <TSub> downCastTo(subType: KClass<TSub>): FailureHandlerStep<T, TSub> where TSub : Any, TSub : T =
+        fun <SubTypeOfSubjectT> downCastTo(subType: KClass<SubTypeOfSubjectT>): FailureHandlerStep<SubjectT, SubTypeOfSubjectT> where SubTypeOfSubjectT : Any, SubTypeOfSubjectT : SubjectT =
             withDescriptionAndRepresentation(DescriptionAnyExpectation.TO_BE_AN_INSTANCE_OF, subType)
                 .withTransformation {
                     Option.someIf(subType.isInstance(it)) { subType.cast(it) }
@@ -87,7 +87,7 @@ interface SubjectChangerBuilder {
          *
          * See the other overload for further information.
          */
-        fun withDescriptionAndRepresentation(description: String, representation: Any?): TransformationStep<T> =
+        fun withDescriptionAndRepresentation(description: String, representation: Any?): TransformationStep<SubjectT> =
             withDescriptionAndRepresentation(Untranslatable(description), representation)
 
         /**
@@ -99,15 +99,15 @@ interface SubjectChangerBuilder {
          * Notice, if you want to use text (a [String] which is treated as raw string in reporting) as representation,
          * then wrap it into a [Text] and pass it instead.
          */
-        fun withDescriptionAndRepresentation(description: Translatable, representation: Any?): TransformationStep<T>
+        fun withDescriptionAndRepresentation(description: Translatable, representation: Any?): TransformationStep<SubjectT>
 
         companion object {
             /**
              * Creates a [DescriptionRepresentationStep] in the context of the [SubjectChangerBuilder].
              */
-            operator fun <T> invoke(
-                container: AssertionContainer<T>
-            ): DescriptionRepresentationStep<T> = DescriptionRepresentationStepImpl(container)
+            operator fun <SubjectT> invoke(
+                container: AssertionContainer<SubjectT>
+            ): DescriptionRepresentationStep<SubjectT> = DescriptionRepresentationStepImpl(container)
         }
     }
 
@@ -115,13 +115,13 @@ interface SubjectChangerBuilder {
      * Step to define the transformation which yields the new subject wrapped into a [Some] if the transformation
      * as such can be carried out; otherwise [None].
      *
-     * @param T the type of the current subject.
+     * @param SubjectT the type of the current subject.
      */
-    interface TransformationStep<T> {
+    interface TransformationStep<SubjectT> {
         /**
          * The previously specified assertion container to which the new [Expect] will delegate.
          */
-        val container: AssertionContainer<T>
+        val container: AssertionContainer<SubjectT>
 
         /**
          * The previously specified description which describes the kind of subject change.
@@ -136,7 +136,7 @@ interface SubjectChangerBuilder {
         /**
          * Defines the new subject, most likely based on the current subject (but does not need to be).
          */
-        fun <R> withTransformation(transformation: (T) -> Option<R>): FailureHandlerStep<T, R>
+        fun <SubjectAfterChangeT> withTransformation(transformation: (SubjectT) -> Option<SubjectAfterChangeT>): FailureHandlerStep<SubjectT, SubjectAfterChangeT>
 
         companion object {
             /**
@@ -153,57 +153,57 @@ interface SubjectChangerBuilder {
     /**
      * Optional step which allows to specify a custom [SubjectChanger.FailureHandler].
      *
-     * @param T the type of the current subject.
-     * @param R the type of the new subject.
+     * @param SubjectT the type of the current subject.
+     * @param SubjectAfterChangeT the type of the new subject.
      */
-    interface FailureHandlerStep<T, R> {
+    interface FailureHandlerStep<SubjectT, SubjectAfterChangeT> {
         /**
          * The so far chosen options up to the [TransformationStep] step.
          */
-        val transformationStep: TransformationStep<T>
+        val transformationStep: TransformationStep<SubjectT>
 
         /**
          * The previously specified transformation which will yield the new subject.
          */
-        val transformation: (T) -> Option<R>
+        val transformation: (SubjectT) -> Option<SubjectAfterChangeT>
 
         /**
          * Uses the given [failureHandler] as [SubjectChanger.FailureHandler]
          * to create the failing assertion in case the subject change fails.
          */
-        fun withFailureHandler(failureHandler: SubjectChanger.FailureHandler<T, R>): FinalStep<T, R>
+        fun withFailureHandler(failureHandler: SubjectChanger.FailureHandler<SubjectT, SubjectAfterChangeT>): FinalStep<SubjectT, SubjectAfterChangeT>
 
         /**
          * Uses the given [failureHandler] as [SubjectChanger.FailureHandler]
          * to create the failing assertion in case the subject change fails but previously maps the subject from
-         * [T] to [R1] as the failure handler only deals with [R1] subjects.
+         * [SubjectT] to [SubjectIntermediateT] as the failure handler only deals with [SubjectIntermediateT] subjects.
          */
-        fun <R1> withFailureHandlerAdapter(
-            failureHandler: SubjectChanger.FailureHandler<R1, R>,
-            map: (T) -> R1
-        ): FinalStep<T, R> = withFailureHandler(FailureHandlerAdapter(failureHandler, map))
+        fun <SubjectIntermediateT> withFailureHandlerAdapter(
+            failureHandler: SubjectChanger.FailureHandler<SubjectIntermediateT, SubjectAfterChangeT>,
+            map: (SubjectT) -> SubjectIntermediateT
+        ): FinalStep<SubjectT, SubjectAfterChangeT> = withFailureHandler(FailureHandlerAdapter(failureHandler, map))
 
         /**
          * Uses the default [SubjectChanger.FailureHandler] which builds the failing assertion based on the specified
          * [TransformationStep.description] and [TransformationStep.representation] and includes the assertions
          * a given assertionCreator lambda would create.
          */
-        fun withDefaultFailureHandler(): FinalStep<T, R>
+        fun withDefaultFailureHandler(): FinalStep<SubjectT, SubjectAfterChangeT>
 
         /**
          * Skips this step by using [withDefaultFailureHandler] and calls [FinalStep.build].
          * @return
          */
-        fun build(): ExecutionStep<T, R> = withDefaultFailureHandler().build()
+        fun build(): ExecutionStep<SubjectT, SubjectAfterChangeT> = withDefaultFailureHandler().build()
 
         companion object {
             /**
              * Creates a [FailureHandlerStep] in the context of the [SubjectChangerBuilder].
              */
-            operator fun <T, R> invoke(
-                transformationStep: TransformationStep<T>,
-                transformation: (T) -> Option<R>
-            ): FailureHandlerStep<T, R> = FailureHandlerStepImpl(transformationStep, transformation)
+            operator fun <SubjectT, SubjectAfterChangeT> invoke(
+                transformationStep: TransformationStep<SubjectT>,
+                transformation: (SubjectT) -> Option<SubjectAfterChangeT>
+            ): FailureHandlerStep<SubjectT, SubjectAfterChangeT> = FailureHandlerStepImpl(transformationStep, transformation)
         }
     }
 
@@ -211,24 +211,24 @@ interface SubjectChangerBuilder {
      * Final step in the help-me-to-call-[SubjectChanger]-process, which creates an [ExecutionStep] incorporating all
      * chosen options and is able to call [SubjectChanger] accordingly.
      *
-     * @param T the type of the current subject.
-     * @param R the type of the new subject.
+     * @param SubjectT the type of the current subject.
+     * @param SubjectAfterChangeT the type of the new subject.
      */
-    interface FinalStep<T, R> {
+    interface FinalStep<SubjectT, SubjectAfterChangeT> {
         /**
          * The so far chosen options up to the [TransformationStep] step.
          */
-        val transformationStep: TransformationStep<T>
+        val transformationStep: TransformationStep<SubjectT>
 
         /**
          * The previously specified new subject.
          */
-        val transformation: (T) -> Option<R>
+        val transformation: (SubjectT) -> Option<SubjectAfterChangeT>
 
         /**
          * The previously specified [SubjectChanger.FailureHandler].
          */
-        val failureHandler: SubjectChanger.FailureHandler<T, R>
+        val failureHandler: SubjectChanger.FailureHandler<SubjectT, SubjectAfterChangeT>
 
         /**
          * Finishes the help-me-to-call-[SubjectChanger]-process by creating an [ExecutionStep] incorporating all
@@ -236,7 +236,7 @@ interface SubjectChangerBuilder {
          *
          * @return The [ExecutionStep] which allows to define how the change shall be carried out.
          */
-        fun build(): ExecutionStep<T, R>
+        fun build(): ExecutionStep<SubjectT, SubjectAfterChangeT>
 
         companion object {
             /**
@@ -253,20 +253,20 @@ interface SubjectChangerBuilder {
     /**
      * Step which allows to decide how the transformation shall be executed.
      *
-     * For instance, if it shall just perform the transformation and return the new [Expect] of type [R]
+     * For instance, if it shall just perform the transformation and return the new [Expect] of type [SubjectAfterChangeT]
      * or if it shall pass an assertionCreator-lambda which creates sub-assertions etc.
      */
-    interface ExecutionStep<T, R> : TransformationExecutionStep<T, R, Expect<R>> {
+    interface ExecutionStep<SubjectT, SubjectAfterChangeT> : TransformationExecutionStep<SubjectT, SubjectAfterChangeT, Expect<SubjectAfterChangeT>> {
 
         companion object {
             /**
              * Creates the [FinalStep] in the context of the [SubjectChangerBuilder].
              */
-            operator fun <T, R> invoke(
-                container: AssertionContainer<T>,
-                action: (AssertionContainer<T>) -> Expect<R>,
-                actionAndApply: (AssertionContainer<T>, Expect<R>.() -> Unit) -> Expect<R>
-            ): ExecutionStep<T, R> = ExecutionStepImpl(container, action, actionAndApply)
+            operator fun <SubjectT, SubjectAfterChangeT> invoke(
+                container: AssertionContainer<SubjectT>,
+                action: (AssertionContainer<SubjectT>) -> Expect<SubjectAfterChangeT>,
+                actionAndApply: (AssertionContainer<SubjectT>, Expect<SubjectAfterChangeT>.() -> Unit) -> Expect<SubjectAfterChangeT>
+            ): ExecutionStep<SubjectT, SubjectAfterChangeT> = ExecutionStepImpl(container, action, actionAndApply)
         }
     }
 

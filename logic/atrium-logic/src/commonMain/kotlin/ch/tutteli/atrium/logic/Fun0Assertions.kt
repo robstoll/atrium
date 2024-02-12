@@ -10,10 +10,10 @@ import kotlin.reflect.KClass
  */
 interface Fun0Assertions {
 
-    fun <TExpected : Throwable> toThrow(
+    fun <ExpectedThrowableT : Throwable> toThrow(
         container: AssertionContainer<out () -> Any?>,
-        expectedType: KClass<TExpected>
-    ): SubjectChangerBuilder.ExecutionStep<*, TExpected>
+        expectedType: KClass<ExpectedThrowableT>
+    ): SubjectChangerBuilder.ExecutionStep<*, ExpectedThrowableT>
 
     fun <R, T : () -> R> notToThrow(container: AssertionContainer<T>): FeatureExtractorBuilder.ExecutionStep<*, R>
 }

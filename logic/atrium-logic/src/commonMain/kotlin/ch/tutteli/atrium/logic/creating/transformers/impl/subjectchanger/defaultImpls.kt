@@ -12,68 +12,68 @@ import ch.tutteli.atrium.logic.creating.transformers.subjectChanger
 import ch.tutteli.atrium.reporting.Text
 import ch.tutteli.atrium.reporting.translating.Translatable
 
-class KindStepImpl<T>(
-    override val container: AssertionContainer<T>
-) : SubjectChangerBuilder.KindStep<T> {
+class KindStepImpl<SubjectT>(
+    override val container: AssertionContainer<SubjectT>
+) : SubjectChangerBuilder.KindStep<SubjectT> {
 
-    override fun reportBuilder(): SubjectChangerBuilder.DescriptionRepresentationStep<T> =
+    override fun reportBuilder(): SubjectChangerBuilder.DescriptionRepresentationStep<SubjectT> =
         SubjectChangerBuilder.DescriptionRepresentationStep(container)
 }
 
-class DescriptionRepresentationStepImpl<T>(
-    override val container: AssertionContainer<T>
-) : SubjectChangerBuilder.DescriptionRepresentationStep<T> {
+class DescriptionRepresentationStepImpl<SubjectT>(
+    override val container: AssertionContainer<SubjectT>
+) : SubjectChangerBuilder.DescriptionRepresentationStep<SubjectT> {
 
     override fun withDescriptionAndRepresentation(
         description: Translatable,
         representation: Any?
-    ): SubjectChangerBuilder.TransformationStep<T> = SubjectChangerBuilder.TransformationStep(
+    ): SubjectChangerBuilder.TransformationStep<SubjectT> = SubjectChangerBuilder.TransformationStep(
         container,
         description,
         representation ?: Text.NULL
     )
 }
 
-class TransformationStepImpl<T>(
-    override val container: AssertionContainer<T>,
+class TransformationStepImpl<SubjectT>(
+    override val container: AssertionContainer<SubjectT>,
     override val description: Translatable,
     override val representation: Any
-) : SubjectChangerBuilder.TransformationStep<T> {
+) : SubjectChangerBuilder.TransformationStep<SubjectT> {
 
-    override fun <R> withTransformation(
-        transformation: (T) -> Option<R>
-    ): SubjectChangerBuilder.FailureHandlerStep<T, R> =
+    override fun <SubjectAfterChangeT> withTransformation(
+        transformation: (SubjectT) -> Option<SubjectAfterChangeT>
+    ): SubjectChangerBuilder.FailureHandlerStep<SubjectT, SubjectAfterChangeT> =
         SubjectChangerBuilder.FailureHandlerStep(this, transformation)
 }
 
-class FailureHandlerStepImpl<T, R>(
-    override val transformationStep: SubjectChangerBuilder.TransformationStep<T>,
-    override val transformation: (T) -> Option<R>
-) : SubjectChangerBuilder.FailureHandlerStep<T, R> {
+class FailureHandlerStepImpl<SubjectT, SubjectAfterChangeT>(
+    override val transformationStep: SubjectChangerBuilder.TransformationStep<SubjectT>,
+    override val transformation: (SubjectT) -> Option<SubjectAfterChangeT>
+) : SubjectChangerBuilder.FailureHandlerStep<SubjectT, SubjectAfterChangeT> {
 
     override fun withFailureHandler(
-        failureHandler: SubjectChanger.FailureHandler<T, R>
-    ): SubjectChangerBuilder.FinalStep<T, R> =
+        failureHandler: SubjectChanger.FailureHandler<SubjectT, SubjectAfterChangeT>
+    ): SubjectChangerBuilder.FinalStep<SubjectT, SubjectAfterChangeT> =
         SubjectChangerBuilder.FinalStep(transformationStep, transformation, failureHandler)
 
-    override fun withDefaultFailureHandler(): SubjectChangerBuilder.FinalStep<T, R> =
+    override fun withDefaultFailureHandler(): SubjectChangerBuilder.FinalStep<SubjectT, SubjectAfterChangeT> =
         withFailureHandler(DefaultFailureHandlerImpl())
 }
 
-class FinalStepImpl<T, R>(
-    override val transformationStep: SubjectChangerBuilder.TransformationStep<T>,
-    override val transformation: (T) -> Option<R>,
-    override val failureHandler: SubjectChanger.FailureHandler<T, R>
-) : SubjectChangerBuilder.FinalStep<T, R> {
+class FinalStepImpl<SubjectT, SubjectAfterChangeT>(
+    override val transformationStep: SubjectChangerBuilder.TransformationStep<SubjectT>,
+    override val transformation: (SubjectT) -> Option<SubjectAfterChangeT>,
+    override val failureHandler: SubjectChanger.FailureHandler<SubjectT, SubjectAfterChangeT>
+) : SubjectChangerBuilder.FinalStep<SubjectT, SubjectAfterChangeT> {
 
-    override fun build(): SubjectChangerBuilder.ExecutionStep<T, R> =
+    override fun build(): SubjectChangerBuilder.ExecutionStep<SubjectT, SubjectAfterChangeT> =
         SubjectChangerBuilder.ExecutionStep(
             transformationStep.container,
             action = { container -> transformIt(container, None) },
             actionAndApply = { container, assertionCreator -> transformIt(container, Some(assertionCreator)) }
         )
 
-    private fun transformIt(container: AssertionContainer<T>, maybeSubAssertions: Option<Expect<R>.() -> Unit>) =
+    private fun transformIt(container: AssertionContainer<SubjectT>, maybeSubAssertions: Option<Expect<SubjectAfterChangeT>.() -> Unit>) =
         container.subjectChanger.reported(
             container,
             transformationStep.description,
@@ -84,9 +84,9 @@ class FinalStepImpl<T, R>(
         )
 }
 
-class ExecutionStepImpl<T, R>(
-    container: AssertionContainer<T>,
-    action: AssertionContainer<T>.() -> Expect<R>,
-    actionAndApply: AssertionContainer<T>.(Expect<R>.() -> Unit) -> Expect<R>
-) : SubjectChangerBuilder.ExecutionStep<T, R>,
-    BaseTransformationExecutionStep<T, R, Expect<R>>(container, action, actionAndApply)
+class ExecutionStepImpl<SubjectT, SubjectAfterChangeT>(
+    container: AssertionContainer<SubjectT>,
+    action: AssertionContainer<SubjectT>.() -> Expect<SubjectAfterChangeT>,
+    actionAndApply: AssertionContainer<SubjectT>.(Expect<SubjectAfterChangeT>.() -> Unit) -> Expect<SubjectAfterChangeT>
+) : SubjectChangerBuilder.ExecutionStep<SubjectT, SubjectAfterChangeT>,
+    BaseTransformationExecutionStep<SubjectT, SubjectAfterChangeT, Expect<SubjectAfterChangeT>>(container, action, actionAndApply)

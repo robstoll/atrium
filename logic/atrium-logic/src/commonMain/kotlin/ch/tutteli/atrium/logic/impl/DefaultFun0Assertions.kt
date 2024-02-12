@@ -19,10 +19,10 @@ import kotlin.reflect.KClass
 
 class DefaultFun0Assertions : Fun0Assertions {
 
-    override fun <TExpected : Throwable> toThrow(
+    override fun <ExpectedThrowableT : Throwable> toThrow(
         container: AssertionContainer<out () -> Any?>,
-        expectedType: KClass<TExpected>
-    ): SubjectChangerBuilder.ExecutionStep<*, TExpected> {
+        expectedType: KClass<ExpectedThrowableT>
+    ): SubjectChangerBuilder.ExecutionStep<*, ExpectedThrowableT> {
         // we use manualFeature and not extractFeature since we never want to fail the feature extraction
         // because we want to show the planned downCast in the error message
         return container.manualFeature(THROWN_EXCEPTION_WHEN_CALLED) {
