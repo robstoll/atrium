@@ -166,7 +166,7 @@ alternatively the manual steps:
 
 3. deploy to maven central:
 (assumes you have an alias named gr pointing to ./gradlew)
-    a) java -version 2>&1 | grep "version \"11" && CI=true gr clean publishToSonatype
+    a) java -version 2>&1 | grep "version \"11" && PUB=true CI=true gr clean publishToSonatype
     b) Log into https://oss.sonatype.org/#stagingRepositories
     c) check if staging repo is ok
     d) close repo

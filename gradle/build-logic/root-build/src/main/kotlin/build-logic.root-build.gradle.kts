@@ -1,3 +1,4 @@
+import ch.tutteli.gradle.plugins.dokka.DokkaPluginExtension
 import ch.tutteli.gradle.plugins.dokka.GhPages
 import org.jetbrains.dokka.gradle.DokkaMultiModuleTask
 import org.jetbrains.dokka.gradle.DokkaTaskPartial
@@ -8,15 +9,19 @@ import java.net.URL
 
 plugins {
     id("build-logic.gradle-conventions")
-    id("org.jetbrains.dokka")
-    id("ch.tutteli.gradle.plugins.dokka") apply isPublishing()
 }
 
 val rootProject = this
 
 ifIsPublishing {
+    println("""
+        |Publishing activated via env PUB=true, going to add tutteli-publish plugins and co. in sub-projects
+        |Also applying tutteli-dokka in root project for dokkaHtmlMultiModule
+        """.trimMargin())
+    apply(plugin = "org.jetbrains.dokka")
+    apply(plugin = "ch.tutteli.gradle.plugins.dokka")
 
-    tutteliDokka {
+    the<DokkaPluginExtension>().run {
         writeTo.set(GhPages)
 
         val modulesNotInGhPages = listOf(

@@ -42,17 +42,19 @@ tasks.configureEach<AbstractDokkaLeafTask> {
     }
 }
 
+ifIsPublishing {
 // TODO 1.3.0 some bug in dokka, maybe fixed in a never version? We should be able to suppress jvmMain for js and common
 // see https://github.com/Kotlin/dokka/issues/3209
-project.afterEvaluate {
-    tasks.named<DokkaTask>("dokkaHtmlJs") {
-        dokkaSourceSets.named("jvmMain") {
-            suppress.set(false)
+    project.afterEvaluate {
+        tasks.named<DokkaTask>("dokkaHtmlJs") {
+            dokkaSourceSets.named("jvmMain") {
+                suppress.set(false)
+            }
         }
-    }
-    tasks.named<DokkaTask>("dokkaHtmlKotlinMultiplatform") {
-        dokkaSourceSets.named("jvmMain") {
-            suppress.set(false)
+        tasks.named<DokkaTask>("dokkaHtmlKotlinMultiplatform") {
+            dokkaSourceSets.named("jvmMain") {
+                suppress.set(false)
+            }
         }
     }
 }
@@ -70,9 +72,11 @@ createGenerateLogicTask(
                 "IterableLikeContainsInAnyOrderAssertions.kt" ->
                     "<E, T : Any> IterableLikeContains.CheckerStepLogic<E, T, InAnyOrderSearchBehaviour>" to
                         "entryPointStepLogic.container.getImpl"
+
                 "IterableLikeContainsAssertions.kt" ->
                     "<E, T : Any, S : IterableLikeContains.SearchBehaviour> IterableLikeContains.EntryPointStepLogic<E, T, S>" to
                         "container.getImpl"
+
                 else -> throw IllegalStateException("define a configuration for this new file this new file $fileNameAsString in build.gradle.kts of atrium-logic for createGenerateLogicTaskForCommon")
             }
         },
@@ -82,6 +86,7 @@ createGenerateLogicTask(
                 "MapLikeContainsAssertions.kt" ->
                     "<K, V, T : Any, S : MapLikeContains.SearchBehaviour> MapLikeContains.EntryPointStepLogic<K, V, T, S>" to
                         "container.getImpl"
+
                 else -> throw IllegalStateException("define a configuration for this new file this new file $fileNameAsString in build.gradle.kts of atrium-logic for createGenerateLogicTaskForCommon")
             }
         }

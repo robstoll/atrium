@@ -2,10 +2,10 @@ import org.jetbrains.dokka.gradle.AbstractDokkaLeafTask
 
 plugins {
     id("build-logic.gradle-conventions")
-    id("ch.tutteli.gradle.plugins.dokka") apply isPublishing()
 }
 
 ifIsPublishing {
+    apply(plugin="ch.tutteli.gradle.plugins.dokka")
 
     val kdocDir = rootProject.projectDir.resolve("misc/kdoc")
 
