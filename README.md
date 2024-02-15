@@ -869,7 +869,7 @@ expect(persons).toHaveElementsAndAll {
 
 
 ## Type Expectations
-See also [AnyExpectationSamples -> toBeAnInstanceOf and co.](https://github.com/robstoll/atrium/blob/main/apis/fluent/atrium-api-fluent/src/commonTest/kotlin/ch/tutteli/atrium/api/fluent/en_GB/samples/AnyExpectationSamples.kt#L41)
+See also [AnyExpectationSamples -> toBeAnInstanceOf and co.](https://github.com/robstoll/atrium/blob/main/apis/fluent/atrium-api-fluent/src/commonTest/kotlin/ch/tutteli/atrium/api/fluent/en_GB/samples/AnyExpectationSamples.kt#L125)
 for further examples.
 
 <ex-type-expectations-1>
@@ -928,7 +928,7 @@ There are two `toBeAnInstanceOf` overloads:
   failing to do so cannot include additional information in error reporting though.
 
 ## Nullable Types
-See also [AnyExpectationSamples -> notToEqualNullFeature and co.](https://github.com/robstoll/atrium/blob/main/apis/fluent/atrium-api-fluent/src/commonTest/kotlin/ch/tutteli/atrium/api/fluent/en_GB/samples/AnyExpectationSamples.kt#L62)
+See also [AnyExpectationSamples -> notToEqualNullFeature and co.](https://github.com/robstoll/atrium/blob/main/apis/fluent/atrium-api-fluent/src/commonTest/kotlin/ch/tutteli/atrium/api/fluent/en_GB/samples/AnyExpectationSamples.kt#L81)
 for further examples.
 
 
