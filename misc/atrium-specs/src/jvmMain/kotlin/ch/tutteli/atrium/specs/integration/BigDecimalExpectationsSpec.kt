@@ -117,6 +117,7 @@ abstract class BigDecimalExpectationsSpec(
             }
             it("${toEqualDontUse.name} with BigDecimal? overload throws ${PleaseUseReplacementException::class.simpleName}") {
                 expect {
+                    @Suppress("USELESS_CAST")
                     expect(BigDecimal.TEN as BigDecimal?).toEqualNullableFun(expected)
                 }.toThrow<PleaseUseReplacementException>()
             }
