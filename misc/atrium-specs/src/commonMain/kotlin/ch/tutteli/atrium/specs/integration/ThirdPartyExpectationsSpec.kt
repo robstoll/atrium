@@ -65,7 +65,7 @@ abstract class ThirdPartyExpectationsSpec(
                                 override fun format(assertion: Assertion, sb: StringBuilder): Unit =
                                     assertionFormatterFacade.format(assertion, sb, this::assertionFilter)
 
-                                private fun assertionFilter(assertion: Assertion) = true
+                                private fun assertionFilter(@Suppress("UNUSED_PARAMETER") assertion: Assertion) = true
                             }
                         }
                     }.toHoldThirdPartyExpectationFun("(assertJ) is equal to", 10) { subject ->

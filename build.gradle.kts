@@ -1,7 +1,7 @@
 buildscript {
     // needs to be defined in here so that the tutteli publish plugin can set up conventions based on the group
     // (if defined in regular scope of build.gradle.kts then the tutteli plugin would not see it when applied)
-    rootProject.version = "1.2.0-SNAPSHOT"
+    rootProject.version = "1.2.0-RC1"
     rootProject.group = "ch.tutteli.atrium"
 }
 
@@ -63,8 +63,8 @@ Release & deploy a commit
 
 Either use the following commands or the manual steps below
 
-export ATRIUM_PREVIOUS_VERSION=1.1.0
-export ATRIUM_VERSION=1.2.0
+export ATRIUM_PREVIOUS_VERSION=1.2.0-RC1
+export ATRIUM_VERSION=1.2.0-RC1
 find ./ -name "*.md" | xargs perl -0777 -i \
    -pe "s@$ATRIUM_PREVIOUS_VERSION@$ATRIUM_VERSION@g;" \
    -pe "s@tree/main@tree/v$ATRIUM_VERSION@g;" \
@@ -166,11 +166,13 @@ alternatively the manual steps:
 
 3. deploy to maven central:
 (assumes you have an alias named gr pointing to ./gradlew)
-    a) java -version 2>&1 | grep "version \"11" && CI=true gr clean publishToSonatype
-    b) Log into https://oss.sonatype.org/#stagingRepositories
-    c) check if staging repo is ok
-    d) close repo
-    e) release repo
+    a) echo "enter the sonatype user token"
+	   read SONATYPE_PW
+    b) java -version 2>&1 | grep "version \"11" && ORG_GRADLE_PROJECT_sonatypePassword="$SONATYPE_PW" PUB=true CI=true gr clean publishToSonatype
+    c) Log into https://oss.sonatype.org/#stagingRepositories
+    d) check if staging repo is ok
+    e) close repo
+    f) release repo
 
 4. publish release on github
     1) Log in to github and publish draft
@@ -181,7 +183,7 @@ Prepare next dev cycle
 
 Either use the following commands or the manual steps below
 
-export ATRIUM_VERSION=1.1.0
+export ATRIUM_VERSION=1.2.0-RC1
 export ATRIUM_NEXT_VERSION=1.2.0
 find ./ -name "*.md" | xargs perl -0777 -i \
    -pe "s@tree/v$ATRIUM_VERSION@tree/main@g;" \

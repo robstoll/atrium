@@ -9,7 +9,6 @@ fun Project.prefixedProject(name: String): Project = project(":${rootProject.nam
 inline fun <reified S : Any> DomainObjectCollection<in S>.configureEach(noinline configuration: S.() -> Unit) =
     withType().configureEach(configuration)
 
-fun isPublishing() = isEnvVariableTrue("PUB")
 fun ifIsPublishing(action: () -> Unit) = ifEnvVariableTrue("PUB", action)
 
 fun ifEnvVariableTrue(name: String, action: () -> Unit) {
@@ -18,4 +17,4 @@ fun ifEnvVariableTrue(name: String, action: () -> Unit) {
     }
 }
 
-fun isEnvVariableTrue(name: String) = System.getenv(name).toBoolean()
+fun isEnvVariableTrue(name: String): Boolean = System.getenv(name).toBoolean()

@@ -1,3 +1,5 @@
+import org.jetbrains.dokka.gradle.AbstractDokkaLeafTask
+
 plugins {
     id("build-logic.published-kotlin-multiplatform")
 }
@@ -41,6 +43,21 @@ kotlin {
                 // and remove the own mocks in jsMain
 //                api(libs.mockk.js)
 //                api(libs.spek.js)
+            }
+        }
+    }
+}
+
+ifIsPublishing {
+    tasks.configureEach<AbstractDokkaLeafTask> {
+        dokkaSourceSets.configureEach {
+            perPackageOption {
+                matchingRegex.set("io.mockk")
+                suppress.set(true)
+            }
+            perPackageOption {
+                matchingRegex.set("org.spekframework.spek2")
+                suppress.set(true)
             }
         }
     }
