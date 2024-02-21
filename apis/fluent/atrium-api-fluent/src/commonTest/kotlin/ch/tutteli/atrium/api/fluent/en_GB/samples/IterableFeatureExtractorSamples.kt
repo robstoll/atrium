@@ -50,7 +50,7 @@ class IterableFeatureExtractorSamples {
         val iterable = sequenceOf(1, 2, 0).asIterable()
         expect(iterable).max {
             toBeGreaterThan(0)
-                .toBeGreaterThanOrEqualTo(2)
+            toBeGreaterThanOrEqualTo(2)
         }
         fails {
             expect(iterable).max {
