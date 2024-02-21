@@ -55,7 +55,7 @@ class IterableFeatureExtractorSamples {
         fails {
             expect(iterable).max {
                 toBeGreaterThan(10)
-                    .toEqual(2)
+                toEqual(2)
             }
         }
     }
