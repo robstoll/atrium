@@ -14,6 +14,8 @@ import ch.tutteli.kbox.identity
  *
  * @return The newly created [Expect] for the extracted feature.
  *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.IterableFeatureExtractorSamples.minFeature
+ *
  * @since 0.12.0
  */
 infix fun <E : Comparable<E>, T : Iterable<E>> Expect<T>.min(@Suppress("UNUSED_PARAMETER") o: o): Expect<E> =
@@ -25,6 +27,8 @@ infix fun <E : Comparable<E>, T : Iterable<E>> Expect<T>.min(@Suppress("UNUSED_P
  * returns an [Expect] for the current subject of `this` expectation.
  *
  * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.IterableFeatureExtractorSamples.min
  *
  * @since 0.12.0
  */
@@ -40,6 +44,8 @@ infix fun <E : Comparable<E>, T : Iterable<E>> Expect<T>.min(assertionCreator: E
  *
  * @return The newly created [Expect] for the extracted feature.
  *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.IterableFeatureExtractorSamples.maxFeature
+ *
  * @since 0.12.0
  */
 infix fun <E : Comparable<E>, T : Iterable<E>> Expect<T>.max(@Suppress("UNUSED_PARAMETER") o: o): Expect<E> =
@@ -51,6 +57,8 @@ infix fun <E : Comparable<E>, T : Iterable<E>> Expect<T>.max(@Suppress("UNUSED_P
  * returns an [Expect] for the current subject of `this` expectation.
  *
  * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.IterableFeatureExtractorSamples.max
  *
  * @since 0.12.0
  */
