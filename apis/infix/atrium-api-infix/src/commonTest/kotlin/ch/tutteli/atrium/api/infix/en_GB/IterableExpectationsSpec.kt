@@ -27,7 +27,7 @@ class IterableExpectationsSpec : ch.tutteli.atrium.specs.integration.IterableExp
         private fun minFeaturePair() = feature1<Iterable<Int>, o, Int>(Expect<Iterable<Int>>::min).name to ::minFeature
         private fun minFeature(expect: Expect<Iterable<Int>>) = expect min o
 
-        private fun maxFeaturePair() = feature1<Iterable<Int>, o, Int>(Expect<Iterable<Int>>::min).name to ::maxFeature
+        private fun maxFeaturePair() = feature1<Iterable<Int>, o, Int>(Expect<Iterable<Int>>::max).name to ::maxFeature
         private fun maxFeature(expect: Expect<Iterable<Int>>) = expect max o
 
         private val toHaveElementsAnd: KFunction2<Expect<Iterable<Int>>, noDuplicates, Expect<Iterable<Int>>> =
