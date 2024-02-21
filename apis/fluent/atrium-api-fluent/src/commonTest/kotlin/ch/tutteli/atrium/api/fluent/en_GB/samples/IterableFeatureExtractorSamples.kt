@@ -25,7 +25,7 @@ class IterableFeatureExtractorSamples {
         val iterable = sequenceOf(1, -2, 3).asIterable()
         expect(iterable).min {
             toBeLessThan(0)
-                .toBeGreaterThanOrEqualTo(-2)
+            toBeGreaterThanOrEqualTo(-2)
         }
         fails {
             expect(iterable).min {
