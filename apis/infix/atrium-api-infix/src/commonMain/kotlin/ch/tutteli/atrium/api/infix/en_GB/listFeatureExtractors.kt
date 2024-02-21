@@ -43,14 +43,16 @@ fun <E> index(index: Int, assertionCreator: Expect<E>.() -> Unit): IndexWithCrea
 /**
  * Expects that list is not empty and returns an [Expect] for the last element in list.
  *
+ * @param o The filler object [o].
+ *
  * @return The newly created [Expect] for last element.
  *
  * @sample ch.tutteli.atrium.api.infix.en_GB.samples.ListFeatureExtractorSamples.lastFeature
  *
  * @since 1.2.0
  */
-val <E, T : List<E>> Expect<T>.last: Expect<E>
-    get() = _logic.last().transform()
+infix fun <E, T : List<E>> Expect<T>.last(@Suppress("UNUSED_PARAMETER") o: o): Expect<E> =
+    _logic.last().transform()
 
 /**
  * Expects that the subject of `this` expectation (a [List]) is not empty and that the last element
