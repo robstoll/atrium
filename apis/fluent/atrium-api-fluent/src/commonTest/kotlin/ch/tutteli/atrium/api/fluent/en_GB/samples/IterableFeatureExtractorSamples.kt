@@ -30,7 +30,7 @@ class IterableFeatureExtractorSamples {
         fails {
             expect(iterable).min {
                 toBeLessThan(-2)
-                    .toEqual(-10)
+                toEqual(-10)
             }
         }
     }
