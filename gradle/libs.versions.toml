@@ -1,6 +1,6 @@
 [versions]
 kbox = "1.1.0"
-niok = "1.4.7"
+niok = "1.5.0"
 
 # testing
 assertJ = "3.25.3"
