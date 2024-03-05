@@ -207,17 +207,15 @@ class DefaultIterableLikeAssertions : IterableLikeAssertions {
         val lookupHashMap = HashMap<E, Int>()
         val duplicateIndices = HashMap<Int, Pair<E, MutableList<Int>>>()
 
-        list.asSequence()
-            .mapWithIndex()
-            .forEach { (index, element) ->
-                lookupHashMap[element]?.let {
-                    duplicateIndices.getOrPut(it) {
-                        Pair(element, mutableListOf())
-                    }.second.add(index)
-                } ?: let {
-                    lookupHashMap[element] = index
-                }
+        list.forEachIndexed { index, element ->
+            lookupHashMap[element]?.let {
+                duplicateIndices.getOrPut(it) {
+                    Pair(element, mutableListOf())
+                }.second.add(index)
+            } ?: let {
+                lookupHashMap[element] = index
             }
+        }
 
         val duplicates = duplicateIndices
             .map { (index, pair) ->

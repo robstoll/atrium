@@ -1,5 +1,3 @@
-import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSet
-
 plugins {
     kotlin("multiplatform")
     id("build-logic.kotlin-conventions")
@@ -60,6 +58,14 @@ kotlin {
         commonTest {
             dependencies {
                 implementation(kotlin("test"))
+            }
+        }
+
+        // necessary due to https://youtrack.jetbrains.com/issue/KT-65352/KMP-Gradle-impossible-to-set-language-apiVersion-for-common-to-1.4
+        all {
+            languageSettings {
+                languageVersion = buildParameters.kotlin.version
+                apiVersion = buildParameters.kotlin.version
             }
         }
     }
