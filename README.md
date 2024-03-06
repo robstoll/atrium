@@ -172,7 +172,7 @@ Are you using a different runner? A PR would be appreciated 😊.
 
 # Examples
 We are using the API provided by the bundle module 
-[atrium-fluent](https://github.com/robstoll/atrium/blob/main/bundles/fluent/atrium-fluent/build.gradle.kts)
+[atrium-fluent](https://github.com/robstoll/atrium/tree/main/bundles/fluent/atrium-fluent/build.gradle.kts)
 in the following examples. 
 It provides a pure fluent API for the JVM platform.
 Have a look at 
