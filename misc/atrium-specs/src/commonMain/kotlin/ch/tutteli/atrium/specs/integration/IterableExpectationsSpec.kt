@@ -18,6 +18,8 @@ abstract class IterableExpectationsSpec(
     maxFeature: Feature0<Iterable<Int>, Int>,
     max: Fun1<Iterable<Int>, Expect<Int>.() -> Unit>,
     toHaveElementsAndNoDuplicates: Fun0<Iterable<Int>>,
+    lastFeature: Feature0<Iterable<Int?>, Int?>,
+    last: Fun1<Iterable<Int?>, Expect<Int?>.() -> Unit>,
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
@@ -36,6 +38,11 @@ abstract class IterableExpectationsSpec(
         describePrefix, listOf(-20, 20, 0),
         min.forAssertionCreatorSpec("$toEqualDescr: -20") { toEqual(-20) },
         max.forAssertionCreatorSpec("$toEqualDescr: 20") { toEqual(20) }
+    ) {})
+
+    include(object : SubjectLessSpec<Iterable<Int?>>(describePrefix,
+        lastFeature.forSubjectLess(),
+        last.forSubjectLess { toEqual(1) }
     ) {})
 
     fun describeFun(vararg pairs: SpecPair<*>, body: Suite.() -> Unit) =
@@ -177,4 +184,52 @@ abstract class IterableExpectationsSpec(
             }
         }
     }
+
+    val listNullable = listOf(1, null, 3, 4)
+    val fluentNullable = expect(listNullable)
+
+//    describeFun(lastFeature, last) {
+//        val lastFunctions = unifySignatures(lastFeature, last)
+//        context("list $listNullable") {
+//            lastFunctions.forEach { (name, lastFun, _) ->
+//                it("$name - can perform sub-assertion on last element with value") {
+//                    fluentNullable.lastFun { toEqual(4) }
+//                }
+//            }
+//        }
+//    }
+
+    val listNullableLast = listOf(1, 2, 3, null)
+    val fluentNullableList = expect(listNullableLast)
+//    describeFun(lastFeature, last) {
+//        val lastFunctions = unifySignatures(lastFeature, last)
+//        context("list $listNullableLast") {
+//            lastFunctions.forEach { (name, lastFun, _) ->
+//                it("$name - can perform sub-assertion on last element with value null") {
+//                    fluentNullableList.lastFun { toEqual(null) }
+//                }
+//            }
+//        }
+//    }
+
+    val emptyList = emptyList<Int?>()
+    val fluentEmptyList = expect(emptyList)
+
+//    val listIsEmptyDescr = DescriptionIterableLikeExpectation.IS_EMPTY.getDefault()
+//
+//    describeFun(lastFeature, last) {
+//        val lastFunctions = unifySignatures(lastFeature, last)
+//        context("list $emptyList") {
+//            lastFunctions.forEach { (name, lastFun, hasExtraHint) ->
+//                it("$name - empty list throws" + showsSubAssertionIf(hasExtraHint)) {
+//                    expect {
+//                        fluentEmptyList.lastFun { toEqual(3) }
+//                    }.toThrow<AssertionError> {
+//                        messageToContain("last(): $listIsEmptyDescr")
+//                        if (hasExtraHint) messageToContain("$toEqualDescr: 3")
+//                    }
+//                }
+//            }
+//        }
+//    }
 })

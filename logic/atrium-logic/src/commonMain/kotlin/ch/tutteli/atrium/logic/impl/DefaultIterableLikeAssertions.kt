@@ -250,4 +250,20 @@ class DefaultIterableLikeAssertions : IterableLikeAssertions {
             listAssertionContainer
         )
     }
+
+    // TODO: fix this
+    override fun <T : IterableLike, E> last(
+        container: AssertionContainer<T>,
+        converter: (T) -> Iterable<E?>
+    ): FeatureExtractorBuilder.ExecutionStep<T, E?> =
+        container.extractFeature
+            .methodCall("last")
+            .withRepresentationForFailure(NO_ELEMENTS)
+            .withFeatureExtraction {
+                val iterable = converter(it)
+                Option.someIf(iterable.size() > 0) { it.last() }
+            }
+            .withoutOptions()
+            .build()
+
 }
