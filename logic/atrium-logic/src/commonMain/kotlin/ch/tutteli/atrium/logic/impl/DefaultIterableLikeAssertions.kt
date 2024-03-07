@@ -261,7 +261,7 @@ class DefaultIterableLikeAssertions : IterableLikeAssertions {
             .withRepresentationForFailure(NO_ELEMENTS)
             .withFeatureExtraction {
                 val iterable = converter(it)
-                Option.someIf(iterable.size() > 0) { it.last() }
+                Option.someIf(iterable.iterator.hasNext()) { iterbale.last() }
             }
             .withoutOptions()
             .build()
