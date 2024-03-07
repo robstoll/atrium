@@ -11,8 +11,8 @@ object IterableExpectationsSpec : ch.tutteli.atrium.specs.integration.IterableEx
     feature0<Iterable<Int>, Int>(Expect<Iterable<Int>>::max),
     fun1<Iterable<Int>, Expect<Int>.() -> Unit>(Expect<Iterable<Int>>::max),
     fun0(Expect<Iterable<Int>>::toHaveElementsAndNoDuplicates),
-    property<Iterable<Int?>, Int?>(Expect<Iterable<Int?>>::last),
-    fun1<Iterable<Int?>, Expect<Int?>.() -> Unit>(Expect<Iterable<Int?>>::last),
+    property<Iterable<Int>, Int>(Expect<Iterable<Int>>::last),
+    fun1<Iterable<Int>, Expect<Int>.() -> Unit>(Expect<Iterable<Int>>::last),
 ) {
 
     @Suppress("unused", "UNUSED_VALUE")
@@ -40,5 +40,8 @@ object IterableExpectationsSpec : ch.tutteli.atrium.specs.integration.IterableEx
 
         a1 = a1.min { }
         a1 = a1.max { }
+
+        a1.last
+        a1.last { }
     }
 }

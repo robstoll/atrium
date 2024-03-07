@@ -2,7 +2,6 @@ package ch.tutteli.atrium.api.fluent.en_GB
 
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic._logic
-import ch.tutteli.atrium.logic.get
 import ch.tutteli.atrium.logic.last
 import ch.tutteli.atrium.logic.max
 import ch.tutteli.atrium.logic.min
@@ -67,11 +66,11 @@ fun <E : Comparable<E>, T : Iterable<E>> Expect<T>.max(assertionCreator: Expect<
  *
  * @return The newly created [Expect] for last element.
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.ListFeatureExtractorSamples.lastFeature
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.IterableFeatureExtractorSamples.lastFeature
  *
  * @since 1.2.0
  */
-val <E, T: Iterable<E>> Expect<T>.last: Expect<E?>
+val <E : Comparable<E>, T: Iterable<E>> Expect<T>.last: Expect<E>
     get() = _logic.last(::identity).transform()
 
 /**
@@ -81,9 +80,9 @@ val <E, T: Iterable<E>> Expect<T>.last: Expect<E?>
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.ListFeatureExtractorSamples.last
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.IterableFeatureExtractorSamples.last
  *
  * @since 1.2.0
  */
-fun <E, T : Iterable<E>> Expect<T>.last(assertionCreator: Expect<E?>.() -> Unit): Expect<T> =
+fun <E : Comparable<E>, T : Iterable<E>> Expect<T>.last(assertionCreator: Expect<E>.() -> Unit): Expect<T> =
     _logic.last(::identity).collectAndAppend(assertionCreator)

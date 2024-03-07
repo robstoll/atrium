@@ -45,7 +45,8 @@ fun <T : IterableLike, E : Comparable<E>> AssertionContainer<T>.max(converter: (
 
 fun <T : IterableLike, E> AssertionContainer<T>.containsNoDuplicates(converter: (T) -> Iterable<E>): Assertion = impl.containsNoDuplicates(this, converter)
 
-fun <T : IterableLike, E : Any> AssertionContainer<T>.last(converter: (T) -> Iterable<E?>): FeatureExtractorBuilder.ExecutionStep<T, E?> = impl.last(this, converter)
+fun <T : IterableLike, E : Comparable<E>> AssertionContainer<T>.last(converter: (T) -> Iterable<E>): FeatureExtractorBuilder.ExecutionStep<T, E> = impl.last(this, converter)
+
 
 @OptIn(ExperimentalNewExpectTypes::class)
 private inline val <T> AssertionContainer<T>.impl: IterableLikeAssertions

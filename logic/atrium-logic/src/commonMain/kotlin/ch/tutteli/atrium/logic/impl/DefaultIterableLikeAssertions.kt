@@ -251,19 +251,10 @@ class DefaultIterableLikeAssertions : IterableLikeAssertions {
         )
     }
 
-    // TODO: fix this
-    override fun <T : IterableLike, E> last(
+    override fun <T : IterableLike, E : Comparable<E>> last(
         container: AssertionContainer<T>,
-        converter: (T) -> Iterable<E?>
-    ): FeatureExtractorBuilder.ExecutionStep<T, E?> =
-        container.extractFeature
-            .methodCall("last")
-            .withRepresentationForFailure(NO_ELEMENTS)
-            .withFeatureExtraction {
-                val iterable = converter(it)
-                Option.someIf(iterable.iterator.hasNext()) { iterbale.last() }
-            }
-            .withoutOptions()
-            .build()
+        converter: (T) -> Iterable<E>
+    ): FeatureExtractorBuilder.ExecutionStep<T, E> =
+        collect(container, converter, "last", Iterable<E>::last)
 
 }

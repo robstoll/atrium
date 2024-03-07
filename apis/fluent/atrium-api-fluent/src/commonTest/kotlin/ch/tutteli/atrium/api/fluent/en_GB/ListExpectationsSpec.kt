@@ -21,8 +21,6 @@ object ListExpectationsSpec : Spek({
         fun2<List<Int>, Int, Expect<Int>.() -> Unit>(Expect<List<Int>>::get),
         feature1<List<Int?>, Int, Int?>(Expect<List<Int?>>::get).withNullableSuffix(),
         fun2<List<Int?>, Int, Expect<Int?>.() -> Unit>(Expect<List<Int?>>::get).withNullableSuffix(),
-        property<List<Int?>, Int?>(Expect<List<Int?>>::last),
-        fun1<List<Int?>, Expect<Int?>.() -> Unit>(Expect<List<Int?>>::last),
         "[Atrium][List] "
     )
 

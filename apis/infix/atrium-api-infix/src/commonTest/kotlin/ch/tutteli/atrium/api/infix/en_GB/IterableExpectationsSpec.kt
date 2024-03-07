@@ -11,7 +11,9 @@ class IterableExpectationsSpec : ch.tutteli.atrium.specs.integration.IterableExp
     fun1<Iterable<Int>, Expect<Int>.() -> Unit>(Expect<Iterable<Int>>::min),
     maxFeaturePair(),
     fun1<Iterable<Int>, Expect<Int>.() -> Unit>(Expect<Iterable<Int>>::max),
-    getToHaveElementsAndNoDuplicatesPair()
+    getToHaveElementsAndNoDuplicatesPair(),
+    lastFeaturePair(),
+    fun1<Iterable<Int>, Expect<Int>.() -> Unit>(Expect<Iterable<Int>>::last),
 ) {
     companion object {
         private val toHave: KFunction2<Expect<Iterable<Int>>, elements, Expect<Iterable<Int>>> = Expect<Iterable<Int>>::toHave
@@ -38,6 +40,8 @@ class IterableExpectationsSpec : ch.tutteli.atrium.specs.integration.IterableExp
 
         private fun toHaveElementsAndNoDuplicates(expect: Expect<Iterable<Int>>) = expect toHaveElementsAnd noDuplicates
 
+        private fun lastFeaturePair() = feature1<Iterable<Int>, o, Int>(Expect<Iterable<Int>>::last).name to ::lastFeature
+        private fun lastFeature(expect: Expect<Iterable<Int>>) = expect last o
     }
 
     @Suppress("unused", "UNUSED_VALUE")
@@ -65,5 +69,8 @@ class IterableExpectationsSpec : ch.tutteli.atrium.specs.integration.IterableExp
 
         a1 = a1 min { }
         a1 = a1 max { }
+
+        a1 last o
+        a1 last { }
     }
 }
