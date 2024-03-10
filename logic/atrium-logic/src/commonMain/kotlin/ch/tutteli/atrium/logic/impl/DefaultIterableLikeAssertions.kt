@@ -25,7 +25,6 @@ import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
 import ch.tutteli.atrium.translations.DescriptionBasic.NOT_TO_HAVE
 import ch.tutteli.atrium.translations.DescriptionBasic.TO_HAVE
 import ch.tutteli.atrium.translations.DescriptionIterableLikeExpectation.*
-import ch.tutteli.kbox.mapWithIndex
 
 class DefaultIterableLikeAssertions : IterableLikeAssertions {
     override fun <T : IterableLike, E> builderContainsInIterableLike(
@@ -251,10 +250,30 @@ class DefaultIterableLikeAssertions : IterableLikeAssertions {
         )
     }
 
-    override fun <T : IterableLike, E : Comparable<E>> last(
+    override fun <T : IterableLike, E> last(
         container: AssertionContainer<T>,
         converter: (T) -> Iterable<E>
     ): FeatureExtractorBuilder.ExecutionStep<T, E> =
         collect(container, converter, "last", Iterable<E>::last)
+
+    private fun <T : IterableLike, E> collect(
+        container: AssertionContainer<T>,
+        converter: (T) -> Iterable<E>,
+        method: String,
+        collect: Iterable<E>.() -> E
+    ): FeatureExtractorBuilder.ExecutionStep<T, E> =
+        container.extractFeature
+            .methodCall(method)
+            .withRepresentationForFailure(NO_ELEMENTS)
+            .withFeatureExtraction {
+                val iterable = converter(it)
+                Option.someIf(iterable.iterator().hasNext()) {
+                    iterable.collect() ?: throw IllegalStateException(
+                        "Iterable does not hasNext() even though checked before! Concurrent access?"
+                    )
+                }
+            }
+            .withoutOptions()
+            .build()
 
 }

@@ -75,7 +75,7 @@ interface IterableLikeAssertions {
         converter: (T) -> Iterable<E>
     ): Assertion
 
-    fun <T : IterableLike, E : Comparable<E>> last(
+    fun <T : IterableLike, E> last(
         container: AssertionContainer<T>,
         converter: (T) -> Iterable<E>
     ): FeatureExtractorBuilder.ExecutionStep<T, E>
