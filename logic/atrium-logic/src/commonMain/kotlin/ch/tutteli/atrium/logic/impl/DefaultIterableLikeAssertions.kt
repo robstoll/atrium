@@ -254,26 +254,15 @@ class DefaultIterableLikeAssertions : IterableLikeAssertions {
         container: AssertionContainer<T>,
         converter: (T) -> Iterable<E>
     ): FeatureExtractorBuilder.ExecutionStep<T, E> =
-        collect(container, converter, "last", Iterable<E>::last)
-
-    private fun <T : IterableLike, E> collect(
-        container: AssertionContainer<T>,
-        converter: (T) -> Iterable<E>,
-        method: String,
-        collect: Iterable<E>.() -> E
-    ): FeatureExtractorBuilder.ExecutionStep<T, E> =
         container.extractFeature
-            .methodCall(method)
+            .methodCall("last")
             .withRepresentationForFailure(NO_ELEMENTS)
             .withFeatureExtraction {
                 val iterable = converter(it)
                 Option.someIf(iterable.iterator().hasNext()) {
-                    iterable.collect() ?: throw IllegalStateException(
-                        "Iterable does not hasNext() even though checked before! Concurrent access?"
-                    )
+                    iterable.last()
                 }
             }
             .withoutOptions()
             .build()
-
 }
