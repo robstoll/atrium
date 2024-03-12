@@ -98,7 +98,7 @@ class IterableFeatureExtractorSamples {
             .toBeLessThan(4) // subject is still 3
 
         fails {
-            expect(list).last.toBeGreaterThan(3).toBeLessThan (4) // subject is 3, fails on first expectation, second is skipped
+            expect(iterable).last.toBeGreaterThan(3).toBeLessThan (4) // subject is 3, fails on first expectation, second is skipped
         }
 
         fails {
