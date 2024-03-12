@@ -93,7 +93,7 @@ class IterableFeatureExtractorSamples {
 
         expect(list).last.toEqual(3) // subject is 3
 
-        expect(list).last // Subject is 3
+        expect(iterable).last // Subject is 3
             .toBeGreaterThan(2) // subject is still 3
             .toBeLessThan(4) // subject is still 3
 
