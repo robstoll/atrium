@@ -100,7 +100,7 @@ class IterableFeatureExtractorSamples {
     fun last() {
         val iterable = listOf(1, 2, 3).asIterable()
 
-        expect(list) last {
+        expect(iterable) last {
             it toEqual 3 // subject is 3
         } last {
             it toBeGreaterThan(2)
