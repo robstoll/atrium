@@ -89,7 +89,7 @@ class IterableFeatureExtractorSamples {
 
     @Test
     fun lastFeature() {
-        val list = sequenceOf(1, 2, 3).asIterable()
+        val iterable = sequenceOf(1, 2, 3).asIterable()
 
         expect(list).last.toEqual(3) // subject is 3
 
