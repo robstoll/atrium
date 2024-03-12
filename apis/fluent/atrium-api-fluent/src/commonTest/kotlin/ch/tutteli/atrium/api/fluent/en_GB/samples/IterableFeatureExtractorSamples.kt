@@ -127,7 +127,7 @@ class IterableFeatureExtractorSamples {
                 toBeGreaterThan(3)   // fails
                 toBeLessThan (4)     // still evaluated, even though  `toBeGreaterThan` already fails,
                 //                      use `.last.` if you want a fail fast behaviour
-            } // subject here is back type List<Int>
+            } // subject here is back to type Iterable<Int>
         }
 
         fails {
