@@ -25,7 +25,6 @@ import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
 import ch.tutteli.atrium.translations.DescriptionBasic.NOT_TO_HAVE
 import ch.tutteli.atrium.translations.DescriptionBasic.TO_HAVE
 import ch.tutteli.atrium.translations.DescriptionIterableLikeExpectation.*
-import ch.tutteli.kbox.mapWithIndex
 
 class DefaultIterableLikeAssertions : IterableLikeAssertions {
     override fun <T : IterableLike, E> builderContainsInIterableLike(
@@ -250,4 +249,20 @@ class DefaultIterableLikeAssertions : IterableLikeAssertions {
             listAssertionContainer
         )
     }
+
+    override fun <T : IterableLike, E> last(
+        container: AssertionContainer<T>,
+        converter: (T) -> Iterable<E>
+    ): FeatureExtractorBuilder.ExecutionStep<T, E> =
+        container.extractFeature
+            .methodCall("last")
+            .withRepresentationForFailure(NO_ELEMENTS)
+            .withFeatureExtraction {
+                val iterable = converter(it)
+                Option.someIf(iterable.iterator().hasNext()) {
+                    iterable.last()
+                }
+            }
+            .withoutOptions()
+            .build()
 }

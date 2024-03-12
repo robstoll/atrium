@@ -58,49 +58,4 @@ class ListFeatureExtractorSamples {
         }
     }
 
-    @Test
-    fun lastFeature() {
-        val list = listOf(1, 2, 3)
-
-        expect(list) last o toEqual 3 // subject is 3
-
-        expect(list) last o toBeGreaterThan(2) toBeLessThan(4) // subject is 3 and passes all expectations
-
-        fails {
-            expect(list) last o  toBeGreaterThan (3) toBeLessThan (4) // subject is 3, fails on first expectation, second is skipped
-        }
-
-        fails {
-            expect(emptyList<Int>()) last o toEqual 3 // fails, because list is empty
-        }
-    }
-
-    @Test
-    fun last() {
-        val list = listOf(1, 2, 3)
-
-        expect(list) last {
-                it toEqual 3 // subject is 3
-            } last {
-                it toBeGreaterThan(2)
-                it toBeLessThan(4) // subject is 3 and passes all expectations
-            }
-
-        fails {
-            // all expectations are evaluated inside an expectation-group block; for more details:
-            // https://github.com/robstoll/atrium#define-single-expectations-or-an-expectation-group
-
-            expect(list).last { // subject within this expectation-group is of type Int (actually 3)
-                it toBeGreaterThan (3)  // fails
-                it toBeLessThan (4)     // still evaluated, even though  `toBeGreaterThan` already fails,
-                //                      use `.last.` if you want a fail fast behaviour
-            } // subject here is back type List<Int>
-        }
-
-        fails {
-            expect(emptyList<Int>()).last {
-                it toEqual 3 // fails, because list is empty
-            }
-        }
-    }
 }

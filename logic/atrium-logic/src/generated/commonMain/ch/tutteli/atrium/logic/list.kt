@@ -14,7 +14,6 @@ import ch.tutteli.atrium.logic.impl.DefaultListAssertions
 
     //TODO 1.3.0 change to ListLike in order that it works as well for arrays
 fun <E, T : List<E>> AssertionContainer<T>.get(index: Int): FeatureExtractorBuilder.ExecutionStep<T, E> = impl.get(this, index)
-fun <E, T : List<E>> AssertionContainer<T>.last(): FeatureExtractorBuilder.ExecutionStep<T, E> = impl.last(this)
 
 @OptIn(ExperimentalNewExpectTypes::class)
 private inline val <T> AssertionContainer<T>.impl: ListAssertions
