@@ -108,7 +108,7 @@ class IterableFeatureExtractorSamples {
 
     @Test
     fun last() {
-        val list = sequenceOf(1, 2, 3).asIterable()
+        val iterable = sequenceOf(1, 2, 3).asIterable()
 
         expect(list)
             .last {
