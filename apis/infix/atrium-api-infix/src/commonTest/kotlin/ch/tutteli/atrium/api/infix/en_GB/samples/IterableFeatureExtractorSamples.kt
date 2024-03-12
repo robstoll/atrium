@@ -111,7 +111,7 @@ class IterableFeatureExtractorSamples {
             // all expectations are evaluated inside an expectation-group block; for more details:
             // https://github.com/robstoll/atrium#define-single-expectations-or-an-expectation-group
 
-            expect(list).last { // subject within this expectation-group is of type Int (actually 3)
+            expect(iterable).last { // subject within this expectation-group is of type Int (actually 3)
                 it toBeGreaterThan (3)  // fails
                 it toBeLessThan (4)     // still evaluated, even though  `toBeGreaterThan` already fails,
                 //                      use `.last.` if you want a fail fast behaviour
