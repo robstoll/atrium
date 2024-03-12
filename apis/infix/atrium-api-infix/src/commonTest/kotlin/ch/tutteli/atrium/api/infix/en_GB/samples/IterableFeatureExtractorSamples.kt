@@ -85,7 +85,7 @@ class IterableFeatureExtractorSamples {
 
         expect(iterable) last o toEqual 3 // subject is 3
 
-        expect(list) last o toBeGreaterThan(2) toBeLessThan(4) // subject is 3 and passes all expectations
+        expect(iterable) last o toBeGreaterThan(2) toBeLessThan(4) // subject is 3 and passes all expectations
 
         fails {
             expect(list) last o  toBeGreaterThan (3) toBeLessThan (4) // subject is 3, fails on first expectation, second is skipped
