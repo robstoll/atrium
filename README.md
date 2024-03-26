@@ -2310,7 +2310,7 @@ expect(MyDomainModel(alpha1 = 1204)).toComplyValidation()
 ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/main/misc/tools/readme-examples/src/main/kotlin/readme/examples/ThirdPartySpec.kt#L85)</sub> ↓ <sub>[Output](#ex-third-party-10)</sub>
 <a name="ex-third-party-10"></a>
 ```text
-I expected subject: MyDomainModel(alpha1.2.04)        (readme.examples.ThirdPartySpec$1$MyDomainModel <1234789>)
+I expected subject: MyDomainModel(alpha1=1204)        (readme.examples.ThirdPartySpec$1$MyDomainModel <1234789>)
 ◆ to comply: validation
   ℹ Properties of the unexpected IllegalStateException
     » message: "threshold value for alpha1 exceeded, expected <= 1000, was 1204"        <1234789>
