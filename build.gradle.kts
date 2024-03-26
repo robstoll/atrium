@@ -1,7 +1,7 @@
 buildscript {
     // needs to be defined in here so that the tutteli publish plugin can set up conventions based on the group
     // (if defined in regular scope of build.gradle.kts then the tutteli plugin would not see it when applied)
-    rootProject.version = "1.2.0-SNAPSHOT"
+    rootProject.version = "1.2.0"
     rootProject.group = "ch.tutteli.atrium"
 }
 
@@ -63,7 +63,7 @@ Release & deploy a commit
 
 Either use the following commands or the manual steps below
 
-export ATRIUM_PREVIOUS_VERSION=1.1.0
+export ATRIUM_PREVIOUS_VERSION=1.2.0
 export ATRIUM_VERSION=1.2.0
 find ./ -name "*.md" | xargs perl -0777 -i \
    -pe "s@$ATRIUM_PREVIOUS_VERSION@$ATRIUM_VERSION@g;" \
@@ -183,7 +183,7 @@ Prepare next dev cycle
 
 Either use the following commands or the manual steps below
 
-export ATRIUM_VERSION=1.1.0
+export ATRIUM_VERSION=1.2.0
 export ATRIUM_NEXT_VERSION=1.2.0
 find ./ -name "*.md" | xargs perl -0777 -i \
    -pe "s@tree/v$ATRIUM_VERSION@tree/main@g;" \

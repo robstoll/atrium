@@ -13,13 +13,13 @@ These modules bundle:
 Following a list of the available bundle-modules. 
 The links point to the KDoc of their included API where you find an overview of all available expectation functions of the API.
 
-- [atrium-api-fluent](https://docs.atriumlib.org/latest#/kdoc/atrium-api-fluent)
-- [atrium-api-infix](https://docs.atriumlib.org/latest#/kdoc/atrium-api-infix)
+- [atrium-api-fluent](https://docs.atriumlib.org/1.2.0/kdoc/atrium-api-fluent)
+- [atrium-api-infix](https://docs.atriumlib.org/1.2.0/kdoc/atrium-api-infix)
 
 ----
 
 Following an excerpt of a build.gradle file which uses both APIs (see 
-[README#Installation](https://github.com/robstoll/atrium/tree/main/README.md#installation)
+[README#Installation](https://github.com/robstoll/atrium/tree/v1.2.0/README.md#installation)
 for the rest):
 ```kotlin
 dependencies {
