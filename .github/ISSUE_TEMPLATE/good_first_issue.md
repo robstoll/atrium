@@ -28,7 +28,7 @@ Following the things you need to do:
 - [ ] extend or write a separate Spec named XyExpectationsSpec in specs -> commonMain  (see for instance YzExpectationsSpec) and extend it in atrium-api-fluent -> commonTest
 - [ ] add samples to XyExpectationSamples.kt  (see YzExpectationSamples.kt as guideline -- try to provide the reason why an expectation fails)
 - [ ] add `@sample` with link to your sample method to the two functions in xYExpectations.kt
-- [ ] add `@since 1.2.0` (adapt to current [milestone](https://github.com/robstoll/atrium/milestones)) to KDOC of the two functions in xYExpectations.kt
+- [ ] add `@since 1.3.0` (adapt to current [milestone](https://github.com/robstoll/atrium/milestones)) to KDOC of the two functions in xYExpectations.kt
 
 
 *api-infix*
@@ -37,7 +37,7 @@ Following the things you need to do:
 - [ ] extend or write a separate Spec named XyExpectationsSpec in specs -> commonMain  (see for instance YzExpectationsSpec) and extend it in atrium-api-fluent -> commonTest
 - [ ] add samples to XyExpectationSamples.kt  (see YzExpectationSamples.kt as guideline -- try to provide the reason why an expectation fails)
 - [ ] add `@sample` with link to your sample method to the two functions in xYExpectations.kt
-- [ ] add `@since 1.2.0` (adapt to current [milestone](https://github.com/robstoll/atrium/milestones)) to KDOC of the two functions in xYExpectations.kt
+- [ ] add `@since 1.3.0` (adapt to current [milestone](https://github.com/robstoll/atrium/milestones)) to KDOC of the two functions in xYExpectations.kt
 
 ## Non-Code related feature
 **Is your feature request related to a problem? Please describe.**

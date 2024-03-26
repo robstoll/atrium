@@ -1,7 +1,7 @@
 buildscript {
     // needs to be defined in here so that the tutteli publish plugin can set up conventions based on the group
     // (if defined in regular scope of build.gradle.kts then the tutteli plugin would not see it when applied)
-    rootProject.version = "1.2.0"
+    rootProject.version = "1.3.0-SNAPSHOT"
     rootProject.group = "ch.tutteli.atrium"
 }
 
@@ -64,7 +64,7 @@ Release & deploy a commit
 Either use the following commands or the manual steps below
 
 export ATRIUM_PREVIOUS_VERSION=1.2.0
-export ATRIUM_VERSION=1.2.0
+export ATRIUM_VERSION=1.3.0
 find ./ -name "*.md" | xargs perl -0777 -i \
    -pe "s@$ATRIUM_PREVIOUS_VERSION@$ATRIUM_VERSION@g;" \
    -pe "s@tree/main@tree/v$ATRIUM_VERSION@g;" \
@@ -109,10 +109,10 @@ Increment ATRIUM_GH_PAGES_VERSIONS_JS_VERSION_NEXT
 
 export ATRIUM_GH_PAGES_LOGO_CSS_VERSION="1.3"
 export ATRIUM_GH_PAGES_ALERT_CSS_VERSION="1.1"
-export ATRIUM_GH_PAGES_VERSIONS_JS_VERSION="1.2.0"
-export ATRIUM_GH_PAGES_VERSIONS_JS_VERSION_NEXT="1.3.0"
+export ATRIUM_GH_PAGES_VERSIONS_JS_VERSION="1.3.0"
+export ATRIUM_GH_PAGES_VERSIONS_JS_VERSION_NEXT="1.4.0"
 
-gr dokkaHtmlMultiModule
+PUB=true gr dokkaHtmlMultiModule
 
 cd ../atrium-gh-pages
 git add . && git commit -m "dokka generation for v$ATRIUM_VERSION"
@@ -166,13 +166,13 @@ alternatively the manual steps:
 
 3. deploy to maven central:
 (assumes you have an alias named gr pointing to ./gradlew)
-    a) echo "enter the sonatype user token"
-	   read SONATYPE_PW
-    b) java -version 2>&1 | grep "version \"11" && ORG_GRADLE_PROJECT_sonatypePassword="$SONATYPE_PW" PUB=true CI=true gr clean publishToSonatype
-    c) Log into https://oss.sonatype.org/#stagingRepositories
-    d) check if staging repo is ok
-    e) close repo
-    f) release repo
+    a) echo "enter the sonatype user token (input is hidden)"
+	   read -s -r SONATYPE_PW
+       java -version 2>&1 | grep "version \"11" && ORG_GRADLE_PROJECT_sonatypePassword="$SONATYPE_PW" PUB=true CI=true gr clean publishToSonatype
+    b) Log into https://oss.sonatype.org/#stagingRepositories
+    c) check if staging repo is ok
+    d) close repo
+    e) release repo
 
 4. publish release on github
     1) Log in to github and publish draft
@@ -184,7 +184,7 @@ Prepare next dev cycle
 Either use the following commands or the manual steps below
 
 export ATRIUM_VERSION=1.2.0
-export ATRIUM_NEXT_VERSION=1.2.0
+export ATRIUM_NEXT_VERSION=1.3.0
 find ./ -name "*.md" | xargs perl -0777 -i \
    -pe "s@tree/v$ATRIUM_VERSION@tree/main@g;" \
    -pe "s@$ATRIUM_VERSION/kdoc@latest#/kdoc@g;" \
