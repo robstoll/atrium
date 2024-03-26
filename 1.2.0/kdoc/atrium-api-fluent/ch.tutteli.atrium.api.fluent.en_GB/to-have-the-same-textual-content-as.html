@@ -1,9 +1,14 @@
 <!doctype html>
-<html class="no-js">
+<html lang="en" class="no-js">
 <head>
+<meta name="keywords" content="Atrium, Kotlin, Expectation-library, Assertion-Library, Test, Testing, Multiplatform, better error reports, Code Documentation">
+<meta name="author" content="Robert Stoll">
+<meta name="copyright" content="Robert Stoll">
     <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
-    <title>toHaveTheSameTextualContentAs</title>
-<link href="../../images/logo-icon.svg" rel="icon" type="image/svg">    <script>var pathToRoot = "../../";</script>
+    <title>toHaveTheSameTextualContentAs - Atrium 1.2.0</title>
+<meta name="description" content="Code documentation of Atrium 1.2.0: toHaveTheSameTextualContentAs">
+<link href="../../../../images/logo-icon.svg" rel="icon" type="image/svg">
+<meta name="og:image" content="../../../../images/logo_social.png"/>    <script>var pathToRoot = "../../";</script>
     <script>document.documentElement.classList.replace("no-js","js");</script>
     <script>const storage = localStorage.getItem("dokka-dark-mode")
     if (storage == null) {
@@ -18,12 +23,14 @@
         }
     }
     </script>
-<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
+
 <script type="text/javascript" src="../../scripts/sourceset_dependencies.js" async></script>
 <link href="../../styles/style.css" rel="Stylesheet">
 <link href="../../styles/main.css" rel="Stylesheet">
 <link href="../../styles/prism.css" rel="Stylesheet">
-<link href="../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../../styles/logo-styles.css?v=1.3" rel="Stylesheet">
+<link href="../../../../styles/alert.css?v=1.1" rel="Stylesheet">
+<script id="versions-script" type="text/javascript" src="../../../../scripts/versions.js?v=1.4.0" data-version="1.2.0" async="async"></script>
 <link href="../../styles/font-jb-sans-auto.css" rel="Stylesheet">
 <script type="text/javascript" src="../../scripts/clipboard.js" async></script>
 <script type="text/javascript" src="../../scripts/navigation-loader.js" async></script>
@@ -38,8 +45,8 @@
         <div class="navigation-title">
             <button class="menu-toggle" id="menu-toggle" type="button">toggle menu</button>
             <div class="library-name">
-<a class="library-name--link" href="../../index.html">
-                            Atrium
+<a class="library-name--link" href="../../../../index.html" title="Back to Overview Code Documentation of Atrium">
+                            <span>Atrium</span>
                     </a>            </div>
             <div class="library-version">1.2.0
             </div>
@@ -65,19 +72,7 @@
   </div>
   <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
     <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark" data-filterable-current=":atrium-api-fluent:dokkaHtmlPartial/jvmMain" data-filterable-set=":atrium-api-fluent:dokkaHtmlPartial/jvmMain" data-active="" data-toggle=":atrium-api-fluent:dokkaHtmlPartial/jvmMain">jvm</button></div>
-<div class="content sourceset-dependent-content" data-active="" data-togglable=":atrium-api-fluent:dokkaHtmlPartial/jvmMain"><div class="symbol monospace"><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="to-have-the-same-textual-content-as.html">T</a><span class="token operator"> : </span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/nio/file/Path.html">Path</a><span class="token operator">&gt; </span><a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><a href="to-have-the-same-textual-content-as.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="to-have-the-same-textual-content-as.html"><span class="token function">toHaveTheSameTextualContentAs</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">targetPath<span class="token operator">: </span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/nio/file/Path.html">Path</a><span class="token punctuation">, </span></span><span class="parameter ">sourceCharset<span class="token operator">: </span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/nio/charset/Charset.html">Charset</a><span class="token operator"> = </span>Charsets.UTF_8<span class="token punctuation">, </span></span><span class="parameter ">targetCharset<span class="token operator">: </span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/nio/charset/Charset.html">Charset</a><span class="token operator"> = </span>Charsets.UTF_8</span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><a href="to-have-the-same-textual-content-as.html">T</a><span class="token operator">&gt;</span><span class="clearfix"><span class="floating-right">(<a href="https://github.com/robstoll/atrium/tree/v1.2.0/apis/fluent/atrium-api-fluent/src/jvmMain/kotlin/ch/tutteli/atrium/api/fluent/en_GB/pathExpectations.kt#L351">source</a>)</span></span></div><p class="paragraph">Expects that the subject of <code class="lang-kotlin">this</code> expectation (a <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/nio/file/Path.html">Path</a>) has the same textual content as <a href="to-have-the-same-textual-content-as.html">targetPath</a> taking the given encodings into account (UTF-8 if none given).</p><span class="kdoc-tag"><h4 class="">Return</h4><p class="paragraph">an <a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the subject of <code class="lang-kotlin">this</code> expectation.</p></span><span class="kdoc-tag"><h4 class="">Since</h4><p class="paragraph">0.17.0</p></span><h4 class="">Parameters</h4><div class="table"><div class="table-row" data-filterable-current=":atrium-api-fluent:dokkaHtmlPartial/jvmMain" data-filterable-set=":atrium-api-fluent:dokkaHtmlPartial/jvmMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>source</span><wbr><span><span>Charset</span></span></u></div></span></div><div><div class="title"><p class="paragraph">source file encoding - UTF-8 per default.</p></div></div></div></div><div class="table-row" data-filterable-current=":atrium-api-fluent:dokkaHtmlPartial/jvmMain" data-filterable-set=":atrium-api-fluent:dokkaHtmlPartial/jvmMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>target</span><wbr><span><span>Charset</span></span></u></div></span></div><div><div class="title"><p class="paragraph">target file encoding - UTF-8 per default.</p></div></div></div></div></div><h4 class="">Samples</h4><div class="sample-container"><pre><code class="runnablesample monospace block lang-kotlin" theme="idea">import ch.tutteli.atrium.api.fluent.en_GB.*
-import ch.tutteli.atrium.api.verbs.expect
-import ch.tutteli.atrium.specs.fileSystemSupportsPosixPermissions
-import ch.tutteli.niok.*
-import java.nio.file.FileSystems
-import java.nio.file.Files
-import java.nio.file.Paths
-import java.nio.file.attribute.PosixFilePermissions
-import kotlin.test.Test
-
-fun main() { 
-   //sampleStart 
-   val writtenTextInFile = "test_test"
+<div class="content sourceset-dependent-content" data-active="" data-togglable=":atrium-api-fluent:dokkaHtmlPartial/jvmMain"><div class="symbol monospace"><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="to-have-the-same-textual-content-as.html">T</a><span class="token operator"> : </span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/nio/file/Path.html">Path</a><span class="token operator">&gt; </span><a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><a href="to-have-the-same-textual-content-as.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="to-have-the-same-textual-content-as.html"><span class="token function">toHaveTheSameTextualContentAs</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">targetPath<span class="token operator">: </span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/nio/file/Path.html">Path</a><span class="token punctuation">, </span></span><span class="parameter ">sourceCharset<span class="token operator">: </span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/nio/charset/Charset.html">Charset</a><span class="token operator"> = </span>Charsets.UTF_8<span class="token punctuation">, </span></span><span class="parameter ">targetCharset<span class="token operator">: </span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/nio/charset/Charset.html">Charset</a><span class="token operator"> = </span>Charsets.UTF_8</span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><a href="to-have-the-same-textual-content-as.html">T</a><span class="token operator">&gt;</span><span class="clearfix"><span class="floating-right">(<a href="https://github.com/robstoll/atrium/tree/v1.2.0/apis/fluent/atrium-api-fluent/src/jvmMain/kotlin/ch/tutteli/atrium/api/fluent/en_GB/pathExpectations.kt#L351">source</a>)</span></span></div><p class="paragraph">Expects that the subject of <code class="lang-kotlin">this</code> expectation (a <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/nio/file/Path.html">Path</a>) has the same textual content as <a href="to-have-the-same-textual-content-as.html">targetPath</a> taking the given encodings into account (UTF-8 if none given).</p><span class="kdoc-tag"><h4 class="">Return</h4><p class="paragraph">an <a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the subject of <code class="lang-kotlin">this</code> expectation.</p></span><span class="kdoc-tag"><h4 class="">Since</h4><p class="paragraph">0.17.0</p></span><h4 class="">Parameters</h4><div class="table"><div class="table-row" data-filterable-current=":atrium-api-fluent:dokkaHtmlPartial/jvmMain" data-filterable-set=":atrium-api-fluent:dokkaHtmlPartial/jvmMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>source</span><wbr><span><span>Charset</span></span></u></div></span></div><div><div class="title"><p class="paragraph">source file encoding - UTF-8 per default.</p></div></div></div></div><div class="table-row" data-filterable-current=":atrium-api-fluent:dokkaHtmlPartial/jvmMain" data-filterable-set=":atrium-api-fluent:dokkaHtmlPartial/jvmMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>target</span><wbr><span><span>Charset</span></span></u></div></span></div><div><div class="title"><p class="paragraph">target file encoding - UTF-8 per default.</p></div></div></div></div></div><h4 class="">Samples</h4><div class="sample-container"><pre><code class="runnablesample monospace block lang-kotlin" theme="idea">val writtenTextInFile = "test_test"
 
 val notEmptyFilePath = tempDir.newFile("test_file_1")
 notEmptyFilePath.writeText(writtenTextInFile)
@@ -91,8 +86,6 @@ expect(notEmptyFilePath).toHaveTheSameTextualContentAs(expectedFilePath)
 
 fails { // because nothing is written inside of `emptyFilePath`
     expect(emptyFilePath).toHaveTheSameTextualContentAs(expectedFilePath)
-} 
-   //sampleEnd
 }</code></pre></div></div>  </div>
 </div>
       <div class="footer">

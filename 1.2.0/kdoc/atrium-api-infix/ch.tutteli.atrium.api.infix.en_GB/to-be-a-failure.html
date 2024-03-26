@@ -1,9 +1,14 @@
 <!doctype html>
-<html class="no-js">
+<html lang="en" class="no-js">
 <head>
+<meta name="keywords" content="Atrium, Kotlin, Expectation-library, Assertion-Library, Test, Testing, Multiplatform, better error reports, Code Documentation">
+<meta name="author" content="Robert Stoll">
+<meta name="copyright" content="Robert Stoll">
     <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
-    <title>toBeAFailure</title>
-<link href="../../images/logo-icon.svg" rel="icon" type="image/svg">    <script>var pathToRoot = "../../";</script>
+    <title>toBeAFailure - Atrium 1.2.0</title>
+<meta name="description" content="Code documentation of Atrium 1.2.0: toBeAFailure">
+<link href="../../../../images/logo-icon.svg" rel="icon" type="image/svg">
+<meta name="og:image" content="../../../../images/logo_social.png"/>    <script>var pathToRoot = "../../";</script>
     <script>document.documentElement.classList.replace("no-js","js");</script>
     <script>const storage = localStorage.getItem("dokka-dark-mode")
     if (storage == null) {
@@ -18,12 +23,14 @@
         }
     }
     </script>
-<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
+
 <script type="text/javascript" src="../../scripts/sourceset_dependencies.js" async></script>
 <link href="../../styles/style.css" rel="Stylesheet">
 <link href="../../styles/main.css" rel="Stylesheet">
 <link href="../../styles/prism.css" rel="Stylesheet">
-<link href="../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../../styles/logo-styles.css?v=1.3" rel="Stylesheet">
+<link href="../../../../styles/alert.css?v=1.1" rel="Stylesheet">
+<script id="versions-script" type="text/javascript" src="../../../../scripts/versions.js?v=1.4.0" data-version="1.2.0" async="async"></script>
 <link href="../../styles/font-jb-sans-auto.css" rel="Stylesheet">
 <script type="text/javascript" src="../../scripts/clipboard.js" async></script>
 <script type="text/javascript" src="../../scripts/navigation-loader.js" async></script>
@@ -38,8 +45,8 @@
         <div class="navigation-title">
             <button class="menu-toggle" id="menu-toggle" type="button">toggle menu</button>
             <div class="library-name">
-<a class="library-name--link" href="../../index.html">
-                            Atrium
+<a class="library-name--link" href="../../../../index.html" title="Back to Overview Code Documentation of Atrium">
+                            <span>Atrium</span>
                     </a>            </div>
             <div class="library-version">1.2.0
             </div>
@@ -63,13 +70,7 @@
   <div class="cover ">
     <h1 class="cover"><span>to</span><wbr><span>Be</span><wbr><span><span>AFailure</span></span></h1>
   </div>
-  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":atrium-api-infix:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">inline </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="to-be-a-failure.html">ExpectedThrowableT</a><span class="token operator"> : </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throwable/index.html">Throwable</a><span class="token operator">&gt; </span><a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><span class="token keyword">out </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-result/index.html">Result</a><span class="token operator">&lt;</span><span class="token operator">*</span><span class="token operator">&gt;</span><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="to-be-a-failure.html"><span class="token function">toBeAFailure</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><a href="to-be-a-failure.html">ExpectedThrowableT</a><span class="token operator">&gt;</span><span class="clearfix"><span class="floating-right">(<a href="https://github.com/robstoll/atrium/tree/v1.2.0/apis/infix/atrium-api-infix/src/commonMain/kotlin/ch/tutteli/atrium/api/infix/en_GB/resultExpectations.kt#L47">source</a>)</span></span></div><p class="paragraph">Expects that the subject of <code class="lang-kotlin">this</code> expectation (a <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-result/index.html">Result</a>) is a failure (<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-result/is-failure.html">Result.isFailure</a>) and that it encapsulates a <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throwable/index.html">Throwable</a> of type <a href="to-be-a-failure.html">ExpectedThrowableT</a> or a subtype thereof.</p><span class="kdoc-tag"><h4 class="">Return</h4><p class="paragraph">An <a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a> with the new type <a href="to-be-a-failure.html">ExpectedThrowableT</a></p></span><span class="kdoc-tag"><h4 class="">Since</h4><p class="paragraph">1.1.0 (was in kotlin_1_3 extension since 0.17.0)</p></span><h4 class="">Samples</h4><div class="sample-container"><pre><code class="runnablesample monospace block lang-kotlin" theme="idea">import ch.tutteli.atrium.api.infix.en_GB.*
-import ch.tutteli.atrium.api.verbs.expect
-import kotlin.test.Test
-
-fun main() { 
-   //sampleStart 
-   val message = "wrong argument"
+  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":atrium-api-infix:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">inline </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="to-be-a-failure.html">ExpectedThrowableT</a><span class="token operator"> : </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throwable/index.html">Throwable</a><span class="token operator">&gt; </span><a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><span class="token keyword">out </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-result/index.html">Result</a><span class="token operator">&lt;</span><span class="token operator">*</span><span class="token operator">&gt;</span><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="to-be-a-failure.html"><span class="token function">toBeAFailure</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><a href="to-be-a-failure.html">ExpectedThrowableT</a><span class="token operator">&gt;</span><span class="clearfix"><span class="floating-right">(<a href="https://github.com/robstoll/atrium/tree/v1.2.0/apis/infix/atrium-api-infix/src/commonMain/kotlin/ch/tutteli/atrium/api/infix/en_GB/resultExpectations.kt#L47">source</a>)</span></span></div><p class="paragraph">Expects that the subject of <code class="lang-kotlin">this</code> expectation (a <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-result/index.html">Result</a>) is a failure (<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-result/is-failure.html">Result.isFailure</a>) and that it encapsulates a <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throwable/index.html">Throwable</a> of type <a href="to-be-a-failure.html">ExpectedThrowableT</a> or a subtype thereof.</p><span class="kdoc-tag"><h4 class="">Return</h4><p class="paragraph">An <a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a> with the new type <a href="to-be-a-failure.html">ExpectedThrowableT</a></p></span><span class="kdoc-tag"><h4 class="">Since</h4><p class="paragraph">1.1.0 (was in kotlin_1_3 extension since 0.17.0)</p></span><h4 class="">Samples</h4><div class="sample-container"><pre><code class="runnablesample monospace block lang-kotlin" theme="idea">val message = "wrong argument"
 val failure = Result.failure&lt;Int&gt;(IllegalArgumentException(message))
 
 expect(failure)
@@ -95,15 +96,7 @@ fails { // because it was a Success
     //       |                                      | not evaluated/reported because toBeAFailure already fails
     //       |                                      | use `toBeAFailure&lt;...&gt; { ... }` if you want that all expectations are evaluated
     //       | fails
-} 
-   //sampleEnd
-}</code></pre></div><hr><div class="symbol monospace"><span class="token keyword">infix inline </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="to-be-a-failure.html">ExpectedThrowableT</a><span class="token operator"> : </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throwable/index.html">Throwable</a><span class="token operator">&gt; </span><a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><span class="token keyword">out </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-result/index.html">Result</a><span class="token operator">&lt;</span><span class="token operator">*</span><span class="token operator">&gt;</span><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="to-be-a-failure.html"><span class="token function">toBeAFailure</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">noinline </span>assertionCreator<span class="token operator">: </span><a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><a href="to-be-a-failure.html">ExpectedThrowableT</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><a href="to-be-a-failure.html">ExpectedThrowableT</a><span class="token operator">&gt;</span><span class="clearfix"><span class="floating-right">(<a href="https://github.com/robstoll/atrium/tree/v1.2.0/apis/infix/atrium-api-infix/src/commonMain/kotlin/ch/tutteli/atrium/api/infix/en_GB/resultExpectations.kt#L61">source</a>)</span></span></div><p class="paragraph">Expects that the subject of <code class="lang-kotlin">this</code> expectation (a <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-result/index.html">Result</a>) is a failure (<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-result/is-failure.html">Result.isFailure</a>) , that it encapsulates a <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throwable/index.html">Throwable</a> of type <a href="to-be-a-failure.html">ExpectedThrowableT</a> or a subtype thereof and that the <a href="to-be-a-failure.html">ExpectedThrowableT</a> holds all assertions the given <a href="to-be-a-failure.html">assertionCreator</a> creates</p><span class="kdoc-tag"><h4 class="">Return</h4><p class="paragraph">An <a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a> with the new type <a href="to-be-a-failure.html">ExpectedThrowableT</a></p></span><span class="kdoc-tag"><h4 class="">Since</h4><p class="paragraph">1.1.0 (was in kotlin_1_3 extension since 0.17.0)</p></span><h4 class="">Samples</h4><div class="sample-container"><pre><code class="runnablesample monospace block lang-kotlin" theme="idea">import ch.tutteli.atrium.api.infix.en_GB.*
-import ch.tutteli.atrium.api.verbs.expect
-import kotlin.test.Test
-
-fun main() { 
-   //sampleStart 
-   val errorMessage = "can not divide by zero"
+}</code></pre></div><hr><div class="symbol monospace"><span class="token keyword">infix inline </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="to-be-a-failure.html">ExpectedThrowableT</a><span class="token operator"> : </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throwable/index.html">Throwable</a><span class="token operator">&gt; </span><a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><span class="token keyword">out </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-result/index.html">Result</a><span class="token operator">&lt;</span><span class="token operator">*</span><span class="token operator">&gt;</span><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="to-be-a-failure.html"><span class="token function">toBeAFailure</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">noinline </span>assertionCreator<span class="token operator">: </span><a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><a href="to-be-a-failure.html">ExpectedThrowableT</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><a href="to-be-a-failure.html">ExpectedThrowableT</a><span class="token operator">&gt;</span><span class="clearfix"><span class="floating-right">(<a href="https://github.com/robstoll/atrium/tree/v1.2.0/apis/infix/atrium-api-infix/src/commonMain/kotlin/ch/tutteli/atrium/api/infix/en_GB/resultExpectations.kt#L61">source</a>)</span></span></div><p class="paragraph">Expects that the subject of <code class="lang-kotlin">this</code> expectation (a <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-result/index.html">Result</a>) is a failure (<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-result/is-failure.html">Result.isFailure</a>) , that it encapsulates a <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-throwable/index.html">Throwable</a> of type <a href="to-be-a-failure.html">ExpectedThrowableT</a> or a subtype thereof and that the <a href="to-be-a-failure.html">ExpectedThrowableT</a> holds all assertions the given <a href="to-be-a-failure.html">assertionCreator</a> creates</p><span class="kdoc-tag"><h4 class="">Return</h4><p class="paragraph">An <a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a> with the new type <a href="to-be-a-failure.html">ExpectedThrowableT</a></p></span><span class="kdoc-tag"><h4 class="">Since</h4><p class="paragraph">1.1.0 (was in kotlin_1_3 extension since 0.17.0)</p></span><h4 class="">Samples</h4><div class="sample-container"><pre><code class="runnablesample monospace block lang-kotlin" theme="idea">val errorMessage = "can not divide by zero"
 val failure = Result.failure&lt;Int&gt;(ArithmeticException(errorMessage))
 
 expect(failure).toBeAFailure&lt;ArithmeticException&gt; {  // subject within this expectation-group is of type ArithmeticException
@@ -130,8 +123,6 @@ fails { // because it was a Success, but since we use a block
         its messageToContain "parameter" // ...reporting mentions that subject's message was expected `to contain: "parameter"``
         //                                  use `.toBeAFailure.` if you want a fail fast behaviour
     }
-} 
-   //sampleEnd
 }</code></pre></div></div></div>
 </div>
       <div class="footer">

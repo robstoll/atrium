@@ -1,9 +1,14 @@
 <!doctype html>
-<html class="no-js">
+<html lang="en" class="no-js">
 <head>
+<meta name="keywords" content="Atrium, Kotlin, Expectation-library, Assertion-Library, Test, Testing, Multiplatform, better error reports, Code Documentation">
+<meta name="author" content="Robert Stoll">
+<meta name="copyright" content="Robert Stoll">
     <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
-    <title>notToBeReadable</title>
-<link href="../../images/logo-icon.svg" rel="icon" type="image/svg">    <script>var pathToRoot = "../../";</script>
+    <title>notToBeReadable - Atrium 1.2.0</title>
+<meta name="description" content="Code documentation of Atrium 1.2.0: notToBeReadable">
+<link href="../../../../images/logo-icon.svg" rel="icon" type="image/svg">
+<meta name="og:image" content="../../../../images/logo_social.png"/>    <script>var pathToRoot = "../../";</script>
     <script>document.documentElement.classList.replace("no-js","js");</script>
     <script>const storage = localStorage.getItem("dokka-dark-mode")
     if (storage == null) {
@@ -18,12 +23,14 @@
         }
     }
     </script>
-<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
+
 <script type="text/javascript" src="../../scripts/sourceset_dependencies.js" async></script>
 <link href="../../styles/style.css" rel="Stylesheet">
 <link href="../../styles/main.css" rel="Stylesheet">
 <link href="../../styles/prism.css" rel="Stylesheet">
-<link href="../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../../styles/logo-styles.css?v=1.3" rel="Stylesheet">
+<link href="../../../../styles/alert.css?v=1.1" rel="Stylesheet">
+<script id="versions-script" type="text/javascript" src="../../../../scripts/versions.js?v=1.4.0" data-version="1.2.0" async="async"></script>
 <link href="../../styles/font-jb-sans-auto.css" rel="Stylesheet">
 <script type="text/javascript" src="../../scripts/clipboard.js" async></script>
 <script type="text/javascript" src="../../scripts/navigation-loader.js" async></script>
@@ -38,8 +45,8 @@
         <div class="navigation-title">
             <button class="menu-toggle" id="menu-toggle" type="button">toggle menu</button>
             <div class="library-name">
-<a class="library-name--link" href="../../index.html">
-                            Atrium
+<a class="library-name--link" href="../../../../index.html" title="Back to Overview Code Documentation of Atrium">
+                            <span>Atrium</span>
                     </a>            </div>
             <div class="library-version">1.2.0
             </div>
@@ -65,19 +72,7 @@
   </div>
   <div class="platform-hinted  with-platform-tabs" data-platform-hinted="data-platform-hinted">
     <div class="platform-bookmarks-row" data-toggle-list="data-toggle-list"><button class="platform-bookmark" data-filterable-current=":atrium-api-fluent:dokkaHtmlPartial/jvmMain" data-filterable-set=":atrium-api-fluent:dokkaHtmlPartial/jvmMain" data-active="" data-toggle=":atrium-api-fluent:dokkaHtmlPartial/jvmMain">jvm</button></div>
-<div class="content sourceset-dependent-content" data-active="" data-togglable=":atrium-api-fluent:dokkaHtmlPartial/jvmMain"><div class="symbol monospace"><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="not-to-be-readable.html">T</a><span class="token operator"> : </span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/nio/file/Path.html">Path</a><span class="token operator">&gt; </span><a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><a href="not-to-be-readable.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="not-to-be-readable.html"><span class="token function">notToBeReadable</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><a href="not-to-be-readable.html">T</a><span class="token operator">&gt;</span><span class="clearfix"><span class="floating-right">(<a href="https://github.com/robstoll/atrium/tree/v1.2.0/apis/fluent/atrium-api-fluent/src/jvmMain/kotlin/ch/tutteli/atrium/api/fluent/en_GB/pathExpectations.kt#L132">source</a>)</span></span></div><p class="paragraph">Expects that the subject of <code class="lang-kotlin">this</code> expectation (a <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/nio/file/Path.html">Path</a>) is not readable; meaning that there is a file system entry at the location the <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/nio/file/Path.html">Path</a> points to and that the current thread does not have the permission to read from it.</p><p class="paragraph">This assertion <i>resolves</i> symbolic links. Therefore, if a symbolic link exists at the location the subject points to, search will continue at the location the link points at.</p><p class="paragraph">This assertion is not atomic with respect to concurrent file system operations on the paths the assertion works on. Its result, in particular its extended explanations, may be wrong if such concurrent file system operations take place.</p><span class="kdoc-tag"><h4 class="">Return</h4><p class="paragraph">an <a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the subject of <code class="lang-kotlin">this</code> expectation.</p></span><span class="kdoc-tag"><h4 class="">Since</h4><p class="paragraph">0.17.0</p></span><h4 class="">Samples</h4><div class="sample-container"><pre><code class="runnablesample monospace block lang-kotlin" theme="idea">import ch.tutteli.atrium.api.fluent.en_GB.*
-import ch.tutteli.atrium.api.verbs.expect
-import ch.tutteli.atrium.specs.fileSystemSupportsPosixPermissions
-import ch.tutteli.niok.*
-import java.nio.file.FileSystems
-import java.nio.file.Files
-import java.nio.file.Paths
-import java.nio.file.attribute.PosixFilePermissions
-import kotlin.test.Test
-
-fun main() { 
-   //sampleStart 
-   runIf(ifPosixSupported) {
+<div class="content sourceset-dependent-content" data-active="" data-togglable=":atrium-api-fluent:dokkaHtmlPartial/jvmMain"><div class="symbol monospace"><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="not-to-be-readable.html">T</a><span class="token operator"> : </span><a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/nio/file/Path.html">Path</a><span class="token operator">&gt; </span><a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><a href="not-to-be-readable.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="not-to-be-readable.html"><span class="token function">notToBeReadable</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><a href="not-to-be-readable.html">T</a><span class="token operator">&gt;</span><span class="clearfix"><span class="floating-right">(<a href="https://github.com/robstoll/atrium/tree/v1.2.0/apis/fluent/atrium-api-fluent/src/jvmMain/kotlin/ch/tutteli/atrium/api/fluent/en_GB/pathExpectations.kt#L132">source</a>)</span></span></div><p class="paragraph">Expects that the subject of <code class="lang-kotlin">this</code> expectation (a <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/nio/file/Path.html">Path</a>) is not readable; meaning that there is a file system entry at the location the <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/nio/file/Path.html">Path</a> points to and that the current thread does not have the permission to read from it.</p><p class="paragraph">This assertion <i>resolves</i> symbolic links. Therefore, if a symbolic link exists at the location the subject points to, search will continue at the location the link points at.</p><p class="paragraph">This assertion is not atomic with respect to concurrent file system operations on the paths the assertion works on. Its result, in particular its extended explanations, may be wrong if such concurrent file system operations take place.</p><span class="kdoc-tag"><h4 class="">Return</h4><p class="paragraph">an <a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the subject of <code class="lang-kotlin">this</code> expectation.</p></span><span class="kdoc-tag"><h4 class="">Since</h4><p class="paragraph">0.17.0</p></span><h4 class="">Samples</h4><div class="sample-container"><pre><code class="runnablesample monospace block lang-kotlin" theme="idea">runIf(ifPosixSupported) {
     val writeOnlyPermissions =
         PosixFilePermissions.asFileAttribute(PosixFilePermissions.fromString("-w--w--w-"))
     val readyWritePermissions =
@@ -105,8 +100,6 @@ fun main() {
 
 fails {
     expect(Paths.get("non_existing_dir")).notToBeReadable()
-} 
-   //sampleEnd
 }</code></pre></div></div>  </div>
 </div>
       <div class="footer">
