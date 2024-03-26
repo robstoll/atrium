@@ -1,0 +1,115 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>notToBeAnInstanceOf</title>
+<link href="../../images/logo-icon.svg" rel="icon" type="image/svg">    <script>var pathToRoot = "../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
+<script type="text/javascript" src="../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../styles/style.css" rel="Stylesheet">
+<link href="../../styles/main.css" rel="Stylesheet">
+<link href="../../styles/prism.css" rel="Stylesheet">
+<link href="../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<script type="text/javascript" src="../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
+<body>
+    <div class="root">
+<nav class="navigation" id="navigation-wrapper">
+    <div class="navigation--inner">
+        <div class="navigation-title">
+            <button class="menu-toggle" id="menu-toggle" type="button">toggle menu</button>
+            <div class="library-name">
+<a class="library-name--link" href="../../index.html">
+                            Atrium
+                    </a>            </div>
+            <div class="library-version">1.2.0
+            </div>
+        </div>
+        <div class="filter-section" id="filter-section">
+                <button class="platform-tag platform-selector common-like" data-active="" data-filter=":atrium-api-infix:dokkaHtmlPartial/commonMain">common</button>
+        </div>
+    </div>
+    <div class="navigation-controls">
+        <button class="navigation-controls--btn navigation-controls--theme" id="theme-toggle-button" type="button">switch theme</button>
+        <div class="navigation-controls--btn navigation-controls--search" id="searchBar" role="button">search in API</div>
+    </div>
+</nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="sidebar--inner" id="sideMenu"></div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="member" id="content" pageids="atrium-api-infix::ch.tutteli.atrium.api.infix.en_GB//notToBeAnInstanceOf/ch.tutteli.atrium.creating.Expect[*]#/PointingToDeclaration//105691009">
+  <div class="breadcrumbs"><a href="../index.html">atrium-api-infix</a><span class="delimiter">/</span><a href="index.html">ch.tutteli.atrium.api.infix.en_GB</a><span class="delimiter">/</span><span class="current">notToBeAnInstanceOf</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>not</span><wbr><span>To</span><wbr><span>Be</span><wbr><span>An</span><wbr><span>Instance</span><wbr><span><span>Of</span></span></h1>
+  </div>
+  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":atrium-api-infix:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">inline </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="not-to-be-an-instance-of.html">SubTypeOfSubjectT</a><span class="token operator"> : </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html">Any</a><span class="token operator">&gt; </span><a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><span class="token operator">*</span><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="not-to-be-an-instance-of.html"><span class="token function">notToBeAnInstanceOf</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><span class="token operator">*</span><span class="token operator">&gt;</span><span class="clearfix"><span class="floating-right">(<a href="https://github.com/robstoll/atrium/tree/v1.2.0/apis/infix/atrium-api-infix/src/commonMain/kotlin/ch/tutteli/atrium/api/infix/en_GB/anyExpectations.kt#L216">source</a>)</span></span></div><p class="paragraph">Expects that the type of the subject of <code class="lang-kotlin">this</code> expectation is <strong>not</strong> the defined <a href="not-to-be-an-instance-of.html">SubTypeOfSubjectT</a> neither a subtype thereof.</p><p class="paragraph">Notice, this function has only one type parameter in order that you do not have to restate the type of the current subject. But that also means that we need to return <code class="lang-kotlin">Expect&lt;*&gt;</code> or in other words, we loose the type of the subject. Which means, if you want to state a further expectation after <a href="not-to-be-an-instance-of.html">notToBeAnInstanceOf</a> then you most likely want to use the overload which expects one (or more) <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect/-k-class/index.html">KClass</a> instead which keeps the type of the initial subject.</p><span class="kdoc-tag"><h4 class="">Return</h4><p class="paragraph">an <a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the subject of <code class="lang-kotlin">this</code> expectation but untyped (with a star projection).</p></span><span class="kdoc-tag"><h4 class="">Since</h4><p class="paragraph">1.1.0</p></span><h4 class="">Parameters</h4><div class="table"><div class="table-row" data-filterable-current=":atrium-api-infix:dokkaHtmlPartial/commonMain" data-filterable-set=":atrium-api-infix:dokkaHtmlPartial/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>Sub</span><wbr><span>Type</span><wbr><span>Of</span><wbr><span>Subject</span><wbr><span><span>T</span></span></u></div></span></div><div><div class="title"><p class="paragraph">the type which we do not expect to be the same or a super-type of the subject of <code class="lang-kotlin">this</code> expectation.</p></div></div></div></div></div><h4 class="">Samples</h4><div class="sample-container"><pre><code class="runnablesample monospace block lang-kotlin" theme="idea">import ch.tutteli.atrium.api.infix.en_GB.*
+import ch.tutteli.atrium.api.verbs.expect
+import kotlin.test.Test
+
+fun main() { 
+   //sampleStart 
+   val n: Number = 16L
+expect(n).notToBeAnInstanceOf&lt;Int&gt;()
+fails {
+    // fails because n is actually instance of Long
+    expect(n).notToBeAnInstanceOf&lt;Long&gt;()
+} 
+   //sampleEnd
+}</code></pre></div><hr><div class="symbol monospace"><span class="token keyword">infix </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="not-to-be-an-instance-of.html">T</a><span class="token operator">&gt; </span><a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><a href="not-to-be-an-instance-of.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="not-to-be-an-instance-of.html"><span class="token function">notToBeAnInstanceOf</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">type<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect/-k-class/index.html">KClass</a><span class="token operator">&lt;</span><span class="token operator">*</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><a href="not-to-be-an-instance-of.html">T</a><span class="token operator">&gt;</span><span class="clearfix"><span class="floating-right">(<a href="https://github.com/robstoll/atrium/tree/v1.2.0/apis/infix/atrium-api-infix/src/commonMain/kotlin/ch/tutteli/atrium/api/infix/en_GB/anyExpectations.kt#L231">source</a>)</span></span></div><p class="paragraph">Expects that the type of the subject of <code class="lang-kotlin">this</code> expectation is <strong>not</strong> the given <a href="not-to-be-an-instance-of.html">type</a> neither a subtype thereof.</p><span class="kdoc-tag"><h4 class="">Return</h4><p class="paragraph">an <a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the subject of <code class="lang-kotlin">this</code> expectation.</p></span><span class="kdoc-tag"><h4 class="">Since</h4><p class="paragraph">1.1.0</p></span><h4 class="">Parameters</h4><div class="table"><div class="table-row" data-filterable-current=":atrium-api-infix:dokkaHtmlPartial/commonMain" data-filterable-set=":atrium-api-infix:dokkaHtmlPartial/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span><span>type</span></span></u></div></span></div><div><div class="title"><p class="paragraph">the type which we do not expect to be the same or a super-type of the subject of <code class="lang-kotlin">this</code> expectation.</p></div></div></div></div></div><h4 class="">Samples</h4><div class="sample-container"><pre><code class="runnablesample monospace block lang-kotlin" theme="idea">import ch.tutteli.atrium.api.infix.en_GB.*
+import ch.tutteli.atrium.api.verbs.expect
+import kotlin.test.Test
+
+fun main() { 
+   //sampleStart 
+   val n: Number = 16L
+expect(n) notToBeAnInstanceOf Int::class
+fails {
+    // fails because n is actually instance of Long
+    expect(n) notToBeAnInstanceOf Long::class
+} 
+   //sampleEnd
+}</code></pre></div><hr><div class="symbol monospace"><span class="token keyword">infix </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="not-to-be-an-instance-of.html">T</a><span class="token operator">&gt; </span><a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><a href="not-to-be-an-instance-of.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="not-to-be-an-instance-of.html"><span class="token function">notToBeAnInstanceOf</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">types<span class="token operator">: </span><a href="../ch.tutteli.atrium.api.infix.en_GB.creating/-types/index.html">Types</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><a href="not-to-be-an-instance-of.html">T</a><span class="token operator">&gt;</span><span class="clearfix"><span class="floating-right">(<a href="https://github.com/robstoll/atrium/tree/v1.2.0/apis/infix/atrium-api-infix/src/commonMain/kotlin/ch/tutteli/atrium/api/infix/en_GB/anyExpectations.kt#L246">source</a>)</span></span></div><p class="paragraph">Expects that the type of the subject of <code class="lang-kotlin">this</code> expectation is <strong>not</strong> one of the given <a href="not-to-be-an-instance-of.html">types</a> neither a subtype thereof.</p><span class="kdoc-tag"><h4 class="">Return</h4><p class="paragraph">an <a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the subject of <code class="lang-kotlin">this</code> expectation.</p></span><span class="kdoc-tag"><h4 class="">Since</h4><p class="paragraph">1.1.0</p></span><h4 class="">Parameters</h4><div class="table"><div class="table-row" data-filterable-current=":atrium-api-infix:dokkaHtmlPartial/commonMain" data-filterable-set=":atrium-api-infix:dokkaHtmlPartial/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span><span>types</span></span></u></div></span></div><div><div class="title"><p class="paragraph">the types which we do not expect to be the same or a super-type of the subject of <code class="lang-kotlin">this</code>     expectation.</p></div></div></div></div></div><h4 class="">Samples</h4><div class="sample-container"><pre><code class="runnablesample monospace block lang-kotlin" theme="idea">import ch.tutteli.atrium.api.infix.en_GB.*
+import ch.tutteli.atrium.api.verbs.expect
+import kotlin.test.Test
+
+fun main() { 
+   //sampleStart 
+   val n: Number = 16L
+expect(n) notToBeAnInstanceOf types(Int::class, Float::class, Double::class)
+fails {
+    // fails because n is actually instance of Long
+    expect(n) notToBeAnInstanceOf types(Int::class, Long::class)
+} 
+   //sampleEnd
+}</code></pre></div></div></div>
+</div>
+      <div class="footer">
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>Atrium © Copyright Robert Stoll &lt;rstoll@tutteli.ch&gt;</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+      </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

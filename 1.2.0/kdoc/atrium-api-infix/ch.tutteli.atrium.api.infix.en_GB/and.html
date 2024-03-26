@@ -1,0 +1,123 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>and</title>
+<link href="../../images/logo-icon.svg" rel="icon" type="image/svg">    <script>var pathToRoot = "../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
+<script type="text/javascript" src="../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../styles/style.css" rel="Stylesheet">
+<link href="../../styles/main.css" rel="Stylesheet">
+<link href="../../styles/prism.css" rel="Stylesheet">
+<link href="../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<script type="text/javascript" src="../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
+<body>
+    <div class="root">
+<nav class="navigation" id="navigation-wrapper">
+    <div class="navigation--inner">
+        <div class="navigation-title">
+            <button class="menu-toggle" id="menu-toggle" type="button">toggle menu</button>
+            <div class="library-name">
+<a class="library-name--link" href="../../index.html">
+                            Atrium
+                    </a>            </div>
+            <div class="library-version">1.2.0
+            </div>
+        </div>
+        <div class="filter-section" id="filter-section">
+                <button class="platform-tag platform-selector common-like" data-active="" data-filter=":atrium-api-infix:dokkaHtmlPartial/commonMain">common</button>
+        </div>
+    </div>
+    <div class="navigation-controls">
+        <button class="navigation-controls--btn navigation-controls--theme" id="theme-toggle-button" type="button">switch theme</button>
+        <div class="navigation-controls--btn navigation-controls--search" id="searchBar" role="button">search in API</div>
+    </div>
+</nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="sidebar--inner" id="sideMenu"></div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="member" id="content" pageids="atrium-api-infix::ch.tutteli.atrium.api.infix.en_GB//and/ch.tutteli.atrium.creating.Expect[TypeParam(bounds=[kotlin.Any?])]#ch.tutteli.atrium.api.infix.en_GB.o/PointingToDeclaration//105691009">
+  <div class="breadcrumbs"><a href="../index.html">atrium-api-infix</a><span class="delimiter">/</span><a href="index.html">ch.tutteli.atrium.api.infix.en_GB</a><span class="delimiter">/</span><span class="current">and</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span><span>and</span></span></h1>
+  </div>
+  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":atrium-api-infix:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">infix inline </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="and.html">T</a><span class="token operator">&gt; </span><a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><a href="and.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="and.html"><span class="token function">and</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">o<span class="token operator">: </span><a href="o/index.html">o</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><a href="and.html">T</a><span class="token operator">&gt;</span><span class="clearfix"><span class="floating-right">(<a href="https://github.com/robstoll/atrium/tree/v1.2.0/apis/infix/atrium-api-infix/src/commonMain/kotlin/ch/tutteli/atrium/api/infix/en_GB/anyExpectations.kt#L297">source</a>)</span></span></div><p class="paragraph">Can be used to separate single assertions.</p><p class="paragraph">For instance <code class="lang-kotlin">expect(1) toBeLessThan 2 and toBeGreaterThan 0</code> creates two assertions (not one assertion with two sub-assertions) - the first asserts that 1 is less than 2 and the second asserts that 1 is greater than 0. If the first assertion fails, then the second assertion is not evaluated.</p><span class="kdoc-tag"><h4 class="">Return</h4><p class="paragraph">an <a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the subject of <code class="lang-kotlin">this</code> expectation.</p></span><span class="kdoc-tag"><h4 class="">Since</h4><p class="paragraph">0.12.0</p></span><h4 class="">Parameters</h4><div class="table"><div class="table-row" data-filterable-current=":atrium-api-infix:dokkaHtmlPartial/commonMain" data-filterable-set=":atrium-api-infix:dokkaHtmlPartial/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span><span>o</span></span></u></div></span></div><div><div class="title"><p class="paragraph">The filler object <a href="and.html">o</a>.</p></div></div></div></div></div><h4 class="">Samples</h4><div class="sample-container"><pre><code class="runnablesample monospace block lang-kotlin" theme="idea">import ch.tutteli.atrium.api.infix.en_GB.*
+import ch.tutteli.atrium.api.verbs.expect
+import kotlin.test.Test
+
+fun main() { 
+   //sampleStart 
+   // `and` is just a filler word does not have any behaviour
+expect(13) toBeGreaterThan 5 and o toBeLessThan 20
+
+// i.e. the above is equivalent to:
+expect(13) toBeGreaterThan 5 toBeLessThan 20 
+   //sampleEnd
+}</code></pre></div><hr><div class="symbol monospace"><span class="token keyword">infix </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="and.html">T</a><span class="token operator">&gt; </span><a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><a href="and.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="and.html"><span class="token function">and</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">assertionCreator<span class="token operator">: </span><a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><a href="and.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><a href="and.html">T</a><span class="token operator">&gt;</span><span class="clearfix"><span class="floating-right">(<a href="https://github.com/robstoll/atrium/tree/v1.2.0/apis/infix/atrium-api-infix/src/commonMain/kotlin/ch/tutteli/atrium/api/infix/en_GB/anyExpectations.kt#L311">source</a>)</span></span></div><p class="paragraph">Can be used to create a group of sub assertions when using the fluent API.</p><p class="paragraph">For instance <code class="lang-kotlin">expect(1) toBeLessThan 3 and { it toBe even; it toBeGreaterThan 1 }</code> creates two assertions where the second one consists of two sub-assertions. In case the first assertion holds, then the second one is evaluated as a whole. Meaning, even though 1 is not even, it still evaluates that 1 is greater than 1. Hence, the reporting might (depending on the configured <a href="../../atrium-core/ch.tutteli.atrium.reporting/-reporter/index.html">Reporter</a>) contain both failing sub-assertions.</p><span class="kdoc-tag"><h4 class="">Return</h4><p class="paragraph">an <a href="../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the subject of <code class="lang-kotlin">this</code> expectation.</p></span><h4 class="">Samples</h4><div class="sample-container"><pre><code class="runnablesample monospace block lang-kotlin" theme="idea">import ch.tutteli.atrium.api.infix.en_GB.*
+import ch.tutteli.atrium.api.verbs.expect
+import kotlin.test.Test
+
+fun main() { 
+   //sampleStart 
+   expect(13).toBeAnInstanceOf&lt;Int&gt;() and {
+    it toBeGreaterThan 5
+    it toBeLessThan 20
+}
+
+fails {
+    expect(13).toBeAnInstanceOf&lt;Int&gt;() and {
+        // introduces an expectation-group block
+        // all expectations are evaluated inside an expectations group block; for more details:
+        // https://github.com/robstoll/atrium#define-single-expectations-or-expectation-groups
+
+        it notToEqualOneOf values(1, 2, 13) // fails
+        it toBeLessThan 10                  // still evaluated and included in the error report
+        //                                     use ` and o` if you want fail fast behaviour
+    }
+} 
+   //sampleEnd
+}</code></pre></div><hr><div class="symbol monospace"><span class="token keyword">infix </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="and.html">E</a><span class="token punctuation">, </span><a href="and.html">T</a><span class="token operator"> : </span><a href="../../atrium-logic/ch.tutteli.atrium.logic.creating.typeutils/-iterable-like/index.html">IterableLike</a><span class="token operator">&gt; </span><a href="../../atrium-logic/ch.tutteli.atrium.logic.creating.iterable.contains/-iterable-like-contains/-entry-point-step/index.html">IterableLikeContains.EntryPointStep</a><span class="token operator">&lt;</span><a href="and.html">E</a><span class="token punctuation">, </span><a href="and.html">T</a><span class="token punctuation">, </span><a href="../../atrium-logic/ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours/-in-order-search-behaviour/index.html">InOrderSearchBehaviour</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="and.html"><span class="token function">and</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">only<span class="token operator">: </span><a href="only/index.html">only</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../atrium-logic/ch.tutteli.atrium.logic.creating.iterable.contains/-iterable-like-contains/-entry-point-step/index.html">IterableLikeContains.EntryPointStep</a><span class="token operator">&lt;</span><a href="and.html">E</a><span class="token punctuation">, </span><a href="and.html">T</a><span class="token punctuation">, </span><a href="../../atrium-logic/ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours/-in-order-only-search-behaviour/index.html">InOrderOnlySearchBehaviour</a><span class="token operator">&gt;</span><span class="clearfix"><span class="floating-right">(<a href="https://github.com/robstoll/atrium/tree/v1.2.0/apis/infix/atrium-api-infix/src/commonMain/kotlin/ch/tutteli/atrium/api/infix/en_GB/iterableLikeToContainSearchBehaviours.kt#L54">source</a>)</span></span></div><p class="paragraph">Defines that the constraint "<code class="lang-kotlin">only</code> the specified entries exist in the <a href="../../atrium-logic/ch.tutteli.atrium.logic.creating.typeutils/-iterable-like/index.html">IterableLike</a>" shall be applied to this sophisticated <code class="lang-kotlin">to contain in order</code> <a href="../../atrium-logic/ch.tutteli.atrium.logic.creating.typeutils/-iterable-like/index.html">IterableLike</a> expectation.</p><span class="kdoc-tag"><h4 class="">Return</h4><p class="paragraph">The newly created builder.</p></span><span class="kdoc-tag"><h4 class="">Since</h4><p class="paragraph">0.14.0 -- API existed for <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html">Iterable</a> but not for <a href="../../atrium-logic/ch.tutteli.atrium.logic.creating.typeutils/-iterable-like/index.html">IterableLike</a>.</p></span><hr><div class="symbol monospace"><span class="token keyword">infix </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="and.html">K</a><span class="token punctuation">, </span><a href="and.html">V</a><span class="token punctuation">, </span><a href="and.html">T</a><span class="token operator"> : </span><a href="../../atrium-logic/ch.tutteli.atrium.logic.creating.typeutils/-map-like/index.html">MapLike</a><span class="token operator">&gt; </span><a href="../../atrium-logic/ch.tutteli.atrium.logic.creating.maplike.contains/-map-like-contains/-entry-point-step/index.html">MapLikeContains.EntryPointStep</a><span class="token operator">&lt;</span><a href="and.html">K</a><span class="token punctuation">, </span><a href="and.html">V</a><span class="token punctuation">, </span><a href="and.html">T</a><span class="token punctuation">, </span><a href="../../atrium-logic/ch.tutteli.atrium.logic.creating.maplike.contains.searchbehaviours/-in-order-search-behaviour/index.html">InOrderSearchBehaviour</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="and.html"><span class="token function">and</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">only<span class="token operator">: </span><a href="only/index.html">only</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../atrium-logic/ch.tutteli.atrium.logic.creating.maplike.contains/-map-like-contains/-entry-point-step/index.html">MapLikeContains.EntryPointStep</a><span class="token operator">&lt;</span><a href="and.html">K</a><span class="token punctuation">, </span><a href="and.html">V</a><span class="token punctuation">, </span><a href="and.html">T</a><span class="token punctuation">, </span><a href="../../atrium-logic/ch.tutteli.atrium.logic.creating.maplike.contains.searchbehaviours/-in-order-only-search-behaviour/index.html">InOrderOnlySearchBehaviour</a><span class="token operator">&gt;</span><span class="clearfix"><span class="floating-right">(<a href="https://github.com/robstoll/atrium/tree/v1.2.0/apis/infix/atrium-api-infix/src/commonMain/kotlin/ch/tutteli/atrium/api/infix/en_GB/mapLikeToContainSearchBehaviours.kt#L63">source</a>)</span></span></div><p class="paragraph">Defines that the constraint "<code class="lang-kotlin">only</code> the specified entries exist in the <a href="../../atrium-logic/ch.tutteli.atrium.logic.creating.typeutils/-map-like/index.html">MapLike</a>" shall be applied to this sophisticated <code class="lang-kotlin">to contain in order</code> <a href="../../atrium-logic/ch.tutteli.atrium.logic.creating.typeutils/-map-like/index.html">MapLike</a> expectation.</p><span class="kdoc-tag"><h4 class="">Return</h4><p class="paragraph">The newly created builder.</p></span><span class="kdoc-tag"><h4 class="">Since</h4><p class="paragraph">0.15.0</p></span><h4 class="">Samples</h4><div class="sample-container"><pre><code class="runnablesample monospace block lang-kotlin" theme="idea">import ch.tutteli.atrium.api.infix.en_GB.*
+import ch.tutteli.atrium.api.verbs.expect
+import kotlin.test.Test
+
+fun main() { 
+   //sampleStart 
+   expect(mapOf(1 to "a")) toContain o inGiven order and only entry (1 to "a")
+
+fails { // because the entry 1="a" (which exists in the subject) is not the only entry
+    expect(mapOf(1 to "a", 2 to "b")) toContain o inGiven order and only entry (1 to "a")
+} 
+   //sampleEnd
+}</code></pre></div></div></div>
+</div>
+      <div class="footer">
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>Atrium © Copyright Robert Stoll &lt;rstoll@tutteli.ch&gt;</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+      </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

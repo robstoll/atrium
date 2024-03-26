@@ -1,0 +1,80 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>Expect</title>
+<link href="../../../images/logo-icon.svg" rel="icon" type="image/svg">    <script>var pathToRoot = "../../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
+<script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../styles/style.css" rel="Stylesheet">
+<link href="../../../styles/main.css" rel="Stylesheet">
+<link href="../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
+<body>
+    <div class="root">
+<nav class="navigation" id="navigation-wrapper">
+    <div class="navigation--inner">
+        <div class="navigation-title">
+            <button class="menu-toggle" id="menu-toggle" type="button">toggle menu</button>
+            <div class="library-name">
+<a class="library-name--link" href="../../../index.html">
+                            Atrium
+                    </a>            </div>
+            <div class="library-version">1.2.0
+            </div>
+        </div>
+        <div class="filter-section" id="filter-section">
+                <button class="platform-tag platform-selector common-like" data-active="" data-filter=":atrium-core:dokkaHtmlPartial/commonMain">common</button>
+        </div>
+    </div>
+    <div class="navigation-controls">
+        <button class="navigation-controls--btn navigation-controls--theme" id="theme-toggle-button" type="button">switch theme</button>
+        <div class="navigation-controls--btn navigation-controls--search" id="searchBar" role="button">search in API</div>
+    </div>
+</nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="sidebar--inner" id="sideMenu"></div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageids="atrium-core::ch.tutteli.atrium.creating/Expect///PointingToDeclaration//-880026277">
+  <div class="breadcrumbs"><a href="../../index.html">atrium-core</a><span class="delimiter">/</span><a href="../index.html">ch.tutteli.atrium.creating</a><span class="delimiter">/</span><span class="current">Expect</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span><span>Expect</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":atrium-core:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">interface </span><a href="index.html">Expect</a><span class="token operator">&lt;</span><a href="index.html">T</a><span class="token operator">&gt;</span><span class="clearfix"><span class="floating-right">(<a href="https://github.com/robstoll/atrium/tree/v1.2.0/atrium-core/src/commonMain/kotlin/ch/tutteli/atrium/creating/Expect.kt#L61">source</a>)</span></span></div><p class="paragraph">Represents the extension point for expectation functions and sophisticated builders for subjects of type <a href="index.html">T</a>.</p><p class="paragraph">Following a simple example, see <a href="https://github.com/robstoll/atrium?tab=readme-ov-file#write-own-expectation-functions">Write own Expectation Functions</a> for more help:</p><div class="sample-container"><pre><code class="block lang-kotlin" theme="idea">val &lt;T: SQLException&gt; Expect&lt;T&gt;.errorCode: FeatureExpect&lt;T, Int&gt;<br>    get() = feature(SQLException::getErrorCode)</code></pre><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><p class="paragraph">Note, that we have used a type parameter and not <code class="lang-kotlin">Expect&lt;SqlException&gt;</code>. This is due to the fact that <code class="lang-kotlin">Expect</code> is <a href="https://kotlinlang.org/docs/reference/generics.html#variance">invariant</a> which means without type parameter something like the following would result in a compile error</p><div class="sample-container"><pre><code class="block lang-kotlin" theme="idea">expect {<br>  ...<br>}.toThrow&lt;BatchUpdateException&gt; {<br>  errorCode.toEqual(23000)<br>  // compile error: None of the following candidates is applicable because of receiver type mismatch:<br>}</code></pre><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><p class="paragraph">Besides, we would need to return a <code class="lang-kotlin">FeatureExpect&lt;SQLException, Int&gt;</code> and would therefore lose the information that the thrown Exception was a <code class="lang-kotlin">BatchUpdateException</code> and would first need to use <code class="lang-kotlin">toBeAnInstanceOf&lt;BatchUpdateException&gt;</code> if we want to assert something which is specific to <code class="lang-kotlin">BatchUpdateException</code>. With the type parameter we don't and could therefore then also write something like the following within the <code class="lang-kotlin">toThrow</code> block:</p><div class="sample-container"><pre><code class="block lang-kotlin" theme="idea">feature(BatchUpdateException::getUpdateCounts).toEqual(intArrayOf(3, 2))</code></pre><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><p class="paragraph">In general, you should always use the type parameter approach, the only exception is if you deal with final classes (e.g. data classes) which don't have a type parameter itself. In such a case there is no benefit to have a type parameter but on the other hand, it also doesn't hurt -- less to think about (your IDE might warn you that it is not necessary though).</p><p class="paragraph">As a side notice, we have not defined <code class="lang-kotlin">Expect</code> as covariant on purpose (switched to invariant in v0.9.0), because if we did, then things like <code class="lang-kotlin">expect(1).toEqual(1.0)</code> would no longer be a compile error. And Atrium's goal is exactly to prevent users from pitfalls like that.</p><h4 class="">Parameters</h4><div class="table"><div class="table-row" data-filterable-current=":atrium-core:dokkaHtmlPartial/commonMain" data-filterable-set=":atrium-core:dokkaHtmlPartial/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span><span>T</span></span></u></div></span></div><div><div class="title"><p class="paragraph">The type of the subject of <code class="lang-kotlin">this</code> expectation.</p></div></div></div></div></div><h4 class="">Inheritors</h4><div class="table"><div class="table-row" data-filterable-current=":atrium-core:dokkaHtmlPartial/commonMain" data-filterable-set=":atrium-core:dokkaHtmlPartial/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="../-collecting-expect/index.html">CollectingExpect</a></div></span></div><div></div></div></div><div class="table-row" data-filterable-current=":atrium-core:dokkaHtmlPartial/commonMain" data-filterable-set=":atrium-core:dokkaHtmlPartial/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="../-delegating-expect/index.html">DelegatingExpect</a></div></span></div><div></div></div></div><div class="table-row" data-filterable-current=":atrium-core:dokkaHtmlPartial/commonMain" data-filterable-set=":atrium-core:dokkaHtmlPartial/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="../-expect-internal/index.html">ExpectInternal</a></div></span></div><div></div></div></div><div class="table-row" data-filterable-current=":atrium-core:dokkaHtmlPartial/commonMain" data-filterable-set=":atrium-core:dokkaHtmlPartial/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="../-feature-expect/index.html">FeatureExpect</a></div></span></div><div></div></div></div><div class="table-row" data-filterable-current=":atrium-core:dokkaHtmlPartial/commonMain" data-filterable-set=":atrium-core:dokkaHtmlPartial/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="../-root-expect/index.html">RootExpect</a></div></span></div><div></div></div></div></div></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"></div>
+    <div class="tabs-section-body"></div>
+  </div>
+</div>
+      <div class="footer">
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>Atrium © Copyright Robert Stoll &lt;rstoll@tutteli.ch&gt;</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+      </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

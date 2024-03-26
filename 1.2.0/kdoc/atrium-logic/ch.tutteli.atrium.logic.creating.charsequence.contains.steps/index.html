@@ -1,0 +1,333 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>ch.tutteli.atrium.logic.creating.charsequence.contains.steps</title>
+<link href="../../images/logo-icon.svg" rel="icon" type="image/svg">    <script>var pathToRoot = "../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
+<script type="text/javascript" src="../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../styles/style.css" rel="Stylesheet">
+<link href="../../styles/main.css" rel="Stylesheet">
+<link href="../../styles/prism.css" rel="Stylesheet">
+<link href="../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<script type="text/javascript" src="../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
+<body>
+    <div class="root">
+<nav class="navigation" id="navigation-wrapper">
+    <div class="navigation--inner">
+        <div class="navigation-title">
+            <button class="menu-toggle" id="menu-toggle" type="button">toggle menu</button>
+            <div class="library-name">
+<a class="library-name--link" href="../../index.html">
+                            Atrium
+                    </a>            </div>
+            <div class="library-version">1.2.0
+            </div>
+        </div>
+        <div class="filter-section" id="filter-section">
+                <button class="platform-tag platform-selector common-like" data-active="" data-filter=":atrium-logic:dokkaHtmlPartial/commonMain">common</button>
+        </div>
+    </div>
+    <div class="navigation-controls">
+        <button class="navigation-controls--btn navigation-controls--theme" id="theme-toggle-button" type="button">switch theme</button>
+        <div class="navigation-controls--btn navigation-controls--search" id="searchBar" role="button">search in API</div>
+    </div>
+</nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="sidebar--inner" id="sideMenu"></div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="package" id="content" pageids="atrium-logic::ch.tutteli.atrium.logic.creating.charsequence.contains.steps////PointingToDeclaration//1591559200">
+  <div class="breadcrumbs"><a href="../index.html">atrium-logic</a><span class="delimiter">/</span><span class="current">ch.tutteli.atrium.logic.creating.charsequence.contains.steps</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span><span>Package-level</span></span> <span><span>declarations</span></span></h1>
+    <div class="platform-hinted UnderCoverText" data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":atrium-logic:dokkaHtmlPartial/commonMain"><p class="paragraph">Contains steps for sophisticated <code class="lang-kotlin">CharSequence.toContain</code> expectation builders.</p></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="TYPE">Types</button><button class="section-tab" data-togglable="FUNCTION,EXTENSION_FUNCTION">Functions</button><button class="section-tab" data-togglable="PROPERTY,EXTENSION_PROPERTY">Properties</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="TYPE">
+        <h2 class="">Types</h2>
+        <div class="table"><a data-name="921145015%2FClasslikes%2F1591559200" anchor-label="AtLeastCheckerStep" id="921145015%2FClasslikes%2F1591559200" data-filterable-set=":atrium-logic:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":atrium-logic:dokkaHtmlPartial/commonMain" data-filterable-set=":atrium-logic:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-at-least-checker-step/index.html"><span>At</span><wbr><span>Least</span><wbr><span>Checker</span><wbr><span><span>Step</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="921145015%2FClasslikes%2F1591559200"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":atrium-logic:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-at-least-checker-step/index.html">AtLeastCheckerStep</a><span class="token operator">&lt;</span><a href="-at-least-checker-step/index.html">T</a><span class="token operator"> : </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html">CharSequence</a><span class="token punctuation">, </span><span class="token keyword">out </span><a href="-at-least-checker-step/index.html">S</a><span class="token operator"> : </span><a href="../ch.tutteli.atrium.logic.creating.charsequence.contains/-char-sequence-contains/-search-behaviour/index.html">CharSequenceContains.SearchBehaviour</a><span class="token operator">&gt;</span> : <a href="-with-times-checker-step/index.html">WithTimesCheckerStep</a><span class="token operator">&lt;</span><a href="-at-least-checker-step/index.html">T</a><span class="token punctuation">, </span><a href="-at-least-checker-step/index.html">S</a><span class="token operator">&gt; </span></div><div class="brief "><p class="paragraph">Represents the extension point for another step after a <code class="lang-kotlin">contains at least</code>-check within a sophisticated <code class="lang-kotlin">contains</code> assertion building process for <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html">CharSequence</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1458126827%2FClasslikes%2F1591559200" anchor-label="AtMostCheckerStep" id="-1458126827%2FClasslikes%2F1591559200" data-filterable-set=":atrium-logic:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":atrium-logic:dokkaHtmlPartial/commonMain" data-filterable-set=":atrium-logic:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-at-most-checker-step/index.html"><span>At</span><wbr><span>Most</span><wbr><span>Checker</span><wbr><span><span>Step</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1458126827%2FClasslikes%2F1591559200"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":atrium-logic:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-at-most-checker-step/index.html">AtMostCheckerStep</a><span class="token operator">&lt;</span><a href="-at-most-checker-step/index.html">T</a><span class="token operator"> : </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html">CharSequence</a><span class="token punctuation">, </span><span class="token keyword">out </span><a href="-at-most-checker-step/index.html">S</a><span class="token operator"> : </span><a href="../ch.tutteli.atrium.logic.creating.charsequence.contains/-char-sequence-contains/-search-behaviour/index.html">CharSequenceContains.SearchBehaviour</a><span class="token operator">&gt;</span> : <a href="-with-times-checker-step/index.html">WithTimesCheckerStep</a><span class="token operator">&lt;</span><a href="-at-most-checker-step/index.html">T</a><span class="token punctuation">, </span><a href="-at-most-checker-step/index.html">S</a><span class="token operator">&gt; </span></div><div class="brief "><p class="paragraph">Represents the extension point for another step after a <code class="lang-kotlin">contains at least once but at most</code>-check within a sophisticated <code class="lang-kotlin">contains</code> assertion building process for <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html">CharSequence</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-23093192%2FClasslikes%2F1591559200" anchor-label="ButAtMostCheckerStep" id="-23093192%2FClasslikes%2F1591559200" data-filterable-set=":atrium-logic:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":atrium-logic:dokkaHtmlPartial/commonMain" data-filterable-set=":atrium-logic:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-but-at-most-checker-step/index.html"><span>But</span><wbr><span>At</span><wbr><span>Most</span><wbr><span>Checker</span><wbr><span><span>Step</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-23093192%2FClasslikes%2F1591559200"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":atrium-logic:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-but-at-most-checker-step/index.html">ButAtMostCheckerStep</a><span class="token operator">&lt;</span><a href="-but-at-most-checker-step/index.html">T</a><span class="token operator"> : </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html">CharSequence</a><span class="token punctuation">, </span><span class="token keyword">out </span><a href="-but-at-most-checker-step/index.html">S</a><span class="token operator"> : </span><a href="../ch.tutteli.atrium.logic.creating.charsequence.contains/-char-sequence-contains/-search-behaviour/index.html">CharSequenceContains.SearchBehaviour</a><span class="token operator">&gt;</span> : <a href="-with-times-checker-step/index.html">WithTimesCheckerStep</a><span class="token operator">&lt;</span><a href="-but-at-most-checker-step/index.html">T</a><span class="token punctuation">, </span><a href="-but-at-most-checker-step/index.html">S</a><span class="token operator">&gt; </span></div><div class="brief "><p class="paragraph">Represents the extension point for another step after a <code class="lang-kotlin">contains at least but at most</code>-check within a sophisticated <code class="lang-kotlin">contains</code> assertion building process for <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html">CharSequence</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1753282189%2FClasslikes%2F1591559200" anchor-label="ExactlyCheckerStep" id="1753282189%2FClasslikes%2F1591559200" data-filterable-set=":atrium-logic:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":atrium-logic:dokkaHtmlPartial/commonMain" data-filterable-set=":atrium-logic:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-exactly-checker-step/index.html"><span>Exactly</span><wbr><span>Checker</span><wbr><span><span>Step</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1753282189%2FClasslikes%2F1591559200"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":atrium-logic:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-exactly-checker-step/index.html">ExactlyCheckerStep</a><span class="token operator">&lt;</span><a href="-exactly-checker-step/index.html">T</a><span class="token operator"> : </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html">CharSequence</a><span class="token punctuation">, </span><span class="token keyword">out </span><a href="-exactly-checker-step/index.html">S</a><span class="token operator"> : </span><a href="../ch.tutteli.atrium.logic.creating.charsequence.contains/-char-sequence-contains/-search-behaviour/index.html">CharSequenceContains.SearchBehaviour</a><span class="token operator">&gt;</span> : <a href="-with-times-checker-step/index.html">WithTimesCheckerStep</a><span class="token operator">&lt;</span><a href="-exactly-checker-step/index.html">T</a><span class="token punctuation">, </span><a href="-exactly-checker-step/index.html">S</a><span class="token operator">&gt; </span></div><div class="brief "><p class="paragraph">Represents the extension point for another step after a <code class="lang-kotlin">contains exactly</code>-check within a sophisticated <code class="lang-kotlin">contains</code> assertion building process for <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html">CharSequence</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1851738732%2FClasslikes%2F1591559200" anchor-label="NotCheckerStep" id="-1851738732%2FClasslikes%2F1591559200" data-filterable-set=":atrium-logic:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":atrium-logic:dokkaHtmlPartial/commonMain" data-filterable-set=":atrium-logic:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-not-checker-step/index.html"><span>Not</span><wbr><span>Checker</span><wbr><span><span>Step</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1851738732%2FClasslikes%2F1591559200"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":atrium-logic:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-not-checker-step/index.html">NotCheckerStep</a><span class="token operator">&lt;</span><a href="-not-checker-step/index.html">T</a><span class="token operator"> : </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html">CharSequence</a><span class="token punctuation">, </span><span class="token keyword">out </span><a href="-not-checker-step/index.html">S</a><span class="token operator"> : </span><a href="../ch.tutteli.atrium.logic.creating.charsequence.contains/-char-sequence-contains/-search-behaviour/index.html">CharSequenceContains.SearchBehaviour</a><span class="token operator">&gt;</span> : <a href="../ch.tutteli.atrium.logic.creating.charsequence.contains/-char-sequence-contains/-checker-step/index.html">CharSequenceContains.CheckerStep</a><span class="token operator">&lt;</span><a href="-not-checker-step/index.html">T</a><span class="token punctuation">, </span><a href="-not-checker-step/index.html">S</a><span class="token operator">&gt; </span></div><div class="brief "><p class="paragraph">Represents the extension point for another step after a <code class="lang-kotlin">contains not at all</code>-check within a sophisticated <code class="lang-kotlin">contains</code> assertion building process for <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html">CharSequence</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1864049843%2FClasslikes%2F1591559200" anchor-label="NotOrAtMostCheckerStep" id="-1864049843%2FClasslikes%2F1591559200" data-filterable-set=":atrium-logic:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":atrium-logic:dokkaHtmlPartial/commonMain" data-filterable-set=":atrium-logic:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-not-or-at-most-checker-step/index.html"><span>Not</span><wbr><span>Or</span><wbr><span>At</span><wbr><span>Most</span><wbr><span>Checker</span><wbr><span><span>Step</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1864049843%2FClasslikes%2F1591559200"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":atrium-logic:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-not-or-at-most-checker-step/index.html">NotOrAtMostCheckerStep</a><span class="token operator">&lt;</span><a href="-not-or-at-most-checker-step/index.html">T</a><span class="token operator"> : </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html">CharSequence</a><span class="token punctuation">, </span><span class="token keyword">out </span><a href="-not-or-at-most-checker-step/index.html">S</a><span class="token operator"> : </span><a href="../ch.tutteli.atrium.logic.creating.charsequence.contains/-char-sequence-contains/-search-behaviour/index.html">CharSequenceContains.SearchBehaviour</a><span class="token operator">&gt;</span> : <a href="../ch.tutteli.atrium.logic.creating.charsequence.contains/-char-sequence-contains/-checker-step/index.html">CharSequenceContains.CheckerStep</a><span class="token operator">&lt;</span><a href="-not-or-at-most-checker-step/index.html">T</a><span class="token punctuation">, </span><a href="-not-or-at-most-checker-step/index.html">S</a><span class="token operator">&gt; </span></div><div class="brief "><p class="paragraph">Represents the extension point for another step after a <code class="lang-kotlin">contains not or at most</code>-check within a sophisticated <code class="lang-kotlin">contains</code> assertion building process for <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html">CharSequence</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1506254431%2FClasslikes%2F1591559200" anchor-label="WithTimesCheckerStep" id="-1506254431%2FClasslikes%2F1591559200" data-filterable-set=":atrium-logic:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":atrium-logic:dokkaHtmlPartial/commonMain" data-filterable-set=":atrium-logic:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-with-times-checker-step/index.html"><span>With</span><wbr><span>Times</span><wbr><span>Checker</span><wbr><span><span>Step</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1506254431%2FClasslikes%2F1591559200"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":atrium-logic:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-with-times-checker-step/index.html">WithTimesCheckerStep</a><span class="token operator">&lt;</span><a href="-with-times-checker-step/index.html">T</a><span class="token operator"> : </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html">CharSequence</a><span class="token punctuation">, </span><span class="token keyword">out </span><a href="-with-times-checker-step/index.html">S</a><span class="token operator"> : </span><a href="../ch.tutteli.atrium.logic.creating.charsequence.contains/-char-sequence-contains/-search-behaviour/index.html">CharSequenceContains.SearchBehaviour</a><span class="token operator">&gt;</span> : <a href="../ch.tutteli.atrium.logic.creating.charsequence.contains/-char-sequence-contains/-checker-step/index.html">CharSequenceContains.CheckerStep</a><span class="token operator">&lt;</span><a href="-with-times-checker-step/index.html">T</a><span class="token punctuation">, </span><a href="-with-times-checker-step/index.html">S</a><span class="token operator">&gt; </span></div><div class="brief "><p class="paragraph">A <a href="../ch.tutteli.atrium.logic.creating.charsequence.contains/-char-sequence-contains/-checker-step/index.html">CharSequenceContains.CheckerStep</a> which is used to choose a <a href="../ch.tutteli.atrium.logic.creating.charsequence.contains/-char-sequence-contains/-checker/index.html">CharSequenceContains.Checker</a> which is based on a number of <code class="lang-kotlin">times</code>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-896284316%2FClasslikes%2F1591559200" anchor-label="WithTimesCheckerStepInternal" id="-896284316%2FClasslikes%2F1591559200" data-filterable-set=":atrium-logic:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":atrium-logic:dokkaHtmlPartial/commonMain" data-filterable-set=":atrium-logic:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-with-times-checker-step-internal/index.html"><span>With</span><wbr><span>Times</span><wbr><span>Checker</span><wbr><span>Step</span><wbr><span><span>Internal</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-896284316%2FClasslikes%2F1591559200"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":atrium-logic:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-with-times-checker-step-internal/index.html">WithTimesCheckerStepInternal</a><span class="token operator">&lt;</span><a href="-with-times-checker-step-internal/index.html">T</a><span class="token operator"> : </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html">CharSequence</a><span class="token punctuation">, </span><span class="token keyword">out </span><a href="-with-times-checker-step-internal/index.html">S</a><span class="token operator"> : </span><a href="../ch.tutteli.atrium.logic.creating.charsequence.contains/-char-sequence-contains/-search-behaviour/index.html">CharSequenceContains.SearchBehaviour</a><span class="token operator">&gt;</span> : <a href="-with-times-checker-step/index.html">WithTimesCheckerStep</a><span class="token operator">&lt;</span><a href="-with-times-checker-step-internal/index.html">T</a><span class="token punctuation">, </span><a href="-with-times-checker-step-internal/index.html">S</a><span class="token operator">&gt; </span>, <a href="-with-times-checker-step-logic/index.html">WithTimesCheckerStepLogic</a><span class="token operator">&lt;</span><a href="-with-times-checker-step-internal/index.html">T</a><span class="token punctuation">, </span><a href="-with-times-checker-step-internal/index.html">S</a><span class="token operator">&gt; </span>, <a href="../ch.tutteli.atrium.logic.creating.charsequence.contains/-char-sequence-contains/-checker-step-internal/index.html">CharSequenceContains.CheckerStepInternal</a><span class="token operator">&lt;</span><a href="-with-times-checker-step-internal/index.html">T</a><span class="token punctuation">, </span><a href="-with-times-checker-step-internal/index.html">S</a><span class="token operator">&gt; </span></div><div class="brief "><p class="paragraph">Sole purpose of this interface is to hide <a href="../ch.tutteli.atrium.logic.creating.charsequence.contains/-char-sequence-contains/-checker-step-logic/index.html">CharSequenceContains.CheckerStepLogic</a> from newcomers which usually don't have to deal with this type and to keep the API clean.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-48893117%2FClasslikes%2F1591559200" anchor-label="WithTimesCheckerStepLogic" id="-48893117%2FClasslikes%2F1591559200" data-filterable-set=":atrium-logic:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":atrium-logic:dokkaHtmlPartial/commonMain" data-filterable-set=":atrium-logic:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-with-times-checker-step-logic/index.html"><span>With</span><wbr><span>Times</span><wbr><span>Checker</span><wbr><span>Step</span><wbr><span><span>Logic</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-48893117%2FClasslikes%2F1591559200"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":atrium-logic:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-with-times-checker-step-logic/index.html">WithTimesCheckerStepLogic</a><span class="token operator">&lt;</span><a href="-with-times-checker-step-logic/index.html">T</a><span class="token operator"> : </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html">CharSequence</a><span class="token punctuation">, </span><span class="token keyword">out </span><a href="-with-times-checker-step-logic/index.html">S</a><span class="token operator"> : </span><a href="../ch.tutteli.atrium.logic.creating.charsequence.contains/-char-sequence-contains/-search-behaviour/index.html">CharSequenceContains.SearchBehaviour</a><span class="token operator">&gt;</span> : <a href="../ch.tutteli.atrium.logic.creating.charsequence.contains/-char-sequence-contains/-checker-step-logic/index.html">CharSequenceContains.CheckerStepLogic</a><span class="token operator">&lt;</span><a href="-with-times-checker-step-logic/index.html">T</a><span class="token punctuation">, </span><a href="-with-times-checker-step-logic/index.html">S</a><span class="token operator">&gt; </span></div><div class="brief "><p class="paragraph">A <a href="../ch.tutteli.atrium.logic.creating.charsequence.contains/-char-sequence-contains/-checker-step-logic/index.html">CharSequenceContains.CheckerStepLogic</a> which is used to choose a <a href="../ch.tutteli.atrium.logic.creating.charsequence.contains/-char-sequence-contains/-checker/index.html">CharSequenceContains.Checker</a> which is based on a number of <a href="-with-times-checker-step-logic/times.html">times</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="EXTENSION_PROPERTY">
+        <h2 class="">Properties</h2>
+        <div class="table"><a data-name="-1985213207%2FProperties%2F1591559200" anchor-label="ignoringCase" id="-1985213207%2FProperties%2F1591559200" data-filterable-set=":atrium-logic:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":atrium-logic:dokkaHtmlPartial/commonMain" data-filterable-set=":atrium-logic:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="ignoring-case.html"><span>ignoring</span><wbr><span><span>Case</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1985213207%2FProperties%2F1591559200"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":atrium-logic:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">val </span><span class="token operator">&lt;</span><a href="ignoring-case.html">T</a><span class="token operator"> : </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html">CharSequence</a><span class="token punctuation">, </span><a href="ignoring-case.html">S</a><span class="token operator"> : </span><a href="../ch.tutteli.atrium.logic.creating.charsequence.contains.searchbehaviours/-no-op-search-behaviour/index.html">NoOpSearchBehaviour</a><span class="token operator">&gt; </span><a href="../ch.tutteli.atrium.logic.creating.charsequence.contains/-char-sequence-contains/-entry-point-step-logic/index.html">CharSequenceContains.EntryPointStepLogic</a><span class="token operator">&lt;</span><a href="ignoring-case.html">T</a><span class="token punctuation">, </span><a href="ignoring-case.html">S</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="ignoring-case.html">ignoringCase</a><span class="token operator">: </span><a href="../ch.tutteli.atrium.logic.creating.charsequence.contains/-char-sequence-contains/-entry-point-step/index.html">CharSequenceContains.EntryPointStep</a><span class="token operator">&lt;</span><a href="ignoring-case.html">T</a><span class="token punctuation">, </span><a href="../ch.tutteli.atrium.logic.creating.charsequence.contains.searchbehaviours/-ignoring-case-search-behaviour/index.html">IgnoringCaseSearchBehaviour</a><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="EXTENSION_FUNCTION">
+        <h2 class="">Functions</h2>
+        <div class="table"><a data-name="-502357697%2FFunctions%2F1591559200" anchor-label="atLeastCheckerStep" id="-502357697%2FFunctions%2F1591559200" data-filterable-set=":atrium-logic:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":atrium-logic:dokkaHtmlPartial/commonMain" data-filterable-set=":atrium-logic:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="at-least-checker-step.html"><span>at</span><wbr><span>Least</span><wbr><span>Checker</span><wbr><span><span>Step</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-502357697%2FFunctions%2F1591559200"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":atrium-logic:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="at-least-checker-step.html">T</a><span class="token operator"> : </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html">CharSequence</a><span class="token punctuation">, </span><a href="at-least-checker-step.html">S</a><span class="token operator"> : </span><a href="../ch.tutteli.atrium.logic.creating.charsequence.contains/-char-sequence-contains/-search-behaviour/index.html">CharSequenceContains.SearchBehaviour</a><span class="token operator">&gt; </span><a href="../ch.tutteli.atrium.logic.creating.charsequence.contains/-char-sequence-contains/-entry-point-step-logic/index.html">CharSequenceContains.EntryPointStepLogic</a><span class="token operator">&lt;</span><a href="at-least-checker-step.html">T</a><span class="token punctuation">, </span><a href="at-least-checker-step.html">S</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="at-least-checker-step.html"><span class="token function">atLeastCheckerStep</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">times<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">, </span></span><span class="parameter ">nameContainsNotFun<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">atLeastCall<span class="token operator">: </span><span class="token punctuation">(</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="-at-least-checker-step/index.html">AtLeastCheckerStep</a><span class="token operator">&lt;</span><a href="at-least-checker-step.html">T</a><span class="token punctuation">, </span><a href="at-least-checker-step.html">S</a><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1530217857%2FFunctions%2F1591559200" anchor-label="atMostCheckerStep" id="-1530217857%2FFunctions%2F1591559200" data-filterable-set=":atrium-logic:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":atrium-logic:dokkaHtmlPartial/commonMain" data-filterable-set=":atrium-logic:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="at-most-checker-step.html"><span>at</span><wbr><span>Most</span><wbr><span>Checker</span><wbr><span><span>Step</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1530217857%2FFunctions%2F1591559200"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":atrium-logic:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="at-most-checker-step.html">T</a><span class="token operator"> : </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html">CharSequence</a><span class="token punctuation">, </span><a href="at-most-checker-step.html">S</a><span class="token operator"> : </span><a href="../ch.tutteli.atrium.logic.creating.charsequence.contains/-char-sequence-contains/-search-behaviour/index.html">CharSequenceContains.SearchBehaviour</a><span class="token operator">&gt; </span><a href="../ch.tutteli.atrium.logic.creating.charsequence.contains/-char-sequence-contains/-entry-point-step-logic/index.html">CharSequenceContains.EntryPointStepLogic</a><span class="token operator">&lt;</span><a href="at-most-checker-step.html">T</a><span class="token punctuation">, </span><a href="at-most-checker-step.html">S</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="at-most-checker-step.html"><span class="token function">atMostCheckerStep</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">times<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">, </span></span><span class="parameter ">nameContainsNotFun<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">atMostCall<span class="token operator">: </span><span class="token punctuation">(</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">atLeastCall<span class="token operator">: </span><span class="token punctuation">(</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">exactlyCall<span class="token operator">: </span><span class="token punctuation">(</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="-at-most-checker-step/index.html">AtMostCheckerStep</a><span class="token operator">&lt;</span><a href="at-most-checker-step.html">T</a><span class="token punctuation">, </span><a href="at-most-checker-step.html">S</a><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1057388359%2FFunctions%2F1591559200" anchor-label="butAtMostCheckerStep" id="1057388359%2FFunctions%2F1591559200" data-filterable-set=":atrium-logic:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":atrium-logic:dokkaHtmlPartial/commonMain" data-filterable-set=":atrium-logic:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="but-at-most-checker-step.html"><span>but</span><wbr><span>At</span><wbr><span>Most</span><wbr><span>Checker</span><wbr><span><span>Step</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1057388359%2FFunctions%2F1591559200"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":atrium-logic:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="but-at-most-checker-step.html">T</a><span class="token operator"> : </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html">CharSequence</a><span class="token punctuation">, </span><a href="but-at-most-checker-step.html">S</a><span class="token operator"> : </span><a href="../ch.tutteli.atrium.logic.creating.charsequence.contains/-char-sequence-contains/-search-behaviour/index.html">CharSequenceContains.SearchBehaviour</a><span class="token operator">&gt; </span><a href="-with-times-checker-step-logic/index.html">WithTimesCheckerStepLogic</a><span class="token operator">&lt;</span><a href="but-at-most-checker-step.html">T</a><span class="token punctuation">, </span><a href="but-at-most-checker-step.html">S</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="but-at-most-checker-step.html"><span class="token function">butAtMostCheckerStep</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">times<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">, </span></span><span class="parameter ">nameContainsNotFun<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">atLeastButAtMostCall<span class="token operator">: </span><span class="token punctuation">(</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">, </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">atLeastCall<span class="token operator">: </span><span class="token punctuation">(</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">butAtMostCall<span class="token operator">: </span><span class="token punctuation">(</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">exactlyCall<span class="token operator">: </span><span class="token punctuation">(</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">atMostCall<span class="token operator">: </span><span class="token punctuation">(</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="-but-at-most-checker-step/index.html">ButAtMostCheckerStep</a><span class="token operator">&lt;</span><a href="but-at-most-checker-step.html">T</a><span class="token punctuation">, </span><a href="but-at-most-checker-step.html">S</a><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="867408809%2FFunctions%2F1591559200" anchor-label="exactlyCheckerStep" id="867408809%2FFunctions%2F1591559200" data-filterable-set=":atrium-logic:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":atrium-logic:dokkaHtmlPartial/commonMain" data-filterable-set=":atrium-logic:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="exactly-checker-step.html"><span>exactly</span><wbr><span>Checker</span><wbr><span><span>Step</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="867408809%2FFunctions%2F1591559200"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":atrium-logic:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="exactly-checker-step.html">T</a><span class="token operator"> : </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html">CharSequence</a><span class="token punctuation">, </span><a href="exactly-checker-step.html">S</a><span class="token operator"> : </span><a href="../ch.tutteli.atrium.logic.creating.charsequence.contains/-char-sequence-contains/-search-behaviour/index.html">CharSequenceContains.SearchBehaviour</a><span class="token operator">&gt; </span><a href="../ch.tutteli.atrium.logic.creating.charsequence.contains/-char-sequence-contains/-entry-point-step-logic/index.html">CharSequenceContains.EntryPointStepLogic</a><span class="token operator">&lt;</span><a href="exactly-checker-step.html">T</a><span class="token punctuation">, </span><a href="exactly-checker-step.html">S</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="exactly-checker-step.html"><span class="token function">exactlyCheckerStep</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">times<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">, </span></span><span class="parameter ">nameContainsNotFun<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">exactlyCall<span class="token operator">: </span><span class="token punctuation">(</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="-exactly-checker-step/index.html">ExactlyCheckerStep</a><span class="token operator">&lt;</span><a href="exactly-checker-step.html">T</a><span class="token punctuation">, </span><a href="exactly-checker-step.html">S</a><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="585345440%2FFunctions%2F1591559200" anchor-label="notCheckerStep" id="585345440%2FFunctions%2F1591559200" data-filterable-set=":atrium-logic:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":atrium-logic:dokkaHtmlPartial/commonMain" data-filterable-set=":atrium-logic:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="not-checker-step.html"><span>not</span><wbr><span>Checker</span><wbr><span><span>Step</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="585345440%2FFunctions%2F1591559200"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":atrium-logic:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="not-checker-step.html">T</a><span class="token operator"> : </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html">CharSequence</a><span class="token punctuation">, </span><a href="not-checker-step.html">S</a><span class="token operator"> : </span><a href="../ch.tutteli.atrium.logic.creating.charsequence.contains/-char-sequence-contains/-search-behaviour/index.html">CharSequenceContains.SearchBehaviour</a><span class="token operator">&gt; </span><a href="../ch.tutteli.atrium.logic.creating.charsequence.contains/-char-sequence-contains/-entry-point-step-logic/index.html">CharSequenceContains.EntryPointStepLogic</a><span class="token operator">&lt;</span><a href="not-checker-step.html">T</a><span class="token punctuation">, </span><a href="not-checker-step.html">S</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="not-checker-step.html"><span class="token function">notCheckerStep</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="-not-checker-step/index.html">NotCheckerStep</a><span class="token operator">&lt;</span><a href="not-checker-step.html">T</a><span class="token punctuation">, </span><a href="not-checker-step.html">S</a><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1814482537%2FFunctions%2F1591559200" anchor-label="notOrAtMostCheckerStep" id="1814482537%2FFunctions%2F1591559200" data-filterable-set=":atrium-logic:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":atrium-logic:dokkaHtmlPartial/commonMain" data-filterable-set=":atrium-logic:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="not-or-at-most-checker-step.html"><span>not</span><wbr><span>Or</span><wbr><span>At</span><wbr><span>Most</span><wbr><span>Checker</span><wbr><span><span>Step</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1814482537%2FFunctions%2F1591559200"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":atrium-logic:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="not-or-at-most-checker-step.html">T</a><span class="token operator"> : </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html">CharSequence</a><span class="token punctuation">, </span><a href="not-or-at-most-checker-step.html">S</a><span class="token operator"> : </span><a href="../ch.tutteli.atrium.logic.creating.charsequence.contains/-char-sequence-contains/-search-behaviour/index.html">CharSequenceContains.SearchBehaviour</a><span class="token operator">&gt; </span><a href="../ch.tutteli.atrium.logic.creating.charsequence.contains/-char-sequence-contains/-entry-point-step-logic/index.html">CharSequenceContains.EntryPointStepLogic</a><span class="token operator">&lt;</span><a href="not-or-at-most-checker-step.html">T</a><span class="token punctuation">, </span><a href="not-or-at-most-checker-step.html">S</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="not-or-at-most-checker-step.html"><span class="token function">notOrAtMostCheckerStep</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">times<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">, </span></span><span class="parameter ">nameContainsNotFun<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">notOrAtMostCall<span class="token operator">: </span><span class="token punctuation">(</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="-not-or-at-most-checker-step/index.html">NotOrAtMostCheckerStep</a><span class="token operator">&lt;</span><a href="not-or-at-most-checker-step.html">T</a><span class="token punctuation">, </span><a href="not-or-at-most-checker-step.html">S</a><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      <div class="footer">
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>Atrium © Copyright Robert Stoll &lt;rstoll@tutteli.ch&gt;</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+      </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

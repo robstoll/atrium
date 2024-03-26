@@ -1,0 +1,76 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>extract</title>
+<link href="../../../images/logo-icon.svg" rel="icon" type="image/svg">    <script>var pathToRoot = "../../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
+<script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../styles/style.css" rel="Stylesheet">
+<link href="../../../styles/main.css" rel="Stylesheet">
+<link href="../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
+<body>
+    <div class="root">
+<nav class="navigation" id="navigation-wrapper">
+    <div class="navigation--inner">
+        <div class="navigation-title">
+            <button class="menu-toggle" id="menu-toggle" type="button">toggle menu</button>
+            <div class="library-name">
+<a class="library-name--link" href="../../../index.html">
+                            Atrium
+                    </a>            </div>
+            <div class="library-version">1.2.0
+            </div>
+        </div>
+        <div class="filter-section" id="filter-section">
+                <button class="platform-tag platform-selector common-like" data-active="" data-filter=":atrium-logic:dokkaHtmlPartial/commonMain">common</button>
+        </div>
+    </div>
+    <div class="navigation-controls">
+        <button class="navigation-controls--btn navigation-controls--theme" id="theme-toggle-button" type="button">switch theme</button>
+        <div class="navigation-controls--btn navigation-controls--search" id="searchBar" role="button">search in API</div>
+    </div>
+</nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="sidebar--inner" id="sideMenu"></div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="member" id="content" pageids="atrium-logic::ch.tutteli.atrium.logic.creating.transformers.impl/DefaultFeatureExtractor/extract/#ch.tutteli.atrium.creating.AssertionContainer[TypeParam(bounds=[kotlin.Any?])]#ch.tutteli.atrium.reporting.translating.Translatable#kotlin.Any#kotlin.Function1[TypeParam(bounds=[kotlin.Any?]),ch.tutteli.atrium.core.Option[TypeParam(bounds=[kotlin.Any?])]]#ch.tutteli.atrium.core.Option[kotlin.Function1[ch.tutteli.atrium.creating.Expect[TypeParam(bounds=[kotlin.Any?])],kotlin.Unit]]#ch.tutteli.atrium.creating.FeatureExpectOptions[TypeParam(bounds=[kotlin.Any?])]/PointingToDeclaration//1591559200">
+  <div class="breadcrumbs"><a href="../../index.html">atrium-logic</a><span class="delimiter">/</span><a href="../index.html">ch.tutteli.atrium.logic.creating.transformers.impl</a><span class="delimiter">/</span><a href="index.html">DefaultFeatureExtractor</a><span class="delimiter">/</span><span class="current">extract</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span><span>extract</span></span></h1>
+  </div>
+  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":atrium-logic:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="extract.html">SubjectT</a><span class="token punctuation">, </span><a href="extract.html">FeatureT</a><span class="token operator">&gt; </span><a href="extract.html"><span class="token function">extract</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">container<span class="token operator">: </span><a href="../../../atrium-core/ch.tutteli.atrium.creating/-assertion-container/index.html">AssertionContainer</a><span class="token operator">&lt;</span><a href="extract.html">SubjectT</a><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">description<span class="token operator">: </span><a href="../../../atrium-core/ch.tutteli.atrium.reporting.translating/-translatable/index.html">Translatable</a><span class="token punctuation">, </span></span><span class="parameter ">representationForFailure<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html">Any</a><span class="token punctuation">, </span></span><span class="parameter ">featureExtraction<span class="token operator">: </span><span class="token punctuation">(</span><a href="extract.html">SubjectT</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="../../../atrium-core/ch.tutteli.atrium.core/-option/index.html">Option</a><span class="token operator">&lt;</span><a href="extract.html">FeatureT</a><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">maybeSubAssertions<span class="token operator">: </span><a href="../../../atrium-core/ch.tutteli.atrium.core/-option/index.html">Option</a><span class="token operator">&lt;</span><a href="../../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><a href="extract.html">FeatureT</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html">Unit</a><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">featureExpectOptions<span class="token operator">: </span><a href="../../../atrium-core/ch.tutteli.atrium.creating/-feature-expect-options/index.html">FeatureExpectOptions</a><span class="token operator">&lt;</span><a href="extract.html">FeatureT</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../../atrium-core/ch.tutteli.atrium.creating/-feature-expect/index.html">FeatureExpect</a><span class="token operator">&lt;</span><a href="extract.html">SubjectT</a><span class="token punctuation">, </span><a href="extract.html">FeatureT</a><span class="token operator">&gt;</span><span class="clearfix"><span class="floating-right">(<a href="https://github.com/robstoll/atrium/tree/v1.2.0/logic/atrium-logic/src/commonMain/kotlin/ch/tutteli/atrium/logic/creating/transformers/impl/DefaultFeatureExtractor.kt#L19">source</a>)</span></span></div><p class="paragraph">Extracts a feature according to the given <a href="extract.html">featureExtraction</a>, creates an <a href="../../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the new subject and applies <a href="extract.html">maybeSubAssertions</a> in case they are specified.</p><span class="kdoc-tag"><h4 class="">Return</h4><p class="paragraph">The newly created <a href="../../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the extracted feature.</p></span><h4 class="">Parameters</h4><div class="table"><div class="table-row" data-filterable-current=":atrium-logic:dokkaHtmlPartial/commonMain" data-filterable-set=":atrium-logic:dokkaHtmlPartial/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span><span>container</span></span></u></div></span></div><div><div class="title"><p class="paragraph">the container with the current subject (before the change)</p></div></div></div></div><div class="table-row" data-filterable-current=":atrium-logic:dokkaHtmlPartial/commonMain" data-filterable-set=":atrium-logic:dokkaHtmlPartial/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span><span>description</span></span></u></div></span></div><div><div class="title"><p class="paragraph">Describes the feature</p></div></div></div></div><div class="table-row" data-filterable-current=":atrium-logic:dokkaHtmlPartial/commonMain" data-filterable-set=":atrium-logic:dokkaHtmlPartial/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>representation</span><wbr><span>For</span><wbr><span><span>Failure</span></span></u></div></span></div><div><div class="title"><p class="paragraph">Representation in case the extraction cannot be carried out.</p></div></div></div></div><div class="table-row" data-filterable-current=":atrium-logic:dokkaHtmlPartial/commonMain" data-filterable-set=":atrium-logic:dokkaHtmlPartial/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>feature</span><wbr><span><span>Extraction</span></span></u></div></span></div><div><div class="title"><p class="paragraph">Extracts the feature where it returns the feature wrapped into a <a href="../../../atrium-core/ch.tutteli.atrium.core/-some/index.html">Some</a> if the extraction as such can be carried out, otherwise <a href="../../../atrium-core/ch.tutteli.atrium.core/-none/index.html">None</a>.</p></div></div></div></div><div class="table-row" data-filterable-current=":atrium-logic:dokkaHtmlPartial/commonMain" data-filterable-set=":atrium-logic:dokkaHtmlPartial/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>maybe</span><wbr><span>Sub</span><wbr><span><span>Assertions</span></span></u></div></span></div><div><div class="title"><p class="paragraph">Optionally, subsequent expectations for the feature (the new subject). This is especially useful if the extraction cannot be carried out, because this way we can then already show to you (in error reporting) what you wanted to assert about the feature (which gives you more context to the error).</p></div></div></div></div><div class="table-row" data-filterable-current=":atrium-logic:dokkaHtmlPartial/commonMain" data-filterable-set=":atrium-logic:dokkaHtmlPartial/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>feature</span><wbr><span>Expect</span><wbr><span><span>Options</span></span></u></div></span></div><div><div class="title"><p class="paragraph">Additional options which shall apply to the feature extraction.</p></div></div></div></div></div></div></div>
+</div>
+      <div class="footer">
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>Atrium © Copyright Robert Stoll &lt;rstoll@tutteli.ch&gt;</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+      </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
