@@ -42,7 +42,7 @@ fun <T : BigDecimal> Expect<T>.toEqual(expected: T): Nothing =
  *
  * @since 0.17.0
  */
-//TODO rename to toEqualNullable with 2.0.0
+//TODO rename JvmName to toEqualNullable with 2.0.0
 @JvmName("toBeNullable")
 @Deprecated(
     "Use `toEqualNumerically` if you expect that the following assertion holds:\n" +
@@ -66,7 +66,7 @@ fun <T : BigDecimal?> Expect<T>.toEqual(expected: T): Nothing =
  *
  * @since 0.17.0
  */
-//TODO rename to toEqualNul with 2.0.0
+//TODO rename JvmName to toEqualNul with 2.0.0
 @JvmName("toBeNull")
 fun <T : BigDecimal> Expect<T?>.toEqual(expected: Nothing?): Expect<T?> =
     _logicAppend { toBe(expected) }

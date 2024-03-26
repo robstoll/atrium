@@ -35,7 +35,7 @@ jobs:
           # too many timeout errors, let's not fail at the moment
           #fail_ci_if_error: true
 
-      # TODO 1.5.0 re-activate scala API
+      # TODO 3.0.0 re-activate scala API
       #            -   name: composite build atrium-scala2
       #                run: ./gradlew build
       #                working-directory: misc\tools\atrium-scala2-test

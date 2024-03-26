@@ -38,8 +38,8 @@ fun Descriptive.DescriptionOption<Descriptive.FinalStep>.withHelpOnFailure(
  * @param showOnlyIf A predicate which is passed on to [DescriptiveAssertionWithFailureHint.ShowOption.showBasedOnDefinedSubjectOnlyIf].
  * @param failureHintFactory The factory which creates the failure hint as such in the form of an [Assertion].
  */
-//TODO if we introduce Proof or something else as replacement for Assertion then not but if we keep Assertion
-// then move to logic and expect ProofContainer with 1.2.0
+//TODO  1.3.0 if we introduce Proof or something else as replacement for Assertion then not but if we keep Assertion
+// then move to logic and expect ProofContainer with
 fun <T> Descriptive.DescriptionOption<Descriptive.FinalStep>.withHelpOnFailureBasedOnDefinedSubject(
     expect: Expect<T>,
     showOnlyIf: (T) -> Boolean = { _ -> true },
