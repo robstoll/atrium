@@ -33,7 +33,7 @@ listOf("fluent", "infix").forEach { apiName ->
 include("", "atrium-core")
 include("logic", "atrium-logic")
 
-listOf("en_GB", "de_CH").forEach { lang ->
+listOf("en_GB").forEach { lang ->
     include("translations", "atrium-translations-$lang")
 }
 

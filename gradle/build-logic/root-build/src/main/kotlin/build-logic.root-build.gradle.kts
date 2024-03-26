@@ -29,7 +29,7 @@ ifIsPublishing {
             "specs",
             "verbs-internal",
             // a user will most likely never look up translations, only clutter the search
-            "translations-de_CH", "translations-en_GB"
+            "translations-en_GB"
         )
         modulesNotInGhPages.forEach { projectName ->
             prefixedProject(projectName).afterEvaluate {

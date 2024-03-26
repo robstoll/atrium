@@ -14,7 +14,7 @@ def prefixedProject(String name) {
 
 def dexerProjects = ["core",
                      "logic",
-                     "translations-en_GB", "translations-de_CH",
+                     "translations-en_GB",
                      "api-fluent",
                      "api-infix",
                      "fluent",
