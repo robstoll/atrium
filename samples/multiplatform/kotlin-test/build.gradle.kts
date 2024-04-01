@@ -6,11 +6,11 @@ import org.gradle.api.tasks.testing.logging.TestLogEvent
 
 // for infix-api -> change to 'atrium-infix'
 val atriumApi = "atrium-fluent"
-val atriumVersion = "1.1.0"
+val atriumVersion = "1.2.0"
 val junitVersion = "5.9.3"
 
 plugins {
-    kotlin("multiplatform") version "1.8.10"
+    kotlin("multiplatform") version "1.9.23"
 }
 
 group = "org.atriumlib.samples"
@@ -24,7 +24,7 @@ kotlin {
     jvm()
 
     // atrium only supports LEGACY for now
-    js(LEGACY).nodejs()
+    js(IR).nodejs()
 
     sourceSets {
         val commonTest by getting {
