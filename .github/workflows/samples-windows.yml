@@ -39,17 +39,9 @@ jobs:
         run: ./gradlew build
         working-directory: samples\js\kotlin-test
 
-      - name: build Spek sample
-        run: ./gradlew build
-        working-directory: samples\jvm\spek
-
       - name: build Junit5 sample
         run: ./gradlew build
         working-directory: samples\jvm\junit5
-
-      - name: build MPP sample
-        run: ./gradlew build
-        working-directory: samples\multiplatform\kotlin-test
 
       - name: build maven sample
         run: ./mvnw -B clean verify
@@ -62,3 +54,7 @@ jobs:
       - name: build TestNG sample
         run: ./gradlew build
         working-directory: samples\jvm\testng
+
+      - name: build MPP sample
+        run: ./gradlew build
+        working-directory: samples\multiplatform\kotlin-test
