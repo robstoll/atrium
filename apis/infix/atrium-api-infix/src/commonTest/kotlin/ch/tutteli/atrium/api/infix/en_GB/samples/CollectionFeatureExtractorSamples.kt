@@ -38,6 +38,7 @@ class CollectionFeatureExtractorSamples {
         fails {
             // all expectations inside an expectation-group are evaluated together; for more details see:
             // https://github.com/robstoll/atrium#define-single-expectations-or-an-expectation-group
+
             expect(listOf(1, 2, 3)) size { // subject inside this expectation-group is of type Int (actually 3)
                 it toBeLessThan 1     // fails
                 it toBeGreaterThan 4  // isLessThan 1 fails, but isGreaterThan 4 still evaluated

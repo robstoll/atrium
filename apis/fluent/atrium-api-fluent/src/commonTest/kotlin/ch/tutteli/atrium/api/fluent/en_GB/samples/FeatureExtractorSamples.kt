@@ -34,22 +34,19 @@ class FeatureExtractorSamples {
     fun its() {
         val person = Person(name = "John Smith", age = 25)
 
-        expect(person)
-            .its({ age }) { // subject within this expectation-group is of type Int
-                toBeGreaterThan(18)
-                toBeLessThan(35)
-            } // subject here is back to type Person
+        expect(person).its({ age }) { // subject within this expectation-group is of type Int
+            toBeGreaterThan(18)
+            toBeLessThan(35)
+        } // subject here is back to type Person
 
         fails {
-            expect(person)
-                .its({ age }) {
-                    // introduces an expectation-group block
-                    // all expectations are evaluated inside an expectation-group block; for more details:
-                    // https://github.com/robstoll/atrium#define-single-expectations-or-expectation-groups
+            // all expectations are evaluated inside an expectation-group block; for more details:
+            // https://github.com/robstoll/atrium#define-single-expectations-or-an-expectation-group
 
-                    toBeGreaterThan(40) // fails
-                    toBeLessThan(50)    // still evaluated, use `.its.` if you want fail fast behaviour
-                }
+            expect(person).its({ age }) {
+                toBeGreaterThan(40) // fails
+                toBeLessThan(50)    // still evaluated, use `.its.` if you want fail fast behaviour
+            }
         }
     }
 
@@ -82,15 +79,13 @@ class FeatureExtractorSamples {
             } // subject here is back to type Person
 
         fails {
-            expect(person)
-                .feature(Person::name) {
-                    // introduces an expectation-group block
-                    // all expectations are evaluated inside an expectation-group block; for more details:
-                    // https://github.com/robstoll/atrium#define-single-expectations-or-expectation-groups
+            // all expectations are evaluated inside an expectation-group block; for more details:
+            // https://github.com/robstoll/atrium#define-single-expectations-or-an-expectation-group
 
-                    toStartWith("Kevin") // fails
-                    toEndWith("Bacon")   // still evaluated, use `.feature(kprop).` if you want fail fast behaviour
-                }
+            expect(person).feature(Person::name) {
+                toStartWith("Kevin") // fails
+                toEndWith("Bacon")   // still evaluated, use `.feature(kprop).` if you want fail fast behaviour
+            }
         }
 
     }
@@ -121,22 +116,19 @@ class FeatureExtractorSamples {
 
         fun f(person: Person) = person.name
 
-        expect(person)
-            .feature(::f) { // subject is now String, after function [f] is applied
-                toStartWith("John")
-                toEndWith("Smith")
-            } // subject here is back type Person
+        expect(person).feature(::f) { // subject is now String, after function [f] is applied
+            toStartWith("John")
+            toEndWith("Smith")
+        } // subject here is back type Person
 
         fails {
-            expect(person)
-                .feature(::f) {
-                    // introduces an expectation-group block
-                    // all expectations are evaluated inside an expectation-group block; for more details:
-                    // https://github.com/robstoll/atrium#define-single-expectations-or-expectation-groups
+            // all expectations are evaluated inside an expectation-group block; for more details:
+            // https://github.com/robstoll/atrium#define-single-expectations-or-an-expectation-group
 
-                    toStartWith("Kevin") // fails
-                    toEndWith("Bacon")   // still evaluated, use `.feature(kfun).` if you want fail fast behaviour
-                }
+            expect(person).feature(::f) {
+                toStartWith("Kevin") // fails
+                toEndWith("Bacon")   // still evaluated, use `.feature(kfun).` if you want fail fast behaviour
+            }
         }
     }
 
@@ -169,26 +161,23 @@ class FeatureExtractorSamples {
 
         fun f(person: Person, title: String) = "$title ${person.name}"
 
-        expect(person)
-            .feature(
-                ::f,
-                "Dr."
-            ) {// subject within this expectation-group is of type String (actually the return value of calling `f` with the given argument)
-                toStartWith("Dr. John")
-                toEndWith("Smith")
-            } // subject here is back type Person
+        expect(person).feature(
+            ::f,
+            "Dr."
+        ) {// subject within this expectation-group is of type String (actually the return value of calling `f` with the given argument)
+            toStartWith("Dr. John")
+            toEndWith("Smith")
+        } // subject here is back type Person
 
         fails {
-            expect(person)
-                .feature(::f, "Dr.") {
-                    // introduces an expectation-group block
-                    // all expectations are evaluated inside an expectation-group block; for more details:
-                    // https://github.com/robstoll/atrium#define-single-expectations-or-expectation-groups
+            // all expectations are evaluated inside an expectation-group block; for more details:
+            // https://github.com/robstoll/atrium#define-single-expectations-or-an-expectation-group
 
-                    toStartWith("Kevin") // fails
-                    toEndWith("Bacon")   // still evaluated even though `toStartWith` already fails
-                    //                      use `.feature(kfun, arg1).` if you want fail fast behaviour
-                }
+            expect(person).feature(::f, "Dr.") {
+                toStartWith("Kevin") // fails
+                toEndWith("Bacon")   // still evaluated even though `toStartWith` already fails
+                //                      use `.feature(kfun, arg1).` if you want fail fast behaviour
+            }
         }
     }
 
@@ -233,16 +222,14 @@ class FeatureExtractorSamples {
             } // subject here is back type Person
 
         fails {
-            expect(person)
-                .feature(::f, "Dr.", "PMP") {
-                    // introduces an expectation-group block
-                    // all expectations are evaluated inside an expectation-group block; for more details:
-                    // https://github.com/robstoll/atrium#define-single-expectations-or-expectation-groups
+            // all expectations are evaluated inside an expectation-group block; for more details:
+            // https://github.com/robstoll/atrium#define-single-expectations-or-an-expectation-group
 
-                    toStartWith("Kevin") // fails
-                    toEndWith("Bacon")   // still evaluated even though `toStartWith` already fails
-                    //                      use `.feature(kfun, arg1, arg2).` if you want fail fast behaviour
-                }
+            expect(person).feature(::f, "Dr.", "PMP") {
+                toStartWith("Kevin") // fails
+                toEndWith("Bacon")   // still evaluated even though `toStartWith` already fails
+                //                      use `.feature(kfun, arg1, arg2).` if you want fail fast behaviour
+            }
         }
     }
 
@@ -293,16 +280,14 @@ class FeatureExtractorSamples {
             } // subject here is back type Person
 
         fails {
-            expect(person)
-                .feature(::f, "Dr.", "PMP", "Native") {
-                    // introduces an expectation-group block
-                    // all expectations are evaluated inside an expectation-group block; for more details:
-                    // https://github.com/robstoll/atrium#define-single-expectations-or-expectation-groups
+            // all expectations are evaluated inside an expectation-group block; for more details:
+            // https://github.com/robstoll/atrium#define-single-expectations-or-an-expectation-group
 
-                    toStartWith("Kevin") // fails
-                    toEndWith("Bacon")   // still evaluated even though `toStartWith` already fails
-                    //                      use `.feature(kfun, a1, a2, a3).` if you want fail fast behaviour
-                }
+            expect(person).feature(::f, "Dr.", "PMP", "Native") {
+                toStartWith("Kevin") // fails
+                toEndWith("Bacon")   // still evaluated even though `toStartWith` already fails
+                //                      use `.feature(kfun, a1, a2, a3).` if you want fail fast behaviour
+            }
         }
     }
 
@@ -327,8 +312,10 @@ class FeatureExtractorSamples {
             .toEndWith("German level: C1")
 
         fails {
-            expect(person)
-                .feature(::f, "Dr.", "PMP", "Native", "C1")
+            // all expectations are evaluated inside an expectation-group block; for more details:
+            // https://github.com/robstoll/atrium#define-single-expectations-or-an-expectation-group
+
+            expect(person).feature(::f, "Dr.", "PMP", "Native", "C1")
                 .toStartWith("Kevin") // fails
                 .toEndWith("Bacon")   // not evaluated/reported because `toStartWith` already fails
             //                           use `.feature(kfun, a1, a2, a3, a4) { ... }` if you want that all assertions are evaluated
@@ -357,16 +344,14 @@ class FeatureExtractorSamples {
             } // subject here is back type Person
 
         fails {
-            expect(person)
-                .feature(::f, "Dr.", "PMP", "Native", "C1") {
-                    // introduces an expectation-group block
-                    // all expectations are evaluated inside an expectation-group block; for more details:
-                    // https://github.com/robstoll/atrium#define-single-expectations-or-expectation-groups
+            // all expectations are evaluated inside an expectation-group block; for more details:
+            // https://github.com/robstoll/atrium#define-single-expectations-or-an-expectation-group
 
-                    toStartWith("Kevin") // fails
-                    toEndWith("Bacon")   // still evaluated even though `toStartWith` already fails
-                    //                      use `.feature(kfun, a1, a2, a3, a4).` if you want fail fast behaviour
-                }
+            expect(person).feature(::f, "Dr.", "PMP", "Native", "C1") {
+                toStartWith("Kevin") // fails
+                toEndWith("Bacon")   // still evaluated even though `toStartWith` already fails
+                //                      use `.feature(kfun, a1, a2, a3, a4).` if you want fail fast behaviour
+            }
         }
     }
 
@@ -425,16 +410,14 @@ class FeatureExtractorSamples {
             } // subject here is back type Person
 
         fails {
-            expect(person)
-                .feature(::f, "Dr.", "PMP", "Native", "C1", "B2") {
-                    // introduces an expectation-group block
-                    // all expectations are evaluated inside an expectation-group block; for more details:
-                    // https://github.com/robstoll/atrium#define-single-expectations-or-expectation-groups
+            // all expectations are evaluated inside an expectation-group block; for more details:
+            // https://github.com/robstoll/atrium#define-single-expectations-or-an-expectation-group
 
-                    toStartWith("Kevin") // fails
-                    toEndWith("Bacon")   // still evaluated even though `toStartWith` already fails
-                    //                      use `.feature(kfun, a1, a2, a3, a4, a5).` if you want fail fast behaviour
-                }
+            expect(person).feature(::f, "Dr.", "PMP", "Native", "C1", "B2") {
+                toStartWith("Kevin") // fails
+                toEndWith("Bacon")   // still evaluated even though `toStartWith` already fails
+                //                      use `.feature(kfun, a1, a2, a3, a4, a5).` if you want fail fast behaviour
+            }
         }
     }
 
@@ -472,22 +455,20 @@ class FeatureExtractorSamples {
             } // subject here is back type Person
 
         fails {
+            // all expectations are evaluated inside an expectation-group block; for more details:
+            // https://github.com/robstoll/atrium#define-single-expectations-or-an-expectation-group
+
             // Reporting will include the description:
             // expected that subject: Person(name=John Smith, age=25)
             //   * Actual age:           25
             //     - to be less than:    30
             //     - to be greater than: 30
 
-            expect(person)
-                .feature("Actual age", Person::age) {
-                    // introduces an expectation-group block
-                    // all expectations are evaluated inside an expectation-group block; for more details:
-                    // https://github.com/robstoll/atrium#define-single-expectations-or-expectation-groups
-
-                    toBeLessThan(20)    // fails
-                    toBeGreaterThan(30) // still evaluated even though `toBeLessThan` already fails
-                    //                     use `.feature(descr, kprop).` if you want fail fast behaviour
-                }
+            expect(person).feature("Actual age", Person::age) {
+                toBeLessThan(20)    // fails
+                toBeGreaterThan(30) // still evaluated even though `toBeLessThan` already fails
+                //                     use `.feature(descr, kprop).` if you want fail fast behaviour
+            }
         }
     }
 
@@ -520,16 +501,14 @@ class FeatureExtractorSamples {
             } // subject here is back to Person
 
         fails {
-            expect(person)
-                .feature({ f(it::age) }) {
-                    // introduces an expectation-group block
-                    // all expectations are evaluated inside an expectation-group block; for more details:
-                    // https://github.com/robstoll/atrium#define-single-expectations-or-expectation-groups
+            // all expectations are evaluated inside an expectation-group block; for more details:
+            // https://github.com/robstoll/atrium#define-single-expectations-or-an-expectation-group
 
-                    toBeGreaterThan(30) // fails
-                    toBeLessThan(20)    // still evaluated even though `toBeLessThan` already fails
-                    //                     use `.feature({ extractor }).` if you want fail fast behaviour
-                }
+            expect(person).feature({ f(it::age) }) {
+                toBeGreaterThan(30) // fails
+                toBeLessThan(20)    // still evaluated even though `toBeLessThan` already fails
+                //                     use `.feature({ extractor }).` if you want fail fast behaviour
+            }
         }
     }
 
@@ -548,6 +527,7 @@ class FeatureExtractorSamples {
     }
 
     private val dataGenerator = DataGenerator()
+
     @Test
     fun extractSubject() {
         val persons = dataGenerator.getRandomPersonsWithChildren()

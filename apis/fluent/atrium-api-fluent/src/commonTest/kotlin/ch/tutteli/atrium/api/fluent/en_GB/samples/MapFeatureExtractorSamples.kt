@@ -34,25 +34,25 @@ class MapFeatureExtractorSamples {
                 toEqual("a")
             } // subject here is back to type Map<Int, String>
 
-        fails {
-            expect(mapOf(1 to "a"))
-                .getExisting(1) {    // subject inside this expectation-group is of type String (actually "a")
-                    toEqual("b")     // fails because "a" is not equal to "b"
-                    toStartWith("z") // still evaluated because we use an expectation-group block
-                    //                  use `.getExisting(key).` if you want a fail fast behaviour
-                }
-        }
-
-        fails {
+        fails { //fails because key 2 does not exist but...
             // all expectations are evaluated inside an expectation-group block; for more details:
             // https://github.com/robstoll/atrium#define-single-expectations-or-an-expectation-group
 
             expect(mapOf(1 to "a"))
-                .getExisting(2) {   // fails because key 2 does not exist
-                    toEqual("a")    // still evaluated because we use an expectation-group block
-                    //                 use `.getExisting(key).` if you want a fail fast behaviour
+                .getExisting(2) {
+                    toEqual("a")    //... still reported as we are inside an expectation-group block
                 }
         }
+
+        fails {
+            expect(mapOf(1 to "a")).getExisting(1) {    // subject inside this expectation-group is of type String (actually "a")
+                toEqual("b")     // fails because "a" is not equal to "b"
+                toStartWith("z") // still evaluated because we use an expectation-group block
+                //                  use `.getExisting(key).` if you want a fail fast behaviour
+            }
+        }
+
+
     }
 
     @Test
@@ -72,21 +72,19 @@ class MapFeatureExtractorSamples {
 
     @Test
     fun keys() {
-        expect(mapOf(1 to "a"))
-            .keys { // subject inside this expectation-group is of type Set<Int> (containing 1)
-                toEqual(setOf(1))
-            } // subject here is back to type Map<Int, String>
+        expect(mapOf(1 to "a")).keys { // subject inside this expectation-group is of type Set<Int> (containing 1)
+            toEqual(setOf(1))
+        } // subject here is back to type Map<Int, String>
 
         fails {
             // all expectations are evaluated inside an expectation-group block; for more details:
             // https://github.com/robstoll/atrium#define-single-expectations-or-an-expectation-group
 
-            expect(mapOf(1 to "a"))
-                .keys {                // subject inside this expectation-group is of type Set<Int> (containing 1)
-                    toEqual(setOf(2))  // fails because 1 is not equal to 2
-                    toHaveSize(3)      // still evaluated because we use an expectation-group block
-                    //                    use `.keys.` if you want a fail fast behaviour
-                }
+            expect(mapOf(1 to "a")).keys {                // subject inside this expectation-group is of type Set<Int> (containing 1)
+                toEqual(setOf(2))  // fails because 1 is not equal to 2
+                toHaveSize(3)      // still evaluated because we use an expectation-group block
+                //                    use `.keys.` if you want a fail fast behaviour
+            }
         }
     }
 

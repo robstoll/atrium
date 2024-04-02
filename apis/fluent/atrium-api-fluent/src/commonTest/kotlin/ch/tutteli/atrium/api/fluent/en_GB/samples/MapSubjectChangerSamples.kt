@@ -25,6 +25,9 @@ class MapSubjectChangerSamples {
         } // subject here is back to type Map<Int, String>
 
         fails {
+            // all expectations are evaluated inside an expectation-group block; for more details:
+            // https://github.com/robstoll/atrium#define-single-expectations-or-an-expectation-group
+
             expect(mapOf(1 to "a")).asEntries {   // subject inside this expectation-group is of type Map.Entry<Int, String> (actually <1,"a">)
                 toEqual(mapOf(1 to "b").entries)  // fails because <1,"a"> is not equal to <1,"b">
             }

@@ -32,6 +32,9 @@ class MapEntryFeatureExtractorSamples {
         } // subject here is back to type Map.Entry<Int, String>
 
         fails {
+            // all expectations are evaluated inside an expectation-group block; for more details:
+            // https://github.com/robstoll/atrium#define-single-expectations-or-an-expectation-group
+
             expect(entry).key {  // subject inside this expectation-group is of type Int (actually 1)
                 toEqual(2)       // fails
                 toBeLessThan(0)  // still evaluated even though `toEqual` already fails,
@@ -66,6 +69,9 @@ class MapEntryFeatureExtractorSamples {
         } // subject here is back to type Map.Entry<Int, String>
 
         fails {
+            // all expectations are evaluated inside an expectation-group block; for more details:
+            // https://github.com/robstoll/atrium#define-single-expectations-or-an-expectation-group
+
             expect(entry).value { // subject inside this expectation-group is of type String (actually "a")
                 toEqual("b")      // fails
                 toStartWith("z")  // still evaluated even though `toEqual` already fails,

@@ -61,14 +61,14 @@ class Fun0ExpectationSamples {
             } // subject keeps type String also after the block
 
         fails { // because an exception was thrown, but since we use an expectation-group...
-            expect<() -> String> { throw IllegalStateException("abc") }
+            expect { throw IllegalStateException("abc") }
                 .notToThrow {
                     toStartWith("abc") // ... reporting mentions that subject's message was expected `to start with: "abc"`
                 }
         }
 
         fails { // because an exception was thrown, but since we use an expectation-group...
-            expect<() -> String> { throw IllegalStateException("abc") }
+            expect { throw IllegalStateException("abc") }
                 .notToThrow {
                     toStartWith("abc") // ... reporting mentions that subject's message was expected `to start with: "abc"`
                 }

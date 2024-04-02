@@ -107,6 +107,9 @@ class AnyExpectationSamples {
         }
 
         fails { // because sub-expectation fails
+            // all expectations are evaluated inside an expectation-group block; for more details:
+            // https://github.com/robstoll/atrium#define-single-expectations-or-an-expectation-group
+
             expect<Int?>(1).notToEqualNull {
                 toBeLessThan(0)     // fails
                 toBeGreaterThan(5)  // still evaluated even though `toBeLessThan` already fails,
@@ -152,6 +155,9 @@ class AnyExpectationSamples {
         }
 
         fails { // because sub-expectation fails
+            // all expectations are evaluated inside an expectation-group block; for more details:
+            // https://github.com/robstoll/atrium#define-single-expectations-or-an-expectation-group
+
             expect(n).toBeAnInstanceOf<Long> {
                 toEqual(-1L)     // fails
                 toBeLessThan(2L) // still evaluated even though `toEqual` already fails,
@@ -223,14 +229,13 @@ class AnyExpectationSamples {
         }
 
         fails {
-            expect(13).toBeAnInstanceOf<Int>().and {
-                // introduces an expectation-group block where all expectations inside
-                // are evaluated together; for more details see:
-                // https://github.com/robstoll/atrium#define-single-expectations-or-expectation-groups
-                // use `.and.` if you want fail fast behaviour
+            // all expectations are evaluated inside an expectation-group block; for more details:
+            // https://github.com/robstoll/atrium#define-single-expectations-or-an-expectation-group
 
+            expect(13).toBeAnInstanceOf<Int>().and {
                 notToEqualOneOf(1, 2, 13) // fails
                 toBeLessThan(10)          // still evaluated and included in the error report
+                //                           use `.and.` if you want fail fast behaviour
             }
         }
     }

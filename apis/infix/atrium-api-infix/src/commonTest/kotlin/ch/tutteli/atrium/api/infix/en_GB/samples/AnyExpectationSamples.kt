@@ -199,11 +199,10 @@ class AnyExpectationSamples {
         }
 
         fails {
-            expect(13).toBeAnInstanceOf<Int>() and {
-                // introduces an expectation-group block
-                // all expectations are evaluated inside an expectations group block; for more details:
-                // https://github.com/robstoll/atrium#define-single-expectations-or-expectation-groups
+            // all expectations are evaluated inside an expectation-group block; for more details:
+            // https://github.com/robstoll/atrium#define-single-expectations-or-an-expectation-group
 
+            expect(13).toBeAnInstanceOf<Int>() and {
                 it notToEqualOneOf values(1, 2, 13) // fails
                 it toBeLessThan 10                  // still evaluated and included in the error report
                 //                                     use ` and o` if you want fail fast behaviour

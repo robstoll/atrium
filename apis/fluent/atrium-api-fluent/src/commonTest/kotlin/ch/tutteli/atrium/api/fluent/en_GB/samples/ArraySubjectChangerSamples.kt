@@ -23,21 +23,19 @@ class ArraySubjectChangerSamples {
 
     @Test
     fun asList() {
-        expect(arrayOf("A", "B"))
-            .asList { // subject within this expectation-group is of type List<String>
-                toEqual(listOf("A", "B"))
-            } // subject here is back to type Array<String>
+        expect(arrayOf("A", "B")).asList { // subject within this expectation-group is of type List<String>
+            toEqual(listOf("A", "B"))
+        } // subject here is back to type Array<String>
 
         fails {
             // all expectations inside an expectation-group are evaluated together; for more details see:
             // https://github.com/robstoll/atrium#define-single-expectations-or-an-expectation-group
 
-            expect(arrayOf("A", "B"))
-                .asList {
-                    toContain("C")  // fails
-                    toContain("D")  // still evaluated even though above `toContain` already fails
-                    //                 use `.asList().` if you want a fail fast behaviour
-                }
+            expect(arrayOf("A", "B")).asList {
+                toContain("C")  // fails
+                toContain("D")  // still evaluated even though above `toContain` already fails
+                //                 use `.asList().` if you want a fail fast behaviour
+            }
         }
     }
 
@@ -52,12 +50,11 @@ class ArraySubjectChangerSamples {
             // all expectations inside an expectation-group are evaluated together; for more details see:
             // https://github.com/robstoll/atrium#define-single-expectations-or-an-expectation-group
 
-            expect<Array<out String>>(arrayOf("A", "B"))
-                .asList {
-                    toContain("C")  // fails
-                    toContain("D")  // still evaluated even though above `toContain` already fails
-                    //                 use `.asList().` if you want a fail fast behaviour
-                }
+            expect<Array<out String>>(arrayOf("A", "B")).asList {
+                toContain("C")  // fails
+                toContain("D")  // still evaluated even though above `toContain` already fails
+                //                 use `.asList().` if you want a fail fast behaviour
+            }
         }
     }
 
@@ -70,21 +67,19 @@ class ArraySubjectChangerSamples {
 
     @Test
     fun byteArrAsList() {
-        expect(byteArrayOf(1, 2, 3))
-            .asList { // subject within this expectation-group is of type List<Byte>
-                toEqual(listOf<Byte>(1, 2, 3))
-            } // subject here is back to type Array<Byte>
+        expect(byteArrayOf(1, 2, 3)).asList { // subject within this expectation-group is of type List<Byte>
+            toEqual(listOf<Byte>(1, 2, 3))
+        } // subject here is back to type Array<Byte>
 
         fails {
             // all expectations inside an expectation-group are evaluated together; for more details see:
             // https://github.com/robstoll/atrium#define-single-expectations-or-an-expectation-group
 
-            expect(byteArrayOf(1, 2, 3))
-                .asList {
-                    toContain(98)  // fails
-                    toContain(99)  // still evaluated even though above `toContain` already fails
-                    //                 use `.asList().` if you want a fail fast behaviour
-                }
+            expect(byteArrayOf(1, 2, 3)).asList {
+                toContain(98)  // fails
+                toContain(99)  // still evaluated even though above `toContain` already fails
+                //                 use `.asList().` if you want a fail fast behaviour
+            }
         }
     }
 
@@ -97,21 +92,19 @@ class ArraySubjectChangerSamples {
 
     @Test
     fun charArrAsList() {
-        expect(charArrayOf('A', 'B', 'C'))
-            .asList { // subject within this expectation-group is of type List<Char>
-                toEqual(listOf('A', 'B', 'C'))
-            } // subject here is back to type Array<Char>
+        expect(charArrayOf('A', 'B', 'C')).asList { // subject within this expectation-group is of type List<Char>
+            toEqual(listOf('A', 'B', 'C'))
+        } // subject here is back to type Array<Char>
 
         fails {
             // all expectations inside an expectation-group are evaluated together; for more details see:
             // https://github.com/robstoll/atrium#define-single-expectations-or-an-expectation-group
 
-            expect(charArrayOf('A', 'B', 'C'))
-                .asList {
-                    toContain('X')  // fails
-                    toContain('Y')  // still evaluated even though above `toContain` already fails
-                    //                 use `.asList().` if you want a fail fast behaviour
-                }
+            expect(charArrayOf('A', 'B', 'C')).asList {
+                toContain('X')  // fails
+                toContain('Y')  // still evaluated even though above `toContain` already fails
+                //                 use `.asList().` if you want a fail fast behaviour
+            }
         }
     }
 
@@ -124,21 +117,19 @@ class ArraySubjectChangerSamples {
 
     @Test
     fun shortArrAsList() {
-        expect(shortArrayOf(1, 2, 3))
-            .asList { // subject within this expectation-group is of type List<Short>
-                toEqual(listOf<Short>(1, 2, 3))
-            } // subject here is back to type Array<Short>
+        expect(shortArrayOf(1, 2, 3)).asList { // subject within this expectation-group is of type List<Short>
+            toEqual(listOf<Short>(1, 2, 3))
+        } // subject here is back to type Array<Short>
 
         fails {
             // all expectations inside an expectation-group are evaluated together; for more details see:
             // https://github.com/robstoll/atrium#define-single-expectations-or-an-expectation-group
 
-            expect(shortArrayOf(1, 2, 3))
-                .asList {
-                    toContain(98)  // fails
-                    toContain(99)  // still evaluated even though above `toContain` already fails
-                    //                 use `.asList().` if you want a fail fast behaviour
-                }
+            expect(shortArrayOf(1, 2, 3)).asList {
+                toContain(98)  // fails
+                toContain(99)  // still evaluated even though above `toContain` already fails
+                //                 use `.asList().` if you want a fail fast behaviour
+            }
         }
     }
 
@@ -151,21 +142,19 @@ class ArraySubjectChangerSamples {
 
     @Test
     fun intArrAsList() {
-        expect(intArrayOf(1, 2, 3))
-            .asList { // subject within this expectation-group is of type List<Int>
-                toEqual(listOf(1, 2, 3))
-            } // subject here is back to type Array<Int>
+        expect(intArrayOf(1, 2, 3)).asList { // subject within this expectation-group is of type List<Int>
+            toEqual(listOf(1, 2, 3))
+        } // subject here is back to type Array<Int>
 
         fails {
             // all expectations inside an expectation-group are evaluated together; for more details see:
             // https://github.com/robstoll/atrium#define-single-expectations-or-an-expectation-group
 
-            expect(intArrayOf(1, 2, 3))
-                .asList {
-                    toContain(98)  // fails
-                    toContain(99)  // still evaluated even though above `toContain` already fails
-                    //                 use `.asList().` if you want a fail fast behaviour
-                }
+            expect(intArrayOf(1, 2, 3)).asList {
+                toContain(98)  // fails
+                toContain(99)  // still evaluated even though above `toContain` already fails
+                //                 use `.asList().` if you want a fail fast behaviour
+            }
         }
     }
 
@@ -178,21 +167,19 @@ class ArraySubjectChangerSamples {
 
     @Test
     fun longArrAsList() {
-        expect(longArrayOf(1L, 2L, 3L))
-            .asList { // subject within this expectation-group is of type List<Long>
-                toEqual(listOf(1L, 2L, 3L))
-            } // subject here is back to type Array<Long>
+        expect(longArrayOf(1L, 2L, 3L)).asList { // subject within this expectation-group is of type List<Long>
+            toEqual(listOf(1L, 2L, 3L))
+        } // subject here is back to type Array<Long>
 
         fails {
             // all expectations inside an expectation-group are evaluated together; for more details see:
             // https://github.com/robstoll/atrium#define-single-expectations-or-an-expectation-group
 
-            expect(longArrayOf(1L, 2L, 3L))
-                .asList {
-                    toContain(98L)  // fails
-                    toContain(99L)  // still evaluated even though above `toContain` already fails
-                    //                 use `.asList().` if you want a fail fast behaviour
-                }
+            expect(longArrayOf(1L, 2L, 3L)).asList {
+                toContain(98L)  // fails
+                toContain(99L)  // still evaluated even though above `toContain` already fails
+                //                 use `.asList().` if you want a fail fast behaviour
+            }
         }
     }
 
@@ -205,21 +192,19 @@ class ArraySubjectChangerSamples {
 
     @Test
     fun floatArrAsList() {
-        expect(floatArrayOf(1f, 2f, 3f))
-            .asList { // subject within this expectation-group is of type List<Float>
-                toEqual(listOf(1f, 2f, 3f))
-            } // subject here is back to type Array<Float>
+        expect(floatArrayOf(1f, 2f, 3f)).asList { // subject within this expectation-group is of type List<Float>
+            toEqual(listOf(1f, 2f, 3f))
+        } // subject here is back to type Array<Float>
 
         fails {
             // all expectations inside an expectation-group are evaluated together; for more details see:
             // https://github.com/robstoll/atrium#define-single-expectations-or-an-expectation-group
 
-            expect(floatArrayOf(1f, 2f, 3f))
-                .asList {
-                    toContain(98f)  // fails
-                    toContain(99f)  // still evaluated even though above `toContain` already fails
-                    //                 use `.asList().` if you want a fail fast behaviour
-                }
+            expect(floatArrayOf(1f, 2f, 3f)).asList {
+                toContain(98f)  // fails
+                toContain(99f)  // still evaluated even though above `toContain` already fails
+                //                 use `.asList().` if you want a fail fast behaviour
+            }
         }
     }
 
@@ -232,21 +217,19 @@ class ArraySubjectChangerSamples {
 
     @Test
     fun doubleArrAsList() {
-        expect(doubleArrayOf(1.1, 2.2, 3.3))
-            .asList { // subject within this expectation-group is of type List<Double>
-                toEqual(listOf(1.1, 2.2, 3.3))
-            } // subject here is back to type Array<Double>
+        expect(doubleArrayOf(1.1, 2.2, 3.3)).asList { // subject within this expectation-group is of type List<Double>
+            toEqual(listOf(1.1, 2.2, 3.3))
+        } // subject here is back to type Array<Double>
 
         fails {
             // all expectations inside an expectation-group are evaluated together; for more details see:
             // https://github.com/robstoll/atrium#define-single-expectations-or-an-expectation-group
 
-            expect(doubleArrayOf(1.1, 2.2, 3.3))
-                .asList {
-                    toContain(98.1)  // fails
-                    toContain(99.2)  // still evaluated even though above `toContain` already fails
-                    //                 use `.asList().` if you want a fail fast behaviour
-                }
+            expect(doubleArrayOf(1.1, 2.2, 3.3)).asList {
+                toContain(98.1)  // fails
+                toContain(99.2)  // still evaluated even though above `toContain` already fails
+                //                 use `.asList().` if you want a fail fast behaviour
+            }
         }
     }
 
@@ -259,24 +242,22 @@ class ArraySubjectChangerSamples {
 
     @Test
     fun booleanArrAsList() {
-        expect(booleanArrayOf(true, false))
-            .asList { // subject within this expectation-group is of type List<Boolean>
-                toEqual(listOf(true, false))
-            } // subject here is back to type Array<Boolean>
+        expect(booleanArrayOf(true, false)).asList { // subject within this expectation-group is of type List<Boolean>
+            toEqual(listOf(true, false))
+        } // subject here is back to type Array<Boolean>
 
         fails {
             // all expectations inside an expectation-group are evaluated together; for more details see:
             // https://github.com/robstoll/atrium#define-single-expectations-or-an-expectation-group
 
-            expect(booleanArrayOf(true, true))
-                .asList {
-                    // fails
-                    toContain(false)
+            expect(booleanArrayOf(true, true)).asList {
+                // fails
+                toContain(false)
 
-                    // still evaluated even though above `toContain` already fails
-                    // use `.asList().` if you want a fail fast behaviour
-                    toContain.inAnyOrder.atLeast(3).value(true)
-                }
+                // still evaluated even though above `toContain` already fails
+                // use `.asList().` if you want a fail fast behaviour
+                toContain.inAnyOrder.atLeast(3).value(true)
+            }
         }
     }
 }

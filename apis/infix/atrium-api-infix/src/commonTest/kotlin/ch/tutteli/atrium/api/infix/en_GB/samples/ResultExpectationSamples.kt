@@ -100,21 +100,21 @@ class ResultExpectationSamples {
             expect(failure).toBeAFailure<IllegalArgumentException> {
                 its messageToContain "parameter" // fails
                 its.message toStartWith "wrong"  // still evaluated even though messageToContain already fails
-                //                                  use `.toBeAFailure.` if you want a fail fast behaviour
+                //                                  use `.toBeAFailure ` if you want a fail fast behaviour
             }
         }
 
         fails { // because wrong Expectation type expected, but since we use an expectation-group...
             expect(failure).toBeAFailure<ArithmeticException> {
                 its messageToContain "parameter" // ...reporting mentions that subject's message was expected `to contain: "parameter"``
-                //                                  use `.toBeAFailure.` if you want a fail fast behaviour
+                //                                  use `.toBeAFailure ` if you want a fail fast behaviour
             }
         }
 
         fails { // because it was a Success, but since we use a block
             expect(Result.success(10)).toBeAFailure<IllegalArgumentException> {
                 its messageToContain "parameter" // ...reporting mentions that subject's message was expected `to contain: "parameter"``
-                //                                  use `.toBeAFailure.` if you want a fail fast behaviour
+                //                                  use `.toBeAFailure ` if you want a fail fast behaviour
             }
         }
     }

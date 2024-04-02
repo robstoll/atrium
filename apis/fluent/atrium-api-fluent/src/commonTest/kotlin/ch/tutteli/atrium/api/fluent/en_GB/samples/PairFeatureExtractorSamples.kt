@@ -40,12 +40,11 @@ class PairFeatureExtractorSamples {
             // all expectations inside an expectation-group are evaluated together; for more details see:
             // https://github.com/robstoll/atrium#define-single-expectations-or-an-expectation-group
 
-            expect(pair)
-                .first {
-                    toBeGreaterThan(2) // fails
-                    toBeLessThan(0)    // still evaluated even though `toBeGreaterThan` already fails
-                    //                    use `.first.` if you want a fail fast behaviour
-                }
+            expect(pair).first {
+                toBeGreaterThan(2) // fails
+                toBeLessThan(0)    // still evaluated even though `toBeGreaterThan` already fails
+                //                    use `.first.` if you want a fail fast behaviour
+            }
         }
     }
 
@@ -83,12 +82,11 @@ class PairFeatureExtractorSamples {
             // all expectations inside an expectation-group are evaluated together; for more details see:
             // https://github.com/robstoll/atrium#define-single-expectations-or-an-expectation-group
 
-            expect(pair)
-                .second {
-                    toBeGreaterThan(2) // fails
-                    toBeLessThan(0)    // still evaluated even though `toBeGreaterThan` already fails,
-                    //                    use `.second.` if you want a fail fast behaviour
-                }
+            expect(pair).second {
+                toBeGreaterThan(2) // fails
+                toBeLessThan(0)    // still evaluated even though `toBeGreaterThan` already fails,
+                //                    use `.second.` if you want a fail fast behaviour
+            }
         }
     }
 }

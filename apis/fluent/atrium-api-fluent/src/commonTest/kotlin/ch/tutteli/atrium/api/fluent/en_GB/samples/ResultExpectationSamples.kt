@@ -23,6 +23,9 @@ class ResultExpectationSamples {
         }
 
         fails { // because it was a Failure
+            // all expectations are evaluated inside an expectation-group block; for more details:
+            // https://github.com/robstoll/atrium#define-single-expectations-or-an-expectation-group
+
             expect(Result.failure<Int>(ArithmeticException()))
                 .toBeASuccess()      // fails
                 .toBeGreaterThan(12) // not evaluated/reported because `toBeASuccess` already fails
@@ -47,6 +50,7 @@ class ResultExpectationSamples {
         }
 
         fails { // because it was a Failure, but since we use an expectation-group...
+
             expect(Result.failure<Int>(ArithmeticException())).toBeASuccess {
                 toBeGreaterThan(12) // ...reporting mentions that subject was expected `to be greater than: 12`
                 //                     use `.toBeASuccess.` if you want a fail fast behaviour
@@ -54,7 +58,6 @@ class ResultExpectationSamples {
 
         }
     }
-
 
 
     @Test

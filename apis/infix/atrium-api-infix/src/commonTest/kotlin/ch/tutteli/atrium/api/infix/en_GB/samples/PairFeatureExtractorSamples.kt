@@ -38,12 +38,12 @@ class PairFeatureExtractorSamples {
         fails {
             // all expectations inside an expectation-group are evaluated together; for more details see:
             // https://github.com/robstoll/atrium#define-single-expectations-or-an-expectation-group
-            expect(pair)
-                .first { // subject inside this expectation-group is of type Int (actually 1)
-                    it toBeGreaterThan 2 //fails
-                    it toBeLessThan 0    // still evaluated even though `toBeGreaterThan` already fails
-                    //                      use ` first o` if you want a fail fast behaviour
-                }
+
+            expect(pair).first { // subject inside this expectation-group is of type Int (actually 1)
+                it toBeGreaterThan 2 //fails
+                it toBeLessThan 0    // still evaluated even though `toBeGreaterThan` already fails
+                //                      use ` first o` if you want a fail fast behaviour
+            }
         }
     }
 
@@ -82,12 +82,12 @@ class PairFeatureExtractorSamples {
         fails {
             // all expectations inside an expectation-group are evaluated together; for more details see:
             // https://github.com/robstoll/atrium#define-single-expectations-or-an-expectation-group
-            expect(pair)
-                .second { // subject inside this expectation-group is of type Int (actually 1)
-                    it toBeGreaterThan 2 // fails
-                    it toBeLessThan 0    // still evaluated even though `toBeGreaterThan` already fails,
-                    //                      use ` second o` if you want a fail fast behaviour
-                }
+
+            expect(pair).second { // subject inside this expectation-group is of type Int (actually 1)
+                it toBeGreaterThan 2 // fails
+                it toBeLessThan 0    // still evaluated even though `toBeGreaterThan` already fails,
+                //                      use ` second o` if you want a fail fast behaviour
+            }
         }
     }
 }
