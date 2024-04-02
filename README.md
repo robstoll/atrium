@@ -869,7 +869,7 @@ expect(persons).toHaveElementsAndAll {
 
 
 ## Type Expectations
-See also [AnyExpectationSamples -> toBeAnInstanceOf and co.](https://github.com/robstoll/atrium/blob/main/apis/fluent/atrium-api-fluent/src/commonTest/kotlin/ch/tutteli/atrium/api/fluent/en_GB/samples/AnyExpectationSamples.kt#L125)
+See also [AnyExpectationSamples -> toBeAnInstanceOf and co.](https://github.com/robstoll/atrium/tree/main/apis/fluent/atrium-api-fluent/src/commonTest/kotlin/ch/tutteli/atrium/api/fluent/en_GB/samples/AnyExpectationSamples.kt#L128)
 for further examples.
 
 <ex-type-expectations-1>
@@ -928,7 +928,7 @@ There are two `toBeAnInstanceOf` overloads:
   failing to do so cannot include additional information in error reporting though.
 
 ## Nullable Types
-See also [AnyExpectationSamples -> notToEqualNullFeature and co.](https://github.com/robstoll/atrium/blob/main/apis/fluent/atrium-api-fluent/src/commonTest/kotlin/ch/tutteli/atrium/api/fluent/en_GB/samples/AnyExpectationSamples.kt#L81)
+See also [AnyExpectationSamples -> notToEqualNullFeature and co.](https://github.com/robstoll/atrium/tree/main/apis/fluent/atrium-api-fluent/src/commonTest/kotlin/ch/tutteli/atrium/api/fluent/en_GB/samples/AnyExpectationSamples.kt#L81)
 for further examples.
 
 
@@ -1026,7 +1026,7 @@ The following sub sections show both use cases by examples.
 
 ### Shortcut Functions
 See also
-[IterableExpectationSamples](https://github.com/robstoll/atrium/blob/main/apis/fluent/atrium-api-fluent/src/commonTest/kotlin/ch/tutteli/atrium/api/fluent/en_GB/samples/IterableExpectationSamples.kt)
+[IterableExpectationSamples](https://github.com/robstoll/atrium/tree/main/apis/fluent/atrium-api-fluent/src/commonTest/kotlin/ch/tutteli/atrium/api/fluent/en_GB/samples/IterableExpectationSamples.kt)
 for further examples.
 
 <ex-collection-short-1>
@@ -1346,7 +1346,7 @@ and more [Sophisticated Expectation Builder](#sophisticated-expectation-builders
 
 ### Shortcut Functions
 See also
-[MapExpectationSamples](https://github.com/robstoll/atrium/blob/main/apis/fluent/atrium-api-fluent/src/commonTest/kotlin/ch/tutteli/atrium/api/fluent/en_GB/samples/MapExpectationSamples.kt)
+[MapExpectationSamples](https://github.com/robstoll/atrium/tree/main/apis/fluent/atrium-api-fluent/src/commonTest/kotlin/ch/tutteli/atrium/api/fluent/en_GB/samples/MapExpectationSamples.kt)
 for further examples.
 
 <ex-map-1>
@@ -1598,9 +1598,9 @@ There are more expectation functions, a full list can be found in
 
 ## Path Expectations
 See also
-[PathExpectationSamples](https://github.com/robstoll/atrium/blob/main/apis/fluent/atrium-api-fluent/src/jvmTest/kotlin/ch/tutteli/atrium/api/fluent/en_GB/samples/PathExpectationSamples.kt)
+[PathExpectationSamples](https://github.com/robstoll/atrium/tree/main/apis/fluent/atrium-api-fluent/src/jvmTest/kotlin/ch/tutteli/atrium/api/fluent/en_GB/samples/PathExpectationSamples.kt)
 and
-[PathFeatureExtractorSamples](https://github.com/robstoll/atrium/blob/main/apis/fluent/atrium-api-fluent/src/jvmTest/kotlin/ch/tutteli/atrium/api/fluent/en_GB/samples/PathFeatureExtractorSamples.kt)
+[PathFeatureExtractorSamples](https://github.com/robstoll/atrium/tree/main/apis/fluent/atrium-api-fluent/src/jvmTest/kotlin/ch/tutteli/atrium/api/fluent/en_GB/samples/PathFeatureExtractorSamples.kt)
 for further examples.
 
 Atrium’s expectation functions for paths give detailed failure hints explaining what happened on the file system.
@@ -1823,7 +1823,7 @@ I expected subject: -10        (kotlin.Int <1234789>)
 
 ## Data Driven Testing
 See also
-[GroupingSamples](https://github.com/robstoll/atrium/blob/main/apis/fluent/atrium-api-fluent/src/commonTest/kotlin/ch/tutteli/atrium/api/fluent/en_GB/samples/GroupingSamples.kt)
+[GroupingSamples](https://github.com/robstoll/atrium/tree/main/apis/fluent/atrium-api-fluent/src/commonTest/kotlin/ch/tutteli/atrium/api/fluent/en_GB/samples/GroupingSamples.kt)
 for further examples.
 
 Atrium is not intended for data driven testing in the narrowed sense in terms that it cannot produce multiple tests.
