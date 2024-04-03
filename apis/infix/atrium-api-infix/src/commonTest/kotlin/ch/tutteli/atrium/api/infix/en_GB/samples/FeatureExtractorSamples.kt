@@ -35,14 +35,15 @@ class FeatureExtractorSamples {
 //                .toBeGreaterThan(18) toBeLessThan(35) // subject within this expectation-group is of type Int
 //            // subject here is back to type Person
 //
-//        fails {
-//            expect(person)
-//                .its { age }
-//                    // introduces an expectation-group block
-//                    // all expectations are evaluated inside an expectation-group block; for more details:
-//                    // https://github.com/robstoll/atrium#define-single-expectations-or-expectation-groups
-//                    .toBeGreaterThan(40) toBeLessThan(50)    // still evaluated, use `.its.` if you want fail fast behaviour // TODO fix comment
-//        }
+        fails {
+            // all expectations are evaluated inside an expectation-group block; for more details:
+            // https://github.com/robstoll/atrium#define-single-expectations-or-an-expectation-group
+
+            expect(person).its({ age }) {
+                it toBeGreaterThan(40)
+                it toBeLessThan(50)    // still evaluated, use `.its { ... }` if you want fail fast behaviour
+            }
+        }
 //    }
 //
 //    @Test
