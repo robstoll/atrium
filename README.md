@@ -1872,7 +1872,7 @@ This is also the reason why the call of `myFun(2)` is not listed (as the result 
 (see [Define an expectation-group](#define-single-expectations-or-an-expectation-group)) just that you have not yet 
 defined a subject. It also specifies that all expectations specified in it are evaluated and reported together 
 and this is also the reason why we see `calling myFun with 3` in the above [Output](#ex-data-driven-1) even though 
-calling it with `2` failed.
+calling it with `1` failed.
 
 Please [create a feature request](https://github.com/robstoll/atrium/issues/new?template=feature_request.md&title=[Feature])
 if you want to see a summary, meaning also successful expectations -- we happily add more functionality if it is of use for someone.
@@ -2017,7 +2017,7 @@ Take a look at the sample files which are used i.a. in the KDOC of the correspon
 
 # How is Atrium different from other Expectation/Assertion Libraries
 
-The following subsections shall give you a quick overview how Atrium differ from other assertion libraries. 
+The following subsections shall give you a quick overview how Atrium differs from other assertion libraries. 
 
 - [Ready to Help](#ready-to-help)
   - [Fluent API with Code Documentation](#1-fluent-api-with-code-documentation)
@@ -2035,7 +2035,7 @@ Atrium provides a fluent API where the design focus was put on the interoperabil
 with the code completion functionality of your IDE. 
 Or in other words, you can always use code completion to get direct help from your IDE.
 This experience is improved by providing up-to-date [code documentation](#kdoc) (in form of KDoc) 
-for all expectation functions, so that you get the extra help needed.
+for all expectation functions, including samples, so that you get the extra help needed.
 
 ### 2. Additional Information in Failure Reporting
 Atrium adds extra information to error messages so that you get quickly a better idea of what went wrong. 
@@ -2194,7 +2194,7 @@ You could even mix up different API-styles if needed (but not without losing con
 
 ## Migration of Deprecated Functionality
 Atrium follows [Semantic Versioning](https://semver.org/) and tries to be binary backward compatible within a major version (since 0.6.0).
-Until 1.2.0 this is only true for the API level, we reserve the right to break things on the logic and core level until then.
+Until 2.0.0 this is only true for the API level, we reserve the right to break things on the logic and core level until then.
 Moreover, we follow the principle that a user of Atrium has enough time to migrate its code to new functionality before a next major version.
 We provide this in form of `@Deprecated` annotations with a corresponding `ReplaceWith` 
 as well as migration guides in the [Release Notes](https://github.com/robstoll/atrium/releases).
