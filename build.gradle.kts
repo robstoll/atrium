@@ -7,7 +7,7 @@ buildscript {
 
 plugins {
     id("build-logic.root-build")
-    id("io.github.gradle-nexus.publish-plugin") version "1.3.0"
+    id("io.github.gradle-nexus.publish-plugin") version "2.0.0"
 }
 
 
