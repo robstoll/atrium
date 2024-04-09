@@ -1,7 +1,9 @@
 package ch.tutteli.atrium.api.infix.en_GB.samples
 
 import ch.tutteli.atrium.api.infix.en_GB.*
+import ch.tutteli.atrium.api.infix.en_GB.creating.feature.ExtractorWithCreator
 import ch.tutteli.atrium.api.verbs.expect
+import ch.tutteli.atrium.specs.toBeLessThanDescr
 import kotlin.test.Test
 
 class FeatureExtractorSamples {
@@ -22,30 +24,39 @@ class FeatureExtractorSamples {
         fails {
             expect(person) its { age } toBeLessThan 20 toBeGreaterThan 30
             //                         |               | not evaluated/reported because `toBeLessThan` already fails
-            //                         |               | use an expectation-group block; for more details: https://github.com/robstoll/atrium#define-single-expectations-or-expectation-groups
+            //                         |               | use an expectation-group block; for more details: https://github.com/robstoll/atrium#define-single-expectations-or-an-expectation-group
             //                         | fails
         }
     }
 
-//    @Test
-//    fun its() {
-//        val person = Person(name = "John Smith", age = 25)
-//
-//        expect(person) .its { age }
-//                .toBeGreaterThan(18) toBeLessThan(35) // subject within this expectation-group is of type Int
-//            // subject here is back to type Person
-//
-        fails {
+    @Test
+    fun its() {
+        val person = Person(name = "John Smith", age = 25)
+
+        /**
+         * TODO: fix error:
+         * Unresolved reference. None of the following candidates is applicable because of receiver type mismatch:
+         * public infix fun <T : Comparable<TypeVariable(T)>> Expect<TypeVariable(T)>.toBeGreaterThan(expected: TypeVariable(T)): Expect<TypeVariable(T)> defined in ch.tutteli.atrium.api.infix.en_GB in file comparableExpectations.kt
+         */
+        expect(person) feature { f(it::age) } its { this toBeGreaterThan 18 toBeLessThan 35 }
+
+//            its {
+//                age {}
+//                its {age} toBeGreaterThan(18)
+//                its {age} toBeLessThan(35)
+//            } // subject here is back to type Person
+//        }
+
+//        fails {
             // all expectations are evaluated inside an expectation-group block; for more details:
             // https://github.com/robstoll/atrium#define-single-expectations-or-an-expectation-group
 
-            expect(person).its({ age }) {
-                it toBeGreaterThan(40)
-                it toBeLessThan(50)    // still evaluated, use `.its { ... }` if you want fail fast behaviour
-            }
-        }
-//    }
-//
+//            expect(person).its({ age }) {
+//                toBeGreaterThan(40) // fails
+//                toBeLessThan(50)    // still evaluated, use `.its.` if you want fail fast behaviour
+//            }
+    }
+
 //    @Test
 //    fun featureFromPropertyFeature() {
 //        val person = Person(name = "John Smith", age = 25)
