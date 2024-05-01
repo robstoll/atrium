@@ -1,5 +1,5 @@
 // Example project to show how to use Atrium in combination with Kotest
-// For more information on how to setup Atrium for a JVM project -> https://github.com/robstoll/atrium#jvm
+// For more information on how to set up Atrium for a JVM project -> https://github.com/robstoll/atrium#jvm
 
 import org.gradle.api.tasks.testing.logging.TestExceptionFormat
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile

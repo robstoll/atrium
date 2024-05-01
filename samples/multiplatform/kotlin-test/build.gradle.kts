@@ -1,5 +1,5 @@
 // Example project to show how to use Atrium in a multiplatform project
-// For more information on how to setup Atrium for a multiplatform project -> https://github.com/robstoll/atrium#common
+// For more information on how to set up Atrium for a multiplatform project -> https://github.com/robstoll/atrium#common
 
 import org.gradle.api.tasks.testing.logging.TestExceptionFormat
 import org.gradle.api.tasks.testing.logging.TestLogEvent

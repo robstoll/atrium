@@ -1,4 +1,4 @@
-// Example project to show how to use Atrium in combination with mocha
+// Example project to show how to use Atrium in combination with kotlin-test and mocha as runner
 // For more information on how to set up Atrium for a JS project -> https://github.com/robstoll/atrium#js
 
 import org.gradle.api.tasks.testing.logging.TestExceptionFormat
