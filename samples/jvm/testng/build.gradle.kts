@@ -4,7 +4,7 @@
 import org.gradle.api.tasks.testing.logging.TestExceptionFormat
 
 val atriumVersion = "1.2.0"
-val testNGVersion = "7.9.0"
+val testNGVersion = "7.10.2"
 
 plugins {
     kotlin("jvm") version "1.9.23"
