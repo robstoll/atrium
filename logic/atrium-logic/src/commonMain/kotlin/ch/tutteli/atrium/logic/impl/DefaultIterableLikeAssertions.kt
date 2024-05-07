@@ -20,8 +20,6 @@ import ch.tutteli.atrium.logic.creating.iterable.contains.steps.impl.EntryPointS
 import ch.tutteli.atrium.logic.creating.iterable.contains.steps.notCheckerStep
 import ch.tutteli.atrium.logic.creating.transformers.FeatureExtractorBuilder
 import ch.tutteli.atrium.logic.creating.typeutils.IterableLike
-import ch.tutteli.atrium.reporting.translating.Translatable
-import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
 import ch.tutteli.atrium.translations.DescriptionBasic.NOT_TO_HAVE
 import ch.tutteli.atrium.translations.DescriptionBasic.TO_HAVE
 import ch.tutteli.atrium.translations.DescriptionIterableLikeExpectation.*
@@ -129,11 +127,13 @@ class DefaultIterableLikeAssertions : IterableLikeAssertions {
         }
     )
 
+    //TODO 1.3.0 remove suppress again, use InlineElement instead
+    @Suppress("DEPRECATION")
     private fun <E : Any, T : IterableLike> allWithMismatchClauseAndDecorator(
         container: AssertionContainer<T>,
         converter: (T) -> Iterable<E?>,
         assertionCreatorOrNull: (Expect<E>.() -> Unit)?,
-        description: Translatable,
+        description: ch.tutteli.atrium.reporting.translating.Translatable,
         mismatchIf: (Boolean) -> Boolean,
         decorateAssertion: (AssertionGroup, AssertionContainer<List<E?>>) -> AssertionGroup
     ): LazyThreadUnsafeAssertionGroup = LazyThreadUnsafeAssertionGroup {
@@ -216,6 +216,8 @@ class DefaultIterableLikeAssertions : IterableLikeAssertions {
             }
         }
 
+        //TODO 1.3.0 replace with Representable and remove suppression
+        @Suppress("DEPRECATION")
         val duplicates = duplicateIndices
             .map { (index, pair) ->
                 val (element, indices) = pair
@@ -225,7 +227,7 @@ class DefaultIterableLikeAssertions : IterableLikeAssertions {
                         assertionBuilder.explanatoryGroup
                             .withDefaultType
                             .withExplanatoryAssertion(
-                                TranslatableWithArgs(
+                                ch.tutteli.atrium.reporting.translating.TranslatableWithArgs(
                                     DUPLICATED_BY,
                                     indices.joinToString(", ")
                                 )
@@ -234,7 +236,7 @@ class DefaultIterableLikeAssertions : IterableLikeAssertions {
                     }
                     .showForAnyFailure
                     .withDescriptionAndRepresentation(
-                        TranslatableWithArgs(INDEX, index),
+                        ch.tutteli.atrium.reporting.translating.TranslatableWithArgs(INDEX, index),
                         element
                     )
                     .build()

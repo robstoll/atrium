@@ -13,7 +13,7 @@ interface RepresentationOnlyAssertion : Assertion {
     /**
      * The representation of an instance such as `1`, `null` etc.
      *
-     * Typically, an expected value specified by the test writer, e.g. 1, 2 and 3 in `isNoneOf(1, 2, 3)`
+     * Typically, an expected value specified by the test writer, e.g. 1, 2 and 3 in `toBeNoneOf(1, 2, 3)`
      */
     val representation: Any?
 }

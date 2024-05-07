@@ -8,7 +8,6 @@ import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic._logic
 import ch.tutteli.atrium.logic.changeSubject
-import ch.tutteli.atrium.reporting.translating.Translatable
 
 /**
  * Defines the contract to change the subject of an assertion container (e.g. the subject of [Expect]) by creating
@@ -72,7 +71,9 @@ interface SubjectChanger {
      */
     fun <SubjectT, SubjectAfterChangeT> reported(
         container: AssertionContainer<SubjectT>,
-        description: Translatable,
+        //TODO 1.3.0 replace with Representable and remove suppression
+        @Suppress("DEPRECATION")
+        description: ch.tutteli.atrium.reporting.translating.Translatable,
         representation: Any,
         transformation: (SubjectT) -> Option<SubjectAfterChangeT>,
         failureHandler: FailureHandler<SubjectT, SubjectAfterChangeT>,

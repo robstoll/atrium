@@ -12,8 +12,6 @@ import ch.tutteli.atrium.logic.creating.transformers.FeatureExtractorBuilder
 import ch.tutteli.atrium.logic.extractFeature
 import ch.tutteli.atrium.reporting.MethodCallFormatter
 import ch.tutteli.atrium.reporting.Text
-import ch.tutteli.atrium.reporting.translating.Translatable
-import ch.tutteli.atrium.reporting.translating.Untranslatable
 import ch.tutteli.atrium.translations.ErrorMessages
 import kotlin.reflect.*
 
@@ -47,21 +45,27 @@ class DefaultFeatureAssertions : FeatureAssertions {
     private fun <T> buildMethodCallFormatter(container: AssertionContainer<T>) =
         container.components.build<MethodCallFormatter>()
 
+    //TODO 1.3.0 remove suppress again, use InlineElement instead
+    @Suppress("DEPRECATION")
     override fun <T, R> manualFeature(
         container: AssertionContainer<T>,
-        description: Translatable,
+        description: ch.tutteli.atrium.reporting.translating.Translatable,
         provider: T.() -> R
     ): FeatureExtractorBuilder.ExecutionStep<T, R> = extractFeature(container, description, provider)
 
+    //TODO 1.3.0 remove suppress again, use InlineElement instead
+    @Suppress("DEPRECATION")
     private fun <T, R> extractFeature(
         container: AssertionContainer<T>,
         description: String,
         provider: (T) -> R
-    ): FeatureExtractorBuilder.ExecutionStep<T, R> = extractFeature(container, Untranslatable(description), provider)
+    ): FeatureExtractorBuilder.ExecutionStep<T, R> = extractFeature(container, ch.tutteli.atrium.reporting.translating.Untranslatable(description), provider)
 
+    //TODO 1.3.0 remove suppress again, use InlineElement instead
+    @Suppress("DEPRECATION")
     private fun <T, R> extractFeature(
         container: AssertionContainer<T>,
-        description: Translatable,
+        description: ch.tutteli.atrium.reporting.translating.Translatable,
         provider: (T) -> R
     ): FeatureExtractorBuilder.ExecutionStep<T, R> {
         return container.extractFeature
