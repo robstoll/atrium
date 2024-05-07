@@ -8,8 +8,6 @@ import ch.tutteli.atrium.reporting.text.TextAssertionPairFormatter
 import ch.tutteli.atrium.reporting.text.impl.TextFallbackAssertionFormatter
 import ch.tutteli.atrium.reporting.text.impl.TextFeatureAssertionGroupFormatter
 import ch.tutteli.atrium.reporting.text.impl.TextListAssertionGroupFormatter
-import ch.tutteli.atrium.reporting.translating.Translator
-import ch.tutteli.atrium.reporting.translating.UsingDefaultTranslator
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.dsl.Root
 import kotlin.reflect.KClass
@@ -50,7 +48,7 @@ abstract class AssertionFormatterSpecBase(spec: Root.() -> Unit) : Spek({
 
         fun createFacade(
             bulletPoint: Pair<KClass<out BulletPointIdentifier>, String>,
-            testeeFactory: (Map<KClass<out BulletPointIdentifier>, String>, AssertionFormatterController, ObjectFormatter, Translator) -> AssertionFormatter
+            testeeFactory: (Map<KClass<out BulletPointIdentifier>, String>, AssertionFormatterController, ObjectFormatter) -> AssertionFormatter
         ): AssertionFormatterFacade = createFacade(
             mapOf(bulletPoint),
             testeeFactory
@@ -58,15 +56,15 @@ abstract class AssertionFormatterSpecBase(spec: Root.() -> Unit) : Spek({
 
         fun createFacade(
             extendedBulletPoints: Map<KClass<out BulletPointIdentifier>, String>,
-            testeeFactory: (Map<KClass<out BulletPointIdentifier>, String>, AssertionFormatterController, ObjectFormatter, Translator) -> AssertionFormatter
+            testeeFactory: (Map<KClass<out BulletPointIdentifier>, String>, AssertionFormatterController, ObjectFormatter) -> AssertionFormatter
         ): AssertionFormatterFacade {
             val facade = createFacade()
             val sameLineTextAssertionPairFormatter =
-                TextAssertionPairFormatter.newSameLine(ToStringObjectFormatter, UsingDefaultTranslator())
+                TextAssertionPairFormatter.newSameLine(ToStringObjectFormatter)
             facade.register {
                 testeeFactory(
                     extendedBulletPoints, it,
-                    ToStringObjectFormatter, UsingDefaultTranslator()
+                    ToStringObjectFormatter
                 )
             }
             facade.register {

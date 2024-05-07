@@ -42,6 +42,7 @@ class TextSummaryAssertionGroupFormatter(
         parameterObject: AssertionFormatterParameterObject
     ): AssertionFormatterParameterObject {
         parameterObject.appendLnIndentAndPrefix()
+        @Suppress("DEPRECATION")
         assertionPairFormatter.format(parameterObject, assertionGroup.description, assertionGroup.representation)
         //the prefix which should be used for assertions is defined in the formatGroupAssertions
         return parameterObject.createForDoNotFilterAssertionGroup()

@@ -22,7 +22,6 @@ import ch.tutteli.atrium.logic.creating.maplike.contains.searchbehaviours.InOrde
 import ch.tutteli.atrium.logic.creating.typeutils.MapLike
 import ch.tutteli.atrium.logic.utils.expectLambda
 import ch.tutteli.atrium.reporting.MethodCallFormatter
-import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
 import ch.tutteli.atrium.translations.DescriptionMapLikeExpectation.*
 import kotlin.reflect.KClass
 
@@ -100,10 +99,12 @@ class DefaultMapLikeContainsAssertions : MapLikeContainsAssertions {
 
     }
 
+    //TODO 1.3.0 replace with Representable and remove suppression
+    @Suppress("DEPRECATION")
     private fun <K> entryWithKeyTranslation(
         methodCallFormatter: MethodCallFormatter,
         key: K
-    ) = TranslatableWithArgs(ENTRY_WITH_KEY, methodCallFormatter.formatArgument(key))
+    ) = ch.tutteli.atrium.reporting.translating.TranslatableWithArgs(ENTRY_WITH_KEY, methodCallFormatter.formatArgument(key))
 
     @OptIn(ExperimentalComponentFactoryContainer::class)
     private fun getMethodCallFormatter(

@@ -13,6 +13,9 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.creating.ExperimentalComponentFactoryContainer
 import ch.tutteli.atrium.logic.creating.collectors.collectAssertions
 import ch.tutteli.atrium.logic.creating.transformers.SubjectChanger
+import ch.tutteli.atrium.reporting.AtriumErrorAdjuster
+import ch.tutteli.atrium.reporting.Text
+import ch.tutteli.atrium.translations.DescriptionThrowableExpectation.*
 import ch.tutteli.atrium.translations.DescriptionThrowableExpectation.OCCURRED_EXCEPTION_PROPERTIES
 
 class ThrowableThrownFailureHandler<SubjectT : Throwable?, SubjectAfterChangeT> :

@@ -13,6 +13,7 @@ package ch.tutteli.atrium.reporting.translating
  *   or `Hans` in case script is not defined by the user but country was.
  * - `java.util.Locale.ROOT` does not exist for in Atrium's [Locale].
  */
+@Deprecated("will be removed with 2.0.0 at the latest without replacement")
 interface LocaleOrderDecider {
 
     /**
@@ -28,6 +29,7 @@ interface LocaleOrderDecider {
      *
      * @return A [Sequence] of [Locale]s which defines the order in which translations should be searched for.
      */
+    @Deprecated("interface will be removed with 2.0.0 at the latest without replacement")
     fun determineOrder(primaryLocale: Locale, fallbackLocales: List<Locale>): Sequence<Locale>
 }
 

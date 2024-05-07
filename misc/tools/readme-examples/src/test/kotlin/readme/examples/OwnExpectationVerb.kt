@@ -33,7 +33,7 @@ class OwnExpectationVerb: ReadmeTest {
     @OptIn(ExperimentalWithOptions::class, ExperimentalComponentFactoryContainer::class)
     fun <T> expect(subject: T): Expect<T> =
         expectWithNewLine(subject).withOptions {
-            withComponent(ObjectFormatter::class) { c -> ReadmeObjectFormatter(c.build()) }
+            withComponent(ObjectFormatter::class) { _ -> ReadmeObjectFormatter() }
         }
 
     @Test
@@ -46,10 +46,10 @@ class OwnExpectationVerb: ReadmeTest {
 @OptIn(ExperimentalNewExpectTypes::class, ExperimentalComponentFactoryContainer::class)
 fun <T> expect(subject: T): RootExpect<T> =
     RootExpectBuilder.forSubject(subject)
-        .withVerb("expected the subject")
+        .withVerb("I expected subject")
         .withOptions {
             withComponent(TextAssertionPairFormatter::class) { c ->
-                TextAssertionPairFormatter.newNextLine(c.build(), c.build())
+                TextAssertionPairFormatter.newNextLine(c.build())
             }
         }
         .build()

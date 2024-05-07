@@ -4,7 +4,6 @@ import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.core.polyfills.fullName
 import ch.tutteli.atrium.reporting.*
 import ch.tutteli.atrium.reporting.text.TextAssertionFormatter
-import ch.tutteli.atrium.reporting.translating.Untranslatable
 import kotlin.reflect.KClass
 
 /**
@@ -14,12 +13,12 @@ import kotlin.reflect.KClass
  *
  * The [assertionPairFormatter] is also used to format [DescriptiveAssertion]s.
  *
- * Currently the following [Assertion] types are supported:
+ * Currently, the following [Assertion] types are supported:
  * - [AssertionGroup] of type [RootAssertionGroupType]
  * - [DescriptiveAssertion]
  * - [ExplanatoryAssertion]
  *
- * In addition it defines a fallback for unknown [AssertionGroupType]s as well as for unknown [Assertion] types.
+ * In addition, it defines a fallback for unknown [AssertionGroupType]s as well as for unknown [Assertion] types.
  *
  * @property assertionFormatterController The [AssertionFormatterController] used to steer the control flow of
  *   the reporting process.
@@ -46,8 +45,8 @@ class TextFallbackAssertionFormatter(
     private val formatter = TextPrefixBasedAssertionGroupFormatter(rootPrefix)
 
     override fun canFormat(assertion: Assertion): Boolean {
-        // two fallback are implemented one for IAssertionGroup (uses always formatGroup)
-        // and the other one for any kind of IAssertion (fallback to formatFallback)
+        // two fallbacks are implemented one for AssertionGroup (uses always formatGroup)
+        // and the other one for any kind of Assertion (fallback to formatFallback)
         return true
     }
 
@@ -65,6 +64,7 @@ class TextFallbackAssertionFormatter(
         assertion: DescriptiveAssertion,
         parameterObject: AssertionFormatterParameterObject
     ) {
+        @Suppress("DEPRECATION")
         assertionPairFormatter.format(parameterObject, assertion.description, assertion.representation)
     }
 
@@ -83,9 +83,7 @@ class TextFallbackAssertionFormatter(
     }
 
     private fun formatFallback(assertion: Assertion, parameterObject: AssertionFormatterParameterObject) {
-        val translatable =
-            Untranslatable("Unsupported type ${assertion::class.fullName}, can only report whether it holds")
-        assertionPairFormatter.format(parameterObject, translatable, assertion.holds())
+        assertionPairFormatter.format(parameterObject, "Unsupported type ${assertion::class.fullName}, can only report whether it holds", assertion.holds())
     }
 
     override fun formatGroup(

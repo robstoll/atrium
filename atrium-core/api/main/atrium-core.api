@@ -914,7 +914,12 @@ public final class ch/tutteli/atrium/reporting/AssertionFormatterParameterObject
 
 public abstract interface class ch/tutteli/atrium/reporting/AssertionPairFormatter {
 	public abstract fun format (Lch/tutteli/atrium/reporting/AssertionFormatterParameterObject;Lch/tutteli/atrium/reporting/translating/Translatable;Ljava/lang/Object;)V
+	public abstract fun format (Lch/tutteli/atrium/reporting/AssertionFormatterParameterObject;Ljava/lang/String;Ljava/lang/Object;)V
 	public abstract fun formatGroupHeader (Lch/tutteli/atrium/reporting/AssertionFormatterParameterObject;Lch/tutteli/atrium/assertions/AssertionGroup;Lch/tutteli/atrium/reporting/AssertionFormatterParameterObject;)V
+}
+
+public final class ch/tutteli/atrium/reporting/AssertionPairFormatter$DefaultImpls {
+	public static fun format (Lch/tutteli/atrium/reporting/AssertionPairFormatter;Lch/tutteli/atrium/reporting/AssertionFormatterParameterObject;Lch/tutteli/atrium/reporting/translating/Translatable;Ljava/lang/Object;)V
 }
 
 public final class ch/tutteli/atrium/reporting/AtriumError : java/lang/AssertionError {
@@ -1053,8 +1058,14 @@ public abstract interface class ch/tutteli/atrium/reporting/text/TextAssertionPa
 }
 
 public final class ch/tutteli/atrium/reporting/text/TextAssertionPairFormatter$Companion {
+	public final fun newNextLine (Lch/tutteli/atrium/reporting/ObjectFormatter;)Lch/tutteli/atrium/reporting/text/TextAssertionPairFormatter;
 	public final fun newNextLine (Lch/tutteli/atrium/reporting/ObjectFormatter;Lch/tutteli/atrium/reporting/translating/Translator;)Lch/tutteli/atrium/reporting/text/TextAssertionPairFormatter;
+	public final fun newSameLine (Lch/tutteli/atrium/reporting/ObjectFormatter;)Lch/tutteli/atrium/reporting/text/TextAssertionPairFormatter;
 	public final fun newSameLine (Lch/tutteli/atrium/reporting/ObjectFormatter;Lch/tutteli/atrium/reporting/translating/Translator;)Lch/tutteli/atrium/reporting/text/TextAssertionPairFormatter;
+}
+
+public final class ch/tutteli/atrium/reporting/text/TextAssertionPairFormatter$DefaultImpls {
+	public static fun format (Lch/tutteli/atrium/reporting/text/TextAssertionPairFormatter;Lch/tutteli/atrium/reporting/AssertionFormatterParameterObject;Lch/tutteli/atrium/reporting/translating/Translatable;Ljava/lang/Object;)V
 }
 
 public abstract interface class ch/tutteli/atrium/reporting/text/TextMethodCallFormatter : ch/tutteli/atrium/reporting/MethodCallFormatter {
@@ -1069,6 +1080,7 @@ public final class ch/tutteli/atrium/reporting/text/UsingDefaultBulletPoints : c
 }
 
 public abstract class ch/tutteli/atrium/reporting/text/impl/AbstractTextObjectFormatter : ch/tutteli/atrium/reporting/text/impl/TextObjectFormatterCommon {
+	public fun <init> ()V
 	public fun <init> (Lch/tutteli/atrium/reporting/translating/Translator;)V
 	public final fun format (Ljava/lang/Object;)Ljava/lang/String;
 	protected final fun format (Lkotlin/reflect/KClass;)Ljava/lang/String;
@@ -1082,6 +1094,7 @@ public final class ch/tutteli/atrium/reporting/text/impl/DefaultTextMethodCallFo
 }
 
 public final class ch/tutteli/atrium/reporting/text/impl/DefaultTextObjectFormatter : ch/tutteli/atrium/reporting/text/impl/AbstractTextObjectFormatter, ch/tutteli/atrium/reporting/text/TextObjectFormatter {
+	public fun <init> ()V
 	public fun <init> (Lch/tutteli/atrium/reporting/translating/Translator;)V
 }
 
@@ -1140,13 +1153,16 @@ public abstract class ch/tutteli/atrium/reporting/text/impl/TextListBasedAsserti
 }
 
 public final class ch/tutteli/atrium/reporting/text/impl/TextNextLineAssertionPairFormatter : ch/tutteli/atrium/reporting/AssertionPairFormatter, ch/tutteli/atrium/reporting/text/TextAssertionPairFormatter {
+	public fun <init> (Lch/tutteli/atrium/reporting/ObjectFormatter;)V
 	public fun <init> (Lch/tutteli/atrium/reporting/ObjectFormatter;Lch/tutteli/atrium/reporting/translating/Translator;)V
 	public fun format (Lch/tutteli/atrium/reporting/AssertionFormatterParameterObject;Lch/tutteli/atrium/reporting/translating/Translatable;Ljava/lang/Object;)V
+	public fun format (Lch/tutteli/atrium/reporting/AssertionFormatterParameterObject;Ljava/lang/String;Ljava/lang/Object;)V
 	public fun formatGroupHeader (Lch/tutteli/atrium/reporting/AssertionFormatterParameterObject;Lch/tutteli/atrium/assertions/AssertionGroup;Lch/tutteli/atrium/reporting/AssertionFormatterParameterObject;)V
 }
 
 public abstract class ch/tutteli/atrium/reporting/text/impl/TextObjectFormatterCommon : ch/tutteli/atrium/reporting/text/TextObjectFormatter {
 	public static final field Companion Lch/tutteli/atrium/reporting/text/impl/TextObjectFormatterCommon$Companion;
+	public fun <init> ()V
 	public fun <init> (Lch/tutteli/atrium/reporting/translating/Translator;)V
 	public fun format (Ljava/lang/Object;)Ljava/lang/String;
 	protected abstract fun format (Lkotlin/reflect/KClass;)Ljava/lang/String;
@@ -1163,8 +1179,10 @@ public final class ch/tutteli/atrium/reporting/text/impl/TextPrefixBasedAssertio
 }
 
 public final class ch/tutteli/atrium/reporting/text/impl/TextSameLineAssertionPairFormatter : ch/tutteli/atrium/reporting/AssertionPairFormatter, ch/tutteli/atrium/reporting/text/TextAssertionPairFormatter {
+	public fun <init> (Lch/tutteli/atrium/reporting/ObjectFormatter;)V
 	public fun <init> (Lch/tutteli/atrium/reporting/ObjectFormatter;Lch/tutteli/atrium/reporting/translating/Translator;)V
 	public fun format (Lch/tutteli/atrium/reporting/AssertionFormatterParameterObject;Lch/tutteli/atrium/reporting/translating/Translatable;Ljava/lang/Object;)V
+	public fun format (Lch/tutteli/atrium/reporting/AssertionFormatterParameterObject;Ljava/lang/String;Ljava/lang/Object;)V
 	public fun formatGroupHeader (Lch/tutteli/atrium/reporting/AssertionFormatterParameterObject;Lch/tutteli/atrium/assertions/AssertionGroup;Lch/tutteli/atrium/reporting/AssertionFormatterParameterObject;)V
 }
 

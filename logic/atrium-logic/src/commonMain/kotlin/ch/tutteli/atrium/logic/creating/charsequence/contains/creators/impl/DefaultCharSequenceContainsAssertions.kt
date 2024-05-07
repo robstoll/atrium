@@ -10,7 +10,6 @@ import ch.tutteli.atrium.logic.creating.charsequence.contains.searchers.impl.Ign
 import ch.tutteli.atrium.logic.creating.charsequence.contains.searchers.impl.IndexSearcher
 import ch.tutteli.atrium.logic.creating.charsequence.contains.searchers.impl.RegexSearcher
 import ch.tutteli.atrium.logic.creating.typeutils.CharSequenceOrNumberOrChar
-import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.translations.DescriptionCharSequenceExpectation
 
 class DefaultCharSequenceContainsAssertions : CharSequenceContainsAssertions {
@@ -70,11 +69,13 @@ class DefaultCharSequenceContainsAssertions : CharSequenceContainsAssertions {
         DescriptionCharSequenceExpectation.STRING_MATCHING_REGEX
     )
 
+    //TODO 1.3.0 replace with InlineElement and remove suppression
+    @Suppress("DEPRECATION")
     private fun <T : CharSequence, SC : CharSequenceOrNumberOrChar, S : SearchBehaviour> createAssertionGroup(
         checkerStepLogic: CheckerStepLogic<T, S>,
         searcher: Searcher<S, SC>,
         expected: List<SC>,
-        groupDescription: Translatable
+        groupDescription: ch.tutteli.atrium.reporting.translating.Translatable
     ): AssertionGroup {
         val creator = CharSequenceContainsAssertionCreator<T, SC, S>(
             checkerStepLogic.entryPointStepLogic.searchBehaviour,

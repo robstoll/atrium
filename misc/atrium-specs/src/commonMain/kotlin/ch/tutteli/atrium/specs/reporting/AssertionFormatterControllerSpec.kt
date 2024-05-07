@@ -15,8 +15,6 @@ import ch.tutteli.atrium.reporting.text.impl.TextExplanatoryAssertionGroupFormat
 import ch.tutteli.atrium.reporting.text.impl.TextFallbackAssertionFormatter
 import ch.tutteli.atrium.reporting.text.impl.TextListAssertionGroupFormatter
 import ch.tutteli.atrium.reporting.text.impl.TextSummaryAssertionGroupFormatter
-import ch.tutteli.atrium.reporting.translating.Untranslatable
-import ch.tutteli.atrium.reporting.translating.UsingDefaultTranslator
 import ch.tutteli.atrium.specs.AssertionVerb
 import ch.tutteli.atrium.specs.describeFunTemplate
 import ch.tutteli.atrium.specs.lineSeparator
@@ -54,7 +52,7 @@ abstract class AssertionFormatterControllerSpec(
 
     testee.register(TextExplanatoryAssertionGroupFormatter(bulletPoints, testee))
     val sameLineTextAssertionPairFormatter =
-        TextAssertionPairFormatter.newSameLine(ToStringObjectFormatter, UsingDefaultTranslator())
+        TextAssertionPairFormatter.newSameLine(ToStringObjectFormatter)
     testee.register(
         TextListAssertionGroupFormatter(
             bulletPoints,
@@ -297,7 +295,8 @@ abstract class AssertionFormatterControllerSpec(
                 context("an expectation-group with type ${InvisibleAssertionGroupType::class.simpleName} with two assertions") {
                     it("appends both assertions, no header for group with ${InvisibleAssertionGroupType::class.simpleName}, and prefix holding/failing assertion accordingly") {
                         val invisibleGroup: AssertionGroup = object : AssertionGroup {
-                            override val description = Untranslatable("test")
+                            @Suppress("DEPRECATION")
+                            override val description = ch.tutteli.atrium.reporting.translating.Untranslatable("test")
                             override val type = InvisibleAssertionGroupType
                             override val representation = "representation"
                             override val assertions = listOf(holdingAssertion, failingAssertion)

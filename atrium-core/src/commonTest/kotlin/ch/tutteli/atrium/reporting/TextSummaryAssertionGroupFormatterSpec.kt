@@ -5,8 +5,6 @@ import ch.tutteli.atrium.assertions.DefaultSummaryAssertionGroupType
 import ch.tutteli.atrium.assertions.SummaryAssertionGroupType
 import ch.tutteli.atrium.reporting.text.impl.TextSameLineAssertionPairFormatter
 import ch.tutteli.atrium.reporting.text.impl.TextSummaryAssertionGroupFormatter
-import ch.tutteli.atrium.reporting.translating.Translator
-import ch.tutteli.atrium.reporting.translating.UsingDefaultTranslator
 import ch.tutteli.atrium.specs.reporting.ToStringObjectFormatter
 import org.spekframework.spek2.Spek
 import kotlin.reflect.KClass
@@ -42,22 +40,16 @@ class TextSummaryAssertionGroupFormatterSpec : Spek({
                 TextSummaryAssertionGroupFormatter(
                     bulletPoints,
                     controller,
-                    TextSameLineAssertionPairFormatter(
-                        ToStringObjectFormatter,
-                        UsingDefaultTranslator()
-                    )
+                    TextSameLineAssertionPairFormatter(ToStringObjectFormatter)
                 )
             }
 
         private fun factory() =
-            { bulletPoints: Map<KClass<out BulletPointIdentifier>, String>, controller: AssertionFormatterController, objectFormatter: ObjectFormatter, translator: Translator ->
+            { bulletPoints: Map<KClass<out BulletPointIdentifier>, String>, controller: AssertionFormatterController, objectFormatter: ObjectFormatter ->
                 TextSummaryAssertionGroupFormatter(
                     bulletPoints,
                     controller,
-                    TextSameLineAssertionPairFormatter(
-                        objectFormatter,
-                        translator
-                    )
+                    TextSameLineAssertionPairFormatter(objectFormatter)
                 )
             }
     }

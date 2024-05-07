@@ -7,7 +7,8 @@ package ch.tutteli.atrium.reporting
  * @property string The string which should be treated as raw [String].
  * @param string The string which should be treated as raw [String].
  */
-data class Text private constructor(val string: String) {
+//TODO 2.0.0 remove data?
+data class Text private constructor(val string: String)  {
 
     /**
      * @suppress No need to document this behaviour.

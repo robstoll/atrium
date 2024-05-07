@@ -7,8 +7,6 @@ import ch.tutteli.atrium.creating.FeatureExpect
 import ch.tutteli.atrium.creating.FeatureExpectOptions
 import ch.tutteli.atrium.logic.creating.impl.FeatureExpectOptionsChooserImpl
 import ch.tutteli.atrium.reporting.Text
-import ch.tutteli.atrium.reporting.translating.Translatable
-import ch.tutteli.atrium.reporting.translating.Untranslatable
 
 /**
  * Define additional (non-mandatory) options to create a [FeatureExpect] based on a given
@@ -29,19 +27,22 @@ fun <R> FeatureExpectOptions(configuration: FeatureExpectOptionsChooser<R>.() ->
 interface FeatureExpectOptionsChooser<R> {
 
     /**
-     * Wraps the given [description] into an [Untranslatable] and passes it to the overload
-     * which expects a [Translatable] -- this is then used as custom description
+     * Wraps the given [description] into an [ch.tutteli.atrium.reporting.translating.Untranslatable] and passes it to the overload
+     * which expects a [ch.tutteli.atrium.reporting.translating.Translatable] -- this is then used as custom description
      * instead of the previously defined description.
      *
      */
     fun withDescription(description: String) {
-        withDescription(Untranslatable(description))
+        @Suppress("DEPRECATION")
+        withDescription(ch.tutteli.atrium.reporting.translating.Untranslatable(description))
     }
 
     /**
      * Uses the given [description] as custom description instead of the previously defined description.
      */
-    fun withDescription(description: Translatable)
+    //TODO 1.3.0 replace with InlineElement and remove suppression
+    @Suppress("DEPRECATION")
+    fun withDescription(description: ch.tutteli.atrium.reporting.translating.Translatable)
 
     /**
      * Wraps the given [textRepresentation] into a [Text] and uses it as representation of the subject
