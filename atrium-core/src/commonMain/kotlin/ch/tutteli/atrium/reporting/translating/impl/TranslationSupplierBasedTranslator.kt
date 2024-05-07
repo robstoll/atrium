@@ -24,6 +24,8 @@ import ch.tutteli.atrium.reporting.translating.*
  * @param fallbackLocales Used in case a translation for a given [Translatable] is not defined for
  *   [primaryLocale] or one of its secondary alternatives -- the fallback [Locale]s are used in the given order.
  */
+@Suppress("DEPRECATION")
+@Deprecated("will be removed with 2.0.0 at the latest without replacement")
 class TranslationSupplierBasedTranslator(
     private val translationSupplier: TranslationSupplier,
     private val localeOrderDecider: LocaleOrderDecider,
@@ -31,6 +33,7 @@ class TranslationSupplierBasedTranslator(
     fallbackLocales: List<Locale>
 ) : ArgumentsSupportingTranslator(primaryLocale, fallbackLocales) {
 
+    @Deprecated("class will be removed with 2.0.0 at the latest without replacement")
     override fun translateWithoutArgs(translatable: Translatable): String {
         return localeOrderDecider.determineOrder(primaryLocale, fallbackLocales)
             .map { translationSupplier.get(translatable, it) }

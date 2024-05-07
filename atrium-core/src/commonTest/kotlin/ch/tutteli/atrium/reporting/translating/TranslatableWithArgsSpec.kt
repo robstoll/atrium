@@ -6,6 +6,8 @@ import ch.tutteli.atrium.reporting.translating.Translations.*
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.describe
 
+//TODO 1.3.0 replace by something like TextFormatterSpec? remove suppression
+@Suppress("DEPRECATION")
 class TranslatableWithArgsSpec : Spek({
     describe("creating a TranslatableWithArgs") {
         context("for a translatable without args") {

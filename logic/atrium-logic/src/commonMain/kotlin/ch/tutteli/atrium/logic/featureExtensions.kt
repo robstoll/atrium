@@ -6,18 +6,19 @@ import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.logic.creating.feature.MetaFeature
 import ch.tutteli.atrium.logic.creating.transformers.FeatureExtractorBuilder
 import ch.tutteli.atrium.reporting.Text
-import ch.tutteli.atrium.reporting.translating.Untranslatable
-import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.translations.ErrorMessages
 
 /**
- * Convenience method to pass a [String] as [description] which is wrapped into an [Untranslatable] instead of passing
- * a [Translatable].
+ * Convenience method to pass a [String] as [description] which is wrapped into an [ch.tutteli.atrium.reporting.translating.Untranslatable] instead of passing
+ * a [ch.tutteli.atrium.reporting.translating.Translatable].
  */
+//TODO 1.3.0 remove suppress again, use InlineElement instead and adopt description
+@Suppress("DEPRECATION")
 fun <T, R> AssertionContainer<T>.manualFeature(
     description: String,
     provider: T.() -> R
-): FeatureExtractorBuilder.ExecutionStep<T, R> = manualFeature(Untranslatable(description), provider)
+): FeatureExtractorBuilder.ExecutionStep<T, R> =
+    manualFeature(ch.tutteli.atrium.reporting.translating.Untranslatable(description), provider)
 
 fun <T, R> AssertionContainer<T>.genericSubjectBasedFeature(
     provider: (T) -> MetaFeature<R>
@@ -30,6 +31,7 @@ private fun <R> createFeatureSubjectNotDefined(): MetaFeature<R> =
         ErrorMessages.REPRESENTATION_BASED_ON_SUBJECT_NOT_DEFINED,
         None
     )
+
 private fun <T, R> genericFeature(
     container: AssertionContainer<T>,
     metaFeature: MetaFeature<R>

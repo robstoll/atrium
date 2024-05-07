@@ -3,8 +3,6 @@ package ch.tutteli.atrium.logic.creating.charsequence.contains.searchbehaviours.
 import ch.tutteli.atrium.logic.creating.charsequence.contains.CharSequenceContains
 import ch.tutteli.atrium.logic.creating.charsequence.contains.searchbehaviours.IgnoringCaseSearchBehaviour
 import ch.tutteli.atrium.logic.creating.charsequence.contains.searchbehaviours.NoOpSearchBehaviour
-import ch.tutteli.atrium.reporting.translating.Translatable
-import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
 import ch.tutteli.atrium.translations.DescriptionCharSequenceExpectation.IGNORING_CASE
 
 /**
@@ -15,8 +13,10 @@ class IgnoringCaseSearchBehaviourImpl(
     private val previousBehaviour: NoOpSearchBehaviour
 ) : IgnoringCaseSearchBehaviour {
 
-    override fun decorateDescription(description: Translatable): Translatable {
+    //TODO 1.3.0 replace with Representable and remove suppression
+    @Suppress("DEPRECATION")
+    override fun decorateDescription(description: ch.tutteli.atrium.reporting.translating.Translatable): ch.tutteli.atrium.reporting.translating.Translatable {
         val previousDecorated = previousBehaviour.decorateDescription(description)
-        return TranslatableWithArgs(IGNORING_CASE, previousDecorated)
+        return ch.tutteli.atrium.reporting.translating.TranslatableWithArgs(IGNORING_CASE, previousDecorated)
     }
 }

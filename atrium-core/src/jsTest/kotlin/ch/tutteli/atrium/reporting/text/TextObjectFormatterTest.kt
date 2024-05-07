@@ -6,11 +6,10 @@ import ch.tutteli.atrium.api.verbs.internal.expectGrouped
 import ch.tutteli.atrium.core.polyfills.objClass
 import ch.tutteli.atrium.core.polyfills.objInterface
 import ch.tutteli.atrium.reporting.text.impl.DefaultTextObjectFormatter
-import ch.tutteli.atrium.reporting.translating.UsingDefaultTranslator
 import kotlin.test.Test
 
 class TextObjectFormatterTest {
-    val testee = DefaultTextObjectFormatter(UsingDefaultTranslator())
+    val testee = DefaultTextObjectFormatter()
 
     @Test
     fun anonymous_class_interface(){

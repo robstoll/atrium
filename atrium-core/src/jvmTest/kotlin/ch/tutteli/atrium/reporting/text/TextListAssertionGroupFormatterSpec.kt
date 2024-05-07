@@ -7,7 +7,6 @@ import ch.tutteli.atrium.reporting.AssertionFormatterController
 import ch.tutteli.atrium.reporting.ObjectFormatter
 import ch.tutteli.atrium.reporting.text.impl.TextListAssertionGroupFormatter
 import ch.tutteli.atrium.reporting.text.impl.TextSameLineAssertionPairFormatter
-import ch.tutteli.atrium.reporting.translating.Translator
 import org.spekframework.spek2.Spek
 import kotlin.reflect.KClass
 
@@ -38,14 +37,11 @@ class TextListAssertionGroupFormatterSpec : Spek({
 
     companion object {
         private fun factoryWithBullet() =
-            { bulletPoints: Map<KClass<out BulletPointIdentifier>, String>, assertionFormatterController: AssertionFormatterController, objectFormatter: ObjectFormatter, translator: Translator ->
+            { bulletPoints: Map<KClass<out BulletPointIdentifier>, String>, assertionFormatterController: AssertionFormatterController, objectFormatter: ObjectFormatter ->
                 TextListAssertionGroupFormatter(
                     bulletPoints,
                     assertionFormatterController,
-                    TextSameLineAssertionPairFormatter(
-                        objectFormatter,
-                        translator
-                    )
+                    TextSameLineAssertionPairFormatter(objectFormatter)
                 )
             }
     }

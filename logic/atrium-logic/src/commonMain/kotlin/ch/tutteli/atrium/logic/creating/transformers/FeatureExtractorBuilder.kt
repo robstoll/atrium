@@ -8,8 +8,6 @@ import ch.tutteli.atrium.logic.creating.transformers.impl.featureextractor.*
 import ch.tutteli.atrium.reporting.LazyRepresentation
 import ch.tutteli.atrium.reporting.MethodCallFormatter
 import ch.tutteli.atrium.reporting.Text
-import ch.tutteli.atrium.reporting.translating.Translatable
-import ch.tutteli.atrium.reporting.translating.Untranslatable
 
 /**
  * Helps in using [FeatureExtractor] by providing a guide to set the different parameters in form of a fluent builder.
@@ -48,15 +46,19 @@ interface FeatureExtractorBuilder {
             )
 
         /**
-         * Uses the given [description], wraps it into an [Untranslatable] and uses it as description of the feature.
+         * Uses the given [description], wraps it into an [ch.tutteli.atrium.reporting.translating.Untranslatable] and uses it as description of the feature.
          */
+        //TODO 1.3.0 remove suppress again, use InlineElement instead
+        @Suppress("DEPRECATION")
         fun withDescription(description: String): RepresentationInCaseOfFailureStep<SubjectT> =
-            withDescription(Untranslatable(description))
+            withDescription(ch.tutteli.atrium.reporting.translating.Untranslatable(description))
 
         /**
          * Uses the given [translatable] as description of the feature.
          */
-        fun withDescription(translatable: Translatable): RepresentationInCaseOfFailureStep<SubjectT>
+        //TODO 1.3.0 replace with Representable and remove suppression
+        @Suppress("DEPRECATION")
+        fun withDescription(translatable: ch.tutteli.atrium.reporting.translating.Translatable): RepresentationInCaseOfFailureStep<SubjectT>
 
         companion object {
             /**
@@ -82,7 +84,9 @@ interface FeatureExtractorBuilder {
         /**
          * The previously specified description which describes the kind of feature extraction.
          */
-        val description: Translatable
+        //TODO 1.3.0 replace with Representable and remove suppression
+        @Suppress("DEPRECATION")
+        val description: ch.tutteli.atrium.reporting.translating.Translatable
 
         /**
          * Uses the given [representationProvider], by turning it into a [LazyRepresentation],
@@ -105,7 +109,9 @@ interface FeatureExtractorBuilder {
              */
             operator fun <SubjectT> invoke(
                 container: AssertionContainer<SubjectT>,
-                description: Translatable
+                //TODO 1.3.0 remove suppress again, use InlineElement instead
+                @Suppress("DEPRECATION")
+                description: ch.tutteli.atrium.reporting.translating.Translatable
             ): RepresentationInCaseOfFailureStep<SubjectT> =
                 RepresentationInCaseOfFailureStepImpl(container, description)
         }
@@ -126,8 +132,9 @@ interface FeatureExtractorBuilder {
         /**
          * The previously specified description which describes the kind of feature extraction.
          */
-
-        val description: Translatable
+        //TODO 1.3.0 remove suppress again, use InlineElement instead
+        @Suppress("DEPRECATION")
+        val description: ch.tutteli.atrium.reporting.translating.Translatable
 
         /**
          * The previously specified representation which will be used in case the feature cannot be extracted.
@@ -149,7 +156,9 @@ interface FeatureExtractorBuilder {
              */
             operator fun <SubjectT> invoke(
                 container: AssertionContainer<SubjectT>,
-                description: Translatable,
+                //TODO 1.3.0 remove suppress again, use InlineElement instead
+                @Suppress("DEPRECATION")
+                description: ch.tutteli.atrium.reporting.translating.Translatable,
                 representationForFailure: Any
             ): FeatureExtractionStep<SubjectT> = FeatureExtractionStepImpl(
                 container, description, representationForFailure

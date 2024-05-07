@@ -9,8 +9,6 @@ import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic.creating.transformers.impl.subjectchanger.*
 import ch.tutteli.atrium.reporting.Text
-import ch.tutteli.atrium.reporting.translating.Translatable
-import ch.tutteli.atrium.reporting.translating.Untranslatable
 import ch.tutteli.atrium.translations.DescriptionAnyExpectation
 import kotlin.reflect.KClass
 
@@ -83,12 +81,14 @@ interface SubjectChangerBuilder {
                 }
         /**
          * Uses the given [description] and [representation] to represent the change by delegating to the other overload
-         * which expects a [Translatable] instead of a [String].
+         * which expects a [ch.tutteli.atrium.reporting.translating.Translatable] instead of a [String].
          *
          * See the other overload for further information.
          */
+        //TODO 1.3.0 remove suppress again, use InlineElement instead
+        @Suppress("DEPRECATION")
         fun withDescriptionAndRepresentation(description: String, representation: Any?): TransformationStep<SubjectT> =
-            withDescriptionAndRepresentation(Untranslatable(description), representation)
+            withDescriptionAndRepresentation(ch.tutteli.atrium.reporting.translating.Untranslatable(description), representation)
 
         /**
          * Uses the given [description] and [representation] to represent the change.
@@ -99,7 +99,9 @@ interface SubjectChangerBuilder {
          * Notice, if you want to use text (a [String] which is treated as raw string in reporting) as representation,
          * then wrap it into a [Text] and pass it instead.
          */
-        fun withDescriptionAndRepresentation(description: Translatable, representation: Any?): TransformationStep<SubjectT>
+        //TODO 1.3.0 remove suppress again, use InlineElement instead
+        @Suppress("DEPRECATION")
+        fun withDescriptionAndRepresentation(description: ch.tutteli.atrium.reporting.translating.Translatable, representation: Any?): TransformationStep<SubjectT>
 
         companion object {
             /**
@@ -126,7 +128,9 @@ interface SubjectChangerBuilder {
         /**
          * The previously specified description which describes the kind of subject change.
          */
-        val description: Translatable
+        //TODO 1.3.0 remove suppress again, use InlineElement instead
+        @Suppress("DEPRECATION")
+        val description:  ch.tutteli.atrium.reporting.translating.Translatable
 
         /**
          * The previously specified representation of the change.
@@ -142,9 +146,11 @@ interface SubjectChangerBuilder {
             /**
              * Creates a [TransformationStep] in the context of the [SubjectChangerBuilder].
              */
+            //TODO 1.3.0 remove suppress again, use InlineElement instead
+            @Suppress("DEPRECATION")
             operator fun <T> invoke(
                 container: AssertionContainer<T>,
-                description: Translatable,
+                description:  ch.tutteli.atrium.reporting.translating.Translatable,
                 representation: Any
             ): TransformationStep<T> = TransformationStepImpl(container, description, representation)
         }
