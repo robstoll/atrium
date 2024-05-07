@@ -12,7 +12,6 @@ import ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.InAny
 import ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.NotSearchBehaviour
 import ch.tutteli.atrium.logic.creating.typeutils.IterableLike
 import ch.tutteli.atrium.logic.impl.*
-import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.translations.DescriptionIterableLikeExpectation
 import ch.tutteli.atrium.translations.DescriptionIterableLikeExpectation.AN_ELEMENT_WHICH_NEEDS
 import ch.tutteli.atrium.translations.DescriptionIterableLikeExpectation.NUMBER_OF_SUCH_ELEMENTS
@@ -24,13 +23,13 @@ import ch.tutteli.atrium.translations.DescriptionIterableLikeExpectation.NUMBER_
  * @param T The type of the subject of this expectation for which the `contains` assertion is be build.
  *
  * @property searchBehaviour The search behaviour -- in this case representing `in any order` which is used to
- *   decorate the description (a [Translatable]) which is used for the [AssertionGroup].
+ *   decorate the description (a [ch.tutteli.atrium.reporting.translating.Translatable]) which is used for the [AssertionGroup].
  *
  * @constructor Represents a creator of a sophisticated `contains` assertions for [Iterable] where expected entries
  *   can appear in any order and are identified by holding a group of assertions, created by an assertion
  *   creator lambda.
  * @param searchBehaviour The search behaviour -- in this case representing `in any order` which is used to
- *   decorate the description (a [Translatable]) which is used for the [AssertionGroup].
+ *   decorate the description (a [ch.tutteli.atrium.reporting.translating.Translatable]) which is used for the [AssertionGroup].
  * @param checkers The checkers which create assertions based on the search result.
  */
 class InAnyOrderEntriesAssertionCreator<E : Any, T : IterableLike>(
@@ -43,10 +42,17 @@ class InAnyOrderEntriesAssertionCreator<E : Any, T : IterableLike>(
     checkers
 ), IterableLikeContains.Creator<T, (Expect<E>.() -> Unit)?> {
 
-    override val descriptionToContain: Translatable = DescriptionIterableLikeExpectation.TO_CONTAIN
+    //TODO 1.3.0 replace with Representable and remove suppression
+    @Suppress("DEPRECATION")
+    override val descriptionToContain: ch.tutteli.atrium.reporting.translating.Translatable = DescriptionIterableLikeExpectation.TO_CONTAIN
 
-    override val descriptionNotFound: Translatable = DescriptionIterableLikeExpectation.ELEMENT_NOT_FOUND
-    override val descriptionNumberOfElementsFound: Translatable =
+    //TODO 1.3.0 replace with Representable and remove suppression
+    @Suppress("DEPRECATION")
+    override val descriptionNotFound: ch.tutteli.atrium.reporting.translating.Translatable = DescriptionIterableLikeExpectation.ELEMENT_NOT_FOUND
+
+    //TODO 1.3.0 replace with Representable and remove suppression
+    @Suppress("DEPRECATION")
+    override val descriptionNumberOfElementsFound: ch.tutteli.atrium.reporting.translating.Translatable =
         DescriptionIterableLikeExpectation.NUMBER_OF_ELEMENTS_FOUND
 
     override fun makeSubjectMultipleTimesConsumable(container: AssertionContainer<T>): AssertionContainer<List<E?>> =
@@ -67,7 +73,9 @@ class InAnyOrderEntriesAssertionCreator<E : Any, T : IterableLike>(
     override fun searchAndCreateAssertion(
         multiConsumableContainer: AssertionContainer<List<E?>>,
         searchCriterion: (Expect<E>.() -> Unit)?,
-        featureFactory: (Int, Translatable) -> AssertionGroup
+        //TODO 1.3.0 remove suppress again, use InlineElement instead
+        @Suppress("DEPRECATION")
+        featureFactory: (Int, ch.tutteli.atrium.reporting.translating.Translatable) -> AssertionGroup
     ): AssertionGroup {
         val list = multiConsumableContainer.maybeSubject.getOrElse { emptyList() }
         val (explanatoryGroup, count) = createExplanatoryAssertionsAndMatchingCount(

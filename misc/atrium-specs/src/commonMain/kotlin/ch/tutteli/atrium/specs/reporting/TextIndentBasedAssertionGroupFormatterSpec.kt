@@ -8,7 +8,6 @@ import ch.tutteli.atrium.assertions.builders.assertionBuilder
 import ch.tutteli.atrium.reporting.AssertionFormatter
 import ch.tutteli.atrium.reporting.AssertionFormatterController
 import ch.tutteli.atrium.reporting.impl.DefaultAssertionFormatterController
-import ch.tutteli.atrium.reporting.translating.Untranslatable
 import ch.tutteli.atrium.specs.AssertionVerb
 import ch.tutteli.atrium.specs.describeFunTemplate
 import ch.tutteli.atrium.specs.lineSeparator
@@ -30,7 +29,7 @@ abstract class TextIndentBasedAssertionGroupFormatterSpec<T : AssertionGroupType
     val indentBulletPoint = " +"
     val indentIndentBulletPoint = " ".repeat(indentBulletPoint.length + 1)
 
-    val facade = createFacade(assertionGroupTypeClass to "$indentBulletPoint ") { bulletPoints, controller, _, _ ->
+    val facade = createFacade(assertionGroupTypeClass to "$indentBulletPoint ") { bulletPoints, controller, _ ->
         testeeFactory(bulletPoints, controller)
     }
 
@@ -38,9 +37,11 @@ abstract class TextIndentBasedAssertionGroupFormatterSpec<T : AssertionGroupType
         val testee = testeeFactory(bulletPoints, DefaultAssertionFormatterController())
         it("returns true for an ${AssertionGroup::class.simpleName} with type object: ${assertionGroupTypeClass.simpleName}") {
             expect(testee).feature {
+                // TODO 1.3.0 replace with representable and remove suppression
+                @Suppress("DEPRECATION")
                 f(
                     it::canFormat, assertionBuilder.customType(anonymousAssertionGroupType)
-                        .withDescriptionAndRepresentation(Untranslatable.EMPTY, 1)
+                        .withDescriptionAndRepresentation(ch.tutteli.atrium.reporting.translating.Untranslatable.EMPTY, 1)
                         .withAssertions(emptyList())
                         .build()
                 )

@@ -1,5 +1,7 @@
-package ch.tutteli.atrium.reporting.translating
+//TODO remove with 2.0.0 at the latest
+@file:Suppress("DEPRECATION")
 
+package ch.tutteli.atrium.reporting.translating
 
 /**
  * Represents a translator of [Translatable]s.
@@ -43,6 +45,7 @@ package ch.tutteli.atrium.reporting.translating
  * A user has to be explicit concerning the country. One is allowed to leave out the script but can also add it to be
  * explicit and avoid confusion (e.g., zh-Hans_HK for Chinese in simplified script in Hong Kong).
  */
+@Deprecated("will be removed with 2.0.0 at the latest without replacement")
 interface Translator {
 
     /**
@@ -53,5 +56,6 @@ interface Translator {
      *
      * @return The result of the translation for the given [translatable].
      */
+    @Deprecated("will be removed with 2.0.0 at the latest without replacement")
     fun translate(translatable: Translatable): String
 }

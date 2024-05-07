@@ -48,7 +48,7 @@ interface AssertionFormatter {
      *   ([canFormat] returns `false`) or if [assertion] is an [AssertionGroup].
      */
     fun format(assertion: Assertion, parameterObject: AssertionFormatterParameterObject) = when (assertion) {
-        is AssertionGroup -> AssertionFormatter.throwNotIntendedForAssertionGroups()
+        is AssertionGroup -> throwNotIntendedForAssertionGroups()
         else -> formatNonGroup(assertion, parameterObject)
     }
 
@@ -109,7 +109,7 @@ interface AssertionFormatter {
             "use `${AssertionFormatter::formatGroup.name}` instead."
 
         fun throwNotIntendedForAssertionGroups() {
-            throw UnsupportedOperationException(AssertionFormatter.CALL_FORMAT_GROUP)
+            throw UnsupportedOperationException(CALL_FORMAT_GROUP)
         }
     }
 }

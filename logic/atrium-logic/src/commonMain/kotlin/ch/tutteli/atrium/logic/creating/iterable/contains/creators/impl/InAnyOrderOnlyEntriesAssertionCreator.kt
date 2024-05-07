@@ -11,7 +11,6 @@ import ch.tutteli.atrium.logic.creating.iterablelike.contains.reporting.InAnyOrd
 import ch.tutteli.atrium.logic.creating.typeutils.IterableLike
 import ch.tutteli.atrium.logic.impl.allCreatedAssertionsHold
 import ch.tutteli.atrium.logic.impl.createExplanatoryAssertionGroup
-import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.translations.DescriptionIterableLikeExpectation.AN_ELEMENT_WHICH_NEEDS
 
 /**
@@ -26,7 +25,7 @@ import ch.tutteli.atrium.translations.DescriptionIterableLikeExpectation.AN_ELEM
  *   entries have to appear in the [Iterable] but in any order -- an entry is identified by holding a group
  *   of assertions created by an assertion creator lambda.
  * @param searchBehaviour The search behaviour -- in this case representing `in any order only` which is used to
- *   decorate the description (a [Translatable]) which is used for the [AssertionGroup].
+ *   decorate the description (a [ch.tutteli.atrium.reporting.translating.Translatable]) which is used for the [AssertionGroup].
  */
 class InAnyOrderOnlyEntriesAssertionCreator<E : Any, T : IterableLike>(
     converter: (T) -> Iterable<E?>,

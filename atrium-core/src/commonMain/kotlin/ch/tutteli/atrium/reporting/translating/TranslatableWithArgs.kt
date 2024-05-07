@@ -1,3 +1,6 @@
+//TODO remove with 2.0.0 at the latest
+@file:Suppress("DEPRECATION")
+
 package ch.tutteli.atrium.reporting.translating
 
 import ch.tutteli.atrium.core.polyfills.format
@@ -15,6 +18,8 @@ import ch.tutteli.atrium.core.polyfills.format
  * @param arguments The arguments which should be used to substitute the placeholders of the [translatable].
  *
  */
+//TODO 1.3.0 describe how to replace once we introduced Representable and co.
+@Deprecated("will be removed with 2.0.0 at the latest")
 data class TranslatableWithArgs constructor(val translatable: Translatable, val arguments: List<Any>) : Translatable {
 
     /**
@@ -65,7 +70,12 @@ data class TranslatableWithArgs constructor(val translatable: Translatable, val 
     private fun getPlaceHoldersCount() = translatable.getDefault().count { it == '%' }
 
     override val name get() = translatable.name
-    override fun getDefault() = translatable.getDefault().format(arguments[0], *arguments.drop(1).toTypedArray())
+    override fun getDefault() = arguments.map {
+        when (it) {
+            is Translatable -> it.getDefault()
+            else -> it
+        }
+    }.let { args -> translatable.getDefault().format(args[0], *args.drop(1).toTypedArray()) }
 
     companion object {
 

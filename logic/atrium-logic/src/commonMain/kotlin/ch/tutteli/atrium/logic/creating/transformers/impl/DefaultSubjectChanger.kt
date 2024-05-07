@@ -8,7 +8,6 @@ import ch.tutteli.atrium.creating.DelegatingExpect
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic._logic
 import ch.tutteli.atrium.logic.creating.transformers.SubjectChanger
-import ch.tutteli.atrium.reporting.translating.Translatable
 
 class DefaultSubjectChanger : SubjectChanger {
     override fun <SubjectT, SubjectAfterChangeT> unreported(
@@ -22,9 +21,11 @@ class DefaultSubjectChanger : SubjectChanger {
             container.maybeSubject.map(transformation)
         )
 
+    //TODO 1.3.0 remove suppress again, use InlineElement instead
+    @Suppress("DEPRECATION")
     override fun <SubjectT, SubjectAfterChangeT> reported(
         container: AssertionContainer<SubjectT>,
-        description: Translatable,
+        description: ch.tutteli.atrium.reporting.translating.Translatable,
         representation: Any,
         transformation: (SubjectT) -> Option<SubjectAfterChangeT>,
         failureHandler: SubjectChanger.FailureHandler<SubjectT, SubjectAfterChangeT>,

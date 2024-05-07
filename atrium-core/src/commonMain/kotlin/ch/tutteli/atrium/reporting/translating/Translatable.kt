@@ -6,6 +6,8 @@ import kotlin.reflect.KClass
 /**
  * Something which is translatable, identified by [id] with a default representation given by [getDefault].
  */
+// TODO 1.3.0 explain replacement once representable is introduced
+@Deprecated("will be remove with 2.0.0 at the latest")
 interface Translatable {
 
     /**
