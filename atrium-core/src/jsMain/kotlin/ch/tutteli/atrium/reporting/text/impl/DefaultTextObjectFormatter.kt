@@ -1,3 +1,6 @@
+//TODO 1.3.0 remove once we use StringFormatter
+@file:Suppress("DEPRECATION")
+
 package ch.tutteli.atrium.reporting.text.impl
 
 import ch.tutteli.atrium.reporting.text.TextObjectFormatter
@@ -13,9 +16,14 @@ private val pseudoIdentityHash = WeakMap()
 private val primitiveIdentityHash = hashMapOf<Any, String?>()
 private var count = 0
 
-actual class DefaultTextObjectFormatter actual constructor(
-    translator: Translator
-) : TextObjectFormatterCommon(translator), TextObjectFormatter {
+actual class DefaultTextObjectFormatter actual constructor() : TextObjectFormatterCommon(), TextObjectFormatter {
+    //TODO  1.4.0 remove
+    @Suppress("DEPRECATION", "UNUSED_PARAMETER")
+    @Deprecated(
+        "use the overload which does not expect a Translator, it is simply ignored",
+        ReplaceWith("this()")
+    )
+    actual constructor(translator: ch.tutteli.atrium.reporting.translating.Translator) : this()
 
     override fun format(kClass: KClass<*>): String {
         return "${kClass.simpleName} (${kClass.js.name})"

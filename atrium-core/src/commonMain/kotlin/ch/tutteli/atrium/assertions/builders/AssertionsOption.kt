@@ -1,3 +1,6 @@
+//TODO remove file with 2.0.0 at the latest
+@file:Suppress("DEPRECATION")
+
 package ch.tutteli.atrium.assertions.builders
 
 import ch.tutteli.atrium.assertions.Assertion
@@ -95,7 +98,6 @@ interface AssertionsOption<out T : AssertionGroupType, out R> {
          */
         fun <T : AssertionGroupType> factoryWithDefaultFinalStep(): (T, Translatable, Any) -> AssertionsOption<T, BasicAssertionGroupFinalStep> {
             @Suppress(
-                "UnnecessaryVariable",
                 /* that's fine because T is covariant and we do not need multiple function objects for the same functionality */
                 "UNCHECKED_CAST"
             )

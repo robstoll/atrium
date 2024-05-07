@@ -8,8 +8,6 @@ import ch.tutteli.atrium.logic.creating.basic.contains.Contains
 import ch.tutteli.atrium.logic.assertions.impl.LazyThreadUnsafeAssertionGroup
 import ch.tutteli.atrium.logic.creating.basic.contains.checkers.AtLeastChecker
 import ch.tutteli.atrium.reporting.Text
-import ch.tutteli.atrium.reporting.translating.Translatable
-import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
 
 /**
  * Represents the base class for [Contains.Creator]s, providing a template to fulfill its job.
@@ -33,18 +31,24 @@ abstract class ContainsAssertionCreator<T : Any, TT : Any, in SC, C : Contains.C
     /**
      * Provides the translation for `to contain`.
      */
-    protected abstract val descriptionToContain: Translatable
+    //TODO 1.3.0 replace with InlineElement and remove suppression
+    @Suppress("DEPRECATION")
+    protected abstract val descriptionToContain: ch.tutteli.atrium.reporting.translating.Translatable
 
     /**
      * Provides the translation for when an item is not found in a `toContain.atLeast(1)` check.
      */
-    protected abstract val descriptionNotFound: Translatable
+    //TODO 1.3.0 replace with InlineElement and remove suppression
+    @Suppress("DEPRECATION")
+    protected abstract val descriptionNotFound: ch.tutteli.atrium.reporting.translating.Translatable
 
     /**
      * Provides the translation for `and N such elements were found` when an item is not found in a
      * `toContain.atLeast|atMost|...`  check.
      */
-    protected abstract val descriptionNumberOfElementsFound: Translatable
+    //TODO 1.3.0 replace with InlineElement and remove suppression
+    @Suppress("DEPRECATION")
+    protected abstract val descriptionNumberOfElementsFound: ch.tutteli.atrium.reporting.translating.Translatable
 
     final override fun createAssertionGroup(
         container: AssertionContainer<T>,
@@ -93,18 +97,30 @@ abstract class ContainsAssertionCreator<T : Any, TT : Any, in SC, C : Contains.C
     protected abstract fun searchAndCreateAssertion(
         multiConsumableContainer: AssertionContainer<TT>,
         searchCriterion: SC,
-        featureFactory: (numberOfOccurrences: Int, description: Translatable) -> AssertionGroup
+        //TODO 1.3.0 replace with InlineElement and remove suppression
+        @Suppress("DEPRECATION")
+        featureFactory: (numberOfOccurrences: Int, description: ch.tutteli.atrium.reporting.translating.Translatable) -> AssertionGroup
     ): AssertionGroup
 
-    private fun featureFactory(count: Int, numberOfOccurrences: Translatable): AssertionGroup {
+    private fun featureFactory(
+        count: Int,
+        //TODO 1.3.0 replace with InlineElement and remove suppression
+        @Suppress("DEPRECATION")
+        numberOfOccurrences: ch.tutteli.atrium.reporting.translating.Translatable
+    ): AssertionGroup {
         val assertions = checkers.map { it.createAssertion(count) }
         val checker = checkers.firstOrNull()
         return if (checkers.size == 1 && checker is AtLeastChecker && checker.times == 1) {
             if (checker.createAssertion(count).holds()) {
+                //TODO 1.3.0 replace with Proof and remove suppression
+                @Suppress("DEPRECATION")
                 assertionBuilder.explanatoryGroup
                     .withDefaultType
                     .withExplanatoryAssertion(
-                        TranslatableWithArgs(descriptionNumberOfElementsFound, count.toString())
+                        ch.tutteli.atrium.reporting.translating.TranslatableWithArgs(
+                            descriptionNumberOfElementsFound,
+                            count.toString()
+                        )
                     )
                     .build()
             } else {

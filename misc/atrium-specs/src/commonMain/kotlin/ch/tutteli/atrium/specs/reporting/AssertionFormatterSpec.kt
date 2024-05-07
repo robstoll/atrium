@@ -10,9 +10,6 @@ import ch.tutteli.atrium.reporting.AssertionFormatter
 import ch.tutteli.atrium.reporting.AssertionFormatterController
 import ch.tutteli.atrium.reporting.AssertionFormatterParameterObject
 import ch.tutteli.atrium.reporting.ObjectFormatter
-import ch.tutteli.atrium.reporting.translating.Translator
-import ch.tutteli.atrium.reporting.translating.Untranslatable
-import ch.tutteli.atrium.reporting.translating.UsingDefaultTranslator
 import ch.tutteli.atrium.specs.describeFunTemplate
 import io.mockk.*;
 import org.spekframework.spek2.Spek
@@ -20,7 +17,7 @@ import org.spekframework.spek2.style.specification.Suite
 import kotlin.reflect.KClass
 
 abstract class AssertionFormatterSpec(
-    testeeFactory: (Map<KClass<out BulletPointIdentifier>, String>, AssertionFormatterController, ObjectFormatter, Translator) -> AssertionFormatter,
+    testeeFactory: (Map<KClass<out BulletPointIdentifier>, String>, AssertionFormatterController, ObjectFormatter) -> AssertionFormatter,
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
@@ -30,7 +27,7 @@ abstract class AssertionFormatterSpec(
     val controller = mockk<AssertionFormatterController>()
     val testee = testeeFactory(
         mapOf(), controller,
-        ToStringObjectFormatter, UsingDefaultTranslator()
+        ToStringObjectFormatter
     )
 
     var sb = StringBuilder()
@@ -48,9 +45,12 @@ abstract class AssertionFormatterSpec(
 
     describeFun(testee::format.name) {
         it("throws an UnsupportedOperationException if ${AssertionGroup::class.simpleName} is passed") {
+
             expect {
                 testee.format(object : AssertionGroup {
-                    override val description = Untranslatable("test")
+                    //TODO 1.3.0 replace with Proof remove suppression
+                    @Suppress("DEPRECATION")
+                    override val description = ch.tutteli.atrium.reporting.translating.Untranslatable("test")
                     override val type = RootAssertionGroupType
                     override val representation = 1
                     override val assertions: List<Assertion> = emptyList()

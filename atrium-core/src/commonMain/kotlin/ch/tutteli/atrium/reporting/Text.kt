@@ -9,7 +9,8 @@ package ch.tutteli.atrium.reporting
  */
 //TODO add when using Kotlin apiLevel 2.0.0
 //@ConsistentCopyVisibility
-data class Text private constructor(val string: String) {
+//TODO 2.0.0 remove data?
+data class Text private constructor(val string: String)  {
 
     /**
      * @suppress No need to document this behaviour.

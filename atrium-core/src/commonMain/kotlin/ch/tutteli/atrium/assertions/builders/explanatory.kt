@@ -1,3 +1,6 @@
+@file:Suppress("DEPRECATION")
+//TODO remove file with 2.0.0 at the latest
+
 package ch.tutteli.atrium.assertions.builders
 
 import ch.tutteli.atrium.assertions.ExplanatoryAssertion

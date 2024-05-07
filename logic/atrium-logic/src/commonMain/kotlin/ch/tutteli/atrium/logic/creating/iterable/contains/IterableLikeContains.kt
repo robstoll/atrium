@@ -8,7 +8,6 @@ import ch.tutteli.atrium.logic.creating.iterable.contains.IterableLikeContains.*
 import ch.tutteli.atrium.logic.creating.iterable.contains.creators.IterableLikeContainsAssertions
 import ch.tutteli.atrium.logic.creating.iterable.contains.steps.impl.EntryPointStepImpl
 import ch.tutteli.atrium.logic.creating.typeutils.IterableLike
-import ch.tutteli.atrium.reporting.translating.Translatable
 
 /**
  * Defines the contract for sophisticated [Iterable] contains assertion builders.
@@ -84,7 +83,7 @@ interface IterableLikeContains {
 
     /**
      * Represents a search behaviour but leaves it up to the [Creator] how this behaviour is implemented -- yet, it
-     * provides a method to decorate a description (a [Translatable]) in order that it reflects the search behaviour.
+     * provides a method to decorate a description (a [ch.tutteli.atrium.reporting.translating.Translatable]) in order that it reflects the search behaviour.
      */
     interface SearchBehaviour : Contains.SearchBehaviour
 

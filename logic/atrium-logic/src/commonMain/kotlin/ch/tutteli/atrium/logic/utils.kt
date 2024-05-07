@@ -11,7 +11,6 @@ import ch.tutteli.atrium.logic.creating.transformers.FeatureExtractorBuilder
 import ch.tutteli.atrium.logic.creating.transformers.SubjectChangerBuilder
 import ch.tutteli.atrium.reporting.BUG_REPORT_URL
 import ch.tutteli.atrium.reporting.Text
-import ch.tutteli.atrium.reporting.translating.Translatable
 
 /**
  * Creates a [DescriptiveAssertion] based on the given [description], [representation] and [test].
@@ -23,9 +22,10 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  * @param representation The representation of the expected outcome
  * @param test The test which checks whether the assertion holds
  */
-//TODO deprecate with 1.3.0 (when ProofContainer is introduced)
+//TODO deprecate with 1.3.0 (when ProofContainer is introduced) and remove suppression
+@Suppress("DEPRECATION")
 fun <T> AssertionContainer<T>.createDescriptiveAssertion(
-    description: Translatable,
+    description:  ch.tutteli.atrium.reporting.translating.Translatable,
     representation: Any?,
     test: (T) -> Boolean
 ): Assertion = assertionBuilder.descriptive

@@ -1,7 +1,6 @@
 package ch.tutteli.atrium.creating
 
 import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
-import ch.tutteli.atrium.reporting.translating.Translatable
 
 /**
  * Additional (non-mandatory) options to create a [RootExpect].
@@ -16,7 +15,10 @@ import ch.tutteli.atrium.reporting.translating.Translatable
 @ExperimentalNewExpectTypes
 @OptIn(ExperimentalComponentFactoryContainer::class)
 data class RootExpectOptions<T>(
-    val expectationVerb: Translatable?,
+    //TODO 1.3.0 replace with InlineElement or make InlineElement a Translatable instead and provide a second
+    // constructor? it's experimental we can also just change it (is most likely not used often
+    @Suppress("DEPRECATION")
+    val expectationVerb: ch.tutteli.atrium.reporting.translating.Translatable?,
     val representationInsteadOfSubject: ((T) -> Any)?,
     val componentFactoryContainer: ComponentFactoryContainer?
 ) {

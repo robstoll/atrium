@@ -12,7 +12,6 @@ import ch.tutteli.atrium.logic.creating.typeutils.IterableLike
 import ch.tutteli.atrium.logic.impl.createIndexAssertions
 import ch.tutteli.atrium.logic.impl.decorateAssertionWithHasNext
 import ch.tutteli.atrium.logic.impl.decorateWithHintUseNotToHaveElementsOrNone
-import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.translations.DescriptionIterableLikeExpectation
 
 /**
@@ -25,7 +24,7 @@ import ch.tutteli.atrium.translations.DescriptionIterableLikeExpectation
  * @constructor Represents a creator of a sophisticated `contains` assertions for [Iterable] where expected entries
  *   can appear in any order and are identified by expected objects (equality comparison).
  * @param searchBehaviour The search behaviour -- in this case representing `in any order` which is used to
- *   decorate the description (a [Translatable]) which is used for the [AssertionGroup].
+ *   decorate the description (a [ch.tutteli.atrium.reporting.translating.Translatable]) which is used for the [AssertionGroup].
  * @param checkers The checkers which create assertions based on the search result.
  */
 class InAnyOrderValuesAssertionCreator<SC, T : IterableLike>(
@@ -38,13 +37,29 @@ class InAnyOrderValuesAssertionCreator<SC, T : IterableLike>(
     checkers
 ), IterableLikeContains.Creator<T, SC> {
 
-    override val descriptionToContain: Translatable = DescriptionIterableLikeExpectation.TO_CONTAIN
+    //TODO 1.3.0 replace with Representable and remove suppression
+    @Suppress("DEPRECATION")
+    override val descriptionToContain: ch.tutteli.atrium.reporting.translating.Translatable =
+        DescriptionIterableLikeExpectation.TO_CONTAIN
 
-    override val descriptionNumberOfOccurrences: Translatable =
+    //TODO 1.3.0 replace with Representable and remove suppression
+    @Suppress("DEPRECATION")
+    override val descriptionNumberOfOccurrences: ch.tutteli.atrium.reporting.translating.Translatable =
         DescriptionIterableLikeExpectation.NUMBER_OF_SUCH_ELEMENTS
-    override val groupDescription: Translatable = DescriptionIterableLikeExpectation.AN_ELEMENT_WHICH_EQUALS
-    override val descriptionNotFound: Translatable = DescriptionIterableLikeExpectation.ELEMENT_NOT_FOUND
-    override val descriptionNumberOfElementsFound: Translatable =
+
+    //TODO 1.3.0 replace with Representable and remove suppression
+    @Suppress("DEPRECATION")
+    override val groupDescription: ch.tutteli.atrium.reporting.translating.Translatable =
+        DescriptionIterableLikeExpectation.AN_ELEMENT_WHICH_EQUALS
+
+    //TODO 1.3.0 replace with Representable and remove suppression
+    @Suppress("DEPRECATION")
+    override val descriptionNotFound: ch.tutteli.atrium.reporting.translating.Translatable =
+        DescriptionIterableLikeExpectation.ELEMENT_NOT_FOUND
+
+    //TODO 1.3.0 replace with Representable and remove suppression
+    @Suppress("DEPRECATION")
+    override val descriptionNumberOfElementsFound: ch.tutteli.atrium.reporting.translating.Translatable =
         DescriptionIterableLikeExpectation.NUMBER_OF_ELEMENTS_FOUND
 
     override fun makeSubjectMultipleTimesConsumable(container: AssertionContainer<T>): AssertionContainer<List<SC>> =
