@@ -3,21 +3,17 @@ package ch.tutteli.atrium.reporting.text.impl
 import ch.tutteli.atrium.core.polyfills.fullName
 import ch.tutteli.atrium.reporting.*
 import ch.tutteli.atrium.reporting.text.TextObjectFormatter
-import ch.tutteli.atrium.reporting.translating.Translatable
-import ch.tutteli.atrium.reporting.translating.Translator
 import kotlin.reflect.KClass
 
-expect class DefaultTextObjectFormatter(translator: Translator) : TextObjectFormatter
+expect class DefaultTextObjectFormatter() : TextObjectFormatter
 
 /**
  * Base class for the platform specific implementation of [DefaultTextObjectFormatter].
  *
- * It cannot format Java's `Class`, this has to be done in the JVM module. Moreover it requires a platform specific
+ * It cannot format Java's `Class`, this has to be done in the JVM module. Moreover, it requires a platform specific
  * implementation of [identityHash] and [format] a [KClass].
  */
-abstract class TextObjectFormatterCommon(
-    private val translator: Translator
-) : TextObjectFormatter {
+abstract class TextObjectFormatterCommon : TextObjectFormatter {
 
     /**
      * Returns a formatted version of the given [value].
@@ -30,7 +26,7 @@ abstract class TextObjectFormatterCommon(
      * - [String] is put in quotes and its [KClass.fullName] is omitted
      * - [CharSequence] is put in quotes, but [KClass.fullName] is used in contrast to [String]
      * - [Text] is represented as [Text.string]
-     * - [Translatable] is represented as result of its translation (by [translator])
+     * - [ch.tutteli.atrium.reporting.translating.Translatable] is represented by its [ch.tutteli.atrium.reporting.translating.Translatable.getDefault]
      * - [KClass]'s format is defined by the concrete platform specific subclass.
      * - [Enum] is represented as "[toString] ([KClass.fullName])
      * - [Throwable] is represented as "[KClass.fullName]"
@@ -40,6 +36,8 @@ abstract class TextObjectFormatterCommon(
      *
      * @return The formatted [value].
      */
+    //TODO 1.3.0 remove suppression once it is clear if we still have an object formatter etc.
+    @Suppress("DEPRECATION")
     override fun format(value: Any?): String = when (value) {
         null -> Text.NULL.string
         is LazyRepresentation -> format(value.eval())
@@ -48,7 +46,7 @@ abstract class TextObjectFormatterCommon(
         is String -> format(value)
         is CharSequence -> format(value)
         is Text -> limitRepresentation(value.string)
-        is Translatable -> limitRepresentation(translator.translate(value))
+        is ch.tutteli.atrium.reporting.translating.Translatable -> limitRepresentation(value.getDefault())
         is KClass<*> -> format(value)
         is Enum<*> -> format(value)
         is Throwable -> format(value)
@@ -56,7 +54,9 @@ abstract class TextObjectFormatterCommon(
     }
 
     private fun format(string: String) = "\"${limitRepresentation(string)}\"" + identityHash(INDENT, string)
-    private fun format(charSequence: CharSequence) = "\"${limitRepresentation(charSequence.toString())}\"" + classNameAndIdentity(charSequence)
+    private fun format(charSequence: CharSequence) =
+        "\"${limitRepresentation(charSequence.toString())}\"" + classNameAndIdentity(charSequence)
+
     private fun format(enum: Enum<*>) =
         limitRepresentation(enum.toString()) + INDENT + "(" + (enum::class.fullName) + ")"
 

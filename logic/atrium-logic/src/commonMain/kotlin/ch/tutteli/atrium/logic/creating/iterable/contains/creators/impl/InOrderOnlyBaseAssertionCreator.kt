@@ -14,7 +14,6 @@ import ch.tutteli.atrium.logic.creating.iterable.contains.IterableLikeContains
 import ch.tutteli.atrium.logic.creating.iterablelike.contains.reporting.InOrderOnlyReportingOptions
 import ch.tutteli.atrium.logic.creating.iterablelike.contains.reporting.impl.InOrderOnlyReportingOptionsImpl
 import ch.tutteli.atrium.logic.creating.typeutils.IterableLike
-import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
 import ch.tutteli.atrium.translations.DescriptionIterableLikeExpectation
 import ch.tutteli.atrium.translations.DescriptionIterableLikeExpectation.WARNING_ADDITIONAL_ELEMENTS
 import ch.tutteli.kbox.ifWithinBound
@@ -84,7 +83,9 @@ abstract class InOrderOnlyBaseAssertionCreator<E, T : IterableLike, SC>(
         return container.collectBasedOnSubject(Some(iterableAsList)) {
             _logic.append(LazyThreadUnsafeAssertionGroup {
                 val additionalEntries = itr.mapRemainingWithCounter { counter, it ->
-                    val description = TranslatableWithArgs(
+                    //TODO 1.3.0 replace with Representable and remove suppression
+                    @Suppress("DEPRECATION")
+                    val description = ch.tutteli.atrium.reporting.translating.TranslatableWithArgs(
                         DescriptionIterableLikeExpectation.ELEMENT_WITH_INDEX,
                         expectedSize + counter
                     )

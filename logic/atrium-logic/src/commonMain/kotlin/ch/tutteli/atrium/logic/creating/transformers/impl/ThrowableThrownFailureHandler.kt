@@ -17,7 +17,6 @@ import ch.tutteli.atrium.logic.creating.collectors.collectAssertions
 import ch.tutteli.atrium.logic.creating.transformers.SubjectChanger
 import ch.tutteli.atrium.reporting.AtriumErrorAdjuster
 import ch.tutteli.atrium.reporting.Text
-import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.translations.DescriptionThrowableExpectation.*
 
 class ThrowableThrownFailureHandler<SubjectT : Throwable?, SubjectAfterChangeT> : SubjectChanger.FailureHandler<SubjectT, SubjectAfterChangeT> {
@@ -134,10 +133,12 @@ class ThrowableThrownFailureHandler<SubjectT : Throwable?, SubjectAfterChangeT> 
         /**
          * Creates a hint for a given [child] of the given [throwable] using the given [childDescription].
          */
+        //TODO 1.3.0 remove suppress again, use InlineElement instead
+        @Suppress("DEPRECATION")
         fun createChildHint(
             throwable: Throwable,
             child: Throwable,
-            childDescription: Translatable
+            childDescription: ch.tutteli.atrium.reporting.translating.Translatable
         ): AssertionGroup {
             val secondStackTrace = if (throwable.stackBacktrace.size > 1) throwable.stackBacktrace[1] else null
             return assertionBuilder.list

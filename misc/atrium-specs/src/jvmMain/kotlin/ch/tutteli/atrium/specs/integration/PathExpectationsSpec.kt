@@ -3,8 +3,6 @@ package ch.tutteli.atrium.specs.integration
 import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.reporting.translating.Translatable
-import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.translations.DescriptionBasic.*
 import ch.tutteli.atrium.translations.DescriptionPathAssertion.*
@@ -1512,8 +1510,10 @@ abstract class PathExpectationsSpec(
         val toHaveTheSameTextualContentAsFun = toHaveTheSameTextualContentAs.lambda
         val toHaveTheSameTextualContentAsDefaultArgsAsFun = toHaveTheSameTextualContentAsDefaultArgs.lambda
 
-        fun errortoHaveTheSameTextualContentAs(sourceEncoding: Charset, targetEncoding: Charset) =
-            TranslatableWithArgs(HAS_SAME_TEXTUAL_CONTENT, sourceEncoding, targetEncoding).getDefault()
+        //TODO 1.3.0 replace with Representable and remove suppression
+        @Suppress("DEPRECATION")
+        fun errorToHaveTheSameTextualContentAs(sourceEncoding: Charset, targetEncoding: Charset) =
+            ch.tutteli.atrium.reporting.translating.TranslatableWithArgs(HAS_SAME_TEXTUAL_CONTENT, sourceEncoding, targetEncoding).getDefault()
 
         context("empty content") {
             fun createFiles(maybeLink: MaybeLink): Pair<Path, Path> {
@@ -1586,7 +1586,7 @@ abstract class PathExpectationsSpec(
                 expect {
                     expect(sourcePath).toHaveTheSameTextualContentAsFun(targetPath, Charsets.UTF_8, Charsets.UTF_16)
                 }.toThrow<AssertionError>().message {
-                    toContain(errortoHaveTheSameTextualContentAs(Charsets.UTF_8, Charsets.UTF_16))
+                    toContain(errorToHaveTheSameTextualContentAs(Charsets.UTF_8, Charsets.UTF_16))
                 }
             }
 
@@ -1599,7 +1599,7 @@ abstract class PathExpectationsSpec(
                         Charsets.ISO_8859_1
                     )
                 }.toThrow<AssertionError>().message {
-                    toContain(errortoHaveTheSameTextualContentAs(Charsets.UTF_16, Charsets.ISO_8859_1))
+                    toContain(errorToHaveTheSameTextualContentAs(Charsets.UTF_16, Charsets.ISO_8859_1))
                 }
             }
 
@@ -1637,7 +1637,7 @@ abstract class PathExpectationsSpec(
                 expect {
                     expect(sourcePath).toHaveTheSameTextualContentAsFun(targetPath, Charsets.UTF_8, Charsets.UTF_8)
                 }.toThrow<AssertionError>().message {
-                    toContain(errortoHaveTheSameTextualContentAs(Charsets.UTF_8, Charsets.UTF_8))
+                    toContain(errorToHaveTheSameTextualContentAs(Charsets.UTF_8, Charsets.UTF_8))
                 }
             }
 
@@ -1646,7 +1646,7 @@ abstract class PathExpectationsSpec(
                 expect {
                     expect(sourcePath).toHaveTheSameTextualContentAsFun(targetPath, Charsets.UTF_16, Charsets.UTF_8)
                 }.toThrow<AssertionError>().message {
-                    toContain(errortoHaveTheSameTextualContentAs(Charsets.UTF_16, Charsets.UTF_8))
+                    toContain(errorToHaveTheSameTextualContentAs(Charsets.UTF_16, Charsets.UTF_8))
                 }
             }
 
@@ -1655,7 +1655,7 @@ abstract class PathExpectationsSpec(
                 expect {
                     expect(sourcePath).toHaveTheSameTextualContentAsDefaultArgsAsFun(targetPath)
                 }.toThrow<AssertionError>().message {
-                    toContain(errortoHaveTheSameTextualContentAs(Charsets.UTF_8, Charsets.UTF_8))
+                    toContain(errorToHaveTheSameTextualContentAs(Charsets.UTF_8, Charsets.UTF_8))
                 }
             }
         }
@@ -1683,7 +1683,7 @@ abstract class PathExpectationsSpec(
                 expect {
                     expect(sourcePath).toHaveTheSameTextualContentAsFun(targetPath, Charsets.UTF_8, Charsets.UTF_8)
                 }.toThrow<AssertionError>().message {
-                    toContain(errortoHaveTheSameTextualContentAs(Charsets.UTF_8, Charsets.UTF_8))
+                    toContain(errorToHaveTheSameTextualContentAs(Charsets.UTF_8, Charsets.UTF_8))
                 }
             }
 
@@ -1692,7 +1692,7 @@ abstract class PathExpectationsSpec(
                 expect {
                     expect(sourcePath).toHaveTheSameTextualContentAsFun(targetPath, Charsets.UTF_16, Charsets.UTF_16)
                 }.toThrow<AssertionError>().message {
-                    toContain(errortoHaveTheSameTextualContentAs(Charsets.UTF_16, Charsets.UTF_16))
+                    toContain(errorToHaveTheSameTextualContentAs(Charsets.UTF_16, Charsets.UTF_16))
                 }
             }
 
@@ -1701,7 +1701,7 @@ abstract class PathExpectationsSpec(
                 expect {
                     expect(sourcePath).toHaveTheSameTextualContentAsDefaultArgsAsFun(targetPath)
                 }.toThrow<AssertionError>().message {
-                    toContain(errortoHaveTheSameTextualContentAs(Charsets.UTF_8, Charsets.UTF_8))
+                    toContain(errorToHaveTheSameTextualContentAs(Charsets.UTF_8, Charsets.UTF_8))
                 }
             }
         }
@@ -2028,15 +2028,19 @@ internal class SimpleLink(private val tempFolderProvider: () -> MemoizedTempFold
         return link
     }
 
+    //TODO 1.3.0 replace with Representable and remove suppression
+    @Suppress("DEPRECATION")
     override fun <T : CharSequence> callCheckedCheckAssertionErrorMessage(expect: Expect<T>) {
-        expect.toContain(TranslatableWithArgs(HINT_FOLLOWED_SYMBOLIC_LINK, link!!, path!!).getDefault())
+        expect.toContain(ch.tutteli.atrium.reporting.translating.TranslatableWithArgs(HINT_FOLLOWED_SYMBOLIC_LINK, link!!, path!!).getDefault())
     }
 }
 
 internal fun <T : CharSequence> Expect<T>.containsExplanationFor(maybeLink: MaybeLink) =
     maybeLink.checkAssertionErrorMessage(this)
 
-private fun expectedPermissionTypeHintFor(type: Translatable, being: Translatable) = String.format(
+//TODO 1.3.0 replace with Representable and remove suppression
+@Suppress("DEPRECATION")
+private fun expectedPermissionTypeHintFor(type: ch.tutteli.atrium.reporting.translating.Translatable, being: ch.tutteli.atrium.reporting.translating.Translatable) = String.format(
     FAILURE_DUE_TO_PERMISSION_FILE_TYPE_HINT.getDefault(),
     type.getDefault(),
     being.getDefault()

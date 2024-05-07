@@ -23,6 +23,8 @@ import ch.tutteli.kbox.forElementAndForEachIn
  * @param fallbackLocales Used in case a translation for a given [Translatable] is not defined for
  *   [primaryLocale] or one of its secondary alternatives -- the fallback [Locale]s are used in the given order.
  */
+@Suppress("DEPRECATION")
+@Deprecated("will be removed with 2.0.0 at the latest without replacement")
 abstract class ArgumentsSupportingTranslator(
     protected val primaryLocale: Locale,
     protected val fallbackLocales: List<Locale>
@@ -55,6 +57,7 @@ abstract class ArgumentsSupportingTranslator(
      *
      * @return The result of the translation for the given [translatable].
      */
+    @Deprecated("will be removed with 2.0.0 at the latest without replacement")
     final override fun translate(translatable: Translatable): String = when (translatable) {
         is TranslatableWithArgs -> translateWithArgs(translatable)
         else -> translateWithoutArgs(translatable)
@@ -73,6 +76,7 @@ abstract class ArgumentsSupportingTranslator(
      * @return The translation for the given [translatable] or
      *   [Translatable.getDefault] of the given [translatable] in case there is no translation defined.
      */
+    @Deprecated("class will be removed with 2.0.0 at the latest without replacement")
     protected abstract fun translateWithoutArgs(translatable: Translatable): String
 
     private fun translateWithArgs(translatableWithArgs: TranslatableWithArgs): String {

@@ -1,13 +1,11 @@
 package ch.tutteli.atrium.logic.creating.maplike.contains
 
-import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.logic.creating.basic.contains.Contains
 import ch.tutteli.atrium.logic.creating.maplike.contains.MapLikeContains.*
 import ch.tutteli.atrium.logic.creating.maplike.contains.creators.MapLikeContainsAssertions
 import ch.tutteli.atrium.logic.creating.maplike.contains.steps.impl.EntryPointStepImpl
 import ch.tutteli.atrium.logic.creating.typeutils.MapLike
-import ch.tutteli.atrium.reporting.translating.Translatable
 
 /**
  * Defines the contract for sophisticated [MapLike] contains assertion builders.

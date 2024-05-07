@@ -9,7 +9,6 @@ import ch.tutteli.atrium.core.polyfills.fullName
 import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.logic.FloatingPointAssertions
 import ch.tutteli.atrium.logic.toExpect
-import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
 import ch.tutteli.atrium.translations.DescriptionFloatingPointException.*
 import kotlin.math.absoluteValue
 
@@ -66,6 +65,8 @@ internal fun <T> createToBeWithErrorToleranceExplained(
     )
     .build()
 
+//TODO 1.3.0 replace with Representable and remove suppression
+@Suppress("DEPRECATION")
 internal fun <T : Comparable<T>> toBeWithErrorTolerance(
     container: AssertionContainer<out T>,
     expected: T,
@@ -86,5 +87,5 @@ internal fun <T : Comparable<T>> toBeWithErrorTolerance(
                 .withAssertions(explanatoryAssertionCreator(subject))
                 .build()
         }
-        .withDescriptionAndRepresentation(TranslatableWithArgs(TO_EQUAL_WITH_ERROR_TOLERANCE, tolerance), expected)
+        .withDescriptionAndRepresentation(ch.tutteli.atrium.reporting.translating.TranslatableWithArgs(TO_EQUAL_WITH_ERROR_TOLERANCE, tolerance), expected)
         .build()

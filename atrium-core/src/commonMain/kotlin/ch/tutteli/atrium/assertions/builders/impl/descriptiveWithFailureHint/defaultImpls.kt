@@ -1,3 +1,6 @@
+//TODO remove file with 2.0.0 at the latest
+@file:Suppress("DEPRECATION")
+
 //TODO 1.3.0 rename package to proofWithHelpOnFailure when we rename DescriptiveAssertionWithFailureHint to ProofWithHelpOnFailure
 package ch.tutteli.atrium.assertions.builders.impl.descriptiveWithFailureHint
 

@@ -1,14 +1,11 @@
 package ch.tutteli.atrium.reporting.text.impl
 
-import ch.tutteli.atrium.reporting.*
+import ch.tutteli.atrium.reporting.LazyRepresentation
+import ch.tutteli.atrium.reporting.Text
 import ch.tutteli.atrium.reporting.text.TextObjectFormatter
-import ch.tutteli.atrium.reporting.translating.Translatable
-import ch.tutteli.atrium.reporting.translating.Translator
 import kotlin.reflect.KClass
 
-abstract class AbstractTextObjectFormatter(
-    private val translator: Translator
-) : TextObjectFormatterCommon(translator) {
+abstract class AbstractTextObjectFormatter : TextObjectFormatterCommon() {
     /**
      * Returns a formatted version of the given [value].
      *
@@ -20,7 +17,7 @@ abstract class AbstractTextObjectFormatter(
      * - [String] is put in quotes and its [Class.getName] is omitted
      * - [CharSequence] is put in quotes, but [KClass.qualifiedName] is used in contrast to [String]
      * - [Text] is represented as [Text.string]
-     * - [Translatable] is represented as result of its translation (by [translator])
+     * - [ch.tutteli.atrium.reporting.translating.Translatable] is represented as result of its translation
      * - [Class] is represented as "[Class.getSimpleName] ([Class.getName])"
      * - [KClass] is represented as "[KClass.simpleName] ([KClass.qualifiedName])" unless the [KClass.qualifiedName]
      *   differs from [Class.getName] in which case, "-- Class: [Class.getName]" is appended in addition
@@ -62,12 +59,7 @@ abstract class AbstractTextObjectFormatter(
  * Consider the following error message "error, assert: 1 to be 1" would not be very helpful.
  * "error, assert: 1 (Int <123>) to be 1 (Double <456>)" on the other hand is helpful.
  *
- * @property translator The [Translator] used to translate [Translatable]s.
- *
  * @constructor Formats an object by using its [toString] representation, its [Class.getName] and its [System.identityHashCode]
  *   (in most cases).
- * @param translator The [Translator] used to translate [Translatable]s.
  */
-actual class DefaultTextObjectFormatter actual constructor(
-    private val translator: Translator
-) : AbstractTextObjectFormatter(translator), TextObjectFormatter
+actual class DefaultTextObjectFormatter actual constructor() : AbstractTextObjectFormatter(), TextObjectFormatter

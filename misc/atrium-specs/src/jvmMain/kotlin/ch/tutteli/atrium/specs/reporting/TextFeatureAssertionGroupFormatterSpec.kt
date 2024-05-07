@@ -15,19 +15,16 @@ import ch.tutteli.atrium.reporting.impl.DefaultAssertionFormatterController
 import ch.tutteli.atrium.reporting.text.TextAssertionPairFormatter
 import ch.tutteli.atrium.reporting.text.impl.TextFallbackAssertionFormatter
 import ch.tutteli.atrium.reporting.text.impl.TextListAssertionGroupFormatter
-import ch.tutteli.atrium.reporting.translating.Translator
-import ch.tutteli.atrium.reporting.translating.Untranslatable
-import ch.tutteli.atrium.reporting.translating.UsingDefaultTranslator
+import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
 import ch.tutteli.atrium.specs.AssertionVerb
 import ch.tutteli.atrium.specs.describeFunTemplate
 import ch.tutteli.atrium.specs.lineSeparator
-import ch.tutteli.atrium.specs.reporting.translating.TranslatorIntSpec
 import org.spekframework.spek2.style.specification.Suite
 import kotlin.reflect.KClass
 
 @OptIn(ExperimentalComponentFactoryContainer::class)
 abstract class TextFeatureAssertionGroupFormatterSpec(
-    testeeFactory: (Map<KClass<out BulletPointIdentifier>, String>, AssertionFormatterController, ObjectFormatter, Translator) -> AssertionFormatter,
+    testeeFactory: (Map<KClass<out BulletPointIdentifier>, String>, AssertionFormatterController, ObjectFormatter) -> AssertionFormatter,
     describePrefix: String = "[Atrium] "
 ) : AssertionFormatterSpecBase({
 
@@ -40,7 +37,7 @@ abstract class TextFeatureAssertionGroupFormatterSpec(
     )
     val featureAssertionGroup = assertionBuilder
         .customType(object : FeatureAssertionGroupType {})
-        .withDescriptionAndRepresentation(TranslatorIntSpec.TestTranslatable.PLACEHOLDER, 2)
+        .withDescriptionAndRepresentation(TestTranslatable.PLACEHOLDER, 2)
         .withAssertions(assertions)
         .build()
 
@@ -48,14 +45,15 @@ abstract class TextFeatureAssertionGroupFormatterSpec(
         val testee = testeeFactory(
             bulletPoints,
             DefaultAssertionFormatterController(),
-            ToStringObjectFormatter,
-            UsingDefaultTranslator()
+            ToStringObjectFormatter
         )
         it("returns true for an ${AssertionGroup::class.simpleName} with type object: ${FeatureAssertionGroupType::class.simpleName}") {
+            // TODO 1.3.0 switch to Proof remove suppression
+            @Suppress("DEPRECATION")
             val result = testee.canFormat(
                 assertionBuilder
                     .customType(object : FeatureAssertionGroupType {})
-                    .withDescriptionAndRepresentation(Untranslatable.EMPTY, 1)
+                    .withDescriptionAndRepresentation(ch.tutteli.atrium.reporting.translating.Untranslatable.EMPTY, 1)
                     .withAssertions(listOf())
                     .build()
             )
@@ -65,12 +63,12 @@ abstract class TextFeatureAssertionGroupFormatterSpec(
 
     describeFun(AssertionFormatter::formatGroup.name) {
         val sameLineTextAssertionPairFormatter =
-            TextAssertionPairFormatter.newSameLine(ToStringObjectFormatter, UsingDefaultTranslator())
+            TextAssertionPairFormatter.newSameLine(ToStringObjectFormatter)
         val facade = createFacade()
         facade.register {
             testeeFactory(
                 bulletPoints, it,
-                ToStringObjectFormatter, UsingDefaultTranslator()
+                ToStringObjectFormatter
             )
         }
         facade.register {
@@ -169,3 +167,9 @@ abstract class TextFeatureAssertionGroupFormatterSpec(
     }
 
 })
+
+enum class TestTranslatable(override val value: String) : StringBasedTranslatable {
+    DATE_KNOWN("%tD is a %tA"),
+    DATE_UNKNOWN("only %tA"),
+    PLACEHOLDER("placeholder %s")
+}

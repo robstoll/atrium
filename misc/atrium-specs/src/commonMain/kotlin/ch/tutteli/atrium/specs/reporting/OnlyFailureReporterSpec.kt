@@ -15,7 +15,6 @@ import ch.tutteli.atrium.reporting.impl.DefaultAssertionFormatterController
 import ch.tutteli.atrium.reporting.text.TextAssertionPairFormatter
 import ch.tutteli.atrium.reporting.text.impl.DefaultTextObjectFormatter
 import ch.tutteli.atrium.reporting.text.impl.TextFallbackAssertionFormatter
-import ch.tutteli.atrium.reporting.translating.UsingDefaultTranslator
 import ch.tutteli.atrium.specs.AssertionVerb
 import ch.tutteli.atrium.specs.describeFunTemplate
 import ch.tutteli.atrium.translations.DescriptionAnyExpectation.TO_EQUAL
@@ -23,6 +22,8 @@ import io.mockk.*
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.Suite
 
+//TOO 1.3.0 remove once we use StringFormatter
+@Suppress("DEPRECATION")
 abstract class OnlyFailureReporterSpec(
     testeeFactory: (AssertionFormatterFacade) -> Reporter,
     describePrefix: String = "[Atrium] "
@@ -31,15 +32,14 @@ abstract class OnlyFailureReporterSpec(
     fun describeFun(vararg funName: String, body: Suite.() -> Unit) =
         describeFunTemplate(describePrefix, funName, body = body)
 
-    val translator = UsingDefaultTranslator()
-    val objectFormatter = DefaultTextObjectFormatter(translator)
+    val objectFormatter = DefaultTextObjectFormatter()
 
     val facade = AssertionFormatterControllerBasedFacade(DefaultAssertionFormatterController())
     facade.register {
         TextFallbackAssertionFormatter(
             mapOf(RootAssertionGroupType::class to "[]"),
             it,
-            TextAssertionPairFormatter.newSameLine(objectFormatter, translator),
+            TextAssertionPairFormatter.newSameLine(objectFormatter),
             objectFormatter
         )
     }

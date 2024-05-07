@@ -11,8 +11,6 @@ import ch.tutteli.atrium.reporting.impl.AssertionFormatterControllerBasedFacade
 import ch.tutteli.atrium.reporting.impl.DefaultAssertionFormatterController
 import ch.tutteli.atrium.reporting.text.impl.TextFallbackAssertionFormatter
 import ch.tutteli.atrium.reporting.text.impl.TextSameLineAssertionPairFormatter
-import ch.tutteli.atrium.reporting.translating.Translator
-import ch.tutteli.atrium.reporting.translating.UsingDefaultTranslator
 import ch.tutteli.atrium.specs.lineSeparator
 import ch.tutteli.atrium.specs.reporting.DummyTranslation.TRANSLATION_KEY
 import ch.tutteli.atrium.specs.reporting.ToStringObjectFormatter
@@ -38,7 +36,6 @@ class TextFallbackAssertionFormatterSpec : Spek({
             it,
             TextSameLineAssertionPairFormatter(
                 ToStringObjectFormatter,
-                UsingDefaultTranslator()
             ), ToStringObjectFormatter
         )
     }
@@ -80,11 +77,11 @@ class TextFallbackAssertionFormatterSpec : Spek({
 
     companion object {
         internal fun factory() =
-            { bulletPoints: Map<KClass<out BulletPointIdentifier>, String>, assertionFormatterController: AssertionFormatterController, objectFormatter: ObjectFormatter, translator: Translator ->
+            { bulletPoints: Map<KClass<out BulletPointIdentifier>, String>, assertionFormatterController: AssertionFormatterController, objectFormatter: ObjectFormatter ->
                 TextFallbackAssertionFormatter(
                     bulletPoints,
                     assertionFormatterController,
-                    TextSameLineAssertionPairFormatter(objectFormatter, translator),
+                    TextSameLineAssertionPairFormatter(objectFormatter),
                     objectFormatter
                 )
             }
