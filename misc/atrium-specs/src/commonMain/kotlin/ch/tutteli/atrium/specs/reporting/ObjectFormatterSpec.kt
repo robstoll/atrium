@@ -1,32 +1,22 @@
 package ch.tutteli.atrium.specs.reporting
 
-import ch.tutteli.atrium.api.fluent.en_GB.toBeTheInstance
 import ch.tutteli.atrium.api.fluent.en_GB.toEqual
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.reporting.ObjectFormatter
 import ch.tutteli.atrium.reporting.Text
-import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
-import ch.tutteli.atrium.reporting.translating.Translatable
-import ch.tutteli.atrium.reporting.translating.Translator
 import ch.tutteli.atrium.specs.describeFunTemplate
-import io.mockk.every
-import io.mockk.mockk
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.Suite
 
 abstract class ObjectFormatterSpec(
-    testeeFactory: (Translator) -> ObjectFormatter,
+    testeeFactory: () -> ObjectFormatter,
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
     fun describeFun(vararg funName: String, body: Suite.() -> Unit) =
         describeFunTemplate(describePrefix, funName, body = body)
 
-    val translatedText = "es gilt"
-    val translator = mockk<Translator> {
-        every { translate(any()) } returns (translatedText)
-    }
-    val testee = testeeFactory(translator)
+    val testee = testeeFactory()
 
     describeFun(testee::format.name) {
 
@@ -45,15 +35,19 @@ abstract class ObjectFormatterSpec(
             }
         }
 
-        context("a ${Translatable::class.simpleName}") {
+        //TODO 1.3.0 remove suppress again, use InlineElement instead
+        @Suppress("DEPRECATION")
+        context("a ${ch.tutteli.atrium.reporting.translating.Translatable::class.simpleName}") {
             val result = testee.format(DummyTranslation.TRANSLATION_KEY)
-            it("returns the translated string") {
-                expect(result).toBeTheInstance(translatedText)
+            it("returns getDefault string") {
+                expect(result).toEqual("dummy translation")
             }
         }
     }
 })
 
-enum class DummyTranslation(override val value: String) : StringBasedTranslatable {
+//TODO 1.3.0 remove suppress again, use InlineElement instead
+@Suppress("DEPRECATION")
+enum class DummyTranslation(override val value: String) : ch.tutteli.atrium.reporting.translating.StringBasedTranslatable {
     TRANSLATION_KEY("dummy translation");
 }

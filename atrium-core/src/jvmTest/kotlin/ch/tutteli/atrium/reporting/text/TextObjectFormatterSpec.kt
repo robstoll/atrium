@@ -4,16 +4,17 @@ import ch.tutteli.atrium.api.infix.en_GB.toEqual
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.reporting.text.impl.DefaultTextObjectFormatter
 import ch.tutteli.atrium.reporting.text.impl.TextObjectFormatterCommon.Companion.INDENT
-import ch.tutteli.atrium.reporting.translating.UsingDefaultTranslator
 import ch.tutteli.atrium.specs.reporting.ObjectFormatterSpec
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.describe
 import kotlin.reflect.KClass
 
+//TODO 1.3.0 remove once we use StringFormatter
+@Suppress("DEPRECATION")
 object TextObjectFormatterSpec : Spek({
     include(object : ObjectFormatterSpec(::DefaultTextObjectFormatter) {})
 
-    val testee = DefaultTextObjectFormatter(UsingDefaultTranslator())
+    val testee = DefaultTextObjectFormatter()
 
     describe("format") {
 

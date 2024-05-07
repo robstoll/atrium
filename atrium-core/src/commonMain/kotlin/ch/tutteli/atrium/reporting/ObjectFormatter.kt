@@ -1,7 +1,5 @@
 package ch.tutteli.atrium.reporting
 
-import ch.tutteli.atrium.reporting.translating.Translatable
-
 /**
  * Represents a formatter for objects.
  *
@@ -15,7 +13,7 @@ interface ObjectFormatter {
      * Following the minimum requirements for an [ObjectFormatter]:
      * - it will return [Text.NULL].[string][Text.string] in case [value] is `null`
      * - it will return [Text.string] in case [value] is a [Text]
-     * - it will return the translation of [value] in case it is a [Translatable]
+     * - it will return the translation of [value] in case it is a [ch.tutteli.atrium.reporting.translating.Translatable]
      *
      * Besides that it is up to the concrete implementation how it formats [value].
      * Nonetheless, following some conventions:

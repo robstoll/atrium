@@ -7,7 +7,6 @@ import ch.tutteli.atrium.logic.creating.basic.contains.Contains
 import ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.NotSearchBehaviour
 import ch.tutteli.atrium.logic.impl.createAssertionGroupFromListOfAssertions
 import ch.tutteli.atrium.logic.impl.createExplanatoryGroupForMismatches
-import ch.tutteli.atrium.reporting.translating.Translatable
 
 /**
  * Represents the base class for [Contains.Creator]s which use bare objects as search criteria (matching them
@@ -33,10 +32,12 @@ abstract class ContainsObjectsAssertionCreator<T : Any, TT : Any, in SC, S : Con
     checkers: List<C>
 ) : ContainsAssertionCreator<T, TT, SC, C>(searchBehaviour, checkers) {
 
+    //TODO 1.3.0 replace with InlineElement and remove suppression
+    @Suppress("DEPRECATION")
     override fun searchAndCreateAssertion(
         multiConsumableContainer: AssertionContainer<TT>,
         searchCriterion: SC,
-        featureFactory: (Int, Translatable) -> AssertionGroup
+        featureFactory: (Int, ch.tutteli.atrium.reporting.translating.Translatable) -> AssertionGroup
     ): AssertionGroup {
         val assertions = mutableListOf<Assertion>()
         if (searchBehaviour is NotSearchBehaviour) {
@@ -54,12 +55,16 @@ abstract class ContainsObjectsAssertionCreator<T : Any, TT : Any, in SC, S : Con
     /**
      * Provides the translation for `number of occurrences`.
      */
-    protected abstract val descriptionNumberOfOccurrences: Translatable
+    //TODO 1.3.0 replace with InlineElement and remove suppression
+    @Suppress("DEPRECATION")
+    protected abstract val descriptionNumberOfOccurrences: ch.tutteli.atrium.reporting.translating.Translatable
 
     /**
      * Provides the translation for [AssertionGroup.description]
      */
-    protected abstract val groupDescription: Translatable
+    //TODO 1.3.0 replace with InlineElement and remove suppression
+    @Suppress("DEPRECATION")
+    protected abstract val groupDescription: ch.tutteli.atrium.reporting.translating.Translatable
 
 
     /**

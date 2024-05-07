@@ -1,7 +1,6 @@
 package ch.tutteli.atrium.logic.creating.charsequence.contains.searchbehaviours
 
 import ch.tutteli.atrium.logic.creating.charsequence.contains.CharSequenceContains
-import ch.tutteli.atrium.reporting.translating.Translatable
 
 /**
  * Represents the default search behaviour or rather does not define a search behaviour at all.
@@ -14,5 +13,7 @@ interface NoOpSearchBehaviour : CharSequenceContains.SearchBehaviour {
      * Returns the given [description].
      * @return The given [description].
      */
-    override fun decorateDescription(description: Translatable) = description
+    //TODO 1.3.0 replace with InlineElement and remove suppression
+    @Suppress("DEPRECATION")
+    override fun decorateDescription(description: ch.tutteli.atrium.reporting.translating.Translatable) = description
 }

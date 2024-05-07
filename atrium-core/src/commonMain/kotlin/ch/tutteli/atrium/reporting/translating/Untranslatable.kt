@@ -7,6 +7,9 @@ package ch.tutteli.atrium.reporting.translating
  *
  * @param representation A representation which is not intended to be translated.
  */
+//TODO 1.3.0 define replacement
+@Suppress("DEPRECATION")
+@Deprecated("will be removed with 2.0.0 at the latestt")
 class Untranslatable(representation: String) : Translatable {
     override val name: String = representation
     override fun getDefault() = name
@@ -17,6 +20,8 @@ class Untranslatable(representation: String) : Translatable {
         /**
          * An empty string as [Untranslatable].
          */
+        //TODO 1.3.0 define replacement
+        @Deprecated("will be removed with 2.0.0 at the latest without replacement")
         val EMPTY = Untranslatable("")
     }
 }

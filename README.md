@@ -2655,10 +2655,10 @@ import ch.tutteli.atrium.creating.build
 @OptIn(ExperimentalNewExpectTypes::class, ExperimentalComponentFactoryContainer::class)
 fun <T> expect(subject: T): RootExpect<T> =
     RootExpectBuilder.forSubject(subject)
-        .withVerb("expected the subject")
+        .withVerb("I expected subject")
         .withOptions {
             withComponent(TextAssertionPairFormatter::class) { c ->
-                TextAssertionPairFormatter.newNextLine(c.build(), c.build())
+                TextAssertionPairFormatter.newNextLine(c.build())
             }
         }
         .build()
@@ -2675,7 +2675,7 @@ expect(10).toEqual(9)
 ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/main/misc/tools/readme-examples/src/test/kotlin/readme/examples/OwnExpectationVerb.kt#L40)</sub> ↓ <sub>[Output](#ex-own-expectation-verb)</sub>
 <a name="ex-own-expectation-verb"></a>
 ```text
-expected the subject:
+I expected subject:
   10        (kotlin.Int <1234789>)
 ◆ to equal:
   9        (kotlin.Int <1234789>)
