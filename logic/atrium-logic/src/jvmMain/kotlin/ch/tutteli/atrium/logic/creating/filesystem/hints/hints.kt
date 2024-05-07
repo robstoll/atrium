@@ -11,7 +11,6 @@ import ch.tutteli.atrium.logic.creating.filesystem.Failure
 import ch.tutteli.atrium.logic.creating.filesystem.IoResult
 import ch.tutteli.atrium.logic.creating.filesystem.Success
 import ch.tutteli.atrium.logic.creating.transformers.propertiesOfThrowable
-import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.translations.DescriptionBasic
 import ch.tutteli.atrium.translations.DescriptionPathAssertion.*
 import ch.tutteli.niok.followSymbolicLink
@@ -31,7 +30,7 @@ inline fun <T> Descriptive.DescriptionOption<Descriptive.FinalStep>.withHelpOnIO
     withHelpOnFailureBasedOnDefinedSubject(
         expect,
         showOnlyIf = { it is Failure }
-    ){ result ->
+    ) { result ->
         explainForResolvedLink(result.path) { realPath ->
             val exception = (result as Failure).exception
             f(realPath, exception) ?: expect._logic.hintForIoException(realPath, exception)
@@ -183,7 +182,9 @@ fun AssertionContainer<*>.findHintForProblemWithParent(path: Path): Assertion? {
     return null
 }
 
-private val BasicFileAttributes.fileType: Translatable
+//TODO 1.3.0 replace with Representable
+@Suppress("DEPRECATION")
+private val BasicFileAttributes.fileType: ch.tutteli.atrium.reporting.translating.Translatable
     get() = when {
         isRegularFile -> A_FILE
         isDirectory -> A_DIRECTORY
@@ -317,7 +318,12 @@ private fun toPermissionString(
     return result
 }
 
-fun <T : Path> hintForExistsButMissingPermission(subject: T, permissionName: Translatable): Assertion =
+//TODO 1.3.0 remove suppress again, use InlineElement instead
+@Suppress("DEPRECATION")
+fun <T : Path> hintForExistsButMissingPermission(
+    subject: T,
+    permissionName: ch.tutteli.atrium.reporting.translating.Translatable
+): Assertion =
     assertionBuilder.explanatory
         .withExplanation(
             FAILURE_DUE_TO_PERMISSION_FILE_TYPE_HINT,
@@ -326,7 +332,9 @@ fun <T : Path> hintForExistsButMissingPermission(subject: T, permissionName: Tra
         )
         .build()
 
-private fun describeWas(actual: Translatable) =
+//TODO 1.3.0 remove suppress again, use InlineElement instead
+@Suppress("DEPRECATION")
+private fun describeWas(actual: ch.tutteli.atrium.reporting.translating.Translatable) =
     assertionBuilder.descriptive
         .failing
         .withDescriptionAndRepresentation(DescriptionBasic.WAS, actual)
@@ -383,7 +391,9 @@ private fun hintForExistingParentDirectory(parent: Path?) =
         .withExplanation(HINT_CLOSEST_EXISTING_PARENT_DIRECTORY, parent ?: DescriptionBasic.NONE)
         .build()
 
-private fun hintForNotDirectory(actualType: Translatable) =
+//TODO 1.3.0 remove suppress again, use InlineElement instead
+@Suppress("DEPRECATION")
+private fun hintForNotDirectory(actualType: ch.tutteli.atrium.reporting.translating.Translatable) =
     assertionBuilder.explanatory
         .withExplanation(
             FAILURE_DUE_TO_WRONG_FILE_TYPE, actualType,

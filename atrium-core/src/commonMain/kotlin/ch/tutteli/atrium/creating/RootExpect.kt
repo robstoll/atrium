@@ -4,7 +4,6 @@ import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
 import ch.tutteli.atrium.core.Option
 import ch.tutteli.atrium.creating.impl.RootExpectImpl
 import ch.tutteli.atrium.reporting.BUG_REPORT_URL
-import ch.tutteli.atrium.reporting.translating.Translatable
 
 /**
  * Represents the root of an [Expect] chain, intended as extension point for functionality
@@ -13,10 +12,12 @@ import ch.tutteli.atrium.reporting.translating.Translatable
 interface RootExpect<T> : Expect<T> {
 
     companion object {
+        //TODO 1.3.0 replace invoke with create? and keep translatable or create another overload with InlineElement
+        @Suppress("DEPRECATION")
         @ExperimentalNewExpectTypes
         operator fun <T> invoke(
             maybeSubject: Option<T>,
-            assertionVerb: Translatable,
+            assertionVerb: ch.tutteli.atrium.reporting.translating.Translatable,
             options: RootExpectOptions<T>?
         ): RootExpect<T> = RootExpectImpl(maybeSubject, assertionVerb, options)
 

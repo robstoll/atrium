@@ -6,18 +6,21 @@ import ch.tutteli.atrium.creating.ComponentFactoryContainer
 import ch.tutteli.atrium.creating.ExperimentalComponentFactoryContainer
 import ch.tutteli.atrium.creating.RootExpectOptions
 import ch.tutteli.atrium.logic.creating.RootExpectBuilder
-import ch.tutteli.atrium.reporting.translating.Translatable
 import kotlin.reflect.KClass
 
 @ExperimentalComponentFactoryContainer
 @ExperimentalNewExpectTypes
 class RootExpectOptionsChooserImpl<T> : RootExpectBuilder.OptionsChooser<T> {
-    private var description: Translatable? = null
+    //TODO 1.3.0 replace with Representable and remove suppression
+    @Suppress("DEPRECATION")
+    private var description: ch.tutteli.atrium.reporting.translating.Translatable? = null
     private var representationInsteadOfSubject: ((T) -> Any)? = null
     private var components = mutableMapOf<KClass<*>, ComponentFactory>()
     private var chainedComponents = mutableMapOf<KClass<*>, Sequence<ComponentFactory>>()
 
-    override fun withVerb(verb: Translatable) {
+    //TODO 1.3.0 replace with Representable and remove suppression
+    @Suppress("DEPRECATION")
+    override fun withVerb(verb: ch.tutteli.atrium.reporting.translating.Translatable) {
         this.description = verb
     }
 

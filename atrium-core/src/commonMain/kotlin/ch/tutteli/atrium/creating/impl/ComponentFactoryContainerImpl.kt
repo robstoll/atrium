@@ -20,7 +20,6 @@ import ch.tutteli.atrium.reporting.text.*
 import ch.tutteli.atrium.reporting.text.TextObjectFormatter
 import ch.tutteli.atrium.reporting.text.impl.*
 import ch.tutteli.atrium.reporting.translating.*
-import ch.tutteli.atrium.reporting.translating.impl.ResourceBundleInspiredLocaleOrderDecider
 import kotlin.reflect.KClass
 
 
@@ -128,10 +127,20 @@ internal object DefaultComponentFactoryContainer : ComponentFactoryContainer by 
         MethodCallFormatter::class createVia { c -> c.build<TextMethodCallFormatter>() },
 
         LocaleProvider::class createVia { _ -> UseDefaultLocaleAsPrimary },
+        //TODO 2.0.0 remove
+        @Suppress("DEPRECATION")
         Translator::class createSingletonVia { c ->
+            //TODO 2.0.0 remove
+            @Suppress("DEPRECATION")
             UsingDefaultTranslator(c.build<LocaleProvider>().getPrimaryLocale())
         },
-        LocaleOrderDecider::class createVia { _ -> ResourceBundleInspiredLocaleOrderDecider },
+        //TODO 2.0.0 remove
+        @Suppress("DEPRECATION")
+        LocaleOrderDecider::class createVia { _ ->
+            //TODO 2.0.0 remove
+            @Suppress("DEPRECATION")
+            ch.tutteli.atrium.reporting.translating.impl.ResourceBundleInspiredLocaleOrderDecider
+        },
         RemoveAtriumFromAtriumError::class createVia { _ -> RemoveAtriumFromAtriumErrorImpl() },
         RemoveRunnerFromAtriumError::class createVia { _ -> RemoveRunnerFromAtriumErrorImpl() },
         AtriumErrorAdjuster::class createSingletonVia { c ->
@@ -154,9 +163,9 @@ internal object DefaultComponentFactoryContainer : ComponentFactoryContainer by 
                 }
             }
         },
-        TextObjectFormatter::class createSingletonVia { c -> DefaultTextObjectFormatter(c.build()) },
+        TextObjectFormatter::class createSingletonVia { _ -> DefaultTextObjectFormatter() },
         TextAssertionPairFormatter::class createVia { c ->
-            TextAssertionPairFormatter.newSameLine(c.build(), c.build())
+            TextAssertionPairFormatter.newSameLine(c.build())
         },
         TextMethodCallFormatter::class createVia { _ -> DefaultTextMethodCallFormatter },
         BulletPointProvider::class createVia { _ -> UsingDefaultBulletPoints }
