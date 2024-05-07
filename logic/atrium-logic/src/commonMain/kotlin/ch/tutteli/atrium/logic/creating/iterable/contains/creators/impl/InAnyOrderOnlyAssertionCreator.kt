@@ -13,7 +13,6 @@ import ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.InAny
 import ch.tutteli.atrium.logic.creating.iterablelike.contains.reporting.InAnyOrderOnlyReportingOptions
 import ch.tutteli.atrium.logic.creating.iterablelike.contains.reporting.impl.InAnyOrderOnlyReportingOptionsImpl
 import ch.tutteli.atrium.logic.creating.typeutils.IterableLike
-import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.translations.DescriptionIterableLikeExpectation
 import ch.tutteli.atrium.translations.DescriptionIterableLikeExpectation.*
 
@@ -26,12 +25,12 @@ import ch.tutteli.atrium.translations.DescriptionIterableLikeExpectation.*
  * @param SC The type of the search criteria.
  *
  * @property searchBehaviour The search behaviour -- in this case representing `in any order only` which is used to
- *   decorate the description (a [Translatable]) which is used for the [AssertionGroup].
+ *   decorate the description (a [ch.tutteli.atrium.reporting.translating.Translatable]) which is used for the [AssertionGroup].
  *
  * @constructor Represents the base class for `in any order only` assertion creators and provides a corresponding
  *   template to fulfill its responsibility.
  * @param searchBehaviour The search behaviour -- in this case representing `in any order only` which is used to
- *   decorate the description (a [Translatable]) which is used for the [AssertionGroup].
+ *   decorate the description (a [ch.tutteli.atrium.reporting.translating.Translatable]) which is used for the [AssertionGroup].
  */
 abstract class InAnyOrderOnlyAssertionCreator<E, T : IterableLike, in SC>(
     private val converter: (T) -> Iterable<E>,

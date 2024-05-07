@@ -7,7 +7,6 @@ import ch.tutteli.atrium.core.Option
 import ch.tutteli.atrium.core.Some
 import ch.tutteli.atrium.core.getOrElse
 import ch.tutteli.atrium.creating.AssertionContainer
-import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
 import ch.tutteli.atrium.translations.DescriptionIterableLikeExpectation
 
 interface InOrderOnlyMatcher<E, SC> {
@@ -36,10 +35,12 @@ interface InOrderOnlyMatcher<E, SC> {
             }
         }
 
+        //TODO 1.3.0 replace with Representable and remove suppression
+        @Suppress("DEPRECATION")
         append(
             assertionBuilder.feature
                 .withDescriptionAndRepresentation(
-                    TranslatableWithArgs(translatableIndex, currentIndex),
+                    ch.tutteli.atrium.reporting.translating.TranslatableWithArgs(translatableIndex, currentIndex),
                     maybeElement.getOrElse { DescriptionIterableLikeExpectation.SIZE_EXCEEDED }
                 )
                 .withAssertion(assertion)

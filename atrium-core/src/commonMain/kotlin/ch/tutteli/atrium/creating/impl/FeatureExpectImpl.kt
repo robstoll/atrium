@@ -5,14 +5,15 @@ import ch.tutteli.atrium.assertions.builders.assertionBuilder
 import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
 import ch.tutteli.atrium.core.Option
 import ch.tutteli.atrium.creating.*
-import ch.tutteli.atrium.reporting.translating.Translatable
 
 @ExperimentalNewExpectTypes
 @ExperimentalComponentFactoryContainer
 internal class FeatureExpectImpl<T, R>(
     private val previousExpect: Expect<T>,
     maybeSubject: Option<R>,
-    private val description: Translatable,
+    //TODO 1.3.0 replace Translatable with InlineElement
+    @Suppress("DEPRECATION")
+    private val description: ch.tutteli.atrium.reporting.translating.Translatable,
     private val representation: Any?,
     assertions: List<Assertion>
 ) : BaseExpectImpl<R>(maybeSubject), FeatureExpect<T, R> {
@@ -20,7 +21,9 @@ internal class FeatureExpectImpl<T, R>(
     constructor(
         previousExpect: Expect<T>,
         maybeSubject: Option<R>,
-        description: Translatable,
+        //TODO 1.3.0 replace Translatable with InlineElement
+        @Suppress("DEPRECATION")
+        description: ch.tutteli.atrium.reporting.translating.Translatable,
         assertions: List<Assertion>,
         options: FeatureExpectOptions<R>
     ) : this(

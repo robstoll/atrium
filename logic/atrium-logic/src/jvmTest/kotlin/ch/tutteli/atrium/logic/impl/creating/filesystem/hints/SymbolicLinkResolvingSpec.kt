@@ -9,8 +9,6 @@ import ch.tutteli.atrium.assertions.WarningAssertionGroupType
 import ch.tutteli.atrium.assertions.builders.assertionBuilder
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic.creating.filesystem.hints.explainForResolvedLink
-import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
-import ch.tutteli.atrium.reporting.translating.Untranslatable
 import ch.tutteli.atrium.specs.fileSystemSupportsCreatingSymlinks
 import ch.tutteli.atrium.translations.DescriptionPathAssertion.FAILURE_DUE_TO_LINK_LOOP
 import ch.tutteli.atrium.translations.DescriptionPathAssertion.HINT_FOLLOWED_SYMBOLIC_LINK
@@ -33,7 +31,9 @@ object SymbolicLinkResolvingSpec : Spek({
     val ifSymlinksNotSupported =
         if (fileSystemSupportsCreatingSymlinks()) Skip.No else Skip.Yes("creating symbolic links is not supported on this file system")
 
-    val testAssertion = assertionBuilder.createDescriptive(Untranslatable("testAssertion"), null) { true }
+    // TODO 1.3.0 switch to Proof remove suppression
+    @Suppress("DEPRECATION")
+    val testAssertion = assertionBuilder.createDescriptive(ch.tutteli.atrium.reporting.translating.Untranslatable("testAssertion"), null) { true }
     val resolvedPathConsumer by memoized(TEST) {
         mock<(Path) -> Assertion> {
             on { this(any()) } doReturn testAssertion
@@ -263,19 +263,23 @@ object SymbolicLinkResolvingSpec : Spek({
     }
 })
 
+// TODO 1.3.0 replace with representable and remove suppression
+@Suppress("DEPRECATION")
 fun <T : Assertion> Expect<T>.describesLink(link: Path, target: Path) {
     toBeAnInstanceOf<ExplanatoryAssertion> {
         feature { p(it::explanation) }.toEqual(
-            TranslatableWithArgs(HINT_FOLLOWED_SYMBOLIC_LINK, link, target)
+            ch.tutteli.atrium.reporting.translating.TranslatableWithArgs(HINT_FOLLOWED_SYMBOLIC_LINK, link, target)
         )
     }
 }
 
+// TODO 1.3.0 replace with representable and remove suppression
+@Suppress("DEPRECATION")
 fun <T : Assertion> Expect<T>.describesLinkLoop(vararg loop: Path) {
     toBeAnInstanceOf<AssertionGroup> {
         feature { p(it::assertions) }.toContainExactly {
             toBeAnInstanceOf<ExplanatoryAssertion> {
-                val expectedExplanation = TranslatableWithArgs(FAILURE_DUE_TO_LINK_LOOP, loop.joinToString(" -> "))
+                val expectedExplanation = ch.tutteli.atrium.reporting.translating.TranslatableWithArgs(FAILURE_DUE_TO_LINK_LOOP, loop.joinToString(" -> "))
                 feature { p(it::explanation) }.toEqual(expectedExplanation)
             }
         }

@@ -9,7 +9,6 @@ import ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.InOrd
 import ch.tutteli.atrium.logic.creating.iterablelike.contains.reporting.InOrderOnlyReportingOptions
 import ch.tutteli.atrium.logic.creating.typeutils.IterableLike
 import ch.tutteli.atrium.logic.extractFeature
-import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
 import ch.tutteli.atrium.translations.DescriptionIterableLikeExpectation
 
 abstract class InOrderOnlyGroupedAssertionCreator<E, T : IterableLike, SC>(
@@ -40,6 +39,8 @@ abstract class InOrderOnlyGroupedAssertionCreator<E, T : IterableLike, SC>(
         return index
     }
 
+    //TODO 1.3.0 replace with Representable and remove suppression
+    @Suppress("DEPRECATION")
     private fun AssertionContainer<List<E>>.addSublistAssertion(
         currentIndex: Int,
         untilIndex: Int,
@@ -48,7 +49,7 @@ abstract class InOrderOnlyGroupedAssertionCreator<E, T : IterableLike, SC>(
     ) {
         extractFeature
             .withDescription(
-                TranslatableWithArgs(DescriptionIterableLikeExpectation.INDEX_FROM_TO, currentIndex, untilIndex - 1)
+                ch.tutteli.atrium.reporting.translating.TranslatableWithArgs(DescriptionIterableLikeExpectation.INDEX_FROM_TO, currentIndex, untilIndex - 1)
             )
             .withRepresentationForFailure(DescriptionIterableLikeExpectation.SIZE_EXCEEDED)
             .withFeatureExtraction {

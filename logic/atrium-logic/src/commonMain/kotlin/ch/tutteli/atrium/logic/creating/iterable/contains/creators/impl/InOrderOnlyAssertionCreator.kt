@@ -6,7 +6,6 @@ import ch.tutteli.atrium.logic._logic
 import ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.InOrderOnlySearchBehaviour
 import ch.tutteli.atrium.logic.creating.iterablelike.contains.reporting.InOrderOnlyReportingOptions
 import ch.tutteli.atrium.logic.creating.typeutils.IterableLike
-import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.translations.DescriptionIterableLikeExpectation.ELEMENT_WITH_INDEX
 
 /**
@@ -17,12 +16,12 @@ import ch.tutteli.atrium.translations.DescriptionIterableLikeExpectation.ELEMENT
  * @param SC The type of the search criteria.
  *
  * @property searchBehaviour The search behaviour -- in this case representing `in order only` which is used to
- *   decorate the description (a [Translatable]) which is used for the [AssertionGroup].
+ *   decorate the description (a [ch.tutteli.atrium.reporting.translating.Translatable]) which is used for the [AssertionGroup].
  *
  * @constructor Represents the base class for `in any order only` assertion creators and provides a corresponding
  *   template to fulfill its responsibility.
  * @param searchBehaviour The search behaviour -- in this case representing `in order only` which is used to
- *   decorate the description (a [Translatable]) which is used for the [AssertionGroup].
+ *   decorate the description (a [ch.tutteli.atrium.reporting.translating.Translatable]) which is used for the [AssertionGroup].
  */
 abstract class InOrderOnlyAssertionCreator<E, T : IterableLike, SC>(
     converter: (T) -> Iterable<E>,
