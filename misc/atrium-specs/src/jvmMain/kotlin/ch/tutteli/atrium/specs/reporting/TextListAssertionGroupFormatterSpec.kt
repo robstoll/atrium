@@ -10,7 +10,7 @@ import ch.tutteli.atrium.reporting.translating.Translator
 import kotlin.reflect.KClass
 
 abstract class TextListAssertionGroupFormatterSpec(
-    testeeFactory: (Map<KClass<out BulletPointIdentifier>, String>, AssertionFormatterController, ObjectFormatter, Translator) -> AssertionFormatter,
+    testeeFactory: (Map<KClass<out BulletPointIdentifier>, String>, AssertionFormatterController, ObjectFormatter) -> AssertionFormatter,
     describePrefix: String = "[Atrium] "
 ) : TextListBasedAssertionGroupFormatterSpec<ListAssertionGroupType>(
     testeeFactory,

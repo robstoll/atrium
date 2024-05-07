@@ -4,7 +4,6 @@ import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.logic.creating.basic.contains.Contains.*
-import ch.tutteli.atrium.reporting.translating.Translatable
 
 /**
  * Defines the basic contract for sophisticated `contains` assertion builders.
@@ -67,7 +66,7 @@ interface Contains {
 
     /**
      * Represents a search behaviour but leaves it up to the [Creator] how this behaviour is implemented -- yet, it
-     * provides a method to decorate a description (a [Translatable]) in order that it reflects the search behaviour.
+     * provides a method to decorate a description (a [ch.tutteli.atrium.reporting.translating.Translatable]) in order that it reflects the search behaviour.
      */
     interface SearchBehaviour {
         /**
@@ -75,7 +74,9 @@ interface Contains {
          *
          * @return The decorated [description].
          */
-        fun decorateDescription(description: Translatable): Translatable
+        //TODO 1.3.0 replace with InlineElement and remove suppression
+        @Suppress("DEPRECATION")
+        fun decorateDescription(description: ch.tutteli.atrium.reporting.translating.Translatable): ch.tutteli.atrium.reporting.translating.Translatable
     }
 
     /**

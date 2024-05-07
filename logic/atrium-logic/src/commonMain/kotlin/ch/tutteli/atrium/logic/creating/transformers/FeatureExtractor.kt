@@ -1,5 +1,3 @@
-@file:Suppress("DEPRECATION")
-
 package ch.tutteli.atrium.logic.creating.transformers
 
 import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
@@ -11,7 +9,6 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.creating.FeatureExpect
 import ch.tutteli.atrium.creating.FeatureExpectOptions
 import ch.tutteli.atrium.logic.FeatureAssertions
-import ch.tutteli.atrium.reporting.translating.Translatable
 
 /**
  * Defines the contract for sophisticated `safe feature extractions` including assertion creation for the feature.
@@ -46,7 +43,9 @@ interface FeatureExtractor {
     @OptIn(ExperimentalNewExpectTypes::class)
     fun <SubjectT, FeatureT> extract(
         container: AssertionContainer<SubjectT>,
-        description: Translatable,
+        //TODO 1.3.0 replace with Representable and remove suppression
+        @Suppress("DEPRECATION")
+        description: ch.tutteli.atrium.reporting.translating.Translatable,
         representationForFailure: Any,
         featureExtraction: (SubjectT) -> Option<FeatureT>,
         maybeSubAssertions: Option<Expect<FeatureT>.() -> Unit>,

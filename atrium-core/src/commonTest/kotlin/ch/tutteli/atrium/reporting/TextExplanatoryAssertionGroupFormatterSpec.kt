@@ -4,7 +4,6 @@ import ch.tutteli.atrium.assertions.BulletPointIdentifier
 import ch.tutteli.atrium.assertions.DefaultExplanatoryAssertionGroupType
 import ch.tutteli.atrium.assertions.ExplanatoryAssertionGroupType
 import ch.tutteli.atrium.reporting.text.impl.TextExplanatoryAssertionGroupFormatter
-import ch.tutteli.atrium.reporting.translating.Translator
 import org.spekframework.spek2.Spek
 import kotlin.reflect.KClass
 
@@ -73,7 +72,7 @@ class TextExplanatoryAssertionGroupFormatterSpec : Spek({
         }
 
         private fun factoryWithObjectFormatter() =
-            { bulletPoints: Map<KClass<out BulletPointIdentifier>, String>, assertionFormatterController: AssertionFormatterController, _: ObjectFormatter, _: Translator ->
+            { bulletPoints: Map<KClass<out BulletPointIdentifier>, String>, assertionFormatterController: AssertionFormatterController, _: ObjectFormatter ->
                 factory()(bulletPoints, assertionFormatterController)
             }
     }

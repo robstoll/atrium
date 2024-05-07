@@ -6,7 +6,6 @@ import ch.tutteli.atrium.logic.changeSubject
 import ch.tutteli.atrium.logic.creating.basic.contains.creators.impl.ContainsObjectsAssertionCreator
 import ch.tutteli.atrium.logic.creating.charsequence.contains.CharSequenceContains.*
 import ch.tutteli.atrium.logic.toAssertionContainer
-import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.translations.DescriptionCharSequenceExpectation
 
 /**
@@ -31,21 +30,36 @@ class CharSequenceContainsAssertionCreator<T : CharSequence, in SC : Any, S : Se
     searchBehaviour: S,
     private val searcher: Searcher<S, SC>,
     checkers: List<Checker>,
-    override val groupDescription: Translatable
+    //TODO 1.3.0 replace with InlineElement and remove suppression
+    @Suppress("DEPRECATION")
+    override val groupDescription: ch.tutteli.atrium.reporting.translating.Translatable
 ) : ContainsObjectsAssertionCreator<T, String, SC, S, Checker>(searchBehaviour, checkers), Creator<T, SC> {
 
-    override val descriptionToContain: Translatable = DescriptionCharSequenceExpectation.TO_CONTAIN
+    //TODO 1.3.0 replace with InlineElement and remove suppression
+    @Suppress("DEPRECATION")
+    override val descriptionToContain: ch.tutteli.atrium.reporting.translating.Translatable =
+        DescriptionCharSequenceExpectation.TO_CONTAIN
 
-    override val descriptionNumberOfOccurrences: Translatable = DescriptionCharSequenceExpectation.NUMBER_OF_MATCHES
-    override val descriptionNotFound: Translatable = DescriptionCharSequenceExpectation.NOT_FOUND
-    override val descriptionNumberOfElementsFound: Translatable =
+    //TODO 1.3.0 replace with InlineElement and remove suppression
+    @Suppress("DEPRECATION")
+    override val descriptionNumberOfOccurrences: ch.tutteli.atrium.reporting.translating.Translatable =
+        DescriptionCharSequenceExpectation.NUMBER_OF_MATCHES
+
+    //TODO 1.3.0 replace with InlineElement and remove suppression
+    @Suppress("DEPRECATION")
+    override val descriptionNotFound: ch.tutteli.atrium.reporting.translating.Translatable =
+        DescriptionCharSequenceExpectation.NOT_FOUND
+
+    //TODO 1.3.0 replace with InlineElement and remove suppression
+    @Suppress("DEPRECATION")
+    override val descriptionNumberOfElementsFound: ch.tutteli.atrium.reporting.translating.Translatable =
         DescriptionCharSequenceExpectation.NUMBER_OF_MATCHES_FOUND
 
     override fun makeSubjectMultipleTimesConsumable(container: AssertionContainer<T>): AssertionContainer<String> =
         container.changeSubject.unreported { it.toString() }.toAssertionContainer()
 
     override fun search(multiConsumableContainer: AssertionContainer<String>, searchCriterion: SC): Int =
-        // if the maybeSubject is None it means we are in an explanation like context in which
+    // if the maybeSubject is None it means we are in an explanation like context in which
         // it should not matter what this number is. Moreover, we check in the atMostChecker that times is >= 0
         multiConsumableContainer.maybeSubject.fold({ -1 }) { searcher.search(it, searchCriterion) }
 }

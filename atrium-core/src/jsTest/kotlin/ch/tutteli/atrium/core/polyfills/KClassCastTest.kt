@@ -8,7 +8,6 @@ import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.AssertionGroupType
 import ch.tutteli.atrium.assertions.RootAssertionGroupType
 import ch.tutteli.atrium.creating.ExpectGrouping
-import ch.tutteli.atrium.reporting.translating.Translatable
 import kotlin.reflect.KClass
 import kotlin.test.Test
 
@@ -97,14 +96,18 @@ class KClassCastTest {
 
             group("cast to class") {
                 expect {
-                    Translatable::class.cast(objInterface)
+                    //TODO 1.3.0 replace with Representable and remove suppression
+                    @Suppress("DEPRECATION")
+                    ch.tutteli.atrium.reporting.translating.Translatable::class.cast(objInterface)
                 }.toThrow<ClassCastException> {
                     its messageToContain values(
                         // looks like the IR backend no longer carries the interface names in proto.constructor.$metadata$
                         // hence we cannot figure out the class/interface the object implemented
 //                        "`object: ${Assertion::class.fullName}` (js: objInterface",
                         "`object: <unknown>` (js: objInterface",
-                        Translatable::class.fullName
+                        //TODO 1.3.0 replace with Representable and remove suppression
+                        @Suppress("DEPRECATION")
+                        ch.tutteli.atrium.reporting.translating.Translatable::class.fullName
                     )
                 }
             }

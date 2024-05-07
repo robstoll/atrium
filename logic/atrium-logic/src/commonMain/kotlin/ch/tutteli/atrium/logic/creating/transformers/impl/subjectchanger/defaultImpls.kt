@@ -10,7 +10,6 @@ import ch.tutteli.atrium.logic.creating.transformers.SubjectChangerBuilder
 import ch.tutteli.atrium.logic.creating.transformers.impl.BaseTransformationExecutionStep
 import ch.tutteli.atrium.logic.creating.transformers.subjectChanger
 import ch.tutteli.atrium.reporting.Text
-import ch.tutteli.atrium.reporting.translating.Translatable
 
 class KindStepImpl<SubjectT>(
     override val container: AssertionContainer<SubjectT>
@@ -24,8 +23,11 @@ class DescriptionRepresentationStepImpl<SubjectT>(
     override val container: AssertionContainer<SubjectT>
 ) : SubjectChangerBuilder.DescriptionRepresentationStep<SubjectT> {
 
+
     override fun withDescriptionAndRepresentation(
-        description: Translatable,
+        //TODO 1.3.0 remove suppress again, use InlineElement instead
+        @Suppress("DEPRECATION")
+        description: ch.tutteli.atrium.reporting.translating.Translatable,
         representation: Any?
     ): SubjectChangerBuilder.TransformationStep<SubjectT> = SubjectChangerBuilder.TransformationStep(
         container,
@@ -36,7 +38,9 @@ class DescriptionRepresentationStepImpl<SubjectT>(
 
 class TransformationStepImpl<SubjectT>(
     override val container: AssertionContainer<SubjectT>,
-    override val description: Translatable,
+    //TODO 1.3.0 remove suppress again, use InlineElement instead
+    @Suppress("DEPRECATION")
+    override val description: ch.tutteli.atrium.reporting.translating.Translatable,
     override val representation: Any
 ) : SubjectChangerBuilder.TransformationStep<SubjectT> {
 
