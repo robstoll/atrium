@@ -7,7 +7,6 @@ import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.InAnyOrderOnlySearchBehaviour
 import ch.tutteli.atrium.logic.creating.iterablelike.contains.reporting.InAnyOrderOnlyReportingOptions
 import ch.tutteli.atrium.logic.creating.typeutils.IterableLike
-import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.translations.DescriptionIterableLikeExpectation.AN_ELEMENT_WHICH_EQUALS
 
 /**
@@ -20,7 +19,7 @@ import ch.tutteli.atrium.translations.DescriptionIterableLikeExpectation.AN_ELEM
  *   entries have to appear in the [Iterable] but in any order -- an entry is identified by an expected
  *   object (equality comparison).
  * @param searchBehaviour The search behaviour -- in this case representing `in any order only` which is used to
- *   decorate the description (a [Translatable]) which is used for the [AssertionGroup].
+ *   decorate the description (a [ch.tutteli.atrium.reporting.translating.Translatable]) which is used for the [AssertionGroup].
  */
 class InAnyOrderOnlyValuesAssertionCreator<E, T : IterableLike>(
     converter: (T) -> Iterable<E>,

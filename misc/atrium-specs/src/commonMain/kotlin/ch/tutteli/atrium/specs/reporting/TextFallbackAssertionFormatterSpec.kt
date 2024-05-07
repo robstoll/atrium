@@ -11,9 +11,6 @@ import ch.tutteli.atrium.reporting.AssertionFormatterController
 import ch.tutteli.atrium.reporting.ObjectFormatter
 import ch.tutteli.atrium.reporting.impl.AssertionFormatterControllerBasedFacade
 import ch.tutteli.atrium.reporting.impl.DefaultAssertionFormatterController
-import ch.tutteli.atrium.reporting.translating.Translator
-import ch.tutteli.atrium.reporting.translating.Untranslatable
-import ch.tutteli.atrium.reporting.translating.UsingDefaultTranslator
 import ch.tutteli.atrium.specs.describeFunTemplate
 import ch.tutteli.atrium.specs.lineSeparator
 import ch.tutteli.atrium.specs.toEqualDescr
@@ -23,7 +20,7 @@ import org.spekframework.spek2.style.specification.Suite
 import kotlin.reflect.KClass
 
 abstract class TextFallbackAssertionFormatterSpec(
-    testeeFactory: (Map<KClass<out BulletPointIdentifier>, String>, AssertionFormatterController, ObjectFormatter, Translator) -> AssertionFormatter,
+    testeeFactory: (Map<KClass<out BulletPointIdentifier>, String>, AssertionFormatterController, ObjectFormatter) -> AssertionFormatter,
     describePrefix: String = "[Atrium] "
 ) : AssertionFormatterSpecBase({
 
@@ -33,8 +30,7 @@ abstract class TextFallbackAssertionFormatterSpec(
     val testee = testeeFactory(
         bulletPoints,
         DefaultAssertionFormatterController(),
-        ToStringObjectFormatter,
-        UsingDefaultTranslator()
+        ToStringObjectFormatter
     )
 
     val unsupportedAssertion = object : Assertion {
@@ -49,7 +45,9 @@ abstract class TextFallbackAssertionFormatterSpec(
             it("... an anonymous class of ${AssertionGroup::class.simpleName} with an anonymous ${AssertionGroupType::class.simpleName}") {
                 testee.canFormat(object : AssertionGroup {
                     override val type = object : AssertionGroupType {}
-                    override val description = Untranslatable("outer group")
+                    // TODO 1.3.0 replace with representable and remove suppression
+                    @Suppress("DEPRECATION")
+                    override val description = ch.tutteli.atrium.reporting.translating.Untranslatable("outer group")
                     override val representation = "subject of outer group"
                     override val assertions = emptyList<Assertion>()
                 }
@@ -90,7 +88,7 @@ abstract class TextFallbackAssertionFormatterSpec(
         context("${AssertionGroup::class.simpleName} with type ${RootAssertionGroupType::class.simpleName} with multiple assertions") {
             val facade = AssertionFormatterControllerBasedFacade(DefaultAssertionFormatterController())
             facade.register {
-                testeeFactory(bulletPoints, it, ToStringObjectFormatter, UsingDefaultTranslator())
+                testeeFactory(bulletPoints, it, ToStringObjectFormatter)
             }
 
             context("only ${DescriptiveAssertion::class.simpleName}") {
@@ -98,7 +96,9 @@ abstract class TextFallbackAssertionFormatterSpec(
                     facade.format(
                         object : AssertionGroup {
                             override val type = RootAssertionGroupType
-                            override val description = Untranslatable("group")
+                            // TODO 1.3.0 replace with representable and remove suppression
+                            @Suppress("DEPRECATION")
+                            override val description =  ch.tutteli.atrium.reporting.translating.Untranslatable("group")
                             override val representation = "subject of group"
                             override val assertions = listOf(
                                 assertionBuilder.descriptive.failing
@@ -128,12 +128,16 @@ abstract class TextFallbackAssertionFormatterSpec(
                     facade.format(
                         object : AssertionGroup {
                             override val type = RootAssertionGroupType
-                            override val description = Untranslatable("outer group")
+                            // TODO 1.3.0 replace with representable and remove suppression
+                            @Suppress("DEPRECATION")
+                            override val description =  ch.tutteli.atrium.reporting.translating.Untranslatable("outer group")
                             override val representation = "subject of outer group"
                             override val assertions = listOf(
                                 object : AssertionGroup {
                                     override val type = object : AssertionGroupType {}
-                                    override val description = Untranslatable("inner group")
+                                    // TODO 1.3.0 replace with representable and remove suppression
+                                    @Suppress("DEPRECATION")
+                                    override val description =  ch.tutteli.atrium.reporting.translating.Untranslatable("inner group")
                                     override val representation = "subject of inner group"
                                     override val assertions = listOf(
                                         assertionBuilder.descriptive.failing

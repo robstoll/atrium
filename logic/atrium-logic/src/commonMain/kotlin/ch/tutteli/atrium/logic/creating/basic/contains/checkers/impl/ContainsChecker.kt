@@ -4,7 +4,6 @@ import ch.tutteli.atrium.assertions.DescriptiveAssertion
 import ch.tutteli.atrium.assertions.builders.assertionBuilder
 import ch.tutteli.atrium.logic.creating.basic.contains.Contains
 import ch.tutteli.atrium.reporting.Text
-import ch.tutteli.atrium.reporting.translating.Translatable
 
 /**
  * Represents a base class for [Contains.Checker]s which compare how many occurrences of an expected object are found
@@ -44,6 +43,8 @@ abstract class ContainsChecker(
      *
      * @return The newly created [DescriptiveAssertion].
      */
-    protected fun createDescriptiveAssertion(description: Translatable, check: () -> Boolean): DescriptiveAssertion =
+    //TODO 1.3.0 replace with InlineElement and remove suppression
+    @Suppress("DEPRECATION")
+    protected fun createDescriptiveAssertion(description: ch.tutteli.atrium.reporting.translating.Translatable, check: () -> Boolean): DescriptiveAssertion =
         assertionBuilder.createDescriptive(description, Text(times.toString()), check)
 }

@@ -15,6 +15,8 @@ import java.util.concurrent.ConcurrentHashMap
  *
  * @param T Translations are grouped by a certain aspect (for instance, by [Locale]). [T] defines the type of it.
  */
+@Suppress("DEPRECATION")
+@Deprecated("will be removed with 2.0.0 at the latest without replacement")
 abstract class PropertiesBasedTranslationSupplier<in T> : TranslationSupplier {
     /**
      * The cached translations.
@@ -36,6 +38,7 @@ abstract class PropertiesBasedTranslationSupplier<in T> : TranslationSupplier {
      *
      * @return A [Map] containing the resulting keys (based on the [Properties], see [keyCreator]) with its translations.
      */
+    @Deprecated("class will be removed with 2.0.0 at the latest without replacement")
     protected fun getOrLoadProperties(key: T, fileName: String, keyCreator: (String) -> String): Map<String, String> {
         require(!fileName.contains("../")) {
             "only paths without any '../' are allowed"
@@ -69,6 +72,7 @@ abstract class PropertiesBasedTranslationSupplier<in T> : TranslationSupplier {
      *
      * @return The name of the properties file.
      */
+    @Deprecated("class will be removed with 2.0.0 at the latest without replacement")
     protected fun getFileNameFor(baseName: String, locale: Locale): String {
         val sb = StringBuilder(baseName)
             //using _ as separator to be compatible with ResourceBundle

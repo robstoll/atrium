@@ -1,5 +1,4 @@
-@file:Suppress("EXPERIMENTAL_FEATURE_WARNING", "DEPRECATION")
-
+@file:Suppress("DEPRECATION")
 package ch.tutteli.atrium.reporting.translating.impl
 
 import ch.tutteli.atrium.reporting.translating.Locale
@@ -19,8 +18,10 @@ import ch.tutteli.kbox.forElementAndForEachIn
  *
  * Further information can be found at [LocaleOrderDecider].
  */
+@Deprecated("will be removed with 2.0.0 at the latest without replacement")
 object ResourceBundleInspiredLocaleOrderDecider : LocaleOrderDecider {
 
+    @Deprecated("interface will be removed with 2.0.0 at the latest without replacement")
     override fun determineOrder(primaryLocale: Locale, fallbackLocales: List<Locale>): Sequence<Locale> {
         val locales = mutableListOf<Locale>()
         forElementAndForEachIn(primaryLocale, fallbackLocales) { locale ->

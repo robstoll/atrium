@@ -7,7 +7,6 @@ import ch.tutteli.atrium.reporting.AssertionFormatterController
 import ch.tutteli.atrium.reporting.ObjectFormatter
 import ch.tutteli.atrium.reporting.text.impl.TextFeatureAssertionGroupFormatter
 import ch.tutteli.atrium.reporting.text.impl.TextSameLineAssertionPairFormatter
-import ch.tutteli.atrium.reporting.translating.Translator
 import org.spekframework.spek2.Spek
 import kotlin.reflect.KClass
 
@@ -39,13 +38,12 @@ class TextFeatureAssertionGroupFormatterSpec : Spek({
 
     companion object {
         internal fun factory() =
-            { bulletPoints: Map<KClass<out BulletPointIdentifier>, String>, controller: AssertionFormatterController, objectFormatter: ObjectFormatter, translator: Translator ->
+            { bulletPoints: Map<KClass<out BulletPointIdentifier>, String>, controller: AssertionFormatterController, objectFormatter: ObjectFormatter ->
                 TextFeatureAssertionGroupFormatter(
                     bulletPoints,
                     controller,
                     TextSameLineAssertionPairFormatter(
                         objectFormatter,
-                        translator
                     )
                 )
             }

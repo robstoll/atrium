@@ -1,13 +1,10 @@
 package ch.tutteli.atrium.reporting
 
-import ch.tutteli.atrium.api.infix.en_GB.toBe
 import ch.tutteli.atrium.api.infix.en_GB.toEqual
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.assertions.builders.assertionBuilder
 import ch.tutteli.atrium.assertions.builders.root
 import ch.tutteli.atrium.reporting.text.impl.TextNextLineAssertionPairFormatter
-import ch.tutteli.atrium.reporting.translating.Untranslatable
-import ch.tutteli.atrium.reporting.translating.UsingDefaultTranslator
 import ch.tutteli.atrium.specs.describeFunTemplate
 import ch.tutteli.atrium.specs.lineSeparator
 import ch.tutteli.atrium.specs.reporting.AssertionFormatterSpecBase
@@ -18,10 +15,7 @@ class TextNextLineAssertionPairFormatterSpec : AssertionFormatterSpecBase({
 
     fun describeFun(vararg funName: String, body: Suite.() -> Unit) = describeFunTemplate("", funName, body = body)
 
-    val testee = TextNextLineAssertionPairFormatter(
-        ToStringObjectFormatter,
-        UsingDefaultTranslator()
-    )
+    val testee = TextNextLineAssertionPairFormatter(ToStringObjectFormatter)
 
     val bulletPoint = "** "
     val indentBulletPoint = " ".repeat(bulletPoint.length)
@@ -50,10 +44,10 @@ class TextNextLineAssertionPairFormatterSpec : AssertionFormatterSpecBase({
         }
     }
 
-    describeFun(testee::format.name) {
+    describeFun("format") {
         context("current indent 0, no prefix") {
             it("puts the representation on the next line without indent") {
-                testee.format(parameterObject, Untranslatable(name), subject)
+                testee.format(parameterObject, name, subject)
                 expect(sb.toString()) toEqual "$name:$lineSeparator$subject"
             }
         }
@@ -61,14 +55,14 @@ class TextNextLineAssertionPairFormatterSpec : AssertionFormatterSpecBase({
         context("current indent 2, new prefix length 2") {
             it("puts the representation on the next line with 2 indent") {
                 val newParameterObject = parameterObject.createChildWithNewPrefix("==")
-                testee.format(newParameterObject, Untranslatable(name), subject)
+                testee.format(newParameterObject, name, subject)
                 expect(sb.toString()) toEqual "$name:$lineSeparator  $subject"
             }
         }
 
         it("does not append a new line if the subject is ${Text::class.simpleName}${Text.Companion::EMPTY.name}") {
             val newParameterObject = parameterObject.createChildWithNewPrefix(bulletPoint)
-            testee.format(newParameterObject, Untranslatable(name), Text.EMPTY)
+            testee.format(newParameterObject, name, Text.EMPTY)
             expect(sb.toString()) toEqual "$name:"
         }
     }

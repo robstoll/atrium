@@ -13,16 +13,13 @@ import ch.tutteli.atrium.reporting.AssertionFormatterController
 import ch.tutteli.atrium.reporting.AssertionFormatterParameterObject
 import ch.tutteli.atrium.reporting.ObjectFormatter
 import ch.tutteli.atrium.reporting.impl.DefaultAssertionFormatterController
-import ch.tutteli.atrium.reporting.translating.Translator
-import ch.tutteli.atrium.reporting.translating.Untranslatable
-import ch.tutteli.atrium.reporting.translating.UsingDefaultTranslator
 import ch.tutteli.atrium.specs.describeFunTemplate
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.Suite
 import kotlin.reflect.KClass
 
 abstract class SingleAssertionGroupTypeFormatterSpec<out T : AssertionGroupType>(
-    testeeFactory: (Map<KClass<out BulletPointIdentifier>, String>, AssertionFormatterController, ObjectFormatter, Translator) -> AssertionFormatter,
+    testeeFactory: (Map<KClass<out BulletPointIdentifier>, String>, AssertionFormatterController, ObjectFormatter) -> AssertionFormatter,
     supportedAssertionGroupTypeClass: KClass<T>,
     supportedAssertionGroupType: T,
     supportedAnonymousAssertionGroupType: T,
@@ -35,33 +32,42 @@ abstract class SingleAssertionGroupTypeFormatterSpec<out T : AssertionGroupType>
     val testee = testeeFactory(
         mapOf(),
         DefaultAssertionFormatterController(),
-        ToStringObjectFormatter,
-        UsingDefaultTranslator()
+        ToStringObjectFormatter
     )
 
     val unsupportedAssertion = object : Assertion {
         override fun holds() = false
     }
+    // TODO 1.3.0 replace with representable and remove suppression
+    @Suppress("DEPRECATION")
     val unsupportedAssertionGroup = assertionBuilder.customType(object : AssertionGroupType {})
-        .withDescriptionAndRepresentation(Untranslatable.EMPTY, 1)
+        .withDescriptionAndRepresentation(ch.tutteli.atrium.reporting.translating.Untranslatable.EMPTY, 1)
         .withAssertions(listOf())
         .build()
+    // TODO 1.3.0 replace with representable and remove suppression
+    @Suppress("DEPRECATION")
     val supportedAssertionGroupWithAnonymousType = assertionBuilder.customType(supportedAnonymousAssertionGroupType)
-        .withDescriptionAndRepresentation(Untranslatable.EMPTY, 1)
+        .withDescriptionAndRepresentation(ch.tutteli.atrium.reporting.translating.Untranslatable.EMPTY, 1)
         .withAssertions(listOf())
         .build()
+    // TODO 1.3.0 replace with representable and remove suppression
+    @Suppress("DEPRECATION")
     val supportedAnonymousAssertionGroupWithAnonymousType = object : AssertionGroup {
-        override val description = Untranslatable("test")
+        override val description = ch.tutteli.atrium.reporting.translating.Untranslatable("test")
         override val type = supportedAnonymousAssertionGroupType
         override val representation = 1
         override val assertions: List<Assertion> = emptyList()
     }
+    // TODO 1.3.0 replace with representable and remove suppression
+    @Suppress("DEPRECATION")
     val supportedAssertionGroup = assertionBuilder.customType(supportedAssertionGroupType)
-        .withDescriptionAndRepresentation(Untranslatable.EMPTY, 1)
+        .withDescriptionAndRepresentation(ch.tutteli.atrium.reporting.translating.Untranslatable.EMPTY, 1)
         .withAssertions(listOf())
         .build()
+    // TODO 1.3.0 replace with representable and remove suppression
+    @Suppress("DEPRECATION")
     val supportedAnonymousAssertionGroup = object : AssertionGroup {
-        override val description = Untranslatable("test")
+        override val description = ch.tutteli.atrium.reporting.translating.Untranslatable("test")
         override val type = supportedAssertionGroupType
         override val representation = 1
         override val assertions: List<Assertion> = emptyList()

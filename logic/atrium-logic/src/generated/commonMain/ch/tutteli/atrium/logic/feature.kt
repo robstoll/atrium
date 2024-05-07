@@ -9,7 +9,6 @@ package ch.tutteli.atrium.logic
 import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic.creating.transformers.FeatureExtractorBuilder
-import ch.tutteli.atrium.reporting.translating.Translatable
 import kotlin.reflect.*
 import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
 import ch.tutteli.atrium.logic.impl.DefaultFeatureAssertions
@@ -35,7 +34,9 @@ fun <T, A1, A2, A3, A4, A5, R> AssertionContainer<T>.f5(f: KFunction6<T, A1, A2,
     impl.f5(this, f, a1, a2, a3, a4, a5)
     //@formatter:on
 
-fun <T, R> AssertionContainer<T>.manualFeature(description: Translatable, provider: T.() -> R): FeatureExtractorBuilder.ExecutionStep<T, R> =
+    //TODO 1.3.0 provide replacement?
+    @Suppress("DEPRECATION")
+fun <T, R> AssertionContainer<T>.manualFeature(description: ch.tutteli.atrium.reporting.translating.Translatable, provider: T.() -> R): FeatureExtractorBuilder.ExecutionStep<T, R> =
     impl.manualFeature(this, description, provider)
 
 fun <T> AssertionContainer<T>.extractSubject(failureDescription: String?, assertionCreator: Expect<T>.(T) -> Unit): Expect<T> =
