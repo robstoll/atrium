@@ -15,8 +15,11 @@ import java.util.*
  *
  * It is compatible with Java's [Properties] - thus properties files should also use ISO-8859-1 as encoding.
  */
+@Deprecated("will be removed with 2.0.0 at the latest without replacement")
+@Suppress("DEPRECATION")
 class PropertiesPerLocaleTranslationSupplier : PropertiesBasedTranslationSupplier<Locale>() {
 
+    @Deprecated("will be removed with 2.0.0 at the latest without replacement")
     override fun get(translatable: Translatable, locale: Locale): String? {
         val fileName = getFileNameFor(this::class.java.`package`.name + ".Atrium", locale)
         val translations = getOrLoadProperties(locale, fileName, keyCreator = { it })

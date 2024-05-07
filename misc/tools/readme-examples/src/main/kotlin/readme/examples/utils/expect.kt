@@ -5,18 +5,16 @@ import ch.tutteli.atrium.api.fluent.en_GB.withOptions
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.creating.ExpectGrouping
 import ch.tutteli.atrium.creating.ExperimentalComponentFactoryContainer
-import ch.tutteli.atrium.creating.build
 import ch.tutteli.atrium.logic._logic
 import ch.tutteli.atrium.reporting.text.TextObjectFormatter
 import ch.tutteli.atrium.reporting.text.impl.AbstractTextObjectFormatter
-import ch.tutteli.atrium.reporting.translating.Translator
 import ch.tutteli.atrium.api.verbs.expect as atriumsExpect
 import ch.tutteli.atrium.api.verbs.expectGrouped as atriumsExpectGrouped
 
 @OptIn(ExperimentalWithOptions::class, ExperimentalComponentFactoryContainer::class)
 fun <T> expect(t: T): Expect<T> =
     atriumsExpect(t).withOptions {
-        withSingletonComponent(TextObjectFormatter::class) { c -> ReadmeObjectFormatter(c.build()) }
+        withSingletonComponent(TextObjectFormatter::class) { _ -> ReadmeObjectFormatter() }
     }
 
 @OptIn(ExperimentalWithOptions::class, ExperimentalComponentFactoryContainer::class)
@@ -25,7 +23,7 @@ fun expectGrouped(
 ): ExpectGrouping =
     atriumsExpectGrouped(
         configuration = {
-            withSingletonComponent(TextObjectFormatter::class) { c -> ReadmeObjectFormatter(c.build()) }
+            withSingletonComponent(TextObjectFormatter::class) { _ -> ReadmeObjectFormatter() }
         },
         groupingActions = groupingActions
     )
@@ -39,7 +37,7 @@ fun <R> ExpectGrouping.expect(subject: R, assertionCreator: Expect<R>.() -> Unit
     atriumsExpect(subject, assertionCreator)
 
 
-class ReadmeObjectFormatter(translator: Translator) : AbstractTextObjectFormatter(translator) {
+class ReadmeObjectFormatter() : AbstractTextObjectFormatter() {
 
     override fun identityHash(indent: String, any: Any): String =
         "$indent<1234789>" // dummy hash so it does not change all the time

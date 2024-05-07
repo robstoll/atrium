@@ -9,20 +9,23 @@ import ch.tutteli.atrium.creating.*
 import ch.tutteli.atrium.reporting.AtriumError
 import ch.tutteli.atrium.reporting.AtriumErrorAdjuster
 import ch.tutteli.atrium.reporting.Reporter
-import ch.tutteli.atrium.reporting.translating.Translatable
 
 @ExperimentalNewExpectTypes
 @OptIn(ExperimentalComponentFactoryContainer::class)
 internal class RootExpectImpl<T>(
     maybeSubject: Option<T>,
-    private val expectationVerb: Translatable,
+    //TODO 1.3.0 replace Translatable with InlineElement
+    @Suppress("DEPRECATION")
+    private val expectationVerb: ch.tutteli.atrium.reporting.translating.Translatable,
     private val representation: Any?,
     override val components: ComponentFactoryContainer
 ) : BaseExpectImpl<T>(maybeSubject), RootExpect<T> {
 
     constructor(
         maybeSubject: Option<T>,
-        expectationVerb: Translatable,
+        //TODO 1.3.0 replace Translatable with InlineElement
+        @Suppress("DEPRECATION")
+        expectationVerb: ch.tutteli.atrium.reporting.translating.Translatable,
         options: RootExpectOptions<T>?
     ) : this(
         maybeSubject,

@@ -10,15 +10,16 @@ import ch.tutteli.atrium.logic.collectForCompositionBasedOnSubject
 import ch.tutteli.atrium.logic.creating.collectors.collectAssertions
 import ch.tutteli.atrium.logic.creating.transformers.FeatureExtractor
 import ch.tutteli.atrium.logic.toExpect
-import ch.tutteli.atrium.reporting.translating.Translatable
-import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
 import ch.tutteli.atrium.translations.DescriptionFunLikeExpectation
 
 class DefaultFeatureExtractor : FeatureExtractor {
+
+    //TODO 1.3.0 remove suppress again, use InlineElement instead
+    @Suppress("DEPRECATION")
     @OptIn(ExperimentalNewExpectTypes::class, ExperimentalComponentFactoryContainer::class)
     override fun <SubjectT, FeatureT> extract(
         container: AssertionContainer<SubjectT>,
-        description: Translatable,
+        description:  ch.tutteli.atrium.reporting.translating.Translatable,
         representationForFailure: Any,
         featureExtraction: (SubjectT) -> Option<FeatureT>,
         maybeSubAssertions: Option<Expect<FeatureT>.() -> Unit>,
@@ -46,8 +47,10 @@ class DefaultFeatureExtractor : FeatureExtractor {
                 val (failureHintAssertions, repForFailure) = maybeThrowable.fold(
                     { emptyList<Assertion>() to representationForFailure },
                     { throwable ->
+                        //TODO 1.3.0 replace with Representable and remove suppression
+                        @Suppress("DEPRECATION")
                         listOf(ThrowableThrownFailureHandler.propertiesOfThrowable(throwable, container)) to
-                            TranslatableWithArgs(DescriptionFunLikeExpectation.THREW, throwable::class.fullName)
+                            ch.tutteli.atrium.reporting.translating.TranslatableWithArgs(DescriptionFunLikeExpectation.THREW, throwable::class.fullName)
                     })
 
                 val subAssertions = maybeSubAssertions.fold({

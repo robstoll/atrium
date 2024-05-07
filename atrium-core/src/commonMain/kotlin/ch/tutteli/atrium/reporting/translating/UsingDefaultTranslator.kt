@@ -12,9 +12,14 @@ import ch.tutteli.atrium.core.polyfills.format
  *   the resulting translation of [TranslatableWithArgs.translatable] with the [TranslatableWithArgs.arguments].
  *   If not defined at all, it will use [getDefaultLocale] as fallback.
  */
+@Suppress("DEPRECATION")
+@Deprecated("will be removed with 2.0.0 at the latest without replacement")
 class UsingDefaultTranslator(
     primaryLocale: Locale = getDefaultLocale()
 ) : ArgumentsSupportingTranslator(primaryLocale, listOf()) {
 
+    @Deprecated("class will be removed with 2.0.0 at the latest without replacement",
+        ReplaceWith("translatable.getDefault()")
+    )
     override fun translateWithoutArgs(translatable: Translatable) = translatable.getDefault()
 }

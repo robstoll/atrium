@@ -11,21 +11,24 @@ import ch.tutteli.atrium.creating.FeatureExpectOptions
 import ch.tutteli.atrium.logic.creating.transformers.FeatureExtractorBuilder
 import ch.tutteli.atrium.logic.creating.transformers.featureExtractor
 import ch.tutteli.atrium.logic.creating.transformers.impl.BaseTransformationExecutionStep
-import ch.tutteli.atrium.reporting.translating.Translatable
 
 class DescriptionStepImpl<SubjectT>(
     override val container: AssertionContainer<SubjectT>
 ) : FeatureExtractorBuilder.DescriptionStep<SubjectT> {
 
+    //TODO 1.3.0 remove suppress again, use InlineElement instead
+    @Suppress("DEPRECATION")
     override fun withDescription(
-        translatable: Translatable
+        translatable: ch.tutteli.atrium.reporting.translating.Translatable
     ): FeatureExtractorBuilder.RepresentationInCaseOfFailureStep<SubjectT> =
         FeatureExtractorBuilder.RepresentationInCaseOfFailureStep(container, translatable)
 }
 
 internal class RepresentationInCaseOfFailureStepImpl<SubjectT>(
     override val container: AssertionContainer<SubjectT>,
-    override val description: Translatable
+    //TODO 1.3.0 remove suppress again, use InlineElement instead
+    @Suppress("DEPRECATION")
+    override val description: ch.tutteli.atrium.reporting.translating.Translatable
 ) : FeatureExtractorBuilder.RepresentationInCaseOfFailureStep<SubjectT> {
     override fun withRepresentationForFailure(representation: Any): FeatureExtractorBuilder.FeatureExtractionStep<SubjectT> =
         FeatureExtractorBuilder.FeatureExtractionStep(container, description, representation)
@@ -33,7 +36,9 @@ internal class RepresentationInCaseOfFailureStepImpl<SubjectT>(
 
 class FeatureExtractionStepImpl<SubjectT>(
     override val container: AssertionContainer<SubjectT>,
-    override val description: Translatable,
+    //TODO 1.3.0 remove suppress again, use InlineElement instead
+    @Suppress("DEPRECATION")
+    override val description: ch.tutteli.atrium.reporting.translating.Translatable,
     override val representationForFailure: Any
 ) : FeatureExtractorBuilder.FeatureExtractionStep<SubjectT> {
 

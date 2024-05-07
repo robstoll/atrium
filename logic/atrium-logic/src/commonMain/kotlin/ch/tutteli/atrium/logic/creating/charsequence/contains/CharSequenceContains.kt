@@ -5,7 +5,6 @@ import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.logic.creating.basic.contains.Contains
 import ch.tutteli.atrium.logic.creating.charsequence.contains.CharSequenceContains.*
 import ch.tutteli.atrium.logic.creating.charsequence.contains.creators.CharSequenceContainsAssertions
-import ch.tutteli.atrium.reporting.translating.Translatable
 
 /**
  * Defines the contract for sophisticated [CharSequence] contains assertion builders.
@@ -69,7 +68,7 @@ interface CharSequenceContains {
 
     /**
      * Represents a search behaviour but leaves it up to the [Searcher] how this behaviour is implemented -- yet, it
-     * provides a method to decorate a description (a [Translatable]) in order that it reflects the search behaviour.
+     * provides a method to decorate a description (a [ch.tutteli.atrium.reporting.translating.Translatable]) in order that it reflects the search behaviour.
      */
     interface SearchBehaviour : Contains.SearchBehaviour
 
@@ -95,7 +94,7 @@ interface CharSequenceContains {
      *
      * @param S The search behaviour which should be applied to the input [CharSequence] in which the [Searcher]
      *   will look for something -- the actual implementation of the search behaviour happens in the
-     *   [Searcher]; [SearchBehaviour] only decorates the [Translatable] for reporting.
+     *   [Searcher]; [SearchBehaviour] only decorates the [ch.tutteli.atrium.reporting.translating.Translatable] for reporting.
      * @param SC The search criterion
      */
     interface Searcher<S : SearchBehaviour, SC> {

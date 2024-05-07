@@ -8,7 +8,6 @@ import ch.tutteli.atrium.assertions.builders.assertionBuilder
 import ch.tutteli.atrium.reporting.AssertionFormatter
 import ch.tutteli.atrium.reporting.AssertionFormatterController
 import ch.tutteli.atrium.reporting.impl.DefaultAssertionFormatterController
-import ch.tutteli.atrium.reporting.translating.Untranslatable
 import ch.tutteli.atrium.specs.AssertionVerb
 import ch.tutteli.atrium.specs.describeFunTemplate
 import ch.tutteli.atrium.specs.lineSeparator
@@ -33,7 +32,7 @@ abstract class TextSummaryAssertionGroupFormatterSpec(
             PrefixSuccessfulSummaryAssertion::class to "$successBulletPoint ",
             PrefixFailingSummaryAssertion::class to "$failingBulletPoint "
         )
-    ) { bulletPoints, controller, _, _ ->
+    ) { bulletPoints, controller, _, ->
         testeeFactory(bulletPoints, controller)
     }
 
@@ -43,8 +42,10 @@ abstract class TextSummaryAssertionGroupFormatterSpec(
         val testee = testeeFactory(bulletPoints, DefaultAssertionFormatterController())
         it("returns true for an ${AssertionGroup::class.simpleName} with type object: ${SummaryAssertionGroupType::class.simpleName}") {
             val result = testee.canFormat(
+                // TODO 1.3.0 replace with representable and remove suppression
+                @Suppress("DEPRECATION")
                 assertionBuilder.customType(object : SummaryAssertionGroupType {})
-                    .withDescriptionAndRepresentation(Untranslatable.EMPTY, 1)
+                    .withDescriptionAndRepresentation(ch.tutteli.atrium.reporting.translating.Untranslatable.EMPTY, 1)
                     .withAssertions(listOf())
                     .build()
             )

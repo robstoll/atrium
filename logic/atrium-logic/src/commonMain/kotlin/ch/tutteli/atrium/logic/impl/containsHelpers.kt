@@ -15,8 +15,6 @@ import ch.tutteli.atrium.logic.collectBasedOnSubject
 import ch.tutteli.atrium.logic.creating.collectors.collectAssertions
 import ch.tutteli.atrium.logic.hasNext
 import ch.tutteli.atrium.reporting.Text
-import ch.tutteli.atrium.reporting.translating.Translatable
-import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
 import ch.tutteli.atrium.translations.DescriptionAnyExpectation.TO_EQUAL
 import ch.tutteli.atrium.translations.DescriptionIterableLikeExpectation
 import ch.tutteli.kbox.WithIndex
@@ -54,6 +52,8 @@ internal fun <E : Any> createExplanatoryAssertionGroup(
     }
     .build()
 
+//TODO 1.3.0 replace with Representable and remove suppression
+@Suppress("DEPRECATION")
 internal fun <E> createIndexAssertions(
     list: List<E>,
     predicate: (WithIndex<E>) -> Boolean
@@ -63,7 +63,7 @@ internal fun <E> createIndexAssertions(
     .filter { predicate(it) }
     .map { (index, element) ->
         assertionBuilder.createDescriptive(
-            TranslatableWithArgs(DescriptionIterableLikeExpectation.INDEX, index),
+            ch.tutteli.atrium.reporting.translating.TranslatableWithArgs(DescriptionIterableLikeExpectation.INDEX, index),
             element,
             falseProvider
         )
@@ -85,8 +85,10 @@ internal fun createExplanatoryGroupForMismatches(
         .build()
 }
 
+//TODO 1.3.0 remove suppress again, use InlineElement instead
+@Suppress("DEPRECATION")
 internal fun createAssertionGroupFromListOfAssertions(
-    description: Translatable,
+    description: ch.tutteli.atrium.reporting.translating.Translatable,
     representation: Any?,
     assertions: List<Assertion>
 ): AssertionGroup =
@@ -120,6 +122,8 @@ internal fun <E> decorateAssertionWithHasNext(
     }
 }
 
+//TODO 1.3.0 replace with Representable and remove suppression
+@Suppress("DEPRECATION")
 internal fun <E> decorateWithHintUseNotToHaveElementsOrNone(
     assertion: AssertionGroup,
     listAssertionContainer: AssertionContainer<List<E>>,
@@ -133,7 +137,7 @@ internal fun <E> decorateWithHintUseNotToHaveElementsOrNone(
                 assertionBuilder.explanatoryGroup
                     .withHintType
                     .withExplanatoryAssertion(
-                        TranslatableWithArgs(
+                        ch.tutteli.atrium.reporting.translating.TranslatableWithArgs(
                             DescriptionIterableLikeExpectation.USE_NOT_TO_HAVE_ELEMENTS_OR_NONE,
                             notToHaveNextOrNoneFunName
                         )
