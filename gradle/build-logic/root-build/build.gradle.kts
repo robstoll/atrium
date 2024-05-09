@@ -8,4 +8,5 @@ dependencies {
 
     api(buildLibs.bundles.dokka)
     api(buildLibs.tutteli.dokka)
+    api(buildLibs.bc.validator)
 }

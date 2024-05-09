@@ -1,0 +1,314 @@
+public final class ch/tutteli/atrium/translations/DescriptionAnyExpectation : java/lang/Enum, ch/tutteli/atrium/reporting/translating/StringBasedTranslatable {
+	public static final field BECAUSE Lch/tutteli/atrium/translations/DescriptionAnyExpectation;
+	public static final field NOT_TO_BE_AN_INSTANCE_OF Lch/tutteli/atrium/translations/DescriptionAnyExpectation;
+	public static final field NOT_TO_BE_THE_INSTANCE Lch/tutteli/atrium/translations/DescriptionAnyExpectation;
+	public static final field NOT_TO_EQUAL Lch/tutteli/atrium/translations/DescriptionAnyExpectation;
+	public static final field NOT_TO_EQUAL_NULL_TO_BE_AN_INSTANCE_OF Lch/tutteli/atrium/translations/DescriptionAnyExpectation;
+	public static final field NOT_TO_EQUAL_ONE_IN Lch/tutteli/atrium/translations/DescriptionAnyExpectation;
+	public static final field TO_BE_AN_INSTANCE_OF Lch/tutteli/atrium/translations/DescriptionAnyExpectation;
+	public static final field TO_BE_THE_INSTANCE Lch/tutteli/atrium/translations/DescriptionAnyExpectation;
+	public static final field TO_EQUAL Lch/tutteli/atrium/translations/DescriptionAnyExpectation;
+	public fun getDefault ()Ljava/lang/String;
+	public fun getId ()Ljava/lang/String;
+	public synthetic fun getName ()Ljava/lang/String;
+	public fun getValue ()Ljava/lang/String;
+	public static fun valueOf (Ljava/lang/String;)Lch/tutteli/atrium/translations/DescriptionAnyExpectation;
+	public static fun values ()[Lch/tutteli/atrium/translations/DescriptionAnyExpectation;
+}
+
+public final class ch/tutteli/atrium/translations/DescriptionBasic : java/lang/Enum, ch/tutteli/atrium/reporting/translating/StringBasedTranslatable {
+	public static final field NONE Lch/tutteli/atrium/translations/DescriptionBasic;
+	public static final field NOT_TO Lch/tutteli/atrium/translations/DescriptionBasic;
+	public static final field NOT_TO_BE Lch/tutteli/atrium/translations/DescriptionBasic;
+	public static final field NOT_TO_HAVE Lch/tutteli/atrium/translations/DescriptionBasic;
+	public static final field TO Lch/tutteli/atrium/translations/DescriptionBasic;
+	public static final field TO_BE Lch/tutteli/atrium/translations/DescriptionBasic;
+	public static final field TO_HAVE Lch/tutteli/atrium/translations/DescriptionBasic;
+	public static final field WAS Lch/tutteli/atrium/translations/DescriptionBasic;
+	public fun getDefault ()Ljava/lang/String;
+	public fun getId ()Ljava/lang/String;
+	public synthetic fun getName ()Ljava/lang/String;
+	public fun getValue ()Ljava/lang/String;
+	public static fun valueOf (Ljava/lang/String;)Lch/tutteli/atrium/translations/DescriptionBasic;
+	public static fun values ()[Lch/tutteli/atrium/translations/DescriptionBasic;
+}
+
+public final class ch/tutteli/atrium/translations/DescriptionBigDecimalAssertion : java/lang/Enum, ch/tutteli/atrium/reporting/translating/StringBasedTranslatable {
+	public static final field FAILURE_IS_EQUAL_INCLUDING_SCALE_BUT_NUMERICALLY_EQUAL Lch/tutteli/atrium/translations/DescriptionBigDecimalAssertion;
+	public static final field IS_EQUAL_INCLUDING_SCALE Lch/tutteli/atrium/translations/DescriptionBigDecimalAssertion;
+	public static final field IS_NOT_EQUAL_INCLUDING_SCALE Lch/tutteli/atrium/translations/DescriptionBigDecimalAssertion;
+	public static final field IS_NOT_NUMERICALLY_EQUAL_TO Lch/tutteli/atrium/translations/DescriptionBigDecimalAssertion;
+	public static final field IS_NUMERICALLY_EQUAL_TO Lch/tutteli/atrium/translations/DescriptionBigDecimalAssertion;
+	public fun getDefault ()Ljava/lang/String;
+	public fun getId ()Ljava/lang/String;
+	public synthetic fun getName ()Ljava/lang/String;
+	public fun getValue ()Ljava/lang/String;
+	public static fun valueOf (Ljava/lang/String;)Lch/tutteli/atrium/translations/DescriptionBigDecimalAssertion;
+	public static fun values ()[Lch/tutteli/atrium/translations/DescriptionBigDecimalAssertion;
+}
+
+public final class ch/tutteli/atrium/translations/DescriptionCharSequenceExpectation : java/lang/Enum, ch/tutteli/atrium/reporting/translating/StringBasedTranslatable {
+	public static final field AT_LEAST Lch/tutteli/atrium/translations/DescriptionCharSequenceExpectation;
+	public static final field AT_MOST Lch/tutteli/atrium/translations/DescriptionCharSequenceExpectation;
+	public static final field BLANK Lch/tutteli/atrium/translations/DescriptionCharSequenceExpectation;
+	public static final field EMPTY Lch/tutteli/atrium/translations/DescriptionCharSequenceExpectation;
+	public static final field EXACTLY Lch/tutteli/atrium/translations/DescriptionCharSequenceExpectation;
+	public static final field IGNORING_CASE Lch/tutteli/atrium/translations/DescriptionCharSequenceExpectation;
+	public static final field NOT_FOUND Lch/tutteli/atrium/translations/DescriptionCharSequenceExpectation;
+	public static final field NOT_TO_CONTAIN Lch/tutteli/atrium/translations/DescriptionCharSequenceExpectation;
+	public static final field NOT_TO_END_WITH Lch/tutteli/atrium/translations/DescriptionCharSequenceExpectation;
+	public static final field NOT_TO_MATCH Lch/tutteli/atrium/translations/DescriptionCharSequenceExpectation;
+	public static final field NOT_TO_START_WITH Lch/tutteli/atrium/translations/DescriptionCharSequenceExpectation;
+	public static final field NUMBER_OF_MATCHES Lch/tutteli/atrium/translations/DescriptionCharSequenceExpectation;
+	public static final field NUMBER_OF_MATCHES_FOUND Lch/tutteli/atrium/translations/DescriptionCharSequenceExpectation;
+	public static final field STRING_MATCHING_REGEX Lch/tutteli/atrium/translations/DescriptionCharSequenceExpectation;
+	public static final field TO_CONTAIN Lch/tutteli/atrium/translations/DescriptionCharSequenceExpectation;
+	public static final field TO_END_WITH Lch/tutteli/atrium/translations/DescriptionCharSequenceExpectation;
+	public static final field TO_MATCH Lch/tutteli/atrium/translations/DescriptionCharSequenceExpectation;
+	public static final field TO_START_WITH Lch/tutteli/atrium/translations/DescriptionCharSequenceExpectation;
+	public static final field VALUE Lch/tutteli/atrium/translations/DescriptionCharSequenceExpectation;
+	public fun getDefault ()Ljava/lang/String;
+	public fun getId ()Ljava/lang/String;
+	public synthetic fun getName ()Ljava/lang/String;
+	public fun getValue ()Ljava/lang/String;
+	public static fun valueOf (Ljava/lang/String;)Lch/tutteli/atrium/translations/DescriptionCharSequenceExpectation;
+	public static fun values ()[Lch/tutteli/atrium/translations/DescriptionCharSequenceExpectation;
+}
+
+public final class ch/tutteli/atrium/translations/DescriptionCollectionExpectation : java/lang/Enum, ch/tutteli/atrium/reporting/translating/StringBasedTranslatable {
+	public static final field EMPTY Lch/tutteli/atrium/translations/DescriptionCollectionExpectation;
+	public static final field SIZE Lch/tutteli/atrium/translations/DescriptionCollectionExpectation;
+	public fun getDefault ()Ljava/lang/String;
+	public fun getId ()Ljava/lang/String;
+	public synthetic fun getName ()Ljava/lang/String;
+	public fun getValue ()Ljava/lang/String;
+	public static fun valueOf (Ljava/lang/String;)Lch/tutteli/atrium/translations/DescriptionCollectionExpectation;
+	public static fun values ()[Lch/tutteli/atrium/translations/DescriptionCollectionExpectation;
+}
+
+public final class ch/tutteli/atrium/translations/DescriptionComparableExpectation : java/lang/Enum, ch/tutteli/atrium/reporting/translating/StringBasedTranslatable {
+	public static final field NOT_TO_BE_GREATER_THAN Lch/tutteli/atrium/translations/DescriptionComparableExpectation;
+	public static final field NOT_TO_BE_LESS_THAN Lch/tutteli/atrium/translations/DescriptionComparableExpectation;
+	public static final field TO_BE_EQUAL_COMPARING_TO Lch/tutteli/atrium/translations/DescriptionComparableExpectation;
+	public static final field TO_BE_GREATER_THAN Lch/tutteli/atrium/translations/DescriptionComparableExpectation;
+	public static final field TO_BE_GREATER_THAN_OR_EQUAL_TO Lch/tutteli/atrium/translations/DescriptionComparableExpectation;
+	public static final field TO_BE_LESS_THAN Lch/tutteli/atrium/translations/DescriptionComparableExpectation;
+	public static final field TO_BE_LESS_THAN_OR_EQUAL_TO Lch/tutteli/atrium/translations/DescriptionComparableExpectation;
+	public fun getDefault ()Ljava/lang/String;
+	public fun getId ()Ljava/lang/String;
+	public synthetic fun getName ()Ljava/lang/String;
+	public fun getValue ()Ljava/lang/String;
+	public static fun valueOf (Ljava/lang/String;)Lch/tutteli/atrium/translations/DescriptionComparableExpectation;
+	public static fun values ()[Lch/tutteli/atrium/translations/DescriptionComparableExpectation;
+}
+
+public final class ch/tutteli/atrium/translations/DescriptionDateTimeLikeExpectation : java/lang/Enum, ch/tutteli/atrium/reporting/translating/StringBasedTranslatable {
+	public static final field DAY Lch/tutteli/atrium/translations/DescriptionDateTimeLikeExpectation;
+	public static final field DAY_OF_WEEK Lch/tutteli/atrium/translations/DescriptionDateTimeLikeExpectation;
+	public static final field MONTH Lch/tutteli/atrium/translations/DescriptionDateTimeLikeExpectation;
+	public static final field TO_BE_AFTER Lch/tutteli/atrium/translations/DescriptionDateTimeLikeExpectation;
+	public static final field TO_BE_AFTER_OR_THE_SAME_POINT_IN_TIME_AS Lch/tutteli/atrium/translations/DescriptionDateTimeLikeExpectation;
+	public static final field TO_BE_BEFORE Lch/tutteli/atrium/translations/DescriptionDateTimeLikeExpectation;
+	public static final field TO_BE_BEFORE_OR_THE_SAME_POINT_IN_TIME_AS Lch/tutteli/atrium/translations/DescriptionDateTimeLikeExpectation;
+	public static final field TO_BE_THE_SAME_DAY_AS Lch/tutteli/atrium/translations/DescriptionDateTimeLikeExpectation;
+	public static final field TO_BE_THE_SAME_POINT_IN_TIME_AS Lch/tutteli/atrium/translations/DescriptionDateTimeLikeExpectation;
+	public static final field YEAR Lch/tutteli/atrium/translations/DescriptionDateTimeLikeExpectation;
+	public fun getDefault ()Ljava/lang/String;
+	public fun getId ()Ljava/lang/String;
+	public synthetic fun getName ()Ljava/lang/String;
+	public fun getValue ()Ljava/lang/String;
+	public static fun valueOf (Ljava/lang/String;)Lch/tutteli/atrium/translations/DescriptionDateTimeLikeExpectation;
+	public static fun values ()[Lch/tutteli/atrium/translations/DescriptionDateTimeLikeExpectation;
+}
+
+public final class ch/tutteli/atrium/translations/DescriptionFloatingPointException : java/lang/Enum, ch/tutteli/atrium/reporting/translating/StringBasedTranslatable {
+	public static final field FAILURE_DUE_TO_FLOATING_POINT_NUMBER Lch/tutteli/atrium/translations/DescriptionFloatingPointException;
+	public static final field TO_EQUAL_WITH_ERROR_TOLERANCE Lch/tutteli/atrium/translations/DescriptionFloatingPointException;
+	public static final field TO_EQUAL_WITH_ERROR_TOLERANCE_EXPLAINED Lch/tutteli/atrium/translations/DescriptionFloatingPointException;
+	public fun getDefault ()Ljava/lang/String;
+	public fun getId ()Ljava/lang/String;
+	public synthetic fun getName ()Ljava/lang/String;
+	public fun getValue ()Ljava/lang/String;
+	public static fun valueOf (Ljava/lang/String;)Lch/tutteli/atrium/translations/DescriptionFloatingPointException;
+	public static fun values ()[Lch/tutteli/atrium/translations/DescriptionFloatingPointException;
+}
+
+public final class ch/tutteli/atrium/translations/DescriptionFunLikeExpectation : java/lang/Enum, ch/tutteli/atrium/reporting/translating/StringBasedTranslatable {
+	public static final field NO_EXCEPTION_OCCURRED Lch/tutteli/atrium/translations/DescriptionFunLikeExpectation;
+	public static final field THREW Lch/tutteli/atrium/translations/DescriptionFunLikeExpectation;
+	public static final field THROWN_EXCEPTION_WHEN_CALLED Lch/tutteli/atrium/translations/DescriptionFunLikeExpectation;
+	public fun getDefault ()Ljava/lang/String;
+	public fun getId ()Ljava/lang/String;
+	public synthetic fun getName ()Ljava/lang/String;
+	public fun getValue ()Ljava/lang/String;
+	public static fun valueOf (Ljava/lang/String;)Lch/tutteli/atrium/translations/DescriptionFunLikeExpectation;
+	public static fun values ()[Lch/tutteli/atrium/translations/DescriptionFunLikeExpectation;
+}
+
+public final class ch/tutteli/atrium/translations/DescriptionIterableLikeExpectation : java/lang/Enum, ch/tutteli/atrium/reporting/translating/StringBasedTranslatable {
+	public static final field ALL_ELEMENTS Lch/tutteli/atrium/translations/DescriptionIterableLikeExpectation;
+	public static final field AN_ELEMENT_WHICH_EQUALS Lch/tutteli/atrium/translations/DescriptionIterableLikeExpectation;
+	public static final field AN_ELEMENT_WHICH_NEEDS Lch/tutteli/atrium/translations/DescriptionIterableLikeExpectation;
+	public static final field AT_LEAST Lch/tutteli/atrium/translations/DescriptionIterableLikeExpectation;
+	public static final field AT_MOST Lch/tutteli/atrium/translations/DescriptionIterableLikeExpectation;
+	public static final field A_NEXT_ELEMENT Lch/tutteli/atrium/translations/DescriptionIterableLikeExpectation;
+	public static final field DUPLICATED_BY Lch/tutteli/atrium/translations/DescriptionIterableLikeExpectation;
+	public static final field DUPLICATE_ELEMENTS Lch/tutteli/atrium/translations/DescriptionIterableLikeExpectation;
+	public static final field ELEMENT_NOT_FOUND Lch/tutteli/atrium/translations/DescriptionIterableLikeExpectation;
+	public static final field ELEMENT_WITH_INDEX Lch/tutteli/atrium/translations/DescriptionIterableLikeExpectation;
+	public static final field EXACTLY Lch/tutteli/atrium/translations/DescriptionIterableLikeExpectation;
+	public static final field INDEX Lch/tutteli/atrium/translations/DescriptionIterableLikeExpectation;
+	public static final field INDEX_FROM_TO Lch/tutteli/atrium/translations/DescriptionIterableLikeExpectation;
+	public static final field IN_ANY_ORDER Lch/tutteli/atrium/translations/DescriptionIterableLikeExpectation;
+	public static final field IN_ANY_ORDER_ONLY Lch/tutteli/atrium/translations/DescriptionIterableLikeExpectation;
+	public static final field IN_ORDER Lch/tutteli/atrium/translations/DescriptionIterableLikeExpectation;
+	public static final field IN_ORDER_ONLY Lch/tutteli/atrium/translations/DescriptionIterableLikeExpectation;
+	public static final field IN_ORDER_ONLY_GROUPED Lch/tutteli/atrium/translations/DescriptionIterableLikeExpectation;
+	public static final field NEITHER_EMPTY_NOR_ELEMENT_FOUND Lch/tutteli/atrium/translations/DescriptionIterableLikeExpectation;
+	public static final field NOT_TO_CONTAIN Lch/tutteli/atrium/translations/DescriptionIterableLikeExpectation;
+	public static final field NOT_TO_HAVE_ELEMENTS_OR_ALL Lch/tutteli/atrium/translations/DescriptionIterableLikeExpectation;
+	public static final field NOT_TO_HAVE_ELEMENTS_OR_ANY Lch/tutteli/atrium/translations/DescriptionIterableLikeExpectation;
+	public static final field NOT_TO_HAVE_ELEMENTS_OR_NONE Lch/tutteli/atrium/translations/DescriptionIterableLikeExpectation;
+	public static final field NO_ELEMENTS Lch/tutteli/atrium/translations/DescriptionIterableLikeExpectation;
+	public static final field NUMBER_OF_ELEMENTS_FOUND Lch/tutteli/atrium/translations/DescriptionIterableLikeExpectation;
+	public static final field NUMBER_OF_SUCH_ELEMENTS Lch/tutteli/atrium/translations/DescriptionIterableLikeExpectation;
+	public static final field SIZE_EXCEEDED Lch/tutteli/atrium/translations/DescriptionIterableLikeExpectation;
+	public static final field TO_CONTAIN Lch/tutteli/atrium/translations/DescriptionIterableLikeExpectation;
+	public static final field USE_NOT_TO_HAVE_ELEMENTS_OR_NONE Lch/tutteli/atrium/translations/DescriptionIterableLikeExpectation;
+	public static final field WARNING_ADDITIONAL_ELEMENTS Lch/tutteli/atrium/translations/DescriptionIterableLikeExpectation;
+	public static final field WARNING_MISMATCHES Lch/tutteli/atrium/translations/DescriptionIterableLikeExpectation;
+	public static final field WARNING_MISMATCHES_ADDITIONAL_ELEMENTS Lch/tutteli/atrium/translations/DescriptionIterableLikeExpectation;
+	public fun getDefault ()Ljava/lang/String;
+	public fun getId ()Ljava/lang/String;
+	public synthetic fun getName ()Ljava/lang/String;
+	public fun getValue ()Ljava/lang/String;
+	public static fun valueOf (Ljava/lang/String;)Lch/tutteli/atrium/translations/DescriptionIterableLikeExpectation;
+	public static fun values ()[Lch/tutteli/atrium/translations/DescriptionIterableLikeExpectation;
+}
+
+public final class ch/tutteli/atrium/translations/DescriptionListLikeExpectation : java/lang/Enum, ch/tutteli/atrium/reporting/translating/StringBasedTranslatable {
+	public static final field INDEX_OUT_OF_BOUNDS Lch/tutteli/atrium/translations/DescriptionListLikeExpectation;
+	public fun getDefault ()Ljava/lang/String;
+	public fun getId ()Ljava/lang/String;
+	public synthetic fun getName ()Ljava/lang/String;
+	public fun getValue ()Ljava/lang/String;
+	public static fun valueOf (Ljava/lang/String;)Lch/tutteli/atrium/translations/DescriptionListLikeExpectation;
+	public static fun values ()[Lch/tutteli/atrium/translations/DescriptionListLikeExpectation;
+}
+
+public final class ch/tutteli/atrium/translations/DescriptionMapLikeExpectation : java/lang/Enum, ch/tutteli/atrium/reporting/translating/StringBasedTranslatable {
+	public static final field ENTRY_WITH_KEY Lch/tutteli/atrium/translations/DescriptionMapLikeExpectation;
+	public static final field IN_ANY_ORDER Lch/tutteli/atrium/translations/DescriptionMapLikeExpectation;
+	public static final field IN_ANY_ORDER_ONLY Lch/tutteli/atrium/translations/DescriptionMapLikeExpectation;
+	public static final field IN_ORDER Lch/tutteli/atrium/translations/DescriptionMapLikeExpectation;
+	public static final field IN_ORDER_ONLY Lch/tutteli/atrium/translations/DescriptionMapLikeExpectation;
+	public static final field KEY_DOES_NOT_EXIST Lch/tutteli/atrium/translations/DescriptionMapLikeExpectation;
+	public static final field NOT_TO_CONTAIN_KEY Lch/tutteli/atrium/translations/DescriptionMapLikeExpectation;
+	public static final field TO_CONTAIN Lch/tutteli/atrium/translations/DescriptionMapLikeExpectation;
+	public static final field TO_CONTAIN_KEY Lch/tutteli/atrium/translations/DescriptionMapLikeExpectation;
+	public static final field WARNING_ADDITIONAL_ENTRIES Lch/tutteli/atrium/translations/DescriptionMapLikeExpectation;
+	public fun getDefault ()Ljava/lang/String;
+	public fun getId ()Ljava/lang/String;
+	public synthetic fun getName ()Ljava/lang/String;
+	public fun getValue ()Ljava/lang/String;
+	public static fun valueOf (Ljava/lang/String;)Lch/tutteli/atrium/translations/DescriptionMapLikeExpectation;
+	public static fun values ()[Lch/tutteli/atrium/translations/DescriptionMapLikeExpectation;
+}
+
+public final class ch/tutteli/atrium/translations/DescriptionOptionalAssertion : java/lang/Enum, ch/tutteli/atrium/reporting/translating/StringBasedTranslatable {
+	public static final field EMPTY Lch/tutteli/atrium/translations/DescriptionOptionalAssertion;
+	public static final field GET Lch/tutteli/atrium/translations/DescriptionOptionalAssertion;
+	public static final field IS_NOT_PRESENT Lch/tutteli/atrium/translations/DescriptionOptionalAssertion;
+	public fun getDefault ()Ljava/lang/String;
+	public fun getId ()Ljava/lang/String;
+	public synthetic fun getName ()Ljava/lang/String;
+	public fun getValue ()Ljava/lang/String;
+	public static fun valueOf (Ljava/lang/String;)Lch/tutteli/atrium/translations/DescriptionOptionalAssertion;
+	public static fun values ()[Lch/tutteli/atrium/translations/DescriptionOptionalAssertion;
+}
+
+public final class ch/tutteli/atrium/translations/DescriptionPathAssertion : java/lang/Enum, ch/tutteli/atrium/reporting/translating/StringBasedTranslatable {
+	public static final field ABSOLUTE_PATH Lch/tutteli/atrium/translations/DescriptionPathAssertion;
+	public static final field AN_EMPTY_DIRECTORY Lch/tutteli/atrium/translations/DescriptionPathAssertion;
+	public static final field A_DIRECTORY Lch/tutteli/atrium/translations/DescriptionPathAssertion;
+	public static final field A_FILE Lch/tutteli/atrium/translations/DescriptionPathAssertion;
+	public static final field A_SYMBOLIC_LINK Lch/tutteli/atrium/translations/DescriptionPathAssertion;
+	public static final field A_UNKNOWN_FILE_TYPE Lch/tutteli/atrium/translations/DescriptionPathAssertion;
+	public static final field DIRECTORY_CONTAINS Lch/tutteli/atrium/translations/DescriptionPathAssertion;
+	public static final field DOES_NOT_HAVE_PARENT Lch/tutteli/atrium/translations/DescriptionPathAssertion;
+	public static final field ENDS_NOT_WITH Lch/tutteli/atrium/translations/DescriptionPathAssertion;
+	public static final field ENDS_WITH Lch/tutteli/atrium/translations/DescriptionPathAssertion;
+	public static final field EXECUTABLE Lch/tutteli/atrium/translations/DescriptionPathAssertion;
+	public static final field EXIST Lch/tutteli/atrium/translations/DescriptionPathAssertion;
+	public static final field EXTENSION Lch/tutteli/atrium/translations/DescriptionPathAssertion;
+	public static final field FAILURE_DUE_TO_ACCESS_DENIED Lch/tutteli/atrium/translations/DescriptionPathAssertion;
+	public static final field FAILURE_DUE_TO_ACCESS_EXCEPTION Lch/tutteli/atrium/translations/DescriptionPathAssertion;
+	public static final field FAILURE_DUE_TO_LINK_LOOP Lch/tutteli/atrium/translations/DescriptionPathAssertion;
+	public static final field FAILURE_DUE_TO_NO_SUCH_FILE Lch/tutteli/atrium/translations/DescriptionPathAssertion;
+	public static final field FAILURE_DUE_TO_PARENT Lch/tutteli/atrium/translations/DescriptionPathAssertion;
+	public static final field FAILURE_DUE_TO_PERMISSION_FILE_TYPE_HINT Lch/tutteli/atrium/translations/DescriptionPathAssertion;
+	public static final field FAILURE_DUE_TO_WRONG_FILE_TYPE Lch/tutteli/atrium/translations/DescriptionPathAssertion;
+	public static final field FILE_NAME Lch/tutteli/atrium/translations/DescriptionPathAssertion;
+	public static final field FILE_NAME_WITHOUT_EXTENSION Lch/tutteli/atrium/translations/DescriptionPathAssertion;
+	public static final field HAS_SAME_BINARY_CONTENT Lch/tutteli/atrium/translations/DescriptionPathAssertion;
+	public static final field HAS_SAME_TEXTUAL_CONTENT Lch/tutteli/atrium/translations/DescriptionPathAssertion;
+	public static final field HINT_ACTUAL_ACL_PERMISSIONS Lch/tutteli/atrium/translations/DescriptionPathAssertion;
+	public static final field HINT_ACTUAL_POSIX_PERMISSIONS Lch/tutteli/atrium/translations/DescriptionPathAssertion;
+	public static final field HINT_CLOSEST_EXISTING_PARENT_DIRECTORY Lch/tutteli/atrium/translations/DescriptionPathAssertion;
+	public static final field HINT_FOLLOWED_SYMBOLIC_LINK Lch/tutteli/atrium/translations/DescriptionPathAssertion;
+	public static final field HINT_OWNER Lch/tutteli/atrium/translations/DescriptionPathAssertion;
+	public static final field HINT_OWNER_AND_GROUP Lch/tutteli/atrium/translations/DescriptionPathAssertion;
+	public static final field PARENT Lch/tutteli/atrium/translations/DescriptionPathAssertion;
+	public static final field READABLE Lch/tutteli/atrium/translations/DescriptionPathAssertion;
+	public static final field RELATIVE_PATH Lch/tutteli/atrium/translations/DescriptionPathAssertion;
+	public static final field STARTS_NOT_WITH Lch/tutteli/atrium/translations/DescriptionPathAssertion;
+	public static final field STARTS_WITH Lch/tutteli/atrium/translations/DescriptionPathAssertion;
+	public static final field WRITABLE Lch/tutteli/atrium/translations/DescriptionPathAssertion;
+	public fun getDefault ()Ljava/lang/String;
+	public fun getId ()Ljava/lang/String;
+	public synthetic fun getName ()Ljava/lang/String;
+	public fun getValue ()Ljava/lang/String;
+	public static fun valueOf (Ljava/lang/String;)Lch/tutteli/atrium/translations/DescriptionPathAssertion;
+	public static fun values ()[Lch/tutteli/atrium/translations/DescriptionPathAssertion;
+}
+
+public final class ch/tutteli/atrium/translations/DescriptionResultExpectation : java/lang/Enum, ch/tutteli/atrium/reporting/translating/StringBasedTranslatable {
+	public static final field EXCEPTION Lch/tutteli/atrium/translations/DescriptionResultExpectation;
+	public static final field IS_NOT_FAILURE Lch/tutteli/atrium/translations/DescriptionResultExpectation;
+	public static final field IS_NOT_SUCCESS Lch/tutteli/atrium/translations/DescriptionResultExpectation;
+	public static final field VALUE Lch/tutteli/atrium/translations/DescriptionResultExpectation;
+	public fun getDefault ()Ljava/lang/String;
+	public fun getId ()Ljava/lang/String;
+	public synthetic fun getName ()Ljava/lang/String;
+	public fun getValue ()Ljava/lang/String;
+	public static fun valueOf (Ljava/lang/String;)Lch/tutteli/atrium/translations/DescriptionResultExpectation;
+	public static fun values ()[Lch/tutteli/atrium/translations/DescriptionResultExpectation;
+}
+
+public final class ch/tutteli/atrium/translations/DescriptionThrowableExpectation : java/lang/Enum, ch/tutteli/atrium/reporting/translating/StringBasedTranslatable {
+	public static final field CAUSE Lch/tutteli/atrium/translations/DescriptionThrowableExpectation;
+	public static final field HAS_NO_CAUSE Lch/tutteli/atrium/translations/DescriptionThrowableExpectation;
+	public static final field OCCURRED_EXCEPTION_CAUSE Lch/tutteli/atrium/translations/DescriptionThrowableExpectation;
+	public static final field OCCURRED_EXCEPTION_MESSAGE Lch/tutteli/atrium/translations/DescriptionThrowableExpectation;
+	public static final field OCCURRED_EXCEPTION_PROPERTIES Lch/tutteli/atrium/translations/DescriptionThrowableExpectation;
+	public static final field OCCURRED_EXCEPTION_STACKTRACE Lch/tutteli/atrium/translations/DescriptionThrowableExpectation;
+	public static final field OCCURRED_EXCEPTION_SUPPRESSED Lch/tutteli/atrium/translations/DescriptionThrowableExpectation;
+	public fun getDefault ()Ljava/lang/String;
+	public fun getId ()Ljava/lang/String;
+	public synthetic fun getName ()Ljava/lang/String;
+	public fun getValue ()Ljava/lang/String;
+	public static fun valueOf (Ljava/lang/String;)Lch/tutteli/atrium/translations/DescriptionThrowableExpectation;
+	public static fun values ()[Lch/tutteli/atrium/translations/DescriptionThrowableExpectation;
+}
+
+public final class ch/tutteli/atrium/translations/ErrorMessages : java/lang/Enum, ch/tutteli/atrium/reporting/translating/StringBasedTranslatable {
+	public static final field DESCRIPTION_BASED_ON_SUBJECT Lch/tutteli/atrium/translations/ErrorMessages;
+	public static final field REPRESENTATION_BASED_ON_SUBJECT_NOT_DEFINED Lch/tutteli/atrium/translations/ErrorMessages;
+	public fun getDefault ()Ljava/lang/String;
+	public fun getId ()Ljava/lang/String;
+	public synthetic fun getName ()Ljava/lang/String;
+	public fun getValue ()Ljava/lang/String;
+	public static fun valueOf (Ljava/lang/String;)Lch/tutteli/atrium/translations/ErrorMessages;
+	public static fun values ()[Lch/tutteli/atrium/translations/ErrorMessages;
+}
+

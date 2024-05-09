@@ -1,4 +1,5 @@
 [versions]
+bc-validator="0.15.0-Beta.2"
 dokka = "1.9.20"
 jacocoTool = "0.8.9"
 kotlin = "1.9.24"
@@ -7,6 +8,7 @@ tutteli = "5.0.1"
 vlsi = "1.90"
 
 [libraries]
+bc-validator = { module = "org.jetbrains.kotlinx.binary-compatibility-validator:org.jetbrains.kotlinx.binary-compatibility-validator.gradle.plugin", version.ref = "bc-validator" }
 dokka-plugin = { module = "org.jetbrains.dokka:org.jetbrains.dokka.gradle.plugin", version.ref = "dokka" }
 dokka-base = { module = "org.jetbrains.dokka:dokka-base", version.ref = "dokka" }
 kotlin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
@@ -20,7 +22,6 @@ tutteli-spek = { module = "ch.tutteli.gradle.plugins.spek:ch.tutteli.gradle.plug
 
 vlsi-crlf = { module = "com.github.vlsi.crlf:com.github.vlsi.crlf.gradle.plugin", version.ref = "vlsi" }
 vlsi-gradle = { module = "com.github.vlsi.gradle-extensions:com.github.vlsi.gradle-extensions.gradle.plugin", version.ref = "vlsi" }
-
 
 [bundles]
 dokka = ["dokka-base", "dokka-plugin"]

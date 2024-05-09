@@ -83,7 +83,7 @@ jobs:
       KOTLIN_VERSION: ${{ matrix.kotlin_version }}
     runs-on: ubuntu-latest
     strategy:
-      fail-fast: true
+      fail-fast: false
       matrix:
         kotlin_version: [ '1.5', '1.6', '1.7', '1.8', '1.9' ]
     steps:
