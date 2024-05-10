@@ -11,6 +11,9 @@ spekExtensions = "1.2.1"
 mockk = "1.11.0"
 mockitoKotlin = "2.2.0"
 
+# gradle
+nexus="2.0.0"
+
 [libraries]
 assertJ = { module = "org.assertj:assertj-core", version.ref = "assertJ" }
 junit-jupiter-api = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "junitJupiter" }
@@ -29,3 +32,6 @@ spek-runner = { module = "org.spekframework.spek2:spek-runner-junit5", version.r
 spek-runtime = { module = "org.spekframework.spek2:spek-runtime-jvm", version.ref = "spek" }
 spek-js = { module = "org.spekframework.spek2:spek-dsl-js", version.ref = "spek" }
 tutteli-spek = { module = "ch.tutteli.spek:tutteli-spek-extensions", version.ref = "spekExtensions" }
+
+[plugins]
+nexus = { id = "io.github.gradle-nexus.publish-plugin", version.ref="nexus" }

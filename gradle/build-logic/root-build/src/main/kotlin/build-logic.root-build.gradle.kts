@@ -2,6 +2,7 @@ import ch.tutteli.gradle.plugins.dokka.DokkaPluginExtension
 import ch.tutteli.gradle.plugins.dokka.GhPages
 import org.jetbrains.dokka.gradle.DokkaMultiModuleTask
 import org.jetbrains.dokka.gradle.DokkaTaskPartial
+import org.jetbrains.kotlin.gradle.dsl.KotlinVersion
 import org.jetbrains.kotlin.gradle.targets.js.npm.tasks.KotlinNpmInstallTask
 import java.io.IOException
 import java.net.URL
@@ -9,15 +10,18 @@ import java.net.URL
 
 plugins {
     id("build-logic.gradle-conventions")
+    id("org.jetbrains.kotlinx.binary-compatibility-validator")
 }
 
 val rootProject = this
 
 ifIsPublishing {
-    println("""
+    println(
+        """
         |Publishing activated via env PUB=true, going to add tutteli-publish plugins and co. in sub-projects
         |Also applying tutteli-dokka in root project for dokkaHtmlMultiModule
-        """.trimMargin())
+        """.trimMargin()
+    )
     apply(plugin = "org.jetbrains.dokka")
     apply(plugin = "ch.tutteli.gradle.plugins.dokka")
 
@@ -76,3 +80,25 @@ tasks.configureEach<KotlinNpmInstallTask> {
     }
 }
 
+apiValidation {
+    ignoredProjects.addAll(
+        listOf(
+            // bundles
+            "atrium-fluent",
+            "atrium-infix",
+            // smoke-tests
+            "atrium-fluent-smoke-test",
+            "atrium-infix-smoke-test",
+            //misc not relevant for bc
+            "atrium-specs",
+            "atrium-verbs-internal",
+            "readme-examples"
+        )
+    )
+    val kotlinVersion = KotlinVersion.fromVersion(buildParameters.kotlin.version)
+    apiDumpDirectory = if (kotlinVersion >= KotlinVersion.KOTLIN_1_9) {
+        "api/using-kotlin-1.9-or-newer"
+    } else {
+        "api/main"
+    }
+}
