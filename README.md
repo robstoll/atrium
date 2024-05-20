@@ -93,6 +93,7 @@ Atrium is published to [mavenCentral](https://search.maven.org/search?q=g:ch.tut
 It has the following minimum requirement:
 - Kotlin: 1.4
 - JVM: 11
+- JS: IR-Backend (LEGACY supported was dropped with Atrium 1.2.0)
 
 In case you use Kotlin 1.5 or newer, then regardless of the target platform, you can use the following group and artifactId
 
@@ -135,16 +136,6 @@ In case you use a version prior to Kotlin 1.5, then use the following depending 
 - jvm: atrium-fluent-jvm
 - android: atrium-fluent-jvm
 - js: atrium-fluent-js
-
-</details>
-
-<details>
-<summary>I use JS IR but Atrium 1.2.0 was built with LEGACY</summary>
-
-Atrium will support JS IR with v1.2.0 where we drop Kotlin 1.3 support entirely.
-
-In the meantime you can use the special version: 1.2.0-IR-alpha. See https://github.com/robstoll/atrium/releases/tag/v1.2.0-IR-alpha
-for further information
 
 </details>
 
