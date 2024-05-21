@@ -14,4 +14,7 @@ expect class MultiAtriumErrorAdjuster(
     firstAdjuster: AtriumErrorAdjuster,
     secondAdjuster: AtriumErrorAdjuster,
     otherAdjusters: List<AtriumErrorAdjuster>
-) : AtriumErrorAdjuster
+) : AtriumErrorAdjuster{
+    override fun adjust(throwable: Throwable)
+    override fun adjustOtherThanStacks(throwable: Throwable)
+}

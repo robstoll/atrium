@@ -7,7 +7,9 @@ import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.reporting.translating.Translator
 import kotlin.reflect.KClass
 
-expect class DefaultTextObjectFormatter(translator: Translator) : TextObjectFormatter
+expect class DefaultTextObjectFormatter(translator: Translator) : TextObjectFormatter{
+    override fun format(value: Any?): String
+}
 
 /**
  * Base class for the platform specific implementation of [DefaultTextObjectFormatter].
