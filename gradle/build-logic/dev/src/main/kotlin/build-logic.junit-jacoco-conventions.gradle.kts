@@ -1,4 +1,3 @@
-import org.gradle.api.Project
 import org.gradle.kotlin.dsl.extra
 import org.gradle.testing.jacoco.plugins.JacocoPluginExtension
 import org.gradle.testing.jacoco.tasks.JacocoReport

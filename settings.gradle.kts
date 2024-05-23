@@ -40,6 +40,7 @@ listOf("en_GB").forEach { lang ->
 include("misc", "atrium-verbs")
 include("misc", "atrium-verbs-internal")
 include("misc", "atrium-specs")
+include("misc", "js-stubs")
 include("misc/tools", "readme-examples")
 
 fun Settings_gradle.include(subPath: String, projectName: String) {

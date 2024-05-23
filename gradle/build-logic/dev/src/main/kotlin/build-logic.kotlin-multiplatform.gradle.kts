@@ -1,6 +1,6 @@
 plugins {
     kotlin("multiplatform")
-    id("build-logic.kotlin-conventions")
+    id("build-logic.kotlin-jvm-conventions")
     id("ch.tutteli.gradle.plugins.spek")
 }
 
