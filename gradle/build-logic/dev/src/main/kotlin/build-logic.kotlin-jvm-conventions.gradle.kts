@@ -1,5 +1,4 @@
-import org.jetbrains.kotlin.gradle.dsl.KotlinVersion
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
@@ -11,7 +10,7 @@ plugins {
 }
 
 tasks.configureEach<KotlinCompile> {
-    kotlinOptions {
-        jvmTarget = buildParameters.defaultJdkVersion.toString()
+    compilerOptions{
+        jvmTarget.set(JvmTarget.fromTarget(buildParameters.defaultJdkVersion.toString()))
     }
 }
