@@ -11,7 +11,3 @@ kotlin {
         nodejs()
     }
 }
-//
-//dependencies{
-//    api(libs.spek.common)
-//}
