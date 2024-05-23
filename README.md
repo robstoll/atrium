@@ -37,7 +37,6 @@ Please have a look at the README of the corresponding release/git tag. Latest ve
 **Table of Content**
 - [Installation](#installation)
   - [Extensions](#extensions)
-  - [Third-party Extensions](#third-party-extensions)
   - [Sample Projects](#sample-projects)
 - [Examples](#examples)
   - [Your First Expectation](#your-first-expectation)
@@ -140,12 +139,6 @@ In case you use a version prior to Kotlin 1.5, then use the following depending 
 </details>
 
 I have other problems: please take a look at the [Sample Projects](#sample-projects) for further guidance.
-
-## Third-party Extensions
-
-Following extensions are maintained outside of this repository.
-
-- [atrium-gradle-testkit](https://github.com/jGleitz/atrium-gradle-testkit): Atrium expectations to test Gradle plugins with TestKit.
 
 ## Sample Projects
 
