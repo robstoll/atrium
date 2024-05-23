@@ -58,4 +58,7 @@ private fun <R> ExpectGrouping.expectWithinExpectGroup(subject: R) =
     _logic.manualFeature("I expected subject") { subject }
 
 
-expect class RemoveAtriumButNotAtriumSpecsFromAtriumErrorImpl() : RemoveAtriumFromAtriumError
+expect class RemoveAtriumButNotAtriumSpecsFromAtriumErrorImpl() : RemoveAtriumFromAtriumError{
+    override fun adjust(throwable: Throwable)
+    override fun adjustOtherThanStacks(throwable: Throwable)
+}

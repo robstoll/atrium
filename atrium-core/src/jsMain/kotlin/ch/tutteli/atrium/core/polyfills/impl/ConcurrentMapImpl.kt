@@ -7,5 +7,5 @@ internal actual class ConcurrentMapImpl<K, out V: Any> actual constructor(
 ) : ConcurrentMap<K, V> {
     private val map = source.toMap()
 
-    override operator fun get(key: K): V? = map[key]
+    actual override operator fun get(key: K): V? = map[key]
 }

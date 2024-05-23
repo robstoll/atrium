@@ -2,6 +2,7 @@ package org.spekframework.spek2.style.specification
 
 import org.spekframework.spek2.dsl.*
 import org.spekframework.spek2.lifecycle.CachingMode
+
 class Suite(val delegate: GroupBody) : LifecycleAware by delegate {
 
     var defaultTimeout: Long
