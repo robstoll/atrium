@@ -31,17 +31,20 @@ listOf("fluent", "infix").forEach { apiName ->
 }
 
 include("", "atrium-core")
-include("logic", "atrium-logic")
-
-listOf("en_GB").forEach { lang ->
-    include("translations", "atrium-translations-$lang")
-}
+include("", "atrium-domain")
 
 include("misc", "atrium-verbs")
 include("misc", "atrium-verbs-internal")
 include("misc", "atrium-specs")
 include("misc", "js-stubs")
 include("misc/tools", "readme-examples")
+
+
+//TODO remove with 2.0.0
+include("logic", "atrium-logic")
+listOf("en_GB").forEach { lang ->
+    include("translations", "atrium-translations-$lang")
+}
 
 fun Settings_gradle.include(subPath: String, projectName: String) {
     val dir = file("${rootProject.projectDir}/$subPath/$projectName")

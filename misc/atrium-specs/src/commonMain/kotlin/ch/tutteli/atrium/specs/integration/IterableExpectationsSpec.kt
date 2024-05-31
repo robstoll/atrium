@@ -102,7 +102,7 @@ abstract class IterableExpectationsSpec(
                 }
             }
             maxFunctions.forEach { (name, maxFun, _) ->
-                it("$name - toBe(4) holds") {
+                it("$name - toEqual(4) holds") {
                     expect(iterableWith4And3).maxFun { toEqual(4) }
                 }
                 it("$name - $toEqualDescr(3) fails") {

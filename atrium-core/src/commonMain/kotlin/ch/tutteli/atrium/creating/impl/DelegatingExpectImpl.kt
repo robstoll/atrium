@@ -4,16 +4,23 @@ import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
 import ch.tutteli.atrium.core.Option
 import ch.tutteli.atrium.creating.*
+import ch.tutteli.atrium.creating.proofs.Proof
 
 @ExperimentalComponentFactoryContainer
 @ExperimentalNewExpectTypes
+//TODO remove with 2.0.0 at the latest
 internal class DelegatingExpectImpl<T>(private val container: AssertionContainer<*>, maybeSubject: Option<T>) :
     BaseExpectImpl<T>(maybeSubject), DelegatingExpect<T> {
 
     override val components: ComponentFactoryContainer
         get() = container.components
 
-
     override fun append(assertion: Assertion): Expect<T> =
         apply { container.append(assertion) }
+
+    override fun append(proof: Proof): Expect<T> =
+        when (proof) {
+            is Assertion -> append(proof)
+            else -> throw UnsupportedOperationException("cannot cope with $proof please switch to ProofContainer based DelegatingExpect")
+        }
 }

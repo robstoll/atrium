@@ -46,9 +46,9 @@ class AnyExpectationsSpec : ch.tutteli.atrium.specs.integration.AnyExpectationsS
     "toBeAnInstanceOf" to Companion::toBeAnInstanceOfSuperType,
     ("toBeAnInstanceOf" to Companion::toBeAnInstanceOfSubTypeFeature).withFeatureSuffix(),
     "toBeAnInstanceOf" to Companion::toBeAnInstanceOfSubType,
-    "notToBeAnInstanceOf" to Companion::notToBeAnInstanceOf,
-    "notToBeAnInstanceOf with kClass" to Companion::notToBeAnInstanceOfKClass,
-    "notToBeAnInstanceOf with kClasses" to Companion::notToBeAnInstanceOfKClasses,
+    "notToBeAnInstanceOfAny" to Companion::notToBeAnInstanceOf,
+    "notToBeAnInstanceOfAny with kClass" to Companion::notToBeAnInstanceOfKClass,
+    "notToBeAnInstanceOfAny with kClasses" to Companion::notToBeAnInstanceOfKClasses,
     feature0<Int?, Int>(Expect<Int?>::notToEqualNull),
     "notToEqualNull" to Companion::notToEqualNull,
 

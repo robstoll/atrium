@@ -1,11 +1,10 @@
 package ch.tutteli.atrium.creating.impl
 
 import ch.tutteli.atrium.assertions.Assertion
-import ch.tutteli.atrium.assertions.builders.assertionBuilder
-import ch.tutteli.atrium.assertions.builders.root
 import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
 import ch.tutteli.atrium.core.Option
 import ch.tutteli.atrium.creating.*
+import ch.tutteli.atrium.creating.proofs.Proof
 import ch.tutteli.atrium.reporting.AtriumError
 import ch.tutteli.atrium.reporting.AtriumErrorAdjuster
 import ch.tutteli.atrium.reporting.Reporter
@@ -54,18 +53,20 @@ internal class RootExpectImpl<T>(
      * All made assertions so far.
      * This list is intentionally not thread-safe, this class is not intended for multi-thread usage.
      */
-    private val assertions: MutableList<Assertion> = mutableListOf()
+    private val proofs: MutableList<Proof> = mutableListOf()
 
-    override fun append(assertion: Assertion): Expect<T> {
-        assertions.add(assertion)
-        if (!assertion.holds()) {
-            val assertionGroup = assertionBuilder.root
-                .withDescriptionAndRepresentation(expectationVerb, representation)
-                .withAssertions(assertions)
-                .build()
+
+    override fun append(assertion: Assertion): Expect<T> = append(assertion as Proof)
+
+    override fun append(proof: Proof): Expect<T> {
+        proofs.add(proof)
+        if (!proof.holds()) {
+            val root = Proof.rootGroup(expectationVerb, representation, proofs)
 
             val sb = StringBuilder()
-            components.build<Reporter>().format(assertionGroup, sb)
+
+            //TODO 1.3.0 this fails at runtime as root is not an Assertion
+            components.build<Reporter>().format(root as Assertion, sb)
 
             throw AtriumError.create(sb.toString(), components.build<AtriumErrorAdjuster>())
         }
