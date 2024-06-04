@@ -19,9 +19,7 @@ import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
 import ch.tutteli.atrium.translations.DescriptionAnyExpectation.TO_EQUAL
 import ch.tutteli.atrium.translations.DescriptionIterableLikeExpectation
-import ch.tutteli.kbox.WithIndex
 import ch.tutteli.kbox.identity
-import ch.tutteli.kbox.mapWithIndex
 
 internal fun <E : Any> allCreatedAssertionsHold(
     container: AssertionContainer<*>,
@@ -56,10 +54,10 @@ internal fun <E : Any> createExplanatoryAssertionGroup(
 
 internal fun <E> createIndexAssertions(
     list: List<E>,
-    predicate: (WithIndex<E>) -> Boolean
+    predicate: (IndexedValue<E>) -> Boolean
 ) = list
     .asSequence()
-    .mapWithIndex()
+    .withIndex()
     .filter { predicate(it) }
     .map { (index, element) ->
         assertionBuilder.createDescriptive(

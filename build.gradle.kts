@@ -13,12 +13,8 @@ plugins {
 
 // test
 val jacocoToolVersion by extra("0.8.9")
-val junitPlatformVersion by extra("1.9.2")
 // need to use an old version of spek as the newer contains a bug which causes that no tests are discovered and executed
 val spekVersion by extra("2.0.12")
-val spekExtensionsVersion by extra("1.2.1")
-val mockkVersion by extra("1.10.0")
-val mockitoKotlinVersion by extra("2.2.0")
 
 subprojects {
     group = rootProject.group
