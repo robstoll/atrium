@@ -13,6 +13,7 @@ import ch.tutteli.atrium.logic.creating.charsequence.contains.creators.regexIgno
 import ch.tutteli.atrium.logic.creating.charsequence.contains.creators.values
 import ch.tutteli.atrium.logic.creating.charsequence.contains.creators.valuesIgnoringCase
 import ch.tutteli.atrium.logic.creating.charsequence.contains.searchbehaviours.IgnoringCaseSearchBehaviour
+
 import ch.tutteli.atrium.logic.creating.charsequence.contains.searchbehaviours.NoOpSearchBehaviour
 import ch.tutteli.atrium.logic.creating.typeutils.CharSequenceOrNumberOrChar
 import ch.tutteli.atrium.logic.creating.typeutils.IterableLike
@@ -36,6 +37,8 @@ import kotlin.jvm.JvmName
  *
  * @return an [Expect] for the subject of `this` expectation.
  * @throws IllegalArgumentException in case [expected] is not a [CharSequence], [Number] or [Char].
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.CharSequenceToContainCreatorSamples.value
+ *
  */
 infix fun <T : CharSequence> CheckerStep<T, NoOpSearchBehaviour>.value(
     expected: CharSequenceOrNumberOrChar
