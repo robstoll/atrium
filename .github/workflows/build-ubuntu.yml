@@ -21,7 +21,7 @@ jobs:
           distribution: 'adopt'
           java-version: ${{ matrix.java_version }}
       - name: Setup Gradle
-        uses: gradle/gradle-build-action@v3.3.2
+        uses: gradle/gradle-build-action@v3.4.0
 
       - name: "build using jdk ${{ matrix.java_version }}"
         run: ./gradlew build
@@ -94,7 +94,7 @@ jobs:
           distribution: 'adopt'
           java-version: 17
       - name: Setup Gradle
-        uses: gradle/gradle-build-action@v3.3.2
+        uses: gradle/gradle-build-action@v3.4.0
 
       - name: "build using kotlin ${{ matrix.kotlin_version }}"
         run: ./gradlew build
