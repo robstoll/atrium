@@ -8,6 +8,9 @@ class CharSequenceToContainCreatorSamples {
 
     @Test
     fun value() {
+        // `value` is a final step in the CharSequence.toContain expectation-building process and can be used with
+        // various checkers (see CharSequenceToContainCheckerSamples)
+
         expect("ABC") toContain o exactly 1 value "A"
         expect("ABBBC") toContain o atLeast 2 value "B"
 
@@ -28,6 +31,9 @@ class CharSequenceToContainCreatorSamples {
 
     @Test
     fun valueIgnoringCaseWithChecker() {
+        // `value` is a final step in the CharSequence.toContain expectation-building process and can be used with
+        // various checkers (see CharSequenceToContainCheckerSamples)
+
         expect("ABC") toContain o ignoring case exactly 1 value "A"
         expect("AAABBC") toContain o ignoring case atMost 3 value "b"
         expect("aBBBCD") toContain o ignoring case atLeast 1 value "A"
@@ -45,6 +51,9 @@ class CharSequenceToContainCreatorSamples {
 
     @Test
     fun values() {
+        // `values` is a final step in the CharSequence.toContain expectation-building process and can be used with
+        // various checkers (see CharSequenceToContainCheckerSamples)
+
         expect("ABC") toContain o exactly 1  the values("A","B","C")
         expect("AAABC") toContain o atMost 3 the values("A", "B", "C")
         expect("ABBBCD") toContain o atLeast 1 the values("A", "B", "C", "D")
@@ -71,6 +80,9 @@ class CharSequenceToContainCreatorSamples {
 
     @Test
     fun valuesIgnoringCaseWithChecker() {
+        // `values` is a final step in the CharSequence.toContain expectation-building process and can be used with
+        // various checkers (see CharSequenceToContainCheckerSamples)
+
         expect("ABc") toContain o ignoring case exactly 1 the values("A", "b", "C")
         expect("AaaBC") toContain o ignoring case atMost 3 the values("A", "B", "c")
         expect("ABBBcD") toContain o ignoring case atLeast 1 the values("a", "b", "C", "d")
@@ -89,131 +101,78 @@ class CharSequenceToContainCreatorSamples {
 
     @Test
     fun regex() {
-        expect("ABC") toContain o exactly 1 regex "A"
-        expect("ABC") toContain o exactly 1 regex "B"
-        expect("ABC") toContain o exactly 1 regex "C"
-        expect("AAABC") toContain o atMost 3 regex "A"
-        expect("AAABC") toContain o atMost 3 regex "B"
-        expect("AAABC") toContain o atMost 3 regex "C"
-        expect("ABBBCD") toContain o atLeast 1 regex "A"
-        expect("ABBBCD") toContain o atLeast 1 regex "B"
-        expect("ABBBCD") toContain o atLeast 1 regex "C"
-        expect("ABBBCD") toContain o atLeast 1 regex "D"
+        // `regex` is a final step in the CharSequence.toContain expectation-building process and can be used with
+        // various checkers (see CharSequenceToContainCheckerSamples)
+
+        expect("ABC") toContain o exactly 1 regex "A(BC|C/DC)"
+        expect("AAABC") toContain o atMost 3 regex "A(BC|C/DC)"
+        expect("ABBBCD") toContain o atLeast 1 regex "A(BC|C/DC)"
 
         fails {
-            expect("AAAAAABBBB") toContain o atMost 3 regex "A"
+            expect("AAAAAABBBB") toContain o atMost 3 regex "A(BC|C/DC)"
         }
         fails {
-            expect("AAAAAABBBB") toContain o atMost 3 regex "B"
+            expect("AAABBBB") toContain o exactly 3 regex "A(BC|C/DC)"
         }
         fails {
-            expect("AAABBBB") toContain o exactly 3 regex "A"
-        }
-        fails {
-            expect("AAABBBB") toContain o exactly 3 regex "B"
-        }
-        fails {
-            expect("AAAAAABBBB") toContain o atLeast 3 regex "A"
-        }
-        fails {
-            expect("AAAAAABBBB") toContain o atLeast 3 regex "B"
-        }
-        fails {
-            expect("AAAAAABBBB") toContain o atLeast 3 regex "C"
+            expect("AAAAAABBBB") toContain o atLeast 3 regex "A(BC|C/DC)"
         }
     }
 
     @Test
     fun regexIgnoringCase() {
-        expect("AbC") toContain o ignoring case regex "A"
-        expect("AbC") toContain o ignoring case regex "B"
-        expect("AbC") toContain o ignoring case regex "c"
+        expect("AbC") toContain o ignoring case regex "A(BC|C/DC)"
 
         fails {
-            expect("aabaabbb") toContain o ignoring case regex "A"
-        }
-        fails {
-            expect("aabaabbb") toContain o ignoring case regex "B"
-        }
-        fails {
-            expect("aabaabbb") toContain o ignoring case regex "C"
+            expect("aabaabbb") toContain o ignoring case regex "A(BC|C/DC)"
         }
     }
 
     @Test
     fun regexIgnoringCaseWithChecker() {
-        expect("ABc") toContain o ignoring case exactly 1 regex "A"
-        expect("ABc") toContain o ignoring case exactly 1 regex "b"
-        expect("ABc") toContain o ignoring case exactly 1 regex "C"
-        expect("AaaBC") toContain o ignoring case atMost 3 regex "A"
-        expect("AaaBC") toContain o ignoring case atMost 3 regex "B"
-        expect("AaaBC") toContain o ignoring case atMost 3 regex "c"
-        expect("ABBBcD") toContain o ignoring case atLeast 1 regex "a"
-        expect("ABBBcD") toContain o ignoring case atLeast 1 regex "b"
-        expect("ABBBcD") toContain o ignoring case atLeast 1 regex "C"
-        expect("ABBBcD") toContain o ignoring case atLeast 1 regex "d"
+        // `regex` is a final step in the CharSequence.toContain expectation-building process and can be used with
+        // various checkers (see CharSequenceToContainCheckerSamples)
+
+        expect("ABc") toContain o ignoring case exactly 1 regex "A(BC|C/DC)"
+        expect("AaaBC") toContain o ignoring case atMost 3 regex "A(BC|C/DC)"
+        expect("ABBBcD") toContain o ignoring case atLeast 1 regex "A(BC|C/DC)"
 
         fails {
-            expect("AAAAAABBBB") toContain o ignoring case atMost 3 regex "a"
+            expect("AAAAAABBBB") toContain o ignoring case atMost 3 regex "A(BC|C/DC)"
         }
         fails {
-            expect("AAAAAABBBB") toContain o ignoring case atMost 3 regex "b"
+            expect("AAABBBB") toContain o ignoring case exactly 3 regex "A(BC|C/DC)"
         }
         fails {
-            expect("AAABBBB") toContain o ignoring case exactly 3 regex "A"
-        }
-        fails {
-            expect("AAABBBB") toContain o ignoring case exactly 3 regex "b"
-        }
-        fails {
-            expect("AAAAAABBBB") toContain o ignoring case atLeast 3 regex "a"
-        }
-        fails {
-            expect("AAAAAABBBB") toContain o ignoring case atLeast 3 regex "b"
-        }
-        fails {
-            expect("AAAAAABBBB") toContain o ignoring case atLeast 3 regex "C"
+            expect("AAAAAABBBB") toContain o ignoring case atLeast 3 regex "A(BC|C/DC)"
         }
     }
 
     @Test
     fun matchFor() {
-        expect("ABC") toContain o exactly 1 matchFor Regex("A")
-        expect("ABC") toContain o exactly 1 matchFor Regex("B")
-        expect("ABC") toContain o exactly 1 matchFor Regex("C")
-        expect("AAABC") toContain o atMost 3 matchFor Regex("A")
-        expect("AAABC") toContain o atMost 3 matchFor Regex("B")
-        expect("AAABC") toContain o atMost 3 matchFor Regex("C")
-        expect("ABBBCD") toContain o atLeast 1 matchFor Regex("A")
-        expect("ABBBCD") toContain o atLeast 1 matchFor Regex("B")
-        expect("ABBBCD") toContain o atLeast 1 matchFor Regex("C")
-        expect("ABBBCD") toContain o atLeast 1 matchFor Regex("D")
+        // `matchFor` is a final step in the CharSequence.toContain expectation-building process and can be used with
+        // various checkers (see CharSequenceToContainCheckerSamples)
+
+        expect("ABC") toContain o exactly 1 matchFor Regex("A(BC|C/DC)")
+        expect("AAABC") toContain o atMost 3 matchFor Regex("A(BC|C/DC)")
+        expect("ABBBCD") toContain o atLeast 1 matchFor Regex("A(BC|C/DC)")
 
         fails {
-            expect("AAAAAABBBB") toContain o atMost 3 matchFor Regex("A")
+            expect("AAAAAABBBB") toContain o atMost 3 matchFor Regex("A(BC|C/DC)")
         }
         fails {
-            expect("AAAAAABBBB") toContain o atMost 3 matchFor Regex("B")
+            expect("AAABBBB") toContain o exactly 3 matchFor Regex("A(BC|C/DC)")
         }
         fails {
-            expect("AAABBBB") toContain o exactly 3 matchFor Regex("A")
-        }
-        fails {
-            expect("AAABBBB") toContain o exactly 3 matchFor Regex("B")
-        }
-        fails {
-            expect("AAAAAABBBB") toContain o atLeast 3 matchFor Regex("A")
-        }
-        fails {
-            expect("AAAAAABBBB") toContain o atLeast 3 matchFor Regex("B")
-        }
-        fails {
-            expect("AAAAAABBBB") toContain o atLeast 3 matchFor Regex("C")
+            expect("AAAAAABBBB") toContain o atLeast 3 matchFor Regex("A(BC|C/DC)")
         }
     }
 
     @Test
     fun elementsOf() {
+        // `elementsOf` is a final step in the CharSequence.toContain expectation-building process and can be used with
+        // various checkers (see CharSequenceToContainCheckerSamples)
+
         expect("ABC") toContain o exactly 1 elementsOf listOf("A", "B", "C")
         expect("AAABC") toContain o atMost 3 elementsOf listOf("A", "B", "C")
         expect("ABBBCD") toContain o atLeast 1 elementsOf listOf("A", "B", "C", "D")
@@ -240,6 +199,9 @@ class CharSequenceToContainCreatorSamples {
 
     @Test
     fun elementsOfIgnoringCaseWithChecker() {
+        // `elementsOf` is a final step in the CharSequence.toContain expectation-building process and can be used with
+        // various checkers (see CharSequenceToContainCheckerSamples)
+
         expect("ABc") toContain o ignoring case exactly 1 elementsOf listOf("A", "b", "C")
         expect("AaaBC") toContain o ignoring case atMost 3 elementsOf listOf("A", "B", "c")
         expect("ABBBcD") toContain o ignoring case atLeast 1 elementsOf listOf("a", "b", "C", "d")

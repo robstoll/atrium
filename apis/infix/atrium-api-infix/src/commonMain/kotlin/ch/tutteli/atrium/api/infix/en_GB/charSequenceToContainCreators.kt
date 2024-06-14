@@ -68,6 +68,7 @@ infix fun <T : CharSequence> CheckerStep<T, NoOpSearchBehaviour>.value(
  *
  * @return an [Expect] for the subject of `this` expectation.
  * @throws IllegalArgumentException in case one of the [values] is not a [CharSequence], [Number] or [Char].
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.CharSequenceToContainCreatorSamples.values
  */
 infix fun <T : CharSequence> CheckerStep<T, NoOpSearchBehaviour>.the(
     values: Values<CharSequenceOrNumberOrChar>
@@ -90,6 +91,7 @@ infix fun <T : CharSequence> CheckerStep<T, NoOpSearchBehaviour>.the(
  *
  * @return an [Expect] for the subject of `this` expectation.
  * @throws IllegalArgumentException in case [expected] is not a [CharSequence], [Number] or [Char].
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.CharSequenceToContainCreatorSamples.valueIgnoringCase
  */
 @JvmName("valueIgnoringCase")
 infix fun <T : CharSequence> CheckerStep<T, IgnoringCaseSearchBehaviour>.value(
@@ -120,6 +122,7 @@ infix fun <T : CharSequence> CheckerStep<T, IgnoringCaseSearchBehaviour>.value(
  *
  * @return an [Expect] for the subject of `this` expectation.
  * @throws IllegalArgumentException in case one of the [values] is not a [CharSequence], [Number] or [Char].
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.CharSequenceToContainCreatorSamples.valuesIgnoringCase
  */
 @JvmName("valuesIgnoringCase")
 infix fun <T : CharSequence> CheckerStep<T, IgnoringCaseSearchBehaviour>.the(
@@ -142,6 +145,7 @@ infix fun <T : CharSequence> CheckerStep<T, IgnoringCaseSearchBehaviour>.the(
  *
  * @return an [Expect] for the subject of `this` expectation.
  * @throws IllegalArgumentException in case [expected] is not a [CharSequence], [Number] or [Char].
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.CharSequenceToContainCreatorSamples.valueIgnoringCaseWithChecker
  */
 infix fun <T : CharSequence> EntryPointStep<T, IgnoringCaseSearchBehaviour>.value(
     expected: CharSequenceOrNumberOrChar
@@ -174,6 +178,7 @@ infix fun <T : CharSequence> EntryPointStep<T, IgnoringCaseSearchBehaviour>.valu
  *
  * @return an [Expect] for the subject of `this` expectation.
  * @throws IllegalArgumentException in case one of the [values] is not a [CharSequence], [Number] or [Char].
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.CharSequenceToContainCreatorSamples.valuesIgnoringCaseWithChecker
  */
 infix fun <T : CharSequence> EntryPointStep<T, IgnoringCaseSearchBehaviour>.the(
     values: Values<CharSequenceOrNumberOrChar>
@@ -188,6 +193,7 @@ infix fun <T : CharSequence> EntryPointStep<T, IgnoringCaseSearchBehaviour>.the(
  * @param pattern The pattern which is expected to have a match against the input of the search.
  *
  * @return an [Expect] for the subject of `this` expectation.
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.CharSequenceToContainCreatorSamples.regex
  */
 infix fun <T : CharSequence> CheckerStep<T, NoOpSearchBehaviour>.regex(pattern: String): Expect<T> =
     this the regexPatterns(pattern)
@@ -201,6 +207,7 @@ infix fun <T : CharSequence> CheckerStep<T, NoOpSearchBehaviour>.regex(pattern: 
  * @param pattern The pattern which is expected to have a match against the input of the search.
  *
  * @return an [Expect] for the subject of `this` expectation.
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.CharSequenceToContainCreatorSamples.matchFor
  *
  * @since 0.12.0
  */
@@ -227,6 +234,7 @@ infix fun <T : CharSequence> CheckerStep<T, NoOpSearchBehaviour>.matchFor(
  *   -- use the function `regexPatterns(t, ...)` to create a [RegexPatterns].
  *
  * @return an [Expect] for the subject of `this` expectation.
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.CharSequenceToContainCreatorSamples.regex
  */
 infix fun <T : CharSequence> CheckerStep<T, NoOpSearchBehaviour>.the(patterns: RegexPatterns): Expect<T> =
     _logicAppend { regex(patterns.toList()) }
@@ -250,6 +258,7 @@ infix fun <T : CharSequence> CheckerStep<T, NoOpSearchBehaviour>.the(patterns: R
  *   use the function `all(Regex(...), ...)` to create a [All].
  *
  * @return an [Expect] for the subject of `this` expectation.
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.CharSequenceToContainCreatorSamples.matchFor
  *
  * @since 0.12.0
  */
@@ -265,6 +274,7 @@ infix fun <T : CharSequence> CheckerStep<T, NoOpSearchBehaviour>.matchFor(patter
  * @param pattern The patterns which is expected to have a match against the input of the search.
  *
  * @return an [Expect] for the subject of `this` expectation.
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.CharSequenceToContainCreatorSamples.regexIgnoringCase
  */
 @JvmName("regexIgnoringCase")
 infix fun <T : CharSequence> CheckerStep<T, IgnoringCaseSearchBehaviour>.regex(pattern: String): Expect<T> =
@@ -289,6 +299,7 @@ infix fun <T : CharSequence> CheckerStep<T, IgnoringCaseSearchBehaviour>.regex(p
  *   -- use the function `regexPatterns(t, ...)` to create a [RegexPatterns].
  *
  * @return an [Expect] for the subject of `this` expectation.
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.CharSequenceToContainCreatorSamples.regexIgnoringCaseWithChecker
  */
 @JvmName("regexIgnoringCase")
 infix fun <T : CharSequence> CheckerStep<T, IgnoringCaseSearchBehaviour>.the(patterns: RegexPatterns): Expect<T> =
@@ -303,6 +314,7 @@ infix fun <T : CharSequence> CheckerStep<T, IgnoringCaseSearchBehaviour>.the(pat
  * @param pattern The patterns which is expected to have a match against the input of the search.
  *
  * @return an [Expect] for the subject of `this` expectation.
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.CharSequenceToContainCreatorSamples.regexIgnoringCase
  */
 infix fun <T : CharSequence> EntryPointStep<T, IgnoringCaseSearchBehaviour>.regex(pattern: String): Expect<T> =
     this atLeast 1 regex pattern
@@ -328,6 +340,7 @@ infix fun <T : CharSequence> EntryPointStep<T, IgnoringCaseSearchBehaviour>.rege
  *   use the function `regexPatterns(t, ...)` to create a [RegexPatterns].
  *
  * @return an [Expect] for the subject of `this` expectation.
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.CharSequenceToContainCreatorSamples.regexIgnoringCase
  */
 infix fun <T : CharSequence> EntryPointStep<T, IgnoringCaseSearchBehaviour>.the(patterns: RegexPatterns): Expect<T> =
     this atLeast 1 the patterns
@@ -351,6 +364,7 @@ infix fun <T : CharSequence> EntryPointStep<T, IgnoringCaseSearchBehaviour>.the(
  * [expectedIterableLike] does not have elements (is empty).
  *
  * @since 0.13.0
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.CharSequenceToContainCreatorSamples.elementsOf
  */
 infix fun <T : CharSequence> CheckerStep<T, NoOpSearchBehaviour>.elementsOf(
     expectedIterableLike: IterableLike
@@ -377,6 +391,7 @@ infix fun <T : CharSequence> CheckerStep<T, NoOpSearchBehaviour>.elementsOf(
  * [expectedIterableLike] does not have elements (is empty).
  *
  * @since 0.13.0
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.CharSequenceToContainCreatorSamples.elementsOfIgnoringCase
  */
 @JvmName("elementsOfIgnoringCase")
 infix fun <T : CharSequence> CheckerStep<T, IgnoringCaseSearchBehaviour>.elementsOf(
@@ -404,6 +419,7 @@ infix fun <T : CharSequence> CheckerStep<T, IgnoringCaseSearchBehaviour>.element
  * [expectedIterableLike] does not have elements (is empty).
  *
  * @since 0.13.0
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.CharSequenceToContainCreatorSamples.elementsOfIgnoringCase
  */
 @JvmName("elementsOfIgnoringCase")
 infix fun <T : CharSequence> EntryPointStep<T, IgnoringCaseSearchBehaviour>.elementsOf(
