@@ -101,12 +101,9 @@ class CharSequenceToContainCreatorSamples {
 
     @Test
     fun regex() {
-        // `regex` is a final step in the CharSequence.toContain expectation-building process and can be used with
-        // various checkers (see CharSequenceToContainCheckerSamples)
-
         expect("ABC") toContain o exactly 1 regex "A(BC|C/DC)"
         expect("AAABC") toContain o atMost 3 regex "A(BC|C/DC)"
-        expect("ABBBCD") toContain o atLeast 1 regex "A(BC|C/DC)"
+        expect("ABBBCD") toContain o atLeast 1 regex "AB[BC]+"
 
         fails {
             expect("AAAAAABBBB") toContain o atMost 3 regex "A(BC|C/DC)"
@@ -135,7 +132,7 @@ class CharSequenceToContainCreatorSamples {
 
         expect("ABc") toContain o ignoring case exactly 1 regex "A(BC|C/DC)"
         expect("AaaBC") toContain o ignoring case atMost 3 regex "A(BC|C/DC)"
-        expect("ABBBcD") toContain o ignoring case atLeast 1 regex "A(BC|C/DC)"
+        expect("ABBBcD") toContain o ignoring case atLeast 1 regex "AB[BC]+"
 
         fails {
             expect("AAAAAABBBB") toContain o ignoring case atMost 3 regex "A(BC|C/DC)"
@@ -155,7 +152,7 @@ class CharSequenceToContainCreatorSamples {
 
         expect("ABC") toContain o exactly 1 matchFor Regex("A(BC|C/DC)")
         expect("AAABC") toContain o atMost 3 matchFor Regex("A(BC|C/DC)")
-        expect("ABBBCD") toContain o atLeast 1 matchFor Regex("A(BC|C/DC)")
+        expect("ABBBCD") toContain o atLeast 1 matchFor Regex("AB[BC]+")
 
         fails {
             expect("AAAAAABBBB") toContain o atMost 3 matchFor Regex("A(BC|C/DC)")
