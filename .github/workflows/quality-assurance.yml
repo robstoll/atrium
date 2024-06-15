@@ -25,8 +25,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 1
 
       - name: Set up JDK ${{ matrix.java_version }}
         uses: actions/setup-java@v4
@@ -86,7 +84,7 @@ jobs:
         run: ATRIUM_ANDROID_JAR="$PWD/android-jar-cache/android.jar" ./gradlew checkDexer
 
   forwardCompatibility:
-    needs: []  #Not sure if it should be left empty or if it should contain generate-matrix
+    needs: []
     env:
       JAVA_VERSION: 17
       KOTLIN_VERSION: ${{ matrix.kotlin_version }}
@@ -100,8 +98,8 @@ jobs:
       - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:
-          distribution: ${{ matrix.java_distribution }}
-          java-version: ${{ matrix.java_version }}
+          distribution: 'adopt'
+          java-version: 17
 
       - name: Setup Gradle
         uses: gradle/gradle-build-action@v3.3.2
