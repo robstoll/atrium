@@ -15,7 +15,7 @@ matrix.addAxis({
     values: ['11', '17']
 });
 matrix.addAxis({
-    name: 'distribution',
+    name: 'java_distribution',
     title: x => x,
     values: [
         'corretto',
@@ -27,7 +27,7 @@ matrix.addAxis({
 });
 
 // Configure the order of the fields in job name
-matrix.setNamePattern(['os', 'java_version', 'distribution']);
+matrix.setNamePattern(['os', 'java_version', 'java_distribution']);
 
 // Ensure at least one windows and at least one linux job is present (macos is almost the same as linux)
 matrix.generateRow({ os: 'windows-latest' });
