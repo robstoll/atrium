@@ -69,6 +69,7 @@ class MatrixBuilder {
         this.excludes = [];
         this.includes = [];
         this.failOnUnsatisfiableFilters = false;
+        // this.namePattern = []; // Initialize as an empty array
     }
 
     /**

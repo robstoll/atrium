@@ -5,12 +5,18 @@ const matrix = new MatrixBuilder();
 matrix.addAxis({
     name: 'os',
     title: x => x.replace('-latest', ''),
-    values: ['ubuntu-latest', 'windows-latest']
+    values: [
+        'ubuntu-latest',
+        'windows-latest'
+    ]
 });
 matrix.addAxis({
     name: 'java_version',
     values: ['11', '17']
 });
+
+// Configure the order of the fields in job name
+matrix.setNamePattern(['os', 'java_version']);
 
 // Ensure at least one windows and at least one linux job is present (macos is almost the same as linux)
 matrix.generateRow({ os: 'windows-latest' });
