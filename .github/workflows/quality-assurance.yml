@@ -84,7 +84,6 @@ jobs:
         run: ATRIUM_ANDROID_JAR="$PWD/android-jar-cache/android.jar" ./gradlew checkDexer
 
   forwardCompatibility:
-    needs: []
     env:
       JAVA_VERSION: 17
       KOTLIN_VERSION: ${{ matrix.kotlin_version }}
