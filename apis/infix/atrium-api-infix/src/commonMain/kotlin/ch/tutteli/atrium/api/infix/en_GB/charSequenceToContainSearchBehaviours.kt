@@ -17,6 +17,7 @@ import kotlin.jvm.JvmName
  * @param case Has to be `case`.
  *
  * @return The newly created builder.
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.CharSequenceToContainSearchBehaviourSamples.ignoringCase
  */
 infix fun <T : CharSequence> CharSequenceContains.EntryPointStep<T, NoOpSearchBehaviour>.ignoring(
     @Suppress("UNUSED_PARAMETER") case: case
@@ -28,6 +29,7 @@ infix fun <T : CharSequence> CharSequenceContains.EntryPointStep<T, NoOpSearchBe
  * @param case Has to be `case`.
  *
  * @return The newly created builder.
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.CharSequenceToContainSearchBehaviourSamples.ignoringCaseWithNotChecker
  */
 infix fun <T : CharSequence> NotCheckerStep<T, NotSearchBehaviour>.ignoring(
     @Suppress("UNUSED_PARAMETER") case: case
