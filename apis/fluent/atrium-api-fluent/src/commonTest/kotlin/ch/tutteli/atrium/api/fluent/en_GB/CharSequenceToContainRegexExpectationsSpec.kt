@@ -6,8 +6,25 @@ import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.describe
 
 class CharSequenceToContainRegexExpectationsSpec : Spek({
-    include(StringSpec)
-    include(RegexSpec)
+    include(object : ch.tutteli.atrium.specs.integration.CharSequenceToContainRegexExpectationsSpec(
+        getNameToContainRegex(),
+        getAtLeastTripleString(),
+        getAtLeastIgnoringCaseTripleString(),
+        getShortcutTripleString(),
+        getAtMostTripleString(),
+        getAtMostIgnoringCaseTripleString(),
+        "[StringSpec] "
+    ) {})
+
+    include(object : ch.tutteli.atrium.specs.integration.CharSequenceToContainRegexExpectationsSpec(
+        getNameToContainRegex(),
+        getAtLeastTripleRegex(),
+        getAtLeastIgnoringCaseTripleString(),
+        getShortcutTripleRegex(),
+        getAtMostTripleRegex(),
+        getAtMostIgnoringCaseTripleString(),
+        "[RegexSpec] "
+    ) {})
 
     describe("context 'aaaa'") {
         it("search for 'aa' finds 3 hits since we want non-disjoint matches") {
@@ -18,25 +35,6 @@ class CharSequenceToContainRegexExpectationsSpec : Spek({
         }
     }
 }) {
-    object StringSpec : ch.tutteli.atrium.specs.integration.CharSequenceToContainRegexExpectationsSpec(
-        getNameToContainRegex(),
-        getAtLeastTripleString(),
-        getAtLeastIgnoringCaseTripleString(),
-        getShortcutTripleString(),
-        getAtMostTripleString(),
-        getAtMostIgnoringCaseTripleString(),
-        "[StringSpec] "
-    )
-
-    object RegexSpec : ch.tutteli.atrium.specs.integration.CharSequenceToContainRegexExpectationsSpec(
-        getNameToContainRegex(),
-        getAtLeastTripleRegex(),
-        getAtLeastIgnoringCaseTripleString(),
-        getShortcutTripleRegex(),
-        getAtMostTripleRegex(),
-        getAtMostIgnoringCaseTripleString(),
-        "[RegexSpec] "
-    )
 
     companion object : CharSequenceToContainSpecBase() {
 
@@ -57,8 +55,12 @@ class CharSequenceToContainRegexExpectationsSpec : Spek({
             aX: Array<out String>
         ) = expect.toContain.atLeast(atLeast).regex(a, *aX)
 
-        private fun toContainAtLeastRegex(expect: Expect<CharSequence>, atLeast: Int, a: String, aX: Array<out String>) =
-            expect.toContain.atLeast(atLeast).matchFor(a.toRegex(), *aX.map { it.toRegex() }.toTypedArray())
+        private fun toContainAtLeastRegex(
+            expect: Expect<CharSequence>,
+            atLeast: Int,
+            a: String,
+            aX: Array<out String>
+        ) = expect.toContain.atLeast(atLeast).matchFor(a.toRegex(), *aX.map { it.toRegex() }.toTypedArray())
 
         private fun getAtLeastIgnoringCaseTripleString() =
             { what: String, times: String -> "$toContain $ignoringCase $what $atLeast $times" } to

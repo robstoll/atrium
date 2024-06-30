@@ -1,3 +1,6 @@
+//TODO remove file with 2.0.0 at the latest
+@file:Suppress("DEPRECATION")
+
 package ch.tutteli.atrium.reporting.impl
 
 import ch.tutteli.atrium.assertions.Assertion
@@ -14,6 +17,7 @@ import ch.tutteli.atrium.reporting.AssertionFormatterParameterObject
  *   so by delegating this responsibility to the given [assertionFormatterController].
  * @param assertionFormatterController The controller used to control the flow of formatting.
  */
+@Deprecated("Switch to Proof based reporting, will be removed with 2.0.0 at the latest")
 class AssertionFormatterControllerBasedFacade(private val assertionFormatterController: AssertionFormatterController) :
     AssertionFormatterFacade {
 

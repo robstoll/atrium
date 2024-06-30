@@ -1,14 +1,12 @@
 package ch.tutteli.atrium.specs.integration
 
 import ch.tutteli.atrium.api.fluent.en_GB.messageToContain
-import ch.tutteli.atrium.api.fluent.en_GB.notToThrow
 import ch.tutteli.atrium.api.fluent.en_GB.toEqual
 import ch.tutteli.atrium.api.fluent.en_GB.toThrow
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.reporting.AtriumError
+import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionBasic
 import ch.tutteli.atrium.specs.*
-import ch.tutteli.atrium.translations.DescriptionBasic
 import ch.tutteli.atrium.translations.DescriptionIterableLikeExpectation
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.Suite
@@ -42,8 +40,8 @@ abstract class IteratorExpectationsSpec(
     fun describeFun(vararg pairs: SpecPair<*>, body: Suite.() -> Unit) =
         describeFunTemplate(describePrefix, pairs.map { it.name }.toTypedArray(), body = body)
 
-    val toHaveDescr = DescriptionBasic.TO_HAVE.getDefault()
-    val notToHaveDescr = DescriptionBasic.NOT_TO_HAVE.getDefault()
+    val toHaveDescr = DescriptionBasic.TO_HAVE.string
+    val notToHaveDescr = DescriptionBasic.NOT_TO_HAVE.string
     val aNextElement = DescriptionIterableLikeExpectation.A_NEXT_ELEMENT.getDefault()
     val sizeExceededDescr = DescriptionIterableLikeExpectation.SIZE_EXCEEDED.getDefault()
 

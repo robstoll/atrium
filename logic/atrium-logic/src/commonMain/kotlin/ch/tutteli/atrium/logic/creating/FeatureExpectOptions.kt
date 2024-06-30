@@ -2,9 +2,9 @@ package ch.tutteli.atrium.logic.creating
 
 import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
 import ch.tutteli.atrium.core.None
-import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.creating.FeatureExpect
 import ch.tutteli.atrium.creating.FeatureExpectOptions
+import ch.tutteli.atrium.creating.ProofContainer
 import ch.tutteli.atrium.logic.creating.impl.FeatureExpectOptionsChooserImpl
 import ch.tutteli.atrium.reporting.Text
 
@@ -48,7 +48,7 @@ interface FeatureExpectOptionsChooser<R> {
      * Wraps the given [textRepresentation] into a [Text] and uses it as representation of the subject
      * instead of the representation that has been defined so far (which defaults to the subject itself).
      *
-     * In case [AssertionContainer.maybeSubject] is not defined i.e. [None], then the previous representation is used.
+     * In case [ProofContainer.maybeSubject] is not defined i.e. [None], then the previous representation is used.
      */
     fun withRepresentation(textRepresentation: String): Unit =
         withRepresentation { Text(textRepresentation) }
@@ -63,7 +63,7 @@ interface FeatureExpectOptionsChooser<R> {
      * If your text does not include the current subject, then we recommend to use the other overload which expects
      * a `String` and does the wrapping for you.
      *
-     * In case [AssertionContainer.maybeSubject] is not defined i.e. [None], then the previous representation is used.
+     * In case [ProofContainer.maybeSubject] is not defined i.e. [None], then the previous representation is used.
      */
     fun withRepresentation(representationProvider: (R) -> Any)
 

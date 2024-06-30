@@ -6,11 +6,10 @@ package ch.tutteli.atrium.assertions.builders.impl.partiallyFixedClaimGroup
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.AssertionGroupType
-import ch.tutteli.atrium.reporting.translating.Translatable
 
 internal data class PartiallyFixedClaimAssertionGroup(
     override val type: AssertionGroupType,
-    override val description: Translatable,
+    @Suppress("DEPRECATION") override val description: ch.tutteli.atrium.reporting.translating.Translatable,
     override val representation: Any,
     override val assertions: List<Assertion>,
     private val preTransformationHolds: Boolean

@@ -5,7 +5,7 @@ import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.core.polyfills.format
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
-import ch.tutteli.atrium.translations.DescriptionBasic
+import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionBasic
 import ch.tutteli.atrium.translations.DescriptionIterableLikeExpectation
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.Suite
@@ -48,8 +48,8 @@ abstract class IterableExpectationsSpec(
     fun describeFun(vararg pairs: SpecPair<*>, body: Suite.() -> Unit) =
         describeFunTemplate(describePrefix, pairs.map { it.name }.toTypedArray(), body = body)
 
-    val toHaveDescr = DescriptionBasic.TO_HAVE.getDefault()
-    val notToHaveDescr = DescriptionBasic.NOT_TO_HAVE.getDefault()
+    val toHaveDescr = DescriptionBasic.TO_HAVE.string
+    val notToHaveDescr = DescriptionBasic.NOT_TO_HAVE.string
     val aNextElementDescr = DescriptionIterableLikeExpectation.A_NEXT_ELEMENT.getDefault()
     val duplicateElements = DescriptionIterableLikeExpectation.DUPLICATE_ELEMENTS.getDefault()
 
@@ -102,7 +102,7 @@ abstract class IterableExpectationsSpec(
                 }
             }
             maxFunctions.forEach { (name, maxFun, _) ->
-                it("$name - toBe(4) holds") {
+                it("$name - toEqual(4) holds") {
                     expect(iterableWith4And3).maxFun { toEqual(4) }
                 }
                 it("$name - $toEqualDescr(3) fails") {

@@ -1712,12 +1712,12 @@ abstract class PathExpectationsSpec(
 
         context("folder with parent") {
             parentFunctions.forEach { (name, parentFun, _) ->
-                it("$name - toBe(folder.parent) holds") {
+                it("$name - toEqual(folder.parent) holds") {
                     val childFolder = tempFolder.newDirectory("child")
                     val parentFolder = childFolder.parent
                     expect(childFolder).parentFun { toEqual(parentFolder) }
                 }
-                it("$name - toBe(folder) fails") {
+                it("$name - toEqual(folder) fails") {
                     expect {
                         val childFolder = tempFolder.newDirectory("child")
                         expect(childFolder).parentFun { toEqual(childFolder) }
@@ -1730,7 +1730,7 @@ abstract class PathExpectationsSpec(
 
         context("folder without parent") {
             parentFunctions.forEach { (name, parentFun, hasExtraHint) ->
-                it("$name - toBe(folder.parent) fails" + showsSubAssertionIf(hasExtraHint)) {
+                it("$name - toEqual(folder.parent) fails" + showsSubAssertionIf(hasExtraHint)) {
                     expect {
                         val rootFolder = tempFolder.tmpDir.root
                         expect(rootFolder).parentFun { toEqual(Paths.get("non-existing")) }
@@ -1748,7 +1748,7 @@ abstract class PathExpectationsSpec(
 
         context("resolve child") {
             resolveFunctions.forEach { (name, resolveFun, _) ->
-                it("$name - toBe(child) holds") {
+                it("$name - toEqual(child) holds") {
                     val resolvedFolder = tempFolder.newDirectory("child")
                     val rootFolder = resolvedFolder.parent
                     expect(rootFolder).resolveFun("child") { toEqual(resolvedFolder) }
@@ -1758,7 +1758,7 @@ abstract class PathExpectationsSpec(
 
         context("resolve non-existing") {
             resolveFunctions.forEach { (name, resolveFun, hasExtraHint) ->
-                it("$name - toBe(folder) fails" + showsSubAssertionIf(hasExtraHint)) {
+                it("$name - toEqual(folder) fails" + showsSubAssertionIf(hasExtraHint)) {
                     expect {
                         val resolvedFolder = tempFolder.newDirectory("child")
                         val rootFolder = resolvedFolder.parent
@@ -1777,10 +1777,10 @@ abstract class PathExpectationsSpec(
 
         context("path a/my.txt") {
             fileNameFunctions.forEach { (name, fileNameFun, _) ->
-                it("$name - toBe(my.txt) holds") {
+                it("$name - toEqual(my.txt) holds") {
                     expect(Paths.get("a/my.txt")).fileNameFun { toEqual("my.txt") }
                 }
-                it("$name - toBe(my.txt) fails") {
+                it("$name - toEqual(my.txt) fails") {
                     expect {
                         expect(Paths.get("a/my")).fileNameFun { toEqual("my.txt") }
                     }.toThrow<AssertionError> {
@@ -1797,10 +1797,10 @@ abstract class PathExpectationsSpec(
 
         context("File with extension") {
             fileNameWithoutExtensionFunctions.forEach { (name, fileNameWithoutExtensionFun, _) ->
-                it("$name - toBe(my) holds") {
+                it("$name - toEqual(my) holds") {
                     expect(Paths.get("a/my.txt")).fileNameWithoutExtensionFun { toEqual("my") }
                 }
-                it("$name - toBe(my.txt) fails") {
+                it("$name - toEqual(my.txt) fails") {
                     expect {
                         expect(Paths.get("a/my.txt")).fileNameWithoutExtensionFun { toEqual("my.txt") }
                     }.toThrow<AssertionError> {
@@ -1813,10 +1813,10 @@ abstract class PathExpectationsSpec(
         val directory = "a/my/"
         context("directory $directory") {
             fileNameWithoutExtensionFunctions.forEach { (name, fileNameWithoutExtensionFun, _) ->
-                it("$name - toBe(my) holds") {
+                it("$name - toEqual(my) holds") {
                     expect(Paths.get(directory)).fileNameWithoutExtensionFun { toEqual("my") }
                 }
-                it("$name - toBe(my.txt) fails") {
+                it("$name - toEqual(my.txt) fails") {
                     expect {
                         expect(Paths.get("a/my/")).fileNameWithoutExtensionFun { toEqual("my.txt") }
                     }.toThrow<AssertionError> {
@@ -1828,10 +1828,10 @@ abstract class PathExpectationsSpec(
 
         context("path with double extension") {
             fileNameWithoutExtensionFunctions.forEach { (name, fileNameWithoutExtensionFun, _) ->
-                it("$name - toBe(my.tar) holds") {
+                it("$name - toEqual(my.tar) holds") {
                     expect(Paths.get("a/my.tar.gz")).fileNameWithoutExtensionFun { toEqual("my.tar") }
                 }
-                it("$name - toBe(my) fails") {
+                it("$name - toEqual(my) fails") {
                     expect {
                         expect(Paths.get("a/my.tar.gz")).fileNameWithoutExtensionFun { toEqual("my") }
                     }.toThrow<AssertionError> {

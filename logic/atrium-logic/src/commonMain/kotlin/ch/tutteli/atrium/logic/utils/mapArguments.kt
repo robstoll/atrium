@@ -4,6 +4,8 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.creating.PleaseUseReplacementException
 import kotlin.js.JsName
 
+//TODO 1.3.0 deprecate everything
+
 /**
  * Creates a [ArgumentMapperBuilder] with the given [first] and [others] as arguments;
  * specify the mapping as such using a subsequent step in the building process.

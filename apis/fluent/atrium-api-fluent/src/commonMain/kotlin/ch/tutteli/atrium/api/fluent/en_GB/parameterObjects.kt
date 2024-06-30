@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.api.fluent.en_GB
 
-import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.creating.proofs.Proof
 import ch.tutteli.atrium.logic.utils.Group
 import ch.tutteli.atrium.logic.utils.VarArgHelper
 import ch.tutteli.kbox.glue
@@ -13,9 +13,10 @@ import ch.tutteli.kbox.glue
  * is `null` as well.
  *
  * @param assertionCreatorOrNull The identification lambda identifying the entry where an entry is considered
- *   to be identified if it holds all [Assertion]s the lambda creates.
+ *   to be identified if it holds all [Proof]s the lambda creates.
  *   In case it is defined as `null`, then an entry is identified if it is `null` as well.
  */
+//TODO 2.0.0 rename to expectationCreatorOrNull
 class Entry<T : Any>(
     val assertionCreatorOrNull: (Expect<T>.() -> Unit)?
 ) : Group<(Expect<T>.() -> Unit)?> {
@@ -29,10 +30,11 @@ class Entry<T : Any>(
  * is `null` as well.
  *
  * @param assertionCreatorOrNull The identification lambda identifying the entry where an entry is considered
- *   to be identified if it holds all [Assertion]s the lambda creates.
+ *   to be identified if it holds all [Proof]s the lambda creates.
  *   In case it is defined as `null`, then an entry is identified if it is `null` as well.
  * @param otherAssertionCreatorsOrNulls A variable amount of additional identification lambdas or `null`s.
  */
+//TODO 2.0.0 rename to expectationCreatorOrNull
 class Entries<T : Any>(
     val assertionCreatorOrNull: (Expect<T>.() -> Unit)?,
     vararg val otherAssertionCreatorsOrNulls: (Expect<T>.() -> Unit)?
@@ -48,6 +50,7 @@ class Entries<T : Any>(
  * Parameter object to express a key/value [Pair] whose value type is a nullable lambda with an
  * [Expect] receiver, which means one can either pass a lambda or `null`.
  */
+//TODO 2.0.0 rename to expectationCreatorOrNull
 data class KeyValue<out K, V : Any>(val key: K, val valueAssertionCreatorOrNull: (Expect<V>.() -> Unit)?) {
     fun toPair(): Pair<K, (Expect<V>.() -> Unit)?> = key to valueAssertionCreatorOrNull
 

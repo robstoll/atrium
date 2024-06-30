@@ -5,6 +5,8 @@ package ch.tutteli.atrium.logic.utils
 import kotlin.jvm.JvmName
 import kotlin.reflect.*
 
+//TODO 1.3.0 deprecate everything
+
 /**
  * Turns the given type into a nullable type.
  *
