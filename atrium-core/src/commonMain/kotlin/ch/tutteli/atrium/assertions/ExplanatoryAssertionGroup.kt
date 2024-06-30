@@ -1,5 +1,6 @@
 package ch.tutteli.atrium.assertions
 
+import ch.tutteli.atrium.reporting.reportables.Reportable
 import ch.tutteli.atrium.reporting.Reporter
 
 /**
@@ -25,4 +26,6 @@ internal class ExplanatoryAssertionGroup(
     override fun toString(): String {
         return this::class.simpleName!!
     }
+
+    override val children: List<Reportable> get() = assertions
 }

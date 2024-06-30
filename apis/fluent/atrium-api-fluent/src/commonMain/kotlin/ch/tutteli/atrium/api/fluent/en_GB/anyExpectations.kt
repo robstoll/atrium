@@ -1,10 +1,9 @@
 package ch.tutteli.atrium.api.fluent.en_GB
 
-import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.logic.creating.typeutils.IterableLike
 import ch.tutteli.atrium.logic.*
 import ch.tutteli.atrium.logic.creating.transformers.SubjectChangerBuilder
+import ch.tutteli.atrium.logic.creating.typeutils.IterableLike
 import ch.tutteli.atrium.logic.utils.iterableLikeToIterable
 import ch.tutteli.atrium.reporting.Reporter
 import ch.tutteli.kbox.glue
@@ -118,7 +117,8 @@ inline fun <reified T : Any> Expect<T?>.notToEqualNull(noinline assertionCreator
  *
  * @since 0.17.0
  */
-inline fun <reified SubTypeOfSubjectT : Any> Expect<*>.toBeAnInstanceOf(): Expect<SubTypeOfSubjectT> = toBeAnInstanceOf(SubTypeOfSubjectT::class).transform()
+inline fun <reified SubTypeOfSubjectT : Any> Expect<*>.toBeAnInstanceOf(): Expect<SubTypeOfSubjectT> =
+    toBeAnInstanceOf(SubTypeOfSubjectT::class).transform()
 
 @PublishedApi // in order that _logic does not become part of the API we have this extra function
 internal fun <SubTypeOfSubjectT : Any> Expect<*>.toBeAnInstanceOf(
@@ -130,7 +130,7 @@ internal fun <SubTypeOfSubjectT : Any> Expect<*>.toBeAnInstanceOf(
         // a SubTypeOfSubjectT
         "UNCHECKED_CAST"
     )
-    val assertionContainer = _logic as AssertionContainer<Any?>
+    val assertionContainer = _logic as ch.tutteli.atrium.creating.AssertionContainer<Any?>
     return assertionContainer.isA(kClass)
 }
 

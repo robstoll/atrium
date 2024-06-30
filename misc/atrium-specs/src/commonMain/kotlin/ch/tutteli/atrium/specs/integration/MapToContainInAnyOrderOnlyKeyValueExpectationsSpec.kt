@@ -72,7 +72,7 @@ abstract class MapToContainInAnyOrderOnlyKeyValueExpectationsSpec(
 
         context("empty map") {
             toContainKeyWithValueAssertionsFunctions.forEach { (name, toContainFun) ->
-                it("$name - a to { toBe(1) } throws AssertionError, reports a") {
+                it("$name - a to { toEqual(1) } throws AssertionError, reports a") {
                     expect {
                         expect(emptyMap).toContainFun(keyValue("a") { toEqual(1) }, arrayOf())
                     }.toThrow<AssertionError> {
@@ -85,7 +85,7 @@ abstract class MapToContainInAnyOrderOnlyKeyValueExpectationsSpec(
                     }
                 }
 
-                it("$name - a to { isLessThan(1) }, b to { toBe(3) }, c to { isLessThan(4) } } throws AssertionError, reports a, b and c") {
+                it("$name - a to { isLessThan(1) }, b to { toEqual(3) }, c to { isLessThan(4) } } throws AssertionError, reports a, b and c") {
                     expect {
                         expect(emptyMap).toContainFun(
                             keyValue("a") { toBeLessThan(1) },
@@ -110,10 +110,10 @@ abstract class MapToContainInAnyOrderOnlyKeyValueExpectationsSpec(
         context("map $map") {
             toContainKeyWithValueAssertionsFunctions.forEach { (name, toContainFun) ->
                 listOf(
-                    "a to { toBe(1) }, b to { toBe(2) }" to listOf(
+                    "a to { toEqual(1) }, b to { toEqual(2) }" to listOf(
                         keyValue("a") { toEqual(1) },
                         keyValue("b") { toEqual(2) }),
-                    "b to { toBe(2) }, a to { toBe(1) }" to listOf(
+                    "b to { toEqual(2) }, a to { toEqual(1) }" to listOf(
                         keyValue("b") { toEqual(2) },
                         keyValue("a") { toEqual(1) }),
                     "b to { isGreaterThan(1) }, a to { isLessThan(2) }" to listOf(
@@ -141,7 +141,7 @@ abstract class MapToContainInAnyOrderOnlyKeyValueExpectationsSpec(
                     }
                 }
 
-                it("$name - a to { isLessThan(2) }, a to { toBe(1) } throws AssertionError, reports second a and missing b") {
+                it("$name - a to { isLessThan(2) }, a to { toEqual(1) } throws AssertionError, reports second a and missing b") {
                     expect {
                         expect(map).toContainFun(keyValue("a") { toBeLessThan(2) }, arrayOf(keyValue("a") { toEqual(1) }))
                     }.toThrow<AssertionError> {
@@ -156,7 +156,7 @@ abstract class MapToContainInAnyOrderOnlyKeyValueExpectationsSpec(
                     }
                 }
 
-                it("$name - a to { isLessThan(3), b to { isLessThan(1), c to { toBe(4) } throws AssertionError, reports b and c") {
+                it("$name - a to { isLessThan(3), b to { isLessThan(1), c to { toEqual(4) } throws AssertionError, reports b and c") {
                     expect {
                         expect(map).toContainFun(
                             keyValue("a") { toBeLessThan(3) },
@@ -186,12 +186,12 @@ abstract class MapToContainInAnyOrderOnlyKeyValueExpectationsSpec(
         val toContainKeyWithNullableValueAssertionsFun = keyWithNullableValueAssertions.lambda
         context("map: $nullableMap") {
             listOf(
-                "null { toBe(1) }, (a, null), b{ toBe(2) }" to
+                "null { toEqual(1) }, (a, null), b{ toEqual(2) }" to
                     listOf(
                         keyNullableValue(null) { toEqual(1) },
                         keyNullableValue("a", null),
                         keyNullableValue("b") { toEqual(2) }),
-                "b { toBe(2) }, null{ toBe(1) }, (a, null)" to
+                "b { toEqual(2) }, null{ toEqual(1) }, (a, null)" to
                     listOf(
                         keyNullableValue("b") { toEqual(2) },
                         keyNullableValue(null) { toEqual(1) },
@@ -205,7 +205,7 @@ abstract class MapToContainInAnyOrderOnlyKeyValueExpectationsSpec(
                     )
                 }
             }
-            it("a to { toBe(1) } throws AssertionError, reports failure and missing null and b") {
+            it("a to { toEqual(1) } throws AssertionError, reports failure and missing null and b") {
                 expect {
                     expect(nullableMap).toContainKeyWithNullableValueAssertionsFun(
                         keyNullableValue("a") { toEqual(1) },
@@ -221,7 +221,7 @@ abstract class MapToContainInAnyOrderOnlyKeyValueExpectationsSpec(
                 }
             }
 
-            it("a to { toBe(1) }, c to { isLessThan(3) }, null to null, b to { isLessThan(3) } throws AssertionError, reports all but b") {
+            it("a to { toEqual(1) }, c to { isLessThan(3) }, null to null, b to { isLessThan(3) } throws AssertionError, reports all but b") {
                 expect {
                     expect(nullableMap).toContainKeyWithNullableValueAssertionsFun(
                         keyNullableValue("a") { toEqual(1) },

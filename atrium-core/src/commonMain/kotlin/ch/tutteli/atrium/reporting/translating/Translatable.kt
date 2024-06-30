@@ -1,6 +1,7 @@
 package ch.tutteli.atrium.reporting.translating
 
 import ch.tutteli.atrium.core.polyfills.fullName
+import ch.tutteli.atrium.reporting.reportables.InlineElement
 import kotlin.reflect.KClass
 
 /**
@@ -8,7 +9,7 @@ import kotlin.reflect.KClass
  */
 // TODO 1.3.0 explain replacement once representable is introduced
 @Deprecated("will be remove with 2.0.0 at the latest")
-interface Translatable {
+interface Translatable: InlineElement {
 
     /**
      * Returns the default representation of this [Translatable].

@@ -1,30 +1,28 @@
 package ch.tutteli.atrium.creating.impl
 
-import ch.tutteli.atrium.assertions.Assertion
-import ch.tutteli.atrium.assertions.builders.assertionBuilder
 import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
 import ch.tutteli.atrium.core.Option
 import ch.tutteli.atrium.creating.*
+import ch.tutteli.atrium.creating.proofs.Proof
+import ch.tutteli.atrium.reporting.reportables.InlineElement
 
 @ExperimentalNewExpectTypes
 @ExperimentalComponentFactoryContainer
 internal class FeatureExpectImpl<T, R>(
-    private val previousExpect: Expect<T>,
+    previousExpect: Expect<T>,
     maybeSubject: Option<R>,
-    //TODO 1.3.0 replace Translatable with InlineElement
-    @Suppress("DEPRECATION")
-    private val description: ch.tutteli.atrium.reporting.translating.Translatable,
+    private val description: InlineElement,
     private val representation: Any?,
-    assertions: List<Assertion>
+    proofs: List<Proof>
 ) : BaseExpectImpl<R>(maybeSubject), FeatureExpect<T, R> {
+
+    private val previousProofContainer = previousExpect.toProofContainer()
 
     constructor(
         previousExpect: Expect<T>,
         maybeSubject: Option<R>,
-        //TODO 1.3.0 replace Translatable with InlineElement
-        @Suppress("DEPRECATION")
-        description: ch.tutteli.atrium.reporting.translating.Translatable,
-        assertions: List<Assertion>,
+        description: InlineElement,
+        proofs: List<Proof>,
         options: FeatureExpectOptions<R>
     ) : this(
         previousExpect,
@@ -34,33 +32,32 @@ internal class FeatureExpectImpl<T, R>(
             options.representationInsteadOfFeature,
             maybeSubject
         ),
-        assertions
+        proofs
     )
 
     constructor(previous: FeatureExpectImpl<T, R>, options: FeatureExpectOptions<R>) : this(
-        previous.previousExpect,
+        previous.previousProofContainer.toExpect(),
         previous.maybeSubject,
         previous.description,
-        previous.assertions,
+        previous.proofs,
         options
     )
 
     /**
-     * All made assertions so far.
+     * All appended reportables so far.
      * This list is intentionally not thread-safe, this class is not intended for multi-thread usage.
      */
-    private val assertions: MutableList<Assertion> = mutableListOf()
+    private val proofs: MutableList<Proof> = mutableListOf()
 
     init {
-        appendAsGroup(assertions)
+        appendAsGroup(proofs)
     }
 
     override val components: ComponentFactoryContainer
-        // TODO 1.3.0 the function to turn an Expect into a ProofContainer should be located in core
-        get() = (previousExpect as AssertionContainer<*>).components
+        get() = previousProofContainer.components
 
-    override fun append(assertion: Assertion): Expect<R> {
-        assertions.add(assertion)
+    override fun append(proof: Proof): Expect<R> {
+        proofs.add(proof)
         //Would be nice if we don't have to add it immediately to the previousExpect but only:
         //if (!assertion.holds()) {
         //this way we could show chained features as one in reporting, i.e. message.contains("a").contains("b") would be:
@@ -75,13 +72,10 @@ internal class FeatureExpectImpl<T, R>(
         //
         //However, for this to work we would need to know when no more assertion is defined. This would be possible
         //for CollectingExpectImpl
-        (previousExpect as AssertionContainer<*>).append(
-            assertionBuilder.feature
-                .withDescriptionAndRepresentation(description, representation)
-                .withAssertions(assertions.toList())
-                .build()
+        previousProofContainer.append(
+            Proof.featureGroup(description, representation, proofs.toList())
         )
-        assertions.clear()
+        proofs.clear()
         return this
     }
 }

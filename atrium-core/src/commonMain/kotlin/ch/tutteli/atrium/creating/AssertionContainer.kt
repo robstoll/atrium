@@ -10,6 +10,7 @@ import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
 import ch.tutteli.atrium.core.None
 import ch.tutteli.atrium.core.Option
 import ch.tutteli.atrium.core.Some
+import ch.tutteli.atrium.creating.proofs.Proof
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.reporting.translating.Untranslatable
 import kotlin.reflect.KClass
@@ -22,7 +23,7 @@ import kotlin.reflect.KClass
  *
  * @param T The type of the subject of `this` expectation.
  */
-//TODO 1.3.0 introduce ProofContainer
+@Deprecated("Switch to ProofContainer, will be removed with 2.0.0 at the latest")
 interface AssertionContainer<T> {
     /**
      * Either [Some] wrapping the subject of an [Assertion] or [None] in case a previous subject transformation
@@ -75,6 +76,10 @@ interface AssertionContainer<T> {
      *
      * @throws AssertionError Might throw an [AssertionError] in case [Assertion]s are immediately evaluated.
      */
+    @Deprecated(
+        "Use appendAsGroupIndicateIfOneCollected and define the alternative or pass an empty list if you don't have any",
+        ReplaceWith("this.appendAsGroupIndicateIfOneCollected(assertionCreator, listOf(/* .. add a usage hint in case you have an overload which does not expect an expectationCreator */))")
+    )
     fun appendAsGroup(assertionCreator: Expect<T>.() -> Unit): Expect<T>
 
     /**

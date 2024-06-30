@@ -3,6 +3,7 @@
 
 package ch.tutteli.atrium.assertions
 
+import ch.tutteli.atrium.reporting.reportables.Reportable
 import ch.tutteli.atrium.reporting.Text
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.reporting.translating.Untranslatable
@@ -35,4 +36,6 @@ internal open class EmptyNameAndRepresentationAssertionGroup(
     override fun toString(): String {
         return this::class.simpleName + " " + assertions
     }
+
+    override val children: List<Reportable> get() = assertions
 }
