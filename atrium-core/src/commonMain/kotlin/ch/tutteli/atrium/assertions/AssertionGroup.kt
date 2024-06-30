@@ -3,13 +3,17 @@
 
 package ch.tutteli.atrium.assertions
 
+import ch.tutteli.atrium.creating.proofs.ProofGroup
+import ch.tutteli.atrium.reporting.reportables.Reportable
 import ch.tutteli.atrium.reporting.translating.Translatable
 
 /**
  * The base interface for [Assertion] groups, providing a default implementation for [Assertion.holds]
  * which returns `true` if all its [assertions] hold.
  */
-interface AssertionGroup : Assertion {
+interface AssertionGroup : Assertion, ProofGroup {
+
+    override val children: List<Reportable> get() = assertions
 
     /**
      * The description of the group.
@@ -31,14 +35,14 @@ interface AssertionGroup : Assertion {
     val representation: Any
 
     /**
-     * The assertions of this group, which are defined for the subject represented by [representation].
+     * The [Assertion]s of this group, which are defined for the subject represented by [representation].
      */
-    val assertions: List<Assertion>
+    val assertions: List<Assertion> get() = proofs.filterIsInstance<Assertion>()
 
     /**
-     * Holds if all its [assertions] hold.
+     * Holds if all its [proofs] hold.
      *
-     * @return `true` if all [assertions] hold; `false` otherwise.
+     * @return `true` if all [proofs] hold; `false` otherwise.
      */
-    override fun holds() = assertions.all(Assertion::holds)
+    override fun holds(): Boolean = super.holds()
 }

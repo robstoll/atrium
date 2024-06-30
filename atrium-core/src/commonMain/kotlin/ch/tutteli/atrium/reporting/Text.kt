@@ -1,5 +1,7 @@
 package ch.tutteli.atrium.reporting
 
+import ch.tutteli.atrium.reporting.reportables.InlineElement
+
 /**
  * Use this class to represent a [String] which should be treated as raw [String] in reporting.
  * @see ObjectFormatter
@@ -8,7 +10,7 @@ package ch.tutteli.atrium.reporting
  * @param string The string which should be treated as raw [String].
  */
 //TODO 2.0.0 remove data?
-data class Text private constructor(val string: String)  {
+data class Text private constructor(val string: String): InlineElement {
 
     /**
      * @suppress No need to document this behaviour.

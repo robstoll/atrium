@@ -1,10 +1,16 @@
 package ch.tutteli.atrium.creating.impl
 
 import ch.tutteli.atrium.assertions.Assertion
-import ch.tutteli.atrium.assertions.builders.*
 import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
 import ch.tutteli.atrium.core.Option
+import ch.tutteli.atrium.core.falseProvider
 import ch.tutteli.atrium.creating.*
+import ch.tutteli.atrium.creating.proofs.Proof
+import ch.tutteli.atrium.reporting.Text
+import ch.tutteli.atrium.reporting.reportables.Reportable
+import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionAnyProof
+import ch.tutteli.atrium.reporting.reportables.descriptions.ErrorMessages
+import ch.tutteli.kbox.ifNotEmpty
 
 @ExperimentalNewExpectTypes
 @ExperimentalComponentFactoryContainer
@@ -12,47 +18,60 @@ internal class CollectingExpectImpl<T>(
     maybeSubject: Option<T>,
     override val components: ComponentFactoryContainer
 ) : BaseExpectImpl<T>(maybeSubject), CollectingExpect<T> {
-    private val assertions = mutableListOf<Assertion>()
+    private val proofs = mutableListOf<Proof>()
 
-    override fun getAssertions(): List<Assertion> = assertions.toList()
+    @Deprecated("Assertion is deprecated, move to Proof", replaceWith = ReplaceWith("this.getCollectedProofs()"))
+    override fun getAssertions(): List<Assertion> = proofs.filterIsInstance<Assertion>()
 
-    override fun append(assertion: Assertion): Expect<T> =
-        apply { assertions.add(assertion) }
+    override fun getCollectedProofs(): List<Proof> = proofs
 
+    override fun append(proof: Proof): Expect<T> = apply { proofs.add(proof) }
+
+    @Deprecated(
+        "Use appendAsGroupIndicateIfOneCollected and define the alternative or pass an empty list if you don't have any",
+        replaceWith = ReplaceWith(
+            "this.appendAsGroupIndicateIfOneCollected(ExpectationCreatorWithUsageHints<T>(assertionCreator, listOf(/* .. add a custom usage hint in case you have an overload which does not expect an expectationCreator or use the generic */ ErrorMessages.DEFAULT_HINT_AT_LEAST_ONE_EXPECTATION_DEFINED))).first",
+            "ch.tutteli.atrium.creating.ExpectationCreatorWithUsageHints",
+            "ch.tutteli.atrium.reporting.reportables.descriptions.ErrorMessages"
+        )
+    )
     override fun appendAsGroup(assertionCreator: Expect<T>.() -> Unit): CollectingExpect<T> {
-        // in case we run into performance problems, the code below is certainly not ideal
-        val allAssertions = mutableListOf<Assertion>()
-        allAssertions.addAll(getAssertions())
-        assertions.clear()
-
-        assertionCreator(this)
-        val newAssertions = getAssertions()
-
-        assertions.clear()
-
-        if (newAssertions.isNotEmpty()) {
-            allAssertions.addAll(newAssertions)
-        } else {
-            allAssertions.add(assertionBuilder.descriptive
-                .failing
-                .withHelpOnFailure {
-                    assertionBuilder.explanatoryGroup
-                        .withDefaultType
-                        .withAssertions(
-                            assertionBuilder.explanatory.withExplanation(ErrorMessages.FORGOT_DO_DEFINE_EXPECTATION)
-                                .build(),
-                            assertionBuilder.explanatory.withExplanation(ErrorMessages.HINT_AT_LEAST_ONE_EXPECTATION_DEFINED)
-                                .build()
-                        )
-                        .build()
-                }
-                .showForAnyFailure
-                .withDescriptionAndRepresentation(ErrorMessages.AT_LEAST_ONE_EXPECTATION_DEFINED, false)
-                .build()
-            )
-        }
-        allAssertions.forEach { append(it) }
-        return this
+        @Suppress("DEPRECATION")
+        return super.appendAsGroup(assertionCreator) as CollectingExpect<T>
     }
 
+    override fun appendAsGroupIndicateIfOneCollected(
+        expectationCreatorWithUsageHints: ExpectationCreatorWithUsageHints<T>
+    ): Pair<CollectingExpect<T>, Boolean> {
+        // in case we run into performance problems, the code below is certainly not ideal
+        val allProofs = mutableListOf<Proof>()
+        allProofs.addAll(getCollectedProofs())
+        proofs.clear()
+
+        //TODO 1.3.0 collect unexpected exceptions, move DefaultExceptionHandler to core
+        expectationCreatorWithUsageHints.expectationCreator(this)
+        val newProofs = getCollectedProofs()
+        val noneCollected = newProofs.isNotEmpty()
+        proofs.clear()
+
+        if (noneCollected) {
+            allProofs.addAll(newProofs)
+        } else {
+            allProofs.add(
+                Proof.fixedClaimGroup(
+                    ErrorMessages.AT_LEAST_ONE_EXPECTATION_DEFINED, false,
+                    listOf(Proof.simple(DescriptionAnyProof.TO_EQUAL, true, falseProvider)) +
+                        expectationCreatorWithUsageHints.usageHintsOverloadWithoutExpectationCreator.ifNotEmpty { hints ->
+                            listOf(
+                                Reportable.usageHintGroup(listOf(ErrorMessages.FORGOT_DO_DEFINE_EXPECTATION) + hints)
+                            )
+                        },
+                    holds = false,
+                ),
+            )
+        }
+        allProofs.forEach { append(it) }
+
+        return Pair(this, noneCollected)
+    }
 }
