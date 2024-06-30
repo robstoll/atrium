@@ -39,6 +39,7 @@ fun <T, A1, A2, A3, A4, A5, R> AssertionContainer<T>.f5(f: KFunction6<T, A1, A2,
 fun <T, R> AssertionContainer<T>.manualFeature(description: ch.tutteli.atrium.reporting.translating.Translatable, provider: T.() -> R): FeatureExtractorBuilder.ExecutionStep<T, R> =
     impl.manualFeature(this, description, provider)
 
+    //TODO 1.3.0 provide another overload which expects InlineElement?
 fun <T> AssertionContainer<T>.extractSubject(failureDescription: String?, assertionCreator: Expect<T>.(T) -> Unit): Expect<T> =
     impl.extractSubject(this, failureDescription, assertionCreator)
 

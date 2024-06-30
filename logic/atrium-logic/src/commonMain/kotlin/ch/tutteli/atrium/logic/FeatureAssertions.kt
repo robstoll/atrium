@@ -33,6 +33,7 @@ interface FeatureAssertions {
         provider: T.() -> R
     ): FeatureExtractorBuilder.ExecutionStep<T, R>
 
+    //TODO 1.3.0 provide another overload which expects InlineElement?
     fun <T> extractSubject(
         container: AssertionContainer<T>,
         failureDescription: String?,
