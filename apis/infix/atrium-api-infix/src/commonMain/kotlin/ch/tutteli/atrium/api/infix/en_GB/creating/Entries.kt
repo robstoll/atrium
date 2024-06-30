@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.api.infix.en_GB.creating
 
-import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.creating.proofs.Proof
 import ch.tutteli.atrium.logic.utils.Group
 import ch.tutteli.atrium.logic.utils.VarArgHelper
 import ch.tutteli.kbox.glue
@@ -17,7 +17,7 @@ import ch.tutteli.kbox.glue
  * Use the function `entries({ ... }, ...)` to create this representation.
  *
  * @param assertionCreatorOrNull The identification lambda identifying the entry where an entry is considered
- *   to be identified if it holds all [Assertion]s the lambda creates.
+ *   to be identified if it holds all [Proof]s the lambda creates.
  *   In case it is defined as `null`, then an entry is identified if it is `null` as well.
  * @param otherAssertionCreatorsOrNulls A variable amount of additional identification lambdas or `null`s.
  */

@@ -1,3 +1,6 @@
+//TODO 2.0.0 remove file
+@file:Suppress("DEPRECATION")
+
 package ch.tutteli.atrium.logic
 
 import ch.tutteli.atrium.creating.AssertionContainer
@@ -8,6 +11,7 @@ import kotlin.reflect.*
 /**
  * Collection of functions which help to create feature assertions by returning [FeatureExtractorBuilder.ExecutionStep].
  */
+//TODO 1.3.0 deprecate
 interface FeatureAssertions {
     //@formatter:off
     fun <T, TProperty> property(container: AssertionContainer<T>, property: KProperty1<in T, TProperty>): FeatureExtractorBuilder.ExecutionStep<T, TProperty>
@@ -33,6 +37,7 @@ interface FeatureAssertions {
         provider: T.() -> R
     ): FeatureExtractorBuilder.ExecutionStep<T, R>
 
+    //TODO 1.3.0 provide another overload which expects InlineElement?
     fun <T> extractSubject(
         container: AssertionContainer<T>,
         failureDescription: String?,

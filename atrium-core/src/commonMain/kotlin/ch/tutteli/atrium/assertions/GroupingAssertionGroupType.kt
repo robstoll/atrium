@@ -1,3 +1,5 @@
+//TODO remove file with 2.0.0 at the latest
+@file:Suppress("DEPRECATION")
 package ch.tutteli.atrium.assertions
 
 import ch.tutteli.atrium.reporting.Reporter
@@ -9,6 +11,7 @@ import ch.tutteli.atrium.reporting.Reporter
  *
  * @since 1.1.0
  */
+@Deprecated("Switch from AssertionGroup to ProofGroup which does not require AssertionGroupType, will be removed with 2.0.0 at the latest")
 interface GroupingAssertionGroupType : AssertionGroupType
 
 /**
@@ -16,4 +19,5 @@ interface GroupingAssertionGroupType : AssertionGroupType
  *
  * @since 1.1.0
  */
+@Deprecated("Switch from AssertionGroup to ProofGroup which does not require AssertionGroupType, will be removed with 2.0.0 at the latest")
 object DefaultGroupingAssertionGroupType : GroupingAssertionGroupType

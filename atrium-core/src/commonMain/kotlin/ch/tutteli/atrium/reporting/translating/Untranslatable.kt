@@ -9,7 +9,10 @@ package ch.tutteli.atrium.reporting.translating
  */
 //TODO 1.3.0 define replacement
 @Suppress("DEPRECATION")
-@Deprecated("will be removed with 2.0.0 at the latestt")
+@Deprecated(
+    "Will be removed with 2.0.0 at the latest",
+    ReplaceWith("Text(representation)", "ch.tutteli.atrium.reporting.Text")
+)
 class Untranslatable(representation: String) : Translatable {
     override val name: String = representation
     override fun getDefault() = name
@@ -21,7 +24,10 @@ class Untranslatable(representation: String) : Translatable {
          * An empty string as [Untranslatable].
          */
         //TODO 1.3.0 define replacement
-        @Deprecated("will be removed with 2.0.0 at the latest without replacement")
+        @Deprecated(
+            "will be removed with 2.0.0 at the latest without replacement",
+            ReplaceWith("Text.EMPTY", "ch.tutteli.atrium.reporting.Text")
+        )
         val EMPTY = Untranslatable("")
     }
 }

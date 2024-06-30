@@ -1,3 +1,6 @@
+//TODO 1.4.0 remove file
+@file:Suppress("DEPRECATION")
+
 package ch.tutteli.atrium.specs.reporting
 
 import ch.tutteli.atrium.api.fluent.en_GB.toEqual
@@ -15,7 +18,7 @@ import ch.tutteli.atrium.reporting.text.impl.TextExplanatoryAssertionGroupFormat
 import ch.tutteli.atrium.reporting.text.impl.TextFallbackAssertionFormatter
 import ch.tutteli.atrium.reporting.text.impl.TextListAssertionGroupFormatter
 import ch.tutteli.atrium.reporting.text.impl.TextSummaryAssertionGroupFormatter
-import ch.tutteli.atrium.specs.AssertionVerb
+import ch.tutteli.atrium.specs.DummyTranslatables
 import ch.tutteli.atrium.specs.describeFunTemplate
 import ch.tutteli.atrium.specs.lineSeparator
 import ch.tutteli.atrium.translations.DescriptionComparableExpectation.*
@@ -107,7 +110,7 @@ abstract class AssertionFormatterControllerSpec(
                 },
                 "${AssertionBuilder::class.simpleName}.customType(t, ..)" to { t, a ->
                     assertionBuilder.customType(t)
-                        .withDescriptionAndRepresentation(AssertionVerb.VERB, 1)
+                        .withDescriptionAndRepresentation(DummyTranslatables.VERB, 1)
                         .withAssertions(a)
                         .build()
                 },
@@ -115,7 +118,7 @@ abstract class AssertionFormatterControllerSpec(
                     assertionBuilder.fixedClaimGroup
                         .withType(t)
                         .failing
-                        .withDescriptionAndRepresentation(AssertionVerb.VERB, 1)
+                        .withDescriptionAndRepresentation(DummyTranslatables.VERB, 1)
                         .withAssertions(a)
                         .build()
                 }
@@ -197,7 +200,7 @@ abstract class AssertionFormatterControllerSpec(
             context("first an ${ExplanatoryAssertionGroupType::class.simpleName} and then a regular assertion") {
                 it("appends only the explanatory expectation-group") {
                     val rootGroup = assertionBuilder.root
-                        .withDescriptionAndRepresentation(AssertionVerb.EXPECT, 5)
+                        .withDescriptionAndRepresentation(DummyTranslatables.EXPECT, 5)
                         .withAssertions(
                             assertionBuilder.explanatoryGroup.withDefaultType.withAssertion(holdingAssertion).build(),
                             holdingAssertion
@@ -205,7 +208,7 @@ abstract class AssertionFormatterControllerSpec(
                         .build()
                     testee.format(rootGroup, parameterObject)
                     expect(sb.toString()).toEqual(
-                        "${AssertionVerb.EXPECT.getDefault()}: 5$lineSeparator" +
+                        "${DummyTranslatables.EXPECT.getDefault()}: 5$lineSeparator" +
                             "$indentBulletPoint$arrow ${TO_BE_GREATER_THAN_OR_EQUAL_TO.getDefault()}: 1"
                     )
                 }
@@ -214,7 +217,7 @@ abstract class AssertionFormatterControllerSpec(
             context("first a regular assertion, then an ${ExplanatoryAssertionGroupType::class.simpleName} and finally a regular assertion again") {
                 it("appends only the explanatory expectation-group") {
                     val rootGroup = assertionBuilder.root
-                        .withDescriptionAndRepresentation(AssertionVerb.EXPECT, 5)
+                        .withDescriptionAndRepresentation(DummyTranslatables.EXPECT, 5)
                         .withAssertions(
                             holdingAssertion,
                             assertionBuilder.explanatoryGroup.withWarningType.withAssertion(holdingAssertion).build(),
@@ -223,7 +226,7 @@ abstract class AssertionFormatterControllerSpec(
                         .build()
                     testee.format(rootGroup, parameterObject)
                     expect(sb.toString()).toEqual(
-                        "${AssertionVerb.EXPECT.getDefault()}: 5$lineSeparator" +
+                        "${DummyTranslatables.EXPECT.getDefault()}: 5$lineSeparator" +
                             "$indentBulletPoint$warning ${TO_BE_GREATER_THAN_OR_EQUAL_TO.getDefault()}: 1"
                     )
                 }
@@ -231,7 +234,7 @@ abstract class AssertionFormatterControllerSpec(
 
             context("an expectation-group with assertions within an ${ExplanatoryAssertionGroupType::class.simpleName}") {
                 val assertionGroup = assertionBuilder.list
-                    .withDescriptionAndRepresentation(AssertionVerb.EXPECT_THROWN, 2)
+                    .withDescriptionAndRepresentation(DummyTranslatables.EXPECT_THROWN, 2)
                     .withAssertions(holdingAssertion, failingAssertion)
                     .build()
                 val explanatoryAssertionGroup = assertionBuilder.explanatoryGroup
@@ -241,13 +244,13 @@ abstract class AssertionFormatterControllerSpec(
 
                 it("appends the explanatory expectation-group including all its assertions") {
                     val rootGroup = assertionBuilder.root
-                        .withDescriptionAndRepresentation(AssertionVerb.EXPECT, 5)
+                        .withDescriptionAndRepresentation(DummyTranslatables.EXPECT, 5)
                         .withAssertion(explanatoryAssertionGroup)
                         .build()
                     testee.format(rootGroup, parameterObject)
                     expect(sb.toString()).toEqual(
-                        "${AssertionVerb.EXPECT.getDefault()}: 5$lineSeparator" +
-                            "$indentBulletPoint$arrow ${AssertionVerb.EXPECT_THROWN.getDefault()}: 2$lineSeparator" +
+                        "${DummyTranslatables.EXPECT.getDefault()}: 5$lineSeparator" +
+                            "$indentBulletPoint$arrow ${DummyTranslatables.EXPECT_THROWN.getDefault()}: 2$lineSeparator" +
                             "$indentBulletPoint$indentArrow$listBulletPoint ${TO_BE_GREATER_THAN_OR_EQUAL_TO.getDefault()}: 1$lineSeparator" +
                             "$indentBulletPoint$indentArrow$listBulletPoint ${TO_BE_LESS_THAN_OR_EQUAL_TO.getDefault()}: 2$lineSeparator" +
                             "$indentBulletPoint$arrow ${TO_BE_GREATER_THAN_OR_EQUAL_TO.getDefault()}: 1"
@@ -267,7 +270,7 @@ abstract class AssertionFormatterControllerSpec(
                         testee.format(rootGroup2, parameterObject)
                         expect(sb.toString()).toEqual(
                             "${TO_BE_LESS_THAN.getDefault()}: 10$lineSeparator" +
-                                "$indentBulletPoint$indentArrow$arrow ${AssertionVerb.EXPECT_THROWN.getDefault()}: 2$lineSeparator" +
+                                "$indentBulletPoint$indentArrow$arrow ${DummyTranslatables.EXPECT_THROWN.getDefault()}: 2$lineSeparator" +
                                 "$indentBulletPoint$indentArrow$indentArrow$listBulletPoint ${TO_BE_GREATER_THAN_OR_EQUAL_TO.getDefault()}: 1$lineSeparator" +
                                 "$indentBulletPoint$indentArrow$indentArrow$listBulletPoint ${TO_BE_LESS_THAN_OR_EQUAL_TO.getDefault()}: 2$lineSeparator" +
                                 "$indentBulletPoint$indentArrow$arrow ${TO_BE_GREATER_THAN_OR_EQUAL_TO.getDefault()}: 1"
@@ -302,13 +305,13 @@ abstract class AssertionFormatterControllerSpec(
                             override val assertions = listOf(holdingAssertion, failingAssertion)
                         }
                         val summaryGroup = assertionBuilder.summary
-                            .withDescription(AssertionVerb.EXPECT)
+                            .withDescription(DummyTranslatables.EXPECT)
                             .withAssertion(invisibleGroup)
                             .build()
                         testee.format(summaryGroup, parameterObject)
                         expect(sb.toString()).toEqual(
                             lineSeparator +
-                                "${AssertionVerb.EXPECT.getDefault()}: ${Text.EMPTY}$lineSeparator" +
+                                "${DummyTranslatables.EXPECT.getDefault()}: ${Text.EMPTY}$lineSeparator" +
                                 "$successfulBulletPoint ${TO_BE_GREATER_THAN_OR_EQUAL_TO.getDefault()}: 1$lineSeparator" +
                                 "$failingBulletPoint ${TO_BE_LESS_THAN_OR_EQUAL_TO.getDefault()}: 2"
                         )

@@ -4,6 +4,7 @@ public final class ch/tutteli/atrium/api/verbs/AssertionVerb : java/lang/Enum, c
 	public fun getDefault ()Ljava/lang/String;
 	public fun getId ()Ljava/lang/String;
 	public synthetic fun getName ()Ljava/lang/String;
+	public fun getString ()Ljava/lang/String;
 	public fun getValue ()Ljava/lang/String;
 	public static fun valueOf (Ljava/lang/String;)Lch/tutteli/atrium/api/verbs/AssertionVerb;
 	public static fun values ()[Lch/tutteli/atrium/api/verbs/AssertionVerb;
@@ -24,6 +25,15 @@ public final class ch/tutteli/atrium/api/verbs/ExpectKt {
 	public static final fun testFactory (Lkotlin/jvm/functions/Function1;[Lkotlin/jvm/functions/Function1;Lch/tutteli/atrium/creating/ExpectationVerbs;)Ljava/lang/Object;
 	public static synthetic fun testFactory$default (Lkotlin/jvm/functions/Function1;Lch/tutteli/atrium/creating/ExpectationVerbs;ILjava/lang/Object;)Ljava/lang/Object;
 	public static synthetic fun testFactory$default (Lkotlin/jvm/functions/Function1;[Lkotlin/jvm/functions/Function1;Lch/tutteli/atrium/creating/ExpectationVerbs;ILjava/lang/Object;)Ljava/lang/Object;
+}
+
+public final class ch/tutteli/atrium/api/verbs/ExpectationVerb : java/lang/Enum, ch/tutteli/atrium/reporting/reportables/Description {
+	public static final field EXPECT Lch/tutteli/atrium/api/verbs/ExpectationVerb;
+	public static final field EXPECT_GROUPED Lch/tutteli/atrium/api/verbs/ExpectationVerb;
+	public fun getDefault ()Ljava/lang/String;
+	public fun getString ()Ljava/lang/String;
+	public static fun valueOf (Ljava/lang/String;)Lch/tutteli/atrium/api/verbs/ExpectationVerb;
+	public static fun values ()[Lch/tutteli/atrium/api/verbs/ExpectationVerb;
 }
 
 public final class ch/tutteli/atrium/api/verbs/factory/DefaultExpectationVerbs : ch/tutteli/atrium/creating/ExpectationVerbs {

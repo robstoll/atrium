@@ -1,13 +1,11 @@
 package ch.tutteli.atrium.reporting.erroradjusters
 
+import ch.tutteli.atrium._core
 import ch.tutteli.atrium.api.infix.en_GB.*
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
 import ch.tutteli.atrium.core.polyfills.stackBacktrace
-import ch.tutteli.atrium.creating.ComponentFactoryContainer
-import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.creating.ExperimentalComponentFactoryContainer
-import ch.tutteli.atrium.creating.build
+import ch.tutteli.atrium.creating.*
 import ch.tutteli.atrium.logic._logic
 import ch.tutteli.atrium.logic.creating.RootExpectBuilder
 import ch.tutteli.atrium.reporting.AtriumErrorAdjuster
@@ -22,7 +20,12 @@ class AdjustStackTest {
         }
 
     private fun <T> expectWithNoOpErrorAdjuster(subject: T, assertionCreator: Expect<T>.() -> Unit): Expect<T> =
-        expectWithNoOpErrorAdjuster(subject)._logic.appendAsGroup(assertionCreator)
+        expectWithNoOpErrorAdjuster(subject)._core.appendAsGroupIndicateIfOneCollected(
+            ExpectationCreatorWithUsageHints(
+                usageHintsOverloadWithoutExpectationCreator = emptyList(),
+                expectationCreator = assertionCreator
+            )
+        ).first
 
     @Test
     fun noOp_containsMochaAndAtrium() {

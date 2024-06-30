@@ -1,3 +1,6 @@
+//TODO remove file with 2.0.0 at the latest
+@file:Suppress("DEPRECATION")
+
 package ch.tutteli.atrium.logic.creating.collectors
 
 import ch.tutteli.atrium.assertions.AssertionGroup

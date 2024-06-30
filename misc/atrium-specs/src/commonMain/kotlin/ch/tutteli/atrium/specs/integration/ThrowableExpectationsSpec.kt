@@ -5,6 +5,7 @@ import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.core.polyfills.format
 import ch.tutteli.atrium.core.polyfills.fullName
 import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionCharSequenceProof
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.translations.DescriptionCharSequenceExpectation
 import ch.tutteli.atrium.translations.DescriptionThrowableExpectation
@@ -38,7 +39,7 @@ abstract class ThrowableExpectationsSpec(
     fun describeFun(vararg pairs: SpecPair<*>, body: Suite.() -> Unit) =
         describeFunTemplate(describePrefix, pairs.map { it.name }.toTypedArray(), body = body)
 
-    val valueDescr = DescriptionCharSequenceExpectation.VALUE.getDefault()
+    val valueDescr = DescriptionCharSequenceProof.VALUE.string
 
     describeFun(messageFeature, message, messageToContain) {
         val messageFunctions = unifySignatures(messageFeature, message)
@@ -68,7 +69,7 @@ abstract class ThrowableExpectationsSpec(
                 }.toThrow<AssertionError> {
                     messageToContain(
                         notToEqualNullButToBeInstanceOfDescr, String::class.fullName,
-                        DescriptionCharSequenceExpectation.TO_CONTAIN.getDefault(),
+                        DescriptionCharSequenceProof.TO_CONTAIN.string,
                         "$valueDescr: 1",
                         "$valueDescr: 2.3",
                         "$valueDescr: 'z'",

@@ -3,9 +3,8 @@ package ch.tutteli.atrium.specs.integration
 import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.logic._logic
+import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionCharSequenceProof.*
 import ch.tutteli.atrium.specs.*
-import ch.tutteli.atrium.translations.DescriptionCharSequenceExpectation.NOT_TO_CONTAIN
 import org.spekframework.spek2.style.specification.Suite
 
 abstract class CharSequenceToContainNotToContainExpectationsSpec(
@@ -27,25 +26,23 @@ abstract class CharSequenceToContainNotToContainExpectationsSpec(
 
     fun Expect<CharSequence>.notToContainFun(t: String, vararg tX: String) = notToContain.invoke(this, t, tX)
 
-    val valueWithIndent = "$indentRootBulletPoint$listBulletPoint$value"
-    val notToContainDescr = NOT_TO_CONTAIN.getDefault()
-
     describeFun(toContain.name, notToContain.name) {
         context("empty string") {
-            val fluentEmptyString = expect("" as CharSequence)
             it("${toContain.name} 'Hello' throws AssertionError") {
                 expect {
-                    fluentEmptyString.toContainFun("Hello")
+                    expect("" as CharSequence).toContainFun("Hello")
                 }.toThrow<AssertionError> {
-                    messageToContain(
-                        "$rootBulletPoint$toContainDescr: $separator" +
-                            "$valueWithIndent: \"Hello\"",
-                            noMatchFoundDescr
-                    )
+                    message {
+                        toContainSubject("\"\"")
+                        toContainDescr(TO_CONTAIN, "")
+                        toContainValue("\"Hello\"")
+                        //TODO 1.3.0 expect that it starts with ❗❗ (right now it starts with »)
+                        toContain(NOT_FOUND.string)
+                    }
                 }
             }
             it("${notToContain.name} 'Hello' does not throw") {
-                fluentEmptyString.notToContainFun("Hello")
+                expect("" as CharSequence).notToContainFun("Hello")
             }
         }
 
@@ -58,7 +55,15 @@ abstract class CharSequenceToContainNotToContainExpectationsSpec(
                 it("${notToContain.name} 'Hello' throws AssertionError") {
                     expect {
                         expect(text).notToContainFun("Hello")
-                    }.toThrow<AssertionError> { messageToContain(notToContainDescr, "$valueWithIndent: \"Hello\"") }
+                    }.toThrow<AssertionError> {
+                        message {
+                            toContainSubject("\"$text\"")
+                            toContainDescr(NOT_TO_CONTAIN, "")
+                            toContainValue("\"Hello\"")
+                            toContainNumberOfMatches(1)
+                            toContainToEqualDescr(0)
+                        }
+                    }
                 }
 
                 it("${toContain.name} 'Hello' and 'Robert' does not throw") {
@@ -68,11 +73,12 @@ abstract class CharSequenceToContainNotToContainExpectationsSpec(
                     expect {
                         expect(text).notToContainFun("Hello", "Robert")
                     }.toThrow<AssertionError> {
-                        messageToContain(
-                            notToContainDescr,
-                            "$valueWithIndent: \"Hello\"",
-                            "$valueWithIndent: \"Robert\""
-                        )
+                        message {
+                            toContainValue("\"Hello\"")
+                            toContainValue("\"Robert\"")
+                            toContainNumberOfMatches(1, numOfMatches = 2)
+                            toContainToEqualDescr(0, numOfMatches = 2)
+                        }
                     }
                 }
             }
@@ -82,11 +88,12 @@ abstract class CharSequenceToContainNotToContainExpectationsSpec(
                     expect {
                         expect(text).toContainFun("notInThere", "neitherInThere")
                     }.toThrow<AssertionError> {
-                        messageToContain(
-                            toContainDescr,
-                            "$valueWithIndent: \"notInThere\"",
-                            "$valueWithIndent: \"neitherInThere\""
-                        )
+                        message {
+                            toContainValue("\"notInThere\"")
+                            toContainValue("\"neitherInThere\"")
+                            //TODO 1.3.0 expect that it starts with ❗❗ (right now it starts with »)
+                            this.toContain.exactly(2).value(NOT_FOUND.string)
+                        }
                     }
                 }
                 it("${notToContain.name} 'notInThere' and 'neitherInThere' does not throw") {
@@ -100,14 +107,10 @@ abstract class CharSequenceToContainNotToContainExpectationsSpec(
                         expect(text).toContainFun("hello", "robert")
                     }.toThrow<AssertionError> {
                         message {
-                            this.toContain.exactly(2).value(
-                                noMatchFoundDescr
-                            )
-                            this.toContain.exactly(1).values(
-                                "$rootBulletPoint$toContainDescr: $separator",
-                                "$valueWithIndent: \"hello\"",
-                                "$valueWithIndent: \"robert\""
-                            )
+                            toContainValue("\"hello\"")
+                            toContainValue("\"robert\"")
+                            //TODO 1.3.0 expect that it starts with ❗❗ (right now it starts with »)
+                            this.toContain.exactly(2).value(NOT_FOUND.string)
                         }
                     }
                 }
@@ -116,11 +119,17 @@ abstract class CharSequenceToContainNotToContainExpectationsSpec(
                 }
             }
 
-            context("search for 'Hello' and 'notInThere'") {
+            context("search for 'notInThere'") {
                 it("${toContain.name} 'notInThere' throws AssertionError") {
                     expect {
                         expect(text).toContainFun("notInThere")
-                    }.toThrow<AssertionError> { messageToContain(toContainDescr, "$valueWithIndent: \"notInThere\"") }
+                    }.toThrow<AssertionError> {
+                        message {
+                            toContainValue("\"notInThere\"")
+                            //TODO 1.3.0 expect that it starts with ❗❗ (right now it starts with »)
+                            toContain(NOT_FOUND.string)
+                        }
+                    }
                 }
                 it("${notToContain.name} 'notInThere' does not throw") {
                     expect(text).notToContainFun("notInThere")
@@ -131,8 +140,10 @@ abstract class CharSequenceToContainNotToContainExpectationsSpec(
                         expect(text).toContainFun("Hello", "notInThere")
                     }.toThrow<AssertionError> {
                         message {
-                            toContain(toContainDescr, "$valueWithIndent: \"notInThere\"")
-                            notToContain("$valueWithIndent: \"Hello\"")
+                            notToContain("\"Hello\"")
+                            toContainValue("\"notInThere\"")
+                            //TODO 1.3.0 expect that it starts with ❗❗ (right now it starts with »)
+                            this.toContain.exactly(1).value(NOT_FOUND.string)
                         }
                     }
                 }
@@ -141,8 +152,9 @@ abstract class CharSequenceToContainNotToContainExpectationsSpec(
                         expect(text).notToContainFun("Hello", "notInThere")
                     }.toThrow<AssertionError> {
                         message {
-                            toContain(notToContainDescr, "$valueWithIndent: \"Hello\"")
-                            notToContain("$valueWithIndent: \"notInThere\"")
+                            toContainValue("\"Hello\"")
+                            notToContain("\"notInThere\"")
+                            toContainToEqualDescr(0)
                         }
                     }
                 }
@@ -158,7 +170,7 @@ abstract class CharSequenceToContainNotToContainExpectationsSpec(
         }
 
         context("error message") {
-            context("feature assertion about a Person's name 'Robert Stoll'") {
+            context("feature expectation about a Person's name 'Robert Stoll'") {
                 data class Person(val name: CharSequence)
 
                 val person = Person("Robert Stoll")
@@ -166,18 +178,20 @@ abstract class CharSequenceToContainNotToContainExpectationsSpec(
                 val nameWithArrow = "${featureArrow}name"
                 it("${toContain.name} 'treboR' and 'llotS' - error message toContain '$nameWithArrow' exactly once") {
                     expect {
-                        expect(person)._logic.appendAsGroup {
-                            feature(Person::name).toContainFun("treboR", "llotS")
-                        }
+                        expect(person).feature(Person::name).toContainFun("treboR", "llotS")
                     }.toThrow<AssertionError> {
-                        message { this.toContain.exactly(1).value(nameWithArrow) }
+                        message {
+                            this.toContain.exactly(1).value(nameWithArrow)
+                            toContainValue("\"treboR\"")
+                            toContainValue("\"llotS\"")
+                            //TODO 1.3.0 expect that it starts with ❗❗ (right now it starts with »)
+                            this.toContain.exactly(2).value(NOT_FOUND.string)
+                        }
                     }
                 }
                 it("${notToContain.name} 'Robert' and 'Stoll' - error message toContain '$nameWithArrow' exactly once") {
                     expect {
-                        expect(person)._logic.appendAsGroup {
-                            feature(Person::name).notToContainFun("Robert", "Stoll")
-                        }
+                        expect(person).feature(Person::name).notToContainFun("Robert", "Stoll")
                     }.toThrow<AssertionError> {
                         message { this.toContain.exactly(1).value(nameWithArrow) }
                     }

@@ -3,6 +3,7 @@ package ch.tutteli.atrium.specs.integration
 import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionCollectionProof
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.translations.DescriptionCollectionExpectation
 import ch.tutteli.atrium.translations.DescriptionMapLikeExpectation
@@ -72,7 +73,7 @@ abstract class MapExpectationsSpec(
     fun describeFun(vararg pairs: SpecPair<*>, body: Suite.() -> Unit) =
         describeFunTemplate(describePrefix, pairs.map { it.name }.toTypedArray(), body = body)
 
-    val empty = DescriptionCollectionExpectation.EMPTY.getDefault()
+    val empty = DescriptionCollectionProof.EMPTY.string
     val toContainKeyDescr = DescriptionMapLikeExpectation.TO_CONTAIN_KEY.getDefault()
     val notToContainKeyDescr = DescriptionMapLikeExpectation.NOT_TO_CONTAIN_KEY.getDefault()
     val keyDoesNotExist = DescriptionMapLikeExpectation.KEY_DOES_NOT_EXIST.getDefault()

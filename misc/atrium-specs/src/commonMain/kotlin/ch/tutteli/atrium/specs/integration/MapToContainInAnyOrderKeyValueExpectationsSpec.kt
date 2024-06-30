@@ -65,10 +65,10 @@ abstract class MapToContainInAnyOrderKeyValueExpectationsSpec(
         context("map $map") {
             toContainKeyWithValueAssertionsFunctions.forEach { (name, toContainKeyWithValueAssertionsFun) ->
                 listOf(
-                    "a { toBe(1) }" to listOf(keyValue("a") { toEqual(1) }),
-                    "b { toBe(2) }" to listOf(keyValue("b") { toEqual(2) }),
-                    "a { toBe(1) }, b { toBe(2) }" to listOf(keyValue("a") { toEqual(1) }, keyValue("b") { toEqual(2) }),
-                    "b { toBe(2) }, a { toBe(1) }" to listOf(keyValue("b") { toEqual(2) }, keyValue("a") { toEqual(1) })
+                    "a { toEqual(1) }" to listOf(keyValue("a") { toEqual(1) }),
+                    "b { toEqual(2) }" to listOf(keyValue("b") { toEqual(2) }),
+                    "a { toEqual(1) }, b { toEqual(2) }" to listOf(keyValue("a") { toEqual(1) }, keyValue("b") { toEqual(2) }),
+                    "b { toEqual(2) }, a { toEqual(1) }" to listOf(keyValue("b") { toEqual(2) }, keyValue("a") { toEqual(1) })
                 ).forEach { (description, keyValues) ->
                     it("$name - $description does not throw") {
                         expect(map).toContainKeyWithValueAssertionsFun(
@@ -114,22 +114,22 @@ abstract class MapToContainInAnyOrderKeyValueExpectationsSpec(
             listOf(
                 "(a, null)" to
                     listOf(keyNullableValue("a", null)),
-                "a { toBe(1) }" to
+                "a { toEqual(1) }" to
                     listOf(keyNullableValue(null) { toEqual(1) }),
-                "b { toBe(2) }" to
+                "b { toEqual(2) }" to
                     listOf(keyNullableValue("b") { toEqual(2) }),
-                "(a, null), b{ toBe(2) }" to
+                "(a, null), b{ toEqual(2) }" to
                     listOf(keyNullableValue("a", null), keyNullableValue("b") { toEqual(2) }),
-                "null { toBe(1) }, b{ toBe(2) }" to
+                "null { toEqual(1) }, b{ toEqual(2) }" to
                     listOf(keyNullableValue(null) { toEqual(1) }, keyNullableValue("b") { toEqual(2) }),
-                "null { toBe(1) }, (a, null)" to
+                "null { toEqual(1) }, (a, null)" to
                     listOf(keyNullableValue(null) { toEqual(1) }, keyNullableValue("a", null)),
-                "null { toBe(1) }, (a, null), b{ toBe(2) }" to
+                "null { toEqual(1) }, (a, null), b{ toEqual(2) }" to
                     listOf(
                         keyNullableValue(null) { toEqual(1) },
                         keyNullableValue("a", null),
                         keyNullableValue("b") { toEqual(2) }),
-                "b { toBe(2) }, null{ toBe(1) }, (a, null)" to
+                "b { toEqual(2) }, null{ toEqual(1) }, (a, null)" to
                     listOf(
                         keyNullableValue("b") { toEqual(2) },
                         keyNullableValue(null) { toEqual(1) },

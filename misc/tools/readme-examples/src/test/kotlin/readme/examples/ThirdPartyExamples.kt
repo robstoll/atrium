@@ -1,5 +1,6 @@
 package readme.examples
 
+import ch.tutteli.atrium._core
 import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.creating.Expect
 //@formatter:off
@@ -53,7 +54,7 @@ class ThirdPartyExamples : ReadmeTest {
         //snippet-logic-import-insert
 
         fun <T : Number> Expect<T>.notToBeNegative() =
-            _logic.createAndAppend("not to be", Text("negative")) { subject ->
+            _core.createAndAppend("not to be", Text("negative")) { subject ->
                 when (subject) {
                     is Int -> subject.sign >= 0
                     is Long -> subject.sign >= 0

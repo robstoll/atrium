@@ -1,6 +1,6 @@
 package ch.tutteli.atrium.api.verbs.factory
 
-import ch.tutteli.atrium.api.verbs.AssertionVerb
+import ch.tutteli.atrium.api.verbs.ExpectationVerb
 import ch.tutteli.atrium.creating.ExpectationVerbs
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.creating.ExpectGrouping
@@ -18,8 +18,7 @@ object DefaultExpectationVerbs : ExpectationVerbs {
     override fun <T> expect(subject: T, expectationCreator: Expect<T>.() -> Unit): Expect<T> =
         defaultExpect(subject)
 
-    override val defaultExpectGroupDescription: String
-        get() = AssertionVerb.EXPECT_GROUPED.getDefault()
+    override val defaultExpectGroupDescription: String = ExpectationVerb.EXPECT_GROUPED.string,
 
     override fun expectGrouped(description: String, groupingActions: ExpectGrouping.() -> Unit): ExpectGrouping =
         ch.tutteli.atrium.api.verbs.expectGrouped(
