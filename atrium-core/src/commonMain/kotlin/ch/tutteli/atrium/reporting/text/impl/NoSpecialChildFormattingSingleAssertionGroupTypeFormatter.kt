@@ -1,3 +1,6 @@
+//TODO remove file with 2.0.0 at the latest
+@file:Suppress("DEPRECATION")
+
 package ch.tutteli.atrium.reporting.text.impl
 
 import ch.tutteli.atrium.assertions.Assertion
@@ -23,6 +26,7 @@ import kotlin.reflect.KClass
  * @param assertionFormatterController The controller to which this formatter gives back the control
  *   when it comes to format children of an [AssertionGroup].
  */
+@Deprecated("Switch to Proof based reporting, will be removed with 2.0.0 at the latest")
 abstract class NoSpecialChildFormattingSingleAssertionGroupTypeFormatter<in T : AssertionGroupType>(
     clazz: KClass<T>,
     private val assertionFormatterController: AssertionFormatterController

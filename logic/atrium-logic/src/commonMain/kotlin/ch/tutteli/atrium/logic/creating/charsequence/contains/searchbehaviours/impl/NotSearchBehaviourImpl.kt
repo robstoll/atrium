@@ -1,3 +1,6 @@
+//TODO 2.0.0 remove file
+@file:Suppress("DEPRECATION")
+
 package ch.tutteli.atrium.logic.creating.charsequence.contains.searchbehaviours.impl
 
 import ch.tutteli.atrium.logic.creating.charsequence.contains.CharSequenceContains
@@ -14,7 +17,6 @@ class NotSearchBehaviourImpl : NotSearchBehaviour {
      * @return [DescriptionCharSequenceExpectation.NOT_TO_CONTAIN]
      */
     //TODO 1.3.0 replace with Representable and remove suppression
-    @Suppress("DEPRECATION")
     override fun decorateDescription(description: ch.tutteli.atrium.reporting.translating.Translatable): ch.tutteli.atrium.reporting.translating.Translatable =
         DescriptionCharSequenceExpectation.NOT_TO_CONTAIN
 }

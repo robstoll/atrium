@@ -10,7 +10,6 @@ plugins {
     alias(libs.plugins.nexus)
 }
 
-
 // test
 val jacocoToolVersion by extra("0.8.9")
 // need to use an old version of spek as the newer contains a bug which causes that no tests are discovered and executed

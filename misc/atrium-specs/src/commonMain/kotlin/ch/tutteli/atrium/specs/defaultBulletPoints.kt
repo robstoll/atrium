@@ -1,20 +1,23 @@
+//TODO remove with 2.0.0 latest
+@file:Suppress("DEPRECATION")
+
 package ch.tutteli.atrium.specs
 
 import ch.tutteli.atrium.assertions.*
 
 const val rootBulletPoint = "◆ "
-const val listBulletPoint = "⚬ "
+const val listBulletPoint = "• "
 
-const val featureArrow = "▶ "
+const val featureArrow = "▶ "
 const val featureBulletPoint = "◾ "
 
 const val successfulBulletPoint = "✔ "
-const val failingBulletPoint = "✘ "
+const val failingBulletPoint = "✘ "
 
 const val explanatoryBulletPoint = "» "
 const val warningBulletPoint = "❗❗ "
-const val informationBulletPoint = "ℹ "
-const val hintBulletPoint ="\uD83D\uDCA1 "
+const val informationBulletPoint = "ℹ\uFE0F "
+const val hintBulletPoint ="\uD83D\uDCA1\uFE0F "
 const val groupingBulletPoint = "# "
 
 val indentRootBulletPoint = " ".repeat(rootBulletPoint.length)

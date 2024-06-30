@@ -1,12 +1,11 @@
 package ch.tutteli.atrium.specs.integration
 
 import ch.tutteli.atrium.api.fluent.en_GB.message
-import ch.tutteli.atrium.api.fluent.en_GB.messageToContain
-import ch.tutteli.atrium.api.fluent.en_GB.toEndWith
 import ch.tutteli.atrium.api.fluent.en_GB.toThrow
 import ch.tutteli.atrium.api.verbs.internal.expect
+import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionCharSequenceProof
+import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionCharSequenceProof.*
 import ch.tutteli.atrium.specs.*
-import ch.tutteli.atrium.translations.DescriptionCharSequenceExpectation.*
 import org.spekframework.spek2.style.specification.Suite
 
 abstract class CharSequenceExpectationsSpec(
@@ -58,10 +57,10 @@ abstract class CharSequenceExpectationsSpec(
             it("${notToBeEmpty.name} throws an AssertionError") {
                 expect {
                     expect(emptyString).notToBeEmptyFun()
-                }.toThrow<AssertionError> { message { toEndWith("$notToBeDescr: empty") } }
+                }.toThrow<AssertionError> { message { toContainNotToBeDescr("empty") } }
                 expect {
                     expect(emptyStringBuilder).notToBeEmptyFun()
-                }.toThrow<AssertionError> { message { toEndWith("$notToBeDescr: empty") } }
+                }.toThrow<AssertionError> { message { toContainNotToBeDescr("empty") } }
             }
         }
         context("string is not empty") {
@@ -69,10 +68,10 @@ abstract class CharSequenceExpectationsSpec(
             it("${toBeEmpty.name} throws an AssertionError") {
                 expect {
                     expect(blankString).toBeEmptyFun()
-                }.toThrow<AssertionError> { message { toEndWith("$toBeDescr: empty") } }
+                }.toThrow<AssertionError> { message { toContainToBeDescr("empty") } }
                 expect {
                     expect(blankStringBuilder).toBeEmptyFun()
-                }.toThrow<AssertionError> { message { toEndWith("$toBeDescr: empty") } }
+                }.toThrow<AssertionError> { message { toContainToBeDescr("empty") } }
             }
             it("${notToBeEmpty.name} does not throw") {
                 expect(blankString).notToBeEmptyFun()
@@ -89,10 +88,10 @@ abstract class CharSequenceExpectationsSpec(
 
                 expect {
                     expect(blankString).notToBeBlankFun()
-                }.toThrow<AssertionError> { message { toEndWith("$notToBeDescr: blank") } }
+                }.toThrow<AssertionError> { message { toContainNotToBeDescr("blank") } }
                 expect {
                     expect(blankStringBuilder).notToBeBlankFun()
-                }.toThrow<AssertionError> { message { toEndWith("$notToBeDescr: blank") } }
+                }.toThrow<AssertionError> { message { toContainNotToBeDescr("blank") } }
             }
         }
         context("string is not blank") {
@@ -114,13 +113,13 @@ abstract class CharSequenceExpectationsSpec(
             it("${notToStartWith.name} 'Hello' throws an AssertionError") {
                 expect {
                     expect(text).notToStartWithFun("Hello")
-                }.toThrow<AssertionError> { messageToContain(NOT_TO_START_WITH.getDefault()) }
+                }.toThrow<AssertionError> { message { toContainDescr(NOT_TO_START_WITH, "\"Hello\"") } }
             }
 
             it("${toStartWith.name} 'Robert' throws an AssertionError") {
                 expect {
                     expect(text).toStartWithFun("goodbye")
-                }.toThrow<AssertionError> { messageToContain(TO_START_WITH.getDefault()) }
+                }.toThrow<AssertionError> { message { toContainDescr(TO_START_WITH, "\"goodbye\"") } }
             }
             it("${notToStartWith.name} 'Robert' does not throw") {
                 expect(text).notToStartWithFun("goodbye")
@@ -136,7 +135,9 @@ abstract class CharSequenceExpectationsSpec(
             it("${toEndWith.name} 'Hello' throws an AssertionError") {
                 expect {
                     expect(text).toEndWithFun("Hello")
-                }.toThrow<AssertionError> { messageToContain(TO_END_WITH.getDefault()) }
+                }.toThrow<AssertionError> {
+                    message { toContainDescr(TO_END_WITH, "\"Hello\"") }
+                }
             }
             it("${notToEndWith.name} 'Hello' does not throw") {
                 expect(text).notToEndWithFun("Hello")
@@ -148,7 +149,7 @@ abstract class CharSequenceExpectationsSpec(
             it("${notToEndWith.name} 'Robert' throws an AssertionError") {
                 expect {
                     expect(text).notToEndWithFun("Robert")
-                }.toThrow<AssertionError> { messageToContain(NOT_TO_END_WITH.getDefault()) }
+                }.toThrow<AssertionError> { message { toContainDescr(NOT_TO_END_WITH, "\"Robert\"") } }
             }
         }
     }
@@ -164,7 +165,7 @@ abstract class CharSequenceExpectationsSpec(
             it("${toMatch.name} 'Hello' throws an AssertionError") {
                 expect {
                     expect(text).toMatchFun(Regex("Hello"))
-                }.toThrow<AssertionError> { messageToContain(TO_MATCH.getDefault()) }
+                }.toThrow<AssertionError> { message { toContainDescr(TO_MATCH, "Hello") } }
             }
         }
     }
@@ -180,7 +181,7 @@ abstract class CharSequenceExpectationsSpec(
             it("${notToMatch.name} 'Hello my name is Robert' throws an AssertionError") {
                 expect {
                     expect(text).notToMatchFun(Regex("Hello my name is Robert"))
-                }.toThrow<AssertionError> { messageToContain(NOT_TO_MATCH.getDefault()) }
+                }.toThrow<AssertionError> { message { toContainDescr(NOT_TO_MATCH, "Hello my name is Robert") } }
             }
         }
     }

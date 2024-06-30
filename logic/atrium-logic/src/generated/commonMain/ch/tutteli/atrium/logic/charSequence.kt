@@ -4,6 +4,9 @@
 //  buildSrc/generation.kt
 //  if necessary - enjoy the day 🙂
 //---------------------------------------------------
+//TODO 2.0.0 remove file
+@file:Suppress("DEPRECATION")
+
 package ch.tutteli.atrium.logic
 
 import ch.tutteli.atrium.assertions.Assertion
@@ -12,6 +15,10 @@ import ch.tutteli.atrium.logic.creating.charsequence.contains.CharSequenceContai
 import ch.tutteli.atrium.logic.creating.charsequence.contains.searchbehaviours.NoOpSearchBehaviour
 import ch.tutteli.atrium.logic.creating.charsequence.contains.searchbehaviours.NotSearchBehaviour
 import ch.tutteli.atrium.logic.creating.charsequence.contains.steps.NotCheckerStep
+
+/**
+ * Collection of assertion functions and builders which are applicable to subjects with a [CharSequence] type.
+ */
 import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
 import ch.tutteli.atrium.logic.impl.DefaultCharSequenceAssertions
 

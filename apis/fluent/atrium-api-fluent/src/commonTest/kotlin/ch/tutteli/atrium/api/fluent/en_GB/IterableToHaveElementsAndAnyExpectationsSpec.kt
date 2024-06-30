@@ -67,7 +67,10 @@ class IterableToHaveElementsAndAnyExpectationsSpec : Spek({
         private fun getToContainSequencePair() =
             "asSequence().${Sequence<*>::asIterable.name}().$toContain" to Companion::toContainInAnyOrderEntrySequence
 
+
         private fun toContainInAnyOrderEntrySequence(expect: Expect<Iterable<Double>>, a: Expect<Double>.() -> Unit) =
+            //TODO 1.3.0 switch to _core
+            @Suppress("DEPRECATION")
             expect._logic.changeSubject.unreported { it.asSequence() }.asIterable().toContain(a)
 
         fun getToContainNullableSequencePair() =
@@ -76,7 +79,10 @@ class IterableToHaveElementsAndAnyExpectationsSpec : Spek({
         private fun toContainNullableEntrySequence(
             expect: Expect<Iterable<Double?>>,
             a: (Expect<Double>.() -> Unit)?
-        ) = expect._logic.changeSubject.unreported { it.asSequence() }.asIterable { toContain(a) }.asIterable()
+        ) =
+            //TODO 1.3.0 switch to _core
+            @Suppress("DEPRECATION")
+            expect._logic.changeSubject.unreported { it.asSequence() }.asIterable { toContain(a) }.asIterable()
     }
 
 

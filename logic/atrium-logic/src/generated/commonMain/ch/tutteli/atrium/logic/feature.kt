@@ -4,12 +4,19 @@
 //  buildSrc/generation.kt
 //  if necessary - enjoy the day 🙂
 //---------------------------------------------------
+//TODO 2.0.0 remove file
+@file:Suppress("DEPRECATION")
+
 package ch.tutteli.atrium.logic
 
 import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic.creating.transformers.FeatureExtractorBuilder
 import kotlin.reflect.*
+
+/**
+ * Collection of functions which help to create feature assertions by returning [FeatureExtractorBuilder.ExecutionStep].
+ */
 import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
 import ch.tutteli.atrium.logic.impl.DefaultFeatureAssertions
 
@@ -39,6 +46,7 @@ fun <T, A1, A2, A3, A4, A5, R> AssertionContainer<T>.f5(f: KFunction6<T, A1, A2,
 fun <T, R> AssertionContainer<T>.manualFeature(description: ch.tutteli.atrium.reporting.translating.Translatable, provider: T.() -> R): FeatureExtractorBuilder.ExecutionStep<T, R> =
     impl.manualFeature(this, description, provider)
 
+    //TODO 1.3.0 provide another overload which expects InlineElement?
 fun <T> AssertionContainer<T>.extractSubject(failureDescription: String?, assertionCreator: Expect<T>.(T) -> Unit): Expect<T> =
     impl.extractSubject(this, failureDescription, assertionCreator)
 

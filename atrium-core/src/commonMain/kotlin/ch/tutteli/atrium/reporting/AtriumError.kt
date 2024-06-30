@@ -1,10 +1,10 @@
 package ch.tutteli.atrium.reporting
 
-import ch.tutteli.atrium.assertions.Assertion
+import ch.tutteli.atrium.creating.proofs.Proof
 import ch.tutteli.atrium.reporting.AtriumError.Companion
 
 /**
- * Indicates that an assertion made by Atrium failed.
+ * Indicates that an expectation stated via Atrium was not.
  *
  * Its stack trace (`stackTrace` in JVM, `stack` in JS) might be filtered so that reporting does not include
  * all stack frames. This depends on the chosen [AtriumErrorAdjuster] - so theoretically more than the stack trace
@@ -12,15 +12,14 @@ import ch.tutteli.atrium.reporting.AtriumError.Companion
  *
  * To create such an error you need to use the [Companion.create] function.
  */
-expect class AtriumError internal constructor(message: String, rootAssertion: Assertion) : AssertionError {
+expect class AtriumError internal constructor(message: String, causingProof: Proof) : AssertionError {
 
-    //TODO 1.3.0 replace with rootProof
     /**
-     * Represents the [Assertion] which lead to this AtriumError.
+     * Represents the [Proof] which lead to this AtriumError.
      *
      * @since 1.3.0
      */
-    val rootAssertion: Assertion
+    val causingProof: Proof
 
     companion object {
         /**
@@ -29,13 +28,13 @@ expect class AtriumError internal constructor(message: String, rootAssertion: As
          */
         fun create(
             message: String,
-            rootAssertion: Assertion,
+            causingProof: Proof,
             atriumErrorAdjuster: AtriumErrorAdjuster,
         ): AtriumError
     }
 }
 
-internal fun createAtriumError(message: String, rootAssertion: Assertion, errorAdjuster: AtriumErrorAdjuster): AtriumError =
-    AtriumError(message, rootAssertion).also {
+internal fun createAtriumError(message: String, causingProof: Proof, errorAdjuster: AtriumErrorAdjuster): AtriumError =
+    AtriumError(message, causingProof).also {
         errorAdjuster.adjust(it)
     }

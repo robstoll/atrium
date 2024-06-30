@@ -34,6 +34,7 @@ import kotlin.reflect.KClass
  *   when it comes to format children of an [AssertionGroup].
  * @param assertionPairFormatter The formatter which is used to format assertion pairs.
  */
+@Deprecated("Switch to Proof based reporting, will be removed with 2.0.0 at the latest")
 class TextFeatureAssertionGroupFormatter(
     bulletPoints: Map<KClass<out BulletPointIdentifier>, String>,
     assertionFormatterController: AssertionFormatterController,

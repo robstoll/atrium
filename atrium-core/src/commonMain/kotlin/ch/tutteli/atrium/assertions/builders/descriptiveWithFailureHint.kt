@@ -63,6 +63,7 @@ fun createShouldNotBeShownToUserWarning(): Assertion =
     assertionBuilder.explanatoryGroup
         .withWarningType
         .withExplanatoryAssertion(Text(SHOULD_NOT_BE_SHOWN_TO_THE_USER_BUG))
+        .failing
         .build()
 
 /**

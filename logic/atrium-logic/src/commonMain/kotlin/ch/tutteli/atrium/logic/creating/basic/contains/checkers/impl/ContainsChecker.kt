@@ -1,3 +1,6 @@
+//TODO 2.0.0 remove file
+@file:Suppress("DEPRECATION")
+
 package ch.tutteli.atrium.logic.creating.basic.contains.checkers.impl
 
 import ch.tutteli.atrium.assertions.DescriptiveAssertion

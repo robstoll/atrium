@@ -7,7 +7,7 @@ import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.core.polyfills.fullName
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
-import ch.tutteli.atrium.translations.DescriptionCharSequenceExpectation
+import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionCharSequenceProof
 import ch.tutteli.atrium.translations.DescriptionResultExpectation
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.Suite
@@ -48,7 +48,7 @@ abstract class ResultExpectationsSpec(
         "$describePrefix[failure] ", Result.failure(IllegalArgumentException("oh no...")),
         assertionCreatorSpecTriple(
             toBeAFailure.name,
-            "${DescriptionCharSequenceExpectation.VALUE.getDefault()}: \"oh no...\"",
+            "${DescriptionCharSequenceProof.VALUE.string}: \"oh no...\"",
             { apply { toBeAFailure.invoke(this) { messageToContain("oh no...") } } },
             { apply { toBeAFailure.invoke(this) {} } }
         )
@@ -99,8 +99,8 @@ abstract class ResultExpectationsSpec(
                         )
                         if (hasExtraHint) {
                             messageToContain(
-                                DescriptionCharSequenceExpectation.TO_CONTAIN.getDefault(),
-                                "${DescriptionCharSequenceExpectation.VALUE.getDefault()}: \"oh yes...\""
+                                DescriptionCharSequenceProof.TO_CONTAIN.string,
+                                "${DescriptionCharSequenceProof.VALUE.string}: \"oh yes...\""
                             )
                         }
                     }
@@ -130,7 +130,7 @@ abstract class ResultExpectationsSpec(
                     }.toThrow<AssertionError> {
                         messageToContain(
                             "$exceptionDescr: ${IllegalArgumentException::class.fullName}",
-                            DescriptionCharSequenceExpectation.TO_CONTAIN.getDefault(), "${DescriptionCharSequenceExpectation.VALUE.getDefault()}: \"oh yes...\""
+                            DescriptionCharSequenceProof.TO_CONTAIN.string, "${DescriptionCharSequenceProof.VALUE.string}: \"oh yes...\""
                         )
                     }
                 }

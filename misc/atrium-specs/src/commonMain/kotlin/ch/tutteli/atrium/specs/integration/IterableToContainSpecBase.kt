@@ -12,7 +12,7 @@ import ch.tutteli.atrium.specs.SpecPair
 import ch.tutteli.atrium.specs.lineSeparator
 import ch.tutteli.atrium.specs.name
 import ch.tutteli.atrium.specs.uncheckedToNonNullable
-import ch.tutteli.atrium.translations.DescriptionBasic
+import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionBasic
 import ch.tutteli.atrium.translations.DescriptionCollectionExpectation
 import ch.tutteli.atrium.translations.DescriptionIterableLikeExpectation
 import org.spekframework.spek2.Spek
@@ -48,7 +48,7 @@ abstract class IterableToContainSpecBase(spec: Root.() -> Unit) : Spek(spec) {
             DescriptionIterableLikeExpectation.WARNING_MISMATCHES_ADDITIONAL_ELEMENTS.getDefault()
         val sizeExceeded = DescriptionIterableLikeExpectation.SIZE_EXCEEDED.getDefault()
         val anElementWhichEquals = DescriptionIterableLikeExpectation.AN_ELEMENT_WHICH_EQUALS.getDefault()
-        val toHaveDescr = DescriptionBasic.TO_HAVE.getDefault()
+        val toHaveDescr = DescriptionBasic.TO_HAVE.string
         val aNextElement = DescriptionIterableLikeExpectation.A_NEXT_ELEMENT.getDefault()
         val notToContainDescr = DescriptionIterableLikeExpectation.NOT_TO_CONTAIN.getDefault()
         val noSuchValueDescr = DescriptionIterableLikeExpectation.ELEMENT_NOT_FOUND.getDefault()

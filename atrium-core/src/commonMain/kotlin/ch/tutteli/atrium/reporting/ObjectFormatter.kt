@@ -5,6 +5,7 @@ package ch.tutteli.atrium.reporting
  *
  * Typically, it formats the subject of the formulated expectation including the expected values.
  */
+//TODO 1.3.0 deprecate?
 interface ObjectFormatter {
 
     /**

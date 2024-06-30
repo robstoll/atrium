@@ -1,8 +1,8 @@
 package ch.tutteli.atrium.specs.integration
 
-import ch.tutteli.atrium.core.polyfills.format
+import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionCharSequenceProof
 import ch.tutteli.atrium.specs.lineSeparator
-import ch.tutteli.atrium.translations.DescriptionCharSequenceExpectation
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.dsl.Root
 
@@ -11,20 +11,14 @@ abstract class CharSequenceToContainSpecBase(spec: Root.() -> Unit) : Spek(spec)
     companion object {
         val text: CharSequence = "Hello my name is Robert"
         val helloWorld: CharSequence = "Hello World, I am Oskar"
-
-        val toContainDescr = DescriptionCharSequenceExpectation.TO_CONTAIN.getDefault()
-        val toContainIgnoringCase = DescriptionCharSequenceExpectation.IGNORING_CASE.getDefault().format(
-            DescriptionCharSequenceExpectation.TO_CONTAIN.getDefault()
-        )
-        val numberOfOccurrences = DescriptionCharSequenceExpectation.NUMBER_OF_MATCHES.getDefault()
-        val value = DescriptionCharSequenceExpectation.VALUE.getDefault()
-        val stringMatchingRegex = DescriptionCharSequenceExpectation.STRING_MATCHING_REGEX.getDefault()
-        val noMatchFoundDescr = DescriptionCharSequenceExpectation.NOT_FOUND.getDefault()
-
-        val atLeast = DescriptionCharSequenceExpectation.AT_LEAST.getDefault()
-        val atMost = DescriptionCharSequenceExpectation.AT_MOST.getDefault()
-
         val illegalArgumentException = IllegalArgumentException::class.simpleName
-        val separator = lineSeparator
+
+        const val ERROR_MESSAGE_ONLY_CHARSEQUENCE_NUMBER_CHAR = "Only values of type CharSequence, Number and Char are allowed"
+
+        fun Expect<String>.toContainValue(representation: Any?) =
+            toContainDescr(DescriptionCharSequenceProof.VALUE, representation)
+
+        fun Expect<String>.toContainNumberOfMatches(representation: Any?, numOfMatches: Int = 1) =
+            toContainDescr(DescriptionCharSequenceProof.NUMBER_OF_MATCHES, representation, numOfMatches)
     }
 }

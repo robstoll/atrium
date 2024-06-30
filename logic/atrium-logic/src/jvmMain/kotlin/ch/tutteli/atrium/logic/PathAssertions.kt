@@ -1,3 +1,6 @@
+//TODO 2.0.0 remove file
+@file:Suppress("DEPRECATION")
+
 package ch.tutteli.atrium.logic
 
 import ch.tutteli.atrium.assertions.Assertion
@@ -10,6 +13,7 @@ import java.nio.file.Path
 /**
  * Collection of assertion functions and builders which are applicable to subjects with a [Path] type.
  */
+//TODO 1.3.0 deprecate
 interface PathAssertions {
     fun <T : Path> startsWith(container: AssertionContainer<T>, expected: Path): Assertion
     fun <T : Path> startsNotWith(container: AssertionContainer<T>, expected: Path): Assertion

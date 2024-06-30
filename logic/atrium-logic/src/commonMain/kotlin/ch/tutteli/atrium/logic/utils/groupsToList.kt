@@ -1,5 +1,7 @@
 package ch.tutteli.atrium.logic.utils
 
+//TODO 1.3.0 deprecate everything
+
 /**
  * Adds the given [firstGroup], the [secondGroup] and the [otherGroups] into a new [List] and returns it.
  * @return a [List] containing [firstGroup], [secondGroup] and [otherGroups].

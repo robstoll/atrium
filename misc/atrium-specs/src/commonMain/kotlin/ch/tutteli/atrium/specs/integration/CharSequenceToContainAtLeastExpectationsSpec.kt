@@ -3,6 +3,7 @@ package ch.tutteli.atrium.specs.integration
 import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionCharSequenceProof.*
 import ch.tutteli.atrium.specs.*
 import org.spekframework.spek2.style.specification.Suite
 
@@ -47,8 +48,6 @@ abstract class CharSequenceToContainAtLeastExpectationsSpec(
         atLeast: Int, atMost: Int, a: Any, vararg aX: Any
     ) = toContainAtLeastButAtMostIgnoringCase(this, atLeast, atMost, a, aX)
 
-    val valueWithIndent = "$indentRootBulletPoint$listBulletPoint$value"
-
     describeFun(toContainAtLeast.name, toContainAtLeastButAtMost.name) {
 
         context("throws an $illegalArgumentException") {
@@ -68,12 +67,12 @@ abstract class CharSequenceToContainAtLeastExpectationsSpec(
             it("if an object is passed as first expected") {
                 expect {
                     expect(text).toContainAtLeastFun(1, expect(text))
-                }.toThrow<IllegalArgumentException> { messageToContain("CharSequence", "Number", "Char") }
+                }.toThrow<IllegalArgumentException> { messageToContain(ERROR_MESSAGE_ONLY_CHARSEQUENCE_NUMBER_CHAR) }
             }
             it("if an object is passed as second expected") {
                 expect {
                     expect(text).toContainAtLeastFun(1, "that's fine", expect(text))
-                }.toThrow<IllegalArgumentException> { messageToContain("CharSequence", "Number", "Char") }
+                }.toThrow<IllegalArgumentException> { messageToContain(ERROR_MESSAGE_ONLY_CHARSEQUENCE_NUMBER_CHAR) }
             }
 
             context("using $toContainAtLeastButAtMost") {
@@ -100,21 +99,21 @@ abstract class CharSequenceToContainAtLeastExpectationsSpec(
                 it("if an object is passed as first expected") {
                     expect {
                         expect(text).toContainAtLeastButAtMostFun(1, 2, expect(text))
-                    }.toThrow<IllegalArgumentException> { messageToContain("CharSequence", "Number", "Char") }
+                    }.toThrow<IllegalArgumentException> { messageToContain(ERROR_MESSAGE_ONLY_CHARSEQUENCE_NUMBER_CHAR) }
                 }
                 it("if an object is passed as second expected") {
                     expect {
                         expect(text).toContainAtLeastButAtMostFun(1, 2, "that's fine", expect(text))
-                    }.toThrow<IllegalArgumentException> { messageToContain("CharSequence", "Number", "Char") }
+                    }.toThrow<IllegalArgumentException> { messageToContain(ERROR_MESSAGE_ONLY_CHARSEQUENCE_NUMBER_CHAR) }
                 }
             }
 
-            it("searching for an empty String - warns the user that the assertion is useless") {
+            it("searching for an empty String - warns the user that the expectation is useless") {
                 expect {
                     expect(text).toContainAtLeastFun(1, "that's fine", "" /* <- that's not */)
                 }.toThrow<IllegalArgumentException> { messageToContain("empty string", "forgot") }
             }
-            it("searching for an empty CharSequence - warns the user that the assertion is useless") {
+            it("searching for an empty CharSequence - warns the user that the expectation is useless") {
                 expect {
                     expect(text).toContainAtLeastFun(1, "that's fine", StringBuilder() /* <- that's not */)
                 }.toThrow<IllegalArgumentException> { messageToContain("empty CharSequence", "forgot") }
@@ -139,7 +138,15 @@ abstract class CharSequenceToContainAtLeastExpectationsSpec(
                 it("${toContainAtLeastPair.first("'h'", "once")} throws AssertionError") {
                     expect {
                         expect(helloWorld).toContainAtLeastFun(1, 'h')
-                    }.toThrow<AssertionError> { messageToContain(noMatchFoundDescr, "$valueWithIndent: 'h'") }
+                    }.toThrow<AssertionError> {
+                        message {
+                            toContainSubject("\"$helloWorld\"")
+                            toContainDescr(TO_CONTAIN, "")
+                            toContainValue("'h'")
+                            //TODO 1.3.0 expect that it starts with ❗❗ (right now it starts with »)
+                            toContain(NOT_FOUND.string)
+                        }
+                    }
                 }
                 it("${toContainAtLeastIgnoringCasePair.first("'h'", "once")} does not throw") {
                     expect(helloWorld).toContainAtLeastIgnoringCaseFun(1, 'h')
@@ -148,7 +155,12 @@ abstract class CharSequenceToContainAtLeastExpectationsSpec(
                 it("${toContainAtLeastPair.first("'H', 'E'", "once")} throws AssertionError") {
                     expect {
                         expect(helloWorld).toContainAtLeastFun(1, 'H', 'E')
-                    }.toThrow<AssertionError> { messageToContain(noMatchFoundDescr, 'E') }
+                    }.toThrow<AssertionError> {
+                        message {
+                            notToContain("'H'")
+                            toContainValue("'E'")
+                        }
+                    }
                 }
                 it("${toContainAtLeastIgnoringCasePair.first("'H', 'E'", "once")} does not throw") {
                     expect(helloWorld).toContainAtLeastIgnoringCaseFun(1, 'H', 'E')
@@ -159,8 +171,8 @@ abstract class CharSequenceToContainAtLeastExpectationsSpec(
                         expect(helloWorld).toContainAtLeastFun(1, 'E', 'H')
                     }.toThrow<AssertionError> {
                         message {
-                            toContain(noMatchFoundDescr, "$valueWithIndent: 'E'")
-                            notToContain("$valueWithIndent: 'H'")
+                            toContainValue("'E'")
+                            notToContain("'H'")
                         }
                     }
                 }
@@ -178,8 +190,10 @@ abstract class CharSequenceToContainAtLeastExpectationsSpec(
                         expect(helloWorld).toContainAtLeastFun(1, 'H', 'E', 'w', 'r')
                     }.toThrow<AssertionError> {
                         message {
-                            toContain(noMatchFoundDescr, "$valueWithIndent: 'E'", "$valueWithIndent: 'w'")
-                            notToContain("$valueWithIndent: 'H'", "$valueWithIndent: 'r'")
+                            notToContain("'H'")
+                            toContainValue("'E'")
+                            toContainValue("'w'")
+                            notToContain("'r'")
                         }
                     }
                 }
@@ -204,12 +218,9 @@ abstract class CharSequenceToContainAtLeastExpectationsSpec(
                         expect(helloWorld).toContainAtLeastFun(3, 'o')
                     }.toThrow<AssertionError> {
                         message {
-                            toContain(
-                                "$rootBulletPoint$toContainDescr: $separator" +
-                                    "$valueWithIndent: 'o'",
-                                "$numberOfOccurrences: 2$separator"
-                            )
-                            toEndWith("$atLeast: 3")
+                            toContainValue("'o'")
+                            toContainNumberOfMatches(2)
+                            toContainDescr(AT_LEAST, 3)
                         }
                     }
                 }
@@ -232,13 +243,10 @@ abstract class CharSequenceToContainAtLeastExpectationsSpec(
                         expect(helloWorld).toContainAtLeastFun(3, 'o', 'l')
                     }.toThrow<AssertionError> {
                         message {
-                            toContain(
-                                "$rootBulletPoint$toContainDescr: $separator" +
-                                    "$valueWithIndent: 'o'",
-                                "$numberOfOccurrences: 2$separator"
-                            )
-                            toEndWith("$atLeast: 3")
-                            notToContain("$valueWithIndent: 'l'")
+                            toContainValue("'o'")
+                            toContainNumberOfMatches(2)
+                            toContainDescr(AT_LEAST, 3)
+                            notToContain("'l'")
                         }
                     }
                 }
@@ -259,13 +267,11 @@ abstract class CharSequenceToContainAtLeastExpectationsSpec(
                         expect(helloWorld).toContainAtLeastButAtMostFun(1, 2, 'o', 'l')
                     }.toThrow<AssertionError> {
                         message {
-                            toContain(
-                                "$rootBulletPoint$toContainDescr: $separator" +
-                                    "$valueWithIndent: 'l'",
-                                "$numberOfOccurrences: 3$separator"
-                            )
-                            toEndWith("$atMost: 2")
-                            notToContain(atLeast, "$valueWithIndent: 'o'")
+                            notToContain("'o'")
+                            toContainValue("'l'")
+                            toContainNumberOfMatches(3)
+                            notToContain(AT_LEAST.string)
+                            toContainDescr(AT_MOST, 2)
                         }
                     }
                 }
@@ -287,13 +293,10 @@ abstract class CharSequenceToContainAtLeastExpectationsSpec(
                         expect(helloWorld).toContainAtLeastButAtMostFun(3, 4, 'o', 'l')
                     }.toThrow<AssertionError> {
                         message {
-                            toContain(
-                                "$rootBulletPoint$toContainDescr: $separator" +
-                                    "$valueWithIndent: 'o'",
-                                "$numberOfOccurrences: 2$separator"
-                            )
-                            toEndWith("$atLeast: 3")
-                            notToContain(atMost, "$valueWithIndent: 'l'")
+                            toContainValue("'o'")
+                            toContainNumberOfMatches(2)
+                            toContainDescr(AT_LEAST, 3)
+                            notToContain(AT_MOST.string)
                         }
                     }
                 }
@@ -319,7 +322,12 @@ abstract class CharSequenceToContainAtLeastExpectationsSpec(
                 it("${toContainAtLeastPair.first("'a'", "5 times")} throws AssertionError") {
                     expect {
                         aaaaFluent.toContainAtLeastFun(5, 'a')
-                    }.toThrow<AssertionError> { messageToContain("$atLeast: 5", "$valueWithIndent: 'a'") }
+                    }.toThrow<AssertionError> {
+                        message {
+                            toContainValue("'a'")
+                            toContainDescr(AT_LEAST, 5)
+                        }
+                    }
                 }
             }
         }
