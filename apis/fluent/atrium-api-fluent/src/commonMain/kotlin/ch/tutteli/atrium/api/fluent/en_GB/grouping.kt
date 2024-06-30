@@ -1,8 +1,10 @@
 package ch.tutteli.atrium.api.fluent.en_GB
 
+import ch.tutteli.atrium._coreAppend
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.creating.ExpectGrouping
-import ch.tutteli.atrium.logic.*
+import ch.tutteli.atrium.logic.group
+import ch.tutteli.atrium.logic.grouping
 import ch.tutteli.atrium.reporting.Text
 
 /**
@@ -26,7 +28,7 @@ fun ExpectGrouping.group(
     representationProvider: () -> Any? = Text.EMPTY_PROVIDER,
     groupingActions: ExpectGrouping.() -> Unit
 ): ExpectGrouping =
-    _logicAppend { this.grouping(description, representationProvider, groupingActions) }
+    _coreAppend { grouping(description, representationProvider, groupingActions) }
 
 /**
  * Creates and appends a group based on the given [description] (optionally [representationProvider])
@@ -48,4 +50,4 @@ fun <T> Expect<T>.group(
     description: String,
     representationProvider: () -> Any? = Text.EMPTY_PROVIDER,
     assertionCreator: Expect<T>.() -> Unit
-): Expect<T> = _logicAppend { this.group(description, representationProvider, assertionCreator) }
+): Expect<T> = _coreAppend { group(description, representationProvider, assertionCreator) }

@@ -1,0 +1,28 @@
+package ch.tutteli.atrium.creating.proofs.builders
+
+import ch.tutteli.atrium.core.None
+import ch.tutteli.atrium.creating.ExpectationCreatorWithUsageHints
+import ch.tutteli.atrium.creating.ProofContainer
+import ch.tutteli.atrium.creating.collectForCompositionBasedOnGivenSubject
+import ch.tutteli.atrium.creating.proofs.Proof
+import ch.tutteli.atrium.creating.proofs.builders.impl.BaseSubGroupBuilder
+import ch.tutteli.atrium.reporting.reportables.ProofExplanation
+import ch.tutteli.atrium.reporting.reportables.Reportable
+
+class ProofExplanationGroupBuilder<SubjectT>(
+    proofContainer: ProofContainer<SubjectT>,
+) : BaseSubGroupBuilder<SubjectT, ProofExplanation, ProofExplanationGroupBuilder<SubjectT>>(
+    proofContainer,
+    { children -> Reportable.proofExplanation(Proof.invisibleGroup(children)) }
+) {
+
+    //TODO 1.3.0 add KDoc
+    //TODO 1.3.0 remove again? don't see it used yet
+    fun <SomeSubjectT> collectWithoutSubject(
+        expectationCreatorWithUsageHints: ExpectationCreatorWithUsageHints<SomeSubjectT>
+    ): Boolean = proofContainer.collectForCompositionBasedOnGivenSubject(None, expectationCreatorWithUsageHints)
+        .let { (proofs, oneCollected) ->
+            addAll(proofs)
+            oneCollected
+        }
+}

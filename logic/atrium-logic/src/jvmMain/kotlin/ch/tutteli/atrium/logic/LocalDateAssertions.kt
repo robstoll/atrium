@@ -1,3 +1,6 @@
+//TODO 2.0.0 remove file
+@file:Suppress("DEPRECATION")
+
 package ch.tutteli.atrium.logic
 
 import ch.tutteli.atrium.creating.AssertionContainer
@@ -8,6 +11,7 @@ import java.time.LocalDate
 /**
  * Collection of assertion functions and builders which are applicable to subjects with a [LocalDate] type.
  */
+//TODO 1.3.0 deprecate
 interface LocalDateAssertions {
     fun year(container: AssertionContainer<LocalDate>): FeatureExtractorBuilder.ExecutionStep<LocalDate, Int>
 

@@ -10,6 +10,7 @@ import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
 import ch.tutteli.atrium.core.None
 import ch.tutteli.atrium.core.Option
 import ch.tutteli.atrium.core.Some
+import ch.tutteli.atrium.reporting.BUG_REPORT_URL
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.reporting.translating.Untranslatable
 import kotlin.reflect.KClass
@@ -22,7 +23,7 @@ import kotlin.reflect.KClass
  *
  * @param T The type of the subject of `this` expectation.
  */
-//TODO 1.3.0 introduce ProofContainer
+@Deprecated("Switch to ProofContainer, will be removed with 2.0.0 at the latest", ReplaceWith("ProofContainer<T>"))
 interface AssertionContainer<T> {
     /**
      * Either [Some] wrapping the subject of an [Assertion] or [None] in case a previous subject transformation
@@ -59,6 +60,7 @@ interface AssertionContainer<T> {
      *
      * @throws AssertionError Might throw an [AssertionError] in case [Assertion]s are immediately evaluated.
      */
+    @Deprecated("Switch from Assertion to Proof, AssertionContainer will be removed with 2.0.0 at the latest")
     fun append(assertion: Assertion): Expect<T>
 
     /**
@@ -75,6 +77,13 @@ interface AssertionContainer<T> {
      *
      * @throws AssertionError Might throw an [AssertionError] in case [Assertion]s are immediately evaluated.
      */
+    @Deprecated(
+        "Use appendAsGroupIndicateIfOneCollected and define the alternative or pass an empty list if you don't have any",
+        ReplaceWith(
+            "this.appendAsGroupIndicateIfOneCollected(ExpectationCreatorWithUsageHints(usageHintsOverloadWithoutExpectationCreator = listOf(/* ... add a usage hint in case you have an overload which does not expect an expectationCreator */), expectationCreator = assertionCreator)).first",
+            "ch.tutteli.atrium.creating.ExpectationCreatorWithUsageHints"
+        )
+    )
     fun appendAsGroup(assertionCreator: Expect<T>.() -> Unit): Expect<T>
 
     /**
@@ -87,8 +96,9 @@ interface AssertionContainer<T> {
      *
      * @return an [Expect] for the subject of `this` expectation.
      */
+    //TODO 1.3.0 deprecate
     fun createAndAppend(description: String, expected: Any?, test: (T) -> Boolean): Expect<T> =
-        createAndAppend(Untranslatable(description),expected, test)
+        createAndAppend(Untranslatable(description), expected, test)
 
     /**
      * Creates a [DescriptiveAssertion] based on the given [description], [expected] and [test]
@@ -100,6 +110,7 @@ interface AssertionContainer<T> {
      *
      * @return an [Expect] for the subject of `this` expectation.
      */
+    //TODO 1.3.0 deprecate
     //TODO remove SUPPRESS with 1.3.0 once the toExpect function is in core
     @Suppress("UNCHECKED_CAST")
     fun createAndAppend(description: Translatable, expected: Any?, test: (T) -> Boolean): Expect<T> =
@@ -110,3 +121,9 @@ interface AssertionContainer<T> {
                 .build()
         )
 }
+
+fun <T> AssertionContainer<T>.toExpect(): Expect<T> =
+    when (this) {
+        is ExpectInternal<T> -> this
+        else -> throw UnsupportedOperationException("Unsupported AssertionContainer: $this -- Please open an issue that a hook shall be implemented: $BUG_REPORT_URL?template=feature_request&title=Hook%20for%20AssertionContainer.toExpect")
+    }

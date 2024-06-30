@@ -3,7 +3,12 @@ package ch.tutteli.atrium.specs.integration
 import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionCharSequenceProof.NOT_FOUND
+import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionCharSequenceProof.TO_CONTAIN
+import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionCollectionProof
 import ch.tutteli.atrium.specs.*
+import ch.tutteli.atrium.specs.integration.CharSequenceToContainSpecBase.Companion.helloWorld
+import ch.tutteli.atrium.specs.integration.CharSequenceToContainSpecBase.Companion.toContainValue
 import ch.tutteli.atrium.translations.DescriptionCollectionExpectation
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.Suite
@@ -32,8 +37,7 @@ abstract class CollectionExpectationsSpec(
     fun describeFun(vararg pairs: SpecPair<*>, body: Suite.() -> Unit) =
         describeFunTemplate(describePrefix, pairs.map { it.name }.toTypedArray(), body = body)
 
-    val empty = DescriptionCollectionExpectation.EMPTY.getDefault()
-    val sizeDescr = DescriptionCollectionExpectation.SIZE.getDefault()
+    val empty = DescriptionCollectionProof.EMPTY.string
 
     describeFun(isEmpty, isNotEmpty) {
         val isEmptyFun = isEmpty.lambda
@@ -46,7 +50,12 @@ abstract class CollectionExpectationsSpec(
             it("${isNotEmpty.name} - throws an AssertionError") {
                 expect {
                     expect(emptyList<Int>() as Collection<Int>).isNotEmptyFun()
-                }.toThrow<AssertionError> { messageToContain("$notToBeDescr: $empty") }
+                }.toThrow<AssertionError> {
+                    message {
+                        toContainSubject("[]")
+                        toContainNotToBeDescr(empty)
+                    }
+                }
             }
         }
 
@@ -54,7 +63,12 @@ abstract class CollectionExpectationsSpec(
             it("${isEmpty.name} - throws an AssertionError") {
                 expect {
                     expect(listOf(1, 2) as Collection<Int>).isEmptyFun()
-                }.toThrow<AssertionError> { messageToContain("$toBeDescr: $empty") }
+                }.toThrow<AssertionError> {
+                    message {
+                        toContainSubject("[1, 2]")
+                        toContainToBeDescr(empty)
+                    }
+                }
             }
             it("${isNotEmpty.name} - does not throw") {
                 expect(listOf(1) as Collection<Int>).isNotEmptyFun()
@@ -74,7 +88,9 @@ abstract class CollectionExpectationsSpec(
                     expect {
                         expect(listOf(1, 2) as Collection<Int>).sizeFun { toBeLessThan(1) }
                     }.toThrow<AssertionError> {
-                        messageToContain("$sizeDescr: 2")
+                        message {
+                            toContainDescr(DescriptionCollectionProof.SIZE, 2)
+                        }
                     }
                 }
             }

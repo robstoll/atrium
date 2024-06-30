@@ -1,9 +1,16 @@
-public abstract interface class ch/tutteli/atrium/assertions/Assertion {
-	public abstract fun holds ()Z
+public final class ch/tutteli/atrium/CoreKt {
+	public static final fun _coreAppend (Lch/tutteli/atrium/creating/Expect;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/creating/Expect;
+	public static final fun _coreAppend (Lch/tutteli/atrium/creating/ExpectGrouping;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/creating/ExpectGrouping;
+	public static final fun get_core (Lch/tutteli/atrium/creating/Expect;)Lch/tutteli/atrium/creating/ProofContainer;
+	public static final fun get_core (Lch/tutteli/atrium/creating/ExpectGrouping;)Lch/tutteli/atrium/creating/ProofContainer;
 }
 
-public abstract interface class ch/tutteli/atrium/assertions/AssertionGroup : ch/tutteli/atrium/assertions/Assertion {
+public abstract interface class ch/tutteli/atrium/assertions/Assertion : ch/tutteli/atrium/creating/proofs/Proof {
+}
+
+public abstract interface class ch/tutteli/atrium/assertions/AssertionGroup : ch/tutteli/atrium/assertions/Assertion, ch/tutteli/atrium/creating/proofs/ProofGroupWithDesignation {
 	public abstract fun getAssertions ()Ljava/util/List;
+	public abstract fun getChildren ()Ljava/util/List;
 	public abstract fun getDescription ()Lch/tutteli/atrium/reporting/translating/Translatable;
 	public abstract fun getRepresentation ()Ljava/lang/Object;
 	public abstract fun getType ()Lch/tutteli/atrium/assertions/AssertionGroupType;
@@ -11,6 +18,9 @@ public abstract interface class ch/tutteli/atrium/assertions/AssertionGroup : ch
 }
 
 public final class ch/tutteli/atrium/assertions/AssertionGroup$DefaultImpls {
+	public static fun getAssertions (Lch/tutteli/atrium/assertions/AssertionGroup;)Ljava/util/List;
+	public static fun getChildren (Lch/tutteli/atrium/assertions/AssertionGroup;)Ljava/util/List;
+	public static fun getProofs (Lch/tutteli/atrium/assertions/AssertionGroup;)Ljava/util/List;
 	public static fun holds (Lch/tutteli/atrium/assertions/AssertionGroup;)Z
 }
 
@@ -40,7 +50,7 @@ public final class ch/tutteli/atrium/assertions/DefaultSummaryAssertionGroupType
 	public static final field INSTANCE Lch/tutteli/atrium/assertions/DefaultSummaryAssertionGroupType;
 }
 
-public abstract interface class ch/tutteli/atrium/assertions/DescriptiveAssertion : ch/tutteli/atrium/assertions/Assertion {
+public abstract interface class ch/tutteli/atrium/assertions/DescriptiveAssertion : ch/tutteli/atrium/assertions/Assertion, ch/tutteli/atrium/reporting/reportables/ReportableWithDesignation {
 	public abstract fun getDescription ()Lch/tutteli/atrium/reporting/translating/Translatable;
 	public abstract fun getRepresentation ()Ljava/lang/Object;
 }
@@ -606,6 +616,7 @@ public final class ch/tutteli/atrium/core/Left : ch/tutteli/atrium/core/Either {
 
 public final class ch/tutteli/atrium/core/None : ch/tutteli/atrium/core/Option {
 	public static final field INSTANCE Lch/tutteli/atrium/core/None;
+	public fun toString ()Ljava/lang/String;
 }
 
 public abstract class ch/tutteli/atrium/core/Option {
@@ -613,6 +624,7 @@ public abstract class ch/tutteli/atrium/core/Option {
 	public final fun filter (Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/core/Option;
 	public final fun flatMap (Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/core/Option;
 	public final fun fold (Lkotlin/jvm/functions/Function0;Lkotlin/jvm/functions/Function1;)Ljava/lang/Object;
+	public final fun ifDefined (Lkotlin/jvm/functions/Function1;)V
 	public final fun isDefined ()Z
 	public final fun map (Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/core/Option;
 }
@@ -665,6 +677,10 @@ public final class ch/tutteli/atrium/core/polyfills/StringBuilderExtensionKt {
 	public static final fun appendln (Ljava/lang/StringBuilder;)Ljava/lang/StringBuilder;
 }
 
+public final class ch/tutteli/atrium/core/polyfills/StringBuilderExtensionsKt {
+	public static final fun appendSpaces (Ljava/lang/StringBuilder;I)V
+}
+
 public final class ch/tutteli/atrium/core/polyfills/StringExtensionsKt {
 	public static final fun format (Ljava/lang/String;Lch/tutteli/atrium/reporting/translating/Locale;Ljava/lang/Object;[Ljava/lang/Object;)Ljava/lang/String;
 	public static final fun format (Ljava/lang/String;Ljava/lang/Object;[Ljava/lang/Object;)Ljava/lang/String;
@@ -689,10 +705,16 @@ public final class ch/tutteli/atrium/creating/AssertionContainer$DefaultImpls {
 	public static fun createAndAppend (Lch/tutteli/atrium/creating/AssertionContainer;Ljava/lang/String;Ljava/lang/Object;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/creating/Expect;
 }
 
+public final class ch/tutteli/atrium/creating/AssertionContainerKt {
+	public static final fun toExpect (Lch/tutteli/atrium/creating/AssertionContainer;)Lch/tutteli/atrium/creating/Expect;
+}
+
 public abstract interface class ch/tutteli/atrium/creating/CollectingExpect : ch/tutteli/atrium/creating/Expect {
 	public static final field Companion Lch/tutteli/atrium/creating/CollectingExpect$Companion;
 	public abstract fun appendAsGroup (Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/creating/CollectingExpect;
+	public abstract fun appendAsGroupIndicateIfOneCollected (Lch/tutteli/atrium/creating/ExpectationCreatorWithUsageHints;)Lkotlin/Pair;
 	public abstract fun getAssertions ()Ljava/util/List;
+	public abstract fun getCollectedProofs ()Ljava/util/List;
 }
 
 public final class ch/tutteli/atrium/creating/CollectingExpect$Companion {
@@ -731,6 +753,7 @@ public abstract interface class ch/tutteli/atrium/creating/DelegatingExpect : ch
 
 public final class ch/tutteli/atrium/creating/DelegatingExpect$Companion {
 	public final fun invoke (Lch/tutteli/atrium/creating/AssertionContainer;Lch/tutteli/atrium/core/Option;)Lch/tutteli/atrium/creating/Expect;
+	public final fun invoke (Lch/tutteli/atrium/creating/ProofContainer;Lch/tutteli/atrium/core/Option;)Lch/tutteli/atrium/creating/Expect;
 }
 
 public final class ch/tutteli/atrium/creating/ErrorMessages : java/lang/Enum, ch/tutteli/atrium/reporting/translating/StringBasedTranslatable {
@@ -741,6 +764,7 @@ public final class ch/tutteli/atrium/creating/ErrorMessages : java/lang/Enum, ch
 	public static fun getEntries ()Lkotlin/enums/EnumEntries;
 	public fun getId ()Ljava/lang/String;
 	public synthetic fun getName ()Ljava/lang/String;
+	public fun getString ()Ljava/lang/String;
 	public fun getValue ()Ljava/lang/String;
 	public static fun valueOf (Ljava/lang/String;)Lch/tutteli/atrium/creating/ErrorMessages;
 	public static fun values ()[Lch/tutteli/atrium/creating/ErrorMessages;
@@ -752,12 +776,25 @@ public abstract interface class ch/tutteli/atrium/creating/Expect {
 public abstract interface class ch/tutteli/atrium/creating/ExpectGrouping {
 }
 
-public abstract interface class ch/tutteli/atrium/creating/ExpectInternal : ch/tutteli/atrium/creating/AssertionContainer, ch/tutteli/atrium/creating/Expect, ch/tutteli/atrium/creating/ExpectGrouping {
+public abstract interface class ch/tutteli/atrium/creating/ExpectInternal : ch/tutteli/atrium/creating/AssertionContainer, ch/tutteli/atrium/creating/Expect, ch/tutteli/atrium/creating/ExpectGrouping, ch/tutteli/atrium/creating/ProofContainer {
 }
 
 public final class ch/tutteli/atrium/creating/ExpectInternal$DefaultImpls {
 	public static fun createAndAppend (Lch/tutteli/atrium/creating/ExpectInternal;Lch/tutteli/atrium/reporting/translating/Translatable;Ljava/lang/Object;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/creating/Expect;
 	public static fun createAndAppend (Lch/tutteli/atrium/creating/ExpectInternal;Ljava/lang/String;Ljava/lang/Object;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/creating/Expect;
+}
+
+public final class ch/tutteli/atrium/creating/ExpectationCreatorWithUsageHints {
+	public fun <init> (Ljava/util/List;Lkotlin/jvm/functions/Function1;)V
+	public final fun component1 ()Ljava/util/List;
+	public final fun component2 ()Lkotlin/jvm/functions/Function1;
+	public final fun copy (Ljava/util/List;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/creating/ExpectationCreatorWithUsageHints;
+	public static synthetic fun copy$default (Lch/tutteli/atrium/creating/ExpectationCreatorWithUsageHints;Ljava/util/List;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lch/tutteli/atrium/creating/ExpectationCreatorWithUsageHints;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getExpectationCreator ()Lkotlin/jvm/functions/Function1;
+	public final fun getUsageHintsOverloadWithoutExpectationCreator ()Ljava/util/List;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
 }
 
 public abstract interface class ch/tutteli/atrium/creating/ExpectationVerbs {
@@ -781,6 +818,7 @@ public abstract interface class ch/tutteli/atrium/creating/FeatureExpect : ch/tu
 }
 
 public final class ch/tutteli/atrium/creating/FeatureExpect$Companion {
+	public final fun invoke (Lch/tutteli/atrium/creating/Expect;Lch/tutteli/atrium/core/Option;Lch/tutteli/atrium/reporting/reportables/InlineElement;Ljava/util/List;Lch/tutteli/atrium/creating/FeatureExpectOptions;)Lch/tutteli/atrium/creating/FeatureExpect;
 	public final fun invoke (Lch/tutteli/atrium/creating/Expect;Lch/tutteli/atrium/core/Option;Lch/tutteli/atrium/reporting/translating/Translatable;Ljava/util/List;Lch/tutteli/atrium/creating/FeatureExpectOptions;)Lch/tutteli/atrium/creating/FeatureExpect;
 	public final fun invoke (Lch/tutteli/atrium/creating/FeatureExpect;Lch/tutteli/atrium/creating/FeatureExpectOptions;)Lch/tutteli/atrium/creating/FeatureExpect;
 }
@@ -805,12 +843,31 @@ public final class ch/tutteli/atrium/creating/PleaseUseReplacementException : ja
 	public fun <init> (Ljava/lang/String;)V
 }
 
+public abstract interface class ch/tutteli/atrium/creating/ProofContainer : ch/tutteli/atrium/creating/AssertionContainer {
+	public abstract fun append (Lch/tutteli/atrium/creating/proofs/Proof;)Lch/tutteli/atrium/creating/Expect;
+	public abstract fun appendAsGroupIndicateIfOneCollected (Lch/tutteli/atrium/creating/ExpectationCreatorWithUsageHints;)Lkotlin/Pair;
+	public abstract fun getComponents ()Lch/tutteli/atrium/creating/ComponentFactoryContainer;
+	public abstract fun getImpl (Lkotlin/reflect/KClass;Lkotlin/jvm/functions/Function0;)Ljava/lang/Object;
+	public abstract fun getMaybeSubject ()Lch/tutteli/atrium/core/Option;
+}
+
+public final class ch/tutteli/atrium/creating/ProofContainer$DefaultImpls {
+	public static fun createAndAppend (Lch/tutteli/atrium/creating/ProofContainer;Lch/tutteli/atrium/reporting/translating/Translatable;Ljava/lang/Object;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/creating/Expect;
+	public static fun createAndAppend (Lch/tutteli/atrium/creating/ProofContainer;Ljava/lang/String;Ljava/lang/Object;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/creating/Expect;
+}
+
+public final class ch/tutteli/atrium/creating/ProofContainerKt {
+	public static final fun toExpect (Lch/tutteli/atrium/creating/ProofContainer;)Lch/tutteli/atrium/creating/Expect;
+	public static final fun toExpectGrouping (Lch/tutteli/atrium/creating/Expect;)Lch/tutteli/atrium/creating/ExpectGrouping;
+	public static final fun toProofContainer (Lch/tutteli/atrium/creating/Expect;)Lch/tutteli/atrium/creating/ProofContainer;
+}
+
 public abstract interface class ch/tutteli/atrium/creating/RootExpect : ch/tutteli/atrium/creating/Expect {
 	public static final field Companion Lch/tutteli/atrium/creating/RootExpect$Companion;
 }
 
 public final class ch/tutteli/atrium/creating/RootExpect$Companion {
-	public final fun invoke (Lch/tutteli/atrium/core/Option;Lch/tutteli/atrium/reporting/translating/Translatable;Lch/tutteli/atrium/creating/RootExpectOptions;)Lch/tutteli/atrium/creating/RootExpect;
+	public final fun invoke (Lch/tutteli/atrium/core/Option;Lch/tutteli/atrium/reporting/reportables/InlineElement;Lch/tutteli/atrium/creating/RootExpectOptions;)Lch/tutteli/atrium/creating/RootExpect;
 	public final fun invoke (Lch/tutteli/atrium/creating/RootExpect;Lch/tutteli/atrium/creating/RootExpectOptions;)Lch/tutteli/atrium/creating/RootExpect;
 }
 
@@ -830,6 +887,19 @@ public final class ch/tutteli/atrium/creating/RootExpectOptions {
 	public fun toString ()Ljava/lang/String;
 }
 
+public final class ch/tutteli/atrium/creating/UtilsCollectKt {
+	public static final fun collect (Lch/tutteli/atrium/creating/ProofContainer;Lch/tutteli/atrium/creating/ExpectationCreatorWithUsageHints;)Lch/tutteli/atrium/creating/proofs/Proof;
+	public static final fun collectAndDomainAppend (Lch/tutteli/atrium/creating/transformers/TransformationExecutionStep;Ljava/util/List;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/creating/Expect;
+	public static final fun collectBasedOnGivenSubject (Lch/tutteli/atrium/creating/ProofContainer;Lch/tutteli/atrium/core/Option;Lch/tutteli/atrium/creating/ExpectationCreatorWithUsageHints;)Lch/tutteli/atrium/creating/proofs/Proof;
+	public static final fun collectForComposition (Lch/tutteli/atrium/creating/ProofContainer;Lch/tutteli/atrium/creating/ExpectationCreatorWithUsageHints;)Lkotlin/Pair;
+	public static final fun collectForCompositionBasedOnGivenSubject (Lch/tutteli/atrium/creating/ProofContainer;Lch/tutteli/atrium/core/Option;Lch/tutteli/atrium/creating/ExpectationCreatorWithUsageHints;)Lkotlin/Pair;
+	public static final fun collectForFailureHint (Lch/tutteli/atrium/creating/ProofContainer;Lch/tutteli/atrium/creating/ExpectationCreatorWithUsageHints;)Lkotlin/Pair;
+}
+
+public final class ch/tutteli/atrium/creating/UtilsKt {
+	public static final fun getChangeSubject (Lch/tutteli/atrium/creating/ProofContainer;)Lch/tutteli/atrium/creating/transformers/SubjectChangerBuilder$KindStep;
+}
+
 public abstract interface annotation class ch/tutteli/atrium/creating/feature/ExperimentalFeatureInfo : java/lang/annotation/Annotation {
 }
 
@@ -845,8 +915,10 @@ public final class ch/tutteli/atrium/creating/feature/impl/StackTraceBasedFeatur
 public abstract class ch/tutteli/atrium/creating/impl/BaseExpectImpl : ch/tutteli/atrium/creating/ExpectInternal {
 	public static final field Companion Lch/tutteli/atrium/creating/impl/BaseExpectImpl$Companion;
 	public fun <init> (Lch/tutteli/atrium/core/Option;)V
+	public fun append (Lch/tutteli/atrium/assertions/Assertion;)Lch/tutteli/atrium/creating/Expect;
 	protected final fun appendAsGroup (Ljava/util/List;)Lch/tutteli/atrium/creating/Expect;
 	public fun appendAsGroup (Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/creating/Expect;
+	public fun appendAsGroupIndicateIfOneCollected (Lch/tutteli/atrium/creating/ExpectationCreatorWithUsageHints;)Lkotlin/Pair;
 	public fun createAndAppend (Lch/tutteli/atrium/reporting/translating/Translatable;Ljava/lang/Object;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/creating/Expect;
 	public fun createAndAppend (Ljava/lang/String;Ljava/lang/Object;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/creating/Expect;
 	public fun getImpl (Lkotlin/reflect/KClass;Lkotlin/jvm/functions/Function0;)Ljava/lang/Object;
@@ -856,6 +928,550 @@ public abstract class ch/tutteli/atrium/creating/impl/BaseExpectImpl : ch/tuttel
 
 public final class ch/tutteli/atrium/creating/impl/BaseExpectImpl$Companion {
 	public final fun determineRepresentation (Lkotlin/jvm/functions/Function1;Lch/tutteli/atrium/core/Option;)Ljava/lang/Object;
+}
+
+public final class ch/tutteli/atrium/creating/proofs/AnyKt {
+	public static final fun notToBeTheInstance (Lch/tutteli/atrium/creating/ProofContainer;Ljava/lang/Object;)Lch/tutteli/atrium/creating/proofs/Proof;
+	public static final fun notToEqual (Lch/tutteli/atrium/creating/ProofContainer;Ljava/lang/Object;)Lch/tutteli/atrium/creating/proofs/Proof;
+	public static final fun notToEqualNullButToBeAnInstanceOf (Lch/tutteli/atrium/creating/ProofContainer;Lkotlin/reflect/KClass;)Lch/tutteli/atrium/creating/transformers/SubjectChangerBuilder$ExecutionStep;
+	public static final fun notToEqualOneIn (Lch/tutteli/atrium/creating/ProofContainer;Ljava/lang/Iterable;)Lch/tutteli/atrium/creating/proofs/Proof;
+	public static final fun toBeAnInstanceOf (Lch/tutteli/atrium/creating/ProofContainer;Lkotlin/reflect/KClass;)Lch/tutteli/atrium/creating/transformers/SubjectChangerBuilder$ExecutionStep;
+	public static final fun toBeTheInstance (Lch/tutteli/atrium/creating/ProofContainer;Ljava/lang/Object;)Lch/tutteli/atrium/creating/proofs/Proof;
+	public static final fun toEqual (Lch/tutteli/atrium/creating/ProofContainer;Ljava/lang/Object;)Lch/tutteli/atrium/creating/proofs/Proof;
+}
+
+public abstract interface class ch/tutteli/atrium/creating/proofs/AnyProofs {
+	public abstract fun notToBeTheInstance (Lch/tutteli/atrium/creating/ProofContainer;Ljava/lang/Object;)Lch/tutteli/atrium/creating/proofs/Proof;
+	public abstract fun notToEqual (Lch/tutteli/atrium/creating/ProofContainer;Ljava/lang/Object;)Lch/tutteli/atrium/creating/proofs/Proof;
+	public abstract fun notToEqualNullButToBeAnInstanceOf (Lch/tutteli/atrium/creating/ProofContainer;Lkotlin/reflect/KClass;)Lch/tutteli/atrium/creating/transformers/SubjectChangerBuilder$ExecutionStep;
+	public abstract fun notToEqualOneIn (Lch/tutteli/atrium/creating/ProofContainer;Ljava/lang/Iterable;)Lch/tutteli/atrium/creating/proofs/Proof;
+	public abstract fun toBeAnInstanceOf (Lch/tutteli/atrium/creating/ProofContainer;Lkotlin/reflect/KClass;)Lch/tutteli/atrium/creating/transformers/SubjectChangerBuilder$ExecutionStep;
+	public abstract fun toBeTheInstance (Lch/tutteli/atrium/creating/ProofContainer;Ljava/lang/Object;)Lch/tutteli/atrium/creating/proofs/Proof;
+	public abstract fun toEqual (Lch/tutteli/atrium/creating/ProofContainer;Ljava/lang/Object;)Lch/tutteli/atrium/creating/proofs/Proof;
+}
+
+public abstract interface class ch/tutteli/atrium/creating/proofs/DocumentationUtils {
+	public abstract fun because (Lch/tutteli/atrium/creating/ProofContainer;Lch/tutteli/atrium/reporting/reportables/InlineElement;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/creating/proofs/Proof;
+}
+
+public final class ch/tutteli/atrium/creating/proofs/DocumentationUtilsKt {
+	public static final fun because (Lch/tutteli/atrium/creating/ProofContainer;Lch/tutteli/atrium/reporting/reportables/InlineElement;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/creating/proofs/Proof;
+}
+
+public abstract interface class ch/tutteli/atrium/creating/proofs/FeatureProofGroup : ch/tutteli/atrium/creating/proofs/ProofGroupWithDesignation {
+}
+
+public final class ch/tutteli/atrium/creating/proofs/FeatureProofGroup$DefaultImpls {
+	public static fun getProofs (Lch/tutteli/atrium/creating/proofs/FeatureProofGroup;)Ljava/util/List;
+	public static fun holds (Lch/tutteli/atrium/creating/proofs/FeatureProofGroup;)Z
+}
+
+public abstract interface class ch/tutteli/atrium/creating/proofs/FixedClaimGroup : ch/tutteli/atrium/creating/proofs/ProofGroupWithDesignation {
+}
+
+public final class ch/tutteli/atrium/creating/proofs/FixedClaimGroup$DefaultImpls {
+	public static fun getProofs (Lch/tutteli/atrium/creating/proofs/FixedClaimGroup;)Ljava/util/List;
+	public static fun holds (Lch/tutteli/atrium/creating/proofs/FixedClaimGroup;)Z
+}
+
+public abstract interface class ch/tutteli/atrium/creating/proofs/InvisibleFixedClaimGroup : ch/tutteli/atrium/creating/proofs/ProofGroup {
+}
+
+public final class ch/tutteli/atrium/creating/proofs/InvisibleFixedClaimGroup$DefaultImpls {
+	public static fun getProofs (Lch/tutteli/atrium/creating/proofs/InvisibleFixedClaimGroup;)Ljava/util/List;
+	public static fun holds (Lch/tutteli/atrium/creating/proofs/InvisibleFixedClaimGroup;)Z
+}
+
+public abstract interface class ch/tutteli/atrium/creating/proofs/InvisibleProofGroup : ch/tutteli/atrium/creating/proofs/ProofGroup {
+}
+
+public final class ch/tutteli/atrium/creating/proofs/InvisibleProofGroup$DefaultImpls {
+	public static fun getProofs (Lch/tutteli/atrium/creating/proofs/InvisibleProofGroup;)Ljava/util/List;
+	public static fun holds (Lch/tutteli/atrium/creating/proofs/InvisibleProofGroup;)Z
+}
+
+public abstract interface class ch/tutteli/atrium/creating/proofs/Proof : ch/tutteli/atrium/reporting/reportables/Reportable {
+	public static final field Companion Lch/tutteli/atrium/creating/proofs/Proof$Companion;
+	public abstract fun holds ()Z
+}
+
+public final class ch/tutteli/atrium/creating/proofs/Proof$Companion {
+	public final fun featureGroup (Lch/tutteli/atrium/reporting/reportables/Reportable;Ljava/lang/Object;Ljava/util/List;)Lch/tutteli/atrium/creating/proofs/FeatureProofGroup;
+	public final fun fixedClaimGroup (Lch/tutteli/atrium/reporting/reportables/InlineElement;Ljava/lang/Object;Ljava/util/List;Z)Lch/tutteli/atrium/creating/proofs/FixedClaimGroup;
+	public final fun group (Lch/tutteli/atrium/reporting/reportables/Reportable;Ljava/lang/Object;Ljava/util/List;)Lch/tutteli/atrium/creating/proofs/ProofGroup;
+	public final fun invisibleFixedClaimGroup (Ljava/util/List;Z)Lch/tutteli/atrium/creating/proofs/InvisibleFixedClaimGroup;
+	public final fun invisibleGroup (Ljava/util/List;)Lch/tutteli/atrium/creating/proofs/InvisibleProofGroup;
+	public final fun invisibleGroupOrSingleChildIfProof (Ljava/util/List;)Lch/tutteli/atrium/creating/proofs/Proof;
+	public final fun representationOnlyProof (Ljava/lang/Object;Lkotlin/jvm/functions/Function0;)Lch/tutteli/atrium/creating/proofs/Proof;
+	public final fun rootGroup (Lch/tutteli/atrium/reporting/reportables/InlineElement;Ljava/lang/Object;Ljava/util/List;)Lch/tutteli/atrium/creating/proofs/RootProofGroup;
+	public final fun simple (Lch/tutteli/atrium/reporting/reportables/InlineElement;Ljava/lang/Object;Lkotlin/jvm/functions/Function0;)Lch/tutteli/atrium/creating/proofs/Proof;
+}
+
+public abstract interface class ch/tutteli/atrium/creating/proofs/ProofGroup : ch/tutteli/atrium/creating/proofs/Proof, ch/tutteli/atrium/reporting/reportables/ReportableGroup {
+	public abstract fun getProofs ()Ljava/util/List;
+	public abstract fun holds ()Z
+}
+
+public final class ch/tutteli/atrium/creating/proofs/ProofGroup$DefaultImpls {
+	public static fun getProofs (Lch/tutteli/atrium/creating/proofs/ProofGroup;)Ljava/util/List;
+	public static fun holds (Lch/tutteli/atrium/creating/proofs/ProofGroup;)Z
+}
+
+public abstract interface class ch/tutteli/atrium/creating/proofs/ProofGroupWithDesignation : ch/tutteli/atrium/creating/proofs/ProofGroup, ch/tutteli/atrium/reporting/reportables/ReportableGroupWithDesignation {
+}
+
+public final class ch/tutteli/atrium/creating/proofs/ProofGroupWithDesignation$DefaultImpls {
+	public static fun getProofs (Lch/tutteli/atrium/creating/proofs/ProofGroupWithDesignation;)Ljava/util/List;
+	public static fun holds (Lch/tutteli/atrium/creating/proofs/ProofGroupWithDesignation;)Z
+}
+
+public abstract interface class ch/tutteli/atrium/creating/proofs/RootProofGroup : ch/tutteli/atrium/creating/proofs/ProofGroupWithDesignation {
+}
+
+public final class ch/tutteli/atrium/creating/proofs/RootProofGroup$DefaultImpls {
+	public static fun getProofs (Lch/tutteli/atrium/creating/proofs/RootProofGroup;)Ljava/util/List;
+	public static fun holds (Lch/tutteli/atrium/creating/proofs/RootProofGroup;)Z
+}
+
+public abstract interface class ch/tutteli/atrium/creating/proofs/SimpleProof : ch/tutteli/atrium/creating/proofs/Proof, ch/tutteli/atrium/reporting/reportables/ReportableWithInlineDesignation {
+}
+
+public final class ch/tutteli/atrium/creating/proofs/UtilsKt {
+	public static final fun unwrapInvisibleGroup (Ljava/util/List;)Ljava/util/List;
+	public static final fun unwrapInvisibleGroupIfSingleElement (Ljava/util/List;)Ljava/util/List;
+}
+
+public final class ch/tutteli/atrium/creating/proofs/builders/DebugGroupBuilder : ch/tutteli/atrium/creating/proofs/builders/impl/BaseSubGroupBuilder {
+	public fun <init> (Lch/tutteli/atrium/creating/ProofContainer;Lch/tutteli/atrium/reporting/reportables/InlineElement;)V
+}
+
+public final class ch/tutteli/atrium/creating/proofs/builders/EntryPointProofBuilder : ch/tutteli/atrium/creating/proofs/builders/impl/BaseGroupBuilder {
+	public synthetic fun build (Ljava/util/List;)Lch/tutteli/atrium/reporting/reportables/Reportable;
+}
+
+public final class ch/tutteli/atrium/creating/proofs/builders/EntryPointProofBuilderKt {
+	public static final fun buildProof (Lch/tutteli/atrium/creating/ProofContainer;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/creating/proofs/Proof;
+	public static final fun buildSimpleProof (Lch/tutteli/atrium/creating/ProofContainer;Lch/tutteli/atrium/reporting/reportables/InlineElement;Ljava/lang/Object;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/creating/proofs/Proof;
+	public static final fun toTestFunction (Lch/tutteli/atrium/creating/ProofContainer;Lkotlin/jvm/functions/Function1;)Lkotlin/jvm/functions/Function0;
+}
+
+public final class ch/tutteli/atrium/creating/proofs/builders/FailureExplanationGroupBuilder : ch/tutteli/atrium/creating/proofs/builders/impl/BaseSubGroupBuilder {
+	public fun <init> (Lch/tutteli/atrium/creating/ProofContainer;Lch/tutteli/atrium/reporting/reportables/InlineElement;)V
+}
+
+public final class ch/tutteli/atrium/creating/proofs/builders/FeatureProofGroupBuilder : ch/tutteli/atrium/creating/proofs/builders/impl/BaseSubGroupBuilder {
+	public fun <init> (Lch/tutteli/atrium/creating/ProofContainer;Lch/tutteli/atrium/reporting/reportables/Reportable;Ljava/lang/Object;)V
+}
+
+public final class ch/tutteli/atrium/creating/proofs/builders/FixedClaimGroupBuilder : ch/tutteli/atrium/creating/proofs/builders/impl/BaseSubGroupBuilder {
+	public fun <init> (Lch/tutteli/atrium/creating/ProofContainer;Lch/tutteli/atrium/reporting/reportables/InlineElement;Ljava/lang/Object;Z)V
+}
+
+public final class ch/tutteli/atrium/creating/proofs/builders/InformationGroupBuilder : ch/tutteli/atrium/creating/proofs/builders/impl/BaseSubGroupBuilder {
+	public fun <init> (Lch/tutteli/atrium/creating/ProofContainer;Lch/tutteli/atrium/reporting/reportables/InlineElement;)V
+}
+
+public final class ch/tutteli/atrium/creating/proofs/builders/InvisibleFixedClaimGroupBuilder : ch/tutteli/atrium/creating/proofs/builders/impl/BaseSubGroupBuilder {
+	public fun <init> (Lch/tutteli/atrium/creating/ProofContainer;Z)V
+}
+
+public final class ch/tutteli/atrium/creating/proofs/builders/InvisibleProofGroupBuilder : ch/tutteli/atrium/creating/proofs/builders/impl/BaseSubGroupBuilder {
+	public fun <init> (Lch/tutteli/atrium/creating/ProofContainer;)V
+}
+
+public abstract interface annotation class ch/tutteli/atrium/creating/proofs/builders/ProofBuilderMarker : java/lang/annotation/Annotation {
+}
+
+public final class ch/tutteli/atrium/creating/proofs/builders/ProofExplanationGroupBuilder : ch/tutteli/atrium/creating/proofs/builders/impl/BaseSubGroupBuilder {
+	public fun <init> (Lch/tutteli/atrium/creating/ProofContainer;)V
+	public final fun collectWithoutSubject (Lch/tutteli/atrium/creating/ExpectationCreatorWithUsageHints;)Z
+}
+
+public final class ch/tutteli/atrium/creating/proofs/builders/ProofGroupBuilder : ch/tutteli/atrium/creating/proofs/builders/impl/BaseSubGroupBuilder {
+	public fun <init> (Lch/tutteli/atrium/creating/ProofContainer;Lch/tutteli/atrium/reporting/reportables/Reportable;Ljava/lang/Object;)V
+}
+
+public final class ch/tutteli/atrium/creating/proofs/builders/ReportableGroupBuilder : ch/tutteli/atrium/creating/proofs/builders/impl/BaseSubGroupBuilder {
+	public fun <init> (Lch/tutteli/atrium/creating/ProofContainer;Lch/tutteli/atrium/reporting/reportables/InlineElement;Ljava/lang/Object;)V
+}
+
+public final class ch/tutteli/atrium/creating/proofs/builders/RowBuilder : ch/tutteli/atrium/creating/proofs/builders/impl/BaseBuilder {
+	public fun <init> (Lch/tutteli/atrium/creating/ProofContainer;Lch/tutteli/atrium/reporting/reportables/Icon;)V
+	public synthetic fun build (Ljava/util/List;)Lch/tutteli/atrium/reporting/reportables/Reportable;
+	public final fun column (Lch/tutteli/atrium/reporting/reportables/InlineElement;Lch/tutteli/atrium/reporting/HorizontalAlignment;)Lch/tutteli/atrium/reporting/reportables/Column;
+	public static synthetic fun column$default (Lch/tutteli/atrium/creating/proofs/builders/RowBuilder;Lch/tutteli/atrium/reporting/reportables/InlineElement;Lch/tutteli/atrium/reporting/HorizontalAlignment;ILjava/lang/Object;)Lch/tutteli/atrium/reporting/reportables/Column;
+}
+
+public final class ch/tutteli/atrium/creating/proofs/builders/UsageHintGroupBuilder : ch/tutteli/atrium/creating/proofs/builders/impl/BaseSubGroupBuilder {
+	public fun <init> (Lch/tutteli/atrium/creating/ProofContainer;)V
+}
+
+public abstract class ch/tutteli/atrium/creating/proofs/builders/impl/BaseBuilder {
+	public fun <init> (Lch/tutteli/atrium/creating/ProofContainer;)V
+	public final fun add (Lch/tutteli/atrium/reporting/reportables/Reportable;)Lch/tutteli/atrium/reporting/reportables/Reportable;
+	public final fun addAll (Ljava/util/List;)V
+	public final fun addAll ([Lch/tutteli/atrium/reporting/reportables/Reportable;)V
+	protected abstract fun build (Ljava/util/List;)Lch/tutteli/atrium/reporting/reportables/Reportable;
+	public final fun build (Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/reporting/reportables/Reportable;
+	protected final fun getProofContainer ()Lch/tutteli/atrium/creating/ProofContainer;
+}
+
+public abstract class ch/tutteli/atrium/creating/proofs/builders/impl/BaseGroupBuilder : ch/tutteli/atrium/creating/proofs/builders/impl/BaseBuilder {
+	public fun <init> (Lch/tutteli/atrium/creating/ProofContainer;)V
+	public final fun _core (Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/reporting/reportables/Reportable;
+	public final fun collect (Lch/tutteli/atrium/creating/ExpectationCreatorWithUsageHints;)Z
+	public final fun debugGroup (Lch/tutteli/atrium/reporting/reportables/InlineElement;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/reporting/reportables/Reportable;
+	public final fun failureExplanationGroup (Lch/tutteli/atrium/reporting/reportables/InlineElement;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/reporting/reportables/Reportable;
+	public final fun feature (Lch/tutteli/atrium/reporting/reportables/Reportable;Ljava/lang/Object;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/creating/proofs/Proof;
+	public final fun fixedClaimGroup (Lch/tutteli/atrium/reporting/reportables/InlineElement;Ljava/lang/Object;ZLkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/creating/proofs/Proof;
+	public final fun group (Lch/tutteli/atrium/reporting/reportables/Reportable;Ljava/lang/Object;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/creating/proofs/Proof;
+	public final fun informationGroup (Lch/tutteli/atrium/reporting/reportables/InlineElement;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/reporting/reportables/Reportable;
+	public final fun inlineGroup ([Lch/tutteli/atrium/reporting/reportables/InlineElement;)Lch/tutteli/atrium/reporting/reportables/InlineElement;
+	public final fun invisibleFixedClaimGroup (ZLkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/creating/proofs/Proof;
+	public final fun invisibleGroup (Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/creating/proofs/Proof;
+	public final fun proofExplanation (Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/reporting/reportables/Reportable;
+	public final fun reportableGroup (Lch/tutteli/atrium/reporting/reportables/InlineElement;Ljava/lang/Object;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/reporting/reportables/Reportable;
+	public final fun representationOnlyProof (Ljava/lang/Object;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/creating/proofs/Proof;
+	public final fun row (Lch/tutteli/atrium/reporting/reportables/Icon;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/reporting/reportables/Reportable;
+	public static synthetic fun row$default (Lch/tutteli/atrium/creating/proofs/builders/impl/BaseGroupBuilder;Lch/tutteli/atrium/reporting/reportables/Icon;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lch/tutteli/atrium/reporting/reportables/Reportable;
+	public final fun simpleProof (Lch/tutteli/atrium/reporting/reportables/InlineElement;Ljava/lang/Object;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/creating/proofs/Proof;
+	public final fun text (Ljava/lang/String;)Lch/tutteli/atrium/reporting/reportables/Reportable;
+	public final fun usageHintGroup (Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/reporting/reportables/Reportable;
+}
+
+public abstract class ch/tutteli/atrium/creating/proofs/builders/impl/BaseSubGroupBuilder : ch/tutteli/atrium/creating/proofs/builders/impl/BaseGroupBuilder {
+	public fun <init> (Lch/tutteli/atrium/creating/ProofContainer;Lkotlin/jvm/functions/Function1;)V
+	protected fun build (Ljava/util/List;)Lch/tutteli/atrium/reporting/reportables/Reportable;
+}
+
+public final class ch/tutteli/atrium/creating/proofs/impl/DefaultAnyProofs : ch/tutteli/atrium/creating/proofs/AnyProofs {
+	public fun <init> ()V
+	public fun notToBeTheInstance (Lch/tutteli/atrium/creating/ProofContainer;Ljava/lang/Object;)Lch/tutteli/atrium/creating/proofs/Proof;
+	public fun notToEqual (Lch/tutteli/atrium/creating/ProofContainer;Ljava/lang/Object;)Lch/tutteli/atrium/creating/proofs/Proof;
+	public fun notToEqualNullButToBeAnInstanceOf (Lch/tutteli/atrium/creating/ProofContainer;Lkotlin/reflect/KClass;)Lch/tutteli/atrium/creating/transformers/SubjectChangerBuilder$ExecutionStep;
+	public fun notToEqualOneIn (Lch/tutteli/atrium/creating/ProofContainer;Ljava/lang/Iterable;)Lch/tutteli/atrium/creating/proofs/Proof;
+	public fun toBeAnInstanceOf (Lch/tutteli/atrium/creating/ProofContainer;Lkotlin/reflect/KClass;)Lch/tutteli/atrium/creating/transformers/SubjectChangerBuilder$ExecutionStep;
+	public fun toBeTheInstance (Lch/tutteli/atrium/creating/ProofContainer;Ljava/lang/Object;)Lch/tutteli/atrium/creating/proofs/Proof;
+	public fun toEqual (Lch/tutteli/atrium/creating/ProofContainer;Ljava/lang/Object;)Lch/tutteli/atrium/creating/proofs/Proof;
+}
+
+public final class ch/tutteli/atrium/creating/proofs/impl/DefaultDocumentationUtils : ch/tutteli/atrium/creating/proofs/DocumentationUtils {
+	public fun <init> ()V
+	public fun because (Lch/tutteli/atrium/creating/ProofContainer;Lch/tutteli/atrium/reporting/reportables/InlineElement;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/creating/proofs/Proof;
+}
+
+public final class ch/tutteli/atrium/creating/transformers/FailureHandlerAdapter : ch/tutteli/atrium/creating/transformers/SubjectChanger$FailureHandler {
+	public fun <init> (Lch/tutteli/atrium/creating/transformers/SubjectChanger$FailureHandler;Lkotlin/jvm/functions/Function1;)V
+	public fun createProof (Lch/tutteli/atrium/creating/ProofContainer;Lch/tutteli/atrium/creating/proofs/Proof;Lch/tutteli/atrium/core/Option;)Lch/tutteli/atrium/creating/proofs/Proof;
+}
+
+public abstract interface class ch/tutteli/atrium/creating/transformers/FeatureExtractor {
+	public abstract fun extract (Lch/tutteli/atrium/creating/ProofContainer;Lch/tutteli/atrium/reporting/reportables/InlineElement;Ljava/lang/Object;Lkotlin/jvm/functions/Function1;Lch/tutteli/atrium/core/Option;Lch/tutteli/atrium/creating/FeatureExpectOptions;)Lch/tutteli/atrium/creating/FeatureExpect;
+}
+
+public abstract interface class ch/tutteli/atrium/creating/transformers/FeatureExtractorBuilder {
+	public static final field Companion Lch/tutteli/atrium/creating/transformers/FeatureExtractorBuilder$Companion;
+}
+
+public final class ch/tutteli/atrium/creating/transformers/FeatureExtractorBuilder$Companion {
+	public final fun invoke (Lch/tutteli/atrium/creating/ProofContainer;)Lch/tutteli/atrium/creating/transformers/FeatureExtractorBuilder$DescriptionStep;
+}
+
+public abstract interface class ch/tutteli/atrium/creating/transformers/FeatureExtractorBuilder$DescriptionStep {
+	public static final field Companion Lch/tutteli/atrium/creating/transformers/FeatureExtractorBuilder$DescriptionStep$Companion;
+	public abstract fun getContainer ()Lch/tutteli/atrium/creating/ProofContainer;
+	public abstract fun withDescription (Lch/tutteli/atrium/reporting/reportables/InlineElement;)Lch/tutteli/atrium/creating/transformers/FeatureExtractorBuilder$RepresentationInCaseOfFailureStep;
+}
+
+public final class ch/tutteli/atrium/creating/transformers/FeatureExtractorBuilder$DescriptionStep$Companion {
+	public final fun invoke (Lch/tutteli/atrium/creating/ProofContainer;)Lch/tutteli/atrium/creating/transformers/FeatureExtractorBuilder$DescriptionStep;
+}
+
+public abstract interface class ch/tutteli/atrium/creating/transformers/FeatureExtractorBuilder$ExecutionStep : ch/tutteli/atrium/creating/transformers/TransformationExecutionStep {
+	public static final field Companion Lch/tutteli/atrium/creating/transformers/FeatureExtractorBuilder$ExecutionStep$Companion;
+}
+
+public final class ch/tutteli/atrium/creating/transformers/FeatureExtractorBuilder$ExecutionStep$Companion {
+	public final fun invoke (Lch/tutteli/atrium/creating/ProofContainer;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function2;)Lch/tutteli/atrium/creating/transformers/FeatureExtractorBuilder$ExecutionStep;
+}
+
+public abstract interface class ch/tutteli/atrium/creating/transformers/FeatureExtractorBuilder$FeatureExtractionStep {
+	public static final field Companion Lch/tutteli/atrium/creating/transformers/FeatureExtractorBuilder$FeatureExtractionStep$Companion;
+	public abstract fun getContainer ()Lch/tutteli/atrium/creating/ProofContainer;
+	public abstract fun getDescription ()Lch/tutteli/atrium/reporting/reportables/InlineElement;
+	public abstract fun getRepresentationForFailure ()Ljava/lang/Object;
+	public abstract fun withFeatureExtraction (Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/creating/transformers/FeatureExtractorBuilder$OptionsStep;
+}
+
+public final class ch/tutteli/atrium/creating/transformers/FeatureExtractorBuilder$FeatureExtractionStep$Companion {
+	public final fun invoke (Lch/tutteli/atrium/creating/ProofContainer;Lch/tutteli/atrium/reporting/reportables/InlineElement;Ljava/lang/Object;)Lch/tutteli/atrium/creating/transformers/FeatureExtractorBuilder$FeatureExtractionStep;
+}
+
+public abstract interface class ch/tutteli/atrium/creating/transformers/FeatureExtractorBuilder$FinalStep {
+	public static final field Companion Lch/tutteli/atrium/creating/transformers/FeatureExtractorBuilder$FinalStep$Companion;
+	public abstract fun build ()Lch/tutteli/atrium/creating/transformers/FeatureExtractorBuilder$ExecutionStep;
+	public abstract fun getFeatureExpectOptions ()Lch/tutteli/atrium/creating/FeatureExpectOptions;
+	public abstract fun getFeatureExtraction ()Lkotlin/jvm/functions/Function1;
+	public abstract fun getFeatureExtractionStep ()Lch/tutteli/atrium/creating/transformers/FeatureExtractorBuilder$FeatureExtractionStep;
+}
+
+public final class ch/tutteli/atrium/creating/transformers/FeatureExtractorBuilder$FinalStep$Companion {
+	public final fun invoke (Lch/tutteli/atrium/creating/transformers/FeatureExtractorBuilder$FeatureExtractionStep;Lkotlin/jvm/functions/Function1;Lch/tutteli/atrium/creating/FeatureExpectOptions;)Lch/tutteli/atrium/creating/transformers/FeatureExtractorBuilder$FinalStep;
+}
+
+public abstract interface class ch/tutteli/atrium/creating/transformers/FeatureExtractorBuilder$OptionsStep {
+	public static final field Companion Lch/tutteli/atrium/creating/transformers/FeatureExtractorBuilder$OptionsStep$Companion;
+	public abstract fun getFeatureExtraction ()Lkotlin/jvm/functions/Function1;
+	public abstract fun getFeatureExtractionStep ()Lch/tutteli/atrium/creating/transformers/FeatureExtractorBuilder$FeatureExtractionStep;
+	public abstract fun withOptions (Lch/tutteli/atrium/creating/FeatureExpectOptions;)Lch/tutteli/atrium/creating/transformers/FeatureExtractorBuilder$FinalStep;
+	public abstract fun withoutOptions ()Lch/tutteli/atrium/creating/transformers/FeatureExtractorBuilder$FinalStep;
+}
+
+public final class ch/tutteli/atrium/creating/transformers/FeatureExtractorBuilder$OptionsStep$Companion {
+	public final fun invoke (Lch/tutteli/atrium/creating/transformers/FeatureExtractorBuilder$FeatureExtractionStep;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/creating/transformers/FeatureExtractorBuilder$OptionsStep;
+}
+
+public abstract interface class ch/tutteli/atrium/creating/transformers/FeatureExtractorBuilder$RepresentationInCaseOfFailureStep {
+	public static final field Companion Lch/tutteli/atrium/creating/transformers/FeatureExtractorBuilder$RepresentationInCaseOfFailureStep$Companion;
+	public abstract fun getContainer ()Lch/tutteli/atrium/creating/ProofContainer;
+	public abstract fun getDescription ()Lch/tutteli/atrium/reporting/reportables/InlineElement;
+	public abstract fun withRepresentationForFailure (Ljava/lang/Object;)Lch/tutteli/atrium/creating/transformers/FeatureExtractorBuilder$FeatureExtractionStep;
+	public abstract fun withRepresentationForFailure (Lkotlin/jvm/functions/Function0;)Lch/tutteli/atrium/creating/transformers/FeatureExtractorBuilder$FeatureExtractionStep;
+}
+
+public final class ch/tutteli/atrium/creating/transformers/FeatureExtractorBuilder$RepresentationInCaseOfFailureStep$Companion {
+	public final fun invoke (Lch/tutteli/atrium/creating/ProofContainer;Lch/tutteli/atrium/reporting/reportables/InlineElement;)Lch/tutteli/atrium/creating/transformers/FeatureExtractorBuilder$RepresentationInCaseOfFailureStep;
+}
+
+public final class ch/tutteli/atrium/creating/transformers/FeatureExtractorBuilder$RepresentationInCaseOfFailureStep$DefaultImpls {
+	public static fun withRepresentationForFailure (Lch/tutteli/atrium/creating/transformers/FeatureExtractorBuilder$RepresentationInCaseOfFailureStep;Lkotlin/jvm/functions/Function0;)Lch/tutteli/atrium/creating/transformers/FeatureExtractorBuilder$FeatureExtractionStep;
+}
+
+public final class ch/tutteli/atrium/creating/transformers/ImplsKt {
+	public static final fun getFeatureExtractor (Lch/tutteli/atrium/creating/ProofContainer;)Lch/tutteli/atrium/creating/transformers/FeatureExtractor;
+	public static final fun getSubjectChanger (Lch/tutteli/atrium/creating/ProofContainer;)Lch/tutteli/atrium/creating/transformers/SubjectChanger;
+}
+
+public final class ch/tutteli/atrium/creating/transformers/PropertiesOfThrowableKt {
+	public static final fun addChildHint (Lch/tutteli/atrium/creating/proofs/builders/impl/BaseGroupBuilder;Ljava/lang/Throwable;Ljava/lang/Throwable;Lch/tutteli/atrium/reporting/reportables/InlineElement;)V
+	public static final fun propertiesOfThrowable (Lch/tutteli/atrium/creating/ProofContainer;Ljava/lang/Throwable;)Lch/tutteli/atrium/reporting/reportables/Reportable;
+}
+
+public abstract interface class ch/tutteli/atrium/creating/transformers/SubjectChanger {
+	public abstract fun reported (Lch/tutteli/atrium/creating/ProofContainer;Lch/tutteli/atrium/reporting/reportables/InlineElement;Ljava/lang/Object;Lkotlin/jvm/functions/Function1;Lch/tutteli/atrium/creating/transformers/SubjectChanger$FailureHandler;Lch/tutteli/atrium/core/Option;)Lch/tutteli/atrium/creating/Expect;
+	public abstract fun unreported (Lch/tutteli/atrium/creating/ProofContainer;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/creating/Expect;
+}
+
+public abstract interface class ch/tutteli/atrium/creating/transformers/SubjectChanger$FailureHandler {
+	public abstract fun createProof (Lch/tutteli/atrium/creating/ProofContainer;Lch/tutteli/atrium/creating/proofs/Proof;Lch/tutteli/atrium/core/Option;)Lch/tutteli/atrium/creating/proofs/Proof;
+}
+
+public abstract interface class ch/tutteli/atrium/creating/transformers/SubjectChangerBuilder {
+	public static final field Companion Lch/tutteli/atrium/creating/transformers/SubjectChangerBuilder$Companion;
+}
+
+public final class ch/tutteli/atrium/creating/transformers/SubjectChangerBuilder$Companion {
+	public final fun invoke (Lch/tutteli/atrium/creating/ProofContainer;)Lch/tutteli/atrium/creating/transformers/SubjectChangerBuilder$KindStep;
+}
+
+public abstract interface class ch/tutteli/atrium/creating/transformers/SubjectChangerBuilder$DescriptionRepresentationStep {
+	public static final field Companion Lch/tutteli/atrium/creating/transformers/SubjectChangerBuilder$DescriptionRepresentationStep$Companion;
+	public abstract fun downCastTo (Lkotlin/reflect/KClass;)Lch/tutteli/atrium/creating/transformers/SubjectChangerBuilder$FailureHandlerStep;
+	public abstract fun getContainer ()Lch/tutteli/atrium/creating/ProofContainer;
+	public abstract fun withDescriptionAndRepresentation (Lch/tutteli/atrium/reporting/reportables/InlineElement;Ljava/lang/Object;)Lch/tutteli/atrium/creating/transformers/SubjectChangerBuilder$TransformationStep;
+	public abstract fun withDescriptionAndRepresentation (Ljava/lang/String;Ljava/lang/Object;)Lch/tutteli/atrium/creating/transformers/SubjectChangerBuilder$TransformationStep;
+}
+
+public final class ch/tutteli/atrium/creating/transformers/SubjectChangerBuilder$DescriptionRepresentationStep$Companion {
+	public final fun invoke (Lch/tutteli/atrium/creating/ProofContainer;)Lch/tutteli/atrium/creating/transformers/SubjectChangerBuilder$DescriptionRepresentationStep;
+}
+
+public final class ch/tutteli/atrium/creating/transformers/SubjectChangerBuilder$DescriptionRepresentationStep$DefaultImpls {
+	public static fun downCastTo (Lch/tutteli/atrium/creating/transformers/SubjectChangerBuilder$DescriptionRepresentationStep;Lkotlin/reflect/KClass;)Lch/tutteli/atrium/creating/transformers/SubjectChangerBuilder$FailureHandlerStep;
+	public static fun withDescriptionAndRepresentation (Lch/tutteli/atrium/creating/transformers/SubjectChangerBuilder$DescriptionRepresentationStep;Ljava/lang/String;Ljava/lang/Object;)Lch/tutteli/atrium/creating/transformers/SubjectChangerBuilder$TransformationStep;
+}
+
+public abstract interface class ch/tutteli/atrium/creating/transformers/SubjectChangerBuilder$ExecutionStep : ch/tutteli/atrium/creating/transformers/TransformationExecutionStep {
+	public static final field Companion Lch/tutteli/atrium/creating/transformers/SubjectChangerBuilder$ExecutionStep$Companion;
+}
+
+public final class ch/tutteli/atrium/creating/transformers/SubjectChangerBuilder$ExecutionStep$Companion {
+	public final fun invoke (Lch/tutteli/atrium/creating/ProofContainer;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function2;)Lch/tutteli/atrium/creating/transformers/SubjectChangerBuilder$ExecutionStep;
+}
+
+public abstract interface class ch/tutteli/atrium/creating/transformers/SubjectChangerBuilder$FailureHandlerStep {
+	public static final field Companion Lch/tutteli/atrium/creating/transformers/SubjectChangerBuilder$FailureHandlerStep$Companion;
+	public abstract fun build ()Lch/tutteli/atrium/creating/transformers/SubjectChangerBuilder$ExecutionStep;
+	public abstract fun getTransformation ()Lkotlin/jvm/functions/Function1;
+	public abstract fun getTransformationStep ()Lch/tutteli/atrium/creating/transformers/SubjectChangerBuilder$TransformationStep;
+	public abstract fun withDefaultFailureHandler ()Lch/tutteli/atrium/creating/transformers/SubjectChangerBuilder$FinalStep;
+	public abstract fun withFailureHandler (Lch/tutteli/atrium/creating/transformers/SubjectChanger$FailureHandler;)Lch/tutteli/atrium/creating/transformers/SubjectChangerBuilder$FinalStep;
+	public abstract fun withFailureHandlerAdapter (Lch/tutteli/atrium/creating/transformers/SubjectChanger$FailureHandler;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/creating/transformers/SubjectChangerBuilder$FinalStep;
+}
+
+public final class ch/tutteli/atrium/creating/transformers/SubjectChangerBuilder$FailureHandlerStep$Companion {
+	public final fun invoke (Lch/tutteli/atrium/creating/transformers/SubjectChangerBuilder$TransformationStep;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/creating/transformers/SubjectChangerBuilder$FailureHandlerStep;
+}
+
+public final class ch/tutteli/atrium/creating/transformers/SubjectChangerBuilder$FailureHandlerStep$DefaultImpls {
+	public static fun build (Lch/tutteli/atrium/creating/transformers/SubjectChangerBuilder$FailureHandlerStep;)Lch/tutteli/atrium/creating/transformers/SubjectChangerBuilder$ExecutionStep;
+	public static fun withFailureHandlerAdapter (Lch/tutteli/atrium/creating/transformers/SubjectChangerBuilder$FailureHandlerStep;Lch/tutteli/atrium/creating/transformers/SubjectChanger$FailureHandler;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/creating/transformers/SubjectChangerBuilder$FinalStep;
+}
+
+public abstract interface class ch/tutteli/atrium/creating/transformers/SubjectChangerBuilder$FinalStep {
+	public static final field Companion Lch/tutteli/atrium/creating/transformers/SubjectChangerBuilder$FinalStep$Companion;
+	public abstract fun build ()Lch/tutteli/atrium/creating/transformers/SubjectChangerBuilder$ExecutionStep;
+	public abstract fun getFailureHandler ()Lch/tutteli/atrium/creating/transformers/SubjectChanger$FailureHandler;
+	public abstract fun getTransformation ()Lkotlin/jvm/functions/Function1;
+	public abstract fun getTransformationStep ()Lch/tutteli/atrium/creating/transformers/SubjectChangerBuilder$TransformationStep;
+}
+
+public final class ch/tutteli/atrium/creating/transformers/SubjectChangerBuilder$FinalStep$Companion {
+	public final fun invoke (Lch/tutteli/atrium/creating/transformers/SubjectChangerBuilder$TransformationStep;Lkotlin/jvm/functions/Function1;Lch/tutteli/atrium/creating/transformers/SubjectChanger$FailureHandler;)Lch/tutteli/atrium/creating/transformers/SubjectChangerBuilder$FinalStep;
+}
+
+public abstract interface class ch/tutteli/atrium/creating/transformers/SubjectChangerBuilder$KindStep {
+	public abstract fun getContainer ()Lch/tutteli/atrium/creating/ProofContainer;
+	public abstract fun reportBuilder ()Lch/tutteli/atrium/creating/transformers/SubjectChangerBuilder$DescriptionRepresentationStep;
+	public abstract fun unreported (Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/creating/Expect;
+}
+
+public final class ch/tutteli/atrium/creating/transformers/SubjectChangerBuilder$KindStep$DefaultImpls {
+	public static fun unreported (Lch/tutteli/atrium/creating/transformers/SubjectChangerBuilder$KindStep;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/creating/Expect;
+}
+
+public abstract interface class ch/tutteli/atrium/creating/transformers/SubjectChangerBuilder$TransformationStep {
+	public static final field Companion Lch/tutteli/atrium/creating/transformers/SubjectChangerBuilder$TransformationStep$Companion;
+	public abstract fun getContainer ()Lch/tutteli/atrium/creating/ProofContainer;
+	public abstract fun getDescription ()Lch/tutteli/atrium/reporting/reportables/InlineElement;
+	public abstract fun getRepresentation ()Ljava/lang/Object;
+	public abstract fun withTransformation (Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/creating/transformers/SubjectChangerBuilder$FailureHandlerStep;
+}
+
+public final class ch/tutteli/atrium/creating/transformers/SubjectChangerBuilder$TransformationStep$Companion {
+	public final fun invoke (Lch/tutteli/atrium/creating/ProofContainer;Lch/tutteli/atrium/reporting/reportables/InlineElement;Ljava/lang/Object;)Lch/tutteli/atrium/creating/transformers/SubjectChangerBuilder$TransformationStep;
+}
+
+public abstract interface class ch/tutteli/atrium/creating/transformers/TransformationExecutionStep {
+	public abstract fun collect (Lch/tutteli/atrium/creating/ExpectationCreatorWithUsageHints;)Lch/tutteli/atrium/creating/proofs/Proof;
+	public abstract fun collectAndAppend (Lch/tutteli/atrium/creating/ExpectationCreatorWithUsageHints;)Lch/tutteli/atrium/creating/Expect;
+	public abstract fun transform ()Lch/tutteli/atrium/creating/Expect;
+	public abstract fun transformAndAppend (Lch/tutteli/atrium/creating/ExpectationCreatorWithUsageHints;)Lch/tutteli/atrium/creating/Expect;
+}
+
+public abstract class ch/tutteli/atrium/creating/transformers/impl/BaseTransformationExecutionStep : ch/tutteli/atrium/creating/transformers/TransformationExecutionStep {
+	public fun <init> (Lch/tutteli/atrium/creating/ProofContainer;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function2;)V
+	public final fun collect (Lch/tutteli/atrium/creating/ExpectationCreatorWithUsageHints;)Lch/tutteli/atrium/creating/proofs/Proof;
+	public final fun collectAndAppend (Lch/tutteli/atrium/creating/ExpectationCreatorWithUsageHints;)Lch/tutteli/atrium/creating/Expect;
+	protected final fun getAction ()Lkotlin/jvm/functions/Function1;
+	protected final fun getActionAndApply ()Lkotlin/jvm/functions/Function2;
+	protected final fun getContainer ()Lch/tutteli/atrium/creating/ProofContainer;
+	public final fun transform ()Lch/tutteli/atrium/creating/Expect;
+	public final fun transformAndAppend (Lch/tutteli/atrium/creating/ExpectationCreatorWithUsageHints;)Lch/tutteli/atrium/creating/Expect;
+}
+
+public final class ch/tutteli/atrium/creating/transformers/impl/CreateAdditionalHintsKt {
+	public static final fun addAdditionalHints (Lch/tutteli/atrium/creating/proofs/builders/impl/BaseGroupBuilder;Ljava/lang/Throwable;)V
+}
+
+public final class ch/tutteli/atrium/creating/transformers/impl/DefaultFeatureExtractor : ch/tutteli/atrium/creating/transformers/FeatureExtractor {
+	public fun <init> ()V
+	public fun extract (Lch/tutteli/atrium/creating/ProofContainer;Lch/tutteli/atrium/reporting/reportables/InlineElement;Ljava/lang/Object;Lkotlin/jvm/functions/Function1;Lch/tutteli/atrium/core/Option;Lch/tutteli/atrium/creating/FeatureExpectOptions;)Lch/tutteli/atrium/creating/FeatureExpect;
+}
+
+public final class ch/tutteli/atrium/creating/transformers/impl/DefaultSubjectChanger : ch/tutteli/atrium/creating/transformers/SubjectChanger {
+	public fun <init> ()V
+	public fun reported (Lch/tutteli/atrium/creating/ProofContainer;Lch/tutteli/atrium/reporting/reportables/InlineElement;Ljava/lang/Object;Lkotlin/jvm/functions/Function1;Lch/tutteli/atrium/creating/transformers/SubjectChanger$FailureHandler;Lch/tutteli/atrium/core/Option;)Lch/tutteli/atrium/creating/Expect;
+	public fun unreported (Lch/tutteli/atrium/creating/ProofContainer;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/creating/Expect;
+}
+
+public final class ch/tutteli/atrium/creating/transformers/impl/ThrowableThrownFailureHandler : ch/tutteli/atrium/creating/transformers/SubjectChanger$FailureHandler {
+	public fun <init> ()V
+	public fun createProof (Lch/tutteli/atrium/creating/ProofContainer;Lch/tutteli/atrium/creating/proofs/Proof;Lch/tutteli/atrium/core/Option;)Lch/tutteli/atrium/creating/proofs/Proof;
+}
+
+public final class ch/tutteli/atrium/creating/transformers/impl/builders/featureextractor/DescriptionStepImpl : ch/tutteli/atrium/creating/transformers/FeatureExtractorBuilder$DescriptionStep {
+	public fun <init> (Lch/tutteli/atrium/creating/ProofContainer;)V
+	public fun getContainer ()Lch/tutteli/atrium/creating/ProofContainer;
+	public fun withDescription (Lch/tutteli/atrium/reporting/reportables/InlineElement;)Lch/tutteli/atrium/creating/transformers/FeatureExtractorBuilder$RepresentationInCaseOfFailureStep;
+}
+
+public final class ch/tutteli/atrium/creating/transformers/impl/builders/featureextractor/ExecutionStepImpl : ch/tutteli/atrium/creating/transformers/impl/BaseTransformationExecutionStep, ch/tutteli/atrium/creating/transformers/FeatureExtractorBuilder$ExecutionStep {
+	public fun <init> (Lch/tutteli/atrium/creating/ProofContainer;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function2;)V
+}
+
+public final class ch/tutteli/atrium/creating/transformers/impl/builders/featureextractor/FeatureExtractionStepImpl : ch/tutteli/atrium/creating/transformers/FeatureExtractorBuilder$FeatureExtractionStep {
+	public fun <init> (Lch/tutteli/atrium/creating/ProofContainer;Lch/tutteli/atrium/reporting/reportables/InlineElement;Ljava/lang/Object;)V
+	public fun getContainer ()Lch/tutteli/atrium/creating/ProofContainer;
+	public fun getDescription ()Lch/tutteli/atrium/reporting/reportables/InlineElement;
+	public fun getRepresentationForFailure ()Ljava/lang/Object;
+	public fun withFeatureExtraction (Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/creating/transformers/FeatureExtractorBuilder$OptionsStep;
+}
+
+public final class ch/tutteli/atrium/creating/transformers/impl/builders/featureextractor/FinalStepImpl : ch/tutteli/atrium/creating/transformers/FeatureExtractorBuilder$FinalStep {
+	public fun <init> (Lch/tutteli/atrium/creating/transformers/FeatureExtractorBuilder$FeatureExtractionStep;Lkotlin/jvm/functions/Function1;Lch/tutteli/atrium/creating/FeatureExpectOptions;)V
+	public fun build ()Lch/tutteli/atrium/creating/transformers/FeatureExtractorBuilder$ExecutionStep;
+	public fun getFeatureExpectOptions ()Lch/tutteli/atrium/creating/FeatureExpectOptions;
+	public fun getFeatureExtraction ()Lkotlin/jvm/functions/Function1;
+	public fun getFeatureExtractionStep ()Lch/tutteli/atrium/creating/transformers/FeatureExtractorBuilder$FeatureExtractionStep;
+}
+
+public final class ch/tutteli/atrium/creating/transformers/impl/builders/featureextractor/OptionsStepImpl : ch/tutteli/atrium/creating/transformers/FeatureExtractorBuilder$OptionsStep {
+	public fun <init> (Lch/tutteli/atrium/creating/transformers/FeatureExtractorBuilder$FeatureExtractionStep;Lkotlin/jvm/functions/Function1;)V
+	public fun getFeatureExtraction ()Lkotlin/jvm/functions/Function1;
+	public fun getFeatureExtractionStep ()Lch/tutteli/atrium/creating/transformers/FeatureExtractorBuilder$FeatureExtractionStep;
+	public fun withOptions (Lch/tutteli/atrium/creating/FeatureExpectOptions;)Lch/tutteli/atrium/creating/transformers/FeatureExtractorBuilder$FinalStep;
+	public fun withoutOptions ()Lch/tutteli/atrium/creating/transformers/FeatureExtractorBuilder$FinalStep;
+}
+
+public final class ch/tutteli/atrium/creating/transformers/impl/builders/subjectchanger/DefaultFailureHandlerImpl : ch/tutteli/atrium/creating/transformers/SubjectChanger$FailureHandler {
+	public fun <init> ()V
+	public fun createProof (Lch/tutteli/atrium/creating/ProofContainer;Lch/tutteli/atrium/creating/proofs/Proof;Lch/tutteli/atrium/core/Option;)Lch/tutteli/atrium/creating/proofs/Proof;
+}
+
+public final class ch/tutteli/atrium/creating/transformers/impl/builders/subjectchanger/DescriptionRepresentationStepImpl : ch/tutteli/atrium/creating/transformers/SubjectChangerBuilder$DescriptionRepresentationStep {
+	public fun <init> (Lch/tutteli/atrium/creating/ProofContainer;)V
+	public fun downCastTo (Lkotlin/reflect/KClass;)Lch/tutteli/atrium/creating/transformers/SubjectChangerBuilder$FailureHandlerStep;
+	public fun getContainer ()Lch/tutteli/atrium/creating/ProofContainer;
+	public fun withDescriptionAndRepresentation (Lch/tutteli/atrium/reporting/reportables/InlineElement;Ljava/lang/Object;)Lch/tutteli/atrium/creating/transformers/SubjectChangerBuilder$TransformationStep;
+	public fun withDescriptionAndRepresentation (Ljava/lang/String;Ljava/lang/Object;)Lch/tutteli/atrium/creating/transformers/SubjectChangerBuilder$TransformationStep;
+}
+
+public final class ch/tutteli/atrium/creating/transformers/impl/builders/subjectchanger/ExecutionStepImpl : ch/tutteli/atrium/creating/transformers/impl/BaseTransformationExecutionStep, ch/tutteli/atrium/creating/transformers/SubjectChangerBuilder$ExecutionStep {
+	public fun <init> (Lch/tutteli/atrium/creating/ProofContainer;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function2;)V
+}
+
+public final class ch/tutteli/atrium/creating/transformers/impl/builders/subjectchanger/FailureHandlerStepImpl : ch/tutteli/atrium/creating/transformers/SubjectChangerBuilder$FailureHandlerStep {
+	public fun <init> (Lch/tutteli/atrium/creating/transformers/SubjectChangerBuilder$TransformationStep;Lkotlin/jvm/functions/Function1;)V
+	public fun build ()Lch/tutteli/atrium/creating/transformers/SubjectChangerBuilder$ExecutionStep;
+	public fun getTransformation ()Lkotlin/jvm/functions/Function1;
+	public fun getTransformationStep ()Lch/tutteli/atrium/creating/transformers/SubjectChangerBuilder$TransformationStep;
+	public fun withDefaultFailureHandler ()Lch/tutteli/atrium/creating/transformers/SubjectChangerBuilder$FinalStep;
+	public fun withFailureHandler (Lch/tutteli/atrium/creating/transformers/SubjectChanger$FailureHandler;)Lch/tutteli/atrium/creating/transformers/SubjectChangerBuilder$FinalStep;
+	public fun withFailureHandlerAdapter (Lch/tutteli/atrium/creating/transformers/SubjectChanger$FailureHandler;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/creating/transformers/SubjectChangerBuilder$FinalStep;
+}
+
+public final class ch/tutteli/atrium/creating/transformers/impl/builders/subjectchanger/FinalStepImpl : ch/tutteli/atrium/creating/transformers/SubjectChangerBuilder$FinalStep {
+	public fun <init> (Lch/tutteli/atrium/creating/transformers/SubjectChangerBuilder$TransformationStep;Lkotlin/jvm/functions/Function1;Lch/tutteli/atrium/creating/transformers/SubjectChanger$FailureHandler;)V
+	public fun build ()Lch/tutteli/atrium/creating/transformers/SubjectChangerBuilder$ExecutionStep;
+	public fun getFailureHandler ()Lch/tutteli/atrium/creating/transformers/SubjectChanger$FailureHandler;
+	public fun getTransformation ()Lkotlin/jvm/functions/Function1;
+	public fun getTransformationStep ()Lch/tutteli/atrium/creating/transformers/SubjectChangerBuilder$TransformationStep;
+}
+
+public final class ch/tutteli/atrium/creating/transformers/impl/builders/subjectchanger/KindStepImpl : ch/tutteli/atrium/creating/transformers/SubjectChangerBuilder$KindStep {
+	public fun <init> (Lch/tutteli/atrium/creating/ProofContainer;)V
+	public fun getContainer ()Lch/tutteli/atrium/creating/ProofContainer;
+	public fun reportBuilder ()Lch/tutteli/atrium/creating/transformers/SubjectChangerBuilder$DescriptionRepresentationStep;
+	public fun unreported (Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/creating/Expect;
+}
+
+public final class ch/tutteli/atrium/creating/transformers/impl/builders/subjectchanger/TransformationStepImpl : ch/tutteli/atrium/creating/transformers/SubjectChangerBuilder$TransformationStep {
+	public fun <init> (Lch/tutteli/atrium/creating/ProofContainer;Lch/tutteli/atrium/reporting/reportables/InlineElement;Ljava/lang/Object;)V
+	public fun getContainer ()Lch/tutteli/atrium/creating/ProofContainer;
+	public fun getDescription ()Lch/tutteli/atrium/reporting/reportables/InlineElement;
+	public fun getRepresentation ()Ljava/lang/Object;
+	public fun withTransformation (Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/creating/transformers/SubjectChangerBuilder$FailureHandlerStep;
 }
 
 public abstract interface class ch/tutteli/atrium/reporting/AssertionFormatter {
@@ -930,14 +1546,14 @@ public final class ch/tutteli/atrium/reporting/AssertionPairFormatter$DefaultImp
 
 public final class ch/tutteli/atrium/reporting/AtriumError : java/lang/AssertionError {
 	public static final field Companion Lch/tutteli/atrium/reporting/AtriumError$Companion;
+	public final fun getCausingProof ()Lch/tutteli/atrium/creating/proofs/Proof;
 	public fun getLocalizedMessage ()Ljava/lang/String;
 	public fun getMessage ()Ljava/lang/String;
-	public final fun getRootAssertion ()Lch/tutteli/atrium/assertions/Assertion;
 	public fun toString ()Ljava/lang/String;
 }
 
 public final class ch/tutteli/atrium/reporting/AtriumError$Companion {
-	public final fun create (Ljava/lang/String;Lch/tutteli/atrium/assertions/Assertion;Lch/tutteli/atrium/reporting/AtriumErrorAdjuster;)Lch/tutteli/atrium/reporting/AtriumError;
+	public final fun create (Ljava/lang/String;Lch/tutteli/atrium/creating/proofs/Proof;Lch/tutteli/atrium/reporting/AtriumErrorAdjuster;)Lch/tutteli/atrium/reporting/AtriumError;
 }
 
 public abstract interface class ch/tutteli/atrium/reporting/AtriumErrorAdjuster : ch/tutteli/atrium/reporting/AtriumErrorAdjusterCommon {
@@ -952,6 +1568,24 @@ public abstract interface class ch/tutteli/atrium/reporting/AtriumErrorAdjusterC
 public final class ch/tutteli/atrium/reporting/ConstantsKt {
 	public static final field BUG_REPORT_URL Ljava/lang/String;
 	public static final field SHOULD_NOT_BE_SHOWN_TO_THE_USER_BUG Ljava/lang/String;
+	public static final fun bugErrorMessage (Ljava/lang/String;)Ljava/lang/String;
+	public static final fun errorDueToBug (Ljava/lang/String;)Ljava/lang/Void;
+	public static final fun failWithBugErrorIf (ZLkotlin/jvm/functions/Function0;)V
+	public static final fun getForgotToAppendProofPseudoUsageHint ()Ljava/util/List;
+}
+
+public final class ch/tutteli/atrium/reporting/HorizontalAlignment : java/lang/Enum {
+	public static final field CENTRE Lch/tutteli/atrium/reporting/HorizontalAlignment;
+	public static final field Companion Lch/tutteli/atrium/reporting/HorizontalAlignment$Companion;
+	public static final field LEFT Lch/tutteli/atrium/reporting/HorizontalAlignment;
+	public static final field RIGHT Lch/tutteli/atrium/reporting/HorizontalAlignment;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lch/tutteli/atrium/reporting/HorizontalAlignment;
+	public static fun values ()[Lch/tutteli/atrium/reporting/HorizontalAlignment;
+}
+
+public final class ch/tutteli/atrium/reporting/HorizontalAlignment$Companion {
+	public final fun getDEFAULT ()Lch/tutteli/atrium/reporting/HorizontalAlignment;
 }
 
 public final class ch/tutteli/atrium/reporting/LazyRepresentation {
@@ -969,17 +1603,22 @@ public abstract interface class ch/tutteli/atrium/reporting/ObjectFormatter {
 }
 
 public abstract interface class ch/tutteli/atrium/reporting/Reporter {
+	public abstract fun createReport (Lch/tutteli/atrium/reporting/reportables/Reportable;)Ljava/lang/StringBuilder;
 	public abstract fun format (Lch/tutteli/atrium/assertions/Assertion;Ljava/lang/StringBuilder;)V
 }
 
-public final class ch/tutteli/atrium/reporting/Text {
+public final class ch/tutteli/atrium/reporting/Reporter$DefaultImpls {
+	public static fun createReport (Lch/tutteli/atrium/reporting/Reporter;Lch/tutteli/atrium/reporting/reportables/Reportable;)Ljava/lang/StringBuilder;
+}
+
+public final class ch/tutteli/atrium/reporting/Text : ch/tutteli/atrium/reporting/reportables/TextElement {
 	public static final field Companion Lch/tutteli/atrium/reporting/Text$Companion;
 	public synthetic fun <init> (Ljava/lang/String;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()Ljava/lang/String;
 	public final fun copy (Ljava/lang/String;)Lch/tutteli/atrium/reporting/Text;
 	public static synthetic fun copy$default (Lch/tutteli/atrium/reporting/Text;Ljava/lang/String;ILjava/lang/Object;)Lch/tutteli/atrium/reporting/Text;
 	public fun equals (Ljava/lang/Object;)Z
-	public final fun getString ()Ljava/lang/String;
+	public fun getString ()Ljava/lang/String;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
 }
@@ -988,6 +1627,7 @@ public final class ch/tutteli/atrium/reporting/Text$Companion {
 	public final fun getEMPTY ()Lch/tutteli/atrium/reporting/Text;
 	public final fun getEMPTY_PROVIDER ()Lkotlin/jvm/functions/Function0;
 	public final fun getNULL ()Lch/tutteli/atrium/reporting/Text;
+	public final fun getSPACE ()Lch/tutteli/atrium/reporting/Text;
 	public final fun invoke (Ljava/lang/String;)Lch/tutteli/atrium/reporting/Text;
 }
 
@@ -1030,6 +1670,16 @@ public final class ch/tutteli/atrium/reporting/erroradjusters/impl/RemoveRunnerF
 	public fun adjustStackTrace (Lkotlin/sequences/Sequence;)Lkotlin/sequences/Sequence;
 }
 
+public abstract interface class ch/tutteli/atrium/reporting/filters/ReportableFilter {
+	public static final field Companion Lch/tutteli/atrium/reporting/filters/ReportableFilter$Companion;
+	public abstract fun includeInReporting (Lch/tutteli/atrium/reporting/reportables/Reportable;)Z
+}
+
+public final class ch/tutteli/atrium/reporting/filters/ReportableFilter$Companion {
+	public final fun failingProofsAndNonProof ()Lch/tutteli/atrium/reporting/filters/ReportableFilter;
+	public final fun includeAll ()Lch/tutteli/atrium/reporting/filters/ReportableFilter;
+}
+
 public final class ch/tutteli/atrium/reporting/impl/AssertionFormatterControllerBasedFacade : ch/tutteli/atrium/reporting/AssertionFormatterFacade {
 	public fun <init> (Lch/tutteli/atrium/reporting/AssertionFormatterController;)V
 	public fun format (Lch/tutteli/atrium/assertions/Assertion;Ljava/lang/StringBuilder;Lkotlin/jvm/functions/Function1;)V
@@ -1045,7 +1695,390 @@ public final class ch/tutteli/atrium/reporting/impl/DefaultAssertionFormatterCon
 
 public final class ch/tutteli/atrium/reporting/impl/OnlyFailureReporter : ch/tutteli/atrium/reporting/Reporter {
 	public fun <init> (Lch/tutteli/atrium/reporting/AssertionFormatterFacade;)V
+	public fun createReport (Lch/tutteli/atrium/reporting/reportables/Reportable;)Ljava/lang/StringBuilder;
 	public fun format (Lch/tutteli/atrium/assertions/Assertion;Ljava/lang/StringBuilder;)V
+}
+
+public final class ch/tutteli/atrium/reporting/prerendering/text/OutputNode {
+	public static final field Companion Lch/tutteli/atrium/reporting/prerendering/text/OutputNode$Companion;
+	public fun <init> (Ljava/util/List;Ljava/util/List;ZIIIZ)V
+	public synthetic fun <init> (Ljava/util/List;Ljava/util/List;ZIIIZILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Ljava/util/List;
+	public final fun component2 ()Ljava/util/List;
+	public final fun component3 ()Z
+	public final fun component4 ()I
+	public final fun component5 ()I
+	public final fun component6 ()I
+	public final fun component7 ()Z
+	public final fun copy (Ljava/util/List;Ljava/util/List;ZIIIZ)Lch/tutteli/atrium/reporting/prerendering/text/OutputNode;
+	public static synthetic fun copy$default (Lch/tutteli/atrium/reporting/prerendering/text/OutputNode;Ljava/util/List;Ljava/util/List;ZIIIZILjava/lang/Object;)Lch/tutteli/atrium/reporting/prerendering/text/OutputNode;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getChildren ()Ljava/util/List;
+	public final fun getColumns ()Ljava/util/List;
+	public final fun getDefinesOwnLevel ()Z
+	public final fun getIndentLevel ()I
+	public final fun getMergeColumns ()I
+	public final fun getStartMergeAtColumn ()I
+	public final fun getUsesOwnPrefix ()Z
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public final class ch/tutteli/atrium/reporting/prerendering/text/OutputNode$Companion {
+	public final fun singleWithoutColumnsNotOwnLevel (Ljava/util/List;)Ljava/util/List;
+}
+
+public abstract interface class ch/tutteli/atrium/reporting/prerendering/text/TextDesignationPreRenderer {
+	public abstract fun canTransform (Lch/tutteli/atrium/reporting/reportables/Reportable;)Z
+	public abstract fun transform (Lch/tutteli/atrium/reporting/reportables/Reportable;Ljava/lang/Object;Ljava/util/List;Ljava/util/List;ILjava/util/List;Lch/tutteli/atrium/reporting/prerendering/text/TextPreRenderControlObject;)Ljava/util/List;
+}
+
+public final class ch/tutteli/atrium/reporting/prerendering/text/TextPreRenderControlObject : ch/tutteli/atrium/reporting/prerendering/text/TextPreRenderController {
+	public fun <init> (Lch/tutteli/atrium/reporting/reportables/Icon;ILch/tutteli/atrium/reporting/prerendering/text/TextPreRenderController;Lch/tutteli/atrium/reporting/filters/ReportableFilter;Z)V
+	public final fun component1 ()Lch/tutteli/atrium/reporting/reportables/Icon;
+	public final fun component2 ()I
+	public final fun component4 ()Lch/tutteli/atrium/reporting/filters/ReportableFilter;
+	public final fun component5 ()Z
+	public final fun copy (Lch/tutteli/atrium/reporting/reportables/Icon;ILch/tutteli/atrium/reporting/prerendering/text/TextPreRenderController;Lch/tutteli/atrium/reporting/filters/ReportableFilter;Z)Lch/tutteli/atrium/reporting/prerendering/text/TextPreRenderControlObject;
+	public static synthetic fun copy$default (Lch/tutteli/atrium/reporting/prerendering/text/TextPreRenderControlObject;Lch/tutteli/atrium/reporting/reportables/Icon;ILch/tutteli/atrium/reporting/prerendering/text/TextPreRenderController;Lch/tutteli/atrium/reporting/filters/ReportableFilter;ZILjava/lang/Object;)Lch/tutteli/atrium/reporting/prerendering/text/TextPreRenderControlObject;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getExplainsProof ()Z
+	public final fun getIndentLevel ()I
+	public final fun getPrefix ()Lch/tutteli/atrium/reporting/reportables/Icon;
+	public final fun getReportableFilter ()Lch/tutteli/atrium/reporting/filters/ReportableFilter;
+	public fun hashCode ()I
+	public final fun includeInReporting (Lch/tutteli/atrium/reporting/reportables/Reportable;)Z
+	public fun toString ()Ljava/lang/String;
+	public fun transformChild (Lch/tutteli/atrium/reporting/reportables/Reportable;Lch/tutteli/atrium/reporting/prerendering/text/TextPreRenderControlObject;)Ljava/util/List;
+	public fun transformChildIncludingIndentationAndPrefix (Lch/tutteli/atrium/reporting/reportables/Reportable;Lch/tutteli/atrium/reporting/prerendering/text/TextPreRenderControlObject;)Ljava/util/List;
+	public fun transformGroup (Lch/tutteli/atrium/reporting/reportables/Reportable;Ljava/lang/Object;Lch/tutteli/atrium/reporting/prerendering/text/TextPreRenderControlObject;Ljava/util/List;Ljava/util/List;Ljava/util/List;I)Ljava/util/List;
+	public fun transformRoot (Lch/tutteli/atrium/reporting/reportables/Reportable;Z)Ljava/util/List;
+}
+
+public final class ch/tutteli/atrium/reporting/prerendering/text/TextPreRenderControlObjectKt {
+	public static final fun transformAndGetSingleColumnOfSingleNode (Lch/tutteli/atrium/reporting/prerendering/text/TextPreRenderControlObject;Lch/tutteli/atrium/reporting/reportables/Reportable;)Lch/tutteli/atrium/reporting/theming/text/StyledString;
+	public static final fun transformAndGetSingleNode (Lch/tutteli/atrium/reporting/prerendering/text/TextPreRenderControlObject;Lch/tutteli/atrium/reporting/reportables/Reportable;)Lch/tutteli/atrium/reporting/prerendering/text/OutputNode;
+}
+
+public abstract interface class ch/tutteli/atrium/reporting/prerendering/text/TextPreRenderController {
+	public abstract fun transformChild (Lch/tutteli/atrium/reporting/reportables/Reportable;Lch/tutteli/atrium/reporting/prerendering/text/TextPreRenderControlObject;)Ljava/util/List;
+	public abstract fun transformChildIncludingIndentationAndPrefix (Lch/tutteli/atrium/reporting/reportables/Reportable;Lch/tutteli/atrium/reporting/prerendering/text/TextPreRenderControlObject;)Ljava/util/List;
+	public abstract fun transformGroup (Lch/tutteli/atrium/reporting/reportables/Reportable;Ljava/lang/Object;Lch/tutteli/atrium/reporting/prerendering/text/TextPreRenderControlObject;Ljava/util/List;Ljava/util/List;Ljava/util/List;I)Ljava/util/List;
+	public abstract fun transformRoot (Lch/tutteli/atrium/reporting/reportables/Reportable;Z)Ljava/util/List;
+}
+
+public final class ch/tutteli/atrium/reporting/prerendering/text/TextPreRenderController$DefaultImpls {
+	public static synthetic fun transformGroup$default (Lch/tutteli/atrium/reporting/prerendering/text/TextPreRenderController;Lch/tutteli/atrium/reporting/reportables/Reportable;Ljava/lang/Object;Lch/tutteli/atrium/reporting/prerendering/text/TextPreRenderControlObject;Ljava/util/List;Ljava/util/List;Ljava/util/List;IILjava/lang/Object;)Ljava/util/List;
+	public static synthetic fun transformRoot$default (Lch/tutteli/atrium/reporting/prerendering/text/TextPreRenderController;Lch/tutteli/atrium/reporting/reportables/Reportable;ZILjava/lang/Object;)Ljava/util/List;
+}
+
+public final class ch/tutteli/atrium/reporting/prerendering/text/TextPreRenderControllerKt {
+	public static final fun determineChildControlObject (Lch/tutteli/atrium/reporting/prerendering/text/TextPreRenderControlObject;Lch/tutteli/atrium/reporting/reportables/Reportable;Lch/tutteli/atrium/reporting/reportables/Icon;I)Lch/tutteli/atrium/reporting/prerendering/text/TextPreRenderControlObject;
+	public static synthetic fun determineChildControlObject$default (Lch/tutteli/atrium/reporting/prerendering/text/TextPreRenderControlObject;Lch/tutteli/atrium/reporting/reportables/Reportable;Lch/tutteli/atrium/reporting/reportables/Icon;IILjava/lang/Object;)Lch/tutteli/atrium/reporting/prerendering/text/TextPreRenderControlObject;
+	public static final fun transformGroup (Lch/tutteli/atrium/reporting/prerendering/text/TextPreRenderController;Lch/tutteli/atrium/reporting/reportables/ReportableGroup;Lch/tutteli/atrium/reporting/prerendering/text/TextPreRenderControlObject;Ljava/util/List;Ljava/util/List;ILkotlin/jvm/functions/Function1;)Ljava/util/List;
+	public static final fun transformGroup (Lch/tutteli/atrium/reporting/prerendering/text/TextPreRenderController;Lch/tutteli/atrium/reporting/reportables/ReportableGroupWithDescription;Lch/tutteli/atrium/reporting/prerendering/text/TextPreRenderControlObject;Ljava/util/List;Ljava/util/List;ILkotlin/jvm/functions/Function1;)Ljava/util/List;
+	public static final fun transformGroup (Lch/tutteli/atrium/reporting/prerendering/text/TextPreRenderController;Lch/tutteli/atrium/reporting/reportables/ReportableWithDesignation;Lch/tutteli/atrium/reporting/prerendering/text/TextPreRenderControlObject;Ljava/util/List;Ljava/util/List;I)Ljava/util/List;
+	public static synthetic fun transformGroup$default (Lch/tutteli/atrium/reporting/prerendering/text/TextPreRenderController;Lch/tutteli/atrium/reporting/reportables/ReportableGroup;Lch/tutteli/atrium/reporting/prerendering/text/TextPreRenderControlObject;Ljava/util/List;Ljava/util/List;ILkotlin/jvm/functions/Function1;ILjava/lang/Object;)Ljava/util/List;
+	public static synthetic fun transformGroup$default (Lch/tutteli/atrium/reporting/prerendering/text/TextPreRenderController;Lch/tutteli/atrium/reporting/reportables/ReportableGroupWithDescription;Lch/tutteli/atrium/reporting/prerendering/text/TextPreRenderControlObject;Ljava/util/List;Ljava/util/List;ILkotlin/jvm/functions/Function1;ILjava/lang/Object;)Ljava/util/List;
+	public static synthetic fun transformGroup$default (Lch/tutteli/atrium/reporting/prerendering/text/TextPreRenderController;Lch/tutteli/atrium/reporting/reportables/ReportableWithDesignation;Lch/tutteli/atrium/reporting/prerendering/text/TextPreRenderControlObject;Ljava/util/List;Ljava/util/List;IILjava/lang/Object;)Ljava/util/List;
+	public static final fun transformSubProofGroup (Lch/tutteli/atrium/reporting/prerendering/text/TextPreRenderController;Lch/tutteli/atrium/reporting/reportables/ReportableGroup;Lch/tutteli/atrium/reporting/prerendering/text/TextPreRenderControlObject;Lch/tutteli/atrium/reporting/reportables/Icon;)Ljava/util/List;
+	public static final fun transformSubProofGroup (Lch/tutteli/atrium/reporting/prerendering/text/TextPreRenderController;Lch/tutteli/atrium/reporting/reportables/ReportableGroup;Lch/tutteli/atrium/reporting/prerendering/text/TextPreRenderControlObject;Ljava/util/List;Ljava/util/List;ILkotlin/jvm/functions/Function1;)Ljava/util/List;
+	public static synthetic fun transformSubProofGroup$default (Lch/tutteli/atrium/reporting/prerendering/text/TextPreRenderController;Lch/tutteli/atrium/reporting/reportables/ReportableGroup;Lch/tutteli/atrium/reporting/prerendering/text/TextPreRenderControlObject;Ljava/util/List;Ljava/util/List;ILkotlin/jvm/functions/Function1;ILjava/lang/Object;)Ljava/util/List;
+}
+
+public abstract interface class ch/tutteli/atrium/reporting/prerendering/text/TextPreRenderer {
+	public abstract fun canTransform (Lch/tutteli/atrium/reporting/reportables/Reportable;)Z
+	public abstract fun transform (Lch/tutteli/atrium/reporting/reportables/Reportable;Lch/tutteli/atrium/reporting/prerendering/text/TextPreRenderControlObject;)Ljava/util/List;
+}
+
+public abstract class ch/tutteli/atrium/reporting/prerendering/text/TypedDesignatorPreRenderer : ch/tutteli/atrium/reporting/prerendering/text/TextDesignationPreRenderer {
+	public fun <init> (Lkotlin/reflect/KClass;)V
+	public final fun canTransform (Lch/tutteli/atrium/reporting/reportables/Reportable;)Z
+	public fun transform (Lch/tutteli/atrium/reporting/reportables/Reportable;Ljava/lang/Object;Ljava/util/List;Ljava/util/List;ILjava/util/List;Lch/tutteli/atrium/reporting/prerendering/text/TextPreRenderControlObject;)Ljava/util/List;
+	protected abstract fun transformIt (Lch/tutteli/atrium/reporting/reportables/Reportable;Ljava/lang/Object;Ljava/util/List;Ljava/util/List;ILjava/util/List;Lch/tutteli/atrium/reporting/prerendering/text/TextPreRenderControlObject;)Ljava/util/List;
+}
+
+public abstract class ch/tutteli/atrium/reporting/prerendering/text/TypedTextPreRenderer : ch/tutteli/atrium/reporting/prerendering/text/TextPreRenderer {
+	public fun <init> (Lkotlin/reflect/KClass;)V
+	public final fun canTransform (Lch/tutteli/atrium/reporting/reportables/Reportable;)Z
+	public final fun transform (Lch/tutteli/atrium/reporting/reportables/Reportable;Lch/tutteli/atrium/reporting/prerendering/text/TextPreRenderControlObject;)Ljava/util/List;
+	protected abstract fun transformIt (Lch/tutteli/atrium/reporting/reportables/Reportable;Lch/tutteli/atrium/reporting/prerendering/text/TextPreRenderControlObject;)Ljava/util/List;
+}
+
+public final class ch/tutteli/atrium/reporting/prerendering/text/impl/DefaultInlineDesignatorPreRenderer : ch/tutteli/atrium/reporting/prerendering/text/TypedDesignatorPreRenderer {
+	public fun <init> (Lch/tutteli/atrium/reporting/text/TextObjFormatter;)V
+	public synthetic fun transformIt (Lch/tutteli/atrium/reporting/reportables/Reportable;Ljava/lang/Object;Ljava/util/List;Ljava/util/List;ILjava/util/List;Lch/tutteli/atrium/reporting/prerendering/text/TextPreRenderControlObject;)Ljava/util/List;
+}
+
+public final class ch/tutteli/atrium/reporting/prerendering/text/impl/assertion/DefaultAssertionGroupTextPreRenderer : ch/tutteli/atrium/reporting/prerendering/text/TextPreRenderer {
+	public fun <init> (Lch/tutteli/atrium/reporting/theming/text/TextIconStyler;)V
+	public fun canTransform (Lch/tutteli/atrium/reporting/reportables/Reportable;)Z
+	public fun transform (Lch/tutteli/atrium/reporting/reportables/Reportable;Lch/tutteli/atrium/reporting/prerendering/text/TextPreRenderControlObject;)Ljava/util/List;
+}
+
+public final class ch/tutteli/atrium/reporting/prerendering/text/impl/assertion/DefaultDescriptiveAssertionTextPreRenderer : ch/tutteli/atrium/reporting/prerendering/text/TypedTextPreRenderer {
+	public fun <init> ()V
+	public synthetic fun transformIt (Lch/tutteli/atrium/reporting/reportables/Reportable;Lch/tutteli/atrium/reporting/prerendering/text/TextPreRenderControlObject;)Ljava/util/List;
+}
+
+public final class ch/tutteli/atrium/reporting/prerendering/text/impl/assertion/DefaultExplanatoryAssertionGroupTextPreRenderer : ch/tutteli/atrium/reporting/prerendering/text/TextPreRenderer {
+	public fun <init> ()V
+	public fun canTransform (Lch/tutteli/atrium/reporting/reportables/Reportable;)Z
+	public fun transform (Lch/tutteli/atrium/reporting/reportables/Reportable;Lch/tutteli/atrium/reporting/prerendering/text/TextPreRenderControlObject;)Ljava/util/List;
+}
+
+public final class ch/tutteli/atrium/reporting/prerendering/text/impl/assertion/DefaultExplanatoryAssertionTextPreRenderer : ch/tutteli/atrium/reporting/prerendering/text/TypedTextPreRenderer {
+	public fun <init> (Lch/tutteli/atrium/reporting/text/TextObjFormatter;)V
+	public synthetic fun transformIt (Lch/tutteli/atrium/reporting/reportables/Reportable;Lch/tutteli/atrium/reporting/prerendering/text/TextPreRenderControlObject;)Ljava/util/List;
+}
+
+public final class ch/tutteli/atrium/reporting/prerendering/text/impl/assertion/DefaultRepresentationOnlyAssertionTextPreRenderer : ch/tutteli/atrium/reporting/prerendering/text/TypedTextPreRenderer {
+	public fun <init> (Lch/tutteli/atrium/reporting/text/TextObjFormatter;)V
+	public synthetic fun transformIt (Lch/tutteli/atrium/reporting/reportables/Reportable;Lch/tutteli/atrium/reporting/prerendering/text/TextPreRenderControlObject;)Ljava/util/List;
+}
+
+public abstract interface class ch/tutteli/atrium/reporting/reportables/Column : ch/tutteli/atrium/reporting/reportables/Reportable {
+	public abstract fun getAlignment ()Lch/tutteli/atrium/reporting/HorizontalAlignment;
+	public abstract fun getInlineElement ()Lch/tutteli/atrium/reporting/reportables/InlineElement;
+}
+
+public abstract interface class ch/tutteli/atrium/reporting/reportables/DebugGroup : ch/tutteli/atrium/reporting/reportables/ReportableGroupWithDescription {
+}
+
+public abstract interface class ch/tutteli/atrium/reporting/reportables/Description : ch/tutteli/atrium/reporting/reportables/TextElement {
+	public abstract fun getDefault ()Ljava/lang/String;
+}
+
+public final class ch/tutteli/atrium/reporting/reportables/Description$DefaultImpls {
+	public static fun getDefault (Lch/tutteli/atrium/reporting/reportables/Description;)Ljava/lang/String;
+}
+
+public abstract interface class ch/tutteli/atrium/reporting/reportables/FailureExplanationGroup : ch/tutteli/atrium/reporting/reportables/ReportableGroupWithDescription {
+}
+
+public final class ch/tutteli/atrium/reporting/reportables/Icon : java/lang/Enum, ch/tutteli/atrium/reporting/reportables/InlineElement {
+	public static final field BANGBANG Lch/tutteli/atrium/reporting/reportables/Icon;
+	public static final field BULB Lch/tutteli/atrium/reporting/reportables/Icon;
+	public static final field DEBUG_INFO Lch/tutteli/atrium/reporting/reportables/Icon;
+	public static final field EMPTY_STRING Lch/tutteli/atrium/reporting/reportables/Icon;
+	public static final field FAILURE Lch/tutteli/atrium/reporting/reportables/Icon;
+	public static final field FEATURE Lch/tutteli/atrium/reporting/reportables/Icon;
+	public static final field FEATURE_BULLET_POINT Lch/tutteli/atrium/reporting/reportables/Icon;
+	public static final field GROUPING_BULLET_POINT Lch/tutteli/atrium/reporting/reportables/Icon;
+	public static final field INFORMATION_SOURCE Lch/tutteli/atrium/reporting/reportables/Icon;
+	public static final field LIST_BULLET_POINT Lch/tutteli/atrium/reporting/reportables/Icon;
+	public static final field PROOF_EXPLANATION_BULLET_POINT Lch/tutteli/atrium/reporting/reportables/Icon;
+	public static final field ROOT_BULLET_POINT Lch/tutteli/atrium/reporting/reportables/Icon;
+	public static final field SUCCESS Lch/tutteli/atrium/reporting/reportables/Icon;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lch/tutteli/atrium/reporting/reportables/Icon;
+	public static fun values ()[Lch/tutteli/atrium/reporting/reportables/Icon;
+}
+
+public abstract interface class ch/tutteli/atrium/reporting/reportables/InformationGroup : ch/tutteli/atrium/reporting/reportables/ReportableGroupWithDescription {
+}
+
+public abstract interface class ch/tutteli/atrium/reporting/reportables/InlineElement : ch/tutteli/atrium/reporting/reportables/Reportable {
+}
+
+public abstract interface class ch/tutteli/atrium/reporting/reportables/InlineGroup : ch/tutteli/atrium/reporting/reportables/InlineElement {
+	public abstract fun getInlineElements ()Ljava/util/List;
+}
+
+public abstract interface class ch/tutteli/atrium/reporting/reportables/NonProof : ch/tutteli/atrium/reporting/reportables/Reportable {
+}
+
+public abstract interface class ch/tutteli/atrium/reporting/reportables/NonProofGroup : ch/tutteli/atrium/reporting/reportables/ReportableGroup {
+}
+
+public abstract interface class ch/tutteli/atrium/reporting/reportables/NonProofGroupWithDesignation : ch/tutteli/atrium/reporting/reportables/ReportableGroupWithDesignation {
+}
+
+public abstract interface class ch/tutteli/atrium/reporting/reportables/ProofExplanation : ch/tutteli/atrium/reporting/reportables/ReportableGroup {
+}
+
+public abstract interface class ch/tutteli/atrium/reporting/reportables/Reportable {
+	public static final field Companion Lch/tutteli/atrium/reporting/reportables/Reportable$Companion;
+}
+
+public final class ch/tutteli/atrium/reporting/reportables/Reportable$Companion {
+	public final fun column (Lch/tutteli/atrium/reporting/reportables/InlineElement;Lch/tutteli/atrium/reporting/HorizontalAlignment;)Lch/tutteli/atrium/reporting/reportables/Column;
+	public final fun debugGroup (Lch/tutteli/atrium/reporting/reportables/InlineElement;Ljava/util/List;)Lch/tutteli/atrium/reporting/reportables/DebugGroup;
+	public final fun failureExplanationGroup (Lch/tutteli/atrium/reporting/reportables/InlineElement;Ljava/util/List;)Lch/tutteli/atrium/reporting/reportables/FailureExplanationGroup;
+	public final fun group (Lch/tutteli/atrium/reporting/reportables/InlineElement;Ljava/lang/Object;Ljava/util/List;)Lch/tutteli/atrium/reporting/reportables/ReportableGroup;
+	public final fun informationGroup (Lch/tutteli/atrium/reporting/reportables/InlineElement;Ljava/util/List;)Lch/tutteli/atrium/reporting/reportables/InformationGroup;
+	public final fun inlineGroup (Ljava/util/List;)Lch/tutteli/atrium/reporting/reportables/InlineGroup;
+	public final fun inlineGroupOrSingleElement (Ljava/util/List;)Lch/tutteli/atrium/reporting/reportables/InlineElement;
+	public final fun proofExplanation (Lch/tutteli/atrium/creating/proofs/Proof;)Lch/tutteli/atrium/reporting/reportables/ProofExplanation;
+	public final fun representation (Ljava/lang/Object;)Lch/tutteli/atrium/reporting/reportables/Representation;
+	public final fun row (Lch/tutteli/atrium/reporting/reportables/Icon;Ljava/util/List;)Lch/tutteli/atrium/reporting/reportables/Row;
+	public final fun usageHintGroup (Ljava/util/List;)Lch/tutteli/atrium/reporting/reportables/UsageHintGroup;
+}
+
+public abstract interface class ch/tutteli/atrium/reporting/reportables/ReportableGroup : ch/tutteli/atrium/reporting/reportables/Reportable {
+	public abstract fun getChildren ()Ljava/util/List;
+}
+
+public abstract interface class ch/tutteli/atrium/reporting/reportables/ReportableGroupWithDescription : ch/tutteli/atrium/reporting/reportables/ReportableGroup {
+	public abstract fun getDescription ()Lch/tutteli/atrium/reporting/reportables/Reportable;
+}
+
+public abstract interface class ch/tutteli/atrium/reporting/reportables/ReportableGroupWithDesignation : ch/tutteli/atrium/reporting/reportables/ReportableGroup, ch/tutteli/atrium/reporting/reportables/ReportableWithDesignation {
+}
+
+public abstract interface class ch/tutteli/atrium/reporting/reportables/ReportableWithDesignation : ch/tutteli/atrium/reporting/reportables/Reportable {
+	public abstract fun getDescription ()Lch/tutteli/atrium/reporting/reportables/Reportable;
+	public abstract fun getRepresentation ()Ljava/lang/Object;
+}
+
+public abstract interface class ch/tutteli/atrium/reporting/reportables/ReportableWithInlineDesignation : ch/tutteli/atrium/reporting/reportables/ReportableWithDesignation {
+	public abstract fun getDescription ()Lch/tutteli/atrium/reporting/reportables/InlineElement;
+}
+
+public abstract interface class ch/tutteli/atrium/reporting/reportables/Representation : ch/tutteli/atrium/reporting/reportables/InlineElement {
+	public abstract fun getRepresentation ()Ljava/lang/Object;
+}
+
+public abstract interface class ch/tutteli/atrium/reporting/reportables/Row : ch/tutteli/atrium/reporting/reportables/Reportable {
+	public abstract fun getColumns ()Ljava/util/List;
+	public abstract fun getIcon ()Lch/tutteli/atrium/reporting/reportables/Icon;
+}
+
+public abstract interface class ch/tutteli/atrium/reporting/reportables/TextElement : ch/tutteli/atrium/reporting/reportables/InlineElement {
+	public abstract fun getString ()Ljava/lang/String;
+}
+
+public abstract interface class ch/tutteli/atrium/reporting/reportables/UsageHintGroup : ch/tutteli/atrium/reporting/reportables/ReportableGroup {
+}
+
+public final class ch/tutteli/atrium/reporting/reportables/descriptions/DescriptionAnyProof : java/lang/Enum, ch/tutteli/atrium/reporting/reportables/Description {
+	public static final field NOT_TO_BE_AN_INSTANCE_OF Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionAnyProof;
+	public static final field NOT_TO_BE_THE_INSTANCE Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionAnyProof;
+	public static final field NOT_TO_EQUAL Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionAnyProof;
+	public static final field NOT_TO_EQUAL_ONE_OF Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionAnyProof;
+	public static final field TO_BE_AN_INSTANCE_OF Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionAnyProof;
+	public static final field TO_BE_THE_INSTANCE Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionAnyProof;
+	public static final field TO_EQUAL Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionAnyProof;
+	public fun getDefault ()Ljava/lang/String;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public fun getString ()Ljava/lang/String;
+	public static fun valueOf (Ljava/lang/String;)Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionAnyProof;
+	public static fun values ()[Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionAnyProof;
+}
+
+public final class ch/tutteli/atrium/reporting/reportables/descriptions/DescriptionBasic : java/lang/Enum, ch/tutteli/atrium/reporting/reportables/Description {
+	public static final field NOT_TO_BE Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionBasic;
+	public static final field TO_BE Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionBasic;
+	public fun getDefault ()Ljava/lang/String;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public fun getString ()Ljava/lang/String;
+	public static fun valueOf (Ljava/lang/String;)Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionBasic;
+	public static fun values ()[Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionBasic;
+}
+
+public final class ch/tutteli/atrium/reporting/reportables/descriptions/DescriptionBigDecimalProof : java/lang/Enum, ch/tutteli/atrium/reporting/reportables/Description {
+	public static final field FAILURE_IS_EQUAL_INCLUDING_SCALE_BUT_NUMERICALLY_EQUAL Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionBigDecimalProof;
+	public static final field IS_EQUAL_INCLUDING_SCALE Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionBigDecimalProof;
+	public static final field IS_NOT_EQUAL_INCLUDING_SCALE Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionBigDecimalProof;
+	public static final field IS_NOT_NUMERICALLY_EQUAL_TO Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionBigDecimalProof;
+	public static final field IS_NUMERICALLY_EQUAL_TO Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionBigDecimalProof;
+	public fun getDefault ()Ljava/lang/String;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public fun getString ()Ljava/lang/String;
+	public static fun valueOf (Ljava/lang/String;)Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionBigDecimalProof;
+	public static fun values ()[Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionBigDecimalProof;
+}
+
+public final class ch/tutteli/atrium/reporting/reportables/descriptions/DescriptionCharSequenceProof : java/lang/Enum, ch/tutteli/atrium/reporting/reportables/Description {
+	public static final field AT_LEAST Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionCharSequenceProof;
+	public static final field AT_MOST Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionCharSequenceProof;
+	public static final field BLANK Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionCharSequenceProof;
+	public static final field EMPTY Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionCharSequenceProof;
+	public static final field EXACTLY Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionCharSequenceProof;
+	public static final field IGNORING_CASE Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionCharSequenceProof;
+	public static final field NOT_FOUND Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionCharSequenceProof;
+	public static final field NOT_TO_CONTAIN Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionCharSequenceProof;
+	public static final field NOT_TO_END_WITH Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionCharSequenceProof;
+	public static final field NOT_TO_MATCH Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionCharSequenceProof;
+	public static final field NOT_TO_START_WITH Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionCharSequenceProof;
+	public static final field NUMBER_OF_MATCHES Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionCharSequenceProof;
+	public static final field STRING_MATCHING_REGEX Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionCharSequenceProof;
+	public static final field TO_CONTAIN Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionCharSequenceProof;
+	public static final field TO_END_WITH Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionCharSequenceProof;
+	public static final field TO_MATCH Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionCharSequenceProof;
+	public static final field TO_START_WITH Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionCharSequenceProof;
+	public static final field VALUE Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionCharSequenceProof;
+	public fun getDefault ()Ljava/lang/String;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public fun getString ()Ljava/lang/String;
+	public static fun valueOf (Ljava/lang/String;)Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionCharSequenceProof;
+	public static fun values ()[Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionCharSequenceProof;
+}
+
+public final class ch/tutteli/atrium/reporting/reportables/descriptions/DescriptionComparableProof : java/lang/Enum, ch/tutteli/atrium/reporting/reportables/Description {
+	public static final field NOT_TO_BE_GREATER_THAN Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionComparableProof;
+	public static final field NOT_TO_BE_LESS_THAN Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionComparableProof;
+	public static final field TO_BE_EQUAL_COMPARING_TO Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionComparableProof;
+	public static final field TO_BE_GREATER_THAN Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionComparableProof;
+	public static final field TO_BE_GREATER_THAN_OR_EQUAL_TO Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionComparableProof;
+	public static final field TO_BE_LESS_THAN Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionComparableProof;
+	public static final field TO_BE_LESS_THAN_OR_EQUAL_TO Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionComparableProof;
+	public fun getDefault ()Ljava/lang/String;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public fun getString ()Ljava/lang/String;
+	public static fun valueOf (Ljava/lang/String;)Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionComparableProof;
+	public static fun values ()[Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionComparableProof;
+}
+
+public final class ch/tutteli/atrium/reporting/reportables/descriptions/DescriptionDocumentationUtil : java/lang/Enum, ch/tutteli/atrium/reporting/reportables/Description {
+	public static final field BECAUSE Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionDocumentationUtil;
+	public fun getDefault ()Ljava/lang/String;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public fun getString ()Ljava/lang/String;
+	public static fun valueOf (Ljava/lang/String;)Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionDocumentationUtil;
+	public static fun values ()[Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionDocumentationUtil;
+}
+
+public final class ch/tutteli/atrium/reporting/reportables/descriptions/DescriptionFunLikeProof : java/lang/Enum, ch/tutteli/atrium/reporting/reportables/Description {
+	public static final field NO_EXCEPTION_OCCURRED Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionFunLikeProof;
+	public static final field THREW Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionFunLikeProof;
+	public static final field THROWN_EXCEPTION_WHEN_CALLED Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionFunLikeProof;
+	public fun getDefault ()Ljava/lang/String;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public fun getString ()Ljava/lang/String;
+	public static fun valueOf (Ljava/lang/String;)Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionFunLikeProof;
+	public static fun values ()[Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionFunLikeProof;
+}
+
+public final class ch/tutteli/atrium/reporting/reportables/descriptions/DescriptionThrowableProof : java/lang/Enum, ch/tutteli/atrium/reporting/reportables/Description {
+	public static final field CAUSE Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionThrowableProof;
+	public static final field HAS_NO_CAUSE Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionThrowableProof;
+	public static final field OCCURRED_EXCEPTION_CAUSE Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionThrowableProof;
+	public static final field OCCURRED_EXCEPTION_MESSAGE Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionThrowableProof;
+	public static final field OCCURRED_EXCEPTION_PROPERTIES Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionThrowableProof;
+	public static final field OCCURRED_EXCEPTION_STACKTRACE Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionThrowableProof;
+	public static final field OCCURRED_EXCEPTION_SUPPRESSED Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionThrowableProof;
+	public fun getDefault ()Ljava/lang/String;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public fun getString ()Ljava/lang/String;
+	public static fun valueOf (Ljava/lang/String;)Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionThrowableProof;
+	public static fun values ()[Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionThrowableProof;
+}
+
+public final class ch/tutteli/atrium/reporting/reportables/descriptions/ErrorMessages : java/lang/Enum, ch/tutteli/atrium/reporting/reportables/TextElement {
+	public static final field AT_LEAST_ONE_EXPECTATION_DEFINED Lch/tutteli/atrium/reporting/reportables/descriptions/ErrorMessages;
+	public static final field DEFAULT_HINT_AT_LEAST_ONE_EXPECTATION_DEFINED Lch/tutteli/atrium/reporting/reportables/descriptions/ErrorMessages;
+	public static final field FORGOT_DO_DEFINE_EXPECTATION Lch/tutteli/atrium/reporting/reportables/descriptions/ErrorMessages;
+	public static final field NO_PROF_ADDED_IN_PROOF_GROUP Lch/tutteli/atrium/reporting/reportables/descriptions/ErrorMessages;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public fun getString ()Ljava/lang/String;
+	public static fun valueOf (Ljava/lang/String;)Lch/tutteli/atrium/reporting/reportables/descriptions/ErrorMessages;
+	public static fun values ()[Lch/tutteli/atrium/reporting/reportables/descriptions/ErrorMessages;
+}
+
+public final class ch/tutteli/atrium/reporting/reportables/impl/DefaultRepresentation : ch/tutteli/atrium/reporting/reportables/Representation {
+	public fun <init> (Ljava/lang/Object;)V
+	public fun getRepresentation ()Ljava/lang/Object;
 }
 
 public abstract interface class ch/tutteli/atrium/reporting/text/BulletPointProvider {
@@ -1077,7 +2110,20 @@ public final class ch/tutteli/atrium/reporting/text/TextAssertionPairFormatter$D
 public abstract interface class ch/tutteli/atrium/reporting/text/TextMethodCallFormatter : ch/tutteli/atrium/reporting/MethodCallFormatter {
 }
 
+public abstract interface class ch/tutteli/atrium/reporting/text/TextObjFormatter {
+	public abstract fun format (Ljava/lang/Object;)Lch/tutteli/atrium/reporting/theming/text/StyledString;
+}
+
 public abstract interface class ch/tutteli/atrium/reporting/text/TextObjectFormatter : ch/tutteli/atrium/reporting/ObjectFormatter {
+}
+
+public abstract interface class ch/tutteli/atrium/reporting/text/TextReporter : ch/tutteli/atrium/reporting/Reporter {
+	public abstract fun format (Lch/tutteli/atrium/assertions/Assertion;Ljava/lang/StringBuilder;)Ljava/lang/Void;
+}
+
+public final class ch/tutteli/atrium/reporting/text/TextReporter$DefaultImpls {
+	public static fun createReport (Lch/tutteli/atrium/reporting/text/TextReporter;Lch/tutteli/atrium/reporting/reportables/Reportable;)Ljava/lang/StringBuilder;
+	public static fun format (Lch/tutteli/atrium/reporting/text/TextReporter;Lch/tutteli/atrium/assertions/Assertion;Ljava/lang/StringBuilder;)Ljava/lang/Void;
 }
 
 public final class ch/tutteli/atrium/reporting/text/UsingDefaultBulletPoints : ch/tutteli/atrium/reporting/text/BulletPointProvider {
@@ -1099,9 +2145,26 @@ public final class ch/tutteli/atrium/reporting/text/impl/DefaultTextMethodCallFo
 	public fun formatCall (Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/String;
 }
 
+public final class ch/tutteli/atrium/reporting/text/impl/DefaultTextObjFormatter : ch/tutteli/atrium/reporting/text/TextObjFormatter {
+	public static final field Companion Lch/tutteli/atrium/reporting/text/impl/DefaultTextObjFormatter$Companion;
+	public static final field LIMIT I
+	public fun <init> (Lch/tutteli/atrium/reporting/ObjectFormatter;)V
+	public fun format (Ljava/lang/Object;)Lch/tutteli/atrium/reporting/theming/text/StyledString;
+}
+
+public final class ch/tutteli/atrium/reporting/text/impl/DefaultTextObjFormatter$Companion {
+}
+
 public final class ch/tutteli/atrium/reporting/text/impl/DefaultTextObjectFormatter : ch/tutteli/atrium/reporting/text/impl/AbstractTextObjectFormatter, ch/tutteli/atrium/reporting/text/TextObjectFormatter {
 	public fun <init> ()V
 	public fun <init> (Lch/tutteli/atrium/reporting/translating/Translator;)V
+}
+
+public final class ch/tutteli/atrium/reporting/text/impl/DefaultTextReporter : ch/tutteli/atrium/reporting/text/TextReporter {
+	public fun <init> (Lch/tutteli/atrium/reporting/prerendering/text/TextPreRenderController;)V
+	public fun createReport (Lch/tutteli/atrium/reporting/reportables/Reportable;)Ljava/lang/StringBuilder;
+	public fun format (Lch/tutteli/atrium/assertions/Assertion;Ljava/lang/StringBuilder;)Ljava/lang/Void;
+	public synthetic fun format (Lch/tutteli/atrium/assertions/Assertion;Ljava/lang/StringBuilder;)V
 }
 
 public abstract class ch/tutteli/atrium/reporting/text/impl/NoSpecialChildFormattingSingleAssertionGroupTypeFormatter : ch/tutteli/atrium/reporting/text/impl/SingleAssertionGroupTypeFormatter {
@@ -1196,6 +2259,78 @@ public final class ch/tutteli/atrium/reporting/text/impl/TextSummaryAssertionGro
 	public fun <init> (Ljava/util/Map;Lch/tutteli/atrium/reporting/AssertionFormatterController;Lch/tutteli/atrium/reporting/AssertionPairFormatter;)V
 }
 
+public final class ch/tutteli/atrium/reporting/theming/text/Style : java/lang/Enum {
+	public static final field DEBUG_INFO Lch/tutteli/atrium/reporting/theming/text/Style;
+	public static final field FAILURE Lch/tutteli/atrium/reporting/theming/text/Style;
+	public static final field FEATURE Lch/tutteli/atrium/reporting/theming/text/Style;
+	public static final field INFORMATION_SOURCE Lch/tutteli/atrium/reporting/theming/text/Style;
+	public static final field SUCCESS Lch/tutteli/atrium/reporting/theming/text/Style;
+	public static final field USAGE_HINT Lch/tutteli/atrium/reporting/theming/text/Style;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public final fun getStyleId ()Ljava/lang/String;
+	public static fun valueOf (Ljava/lang/String;)Lch/tutteli/atrium/reporting/theming/text/Style;
+	public static fun values ()[Lch/tutteli/atrium/reporting/theming/text/Style;
+}
+
+public abstract interface class ch/tutteli/atrium/reporting/theming/text/StyledString {
+	public static final field Companion Lch/tutteli/atrium/reporting/theming/text/StyledString$Companion;
+	public abstract fun appendUnstyled (Ljava/lang/String;)Lch/tutteli/atrium/reporting/theming/text/StyledString;
+	public abstract fun getHorizontalAlignment ()Lch/tutteli/atrium/reporting/HorizontalAlignment;
+	public abstract fun getMaybeStyled ()Lch/tutteli/atrium/core/Option;
+	public abstract fun getNoLineBreak ()Z
+	public abstract fun getUnstyled ()Ljava/lang/String;
+	public abstract fun result ()Ljava/lang/String;
+	public abstract fun withHorizontalAlignment (Lch/tutteli/atrium/reporting/HorizontalAlignment;)Lch/tutteli/atrium/reporting/theming/text/StyledString;
+	public abstract fun withoutLineBreaks ()Lch/tutteli/atrium/reporting/theming/text/StyledString;
+}
+
+public final class ch/tutteli/atrium/reporting/theming/text/StyledString$Companion {
+	public final fun getCOLON_SEPARATOR ()Lch/tutteli/atrium/reporting/theming/text/StyledString;
+	public final fun getEMPTY_STRING ()Lch/tutteli/atrium/reporting/theming/text/StyledString;
+	public final fun invoke (Ljava/lang/String;Lch/tutteli/atrium/core/Option;ZLch/tutteli/atrium/reporting/HorizontalAlignment;)Lch/tutteli/atrium/reporting/theming/text/StyledString;
+	public static synthetic fun invoke$default (Lch/tutteli/atrium/reporting/theming/text/StyledString$Companion;Ljava/lang/String;Lch/tutteli/atrium/core/Option;ZLch/tutteli/atrium/reporting/HorizontalAlignment;ILjava/lang/Object;)Lch/tutteli/atrium/reporting/theming/text/StyledString;
+}
+
+public final class ch/tutteli/atrium/reporting/theming/text/StyledStringKt {
+	public static final fun noStyle (Ljava/lang/String;ZLch/tutteli/atrium/reporting/HorizontalAlignment;)Lch/tutteli/atrium/reporting/theming/text/StyledString;
+	public static synthetic fun noStyle$default (Ljava/lang/String;ZLch/tutteli/atrium/reporting/HorizontalAlignment;ILjava/lang/Object;)Lch/tutteli/atrium/reporting/theming/text/StyledString;
+	public static final fun pad (Lch/tutteli/atrium/reporting/theming/text/StyledString;I)Ljava/lang/String;
+	public static final fun replaceWrap (Lch/tutteli/atrium/reporting/theming/text/StyledString;Ljava/lang/String;)Ljava/lang/String;
+}
+
+public abstract interface class ch/tutteli/atrium/reporting/theming/text/TextIconStyler {
+	public abstract fun style (Lch/tutteli/atrium/reporting/reportables/Icon;)Lch/tutteli/atrium/reporting/theming/text/StyledString;
+}
+
+public abstract interface class ch/tutteli/atrium/reporting/theming/text/TextStyler {
+	public abstract fun style (Ljava/lang/String;Ljava/lang/String;ZLch/tutteli/atrium/reporting/HorizontalAlignment;)Lch/tutteli/atrium/reporting/theming/text/StyledString;
+}
+
+public final class ch/tutteli/atrium/reporting/theming/text/TextStyler$DefaultImpls {
+	public static synthetic fun style$default (Lch/tutteli/atrium/reporting/theming/text/TextStyler;Ljava/lang/String;Ljava/lang/String;ZLch/tutteli/atrium/reporting/HorizontalAlignment;ILjava/lang/Object;)Lch/tutteli/atrium/reporting/theming/text/StyledString;
+}
+
+public final class ch/tutteli/atrium/reporting/theming/text/TextStylerKt {
+	public static final fun style (Lch/tutteli/atrium/reporting/theming/text/TextStyler;Ljava/lang/String;Lch/tutteli/atrium/core/Option;Z)Lch/tutteli/atrium/reporting/theming/text/StyledString;
+	public static final fun style (Lch/tutteli/atrium/reporting/theming/text/TextStyler;Ljava/lang/String;Lch/tutteli/atrium/reporting/theming/text/Style;ZLch/tutteli/atrium/reporting/HorizontalAlignment;)Lch/tutteli/atrium/reporting/theming/text/StyledString;
+	public static synthetic fun style$default (Lch/tutteli/atrium/reporting/theming/text/TextStyler;Ljava/lang/String;Lch/tutteli/atrium/core/Option;ZILjava/lang/Object;)Lch/tutteli/atrium/reporting/theming/text/StyledString;
+	public static synthetic fun style$default (Lch/tutteli/atrium/reporting/theming/text/TextStyler;Ljava/lang/String;Lch/tutteli/atrium/reporting/theming/text/Style;ZLch/tutteli/atrium/reporting/HorizontalAlignment;ILjava/lang/Object;)Lch/tutteli/atrium/reporting/theming/text/StyledString;
+}
+
+public abstract interface class ch/tutteli/atrium/reporting/theming/text/TextThemeProvider {
+	public abstract fun getSupportsAnsi ()Z
+	public abstract fun render (Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+}
+
+public abstract interface class ch/tutteli/atrium/reporting/theming/text/Utf8SupportDeterminer {
+	public abstract fun isSupported ()Z
+}
+
+public final class ch/tutteli/atrium/reporting/theming/text/impl/MarkdownTextIconStyler : ch/tutteli/atrium/reporting/theming/text/TextIconStyler {
+	public fun <init> ()V
+	public fun style (Lch/tutteli/atrium/reporting/reportables/Icon;)Lch/tutteli/atrium/reporting/theming/text/StyledString;
+}
+
 public abstract class ch/tutteli/atrium/reporting/translating/ArgumentsSupportingTranslator : ch/tutteli/atrium/reporting/translating/Translator {
 	public fun <init> (Lch/tutteli/atrium/reporting/translating/Locale;Ljava/util/List;)V
 	protected final fun getFallbackLocales ()Ljava/util/List;
@@ -1261,14 +2396,16 @@ public abstract interface class ch/tutteli/atrium/reporting/translating/StringBa
 public final class ch/tutteli/atrium/reporting/translating/StringBasedTranslatable$DefaultImpls {
 	public static fun getDefault (Lch/tutteli/atrium/reporting/translating/StringBasedTranslatable;)Ljava/lang/String;
 	public static fun getId (Lch/tutteli/atrium/reporting/translating/StringBasedTranslatable;)Ljava/lang/String;
+	public static fun getString (Lch/tutteli/atrium/reporting/translating/StringBasedTranslatable;)Ljava/lang/String;
 }
 
-public abstract interface class ch/tutteli/atrium/reporting/translating/Translatable {
+public abstract interface class ch/tutteli/atrium/reporting/translating/Translatable : ch/tutteli/atrium/reporting/reportables/TextElement {
 	public static final field Companion Lch/tutteli/atrium/reporting/translating/Translatable$Companion;
 	public static final field ID_SEPARATOR Ljava/lang/String;
 	public abstract fun getDefault ()Ljava/lang/String;
 	public abstract fun getId ()Ljava/lang/String;
 	public abstract fun getName ()Ljava/lang/String;
+	public abstract fun getString ()Ljava/lang/String;
 }
 
 public final class ch/tutteli/atrium/reporting/translating/Translatable$Companion {
@@ -1277,6 +2414,7 @@ public final class ch/tutteli/atrium/reporting/translating/Translatable$Companio
 
 public final class ch/tutteli/atrium/reporting/translating/Translatable$DefaultImpls {
 	public static fun getId (Lch/tutteli/atrium/reporting/translating/Translatable;)Ljava/lang/String;
+	public static fun getString (Lch/tutteli/atrium/reporting/translating/Translatable;)Ljava/lang/String;
 }
 
 public final class ch/tutteli/atrium/reporting/translating/TranslatableWithArgs : ch/tutteli/atrium/reporting/translating/Translatable {
@@ -1294,6 +2432,7 @@ public final class ch/tutteli/atrium/reporting/translating/TranslatableWithArgs 
 	public fun getDefault ()Ljava/lang/String;
 	public fun getId ()Ljava/lang/String;
 	public fun getName ()Ljava/lang/String;
+	public fun getString ()Ljava/lang/String;
 	public final fun getTranslatable ()Lch/tutteli/atrium/reporting/translating/Translatable;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
@@ -1316,6 +2455,7 @@ public final class ch/tutteli/atrium/reporting/translating/Untranslatable : ch/t
 	public fun getDefault ()Ljava/lang/String;
 	public fun getId ()Ljava/lang/String;
 	public fun getName ()Ljava/lang/String;
+	public fun getString ()Ljava/lang/String;
 	public fun toString ()Ljava/lang/String;
 }
 

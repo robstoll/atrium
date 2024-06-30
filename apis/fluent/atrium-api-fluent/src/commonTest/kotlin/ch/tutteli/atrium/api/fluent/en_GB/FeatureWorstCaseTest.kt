@@ -1,4 +1,3 @@
-@file:Suppress("UNUSED_PARAMETER", "unused")
 
 package ch.tutteli.atrium.api.fluent.en_GB
 
@@ -15,13 +14,12 @@ class WorstCase {
     fun overloaded(b: Boolean): Int = 1
 }
 
-
-@Suppress(/* requires new type inference */ "RemoveExplicitTypeArguments")
+// we don't run any tests in here but check that the compiler does not report any ambiguities
 fun testOverloadAmbiguity() {
     expect(WorstCase()) {
-        feature { p<Int>(it::propAndFun) }
-        feature { f0<Int>(it::propAndFun) }
-        feature { f0<Int>(it::overloaded) }
-        feature { f1<Boolean, Int>(it::overloaded, true) }
+        feature { p(it::propAndFun) }
+        feature { f0(it::propAndFun) }
+        feature { f0(it::overloaded) }
+        feature { f1(it::overloaded, true) }
     }
 }

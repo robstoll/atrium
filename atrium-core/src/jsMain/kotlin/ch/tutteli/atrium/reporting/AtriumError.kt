@@ -1,10 +1,10 @@
 package ch.tutteli.atrium.reporting
 
-import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.core.polyfills.stackBacktrace
+import ch.tutteli.atrium.creating.proofs.Proof
 
 /**
- * Indicates that an assertion made by Atrium failed.
+ * Indicates that an expectation stated via Atrium was not.
  *
  * Its `stack` might be filtered so that reporting does not include all stack frames.
  * This depends on the chosen [AtriumErrorAdjuster] - so theoretically more than the stack trace
@@ -16,11 +16,11 @@ import ch.tutteli.atrium.core.polyfills.stackBacktrace
  */
 actual class AtriumError private constructor(
     private val internalMessage: String,
-    actual val rootAssertion: Assertion,
+    actual val causingProof: Proof,
     @Suppress("UNUSED_PARAMETER") dummyUnit: Unit
 ) : AssertionError(internalMessage) {
 
-    internal actual constructor(message: String, rootAssertion: Assertion) : this(message, rootAssertion, Unit)
+    internal actual constructor(message: String, causingProof: Proof) : this(message, causingProof, Unit)
 
 
 
@@ -63,8 +63,8 @@ actual class AtriumError private constructor(
          */
         actual fun create(
             message: String,
-            rootAssertion: Assertion,
+            causingProof: Proof,
             atriumErrorAdjuster: AtriumErrorAdjuster
-        ): AtriumError = createAtriumError(message, rootAssertion, atriumErrorAdjuster)
+        ): AtriumError = createAtriumError(message, causingProof, atriumErrorAdjuster)
     }
 }

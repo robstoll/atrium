@@ -1,3 +1,6 @@
+// TODO remove with 2.0.0 at the latest
+@file:Suppress("DEPRECATION")
+
 package ch.tutteli.atrium.reporting
 
 import ch.tutteli.atrium.assertions.Assertion
@@ -20,6 +23,7 @@ import ch.tutteli.atrium.core.polyfills.appendln
  * @param indentLevel The current indentation level.
  * @param assertionFilter Can be used to filter out [Assertion]s which should not be formatted.
  */
+@Deprecated("Switch to Proof based reporting, will be removed with 2.0.0 at the latest")
 class AssertionFormatterParameterObject private constructor(
     val sb: StringBuilder,
     val prefix: String,

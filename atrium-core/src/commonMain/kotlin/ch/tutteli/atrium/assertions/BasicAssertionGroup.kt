@@ -15,6 +15,10 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  * @param representation The representation of the subject for which the [assertions] are defined.
  * @param assertions The assertions of this group, which are defined for the subject represented by [representation].
  */
+@Deprecated(
+    "switch to ProofGroup, will be removed with 2.0.0 at the latest",
+    ReplaceWith("ProofGroup", "ch.tutteli.atrium.creating.proofs.ProofGroup")
+)
 internal data class BasicAssertionGroup(
     override val type: AssertionGroupType,
     override val description: Translatable,

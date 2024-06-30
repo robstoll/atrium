@@ -3,6 +3,7 @@
 
 package ch.tutteli.atrium.assertions
 
+import ch.tutteli.atrium.reporting.reportables.Reportable
 import ch.tutteli.atrium.reporting.Text
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.reporting.translating.Untranslatable
@@ -14,6 +15,7 @@ import ch.tutteli.atrium.reporting.translating.Untranslatable
  * @param type The type of the group, e.g. [InvisibleAssertionGroupType].
  * @param assertions The assertions of this group.
  */
+@Deprecated("switch to ProofGroup, will be removed with 2.0.0 at the latest")
 internal open class EmptyNameAndRepresentationAssertionGroup(
     override val type: AssertionGroupType,
     override val assertions: List<Assertion>
@@ -35,4 +37,6 @@ internal open class EmptyNameAndRepresentationAssertionGroup(
     override fun toString(): String {
         return this::class.simpleName + " " + assertions
     }
+
+    override val children: List<Reportable> get() = assertions
 }

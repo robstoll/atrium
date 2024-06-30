@@ -5,6 +5,7 @@ import ch.tutteli.atrium.creating.*
 import ch.tutteli.atrium.logic.creating.impl.*
 import ch.tutteli.atrium.reporting.Reporter
 import ch.tutteli.atrium.reporting.Text
+import ch.tutteli.atrium.reporting.reportables.InlineElement
 import kotlin.reflect.KClass
 
 /**
@@ -32,18 +33,13 @@ interface RootExpectBuilder {
         val subject: T
 
         /**
-         * Wraps the given [verb] into an [ch.tutteli.atrium.reporting.translating.Untranslatable] and uses it as expectation verb.
+         * Wraps the given [verb] into a [ch.tutteli.atrium.reporting.Text] and uses it as expectation verb.
          */
-        //TODO 1.3.0 remove suppress again
-        @Suppress("DEPRECATION")
-        fun withVerb(verb: String): OptionsStep<T> = withVerb(ch.tutteli.atrium.reporting.translating.Untranslatable(verb))
-
+        fun withVerb(verb: String): OptionsStep<T> = withVerb(Text(verb))
         /**
          * Uses the given [verb] as expectation verb.
          */
-        //TODO 1.3.0 replace with InlineElement and remove suppression
-        @Suppress("DEPRECATION")
-        fun withVerb(verb: ch.tutteli.atrium.reporting.translating.Translatable): OptionsStep<T>
+        fun withVerb(verb: InlineElement): OptionsStep<T>
     }
 
     /**
@@ -61,9 +57,7 @@ interface RootExpectBuilder {
         /**
          * The previously defined expectation verb.
          */
-        //TODO 1.3.0 replace with InlineElement and remove suppression
-        @Suppress("DEPRECATION")
-        val expectationVerb: ch.tutteli.atrium.reporting.translating.Translatable
+        val expectationVerb: InlineElement
 
         /**
          * Allows to define the [RootExpectOptions] via an [OptionsChooser]-lambda which provides convenience functions.
@@ -92,11 +86,22 @@ interface RootExpectBuilder {
         fun withoutOptions(): FinalStep<T>
 
         companion object {
+            @Deprecated(
+                "Use other overload which expect an InlineElement", ReplaceWith(
+                    "OptionsStep(subject, expectationVerb as InlineElement)",
+                    "ch.tutteli.atrium.logic.creating.RootExpectBuilder.OptionsStep",
+                    "ch.tutteli.atrium.reporting.reportables.InlineElement"
+                )
+            )
             operator fun <T> invoke(
                 subject: T,
-                //TODO 1.3.0 replace with InlineElement and remove suppression
                 @Suppress("DEPRECATION")
                 expectationVerb: ch.tutteli.atrium.reporting.translating.Translatable
+            ): OptionsStep<T> = OptionsStep(subject, expectationVerb as InlineElement)
+
+            operator fun <T> invoke(
+                subject: T,
+                expectationVerb: InlineElement
             ): OptionsStep<T> = OptionsStepImpl(subject, expectationVerb)
         }
     }
@@ -161,6 +166,10 @@ interface RootExpectBuilder {
         fun <I : Any> withSingletonComponent(kClass: KClass<I>, factory: (ComponentFactoryContainer) -> I)
 
 
+        /**
+         * Expects a [Sequence] of factories to build a chain of components of type [I] which are prepended to the
+         * currently specified chain.
+         */
         @ExperimentalComponentFactoryContainer
         fun <I : Any> prependChainedComponents(kClass: KClass<I>, factories: Sequence<ComponentFactory>)
 
@@ -187,9 +196,7 @@ interface RootExpectBuilder {
         /**
          * The previously defined expectation verb.
          */
-        //TODO 1.3.0 remove suppress again, use InlineElement instead ?
-        @Suppress("DEPRECATION")
-        val expectationVerb: ch.tutteli.atrium.reporting.translating.Translatable
+        val expectationVerb: InlineElement
 
         /**
          * Either the previously specified [RootExpectOptions] or `null`.
@@ -206,9 +213,7 @@ interface RootExpectBuilder {
             @ExperimentalNewExpectTypes
             operator fun <T> invoke(
                 subject: T,
-                //TODO 1.3.0 remove suppress again, use InlineElement instead
-                @Suppress("DEPRECATION")
-                expectationVerb: ch.tutteli.atrium.reporting.translating.Translatable,
+                expectationVerb: InlineElement,
                 options: RootExpectOptions<T>?
             ): FinalStep<T> = FinalStepImpl(subject, expectationVerb, options)
         }

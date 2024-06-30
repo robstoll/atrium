@@ -1,3 +1,6 @@
+//TODO 2.0.0 remove file
+@file:Suppress("DEPRECATION")
+
 package ch.tutteli.atrium.logic.creating.charsequence.contains.searchbehaviours.impl
 
 import ch.tutteli.atrium.logic.creating.charsequence.contains.CharSequenceContains

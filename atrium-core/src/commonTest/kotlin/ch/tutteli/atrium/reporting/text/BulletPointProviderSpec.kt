@@ -1,3 +1,6 @@
+//TODO 2.0.0 remove file
+@file:Suppress("DEPRECATION")
+
 package ch.tutteli.atrium.reporting.text
 
 import ch.tutteli.atrium.api.infix.en_GB.*

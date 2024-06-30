@@ -1,3 +1,6 @@
+//TODO 2.0.0 move to kotlin-test based spec and no longer use Assertion there
+@file:Suppress("DEPRECATION")
+
 package ch.tutteli.atrium.specs
 
 import ch.tutteli.atrium.api.fluent.en_GB.feature

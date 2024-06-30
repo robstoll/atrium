@@ -25,6 +25,7 @@ typealias DefaultAssertionGroupBuilderOptions<T> = AssertionGroupDescriptionAndR
 /**
  * Represents a builder which creates [Assertion]s and [AssertionGroup]s.
  */
+//TODO 1.3.0 deprecate and probably all other symbols in this package and sub-packages
 interface AssertionBuilder {
 
     /**

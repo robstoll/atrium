@@ -5,19 +5,16 @@ import ch.tutteli.atrium.core.Some
 import ch.tutteli.atrium.creating.RootExpect
 import ch.tutteli.atrium.creating.RootExpectOptions
 import ch.tutteli.atrium.logic.creating.RootExpectBuilder
+import ch.tutteli.atrium.reporting.reportables.InlineElement
 
 class ExpectationVerbStepImpl<T>(override val subject: T) : RootExpectBuilder.ExpectationVerbStep<T> {
-    //TODO 1.3.0 replace with Representable and remove suppression
-    @Suppress("DEPRECATION")
-    override fun withVerb(verb: ch.tutteli.atrium.reporting.translating.Translatable): RootExpectBuilder.OptionsStep<T> =
+    override fun withVerb(verb: InlineElement): RootExpectBuilder.OptionsStep<T> =
         RootExpectBuilder.OptionsStep(subject, verb)
 }
 
 class OptionsStepImpl<T>(
     override val subject: T,
-    //TODO 1.3.0 replace with Representable and remove suppression
-    @Suppress("DEPRECATION")
-    override val expectationVerb: ch.tutteli.atrium.reporting.translating.Translatable
+    override val expectationVerb: InlineElement
 ) : RootExpectBuilder.OptionsStep<T> {
 
     @ExperimentalNewExpectTypes
@@ -35,9 +32,7 @@ class OptionsStepImpl<T>(
 @ExperimentalNewExpectTypes
 class FinalStepImpl<T>(
     override val subject: T,
-    //TODO 1.3.0 replace with Representable and remove suppression
-    @Suppress("DEPRECATION")
-    override val expectationVerb: ch.tutteli.atrium.reporting.translating.Translatable,
+    override val expectationVerb: InlineElement,
     override val options: RootExpectOptions<T>?
 ) : RootExpectBuilder.FinalStep<T> {
 

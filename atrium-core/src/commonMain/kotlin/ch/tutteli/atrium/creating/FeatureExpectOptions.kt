@@ -16,6 +16,7 @@ data class FeatureExpectOptions<R>(
     val description: ch.tutteli.atrium.reporting.translating.Translatable? = null,
     val representationInsteadOfFeature: ((R) -> Any)? = null
 ) {
+
     /**
      * Merges the given [options] with this object creating a new [FeatureExpectOptions]
      * where defined properties in [options] will have precedence over properties defined in this instance.

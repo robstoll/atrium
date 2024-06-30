@@ -1,3 +1,6 @@
+//TODO switch to Proof
+@file:Suppress("DEPRECATION")
+
 package ch.tutteli.atrium.logic.impl.creating.filesystem.hints
 
 import ch.tutteli.atrium.api.fluent.en_GB.*

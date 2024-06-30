@@ -1,3 +1,6 @@
+//TODO 1.3.0 remove again and switch to core
+@file:Suppress("DEPRECATION")
+
 package ch.tutteli.atrium.api.fluent.en_GB
 
 import ch.tutteli.atrium.creating.Expect
@@ -77,7 +80,7 @@ fun <T : BigDecimal> Expect<T?>.toEqual(expected: Nothing?): Expect<T?> =
  *
  * Use [notToEqualNumerically] if you expect that the following assertion is wrong:
  * ```
- * expect(BigDecimal("10").notToBe(BigDecimal("10.0"))
+ * expect(BigDecimal("10").notToEqual(BigDecimal("10.0"))
  * ```
  * However, if you expect it to be wrong (because `BigDecimal.scale` differ), then use [notToEqualIncludingScale].
  *
@@ -85,7 +88,7 @@ fun <T : BigDecimal> Expect<T?>.toEqual(expected: Nothing?): Expect<T?> =
  */
 @Deprecated(
     "Use `notToEqualNumerically` if you expect that the following assertion is wrong:\n" +
-        "`expect(BigDecimal(\"10\")).notToBe(BigDecimal(\"10.0\"))`\n" +
+        "`expect(BigDecimal(\"10\")).notToEqual(BigDecimal(\"10.0\"))`\n" +
         "However, if you expect it to hold (because `BigDecimal.scale` differ), then use `notToEqualIncludingScale`.",
     ReplaceWith("notToEqualNumerically(expected) or notToEqualIncludingScale(expected)")
 )

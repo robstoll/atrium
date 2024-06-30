@@ -1,6 +1,5 @@
 package ch.tutteli.atrium.assertions.builders
 
-import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.creating.Expect
 
 /**
@@ -53,14 +52,15 @@ interface SubjectBasedOption {
          *
          * @return In the end returns the result of either `ifDefined` or `ifAbsent` which [subStep] defines.
          */
+        //TODO 1.3.0 deprecate
         operator fun <T, R, PO : DefinedOption<T, R, *>> invoke(
             expect: Expect<T>,
             subStep: PO.() -> Pair<() -> R, (T) -> R>,
             definedOptionFactory: () -> PO
         ): R {
             val (ifAbsent, ifPresent) = definedOptionFactory().subStep()
-            @Suppress("UNCHECKED_CAST")
-            return (expect as AssertionContainer<T>).maybeSubject.fold(ifAbsent, ifPresent)
+            @Suppress("UNCHECKED_CAST", "DEPRECATION")
+            return (expect as ch.tutteli.atrium.creating.AssertionContainer<T>).maybeSubject.fold(ifAbsent, ifPresent)
         }
     }
 }
