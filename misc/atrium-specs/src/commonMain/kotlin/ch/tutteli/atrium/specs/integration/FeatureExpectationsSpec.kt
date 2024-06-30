@@ -120,13 +120,13 @@ abstract class FeatureExpectationsSpec(
         Triple("fun with 5 arguments and lazy", f5Lazy, return5LazyFeatureInfo)
     )
     val nullableFailingFunctions = arrayOf(
-        Triple("property toBe(null)", propertyNullableDoesNotHold, TestData::nullableValue.name),
-        Triple("fun without argument and toBe(null)", f0NullableDoesNotHold,return0NullableFeatureInfo),
-        Triple("fun with 1 argument and toBe(null)", f1NullableDoesNotHold, return1NullableFeatureInfo),
-        Triple("fun with 2 arguments and toBe(null)", f2NullableDoesNotHold,return2NullableFeatureInfo ),
-        Triple("fun with 3 arguments and toBe(null)", f3NullableDoesNotHold,return3NullableFeatureInfo ),
-        Triple("fun with 4 arguments and toBe(null)", f4NullableDoesNotHold,return4NullableFeatureInfo ),
-        Triple("fun with 5 arguments and toBe(null)", f5NullableDoesNotHold,return5NullableFeatureInfo)
+        Triple("property toEqual(null)", propertyNullableDoesNotHold, TestData::nullableValue.name),
+        Triple("fun without argument and toEqual(null)", f0NullableDoesNotHold,return0NullableFeatureInfo),
+        Triple("fun with 1 argument and toEqual(null)", f1NullableDoesNotHold, return1NullableFeatureInfo),
+        Triple("fun with 2 arguments and toEqual(null)", f2NullableDoesNotHold,return2NullableFeatureInfo ),
+        Triple("fun with 3 arguments and toEqual(null)", f3NullableDoesNotHold,return3NullableFeatureInfo ),
+        Triple("fun with 4 arguments and toEqual(null)", f4NullableDoesNotHold,return4NullableFeatureInfo ),
+        Triple("fun with 5 arguments and toEqual(null)", f5NullableDoesNotHold,return5NullableFeatureInfo)
     )
     val nullableHoldsFunctions = arrayOf(
         "property notToBeNull" to propertyNullableHolds,

@@ -107,10 +107,10 @@ abstract class KeyValueLikeExpectationsSpec<T : Any, TNullable : Any>(
 
         context("$nullableMapEntry") {
             keyFunctions.forEach { (name, nullableKeyFun, _) ->
-                it("$name - toBe(hello) holds") {
+                it("$name - toEqual(hello) holds") {
                     expect(nullableMapEntry).nullableKeyFun { toEqual("hello") }
                 }
-                it("$name - toBe(null) throws AssertionError") {
+                it("$name - toEqual(null) throws AssertionError") {
                     expect {
                         expect(nullableMapEntry).nullableKeyFun { toEqual(null) }
                     }.toThrow<AssertionError> {
@@ -122,7 +122,7 @@ abstract class KeyValueLikeExpectationsSpec<T : Any, TNullable : Any>(
                 it("$name - isGreaterThan(0) holds") {
                     expect(nullableMapEntry).nullableValueFun { notToEqualNull { toBeGreaterThan(0) } }
                 }
-                it("$name - toBe(null) throws AssertionError") {
+                it("$name - toEqual(null) throws AssertionError") {
                     expect {
                         expect(nullableMapEntry).nullableValueFun { toEqual(null) }
                     }.toThrow<AssertionError> {
@@ -133,10 +133,10 @@ abstract class KeyValueLikeExpectationsSpec<T : Any, TNullable : Any>(
         }
         context("$nullMapEntry") {
             keyFunctions.forEach { (name, nullableKeyFun, _) ->
-                it("$name - toBe(null) holds") {
+                it("$name - toEqual(null) holds") {
                     expect(nullMapEntry).nullableKeyFun { toEqual(null) }
                 }
-                it("$name - toBe(hello) throws AssertionError") {
+                it("$name - toEqual(hello) throws AssertionError") {
                     expect {
                         expect(nullMapEntry).nullableKeyFun { toEqual("hello") }
                     }.toThrow<AssertionError> {
@@ -145,10 +145,10 @@ abstract class KeyValueLikeExpectationsSpec<T : Any, TNullable : Any>(
                 }
             }
             valueFunctions.forEach { (name, nullableValueFun, _) ->
-                it("$name - toBe(null) holds") {
+                it("$name - toEqual(null) holds") {
                     expect(nullMapEntry).nullableValueFun { toEqual(null) }
                 }
-                it("$name - toBe(1) throws AssertionError") {
+                it("$name - toEqual(1) throws AssertionError") {
                     expect {
                         expect(nullMapEntry).nullableValueFun { toEqual(1) }
                     }.toThrow<AssertionError> {
