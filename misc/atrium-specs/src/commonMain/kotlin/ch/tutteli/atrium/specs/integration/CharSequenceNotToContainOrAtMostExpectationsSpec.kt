@@ -3,8 +3,9 @@ package ch.tutteli.atrium.specs.integration
 import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionCharSequenceProof.AT_MOST
+import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionCharSequenceProof.TO_CONTAIN
 import ch.tutteli.atrium.specs.*
-import ch.tutteli.atrium.translations.DescriptionCharSequenceExpectation.AT_MOST
 import org.spekframework.spek2.style.specification.Suite
 
 abstract class CharSequenceNotToContainOrAtMostExpectationsSpec(
@@ -32,8 +33,6 @@ abstract class CharSequenceNotToContainOrAtMostExpectationsSpec(
     fun Expect<CharSequence>.notToContainOrAtMostIgnoringCaseFun(atLeast: Int, a: Any, vararg aX: Any) =
         notToContainOrAtMostIgnoringCase(this, atLeast, a, aX)
 
-    val valueWithIndent = "$indentRootBulletPoint$listBulletPoint$value"
-
     describeFun(notToContainOrAtMost.name, notToContainOrAtMostIgnoringCase.name) {
 
         context("throws an $illegalArgumentException") {
@@ -52,12 +51,12 @@ abstract class CharSequenceNotToContainOrAtMostExpectationsSpec(
             it("if an object is passed as first expected") {
                 expect {
                     expect(text).notToContainOrAtMostFun(1, expect(text))
-                }.toThrow<IllegalArgumentException> { messageToContain("CharSequence", "Number", "Char") }
+                }.toThrow<IllegalArgumentException> { messageToContain(ERROR_MESSAGE_ONLY_CHARSEQUENCE_NUMBER_CHAR) }
             }
             it("if an object is passed as second expected") {
                 expect {
                     expect(text).notToContainOrAtMostFun(1, "that's fine", expect(text))
-                }.toThrow<IllegalArgumentException> { messageToContain("CharSequence", "Number", "Char") }
+                }.toThrow<IllegalArgumentException> { messageToContain(ERROR_MESSAGE_ONLY_CHARSEQUENCE_NUMBER_CHAR) }
             }
         }
 
@@ -84,15 +83,25 @@ abstract class CharSequenceNotToContainOrAtMostExpectationsSpec(
                 it("${notToContainOrAtMostPair.first("'l'", "once")} throws AssertionError") {
                     expect {
                         expect(helloWorld).notToContainOrAtMostFun(1, 'l')
-                    }.toThrow<AssertionError> { messageToContain("$atMost: 1", "$valueWithIndent: 'l'") }
+                    }.toThrow<AssertionError> {
+                        message {
+                            toContainSubject("\"$helloWorld\"")
+                            toContainDescr(TO_CONTAIN, "")
+                            toContainValue("'l'")
+                            toContainNumberOfMatches(3)
+                            toContainDescr(AT_MOST, 1)
+                        }
+                    }
                 }
                 it("${notToContainOrAtMostPair.first("'H', 'l'", "once")} throws AssertionError mentioning only 'l'") {
                     expect {
                         expect(helloWorld).notToContainOrAtMostFun(1, 'H', 'l')
                     }.toThrow<AssertionError> {
                         message {
-                            toContain("$atMost: 1", "$valueWithIndent: 'l'")
-                            notToContain(atLeast, "$valueWithIndent: 'H'")
+                            toContainValue("'l'")
+                            toContainNumberOfMatches(3)
+                            toContainDescr(AT_MOST, 1)
+                            notToContain("'H'")
                         }
                     }
                 }
@@ -101,23 +110,30 @@ abstract class CharSequenceNotToContainOrAtMostExpectationsSpec(
                         expect(helloWorld).notToContainOrAtMostFun(1, 'l', 'H')
                     }.toThrow<AssertionError> {
                         message {
-                            toContain("$atMost: 1", "$valueWithIndent: 'l'")
-                            notToContain(atLeast, "$valueWithIndent: 'H'")
+                            toContainValue("'l'")
+                            toContainNumberOfMatches(3)
+                            toContainDescr(AT_MOST, 1)
+                            notToContain("'H'")
                         }
                     }
                 }
                 it(
-                    "${notToContainOrAtMostPair.first(
-                        "'o', 'E', 'W', 'l'",
-                        "once"
-                    )} throws AssertionError mentioning 'l' and 'o'"
+                    "${
+                        notToContainOrAtMostPair.first(
+                            "'o', 'E', 'W', 'l'",
+                            "once"
+                        )
+                    } throws AssertionError mentioning 'l' and 'o'"
                 ) {
                     expect {
                         expect(helloWorld).notToContainOrAtMostIgnoringCaseFun(1, 'o', 'E', 'W', 'l')
                     }.toThrow<AssertionError> {
                         message {
-                            toContain("$atMost: 1", "$valueWithIndent: 'l'", "$valueWithIndent: 'o'")
-                            notToContain(atLeast, "$valueWithIndent: 'E'", "$valueWithIndent: 'W'")
+                            toContainValue("'o'")
+                            toContainValue("'l'")
+                            toContainNumberOfMatches(3, numOfMatches = 2)
+                            toContainDescr(AT_MOST, 1, numOfMatches = 2)
+                            notToContain("'E'", "'w'")
                         }
                     }
                 }
@@ -132,12 +148,9 @@ abstract class CharSequenceNotToContainOrAtMostExpectationsSpec(
                         expect(helloWorld).notToContainOrAtMostFun(1, 'o')
                     }.toThrow<AssertionError> {
                         message {
-                            toContain(
-                                "$rootBulletPoint$toContainDescr: $separator" +
-                                    "$valueWithIndent: 'o'",
-                                "$numberOfOccurrences: 2$separator"
-                            )
-                            toEndWith("$atMost: 1")
+                            toContainValue("'o'")
+                            toContainNumberOfMatches(2)
+                            toContainDescr(AT_MOST, 1)
                         }
                     }
                 }
@@ -148,7 +161,11 @@ abstract class CharSequenceNotToContainOrAtMostExpectationsSpec(
                 it("${notToContainOrAtMostIgnoringCasePair.first("'o'", "twice")} throws AssertionError") {
                     expect {
                         expect(helloWorld).notToContainOrAtMostIgnoringCaseFun(2, 'o')
-                    }.toThrow<AssertionError> { messageToContain(AT_MOST.getDefault()) }
+                    }.toThrow<AssertionError> {
+                        message {
+                            toContainDescr(AT_MOST, 2)
+                        }
+                    }
                 }
 
                 it("${notToContainOrAtMostPair.first("'o'", "3 times")} does not throw") {
@@ -162,13 +179,10 @@ abstract class CharSequenceNotToContainOrAtMostExpectationsSpec(
                         expect(helloWorld).notToContainOrAtMostFun(2, 'o', 'l')
                     }.toThrow<AssertionError> {
                         message {
-                            toContain(
-                                "$rootBulletPoint$toContainDescr: $separator" +
-                                    "$valueWithIndent: 'l'",
-                                "$numberOfOccurrences: 3$separator"
-                            )
-                            toEndWith("$atMost: 2")
-                            notToContain("$valueWithIndent: 'o'")
+                            notToContain("'o'")
+                            toContainValue("'l'")
+                            toContainNumberOfMatches(3)
+                            toContainDescr(AT_MOST, 2)
                         }
                     }
                 }

@@ -1,3 +1,6 @@
+//TODO remove file with 2.0.0 at the latest
+@file:Suppress("DEPRECATION")
+
 package ch.tutteli.atrium.logic.utils
 
 import ch.tutteli.atrium.creating.AssertionContainer
@@ -8,6 +11,8 @@ import ch.tutteli.atrium.logic.creating.typeutils.IterableLike
 import ch.tutteli.atrium.logic.creating.typeutils.MapLike
 import ch.tutteli.atrium.logic.creating.typeutils.iterableLikeToIterableTransformer
 import ch.tutteli.atrium.logic.creating.typeutils.mapLikeToMapTransformer
+
+//TODO 1.3.0 deprecate everything
 
 /**
  * Transforms the given [iterableLike] to `Pair<T, Array<out T>>` with the intention that it can be easily

@@ -1,9 +1,14 @@
+//TODO remove file with 2.0.0 at the latest
+@file:Suppress("DEPRECATION")
+
 package ch.tutteli.atrium.logic.creating.basic.contains
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.logic.creating.basic.contains.Contains.*
+
+//TODO 1.3.0 deprecate everything in this package and sub-packages
 
 /**
  * Defines the basic contract for sophisticated `contains` assertion builders.

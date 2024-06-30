@@ -21,7 +21,7 @@ object InternalExpectationVerbs : ExpectationVerbs {
 
     override fun expectGrouped(description: String?, groupingActions: ExpectGrouping.() -> Unit): ExpectGrouping =
         ch.tutteli.atrium.api.verbs.internal.expectGrouped(
-            description = "my expectations",
+            description = description ?: "my expectations",
             groupingActions = groupingActions
         )
 

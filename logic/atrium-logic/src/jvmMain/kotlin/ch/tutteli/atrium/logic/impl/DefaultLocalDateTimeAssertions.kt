@@ -1,4 +1,5 @@
-package ch.tutteli.atrium.logic.impl
+//TODO 2.0.0 remove file
+@file:Suppress("DEPRECATION")package ch.tutteli.atrium.logic.impl
 
 import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.logic.LocalDateTimeAssertions

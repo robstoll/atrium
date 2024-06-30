@@ -1,10 +1,17 @@
 package ch.tutteli.atrium.creating.impl
 
-import ch.tutteli.atrium.assertions.Assertion
-import ch.tutteli.atrium.assertions.builders.*
+import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
 import ch.tutteli.atrium.core.Option
 import ch.tutteli.atrium.creating.*
+import ch.tutteli.atrium.creating.proofs.*
+import ch.tutteli.atrium.creating.proofs.builders.buildProof
+import ch.tutteli.atrium.creating.proofs.impl.DefaultInvisibleProofGroup
+import ch.tutteli.atrium.reporting.Text
+import ch.tutteli.atrium.reporting.reportables.*
+import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionAnyProof
+import ch.tutteli.atrium.reporting.reportables.descriptions.ErrorMessages
+import ch.tutteli.kbox.ifNotEmpty
 
 @ExperimentalNewExpectTypes
 @ExperimentalComponentFactoryContainer
@@ -12,47 +19,179 @@ internal class CollectingExpectImpl<T>(
     maybeSubject: Option<T>,
     override val components: ComponentFactoryContainer
 ) : BaseExpectImpl<T>(maybeSubject), CollectingExpect<T> {
-    private val assertions = mutableListOf<Assertion>()
+    private val proofs = mutableListOf<Proof>()
 
-    override fun getAssertions(): List<Assertion> = assertions.toList()
+    @Suppress("DEPRECATION")
+    @Deprecated(
+        "Assertion is deprecated, move to Proof and use getCollectedProofs instead. Will be removed with 2.0.0 at the latest",
+        replaceWith = ReplaceWith("this.getCollectedProofs()")
+    )
+    override fun getAssertions(): List<Assertion> =
+        mapReportablesToAssertions(proofs)
 
-    override fun append(assertion: Assertion): Expect<T> =
-        apply { assertions.add(assertion) }
+    @Suppress("DEPRECATION")
+    private fun mapReportablesToAssertions(reportables: List<Reportable>): List<Assertion> =
+        reportables.map { reportable ->
+            when (reportable) {
+                is Assertion -> reportable
+                is Proof -> mapProofToAssertion(reportable)
 
-    override fun appendAsGroup(assertionCreator: Expect<T>.() -> Unit): CollectingExpect<T> {
-        // in case we run into performance problems, the code below is certainly not ideal
-        val allAssertions = mutableListOf<Assertion>()
-        allAssertions.addAll(getAssertions())
-        assertions.clear()
+                is ProofExplanation -> ExplanatoryAssertionGroup(
+                    DefaultExplanatoryAssertionGroupType,
+                    mapReportablesToAssertions(reportable.children),
+                    holds = false
+                )
 
-        assertionCreator(this)
-        val newAssertions = getAssertions()
+                is UsageHintGroup -> ExplanatoryAssertionGroup(
+                    HintAssertionGroupType,
+                    mapReportablesToAssertions(reportable.children),
+                    holds = false
+                )
 
-        assertions.clear()
-
-        if (newAssertions.isNotEmpty()) {
-            allAssertions.addAll(newAssertions)
-        } else {
-            allAssertions.add(assertionBuilder.descriptive
-                .failing
-                .withHelpOnFailure {
-                    assertionBuilder.explanatoryGroup
-                        .withDefaultType
-                        .withAssertions(
-                            assertionBuilder.explanatory.withExplanation(ErrorMessages.FORGOT_DO_DEFINE_EXPECTATION)
-                                .build(),
-                            assertionBuilder.explanatory.withExplanation(ErrorMessages.HINT_AT_LEAST_ONE_EXPECTATION_DEFINED)
-                                .build()
+                is DebugGroup -> ExplanatoryAssertionGroup(
+                    InformationAssertionGroupType(withIndent = true),
+                    listOf(
+                        BasicAssertionGroup(
+                            DefaultListAssertionGroupType,
+                            descriptionToUntranslatable(reportable.description),
+                            Text.EMPTY,
+                            mapReportablesToAssertions(reportable.children)
                         )
-                        .build()
-                }
-                .showForAnyFailure
-                .withDescriptionAndRepresentation(ErrorMessages.AT_LEAST_ONE_EXPECTATION_DEFINED, false)
-                .build()
-            )
+                    ),
+                    holds = false
+                )
+
+                is InformationGroup -> ExplanatoryAssertionGroup(
+                    InformationAssertionGroupType(withIndent = true),
+                    listOf(
+                        BasicAssertionGroup(
+                            DefaultListAssertionGroupType,
+                            descriptionToUntranslatable(reportable.description),
+                            Text.EMPTY,
+                            mapReportablesToAssertions(reportable.children)
+                        )
+                    ),
+                    holds = false
+                )
+
+                is FailureExplanationGroup -> ExplanatoryAssertionGroup(
+                    WarningAssertionGroupType,
+                    listOf(
+                        BasicAssertionGroup(
+                            DefaultListAssertionGroupType,
+                            descriptionToUntranslatable(reportable.description),
+                            Text.EMPTY,
+                            mapReportablesToAssertions(reportable.children)
+                        )
+                    ),
+                    holds = false
+                )
+
+                is ReportableWithDesignation -> BasicDescriptiveAssertion(
+                    descriptionToUntranslatable(reportable.description),
+                    reportable.representation
+                ) { false }
+
+                else -> BasicDescriptiveAssertion(
+                    ch.tutteli.atrium.reporting.translating.Untranslatable("❗❗ Assertion is deprecated, move to Proof, cannot show description"),
+                    reportable
+                ) { false }
+            }
         }
-        allAssertions.forEach { append(it) }
-        return this
+
+    @Suppress("DEPRECATION")
+    private fun mapProofToAssertion(proof: Proof): Assertion = when (proof) {
+
+        is DefaultInvisibleProofGroup -> InvisibleAssertionGroup(mapReportablesToAssertions(proof.children))
+
+        is ProofGroupWithDesignation -> BasicAssertionGroup(
+            if (proof is FeatureProofGroup) DefaultFeatureAssertionGroupType else DefaultListAssertionGroupType,
+            descriptionToUntranslatable(proof.description),
+            proof.representation,
+            mapReportablesToAssertions(proof.children)
+        )
+
+        is ProofGroup -> BasicAssertionGroup(
+            DefaultListAssertionGroupType,
+            ch.tutteli.atrium.reporting.translating.Untranslatable("❗❗ Assertion is deprecated, move to Proof, cannot show description"),
+            proof,
+            mapReportablesToAssertions(proof.children),
+        )
+
+        is ReportableWithDesignation -> BasicDescriptiveAssertion(
+            descriptionToUntranslatable(proof.description),
+            proof.representation
+        ) { proof.holds() }
+
+        else -> BasicDescriptiveAssertion(
+            ch.tutteli.atrium.reporting.translating.Untranslatable("❗❗ Assertion is deprecated, move to Proof, cannot show description"),
+            proof
+        ) { proof.holds() }
     }
 
+    @Suppress("DEPRECATION")
+    private fun descriptionToUntranslatable(description: Reportable) =
+        ch.tutteli.atrium.reporting.translating.Untranslatable(
+            (description as? TextElement)?.string ?: description.toString()
+        )
+
+    override fun getCollectedProofs(): List<Proof> = proofs.toList()
+
+    override fun append(proof: Proof): Expect<T> = apply {
+        proofs.add(proof)
+    }
+
+    @Deprecated(
+        "Use appendAsGroupIndicateIfOneCollected and define the alternative or pass an empty list if you don't have any",
+        replaceWith = ReplaceWith(
+            "this.appendAsGroupIndicateIfOneCollected(ExpectationCreatorWithUsageHints<T>(assertionCreator, listOf(/* .. add a custom usage hint in case you have an overload which does not expect an expectationCreator or use the generic */ ErrorMessages.DEFAULT_HINT_AT_LEAST_ONE_EXPECTATION_DEFINED))).first",
+            "ch.tutteli.atrium.creating.ExpectationCreatorWithUsageHints",
+            "ch.tutteli.atrium.reporting.reportables.descriptions.ErrorMessages"
+        )
+    )
+    override fun appendAsGroup(assertionCreator: Expect<T>.() -> Unit): CollectingExpect<T> {
+        @Suppress("DEPRECATION")
+        return super.appendAsGroup(assertionCreator) as CollectingExpect<T>
+    }
+
+    override fun appendAsGroupIndicateIfOneCollected(
+        expectationCreatorWithUsageHints: ExpectationCreatorWithUsageHints<T>
+    ): Pair<CollectingExpect<T>, Boolean> {
+        // in case we run into performance problems, the code below is certainly not ideal
+        val allProofs = mutableListOf<Proof>()
+        allProofs.addAll(getCollectedProofs())
+        proofs.clear()
+
+        //TODO 1.3.0 collect unexpected exceptions, move DefaultExceptionHandler to core
+        expectationCreatorWithUsageHints.expectationCreator(this)
+        val newProofs = getCollectedProofs()
+        val atLeastOneCollected = newProofs.isNotEmpty()
+        proofs.clear()
+
+        if (atLeastOneCollected) {
+            allProofs.addAll(newProofs)
+        } else {
+            allProofs.add(
+                buildProof {
+                    fixedClaimGroup(
+                        ErrorMessages.AT_LEAST_ONE_EXPECTATION_DEFINED, false,
+                        holds = false,
+                    ) {
+                        simpleProof(DescriptionAnyProof.TO_EQUAL, true) { false }
+
+                        addAll(
+                            expectationCreatorWithUsageHints.usageHintsOverloadWithoutExpectationCreator.ifNotEmpty { hints ->
+                                listOf(
+                                    Reportable.usageHintGroup(listOf(ErrorMessages.FORGOT_DO_DEFINE_EXPECTATION) + hints)
+                                )
+                            }
+                        )
+                    }
+                }
+            )
+        }
+        allProofs.forEach { append(it) }
+
+        return Pair(this, atLeastOneCollected)
+    }
 }

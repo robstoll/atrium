@@ -1,3 +1,6 @@
+//TODO remove file with 2.0.0 at the latest
+@file:Suppress("DEPRECATION")
+
 package ch.tutteli.atrium.reporting.text.impl
 
 import ch.tutteli.atrium.assertions.*
@@ -29,6 +32,7 @@ import kotlin.reflect.KClass
  *   when it comes to format children of an [AssertionGroup].
  * @param assertionPairFormatter The formatter which is used to format assertion pairs.
  */
+@Deprecated("Switch to Proof based reporting, will be removed with 2.0.0 at the latest")
 class TextSummaryAssertionGroupFormatter(
     bulletPoints: Map<KClass<out BulletPointIdentifier>, String>,
     private val assertionFormatterController: AssertionFormatterController,

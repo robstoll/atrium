@@ -1,3 +1,5 @@
+//TODO remove file with 2.0.0 at the latest
+@file:Suppress("DEPRECATION")
 package ch.tutteli.atrium.assertions
 
 /**
@@ -9,6 +11,10 @@ package ch.tutteli.atrium.assertions
  * For instance, representing `notToEqualOneOf(1, 2, 3)` can be achieved with an expectation-group and inner
  * [RepresentationOnlyAssertion]s.
  */
+@Deprecated(
+    "Switch to Proof, will be removed with 2.0.0 at the latest",
+    ReplaceWith("Proof.representationOnlyProof(representation, test)", "ch.tutteli.atrium.creating.proofs.Proof")
+)
 interface RepresentationOnlyAssertion : Assertion {
     /**
      * The representation of an instance such as `1`, `null` etc.

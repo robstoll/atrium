@@ -1,3 +1,6 @@
+//TODO 2.0.0 remove file
+@file:Suppress("DEPRECATION")
+
 package ch.tutteli.atrium.logic.creating.transformers
 
 
@@ -7,9 +10,7 @@ import ch.tutteli.atrium.assertions.ExplanatoryAssertionGroupType
 import ch.tutteli.atrium.assertions.builders.assertionBuilder
 import ch.tutteli.atrium.core.polyfills.fullName
 import ch.tutteli.atrium.core.polyfills.stackBacktrace
-import ch.tutteli.atrium.creating.AssertionContainer
-import ch.tutteli.atrium.creating.ExperimentalComponentFactoryContainer
-import ch.tutteli.atrium.creating.build
+import ch.tutteli.atrium.creating.*
 import ch.tutteli.atrium.logic.creating.transformers.impl.createAdditionalHints
 import ch.tutteli.atrium.reporting.AtriumErrorAdjuster
 import ch.tutteli.atrium.reporting.Text
@@ -23,6 +24,12 @@ import ch.tutteli.atrium.translations.DescriptionThrowableExpectation.*
  *
  * @since 1.3.0
  */
+@Deprecated("Switch from Assertion to Proof, use propertiesOfThrowable from atrium-core, will be removed with 2.0.0 at the latest",
+    ReplaceWith("container.toExpect().toProofContainer().propertiesOfThrowable(throwable)",
+        "ch.tutteli.atrium.creating.AssertionContainerKt.toExpect",
+        "ch.tutteli.atrium.creating.AssertionContainerKt.toProofConatiner",
+        "ch.tutteli.atrium.creating.transformers.propertiesOfThrowable")
+)
 @OptIn(ExperimentalComponentFactoryContainer::class)
 fun propertiesOfThrowable(
     throwable: Throwable,

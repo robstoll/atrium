@@ -1,5 +1,5 @@
-@file:Suppress("ObjectPropertyName", "FunctionName")
-
+//TODO 2.0.0 remove file
+@file:Suppress("DEPRECATION","ObjectPropertyName", "FunctionName")
 package ch.tutteli.atrium.logic
 
 import ch.tutteli.atrium.assertions.Assertion
@@ -9,6 +9,8 @@ import ch.tutteli.atrium.logic.creating.charsequence.contains.steps.WithTimesChe
 import ch.tutteli.atrium.logic.creating.charsequence.contains.steps.WithTimesCheckerStepInternal
 import ch.tutteli.atrium.logic.creating.charsequence.contains.steps.WithTimesCheckerStepLogic
 import ch.tutteli.atrium.reporting.BUG_REPORT_URL
+
+//TODO 1.3.0 deprecate everything
 
 /**
  * Entry point to the logic level of Atrium -- which is one level deeper than the API --

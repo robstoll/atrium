@@ -1,31 +1,26 @@
 package ch.tutteli.atrium.creating.impl
 
-import ch.tutteli.atrium.assertions.Assertion
-import ch.tutteli.atrium.assertions.builders.assertionBuilder
-import ch.tutteli.atrium.assertions.builders.root
 import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
 import ch.tutteli.atrium.core.Option
 import ch.tutteli.atrium.creating.*
+import ch.tutteli.atrium.creating.proofs.Proof
 import ch.tutteli.atrium.reporting.AtriumError
 import ch.tutteli.atrium.reporting.AtriumErrorAdjuster
 import ch.tutteli.atrium.reporting.Reporter
+import ch.tutteli.atrium.reporting.reportables.InlineElement
 
 @ExperimentalNewExpectTypes
 @OptIn(ExperimentalComponentFactoryContainer::class)
 internal class RootExpectImpl<T>(
     maybeSubject: Option<T>,
-    //TODO 1.3.0 replace Translatable with InlineElement
-    @Suppress("DEPRECATION")
-    private val expectationVerb: ch.tutteli.atrium.reporting.translating.Translatable,
+    private val expectationVerb: InlineElement,
     private val representation: Any?,
     override val components: ComponentFactoryContainer
 ) : BaseExpectImpl<T>(maybeSubject), RootExpect<T> {
 
     constructor(
         maybeSubject: Option<T>,
-        //TODO 1.3.0 replace Translatable with InlineElement
-        @Suppress("DEPRECATION")
-        expectationVerb: ch.tutteli.atrium.reporting.translating.Translatable,
+        expectationVerb: InlineElement,
         options: RootExpectOptions<T>?
     ) : this(
         maybeSubject,
@@ -54,20 +49,19 @@ internal class RootExpectImpl<T>(
      * All made assertions so far.
      * This list is intentionally not thread-safe, this class is not intended for multi-thread usage.
      */
-    private val assertions: MutableList<Assertion> = mutableListOf()
+    private val proofs: MutableList<Proof> = mutableListOf()
 
-    override fun append(assertion: Assertion): Expect<T> {
-        assertions.add(assertion)
-        if (!assertion.holds()) {
-            val assertionGroup = assertionBuilder.root
-                .withDescriptionAndRepresentation(expectationVerb, representation)
-                .withAssertions(assertions)
-                .build()
+    @Suppress("DEPRECATION", "OVERRIDE_DEPRECATION")
+    override fun append(assertion: ch.tutteli.atrium.assertions.Assertion): Expect<T> = append(assertion as Proof)
 
-            val sb = StringBuilder()
-            components.build<Reporter>().format(assertionGroup, sb)
+    override fun append(proof: Proof): Expect<T> {
+        proofs.add(proof)
+        if (!proof.holds()) {
+            val rootProofGroup = Proof.rootGroup(expectationVerb, representation, proofs)
 
-            throw AtriumError.create(sb.toString(), assertionGroup, components.build<AtriumErrorAdjuster>())
+            val sb = components.build<Reporter>().createReport(rootProofGroup)
+
+            throw AtriumError.create(sb.toString(), rootProofGroup, components.build<AtriumErrorAdjuster>())
         }
         return this
     }

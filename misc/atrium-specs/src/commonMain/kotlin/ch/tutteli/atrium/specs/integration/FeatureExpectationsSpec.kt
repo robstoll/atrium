@@ -2,9 +2,9 @@ package ch.tutteli.atrium.specs.integration
 
 import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.internal.expect
-import ch.tutteli.atrium.creating.ErrorMessages
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic.utils.expectLambda
+import ch.tutteli.atrium.reporting.reportables.descriptions.ErrorMessages
 import ch.tutteli.atrium.specs.*
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.Suite
@@ -120,13 +120,13 @@ abstract class FeatureExpectationsSpec(
         Triple("fun with 5 arguments and lazy", f5Lazy, return5LazyFeatureInfo)
     )
     val nullableFailingFunctions = arrayOf(
-        Triple("property toBe(null)", propertyNullableDoesNotHold, TestData::nullableValue.name),
-        Triple("fun without argument and toBe(null)", f0NullableDoesNotHold,return0NullableFeatureInfo),
-        Triple("fun with 1 argument and toBe(null)", f1NullableDoesNotHold, return1NullableFeatureInfo),
-        Triple("fun with 2 arguments and toBe(null)", f2NullableDoesNotHold,return2NullableFeatureInfo ),
-        Triple("fun with 3 arguments and toBe(null)", f3NullableDoesNotHold,return3NullableFeatureInfo ),
-        Triple("fun with 4 arguments and toBe(null)", f4NullableDoesNotHold,return4NullableFeatureInfo ),
-        Triple("fun with 5 arguments and toBe(null)", f5NullableDoesNotHold,return5NullableFeatureInfo)
+        Triple("property toEqual(null)", propertyNullableDoesNotHold, TestData::nullableValue.name),
+        Triple("fun without argument and toEqual(null)", f0NullableDoesNotHold,return0NullableFeatureInfo),
+        Triple("fun with 1 argument and toEqual(null)", f1NullableDoesNotHold, return1NullableFeatureInfo),
+        Triple("fun with 2 arguments and toEqual(null)", f2NullableDoesNotHold,return2NullableFeatureInfo ),
+        Triple("fun with 3 arguments and toEqual(null)", f3NullableDoesNotHold,return3NullableFeatureInfo ),
+        Triple("fun with 4 arguments and toEqual(null)", f4NullableDoesNotHold,return4NullableFeatureInfo ),
+        Triple("fun with 5 arguments and toEqual(null)", f5NullableDoesNotHold,return5NullableFeatureInfo)
     )
     val nullableHoldsFunctions = arrayOf(
         "property notToBeNull" to propertyNullableHolds,
@@ -229,7 +229,10 @@ abstract class FeatureExpectationsSpec(
                 expect {
                     expect(TestData("hello robert and some additional text", 1)).itsLazyWithNestedImmediate()
                 }.toThrow<AssertionError> {
-                    messageToContain("$lazyWithNestedImmediateFeatureInfo: 37", "$toEqualDescr: 12")
+                    message {
+                        toContainDescr(lazyWithNestedImmediateFeatureInfo, 37)
+                        toContainToEqualDescr(12)
+                    }
                 }
             }
         }
@@ -241,7 +244,10 @@ abstract class FeatureExpectationsSpec(
                 expect {
                     expect(TestData("hello robert and some additional text", 1)).itsLazyWithNestedLazy()
                 }.toThrow<AssertionError> {
-                    messageToContain("$lazyWithNestedLazyFeatureInfo: 37", "$toEqualDescr: 12")
+                    message {
+                        toContainDescr(lazyWithNestedLazyFeatureInfo, 37)
+                        toContainToEqualDescr(12)
+                    }
                 }
             }
         }
@@ -263,11 +269,13 @@ abstract class FeatureExpectationsSpec(
                     expect {
                         expect(TestData("hello robert", 1)).lambda()
                     }.toThrow<AssertionError> {
-                        messageToContain(
-                            ErrorMessages.AT_LEAST_ONE_EXPECTATION_DEFINED.getDefault() + ": false",
-                            ErrorMessages.FORGOT_DO_DEFINE_EXPECTATION.getDefault(),
-                            ErrorMessages.HINT_AT_LEAST_ONE_EXPECTATION_DEFINED.getDefault()
-                        )
+                        message {
+                            toContain(
+                                ErrorMessages.FORGOT_DO_DEFINE_EXPECTATION.string,
+                                ErrorMessages.DEFAULT_HINT_AT_LEAST_ONE_EXPECTATION_DEFINED.string
+                            )
+                            toContainRegex(ErrorMessages.AT_LEAST_ONE_EXPECTATION_DEFINED.string + "\\s+: false",)
+                        }
                     }
                 }
             }

@@ -1,4 +1,5 @@
-@file:Suppress("ObjectPropertyName", "FunctionName")
+//TODO remove file with 2.0.0 at the latest
+@file:Suppress("DEPRECATION", "ObjectPropertyName", "FunctionName")
 
 package ch.tutteli.atrium.logic
 
@@ -6,6 +7,8 @@ import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic.creating.maplike.contains.MapLikeContains
 import ch.tutteli.atrium.reporting.BUG_REPORT_URL
+
+//TODO 1.3.0 deprecate everything
 
 /**
  * Appends the [Assertion] the given [factory] creates based on this [MapLikeContains.EntryPointStep].
