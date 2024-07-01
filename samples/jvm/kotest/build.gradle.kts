@@ -5,7 +5,7 @@ import org.gradle.api.tasks.testing.logging.TestExceptionFormat
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 val atriumVersion = "1.2.0"
-val kotestVersion = "5.9.0"
+val kotestVersion = "5.9.1"
 
 plugins {
     kotlin("jvm") version "1.9.24"
