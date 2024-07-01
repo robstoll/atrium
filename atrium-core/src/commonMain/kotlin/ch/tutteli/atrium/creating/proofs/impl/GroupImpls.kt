@@ -7,6 +7,11 @@ import ch.tutteli.atrium.reporting.reportables.Reportable
 import ch.tutteli.atrium.reporting.reportables.ReportableGroupWithDesignation
 
 internal abstract class MemoizingHoldsProofGroup(override val children: List<Reportable>) : ProofGroup {
+    init {
+        require(children.any { it is Proof }) {
+            "At least one child needs to be a Proof in a ProofGroup. Given: $children"
+        }
+    }
 
     private val itHolds by lazy(LazyThreadSafetyMode.NONE) {
         proofs.all { it.holds() }
@@ -21,6 +26,7 @@ internal abstract class BaseProofGroup(
     children: List<Reportable>
 ) : MemoizingHoldsProofGroup(children), ReportableGroupWithDesignation {
     //TODO 1.3.0 override toString? checkout AssertionGroup impl.
+
 }
 
 internal class DefaultRootGroup(
@@ -41,12 +47,9 @@ internal class DefaultFeatureGroup(
     children: List<Reportable>
 ) : BaseProofGroup(description, representation, children)
 
-internal class DefaultInvisibleProofGroup(children: List<Reportable>) : MemoizingHoldsProofGroup(children) {
-    init {
-        require(children.any { it is Proof }) {
-            "At least one child needs to be a Proof in an invisible ProofGroup. Given: $children"
-        }
-    }
+internal class DefaultInvisibleProofGroup(
+    children: List<Reportable>
+) : MemoizingHoldsProofGroup(children) {
 
     /**
      * @suppress No need to document this behaviour.

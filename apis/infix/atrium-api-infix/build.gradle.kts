@@ -8,8 +8,10 @@ kotlin {
     sourceSets {
         commonMain {
             dependencies {
-                api(prefixedProject("logic"))
                 compileOnly(prefixedProject("translations-en_GB"))
+
+                //TODO remove with 1.4.0
+                api(prefixedProject("logic"))
             }
         }
 

@@ -6,7 +6,7 @@ package ch.tutteli.atrium.reporting.translating
 /**
  * Something which is [Translatable] and provides a default representation by [value].
  */
-//TOOD 1.3.0 deprecate with the introduction of Representable
+@Deprecated("Translation support was dropped with 1.2.0, switch to Reportable. Will be removed with 2.0.0 at the latest")
 interface StringBasedTranslatable : Translatable {
 
     /**

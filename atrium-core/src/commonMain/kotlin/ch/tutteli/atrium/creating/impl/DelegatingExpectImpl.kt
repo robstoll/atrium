@@ -1,3 +1,6 @@
+
+//TODO remove with 2.0.0 at the latest
+ @file:Suppress("DEPRECATION")
 package ch.tutteli.atrium.creating.impl
 
 import ch.tutteli.atrium.assertions.Assertion
@@ -8,7 +11,7 @@ import ch.tutteli.atrium.creating.proofs.Proof
 
 @ExperimentalComponentFactoryContainer
 @ExperimentalNewExpectTypes
-//TODO remove with 2.0.0 at the latest
+//TODO 1.3.0 deprecate
 internal class DelegatingExpectImpl<T>(private val container: AssertionContainer<*>, maybeSubject: Option<T>) :
     BaseExpectImpl<T>(maybeSubject), DelegatingExpect<T> {
 

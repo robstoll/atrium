@@ -1,3 +1,6 @@
+//TODO remove file with 2.0.0 at the latest
+@file:Suppress("DEPRECATION")
+
 package ch.tutteli.atrium.reporting.impl
 
 import ch.tutteli.atrium.assertions.Assertion
@@ -13,6 +16,7 @@ import ch.tutteli.atrium.reporting.AssertionFormatterParameterObject
  *
  * @see AssertionFormatterController
  */
+@Deprecated("Switch to Proof based reporting, will be removed with 2.0.0 at the latest")
 class DefaultAssertionFormatterController : AssertionFormatterController {
     private val assertionFormatters = mutableListOf<AssertionFormatter>()
 

@@ -11,6 +11,10 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  * The base interface for [Assertion] groups, providing a default implementation for [Assertion.holds]
  * which returns `true` if all its [assertions] hold.
  */
+@Deprecated(
+    "switch to ProofGroup, will be removed with 2.0.0 at the latest",
+    ReplaceWith("ProofGroup", "ch.tutteli.atrium.creating.proofs.ProofGroup")
+)
 interface AssertionGroup : Assertion, ProofGroup {
 
     override val children: List<Reportable> get() = assertions

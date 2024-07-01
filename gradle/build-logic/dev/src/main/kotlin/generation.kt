@@ -31,11 +31,11 @@ fun Project.includingTarget(
     additionalPackages
 )
 
-fun Project.createGenerateDomainTask(
+fun Project.createGenerateCoreTask(
     vararg targetWithPackages: TargetWithAdditionalPackages,
     suffix: String = ""
 ): TaskProvider<*> {
-    val generateProofs = tasks.register("generateDomain") {
+    val generateProofs = tasks.register("generateCore") {
         group = "build"
         description = "generates extension methods for ProofContainer based on interfaces"
         outputs.dir("src/generated/")
@@ -56,7 +56,7 @@ fun Project.createGenerateDomainTask(
         }) + additionalPackages
         all.forEach { (relativePackagePath, f) ->
             val relativePackagePathWithSlash = relativePackagePath + if (suffix !== "") "/$suffix" else ""
-            val task = registerGenerateDomainTaskForPackage(
+            val task = registerGenerateCoreTaskForPackage(
                 sourceSet.name,
                 generatedFolder,
                 relativePackagePathWithSlash,
@@ -73,7 +73,7 @@ fun Project.createGenerateDomainTask(
     return generateProofs
 }
 
-fun Project.registerGenerateDomainTaskForPackage(
+fun Project.registerGenerateCoreTaskForPackage(
     sourceSetName: String,
     generatedFolder: String,
     relativePackagePath: String,
@@ -81,9 +81,9 @@ fun Project.registerGenerateDomainTaskForPackage(
     f: (Path) -> Pair<String, String>
 ): TaskProvider<Task> {
 
-    return tasks.register("generateDomain_${sourceSetName}_${relativePackagePath.replace('/', '_')}") {
+    return tasks.register("generateCore_${sourceSetName}_${relativePackagePath.replace('/', '_')}") {
         group = "build"
-        description = "generates ext. methods for domain in package $relativePackagePath"
+        description = "generates ext. methods for core in package $relativePackagePath"
         val packagePath = prefixProofsPackagePath(relativePackagePath)
         val srcPath = "${mainSrcFolder.absolutePath}/$packagePath/"
         val generatedPath = "${project.projectDir}/$generatedFolder/$packagePath"
@@ -166,7 +166,7 @@ fun Project.registerGenerateDomainTaskForPackage(
     }
 }
 
-fun prefixProofsPackagePath(relativePackagePath: String) = "ch/tutteli/atrium/domain$relativePackagePath"
+fun prefixProofsPackagePath(relativePackagePath: String) = "ch/tutteli/atrium/creating/proofs$relativePackagePath"
 
 fun getProofInterfaces(path: String): List<Path> =
     Files.walk(Paths.get(path), 1).use { stream ->
@@ -291,7 +291,7 @@ fun Project.registerGenerateLogicTaskForPackage(
                 val interfaceName = "${type}Assertions"
                 val implValName = "impl"
 
-                var tmp = content.replace(Regex("""(${newLine}/\*\*[\S\s]+?\*/)?${newLine}interface $interfaceName \{"""),
+                var tmp = content.replace(Regex("""((?:${newLine}/\*\*[\S\s]+?\*/)?(?:${newLine}@Deprecated\([^)]*\)?)?)${newLine}interface $interfaceName \{"""),
                     """
                     import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
                     import ${fullPackage}.impl.Default${type}Assertions

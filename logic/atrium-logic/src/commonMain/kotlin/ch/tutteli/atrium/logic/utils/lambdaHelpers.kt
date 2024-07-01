@@ -2,6 +2,8 @@ package ch.tutteli.atrium.logic.utils
 
 import ch.tutteli.atrium.creating.Expect
 
+//TODO 1.3.0 deprecate everything
+
 /**
  * Can be used in places where a
  * [lambda with receiver](https://kotlinlang.org/docs/reference/lambdas.html#function-literals-with-receiver)
