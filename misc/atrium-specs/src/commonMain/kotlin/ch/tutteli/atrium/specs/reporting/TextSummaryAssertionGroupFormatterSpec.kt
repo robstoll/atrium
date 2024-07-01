@@ -8,7 +8,7 @@ import ch.tutteli.atrium.assertions.builders.assertionBuilder
 import ch.tutteli.atrium.reporting.AssertionFormatter
 import ch.tutteli.atrium.reporting.AssertionFormatterController
 import ch.tutteli.atrium.reporting.impl.DefaultAssertionFormatterController
-import ch.tutteli.atrium.specs.AssertionVerb
+import ch.tutteli.atrium.specs.DummyTranslatables
 import ch.tutteli.atrium.specs.describeFunTemplate
 import ch.tutteli.atrium.specs.lineSeparator
 import org.spekframework.spek2.style.specification.Suite
@@ -58,16 +58,16 @@ abstract class TextSummaryAssertionGroupFormatterSpec(
         context("${AssertionGroup::class.simpleName} of ${DefaultSummaryAssertionGroupType::class.simpleName} and does not hold") {
             val assertions = listOf(
                 assertionBuilder.descriptive.holding.withDescriptionAndRepresentation(
-                    AssertionVerb.EXPECT,
+                    DummyTranslatables.EXPECT,
                     1
                 ).build(),
                 assertionBuilder.descriptive.failing.withDescriptionAndRepresentation(
-                    AssertionVerb.EXPECT_THROWN,
+                    DummyTranslatables.EXPECT_THROWN,
                     2
                 ).build()
             )
             val summaryAssertionGroup = assertionBuilder.customType(DefaultSummaryAssertionGroupType)
-                .withDescriptionAndRepresentation(AssertionVerb.EXPECT, 22)
+                .withDescriptionAndRepresentation(DummyTranslatables.EXPECT, 22)
                 .withAssertions(assertions)
                 .build()
 
@@ -79,9 +79,9 @@ abstract class TextSummaryAssertionGroupFormatterSpec(
                     )
                     expect(sb.toString()).toEqual(
                         lineSeparator
-                                + "${AssertionVerb.EXPECT.getDefault()}: 22$lineSeparator"
-                                + "$successBulletPoint ${AssertionVerb.EXPECT.getDefault()}: 1$lineSeparator"
-                                + "$failingBulletPoint ${AssertionVerb.EXPECT_THROWN.getDefault()}: 2"
+                                + "${DummyTranslatables.EXPECT.getDefault()}: 22$lineSeparator"
+                                + "$successBulletPoint ${DummyTranslatables.EXPECT.getDefault()}: 1$lineSeparator"
+                                + "$failingBulletPoint ${DummyTranslatables.EXPECT_THROWN.getDefault()}: 2"
                     )
                 }
             }
@@ -91,12 +91,12 @@ abstract class TextSummaryAssertionGroupFormatterSpec(
                     val featureAssertions = listOf(
                         summaryAssertionGroup,
                         assertionBuilder.descriptive.failing.withDescriptionAndRepresentation(
-                            AssertionVerb.EXPECT,
+                            DummyTranslatables.EXPECT,
                             20
                         ).build()
                     )
                     val featureAssertionGroup = assertionBuilder.feature
-                        .withDescriptionAndRepresentation(AssertionVerb.EXPECT, 10)
+                        .withDescriptionAndRepresentation(DummyTranslatables.EXPECT, 10)
                         .withAssertions(featureAssertions)
                         .build()
                     facade.format(
@@ -105,11 +105,11 @@ abstract class TextSummaryAssertionGroupFormatterSpec(
                     )
                     expect(sb.toString()).toEqual(
                         lineSeparator
-                            + "$arrow ${AssertionVerb.EXPECT.getDefault()}: 10$lineSeparator"
-                            + "$indentArrow$featureBulletPoint ${AssertionVerb.EXPECT.getDefault()}: 22$lineSeparator"
-                            + "$indentArrow$indentFeatureBulletPoint$successBulletPoint ${AssertionVerb.EXPECT.getDefault()}: 1$lineSeparator"
-                            + "$indentArrow$indentFeatureBulletPoint$failingBulletPoint ${AssertionVerb.EXPECT_THROWN.getDefault()}: 2$lineSeparator"
-                            + "$indentArrow$featureBulletPoint ${AssertionVerb.EXPECT.getDefault()}: 20"
+                            + "$arrow ${DummyTranslatables.EXPECT.getDefault()}: 10$lineSeparator"
+                            + "$indentArrow$featureBulletPoint ${DummyTranslatables.EXPECT.getDefault()}: 22$lineSeparator"
+                            + "$indentArrow$indentFeatureBulletPoint$successBulletPoint ${DummyTranslatables.EXPECT.getDefault()}: 1$lineSeparator"
+                            + "$indentArrow$indentFeatureBulletPoint$failingBulletPoint ${DummyTranslatables.EXPECT_THROWN.getDefault()}: 2$lineSeparator"
+                            + "$indentArrow$featureBulletPoint ${DummyTranslatables.EXPECT.getDefault()}: 20"
                     )
                 }
             }
@@ -118,12 +118,12 @@ abstract class TextSummaryAssertionGroupFormatterSpec(
                 val listAssertions = listOf(
                     summaryAssertionGroup,
                     assertionBuilder.descriptive.failing.withDescriptionAndRepresentation(
-                        AssertionVerb.EXPECT,
+                        DummyTranslatables.EXPECT,
                         20
                     ).build()
                 )
                 val listAssertionGroup = assertionBuilder.list
-                    .withDescriptionAndRepresentation(AssertionVerb.EXPECT, 10)
+                    .withDescriptionAndRepresentation(DummyTranslatables.EXPECT, 10)
                     .withAssertions(listAssertions)
                     .build()
 
@@ -134,11 +134,11 @@ abstract class TextSummaryAssertionGroupFormatterSpec(
                     )
                     expect(sb.toString()).toEqual(
                         lineSeparator
-                            + "${AssertionVerb.EXPECT.getDefault()}: 10$lineSeparator"
-                            + "$listBulletPoint ${AssertionVerb.EXPECT.getDefault()}: 22$lineSeparator"
-                            + "$indentListBulletPoint$successBulletPoint ${AssertionVerb.EXPECT.getDefault()}: 1$lineSeparator"
-                            + "$indentListBulletPoint$failingBulletPoint ${AssertionVerb.EXPECT_THROWN.getDefault()}: 2$lineSeparator"
-                            + "$listBulletPoint ${AssertionVerb.EXPECT.getDefault()}: 20"
+                            + "${DummyTranslatables.EXPECT.getDefault()}: 10$lineSeparator"
+                            + "$listBulletPoint ${DummyTranslatables.EXPECT.getDefault()}: 22$lineSeparator"
+                            + "$indentListBulletPoint$successBulletPoint ${DummyTranslatables.EXPECT.getDefault()}: 1$lineSeparator"
+                            + "$indentListBulletPoint$failingBulletPoint ${DummyTranslatables.EXPECT_THROWN.getDefault()}: 2$lineSeparator"
+                            + "$listBulletPoint ${DummyTranslatables.EXPECT.getDefault()}: 20"
                     )
                 }
 
@@ -147,12 +147,12 @@ abstract class TextSummaryAssertionGroupFormatterSpec(
                         val listAssertions2 = listOf(
                             listAssertionGroup,
                             assertionBuilder.descriptive.failing.withDescriptionAndRepresentation(
-                                AssertionVerb.EXPECT_THROWN,
+                                DummyTranslatables.EXPECT_THROWN,
                                 30
                             ).build()
                         )
                         val listAssertionGroup2 = assertionBuilder.list
-                            .withDescriptionAndRepresentation(AssertionVerb.EXPECT, 5)
+                            .withDescriptionAndRepresentation(DummyTranslatables.EXPECT, 5)
                             .withAssertions(listAssertions2)
                             .build()
                         facade.format(
@@ -161,13 +161,13 @@ abstract class TextSummaryAssertionGroupFormatterSpec(
                         )
                         expect(sb.toString()).toEqual(
                             lineSeparator
-                                + "${AssertionVerb.EXPECT.getDefault()}: 5$lineSeparator"
-                                + "$listBulletPoint ${AssertionVerb.EXPECT.getDefault()}: 10$lineSeparator"
-                                + "$indentListBulletPoint$listBulletPoint ${AssertionVerb.EXPECT.getDefault()}: 22$lineSeparator"
-                                + "$indentListBulletPoint$indentListBulletPoint$successBulletPoint ${AssertionVerb.EXPECT.getDefault()}: 1$lineSeparator"
-                                + "$indentListBulletPoint$indentListBulletPoint$failingBulletPoint ${AssertionVerb.EXPECT_THROWN.getDefault()}: 2$lineSeparator"
-                                + "$indentListBulletPoint$listBulletPoint ${AssertionVerb.EXPECT.getDefault()}: 20$lineSeparator"
-                                + "$listBulletPoint ${AssertionVerb.EXPECT_THROWN.getDefault()}: 30"
+                                + "${DummyTranslatables.EXPECT.getDefault()}: 5$lineSeparator"
+                                + "$listBulletPoint ${DummyTranslatables.EXPECT.getDefault()}: 10$lineSeparator"
+                                + "$indentListBulletPoint$listBulletPoint ${DummyTranslatables.EXPECT.getDefault()}: 22$lineSeparator"
+                                + "$indentListBulletPoint$indentListBulletPoint$successBulletPoint ${DummyTranslatables.EXPECT.getDefault()}: 1$lineSeparator"
+                                + "$indentListBulletPoint$indentListBulletPoint$failingBulletPoint ${DummyTranslatables.EXPECT_THROWN.getDefault()}: 2$lineSeparator"
+                                + "$indentListBulletPoint$listBulletPoint ${DummyTranslatables.EXPECT.getDefault()}: 20$lineSeparator"
+                                + "$listBulletPoint ${DummyTranslatables.EXPECT_THROWN.getDefault()}: 30"
                         )
                     }
                 }
@@ -176,26 +176,26 @@ abstract class TextSummaryAssertionGroupFormatterSpec(
             context("in another ${AssertionGroup::class.simpleName} of type object: ${SummaryAssertionGroupType::class.simpleName}") {
                 val summaryAssertions = listOf(
                     assertionBuilder.descriptive.failing.withDescriptionAndRepresentation(
-                        AssertionVerb.EXPECT,
+                        DummyTranslatables.EXPECT,
                         21
                     ).build(),
                     summaryAssertionGroup,
                     assertionBuilder.summary
-                        .withDescription(AssertionVerb.EXPECT_THROWN)
+                        .withDescription(DummyTranslatables.EXPECT_THROWN)
                         .withAssertions(
                             assertionBuilder.descriptive.holding.withDescriptionAndRepresentation(
-                                AssertionVerb.EXPECT,
+                                DummyTranslatables.EXPECT,
                                 30
                             ).build(),
                             assertionBuilder.descriptive.holding.withDescriptionAndRepresentation(
-                                AssertionVerb.EXPECT,
+                                DummyTranslatables.EXPECT,
                                 31
                             ).build()
                         )
                         .build()
                 )
                 val summaryAssertionGroup2 = assertionBuilder.customType(object : SummaryAssertionGroupType {})
-                    .withDescriptionAndRepresentation(AssertionVerb.EXPECT, 10)
+                    .withDescriptionAndRepresentation(DummyTranslatables.EXPECT, 10)
                     .withAssertions(summaryAssertions)
                     .build()
 
@@ -206,14 +206,14 @@ abstract class TextSummaryAssertionGroupFormatterSpec(
                     )
                     expect(sb.toString()).toEqual(
                         lineSeparator
-                            + "${AssertionVerb.EXPECT.getDefault()}: 10$lineSeparator"
-                            + "$failingBulletPoint ${AssertionVerb.EXPECT.getDefault()}: 21$lineSeparator"
-                            + "$failingBulletPoint ${AssertionVerb.EXPECT.getDefault()}: 22$lineSeparator"
-                            + "$indentFailingBulletPoint$successBulletPoint ${AssertionVerb.EXPECT.getDefault()}: 1$lineSeparator"
-                            + "$indentFailingBulletPoint$failingBulletPoint ${AssertionVerb.EXPECT_THROWN.getDefault()}: 2$lineSeparator"
-                            + "$successBulletPoint ${AssertionVerb.EXPECT_THROWN.getDefault()}:  (Text)$lineSeparator"
-                            + "$indentSuccessBulletPoint$successBulletPoint ${AssertionVerb.EXPECT.getDefault()}: 30$lineSeparator"
-                            + "$indentSuccessBulletPoint$successBulletPoint ${AssertionVerb.EXPECT.getDefault()}: 31"
+                            + "${DummyTranslatables.EXPECT.getDefault()}: 10$lineSeparator"
+                            + "$failingBulletPoint ${DummyTranslatables.EXPECT.getDefault()}: 21$lineSeparator"
+                            + "$failingBulletPoint ${DummyTranslatables.EXPECT.getDefault()}: 22$lineSeparator"
+                            + "$indentFailingBulletPoint$successBulletPoint ${DummyTranslatables.EXPECT.getDefault()}: 1$lineSeparator"
+                            + "$indentFailingBulletPoint$failingBulletPoint ${DummyTranslatables.EXPECT_THROWN.getDefault()}: 2$lineSeparator"
+                            + "$successBulletPoint ${DummyTranslatables.EXPECT_THROWN.getDefault()}:  (Text)$lineSeparator"
+                            + "$indentSuccessBulletPoint$successBulletPoint ${DummyTranslatables.EXPECT.getDefault()}: 30$lineSeparator"
+                            + "$indentSuccessBulletPoint$successBulletPoint ${DummyTranslatables.EXPECT.getDefault()}: 31"
                     )
                 }
             }
@@ -222,12 +222,12 @@ abstract class TextSummaryAssertionGroupFormatterSpec(
             it("The group is not formatted since it is filtered out") {
                 val assertions = listOf(
                     assertionBuilder.descriptive.holding.withDescriptionAndRepresentation(
-                        AssertionVerb.EXPECT,
+                        DummyTranslatables.EXPECT,
                         1
                     ).build()
                 )
                 val summaryAssertionGroup = assertionBuilder.summary
-                    .withDescription(AssertionVerb.EXPECT)
+                    .withDescription(DummyTranslatables.EXPECT)
                     .withAssertions(assertions)
                     .build()
                 facade.format(

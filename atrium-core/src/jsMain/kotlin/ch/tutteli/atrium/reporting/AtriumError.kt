@@ -4,7 +4,7 @@ import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.core.polyfills.stackBacktrace
 
 /**
- * Indicates that an assertion made by Atrium failed.
+ * Indicates that an expectation stated via Atrium was not.
  *
  * Its `stack` might be filtered so that reporting does not include all stack frames.
  * This depends on the chosen [AtriumErrorAdjuster] - so theoretically more than the stack trace

@@ -8,7 +8,7 @@ import ch.tutteli.atrium.assertions.builders.assertionBuilder
 import ch.tutteli.atrium.reporting.AssertionFormatter
 import ch.tutteli.atrium.reporting.AssertionFormatterController
 import ch.tutteli.atrium.reporting.impl.DefaultAssertionFormatterController
-import ch.tutteli.atrium.specs.AssertionVerb
+import ch.tutteli.atrium.specs.DummyTranslatables
 import ch.tutteli.atrium.specs.describeFunTemplate
 import ch.tutteli.atrium.specs.lineSeparator
 import org.spekframework.spek2.style.specification.Suite
@@ -53,11 +53,11 @@ abstract class TextIndentBasedAssertionGroupFormatterSpec<T : AssertionGroupType
         context("${AssertionGroup::class.simpleName} of type ${assertionGroupTypeClass.simpleName}") {
             val assertions = listOf(
                 assertionBuilder.descriptive.holding.withDescriptionAndRepresentation(
-                    AssertionVerb.EXPECT,
+                    DummyTranslatables.EXPECT,
                     1
                 ).build(),
                 assertionBuilder.descriptive.holding.withDescriptionAndRepresentation(
-                    AssertionVerb.EXPECT_THROWN,
+                    DummyTranslatables.EXPECT_THROWN,
                     2
                 ).build()
             )
@@ -72,8 +72,8 @@ abstract class TextIndentBasedAssertionGroupFormatterSpec<T : AssertionGroupType
                     )
                     expect(sb.toString()).toEqual(
                         lineSeparator
-                                + "$indentBulletPoint ${AssertionVerb.EXPECT.getDefault()}: 1$lineSeparator"
-                                + "$indentBulletPoint ${AssertionVerb.EXPECT_THROWN.getDefault()}: 2"
+                                + "$indentBulletPoint ${DummyTranslatables.EXPECT.getDefault()}: 1$lineSeparator"
+                                + "$indentBulletPoint ${DummyTranslatables.EXPECT_THROWN.getDefault()}: 2"
                     )
                 }
             }
@@ -85,12 +85,12 @@ abstract class TextIndentBasedAssertionGroupFormatterSpec<T : AssertionGroupType
                     val featureAssertions = listOf(
                         indentAssertionGroup,
                         assertionBuilder.descriptive.failing.withDescriptionAndRepresentation(
-                            AssertionVerb.EXPECT,
+                            DummyTranslatables.EXPECT,
                             20
                         ).build()
                     )
                     val featureAssertionGroup = assertionBuilder.feature
-                        .withDescriptionAndRepresentation(AssertionVerb.EXPECT, 10)
+                        .withDescriptionAndRepresentation(DummyTranslatables.EXPECT, 10)
                         .withAssertions(featureAssertions)
                         .build()
                     facade.format(
@@ -103,10 +103,10 @@ abstract class TextIndentBasedAssertionGroupFormatterSpec<T : AssertionGroupType
 
                     expect(sb.toString()).toEqual(
                         lineSeparator
-                            + "$arrow ${AssertionVerb.EXPECT.getDefault()}: 10$lineSeparator"
-                            + "$indentArrow$indent$indentBulletPoint ${AssertionVerb.EXPECT.getDefault()}: 1$lineSeparator"
-                            + "$indentArrow$indent$indentBulletPoint ${AssertionVerb.EXPECT_THROWN.getDefault()}: 2$lineSeparator"
-                            + "$indentArrow$featureBulletPoint ${AssertionVerb.EXPECT.getDefault()}: 20"
+                            + "$arrow ${DummyTranslatables.EXPECT.getDefault()}: 10$lineSeparator"
+                            + "$indentArrow$indent$indentBulletPoint ${DummyTranslatables.EXPECT.getDefault()}: 1$lineSeparator"
+                            + "$indentArrow$indent$indentBulletPoint ${DummyTranslatables.EXPECT_THROWN.getDefault()}: 2$lineSeparator"
+                            + "$indentArrow$featureBulletPoint ${DummyTranslatables.EXPECT.getDefault()}: 20"
                     )
                 }
             }
@@ -115,12 +115,12 @@ abstract class TextIndentBasedAssertionGroupFormatterSpec<T : AssertionGroupType
                 val listAssertions = listOf(
                     indentAssertionGroup,
                     assertionBuilder.descriptive.failing.withDescriptionAndRepresentation(
-                        AssertionVerb.EXPECT,
+                        DummyTranslatables.EXPECT,
                         20
                     ).build()
                 )
                 val listAssertionGroup = assertionBuilder.list
-                    .withDescriptionAndRepresentation(AssertionVerb.EXPECT, 10)
+                    .withDescriptionAndRepresentation(DummyTranslatables.EXPECT, 10)
                     .withAssertions(listAssertions)
                     .build()
 
@@ -134,10 +134,10 @@ abstract class TextIndentBasedAssertionGroupFormatterSpec<T : AssertionGroupType
                     )
                     expect(sb.toString()).toEqual(
                         lineSeparator
-                            + "${AssertionVerb.EXPECT.getDefault()}: 10$lineSeparator"
-                            + "$indent$indentBulletPoint ${AssertionVerb.EXPECT.getDefault()}: 1$lineSeparator"
-                            + "$indent$indentBulletPoint ${AssertionVerb.EXPECT_THROWN.getDefault()}: 2$lineSeparator"
-                            + "$listBulletPoint ${AssertionVerb.EXPECT.getDefault()}: 20"
+                            + "${DummyTranslatables.EXPECT.getDefault()}: 10$lineSeparator"
+                            + "$indent$indentBulletPoint ${DummyTranslatables.EXPECT.getDefault()}: 1$lineSeparator"
+                            + "$indent$indentBulletPoint ${DummyTranslatables.EXPECT_THROWN.getDefault()}: 2$lineSeparator"
+                            + "$listBulletPoint ${DummyTranslatables.EXPECT.getDefault()}: 20"
                     )
                 }
 
@@ -146,12 +146,12 @@ abstract class TextIndentBasedAssertionGroupFormatterSpec<T : AssertionGroupType
                         val listAssertions2 = listOf(
                             listAssertionGroup,
                             assertionBuilder.descriptive.failing.withDescriptionAndRepresentation(
-                                AssertionVerb.EXPECT_THROWN,
+                                DummyTranslatables.EXPECT_THROWN,
                                 30
                             ).build()
                         )
                         val listAssertionGroup2 = assertionBuilder.list
-                            .withDescriptionAndRepresentation(AssertionVerb.EXPECT, 5)
+                            .withDescriptionAndRepresentation(DummyTranslatables.EXPECT, 5)
                             .withAssertions(listAssertions2)
                             .build()
                         facade.format(
@@ -161,12 +161,12 @@ abstract class TextIndentBasedAssertionGroupFormatterSpec<T : AssertionGroupType
                         )
                         expect(sb.toString()).toEqual(
                             lineSeparator
-                                + "${AssertionVerb.EXPECT.getDefault()}: 5$lineSeparator"
-                                + "$listBulletPoint ${AssertionVerb.EXPECT.getDefault()}: 10$lineSeparator"
-                                + "$indentListBulletPoint$indent$indentBulletPoint ${AssertionVerb.EXPECT.getDefault()}: 1$lineSeparator"
-                                + "$indentListBulletPoint$indent$indentBulletPoint ${AssertionVerb.EXPECT_THROWN.getDefault()}: 2$lineSeparator"
-                                + "$indentListBulletPoint$listBulletPoint ${AssertionVerb.EXPECT.getDefault()}: 20$lineSeparator"
-                                + "$listBulletPoint ${AssertionVerb.EXPECT_THROWN.getDefault()}: 30"
+                                + "${DummyTranslatables.EXPECT.getDefault()}: 5$lineSeparator"
+                                + "$listBulletPoint ${DummyTranslatables.EXPECT.getDefault()}: 10$lineSeparator"
+                                + "$indentListBulletPoint$indent$indentBulletPoint ${DummyTranslatables.EXPECT.getDefault()}: 1$lineSeparator"
+                                + "$indentListBulletPoint$indent$indentBulletPoint ${DummyTranslatables.EXPECT_THROWN.getDefault()}: 2$lineSeparator"
+                                + "$indentListBulletPoint$listBulletPoint ${DummyTranslatables.EXPECT.getDefault()}: 20$lineSeparator"
+                                + "$listBulletPoint ${DummyTranslatables.EXPECT_THROWN.getDefault()}: 30"
                         )
                     }
                 }
@@ -175,16 +175,16 @@ abstract class TextIndentBasedAssertionGroupFormatterSpec<T : AssertionGroupType
             context("in another ${AssertionGroup::class.simpleName} of type object: ${assertionGroupTypeClass::class.simpleName}") {
                 val indentAssertions = listOf(
                     assertionBuilder.descriptive.failing.withDescriptionAndRepresentation(
-                        AssertionVerb.EXPECT,
+                        DummyTranslatables.EXPECT,
                         21
                     ).build(), indentAssertionGroup,
                     assertionBuilder.descriptive.failing.withDescriptionAndRepresentation(
-                        AssertionVerb.EXPECT,
+                        DummyTranslatables.EXPECT,
                         20
                     ).build()
                 )
                 val indentAssertionGroup2 = assertionBuilder.customType(anonymousAssertionGroupType)
-                    .withDescriptionAndRepresentation(AssertionVerb.EXPECT, 10)
+                    .withDescriptionAndRepresentation(DummyTranslatables.EXPECT, 10)
                     .withAssertions(indentAssertions)
                     .build()
 
@@ -198,10 +198,10 @@ abstract class TextIndentBasedAssertionGroupFormatterSpec<T : AssertionGroupType
                     )
                     expect(sb.toString()).toEqual(
                         lineSeparator
-                            + "$indentBulletPoint ${AssertionVerb.EXPECT.getDefault()}: 21$lineSeparator"
-                            + "$indent$indentBulletPoint ${AssertionVerb.EXPECT.getDefault()}: 1$lineSeparator"
-                            + "$indent$indentBulletPoint ${AssertionVerb.EXPECT_THROWN.getDefault()}: 2$lineSeparator"
-                            + "$indentBulletPoint ${AssertionVerb.EXPECT.getDefault()}: 20"
+                            + "$indentBulletPoint ${DummyTranslatables.EXPECT.getDefault()}: 21$lineSeparator"
+                            + "$indent$indentBulletPoint ${DummyTranslatables.EXPECT.getDefault()}: 1$lineSeparator"
+                            + "$indent$indentBulletPoint ${DummyTranslatables.EXPECT_THROWN.getDefault()}: 2$lineSeparator"
+                            + "$indentBulletPoint ${DummyTranslatables.EXPECT.getDefault()}: 20"
                     )
                 }
             }
