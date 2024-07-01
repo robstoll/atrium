@@ -1,3 +1,6 @@
+// TODO remove with 2.0.0 at the latest
+@file:Suppress("DEPRECATION")
+
 package ch.tutteli.atrium.reporting
 
 import ch.tutteli.atrium.assertions.Assertion
@@ -6,6 +9,7 @@ import ch.tutteli.atrium.assertions.AssertionGroup
 /**
  * Represents a formatter for [Assertion]s and [AssertionGroup]s.
  */
+@Deprecated("Switch to Proof based reporting, will be removed with 2.0.0 at the latest")
 interface AssertionFormatter {
 
     /**

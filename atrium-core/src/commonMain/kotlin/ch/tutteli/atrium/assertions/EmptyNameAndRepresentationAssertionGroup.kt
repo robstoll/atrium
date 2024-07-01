@@ -15,6 +15,7 @@ import ch.tutteli.atrium.reporting.translating.Untranslatable
  * @param type The type of the group, e.g. [InvisibleAssertionGroupType].
  * @param assertions The assertions of this group.
  */
+@Deprecated("switch to ProofGroup, will be removed with 2.0.0 at the latest")
 internal open class EmptyNameAndRepresentationAssertionGroup(
     override val type: AssertionGroupType,
     override val assertions: List<Assertion>

@@ -16,7 +16,7 @@ import ch.tutteli.atrium.reporting.text.TextAssertionPairFormatter
 import ch.tutteli.atrium.reporting.text.impl.TextFallbackAssertionFormatter
 import ch.tutteli.atrium.reporting.text.impl.TextListAssertionGroupFormatter
 import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
-import ch.tutteli.atrium.specs.AssertionVerb
+import ch.tutteli.atrium.specs.DummyTranslatables
 import ch.tutteli.atrium.specs.describeFunTemplate
 import ch.tutteli.atrium.specs.lineSeparator
 import org.spekframework.spek2.style.specification.Suite
@@ -32,8 +32,8 @@ abstract class TextFeatureAssertionGroupFormatterSpec(
         describeFunTemplate(describePrefix, funName, body = body)
 
     val assertions = listOf(
-        assertionBuilder.descriptive.holding.withDescriptionAndRepresentation(AssertionVerb.EXPECT, 1).build(),
-        assertionBuilder.descriptive.holding.withDescriptionAndRepresentation(AssertionVerb.EXPECT_THROWN, 2).build()
+        assertionBuilder.descriptive.holding.withDescriptionAndRepresentation(DummyTranslatables.EXPECT, 1).build(),
+        assertionBuilder.descriptive.holding.withDescriptionAndRepresentation(DummyTranslatables.EXPECT_THROWN, 2).build()
     )
     val featureAssertionGroup = assertionBuilder
         .customType(object : FeatureAssertionGroupType {})
@@ -96,8 +96,8 @@ abstract class TextFeatureAssertionGroupFormatterSpec(
                     expect(sb.toString()).toEqual(
                         lineSeparator
                                 + "$arrow placeholder %s: 2$lineSeparator"
-                                + "$indentArrow$featureBulletPoint ${AssertionVerb.EXPECT.getDefault()}: 1$lineSeparator"
-                                + "$indentArrow$featureBulletPoint ${AssertionVerb.EXPECT_THROWN.getDefault()}: 2"
+                                + "$indentArrow$featureBulletPoint ${DummyTranslatables.EXPECT.getDefault()}: 1$lineSeparator"
+                                + "$indentArrow$featureBulletPoint ${DummyTranslatables.EXPECT_THROWN.getDefault()}: 2"
                     )
                 }
             }
@@ -106,12 +106,12 @@ abstract class TextFeatureAssertionGroupFormatterSpec(
                 val listAssertions = listOf(
                     featureAssertionGroup,
                     assertionBuilder.descriptive.failing.withDescriptionAndRepresentation(
-                        AssertionVerb.EXPECT,
+                        DummyTranslatables.EXPECT,
                         20
                     ).build()
                 )
                 val listAssertionGroup = assertionBuilder.list
-                    .withDescriptionAndRepresentation(AssertionVerb.EXPECT, 10)
+                    .withDescriptionAndRepresentation(DummyTranslatables.EXPECT, 10)
                     .withAssertions(listAssertions)
                     .build()
                 it("does only indent the assertions but not the feature") {
@@ -122,11 +122,11 @@ abstract class TextFeatureAssertionGroupFormatterSpec(
                     )
                     expect(sb.toString()).toEqual(
                         lineSeparator
-                            + "${AssertionVerb.EXPECT.getDefault()}: 10$lineSeparator"
+                            + "${DummyTranslatables.EXPECT.getDefault()}: 10$lineSeparator"
                             + "$listBulletPoint $arrow placeholder %s: 2$lineSeparator"
-                            + "$indentListBulletPoint$indentArrow$featureBulletPoint ${AssertionVerb.EXPECT.getDefault()}: 1$lineSeparator"
-                            + "$indentListBulletPoint$indentArrow$featureBulletPoint ${AssertionVerb.EXPECT_THROWN.getDefault()}: 2$lineSeparator"
-                            + "$listBulletPoint ${AssertionVerb.EXPECT.getDefault()}: 20"
+                            + "$indentListBulletPoint$indentArrow$featureBulletPoint ${DummyTranslatables.EXPECT.getDefault()}: 1$lineSeparator"
+                            + "$indentListBulletPoint$indentArrow$featureBulletPoint ${DummyTranslatables.EXPECT_THROWN.getDefault()}: 2$lineSeparator"
+                            + "$listBulletPoint ${DummyTranslatables.EXPECT.getDefault()}: 20"
                     )
                 }
             }
@@ -134,17 +134,17 @@ abstract class TextFeatureAssertionGroupFormatterSpec(
                 it("indents the group ${AssertionGroup::description.name} as well as the ${AssertionGroup::assertions.name} accordingly - uses `$featureBulletPoint` for each assertion and `$listBulletPoint` for each element in the list group") {
                     val featureAssertions = listOf(
                         assertionBuilder.descriptive.failing.withDescriptionAndRepresentation(
-                            AssertionVerb.EXPECT,
+                            DummyTranslatables.EXPECT,
                             5
                         ).build(), featureAssertionGroup,
                         assertionBuilder.descriptive.failing.withDescriptionAndRepresentation(
-                            AssertionVerb.EXPECT,
+                            DummyTranslatables.EXPECT,
                             30
                         ).build()
                     )
                     val featureAssertionGroup2 = assertionBuilder
                         .customType(object : FeatureAssertionGroupType {})
-                        .withDescriptionAndRepresentation(AssertionVerb.EXPECT_THROWN, 10)
+                        .withDescriptionAndRepresentation(DummyTranslatables.EXPECT_THROWN, 10)
                         .withAssertions(featureAssertions)
                         .build()
                     facade.format(
@@ -154,12 +154,12 @@ abstract class TextFeatureAssertionGroupFormatterSpec(
                     )
                     expect(sb.toString()).toEqual(
                         lineSeparator
-                            + "$arrow ${AssertionVerb.EXPECT_THROWN.getDefault()}: 10$lineSeparator"
-                            + "$indentArrow$featureBulletPoint ${AssertionVerb.EXPECT.getDefault()}: 5$lineSeparator"
+                            + "$arrow ${DummyTranslatables.EXPECT_THROWN.getDefault()}: 10$lineSeparator"
+                            + "$indentArrow$featureBulletPoint ${DummyTranslatables.EXPECT.getDefault()}: 5$lineSeparator"
                             + "$indentArrow$featureBulletPoint $arrow placeholder %s: 2$lineSeparator"
-                            + "$indentArrow$indentFeatureBulletPoint$indentArrow$featureBulletPoint ${AssertionVerb.EXPECT.getDefault()}: 1$lineSeparator"
-                            + "$indentArrow$indentFeatureBulletPoint$indentArrow$featureBulletPoint ${AssertionVerb.EXPECT_THROWN.getDefault()}: 2$lineSeparator"
-                            + "$indentArrow$featureBulletPoint ${AssertionVerb.EXPECT.getDefault()}: 30"
+                            + "$indentArrow$indentFeatureBulletPoint$indentArrow$featureBulletPoint ${DummyTranslatables.EXPECT.getDefault()}: 1$lineSeparator"
+                            + "$indentArrow$indentFeatureBulletPoint$indentArrow$featureBulletPoint ${DummyTranslatables.EXPECT_THROWN.getDefault()}: 2$lineSeparator"
+                            + "$indentArrow$featureBulletPoint ${DummyTranslatables.EXPECT.getDefault()}: 30"
                     )
                 }
             }

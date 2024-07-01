@@ -17,7 +17,8 @@ import kotlin.reflect.KClass
  *
  * @param SubjectT The type of the subject of `this` expectation.
  */
-//TODO remove AssertionContainer with Kotlin 2.0.0 at the latest
+//TODO remove AssertionContainer (and the Suppress) with Kotlin 2.0.0 at the latest
+@Suppress("DEPRECATION")
 interface ProofContainer<SubjectT> : AssertionContainer<SubjectT> {
     /**
      * Either [Some] wrapping the subject of a [Proof] or [None] in case a previous subject transformation

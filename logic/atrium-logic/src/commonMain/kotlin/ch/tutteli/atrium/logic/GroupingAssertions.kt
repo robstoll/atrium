@@ -1,4 +1,5 @@
-@file:Suppress("ObjectPropertyName", "FunctionName")
+//TODO 2.0.0 remove file
+@file:Suppress("DEPRECATION", "ObjectPropertyName", "FunctionName")
 
 package ch.tutteli.atrium.logic
 
@@ -10,6 +11,7 @@ import ch.tutteli.atrium.creating.ExpectGrouping
 /**
  * @since 1.1.0
  */
+//TODO 1.3.0 deprecate
 interface GroupingAssertions {
 
     fun <T> grouping(
