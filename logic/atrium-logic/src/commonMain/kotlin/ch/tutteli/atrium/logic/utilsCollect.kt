@@ -1,4 +1,5 @@
-@file:Suppress("NOTHING_TO_INLINE")
+//TODO 2.0.0 remove file
+@file:Suppress("DEPRECATION", "NOTHING_TO_INLINE")
 
 package ch.tutteli.atrium.logic
 
@@ -15,6 +16,7 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.creating.ExperimentalComponentFactoryContainer
 import ch.tutteli.atrium.logic.creating.transformers.TransformationExecutionStep
 
+//TODO 1.3.0 deprecate everything
 
 /**
  * Use this function if you want to make [Assertion]s about a feature or you perform a type transformation or any

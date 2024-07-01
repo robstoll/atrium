@@ -12,6 +12,13 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  * For instance, the assertion `is not: null` could be represented with this type where `null` is the [representation]
  * and `is not` the complementary [description].
  */
+@Deprecated(
+    "Switch to Proof, will be removed with 2.0.0 at the latest",
+    ReplaceWith(
+        "Proof.simple(description, representation, { TODO(\"Define when the proof holds\") })",
+        "ch.tutteli.atrium.creating.proofs.Proof"
+    )
+)
 interface DescriptiveAssertion : Assertion {
     /**
      * The representation of the expected result such as `1`, `null` etc.

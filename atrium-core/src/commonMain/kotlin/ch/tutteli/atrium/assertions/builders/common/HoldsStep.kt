@@ -1,12 +1,17 @@
+//TODO remove file with 2.0.0 at the latest
+@file:Suppress("DEPRECATION")
+
 package ch.tutteli.atrium.assertions.builders.common
 
-import ch.tutteli.atrium.assertions.Assertion
+import ch.tutteli.atrium.creating.proofs.Proof
+import ch.tutteli.atrium.creating.ProofContainer
 import ch.tutteli.atrium.assertions.RepresentationOnlyAssertion
 import ch.tutteli.atrium.creating.Expect
 
 /**
  * Step which allows to specify [RepresentationOnlyAssertion.holds].
  */
+//TODO 1.3.0 deprecate and probably all other symbols in this package
 interface HoldsStep<R> {
 
     /**
@@ -20,19 +25,14 @@ interface HoldsStep<R> {
     val holding: R
 
     /**
-     * Uses the given [test] as [Assertion.holds].
+     * Uses the given [test] as [Proof.holds].
      */
     fun withTest(test: () -> Boolean): R
 
     /**
-     * Uses the given [test] as [Assertion.holds] based on the subject provided by [subjectProvider].
+     * Uses the given [test] as [Proof.holds] based on the subject of the given [expect].
      *
-     * Notice, this function might change its signature with 1.0.0 to something like
-     * ```
-     * fun <T> withTest(expect: Expect, test: (T) -> Boolean): DescriptionOption<FinalStep>
-     * ```
-     *
-     * @return `true` in case [SubjectProvider.maybeSubject] is None or the result of [test] passing the subject.
+     * @return `true` in case [ProofContainer.maybeSubject] is None or the result of [test] passing the subject.
      */
     //TODO 1.3.0 if we introduce Record or something else as replacement for Assertion then not but if we keep Assertion
     // then move to logic and expect ProofContainer

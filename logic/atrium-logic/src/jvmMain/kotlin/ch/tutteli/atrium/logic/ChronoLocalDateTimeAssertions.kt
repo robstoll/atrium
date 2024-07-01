@@ -1,3 +1,6 @@
+//TODO 2.0.0 remove file
+@file:Suppress("DEPRECATION")
+
 package ch.tutteli.atrium.logic
 
 import ch.tutteli.atrium.assertions.Assertion
@@ -8,6 +11,7 @@ import java.time.chrono.ChronoLocalDateTime
 /**
  * Collection of assertion functions and builders which are applicable to subjects with a [ChronoLocalDateTime] type.
  */
+//TODO 1.3.0 deprecate
 interface ChronoLocalDateTimeAssertions {
     fun <T : ChronoLocalDateTime<out ChronoLocalDate>> isBefore(
         container: AssertionContainer<T>,

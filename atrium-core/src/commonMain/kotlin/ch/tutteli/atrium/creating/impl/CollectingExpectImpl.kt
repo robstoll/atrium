@@ -1,12 +1,10 @@
 package ch.tutteli.atrium.creating.impl
 
-import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
 import ch.tutteli.atrium.core.Option
 import ch.tutteli.atrium.core.falseProvider
 import ch.tutteli.atrium.creating.*
 import ch.tutteli.atrium.creating.proofs.Proof
-import ch.tutteli.atrium.reporting.Text
 import ch.tutteli.atrium.reporting.reportables.Reportable
 import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionAnyProof
 import ch.tutteli.atrium.reporting.reportables.descriptions.ErrorMessages
@@ -20,8 +18,13 @@ internal class CollectingExpectImpl<T>(
 ) : BaseExpectImpl<T>(maybeSubject), CollectingExpect<T> {
     private val proofs = mutableListOf<Proof>()
 
-    @Deprecated("Assertion is deprecated, move to Proof", replaceWith = ReplaceWith("this.getCollectedProofs()"))
-    override fun getAssertions(): List<Assertion> = proofs.filterIsInstance<Assertion>()
+    @Suppress("DEPRECATION")
+    @Deprecated(
+        "Assertion is deprecated, move to Proof and use getCollectedProofs instead. Will be removed with 2.0.0 at the latest",
+        replaceWith = ReplaceWith("this.getCollectedProofs()")
+    )
+    override fun getAssertions(): List<ch.tutteli.atrium.assertions.Assertion> =
+        proofs.filterIsInstance<ch.tutteli.atrium.assertions.Assertion>()
 
     override fun getCollectedProofs(): List<Proof> = proofs
 

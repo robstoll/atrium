@@ -1,6 +1,5 @@
 package ch.tutteli.atrium.creating.impl
 
-import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
 import ch.tutteli.atrium.core.Option
 import ch.tutteli.atrium.core.getOrElse
@@ -42,10 +41,11 @@ abstract class BaseExpectImpl<T>(
     }
 
     //TODO remove with 2.0.0 at the latest
-    override fun append(assertion: Assertion): Expect<T> = append(assertion as Proof)
+    @Suppress("DEPRECATION")
+    override fun append(assertion: ch.tutteli.atrium.assertions.Assertion): Expect<T> =
+        append(assertion as Proof)
 
     //TODO rename param to expectationCreator or remove with 2.0.0 at the latest
-    @Suppress("DEPRECATION")
     @Deprecated(
         "Use appendAsGroupIndicateIfOneCollected and define the alternative or pass an empty list if you don't have any",
         ReplaceWith(
@@ -73,13 +73,12 @@ abstract class BaseExpectImpl<T>(
                 appendAsGroup(collectingExpect.getCollectedProofs()) to expectationDefined
             }
 
-    protected fun appendAsGroup(proofs: List<Proof>): Expect<T> {
-        return when (proofs.size) {
+    protected fun appendAsGroup(proofs: List<Proof>): Expect<T> =
+        when (proofs.size) {
             0 -> this
             1 -> append(proofs.first())
             else -> append(Proof.invisibleGroup(proofs))
         }
-    }
 
     companion object {
         @ExperimentalNewExpectTypes

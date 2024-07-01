@@ -13,8 +13,6 @@ import ch.tutteli.atrium.reporting.erroradjusters.RemoveAtriumFromAtriumError
 import ch.tutteli.atrium.reporting.erroradjusters.RemoveRunnerFromAtriumError
 import ch.tutteli.atrium.reporting.erroradjusters.impl.RemoveAtriumFromAtriumErrorImpl
 import ch.tutteli.atrium.reporting.erroradjusters.impl.RemoveRunnerFromAtriumErrorImpl
-import ch.tutteli.atrium.reporting.impl.AssertionFormatterControllerBasedFacade
-import ch.tutteli.atrium.reporting.impl.DefaultAssertionFormatterController
 import ch.tutteli.atrium.reporting.impl.OnlyFailureReporter
 import ch.tutteli.atrium.reporting.text.*
 import ch.tutteli.atrium.reporting.text.TextObjectFormatter
@@ -120,8 +118,13 @@ internal object DefaultComponentFactoryContainer : ComponentFactoryContainer by 
         Reporter::class createSingletonVia { c ->
             OnlyFailureReporter(c.build())
         },
-
-        AssertionFormatterController::class createVia { _ -> DefaultAssertionFormatterController() },
+        //TODO 2.0.0 remove
+        @Suppress("DEPRECATION")
+        AssertionFormatterController::class createVia { _ ->
+            //TODO 2.0.0 remove
+            @Suppress("DEPRECATION")
+            ch.tutteli.atrium.reporting.impl.DefaultAssertionFormatterController()
+        },
         ObjectFormatter::class createVia { c -> c.build<TextObjectFormatter>() },
         AssertionPairFormatter::class createVia { c -> c.build<TextAssertionPairFormatter>() },
         MethodCallFormatter::class createVia { c -> c.build<TextMethodCallFormatter>() },
@@ -155,9 +158,15 @@ internal object DefaultComponentFactoryContainer : ComponentFactoryContainer by 
             StackTraceBasedFeatureInfo()
         },
 
+        //TODO 2.0.0 remove
+        @Suppress("DEPRECATION")
         //Text specific factories
         AssertionFormatterFacade::class createVia { c ->
-            AssertionFormatterControllerBasedFacade(c.build()).apply {
+            //TODO 2.0.0 remove
+            @Suppress("DEPRECATION")
+            ch.tutteli.atrium.reporting.impl.AssertionFormatterControllerBasedFacade(c.build()).apply {
+                //TODO 2.0.0 remove
+                @Suppress("DEPRECATION")
                 c.buildChained<TextAssertionFormatterFactory>().forEach { factory ->
                     register { controller -> factory.build(controller) }
                 }
@@ -171,55 +180,71 @@ internal object DefaultComponentFactoryContainer : ComponentFactoryContainer by 
         BulletPointProvider::class createVia { _ -> UsingDefaultBulletPoints }
     ),
 
-    mapOf(TextAssertionFormatterFactory::class createChainVia
-        sequenceOf(
-            { c ->
-                val bulletPoints = c.build<BulletPointProvider>().getBulletPoints()
-                val textAssertionPairFormatter = c.build<TextAssertionPairFormatter>()
-                TextAssertionFormatterFactory { controller ->
-                    TextListAssertionGroupFormatter(bulletPoints, controller, textAssertionPairFormatter)
+
+    mapOf(
+        //TODO 2.0.0 remove
+        @Suppress("DEPRECATION")
+        TextAssertionFormatterFactory::class createChainVia
+            sequenceOf(
+                { c ->
+                    val bulletPoints = c.build<BulletPointProvider>().getBulletPoints()
+                    val textAssertionPairFormatter = c.build<TextAssertionPairFormatter>()
+                    //TODO 2.0.0 remove
+                    @Suppress("DEPRECATION")
+                    TextAssertionFormatterFactory { controller ->
+                        TextListAssertionGroupFormatter(bulletPoints, controller, textAssertionPairFormatter)
+                    }
+                },
+                { c ->
+                    val bulletPoints = c.build<BulletPointProvider>().getBulletPoints()
+                    val textAssertionPairFormatter = c.build<TextAssertionPairFormatter>()
+                    //TODO 2.0.0 remove
+                    @Suppress("DEPRECATION")
+                    TextAssertionFormatterFactory { controller ->
+                        TextFeatureAssertionGroupFormatter(bulletPoints, controller, textAssertionPairFormatter)
+                    }
+                },
+                { c ->
+                    val bulletPoints = c.build<BulletPointProvider>().getBulletPoints()
+                    //TODO 2.0.0 remove
+                    @Suppress("DEPRECATION")
+                    TextAssertionFormatterFactory { controller ->
+                        TextExplanatoryAssertionGroupFormatter(bulletPoints, controller)
+                    }
+                },
+                { c ->
+                    val bulletPoints = c.build<BulletPointProvider>().getBulletPoints()
+                    val textAssertionPairFormatter = c.build<TextAssertionPairFormatter>()
+                    //TODO 2.0.0 remove
+                    @Suppress("DEPRECATION")
+                    TextAssertionFormatterFactory { controller ->
+                        TextSummaryAssertionGroupFormatter(bulletPoints, controller, textAssertionPairFormatter)
+                    }
+                },
+                { c ->
+                    val bulletPoints = c.build<BulletPointProvider>().getBulletPoints()
+                    val textAssertionPairFormatter = c.build<TextAssertionPairFormatter>()
+                    //TODO 2.0.0 remove
+                    @Suppress("DEPRECATION")
+                    TextAssertionFormatterFactory { controller ->
+                        TextGroupingAssertionGroupFormatter(bulletPoints, controller, textAssertionPairFormatter)
+                    }
+                },
+                { c ->
+                    val objectFormatter = c.build<TextObjectFormatter>()
+                    val bulletPoints = c.build<BulletPointProvider>().getBulletPoints()
+                    val textAssertionPairFormatter = c.build<TextAssertionPairFormatter>()
+                    //TODO 2.0.0 remove
+                    @Suppress("DEPRECATION")
+                    TextAssertionFormatterFactory { controller ->
+                        TextFallbackAssertionFormatter(
+                            bulletPoints,
+                            controller,
+                            textAssertionPairFormatter,
+                            objectFormatter
+                        )
+                    }
                 }
-            },
-            { c ->
-                val bulletPoints = c.build<BulletPointProvider>().getBulletPoints()
-                val textAssertionPairFormatter = c.build<TextAssertionPairFormatter>()
-                TextAssertionFormatterFactory { controller ->
-                    TextFeatureAssertionGroupFormatter(bulletPoints, controller, textAssertionPairFormatter)
-                }
-            },
-            { c ->
-                val bulletPoints = c.build<BulletPointProvider>().getBulletPoints()
-                TextAssertionFormatterFactory { controller ->
-                    TextExplanatoryAssertionGroupFormatter(bulletPoints, controller)
-                }
-            },
-            { c ->
-                val bulletPoints = c.build<BulletPointProvider>().getBulletPoints()
-                val textAssertionPairFormatter = c.build<TextAssertionPairFormatter>()
-                TextAssertionFormatterFactory { controller ->
-                    TextSummaryAssertionGroupFormatter(bulletPoints, controller, textAssertionPairFormatter)
-                }
-            },
-            { c ->
-                val bulletPoints = c.build<BulletPointProvider>().getBulletPoints()
-                val textAssertionPairFormatter = c.build<TextAssertionPairFormatter>()
-                TextAssertionFormatterFactory { controller ->
-                    TextGroupingAssertionGroupFormatter(bulletPoints, controller, textAssertionPairFormatter)
-                }
-            },
-            { c ->
-                val objectFormatter = c.build<TextObjectFormatter>()
-                val bulletPoints = c.build<BulletPointProvider>().getBulletPoints()
-                val textAssertionPairFormatter = c.build<TextAssertionPairFormatter>()
-                TextAssertionFormatterFactory { controller ->
-                    TextFallbackAssertionFormatter(
-                        bulletPoints,
-                        controller,
-                        textAssertionPairFormatter,
-                        objectFormatter
-                    )
-                }
-            }
-        )
+            )
     )
 )

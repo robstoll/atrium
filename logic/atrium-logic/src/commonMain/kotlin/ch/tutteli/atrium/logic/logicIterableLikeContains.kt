@@ -10,6 +10,8 @@ import ch.tutteli.atrium.logic.creating.iterable.contains.steps.WithTimesChecker
 import ch.tutteli.atrium.logic.creating.iterable.contains.steps.WithTimesCheckerStepLogic
 import ch.tutteli.atrium.reporting.BUG_REPORT_URL
 
+//TODO 1.3.0 deprecate everything
+
 /**
  * Appends the [Assertion] the given [factory] creates based on this [IterableLikeContains.EntryPointStep].
  *

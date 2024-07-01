@@ -1,3 +1,6 @@
+// TODO remove with 2.0.0 at the latest
+@file:Suppress("DEPRECATION")
+
 package ch.tutteli.atrium.reporting
 
 import ch.tutteli.atrium.assertions.Assertion
@@ -5,6 +8,7 @@ import ch.tutteli.atrium.assertions.Assertion
 /**
  * Represents a reporter which reports about [Assertion]s.
  */
+//TODO 1.3.0 deprecate
 interface Reporter {
 
     /**

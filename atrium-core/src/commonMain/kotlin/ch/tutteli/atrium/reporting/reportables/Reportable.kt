@@ -1,18 +1,19 @@
 package ch.tutteli.atrium.reporting.reportables
 
 import ch.tutteli.atrium.creating.proofs.Proof
-import ch.tutteli.atrium.creating.proofs.ProofGroup
-import ch.tutteli.atrium.creating.proofs.impl.DefaultProofGroup
 import ch.tutteli.atrium.reporting.Text
-import ch.tutteli.atrium.reporting.impl.*
-import ch.tutteli.atrium.reporting.impl.DefaultDebugGroup
-import ch.tutteli.atrium.reporting.impl.DefaultInlineGroup
-import ch.tutteli.atrium.reporting.impl.DefaultProofExplanation
-import ch.tutteli.atrium.reporting.impl.DefaultReportableGroup
-import ch.tutteli.atrium.reporting.impl.DefaultUsageHintGroup
+import ch.tutteli.atrium.reporting.reportables.impl.DefaultDebugGroup
+import ch.tutteli.atrium.reporting.reportables.impl.DefaultInlineGroup
+import ch.tutteli.atrium.reporting.reportables.impl.DefaultProofExplanation
+import ch.tutteli.atrium.reporting.reportables.impl.DefaultReportableGroup
+import ch.tutteli.atrium.reporting.reportables.impl.DefaultUsageHintGroup
+
+//TODO 1.3.0 check KDOC (including @since) of all types in this file
 
 /**
  * Marker interface for everything which can be reported.
+ *
+ * @since 1.3.0
  */
 interface Reportable {
     /**

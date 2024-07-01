@@ -10,7 +10,6 @@ import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
 import ch.tutteli.atrium.core.None
 import ch.tutteli.atrium.core.Option
 import ch.tutteli.atrium.core.Some
-import ch.tutteli.atrium.creating.proofs.Proof
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.reporting.translating.Untranslatable
 import kotlin.reflect.KClass
@@ -23,7 +22,7 @@ import kotlin.reflect.KClass
  *
  * @param T The type of the subject of `this` expectation.
  */
-@Deprecated("Switch to ProofContainer, will be removed with 2.0.0 at the latest")
+@Deprecated("Switch to ProofContainer, will be removed with 2.0.0 at the latest", ReplaceWith("ProofContainer<T>"))
 interface AssertionContainer<T> {
     /**
      * Either [Some] wrapping the subject of an [Assertion] or [None] in case a previous subject transformation

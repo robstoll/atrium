@@ -1,3 +1,4 @@
+//TODO 2.0.0 remove file
 @file:Suppress("DEPRECATION")
 
 package ch.tutteli.atrium.logic
@@ -15,31 +16,31 @@ import kotlin.reflect.KClass
 interface AnyAssertions {
     @Deprecated(
         "Migrate from AssertionContainer to ProofContainer and use toEqual, will be removed with 2.0.0 at the latest",
-        ReplaceWith("this.toEqual(expected)", "ch.tutteli.atrium.domain.toEqual")
+        ReplaceWith("this.toEqual(expected)", "ch.tutteli.atrium.creating.proofs.toEqual")
     )
     fun <T> toBe(container: AssertionContainer<T>, expected: T): Assertion
 
     @Deprecated(
         "Migrate from AssertionContainer to ProofContainer and use notToEqual, will be removed with 2.0.0 at the latest",
-        ReplaceWith("this.notToEqual(expected)", "ch.tutteli.atrium.domain.notToEqual")
+        ReplaceWith("this.notToEqual(expected)", "ch.tutteli.atrium.creating.proofs.notToEqual")
     )
     fun <T> notToBe(container: AssertionContainer<T>, expected: T): Assertion
 
     @Deprecated(
         "Migrate from AssertionContainer to ProofContainer and use toBeTheInstance, will be removed with 2.0.0 at the latest",
-        ReplaceWith("this.toBeTheInstance(expected)", "ch.tutteli.atrium.domain.toBeTheInstance")
+        ReplaceWith("this.toBeTheInstance(expected)", "ch.tutteli.atrium.creating.proofs.toBeTheInstance")
     )
     fun <T> isSameAs(container: AssertionContainer<T>, expected: T): Assertion
 
     @Deprecated(
         "Migrate from AssertionContainer to ProofContainer and use notToBeTheInstance, will be removed with 2.0.0 at the latest",
-        ReplaceWith("this.notToBeTheInstance(expected)", "ch.tutteli.atrium.domain.notToBeTheInstance")
+        ReplaceWith("this.notToBeTheInstance(expected)", "ch.tutteli.atrium.creating.proofs.notToBeTheInstance")
     )
     fun <T> isNotSameAs(container: AssertionContainer<T>, expected: T): Assertion
 
     @Deprecated(
         "Migrate from AssertionContainer to ProofContainer and use toBeAnInstanceOf, will be removed with 2.0.0 at the latest",
-        ReplaceWith("this.toBeAnInstanceOf(subType)", "ch.tutteli.atrium.domain.toBeAnInstanceOf")
+        ReplaceWith("this.toBeAnInstanceOf(subType)", "ch.tutteli.atrium.creating.proofs.toBeAnInstanceOf")
     )
     @Suppress("BOUNDS_NOT_ALLOWED_IF_BOUNDED_BY_TYPE_PARAMETER")
     fun <T, SubTypeOfT> isA(

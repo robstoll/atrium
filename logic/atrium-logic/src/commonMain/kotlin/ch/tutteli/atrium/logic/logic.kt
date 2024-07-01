@@ -1,4 +1,4 @@
-@file:Suppress("ObjectPropertyName", "FunctionName")
+@file:Suppress("ObjectPropertyName", "FunctionName", "Deprecation")
 
 package ch.tutteli.atrium.logic
 
@@ -9,14 +9,16 @@ import ch.tutteli.atrium.creating.ExpectGrouping
 import ch.tutteli.atrium.creating.ExpectInternal
 import ch.tutteli.atrium.reporting.BUG_REPORT_URL
 
+//TODO 1.3.0 deprecate everything
+
 /**
  * Appends the [Assertion] the given [assertionCreator] creates based on this [Expect].
  *
  * Use [_logic] for more sophisticated scenarios, like feature extraction.
  */
 @Deprecated(
-    "Use _domainAppend instead, will be removed with 2.0.0 at the latest",
-    ReplaceWith("this._domainAppend { assertionCreator() }", "ch.tutteli.atrium.domain._domainAppend")
+    "Use _coreAppend instead, will be removed with 2.0.0 at the latest",
+    ReplaceWith("this._coreAppend { assertionCreator() }", "ch.tutteli.atrium._coreAppend")
 )
 inline fun <T> Expect<T>._logicAppend(assertionCreator: AssertionContainer<T>.() -> Assertion): Expect<T> =
     _logic.run { append(assertionCreator()) }
@@ -36,8 +38,8 @@ inline val <T> Expect<T>._logic: AssertionContainer<T>
  * @since 1.1.0
  */
 @Deprecated(
-    "Use _domainAppend instead, will be removed with 2.0.0 at the latest",
-    ReplaceWith("this._domainAppend(assertionCreator)")
+    "Use _coreAppend instead, will be removed with 2.0.0 at the latest",
+    ReplaceWith("this._coreAppend(assertionCreator)")
 )
 inline fun ExpectGrouping._logicAppend(assertionCreator: AssertionContainer<*>.() -> Assertion): ExpectGrouping =
     _logic.run { append(assertionCreator()) }.toExpectGrouping()

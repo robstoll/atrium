@@ -518,7 +518,9 @@ public final class ch/tutteli/atrium/logic/ZonedDateTimeKt {
 public final class ch/tutteli/atrium/logic/assertions/impl/LazyThreadUnsafeAssertionGroup : ch/tutteli/atrium/assertions/AssertionGroup {
 	public fun <init> (Lkotlin/jvm/functions/Function0;)V
 	public fun getAssertions ()Ljava/util/List;
+	public fun getChildren ()Ljava/util/List;
 	public fun getDescription ()Lch/tutteli/atrium/reporting/translating/Translatable;
+	public fun getProofs ()Ljava/util/List;
 	public fun getRepresentation ()Ljava/lang/Object;
 	public fun getType ()Lch/tutteli/atrium/assertions/AssertionGroupType;
 	public fun holds ()Z

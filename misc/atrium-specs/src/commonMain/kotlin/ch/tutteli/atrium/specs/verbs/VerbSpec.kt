@@ -2,14 +2,14 @@ package ch.tutteli.atrium.specs.verbs
 
 import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.core.polyfills.fullName
-import ch.tutteli.atrium.creating.ErrorMessages
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.creating.ExpectGrouping
 import ch.tutteli.atrium.logic._logic
 import ch.tutteli.atrium.logic.changeSubject
 import ch.tutteli.atrium.logic.creating.RootExpectBuilder
+import ch.tutteli.atrium.reporting.reportables.descriptions.ErrorMessages.*
 import ch.tutteli.atrium.specs.*
-import ch.tutteli.atrium.specs.AssertionVerb
+import ch.tutteli.atrium.specs.DummyTranslatables
 import ch.tutteli.atrium.translations.DescriptionAnyExpectation.TO_BE_AN_INSTANCE_OF
 import ch.tutteli.atrium.translations.DescriptionComparableExpectation
 import ch.tutteli.atrium.translations.DescriptionComparableExpectation.TO_BE_GREATER_THAN
@@ -165,9 +165,9 @@ abstract class VerbSpec(
                     message {
                         toContain(
                             "group description:",
-                            ErrorMessages.AT_LEAST_ONE_EXPECTATION_DEFINED.getDefault() + ": false",
-                            ErrorMessages.FORGOT_DO_DEFINE_EXPECTATION.getDefault(),
-                            ErrorMessages.HINT_AT_LEAST_ONE_EXPECTATION_DEFINED.getDefault()
+                            AT_LEAST_ONE_EXPECTATION_DEFINED.string + ": false",
+                            FORGOT_DO_DEFINE_EXPECTATION.string,
+                            DEFAULT_HINT_AT_LEAST_ONE_EXPECTATION_DEFINED.string
                         )
                     }
                 }
@@ -191,9 +191,9 @@ abstract class VerbSpec(
                             "another without"
                         )
                         toContain.exactly(2).values(
-                            ErrorMessages.AT_LEAST_ONE_EXPECTATION_DEFINED.getDefault() + ": false",
-                            ErrorMessages.FORGOT_DO_DEFINE_EXPECTATION.getDefault(),
-                            ErrorMessages.HINT_AT_LEAST_ONE_EXPECTATION_DEFINED.getDefault()
+                            AT_LEAST_ONE_EXPECTATION_DEFINED.string + ": false",
+                            FORGOT_DO_DEFINE_EXPECTATION.string,
+                            DEFAULT_HINT_AT_LEAST_ONE_EXPECTATION_DEFINED.string
                         )
                         notToContain("with expect")
                     }
@@ -305,6 +305,6 @@ private fun Suite.testNonNullableSubject(assertionVerb: (Int) -> Expect<Int>) {
 // does not make sense to test the verbs with the verbs themselves. Thus, we create our own assertion verb here
 private fun <R> assert(act: () -> R): Expect<() -> R> =
     RootExpectBuilder.forSubject(act)
-        .withVerb(AssertionVerb.EXPECT_THROWN)
+        .withVerb(DummyTranslatables.EXPECT_THROWN)
         .withoutOptions()
         .build()

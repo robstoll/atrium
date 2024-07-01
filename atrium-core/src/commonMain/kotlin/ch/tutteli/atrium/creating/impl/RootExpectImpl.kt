@@ -1,6 +1,5 @@
 package ch.tutteli.atrium.creating.impl
 
-import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
 import ch.tutteli.atrium.core.Option
 import ch.tutteli.atrium.creating.*
@@ -8,23 +7,20 @@ import ch.tutteli.atrium.creating.proofs.Proof
 import ch.tutteli.atrium.reporting.AtriumError
 import ch.tutteli.atrium.reporting.AtriumErrorAdjuster
 import ch.tutteli.atrium.reporting.Reporter
+import ch.tutteli.atrium.reporting.reportables.InlineElement
 
 @ExperimentalNewExpectTypes
 @OptIn(ExperimentalComponentFactoryContainer::class)
 internal class RootExpectImpl<T>(
     maybeSubject: Option<T>,
-    //TODO 1.3.0 replace Translatable with InlineElement
-    @Suppress("DEPRECATION")
-    private val expectationVerb: ch.tutteli.atrium.reporting.translating.Translatable,
+    private val expectationVerb: InlineElement,
     private val representation: Any?,
     override val components: ComponentFactoryContainer
 ) : BaseExpectImpl<T>(maybeSubject), RootExpect<T> {
 
     constructor(
         maybeSubject: Option<T>,
-        //TODO 1.3.0 replace Translatable with InlineElement
-        @Suppress("DEPRECATION")
-        expectationVerb: ch.tutteli.atrium.reporting.translating.Translatable,
+        expectationVerb: InlineElement,
         options: RootExpectOptions<T>?
     ) : this(
         maybeSubject,
@@ -55,8 +51,8 @@ internal class RootExpectImpl<T>(
      */
     private val proofs: MutableList<Proof> = mutableListOf()
 
-
-    override fun append(assertion: Assertion): Expect<T> = append(assertion as Proof)
+    @Suppress("DEPRECATION")
+    override fun append(assertion: ch.tutteli.atrium.assertions.Assertion): Expect<T> = append(assertion as Proof)
 
     override fun append(proof: Proof): Expect<T> {
         proofs.add(proof)
@@ -66,7 +62,9 @@ internal class RootExpectImpl<T>(
             val sb = StringBuilder()
 
             //TODO 1.3.0 this fails at runtime as root is not an Assertion
-            components.build<Reporter>().format(root as Assertion, sb)
+            // switch to new proof based reporter and remove suppress
+            @Suppress("DEPRECATION")
+            components.build<Reporter>().format(root as ch.tutteli.atrium.assertions.Assertion, sb)
 
             throw AtriumError.create(sb.toString(), components.build<AtriumErrorAdjuster>())
         }

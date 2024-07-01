@@ -3,7 +3,7 @@ package ch.tutteli.atrium.reporting
 import ch.tutteli.atrium.reporting.AtriumError.Companion
 
 /**
- * Indicates that an assertion made by Atrium failed.
+ * Indicates that an expectation stated via Atrium was not.
  *
  * Its stack trace (`stackTrace` in JVM, `stack` in JS) might be filtered so that reporting does not include
  * all stack frames. This depends on the chosen [AtriumErrorAdjuster] - so theoretically more than the stack trace
@@ -11,6 +11,7 @@ import ch.tutteli.atrium.reporting.AtriumError.Companion
  *
  * To create such an error you need to use the [Companion.create] function.
  */
+//TODO 1.3.0 include Proofs or original Expect so that someone could manipulate further?
 expect class AtriumError internal constructor(message: String) : AssertionError {
 
     companion object {

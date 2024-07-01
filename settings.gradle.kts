@@ -31,7 +31,6 @@ listOf("fluent", "infix").forEach { apiName ->
 }
 
 include("", "atrium-core")
-include("", "atrium-domain")
 
 include("misc", "atrium-verbs")
 include("misc", "atrium-verbs-internal")

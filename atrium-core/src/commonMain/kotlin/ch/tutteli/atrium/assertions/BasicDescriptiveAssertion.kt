@@ -13,7 +13,10 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  * @param representation The [BasicDescriptiveAssertion.representation].
  * @param test Lazily determines whether [BasicDescriptiveAssertion.holds].
  */
-
+@Deprecated(
+    "Switch to Proof, will be removed with 2.0.0 at the latest",
+    ReplaceWith("Proof.simple(description, representation, test)", "ch.tutteli.atrium.creating.proofs.Proof")
+)
 internal class BasicDescriptiveAssertion(
     override val description: Translatable,
     override val representation: Any,

@@ -9,6 +9,8 @@ import ch.tutteli.atrium.logic.creating.typeutils.MapLike
 import ch.tutteli.atrium.logic.creating.typeutils.iterableLikeToIterableTransformer
 import ch.tutteli.atrium.logic.creating.typeutils.mapLikeToMapTransformer
 
+//TODO 1.3.0 deprecate everything
+
 /**
  * Transforms the given [iterableLike] to `Pair<T, Array<out T>>` with the intention that it can be easily
  * used for a function requiring `T, vararg T`.

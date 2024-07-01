@@ -18,7 +18,7 @@ import ch.tutteli.atrium.creating.proofs.Proof
  * for more information about the personas).
  */
 //TODO remove suppress once we remove AssertionContainer, with 2.0.0 at the latest
-@Suppress("DIFFERENT_NAMES_FOR_THE_SAME_PARAMETER_IN_SUPERTYPES")
+@Suppress("DEPRECATION")
 interface ExpectInternal<SubjectT> : Expect<SubjectT>, AssertionContainer<SubjectT>, ProofContainer<SubjectT>, ExpectGrouping
 
 /**
@@ -64,7 +64,7 @@ interface ExpectInternal<SubjectT> : Expect<SubjectT>, AssertionContainer<Subjec
 interface Expect<SubjectT>
 
 /**
- * A type-alias which allow to refer to a definition of a lambda responsible to create expectations.
+ * A type-alias which allows to refer (in KDoc) to a definition of a lambda responsible to create expectations.
  *
  * @param SubjectT The type of the subject of `this` expectation.
  *
@@ -75,7 +75,7 @@ typealias ExpectationCreator<SubjectT> = Expect<SubjectT>.() -> Unit
 /**
  * Represents a group of expectations including nested groups of expectations (nested [ExpectGrouping]).
  *
- * It's the extension point for groups of expectations with unrelated subjects.
+ * It is the extension point for groups of expectations with unrelated subjects.
  *
  * @since 1.1.0
  */

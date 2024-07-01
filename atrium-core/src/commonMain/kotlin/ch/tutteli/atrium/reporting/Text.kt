@@ -1,6 +1,6 @@
 package ch.tutteli.atrium.reporting
 
-import ch.tutteli.atrium.reporting.reportables.InlineElement
+import ch.tutteli.atrium.reporting.reportables.TextElement
 
 /**
  * Use this class to represent a [String] which should be treated as raw [String] in reporting.
@@ -9,8 +9,8 @@ import ch.tutteli.atrium.reporting.reportables.InlineElement
  * @property string The string which should be treated as raw [String].
  * @param string The string which should be treated as raw [String].
  */
-//TODO 2.0.0 remove data?
-data class Text private constructor(val string: String): InlineElement {
+//TODO 2.0.0 remove data, change toString, use Text(string)
+data class Text private constructor(override val string: String) : TextElement {
 
     /**
      * @suppress No need to document this behaviour.
@@ -22,7 +22,7 @@ data class Text private constructor(val string: String): InlineElement {
     companion object {
 
         operator fun invoke(string: String): Text {
-            require(string.isNotEmpty()) { "use Text.Empty instead" }
+            require(string.isNotEmpty()) { "use Text.EMPTY instead" }
             return Text(string)
         }
 

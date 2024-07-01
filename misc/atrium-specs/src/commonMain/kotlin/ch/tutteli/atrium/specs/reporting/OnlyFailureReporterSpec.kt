@@ -15,7 +15,7 @@ import ch.tutteli.atrium.reporting.impl.DefaultAssertionFormatterController
 import ch.tutteli.atrium.reporting.text.TextAssertionPairFormatter
 import ch.tutteli.atrium.reporting.text.impl.DefaultTextObjectFormatter
 import ch.tutteli.atrium.reporting.text.impl.TextFallbackAssertionFormatter
-import ch.tutteli.atrium.specs.AssertionVerb
+import ch.tutteli.atrium.specs.DummyTranslatables
 import ch.tutteli.atrium.specs.describeFunTemplate
 import ch.tutteli.atrium.translations.DescriptionAnyExpectation.TO_EQUAL
 import io.mockk.*
@@ -57,18 +57,18 @@ abstract class OnlyFailureReporterSpec(
 
         val basicAssertionAnonymous = object : DescriptiveAssertion {
             override val representation = 1
-            override val description = AssertionVerb.VERB
+            override val description = DummyTranslatables.VERB
             override fun holds() = true
         }
 
         val assertionGroupAnonymous = object : AssertionGroup {
             override val type = RootAssertionGroupType
-            override val description = AssertionVerb.VERB
+            override val description = DummyTranslatables.VERB
             override val representation = 0
             override val assertions = listOf(assertion, basicAssertion, basicAssertionAnonymous)
         }
         val assertionGroup = assertionBuilder.root
-            .withDescriptionAndRepresentation(AssertionVerb.VERB, 1)
+            .withDescriptionAndRepresentation(DummyTranslatables.VERB, 1)
             .withAssertions(listOf(assertion, basicAssertion, basicAssertionAnonymous, assertionGroupAnonymous))
             .build()
 

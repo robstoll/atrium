@@ -4,7 +4,7 @@ import ch.tutteli.atrium.core.polyfills.fullName
 import ch.tutteli.atrium.reporting.AtriumError.Companion
 
 /**
- * Indicates that an assertion made by Atrium failed.
+ * Indicates that an expectation stated via Atrium was not.
  *
  * Its [stackTrace] might be filtered so that reporting does not include all stack frames.
  * This depends on the chosen [AtriumErrorAdjuster] - so theoretically more than the stack trace

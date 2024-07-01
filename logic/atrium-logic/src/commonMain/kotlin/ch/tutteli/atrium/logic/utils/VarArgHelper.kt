@@ -2,6 +2,7 @@ package ch.tutteli.atrium.logic.utils
 
 import ch.tutteli.kbox.glue
 
+//TODO 1.3.0 deprecate everything
 /**
  * Represents a parameter object used to express the arguments `T, vararg T`
  * and provides utility functions to transform them.

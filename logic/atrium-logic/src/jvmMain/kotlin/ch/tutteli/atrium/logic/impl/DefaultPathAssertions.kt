@@ -1,4 +1,4 @@
-//TODO remove with 2.0.0 at the latest, was replaced by Proof in 1.30.0
+//TODO 2.0.0 remove file
 @file:Suppress("DEPRECATION")
 
 package ch.tutteli.atrium.logic.impl
