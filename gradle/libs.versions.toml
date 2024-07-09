@@ -3,7 +3,7 @@ kbox = "2.1.0"
 niok = "1.5.0"
 
 # testing
-assertJ = "3.26.0"
+assertJ = "3.26.3"
 junitJupiter = "5.10.3"
 junitPlatform = "1.9.2"
 spek = "2.0.12"
