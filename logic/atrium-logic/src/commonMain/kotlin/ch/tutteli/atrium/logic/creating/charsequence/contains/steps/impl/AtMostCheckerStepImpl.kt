@@ -1,6 +1,5 @@
 package ch.tutteli.atrium.logic.creating.charsequence.contains.steps.impl
 
-import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
 import ch.tutteli.atrium.logic.creating.basic.contains.checkers.validateAtMost
 import ch.tutteli.atrium.logic.creating.charsequence.contains.CharSequenceContains
 import ch.tutteli.atrium.logic.creating.charsequence.contains.steps.AtMostCheckerStep

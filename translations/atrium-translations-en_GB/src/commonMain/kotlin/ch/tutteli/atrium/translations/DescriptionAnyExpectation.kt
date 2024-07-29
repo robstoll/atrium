@@ -11,20 +11,20 @@ import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
  */
 @Deprecated(
     "Switch to DescriptionAnyProof, will be removed with 2.0.0 at the latest",
-    ReplaceWith("ch.tutteli.atrium.reporting.descriptions.DescriptionAnyProof")
+    ReplaceWith("ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionAnyProof")
 )
 enum class DescriptionAnyExpectation(override val value: String) : StringBasedTranslatable {
 
     @Deprecated(
         "will be removed with 2.0.0 at the latest",
-        ReplaceWith("ch.tutteli.atrium.reporting.descriptions.DescriptionAnyProof")
+        ReplaceWith("ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionAnyProof.TO_EQUAL")
     )
     /** @since 0.18.0 */
     TO_EQUAL("to equal"),
 
     @Deprecated(
         "will be removed with 2.0.0 at the latest",
-        ReplaceWith("ch.tutteli.atrium.reporting.descriptions.DescriptionAnyProof.NOT_TO_EQUAL")
+        ReplaceWith("ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionAnyProof.NOT_TO_EQUAL")
     )
     /** @since 0.18.0 */
     NOT_TO_EQUAL("not to equal"),
@@ -35,35 +35,35 @@ enum class DescriptionAnyExpectation(override val value: String) : StringBasedTr
 
     @Deprecated(
         "will be removed with 2.0.0 at the latest",
-        ReplaceWith("ch.tutteli.atrium.reporting.descriptions.DescriptionAnyProof.TO_BE_AN_INSTANCE_OF")
+        ReplaceWith("ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionAnyProof.TO_BE_AN_INSTANCE_OF")
     )
     /** @since 0.18.0 */
     TO_BE_AN_INSTANCE_OF("to be an instance of type"),
 
     @Deprecated(
         "will be removed with 2.0.0 at the latest",
-        ReplaceWith("ch.tutteli.atrium.reporting.descriptions.DescriptionAnyProof.TO_BE_THE_INSTANCE")
+        ReplaceWith("ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionAnyProof.TO_BE_THE_INSTANCE")
     )
     /** @since 0.18.0 */
     TO_BE_THE_INSTANCE("to be the instance"),
 
     @Deprecated(
         "will be removed with 2.0.0 at the latest",
-        ReplaceWith("ch.tutteli.atrium.reporting.descriptions.DescriptionAnyProof.NOT_TO_BE_AN_INSTANCE_OF")
+        ReplaceWith("ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionAnyProof.NOT_TO_BE_AN_INSTANCE_OF")
     )
     /** @since 1.1.0 */
     NOT_TO_BE_AN_INSTANCE_OF("not to be an instance of"),
 
     @Deprecated(
         "will be removed with 2.0.0 at the latest",
-        ReplaceWith("ch.tutteli.atrium.reporting.descriptions.DescriptionAnyProof.NOT_TO_BE_THE_INSTANCE")
+        ReplaceWith("ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionAnyProof.NOT_TO_BE_THE_INSTANCE")
     )
     /** @since 0.18.0 */
     NOT_TO_BE_THE_INSTANCE("not to be the instance"),
 
     @Deprecated(
         "will be removed with 2.0.0 at the latest",
-        ReplaceWith("ch.tutteli.atrium.reporting.descriptions.DescriptionAnyProof.NOT_TO_EQUAL_ONE_OF")
+        ReplaceWith("ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionAnyProof.NOT_TO_EQUAL_ONE_OF")
     )
     /** @since 0.18.0 */
     NOT_TO_EQUAL_ONE_IN("not to equal one in"),

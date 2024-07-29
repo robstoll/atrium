@@ -5,8 +5,8 @@ import ch.tutteli.atrium.api.infix.en_GB.creating.iterable.WithInAnyOrderOnlyRep
 import ch.tutteli.atrium.api.infix.en_GB.creating.iterable.WithInOrderOnlyReportingOptions
 import ch.tutteli.atrium.api.infix.en_GB.creating.map.KeyValues
 import ch.tutteli.atrium.api.infix.en_GB.creating.map.KeyWithValueCreator
-import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.creating.proofs.Proof
 import ch.tutteli.atrium.logic.creating.iterablelike.contains.reporting.InAnyOrderOnlyReportingOptions
 import ch.tutteli.atrium.logic.creating.iterablelike.contains.reporting.InOrderOnlyReportingOptions
 import ch.tutteli.atrium.logic.creating.typeutils.IterableLike
@@ -64,7 +64,7 @@ fun <T : Any> entry(assertionCreatorOrNull: (Expect<T>.() -> Unit)?): Entry<T> =
  * is `null` as well.
  *
  * @param assertionCreatorOrNull The identification lambda identifying the entry where an entry is considered
- *   to be identified if it holds all [Assertion]s the lambda creates.
+ *   to be identified if it holds all [Proof]s the lambda creates.
  *   In case it is defined as `null`, then an entry is identified if it is `null` as well.
  * @param otherAssertionCreatorsOrNulls A variable amount of additional identification lambdas or `null`s.
  *
@@ -84,7 +84,7 @@ fun <T : Any> entries(
  * is `null` as well.
  *
  * @param assertionCreatorOrNull The identification lambda identifying the entry where an entry is considered
- *   to be identified if it holds all [Assertion]s the lambda creates.
+ *   to be identified if it holds all [Proof]s the lambda creates.
  *   In case it is defined as `null`, then an entry is identified if it is `null` as well.
  * @param otherAssertionCreatorsOrNulls A variable amount of additional identification lambdas or `null`s.
  * @param reportOptionsInOrderOnly The lambda configuring the [InOrderOnlyReportingOptions].
@@ -112,7 +112,7 @@ fun <T : Any> entries(
  * is `null` as well.
  *
  * @param assertionCreatorOrNull The identification lambda identifying the entry where an entry is considered
- *   to be identified if it holds all [Assertion]s the lambda creates.
+ *   to be identified if it holds all [Proof]s the lambda creates.
  *   In case it is defined as `null`, then an entry is identified if it is `null` as well.
  * @param otherAssertionCreatorsOrNulls A variable amount of additional identification lambdas or `null`s.
  * @param reportOptionsInAnyOrderOnly The lambda configuring the [InOrderOnlyReportingOptions].

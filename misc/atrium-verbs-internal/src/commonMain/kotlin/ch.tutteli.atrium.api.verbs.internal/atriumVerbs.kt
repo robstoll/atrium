@@ -1,5 +1,6 @@
 package ch.tutteli.atrium.api.verbs.internal
 
+import ch.tutteli.atrium._core
 import ch.tutteli.atrium.api.verbs.internal.factory.InternalExpectationVerbs
 import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
 import ch.tutteli.atrium.creating.*
@@ -33,7 +34,14 @@ fun <T> expect(subject: T): RootExpect<T> =
         .build()
 
 fun <T> expect(subject: T, assertionCreator: Expect<T>.() -> Unit): Expect<T> =
-    expect(subject)._logic.appendAsGroup(assertionCreator)
+    expect(subject)._core.appendAsGroupIndicateIfOneCollected(
+        ExpectationCreatorWithUsageHints(
+            // we don't have an alternative, we always expect expectations and hence we don't provide a failure hint
+            // (proposing `expect(subject).` as alternative would be wrong as we also expect further expectations)
+            usageHintsOverloadWithoutExpectationCreator = emptyList(),
+            expectationCreator = assertionCreator
+        )
+    ).first
 
 
 @OptIn(ExperimentalNewExpectTypes::class)
@@ -47,7 +55,13 @@ fun expectGrouped(
         configuration()
     }
     .build()
-    ._logic.appendAsGroup(groupingActions.toAssertionCreator())
+    ._core.appendAsGroupIndicateIfOneCollected(
+        ExpectationCreatorWithUsageHints(
+            // we don't have an alternative, we always expect sub-expectations and hence we don't provide a failure hint
+            usageHintsOverloadWithoutExpectationCreator = emptyList(),
+            expectationCreator = groupingActions.toAssertionCreator()
+        )
+    ).first
     .toExpectGrouping()
 
 
@@ -57,10 +71,10 @@ fun <R> ExpectGrouping.expect(subject: R): Expect<R> =
 fun <R> ExpectGrouping.expect(subject: R, assertionCreator: Expect<R>.() -> Unit): Expect<R> =
     expectWithinExpectGroup(subject).transformAndAppend(assertionCreator)
 
-
+@Suppress("DEPRECATION")
 private fun <R> ExpectGrouping.expectWithinExpectGroup(subject: R) =
+    //TODO 1.3.0 change to _core
     _logic.manualFeature("I expected subject") { subject }
-
 
 expect class RemoveAtriumButNotAtriumSpecsFromAtriumErrorImpl() : RemoveAtriumFromAtriumError{
     override fun adjust(throwable: Throwable)
