@@ -15,6 +15,7 @@ import ch.tutteli.atrium.reporting.Text
 import ch.tutteli.atrium.translations.DescriptionAnyExpectation.*
 import kotlin.reflect.KClass
 
+@Suppress("OVERRIDE_DEPRECATION")
 class DefaultAnyAssertions : AnyAssertions {
     override fun <T> toBe(container: AssertionContainer<T>, expected: T): Assertion =
         container.createDescriptiveAssertion(TO_EQUAL, expected) { it == expected }

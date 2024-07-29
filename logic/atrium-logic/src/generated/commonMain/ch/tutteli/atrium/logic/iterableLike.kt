@@ -4,6 +4,9 @@
 //  buildSrc/generation.kt
 //  if necessary - enjoy the day 🙂
 //---------------------------------------------------
+//TODO 2.0.0 remove file
+@file:Suppress("DEPRECATION")
+
 package ch.tutteli.atrium.logic
 
 import ch.tutteli.atrium.assertions.Assertion
@@ -15,6 +18,11 @@ import ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.NotSe
 import ch.tutteli.atrium.logic.creating.iterable.contains.steps.NotCheckerStep
 import ch.tutteli.atrium.logic.creating.transformers.FeatureExtractorBuilder
 import ch.tutteli.atrium.logic.creating.typeutils.IterableLike
+
+/**
+ * Collection of assertion functions and builders which are applicable to subjects which can be transformed to an
+ * [Iterable] - intended for types which are Iterable like such as [Array] or [Sequence].
+ */
 import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
 import ch.tutteli.atrium.logic.impl.DefaultIterableLikeAssertions
 
