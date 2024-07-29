@@ -1,18 +1,18 @@
+import ch.tutteli.atrium._core
+import ch.tutteli.atrium._coreAppend
 import ch.tutteli.atrium.api.fluent.en_GB.messageToContain
 import ch.tutteli.atrium.api.fluent.en_GB.notToThrow
 import ch.tutteli.atrium.api.fluent.en_GB.toEqual
 import ch.tutteli.atrium.api.fluent.en_GB.toThrow
-import ch.tutteli.atrium.api.verbs.AssertionVerb
+import ch.tutteli.atrium.api.verbs.ExpectationVerb
 import ch.tutteli.atrium.api.verbs.expect
-import ch.tutteli.atrium.assertions.Assertion
-import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.logic._logic
-import ch.tutteli.atrium.logic._logicAppend
-import ch.tutteli.atrium.logic.createDescriptiveAssertion
+import ch.tutteli.atrium.creating.ProofContainer
+import ch.tutteli.atrium.creating.proofs.Proof
+import ch.tutteli.atrium.creating.proofs.buildSimpleProof
 import ch.tutteli.atrium.reporting.Text
-import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
-import ch.tutteli.atrium.translations.DescriptionAnyExpectation.TO_EQUAL
+import ch.tutteli.atrium.reporting.reportables.Description
+import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionAnyProof
 import ch.tutteli.atrium.translations.DescriptionBasic.TO_BE
 import kotlin.test.Test
 
@@ -37,14 +37,13 @@ class SmokeTest {
     fun expectWithinExpect() {
         expect {
             expect(1) {
-                @Suppress("DEPRECATION")
                 expect(2).toEqual(1)
             }
         }.toThrow<AssertionError> {
             messageToContain(
-                "${AssertionVerb.EXPECT.getDefault()}: 1",
-                "${AssertionVerb.EXPECT.getDefault()}: 2",
-                "${TO_EQUAL.getDefault()}: 1"
+                "${ExpectationVerb.EXPECT.string}: 1",
+                "${ExpectationVerb.EXPECT.string}: 2",
+                "${DescriptionAnyProof.TO_EQUAL.string}: 1"
             )
         }
     }
@@ -74,16 +73,16 @@ class SmokeTest {
 }
 
 fun Expect<Int>.toBeEven() =
-    _logic.createAndAppend("is", Text("an even number")) { it % 2 == 0 }
+    _core.createAndAppend("is", Text("an even number")) { it % 2 == 0 }
 
 fun Expect<Int>.toBeOdd() =
-    _logic.append(_logic.createDescriptiveAssertion(TO_BE, Text("an odd number")) { it % 2 == 1 })
+    _coreAppend { buildSimpleProof(TO_BE, Text("an odd number")) { it % 2 == 1 } }
 
-fun Expect<Int>.toBeAMultipleOf(base: Int): Expect<Int> = _logicAppend { toBeAMultipleOf(base) }
+fun Expect<Int>.toBeAMultipleOf(base: Int): Expect<Int> = _coreAppend { toBeAMultipleOf(base) }
 
-private fun AssertionContainer<Int>.toBeAMultipleOf(base: Int): Assertion =
-    createDescriptiveAssertion(DescriptionIntAssertions.TO_BE_MULTIPLE_OF, base) { it % base == 0 }
+private fun ProofContainer<Int>.toBeAMultipleOf(base: Int): Proof =
+    buildSimpleProof(DescriptionIntAssertions.TO_BE_MULTIPLE_OF, base) { it % base == 0 }
 
-enum class DescriptionIntAssertions(override val value: String) : StringBasedTranslatable {
+enum class DescriptionIntAssertions(override val string: String) : Description {
     TO_BE_MULTIPLE_OF("to be multiple of")
 }

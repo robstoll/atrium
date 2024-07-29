@@ -26,7 +26,7 @@ internal class CollectingExpectImpl<T>(
     override fun getAssertions(): List<ch.tutteli.atrium.assertions.Assertion> =
         proofs.filterIsInstance<ch.tutteli.atrium.assertions.Assertion>()
 
-    override fun getCollectedProofs(): List<Proof> = proofs
+    override fun getCollectedProofs(): List<Proof> = proofs.toList()
 
     override fun append(proof: Proof): Expect<T> = apply { proofs.add(proof) }
 
@@ -54,10 +54,10 @@ internal class CollectingExpectImpl<T>(
         //TODO 1.3.0 collect unexpected exceptions, move DefaultExceptionHandler to core
         expectationCreatorWithUsageHints.expectationCreator(this)
         val newProofs = getCollectedProofs()
-        val noneCollected = newProofs.isNotEmpty()
+        val atLeastOneCollected = newProofs.isNotEmpty()
         proofs.clear()
 
-        if (noneCollected) {
+        if (atLeastOneCollected) {
             allProofs.addAll(newProofs)
         } else {
             allProofs.add(
@@ -75,6 +75,6 @@ internal class CollectingExpectImpl<T>(
         }
         allProofs.forEach { append(it) }
 
-        return Pair(this, noneCollected)
+        return Pair(this, atLeastOneCollected)
     }
 }

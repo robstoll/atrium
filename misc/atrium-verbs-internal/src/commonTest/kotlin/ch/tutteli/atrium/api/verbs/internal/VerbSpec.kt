@@ -1,6 +1,6 @@
 package ch.tutteli.atrium.api.verbs.internal
 
-import ch.tutteli.atrium.logic._logicAppend
+import ch.tutteli.atrium._coreAppend
 import ch.tutteli.atrium.logic.grouping
 import ch.tutteli.atrium.reporting.Text
 import ch.tutteli.atrium.specs.verbs.VerbSpec
@@ -14,7 +14,7 @@ object ExpectSpec : VerbSpec(
         expectGrouped(description, groupingActions = assertionCreator)
     },
     "expectGrouped" to { description, assertionCreator ->
-        _logicAppend { grouping(description, Text.Companion.EMPTY_PROVIDER, groupingActions = assertionCreator) }
+        _coreAppend { grouping(description, Text.EMPTY_PROVIDER, groupingActions = assertionCreator) }
     },
     "expect" to { subject -> expect(subject) },
 )

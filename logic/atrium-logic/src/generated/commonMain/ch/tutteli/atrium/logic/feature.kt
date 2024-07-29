@@ -4,12 +4,19 @@
 //  buildSrc/generation.kt
 //  if necessary - enjoy the day 🙂
 //---------------------------------------------------
+//TODO 2.0.0 remove file
+@file:Suppress("DEPRECATION")
+
 package ch.tutteli.atrium.logic
 
 import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic.creating.transformers.FeatureExtractorBuilder
 import kotlin.reflect.*
+
+/**
+ * Collection of functions which help to create feature assertions by returning [FeatureExtractorBuilder.ExecutionStep].
+ */
 import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
 import ch.tutteli.atrium.logic.impl.DefaultFeatureAssertions
 

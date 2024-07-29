@@ -1,16 +1,15 @@
 package ch.tutteli.atrium.specs.verbs
 
+import ch.tutteli.atrium._core
 import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.core.polyfills.fullName
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.creating.ExpectGrouping
-import ch.tutteli.atrium.logic._logic
 import ch.tutteli.atrium.logic.changeSubject
 import ch.tutteli.atrium.logic.creating.RootExpectBuilder
+import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionAnyProof
 import ch.tutteli.atrium.reporting.reportables.descriptions.ErrorMessages.*
 import ch.tutteli.atrium.specs.*
-import ch.tutteli.atrium.specs.DummyTranslatables
-import ch.tutteli.atrium.translations.DescriptionAnyExpectation.TO_BE_AN_INSTANCE_OF
 import ch.tutteli.atrium.translations.DescriptionComparableExpectation
 import ch.tutteli.atrium.translations.DescriptionComparableExpectation.TO_BE_GREATER_THAN
 import ch.tutteli.atrium.translations.DescriptionComparableExpectation.TO_BE_LESS_THAN
@@ -123,7 +122,7 @@ abstract class VerbSpec(
             }
         }
         context("subject is not null") {
-            testNonNullableSubject { subject -> assertionVerb(subject)._logic.changeSubject.unreported { it!! } }
+            testNonNullableSubject { subject -> assertionVerb(subject)._core.changeSubject.unreported { it!! } }
         }
     }
 
@@ -145,7 +144,7 @@ abstract class VerbSpec(
                     }.toThrow<UnsupportedOperationException> {}
                 }.toThrow<AssertionError> {
                     messageToContain(
-                        TO_BE_AN_INSTANCE_OF.getDefault(),
+                        DescriptionAnyProof.TO_BE_AN_INSTANCE_OF.string,
                         IllegalArgumentException::class.fullName,
                         UnsupportedOperationException::class.fullName
                     )

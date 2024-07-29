@@ -1,4 +1,5 @@
-@file:Suppress("ObjectPropertyName", "FunctionName")
+//TODO remove file with 2.0.0 at the latest
+@file:Suppress("DEPRECATION", "ObjectPropertyName", "FunctionName")
 
 package ch.tutteli.atrium.logic
 

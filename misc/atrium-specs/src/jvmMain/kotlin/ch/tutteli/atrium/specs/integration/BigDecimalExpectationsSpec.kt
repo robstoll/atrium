@@ -4,6 +4,7 @@ import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.creating.PleaseUseReplacementException
+import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionAnyProof
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.translations.DescriptionAnyExpectation.NOT_TO_EQUAL
 import ch.tutteli.atrium.translations.DescriptionBigDecimalAssertion
@@ -139,7 +140,7 @@ abstract class BigDecimalExpectationsSpec(
                     expect(BigDecimal.TEN as Any).notToEqualAnyFun(expected)
                 }.toThrow<AssertionError> {
                     message {
-                        toContain(BigDecimal.TEN, "${NOT_TO_EQUAL.getDefault()}: $expected")
+                        toContain(BigDecimal.TEN, "${DescriptionAnyProof.NOT_TO_EQUAL.string}: $expected")
                         notToContain(failureHintNotNumerically)
                     }
                 }

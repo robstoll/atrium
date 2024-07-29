@@ -77,7 +77,10 @@ interface AssertionContainer<T> {
      */
     @Deprecated(
         "Use appendAsGroupIndicateIfOneCollected and define the alternative or pass an empty list if you don't have any",
-        ReplaceWith("this.appendAsGroupIndicateIfOneCollected(assertionCreator, listOf(/* .. add a usage hint in case you have an overload which does not expect an expectationCreator */))")
+        ReplaceWith(
+            "this.appendAsGroupIndicateIfOneCollected(ExpectationCreatorWithUsageHints(usageHintsOverloadWithoutExpectationCreator = listOf(/* ... add a usage hint in case you have an overload which does not expect an expectationCreator */), expectationCreator = assertionCreator)).first",
+            "ch.tutteli.atrium.creating.ExpectationCreatorWithUsageHints"
+        )
     )
     fun appendAsGroup(assertionCreator: Expect<T>.() -> Unit): Expect<T>
 
@@ -91,8 +94,9 @@ interface AssertionContainer<T> {
      *
      * @return an [Expect] for the subject of `this` expectation.
      */
+    //TODO 1.3.0 deprecate
     fun createAndAppend(description: String, expected: Any?, test: (T) -> Boolean): Expect<T> =
-        createAndAppend(Untranslatable(description),expected, test)
+        createAndAppend(Untranslatable(description), expected, test)
 
     /**
      * Creates a [DescriptiveAssertion] based on the given [description], [expected] and [test]
@@ -104,6 +108,7 @@ interface AssertionContainer<T> {
      *
      * @return an [Expect] for the subject of `this` expectation.
      */
+    //TODO 1.3.0 deprecate
     //TODO remove SUPPRESS with 1.3.0 once the toExpect function is in core
     @Suppress("UNCHECKED_CAST")
     fun createAndAppend(description: Translatable, expected: Any?, test: (T) -> Boolean): Expect<T> =

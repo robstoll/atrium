@@ -1,3 +1,6 @@
+//TODO 1.4.0 remove file
+@file:Suppress("DEPRECATION")
+
 package ch.tutteli.atrium.specs.reporting
 
 import ch.tutteli.atrium.api.fluent.en_GB.toBeEmpty
@@ -22,8 +25,6 @@ import io.mockk.*
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.Suite
 
-//TOO 1.3.0 remove once we use StringFormatter
-@Suppress("DEPRECATION")
 abstract class OnlyFailureReporterSpec(
     testeeFactory: (AssertionFormatterFacade) -> Reporter,
     describePrefix: String = "[Atrium] "

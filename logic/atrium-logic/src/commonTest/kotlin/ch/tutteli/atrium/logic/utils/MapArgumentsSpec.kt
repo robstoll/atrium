@@ -1,9 +1,8 @@
 package ch.tutteli.atrium.logic.utils
 
+import ch.tutteli.atrium._core
 import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.internal.expect
-import ch.tutteli.atrium.creating.PleaseUseReplacementException
-import ch.tutteli.atrium.logic._logic
 import ch.tutteli.atrium.logic.changeSubject
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.describe
@@ -48,8 +47,8 @@ object MapArgumentsSpec : Spek({
                     val (first, others) = it(null, "b", "c")
                     expect(first).toEqual(null)
                     expect(others[0]).notToEqualNull {
-                        _logic.maybeSubject.map { assertionCreator ->
-                            _logic.changeSubject.unreported { "banana" }.assertionCreator()
+                        _core.maybeSubject.map { assertionCreator ->
+                            _core.changeSubject.unreported { "banana" }.assertionCreator()
                         }
                     }
                 }

@@ -3,6 +3,7 @@ module ch.tutteli.atrium.core.api {
     requires    kotlin.stdlib;
     requires    kotlin.reflect;
 
+    exports ch.tutteli.atrium;
     exports ch.tutteli.atrium.assertions;
     exports ch.tutteli.atrium.assertions.builders;
     exports ch.tutteli.atrium.assertions.builders.common;

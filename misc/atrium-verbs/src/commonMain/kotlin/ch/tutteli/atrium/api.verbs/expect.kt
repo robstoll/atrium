@@ -1,11 +1,11 @@
 package ch.tutteli.atrium.api.verbs
 
-import ch.tutteli.atrium.api.verbs.AssertionVerb.EXPECT
+import ch.tutteli.atrium._core
+import ch.tutteli.atrium._coreAppend
+import ch.tutteli.atrium.api.verbs.ExpectationVerb.EXPECT
 import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
-import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.creating.ExpectGrouping
-import ch.tutteli.atrium.creating.FeatureExpect
-import ch.tutteli.atrium.creating.RootExpect
+import ch.tutteli.atrium.creating.*
+import ch.tutteli.atrium.creating.toExpectGrouping
 import ch.tutteli.atrium.logic.*
 import ch.tutteli.atrium.logic.creating.RootExpectBuilder
 import ch.tutteli.atrium.reporting.Text
@@ -34,7 +34,14 @@ fun <T> expect(subject: T): RootExpect<T> =
  * @throws AssertionError in case an assertion does not hold.
  */
 fun <T> expect(subject: T, assertionCreator: Expect<T>.() -> Unit): Expect<T> =
-    expect(subject)._logic.appendAsGroup(assertionCreator)
+    expect(subject)._core.appendAsGroupIndicateIfOneCollected(
+        ExpectationCreatorWithUsageHints(
+            // we don't have an alternative, we always expect expectations and hence we don't provide a failure hint
+            // (proposing `expect(subject).` as alternative would be wrong as we also expect further expectation)
+            usageHintsOverloadWithoutExpectationCreator = emptyList(),
+            expectationCreator = assertionCreator
+        )
+    ).first
 
 /**
  * Creates an [Expect] for the given (unrelated) [newSubject].
@@ -48,8 +55,10 @@ fun <T> expect(subject: T, assertionCreator: Expect<T>.() -> Unit): Expect<T> =
  *
  * @since 1.0.0
  */
+@Suppress("DEPRECATION")
 fun <T, R> Expect<T>.expect(newSubject: R): FeatureExpect<T, R> =
-    _logic.manualFeature(EXPECT) { newSubject }.transform()
+    //TODO 1.3.0 change to _core
+    _logic.manualFeature(ch.tutteli.atrium.api.verbs.AssertionVerb.EXPECT) { newSubject }.transform()
 
 /**
  * Creates an [Expect] for the given (unrelated) [newSubject] and appends the expectations the given
@@ -67,8 +76,10 @@ fun <T, R> Expect<T>.expect(newSubject: R): FeatureExpect<T, R> =
  *
  * @since 1.0.0
  */
+@Suppress("DEPRECATION")
 fun <T, R> Expect<T>.expect(newSubject: R, assertionCreator: Expect<R>.() -> Unit): Expect<R> =
-    _logic.manualFeature(EXPECT) { newSubject }.transformAndAppend(assertionCreator)
+    //TODO 1.3.0 change to _core
+    _logic.manualFeature(ch.tutteli.atrium.api.verbs.AssertionVerb.EXPECT) { newSubject }.transformAndAppend(assertionCreator)
 
 /**
  * Creates an [ExpectGrouping] which can be used to group multiple unrelated subjects.
@@ -83,7 +94,7 @@ fun <T, R> Expect<T>.expect(newSubject: R, assertionCreator: Expect<R>.() -> Uni
  */
 @OptIn(ExperimentalNewExpectTypes::class)
 fun expectGrouped(
-    description: String = AssertionVerb.EXPECT_GROUPED.getDefault(),
+    description: String = ExpectationVerb.EXPECT_GROUPED.string,
     configuration: RootExpectBuilder.OptionsChooser<*>.() -> Unit = {},
     groupingActions: ExpectGrouping.() -> Unit,
 ): ExpectGrouping = RootExpectBuilder.forSubject(Text.EMPTY)
@@ -92,7 +103,13 @@ fun expectGrouped(
         configuration()
     }
     .build()
-    ._logic.appendAsGroup(groupingActions.toAssertionCreator())
+    ._core.appendAsGroupIndicateIfOneCollected(
+        ExpectationCreatorWithUsageHints(
+            // we don't have an alternative, we always expect sub-expectations and hence we don't provide a failure hint
+            usageHintsOverloadWithoutExpectationCreator = emptyList(),
+            expectationCreator = groupingActions.toAssertionCreator()
+        )
+    ).first
     .toExpectGrouping()
 
 
@@ -121,9 +138,10 @@ fun <R> ExpectGrouping.expect(subject: R): Expect<R> =
 fun <R> ExpectGrouping.expect(subject: R, assertionCreator: Expect<R>.() -> Unit): Expect<R> =
     expectWithinExpectGroup(subject).transformAndAppend(assertionCreator)
 
-
+@Suppress("DEPRECATION")
 private fun <R> ExpectGrouping.expectWithinExpectGroup(subject: R) =
-    _logic.manualFeature(EXPECT) { subject }
+    //TODO 1.3.0 change to _core
+    _logic.manualFeature(ch.tutteli.atrium.api.verbs.AssertionVerb.EXPECT) { subject }
 
 /**
  * In order to have one way only, use the function provided by the API such as `group`.
@@ -137,4 +155,4 @@ fun ExpectGrouping.expectGrouped(
     description: String,
     representationProvider: () -> Any = Text.EMPTY_PROVIDER,
     groupingActions: ExpectGrouping.() -> Unit
-): ExpectGrouping = _logicAppend { grouping(description, representationProvider, groupingActions) }
+): ExpectGrouping = _coreAppend { grouping(description, representationProvider, groupingActions) }

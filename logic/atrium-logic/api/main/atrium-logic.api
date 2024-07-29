@@ -557,7 +557,7 @@ public final class ch/tutteli/atrium/logic/creating/RootExpectBuilder$Companion 
 
 public abstract interface class ch/tutteli/atrium/logic/creating/RootExpectBuilder$ExpectationVerbStep {
 	public abstract fun getSubject ()Ljava/lang/Object;
-	public abstract fun withVerb (Lch/tutteli/atrium/reporting/translating/Translatable;)Lch/tutteli/atrium/logic/creating/RootExpectBuilder$OptionsStep;
+	public abstract fun withVerb (Lch/tutteli/atrium/reporting/reportables/InlineElement;)Lch/tutteli/atrium/logic/creating/RootExpectBuilder$OptionsStep;
 	public abstract fun withVerb (Ljava/lang/String;)Lch/tutteli/atrium/logic/creating/RootExpectBuilder$OptionsStep;
 }
 
@@ -568,13 +568,13 @@ public final class ch/tutteli/atrium/logic/creating/RootExpectBuilder$Expectatio
 public abstract interface class ch/tutteli/atrium/logic/creating/RootExpectBuilder$FinalStep {
 	public static final field Companion Lch/tutteli/atrium/logic/creating/RootExpectBuilder$FinalStep$Companion;
 	public abstract fun build ()Lch/tutteli/atrium/creating/RootExpect;
-	public abstract fun getExpectationVerb ()Lch/tutteli/atrium/reporting/translating/Translatable;
+	public abstract fun getExpectationVerb ()Lch/tutteli/atrium/reporting/reportables/InlineElement;
 	public abstract fun getOptions ()Lch/tutteli/atrium/creating/RootExpectOptions;
 	public abstract fun getSubject ()Ljava/lang/Object;
 }
 
 public final class ch/tutteli/atrium/logic/creating/RootExpectBuilder$FinalStep$Companion {
-	public final fun invoke (Ljava/lang/Object;Lch/tutteli/atrium/reporting/translating/Translatable;Lch/tutteli/atrium/creating/RootExpectOptions;)Lch/tutteli/atrium/logic/creating/RootExpectBuilder$FinalStep;
+	public final fun invoke (Ljava/lang/Object;Lch/tutteli/atrium/reporting/reportables/InlineElement;Lch/tutteli/atrium/creating/RootExpectOptions;)Lch/tutteli/atrium/logic/creating/RootExpectBuilder$FinalStep;
 }
 
 public abstract interface class ch/tutteli/atrium/logic/creating/RootExpectBuilder$OptionsChooser {
@@ -599,7 +599,7 @@ public final class ch/tutteli/atrium/logic/creating/RootExpectBuilder$OptionsCho
 
 public abstract interface class ch/tutteli/atrium/logic/creating/RootExpectBuilder$OptionsStep {
 	public static final field Companion Lch/tutteli/atrium/logic/creating/RootExpectBuilder$OptionsStep$Companion;
-	public abstract fun getExpectationVerb ()Lch/tutteli/atrium/reporting/translating/Translatable;
+	public abstract fun getExpectationVerb ()Lch/tutteli/atrium/reporting/reportables/InlineElement;
 	public abstract fun getSubject ()Ljava/lang/Object;
 	public abstract fun withOptions (Lch/tutteli/atrium/creating/RootExpectOptions;)Lch/tutteli/atrium/logic/creating/RootExpectBuilder$FinalStep;
 	public abstract fun withOptions (Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/logic/creating/RootExpectBuilder$FinalStep;
@@ -607,6 +607,7 @@ public abstract interface class ch/tutteli/atrium/logic/creating/RootExpectBuild
 }
 
 public final class ch/tutteli/atrium/logic/creating/RootExpectBuilder$OptionsStep$Companion {
+	public final fun invoke (Ljava/lang/Object;Lch/tutteli/atrium/reporting/reportables/InlineElement;)Lch/tutteli/atrium/logic/creating/RootExpectBuilder$OptionsStep;
 	public final fun invoke (Ljava/lang/Object;Lch/tutteli/atrium/reporting/translating/Translatable;)Lch/tutteli/atrium/logic/creating/RootExpectBuilder$OptionsStep;
 }
 
@@ -1004,7 +1005,7 @@ public final class ch/tutteli/atrium/logic/creating/filesystem/hints/HintsKt {
 public final class ch/tutteli/atrium/logic/creating/impl/ExpectationVerbStepImpl : ch/tutteli/atrium/logic/creating/RootExpectBuilder$ExpectationVerbStep {
 	public fun <init> (Ljava/lang/Object;)V
 	public fun getSubject ()Ljava/lang/Object;
-	public fun withVerb (Lch/tutteli/atrium/reporting/translating/Translatable;)Lch/tutteli/atrium/logic/creating/RootExpectBuilder$OptionsStep;
+	public fun withVerb (Lch/tutteli/atrium/reporting/reportables/InlineElement;)Lch/tutteli/atrium/logic/creating/RootExpectBuilder$OptionsStep;
 	public fun withVerb (Ljava/lang/String;)Lch/tutteli/atrium/logic/creating/RootExpectBuilder$OptionsStep;
 }
 
@@ -1018,16 +1019,16 @@ public final class ch/tutteli/atrium/logic/creating/impl/FeatureExpectOptionsCho
 }
 
 public final class ch/tutteli/atrium/logic/creating/impl/FinalStepImpl : ch/tutteli/atrium/logic/creating/RootExpectBuilder$FinalStep {
-	public fun <init> (Ljava/lang/Object;Lch/tutteli/atrium/reporting/translating/Translatable;Lch/tutteli/atrium/creating/RootExpectOptions;)V
+	public fun <init> (Ljava/lang/Object;Lch/tutteli/atrium/reporting/reportables/InlineElement;Lch/tutteli/atrium/creating/RootExpectOptions;)V
 	public fun build ()Lch/tutteli/atrium/creating/RootExpect;
-	public fun getExpectationVerb ()Lch/tutteli/atrium/reporting/translating/Translatable;
+	public fun getExpectationVerb ()Lch/tutteli/atrium/reporting/reportables/InlineElement;
 	public fun getOptions ()Lch/tutteli/atrium/creating/RootExpectOptions;
 	public fun getSubject ()Ljava/lang/Object;
 }
 
 public final class ch/tutteli/atrium/logic/creating/impl/OptionsStepImpl : ch/tutteli/atrium/logic/creating/RootExpectBuilder$OptionsStep {
-	public fun <init> (Ljava/lang/Object;Lch/tutteli/atrium/reporting/translating/Translatable;)V
-	public fun getExpectationVerb ()Lch/tutteli/atrium/reporting/translating/Translatable;
+	public fun <init> (Ljava/lang/Object;Lch/tutteli/atrium/reporting/reportables/InlineElement;)V
+	public fun getExpectationVerb ()Lch/tutteli/atrium/reporting/reportables/InlineElement;
 	public fun getSubject ()Ljava/lang/Object;
 	public fun withOptions (Lch/tutteli/atrium/creating/RootExpectOptions;)Lch/tutteli/atrium/logic/creating/RootExpectBuilder$FinalStep;
 	public fun withOptions (Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/logic/creating/RootExpectBuilder$FinalStep;

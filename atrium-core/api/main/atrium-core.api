@@ -1,6 +1,8 @@
 public final class ch/tutteli/atrium/CoreKt {
 	public static final fun _coreAppend (Lch/tutteli/atrium/creating/Expect;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/creating/Expect;
+	public static final fun _coreAppend (Lch/tutteli/atrium/creating/ExpectGrouping;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/creating/ExpectGrouping;
 	public static final fun get_core (Lch/tutteli/atrium/creating/Expect;)Lch/tutteli/atrium/creating/ProofContainer;
+	public static final fun get_core (Lch/tutteli/atrium/creating/ExpectGrouping;)Lch/tutteli/atrium/creating/ProofContainer;
 }
 
 public abstract interface class ch/tutteli/atrium/assertions/Assertion : ch/tutteli/atrium/creating/proofs/Proof {
@@ -827,7 +829,7 @@ public final class ch/tutteli/atrium/creating/ProofContainer$DefaultImpls {
 
 public final class ch/tutteli/atrium/creating/ProofContainerKt {
 	public static final fun toExpect (Lch/tutteli/atrium/creating/ProofContainer;)Lch/tutteli/atrium/creating/Expect;
-	public static final fun toExpectGrouping (Lch/tutteli/atrium/creating/ProofContainer;)Lch/tutteli/atrium/creating/ExpectGrouping;
+	public static final fun toExpectGrouping (Lch/tutteli/atrium/creating/Expect;)Lch/tutteli/atrium/creating/ExpectGrouping;
 	public static final fun toProofContainer (Lch/tutteli/atrium/creating/Expect;)Lch/tutteli/atrium/creating/ProofContainer;
 }
 
@@ -836,7 +838,7 @@ public abstract interface class ch/tutteli/atrium/creating/RootExpect : ch/tutte
 }
 
 public final class ch/tutteli/atrium/creating/RootExpect$Companion {
-	public final fun invoke (Lch/tutteli/atrium/core/Option;Lch/tutteli/atrium/reporting/translating/Translatable;Lch/tutteli/atrium/creating/RootExpectOptions;)Lch/tutteli/atrium/creating/RootExpect;
+	public final fun invoke (Lch/tutteli/atrium/core/Option;Lch/tutteli/atrium/reporting/reportables/InlineElement;Lch/tutteli/atrium/creating/RootExpectOptions;)Lch/tutteli/atrium/creating/RootExpect;
 	public final fun invoke (Lch/tutteli/atrium/creating/RootExpect;Lch/tutteli/atrium/creating/RootExpectOptions;)Lch/tutteli/atrium/creating/RootExpect;
 }
 

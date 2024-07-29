@@ -4,6 +4,9 @@
 //  buildSrc/generation.kt
 //  if necessary - enjoy the day 🙂
 //---------------------------------------------------
+//TODO 2.0.0 remove file
+@file:Suppress("DEPRECATION")
+
 package ch.tutteli.atrium.logic
 
 import ch.tutteli.atrium.assertions.Assertion
@@ -12,6 +15,10 @@ import ch.tutteli.atrium.logic.creating.transformers.FeatureExtractorBuilder
 import java.nio.charset.Charset
 import java.nio.file.LinkOption
 import java.nio.file.Path
+
+/**
+ * Collection of assertion functions and builders which are applicable to subjects with a [Path] type.
+ */
 import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
 import ch.tutteli.atrium.logic.impl.DefaultPathAssertions
 

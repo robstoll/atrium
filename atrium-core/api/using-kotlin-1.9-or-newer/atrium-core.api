@@ -1,6 +1,8 @@
 public final class ch/tutteli/atrium/CoreKt {
 	public static final fun _coreAppend (Lch/tutteli/atrium/creating/Expect;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/creating/Expect;
+	public static final fun _coreAppend (Lch/tutteli/atrium/creating/ExpectGrouping;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/creating/ExpectGrouping;
 	public static final fun get_core (Lch/tutteli/atrium/creating/Expect;)Lch/tutteli/atrium/creating/ProofContainer;
+	public static final fun get_core (Lch/tutteli/atrium/creating/ExpectGrouping;)Lch/tutteli/atrium/creating/ProofContainer;
 }
 
 public abstract interface class ch/tutteli/atrium/assertions/Assertion : ch/tutteli/atrium/creating/proofs/Proof {
@@ -583,14 +585,6 @@ public final class ch/tutteli/atrium/assertions/builders/impl/representationOnly
 	public fun holds ()Z
 }
 
-public final class ch/tutteli/atrium/core/A : ch/tutteli/atrium/core/I {
-	public fun <init> ()V
-}
-
-public final class ch/tutteli/atrium/core/B : ch/tutteli/atrium/core/J {
-	public fun <init> ()V
-}
-
 public final class ch/tutteli/atrium/core/BooleanProviderKt {
 	public static final fun getFalseProvider ()Lkotlin/jvm/functions/Function0;
 	public static final fun getTrueProvider ()Lkotlin/jvm/functions/Function0;
@@ -607,14 +601,6 @@ public final class ch/tutteli/atrium/core/EitherKt {
 }
 
 public abstract interface annotation class ch/tutteli/atrium/core/ExperimentalNewExpectTypes : java/lang/annotation/Annotation {
-}
-
-public abstract interface class ch/tutteli/atrium/core/I {
-}
-
-public abstract class ch/tutteli/atrium/core/J {
-	public fun <init> ()V
-	public final fun foo (Lch/tutteli/atrium/core/I;)I
 }
 
 public final class ch/tutteli/atrium/core/Left : ch/tutteli/atrium/core/Either {
@@ -669,10 +655,6 @@ public final class ch/tutteli/atrium/core/Some : ch/tutteli/atrium/core/Option {
 	public final fun getValue ()Ljava/lang/Object;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
-}
-
-public final class ch/tutteli/atrium/core/TestKt {
-	public static final fun main ([Ljava/lang/String;)V
 }
 
 public final class ch/tutteli/atrium/core/polyfills/FormatFloatingPointNumberKt {
@@ -848,7 +830,7 @@ public final class ch/tutteli/atrium/creating/ProofContainer$DefaultImpls {
 
 public final class ch/tutteli/atrium/creating/ProofContainerKt {
 	public static final fun toExpect (Lch/tutteli/atrium/creating/ProofContainer;)Lch/tutteli/atrium/creating/Expect;
-	public static final fun toExpectGrouping (Lch/tutteli/atrium/creating/ProofContainer;)Lch/tutteli/atrium/creating/ExpectGrouping;
+	public static final fun toExpectGrouping (Lch/tutteli/atrium/creating/Expect;)Lch/tutteli/atrium/creating/ExpectGrouping;
 	public static final fun toProofContainer (Lch/tutteli/atrium/creating/Expect;)Lch/tutteli/atrium/creating/ProofContainer;
 }
 

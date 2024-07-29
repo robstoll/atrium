@@ -4,7 +4,8 @@
 //  buildSrc/generation.kt
 //  if necessary - enjoy the day 🙂
 //---------------------------------------------------
-@file:Suppress("ObjectPropertyName", "FunctionName")
+//TODO 2.0.0 remove file
+@file:Suppress("DEPRECATION", "ObjectPropertyName", "FunctionName")
 
 package ch.tutteli.atrium.logic
 
@@ -12,6 +13,10 @@ import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.creating.ExpectGrouping
+
+/**
+ * @since 1.1.0
+ */
 import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
 import ch.tutteli.atrium.logic.impl.DefaultGroupingAssertions
 

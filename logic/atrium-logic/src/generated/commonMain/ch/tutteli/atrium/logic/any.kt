@@ -4,6 +4,7 @@
 //  buildSrc/generation.kt
 //  if necessary - enjoy the day 🙂
 //---------------------------------------------------
+//TODO 2.0.0 remove file
 @file:Suppress("DEPRECATION")
 
 package ch.tutteli.atrium.logic
