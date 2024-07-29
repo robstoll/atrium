@@ -29,6 +29,10 @@ inline fun <T> Expect<T>._logicAppend(assertionCreator: AssertionContainer<T>.()
  *
  * Use [_logicAppend] in case you want to create and append an [Assertion] to this [Expect].
  */
+@Deprecated(
+    "Use _core instead, will be removed with 2.0.0 at the latest",
+    ReplaceWith("this._core", "ch.tutteli.atrium._core")
+)
 inline val <T> Expect<T>._logic: AssertionContainer<T>
     get() = this.toAssertionContainer()
 
@@ -39,7 +43,7 @@ inline val <T> Expect<T>._logic: AssertionContainer<T>
  */
 @Deprecated(
     "Use _coreAppend instead, will be removed with 2.0.0 at the latest",
-    ReplaceWith("this._coreAppend(assertionCreator)")
+    ReplaceWith("this._coreAppend { assertionCreator() }", "ch.tutteli.atrium._coreAppend")
 )
 inline fun ExpectGrouping._logicAppend(assertionCreator: AssertionContainer<*>.() -> Assertion): ExpectGrouping =
     _logic.run { append(assertionCreator()) }.toExpectGrouping()
@@ -49,7 +53,10 @@ inline fun ExpectGrouping._logicAppend(assertionCreator: AssertionContainer<*>.(
  *
  * @since 1.1.0
  */
-//TODO deprecate with 1.3.0 and move toProofContainer to core
+@Deprecated(
+    "Use _core instead, will be removed with 2.0.0 at the latest",
+    ReplaceWith("this._core", "ch.tutteli.atrium._core")
+)
 inline val ExpectGrouping._logic: AssertionContainer<*>
     get() = when (this) {
         is ExpectInternal<*> -> this

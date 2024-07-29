@@ -98,10 +98,8 @@ fun <SubjectT> ProofContainer<SubjectT>.toExpect(): Expect<SubjectT> =
         else -> throw UnsupportedOperationException("Unsupported ProofContainer: $this -- Please open an issue that a hook shall be implemented: $BUG_REPORT_URL?template=feature_request&title=Hook%20for%20ProofContainer.toExpect")
     }
 
-//TODO 1.3.0 check why this one is not used
-fun <SubjectT> ProofContainer<SubjectT>.toExpectGrouping(): ExpectGrouping =
+fun <T> Expect<T>.toExpectGrouping(): ExpectGrouping =
     when (this) {
-        is ExpectInternal<SubjectT> -> this
-        else -> throw UnsupportedOperationException("Unsupported ProofContainer: $this -- Please open an issue that a hook shall be implemented: $BUG_REPORT_URL?template=feature_request&title=Hook%20for%20ProofContainer.toExpectGrouping")
+        is ExpectInternal<T> -> this
+        else -> throw UnsupportedOperationException("Unsupported AssertionContainer: $this -- Please open an issue that a hook shall be implemented: $BUG_REPORT_URL?template=feature_request&title=Hook%20for%Expect.toExpectGrouping")
     }
-

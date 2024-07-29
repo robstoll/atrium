@@ -1,10 +1,10 @@
 package ch.tutteli.atrium.api.fluent.en_GB.creating.feature
 
+import ch.tutteli.atrium._core
 import ch.tutteli.atrium.api.fluent.en_GB.feature
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.creating.ExperimentalComponentFactoryContainer
 import ch.tutteli.atrium.creating.build
-import ch.tutteli.atrium.logic._logic
 import ch.tutteli.atrium.logic.creating.feature.MetaFeature
 import ch.tutteli.atrium.reporting.MethodCallFormatter
 import kotlin.reflect.*
@@ -15,7 +15,7 @@ import kotlin.reflect.*
 class MetaFeatureOption<T>(expect: Expect<T>) {
 
     @OptIn(ExperimentalComponentFactoryContainer::class)
-    private val methodCallFormatter = expect._logic.components.build<MethodCallFormatter>()
+    private val methodCallFormatter = expect._core.components.build<MethodCallFormatter>()
 
     /**
      * Creates a [MetaFeature] for the given [property] => use [p] in case of ambiguity issues.

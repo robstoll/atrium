@@ -291,7 +291,7 @@ fun Project.registerGenerateLogicTaskForPackage(
                 val interfaceName = "${type}Assertions"
                 val implValName = "impl"
 
-                var tmp = content.replace(Regex("""((?:${newLine}/\*\*[\S\s]+?\*/)?(?:${newLine}@Deprecated\([^)]*\)?)?)${newLine}interface $interfaceName \{"""),
+                var tmp = content.replace(Regex("""((?:${newLine}/\*\*[\S\s]+?\*/)?(?:(?:${newLine}@Deprecated\([^)]*\)|(?://TODO.*))?)?)${newLine}interface $interfaceName \{"""),
                     """
                     import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
                     import ${fullPackage}.impl.Default${type}Assertions
