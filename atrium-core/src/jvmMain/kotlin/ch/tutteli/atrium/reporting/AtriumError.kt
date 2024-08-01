@@ -28,7 +28,8 @@ actual class AtriumError internal actual constructor(message: String) : Assertio
             val isDoublePrintingTestRunner = Thread.currentThread().stackTrace[2].let {
                 it.className.startsWith("org.jetbrains.spek.tooling.adapter.sm") ||
                     it.className.startsWith("org.spekframework.ide") ||
-                    it.className == "org.gradle.internal.serialize.ExceptionPlaceholder"
+                    it.className == "org.gradle.internal.serialize.ExceptionPlaceholder" ||
+                    it.className == "org.gradle.api.internal.tasks.testing.DefaultTestFailure"
             }
             return if (isDoublePrintingTestRunner) {
                 ""
