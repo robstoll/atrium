@@ -1,3 +1,4 @@
+import org.gradle.api.tasks.testing.logging.TestLogEvent
 import org.gradle.kotlin.dsl.extra
 import org.gradle.testing.jacoco.plugins.JacocoPluginExtension
 import org.gradle.testing.jacoco.tasks.JacocoReport
@@ -30,4 +31,18 @@ plugins.withId("jacoco") {
                 html.required.set(true)
             }
         }
+}
+
+
+//TODO 1.4.0 move this bit to tutteli-gradle-plugins, could be done there depending if com.github.vlsi.gradle-extensions
+// is applied or not
+
+// adjust because we use com.github.vlsi.gradle-extensions which prints tests differently, otherwise we print
+// the failed tests twice.
+tasks.withType<Test>().configureEach {
+    testLogging {
+        // Empty enum throws "Collection is empty", so we use Iterable method
+        setEvents((events - TestLogEvent.FAILED) as Iterable<TestLogEvent>)
+        showStackTraces = false
+    }
 }
