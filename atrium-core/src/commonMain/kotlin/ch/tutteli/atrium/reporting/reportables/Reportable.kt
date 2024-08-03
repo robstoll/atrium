@@ -18,21 +18,48 @@ import ch.tutteli.atrium.reporting.reportables.impl.DefaultUsageHintGroup
 interface Reportable {
     /**
      * Extension point for [Reportable] factories.
+     *
+     * @since 1.3.0
      */
     companion object {
         //TODO 1.3.0 write kdoc for methods
 
-        fun group(description: InlineElement, representation: Any?, children: List<Reportable>): ReportableGroup =
+        fun group(description: Reportable, representation: Any?, children: List<Reportable>): ReportableGroup =
             DefaultReportableGroup(description, representation ?: Text.NULL, children)
 
         fun proofExplanation(proof: Proof): ReportableGroup = DefaultProofExplanation(proof)
 
         fun usageHintGroup(reportables: List<Reportable>): ReportableGroup = DefaultUsageHintGroup(reportables)
 
-        fun debugGroup(description: InlineElement, reportables: List<Reportable>): ReportableGroup =
+        fun debugGroup(description: Reportable, reportables: List<Reportable>): ReportableGroup =
             DefaultDebugGroup(description, reportables)
 
         fun inlineGroup(inlineElements: List<InlineElement>): InlineElement = DefaultInlineGroup(inlineElements)
     }
 }
 
+
+//TODO 1.3.0 add KDOC and move to own file
+interface ReportableWithDesignation : Reportable {
+
+    /**
+     * The description of the [Reportable].
+     *
+     * @since 1.3.0
+     */
+    val description: Reportable
+
+    /**
+     * A complementing representation to the [description].
+     *
+     * In the context of a [ReportableGroup] it is typically the subject for which the [ReportableGroup.children]
+     * are defined. For instance, if the description is `index 0` then the representation shows what is at index 0.
+     *
+     * @since 1.3.0
+     */
+    val representation: Any
+}
+
+interface ReportableWithInlineDesignation : ReportableWithDesignation {
+    override val description: InlineElement
+}

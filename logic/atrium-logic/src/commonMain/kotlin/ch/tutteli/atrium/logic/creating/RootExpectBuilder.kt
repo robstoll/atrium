@@ -166,6 +166,10 @@ interface RootExpectBuilder {
         fun <I : Any> withSingletonComponent(kClass: KClass<I>, factory: (ComponentFactoryContainer) -> I)
 
 
+        /**
+         * Expects a [Sequence] of factories to build a chain of components of type [I] which are prepended to the
+         * currently specified chain.
+         */
         @ExperimentalComponentFactoryContainer
         fun <I : Any> prependChainedComponents(kClass: KClass<I>, factories: Sequence<ComponentFactory>)
 

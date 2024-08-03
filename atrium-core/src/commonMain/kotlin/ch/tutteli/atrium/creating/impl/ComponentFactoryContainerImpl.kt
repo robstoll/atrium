@@ -13,7 +13,6 @@ import ch.tutteli.atrium.reporting.erroradjusters.RemoveAtriumFromAtriumError
 import ch.tutteli.atrium.reporting.erroradjusters.RemoveRunnerFromAtriumError
 import ch.tutteli.atrium.reporting.erroradjusters.impl.RemoveAtriumFromAtriumErrorImpl
 import ch.tutteli.atrium.reporting.erroradjusters.impl.RemoveRunnerFromAtriumErrorImpl
-import ch.tutteli.atrium.reporting.impl.OnlyFailureReporter
 import ch.tutteli.atrium.reporting.text.*
 import ch.tutteli.atrium.reporting.text.TextObjectFormatter
 import ch.tutteli.atrium.reporting.text.impl.*
@@ -114,10 +113,35 @@ private infix fun <T : Any> KClass<T>.createChainVia(factories: Sequence<(Compon
 @ExperimentalComponentFactoryContainer
 @OptIn(ExperimentalFeatureInfo::class)
 internal object DefaultComponentFactoryContainer : ComponentFactoryContainer by ComponentFactoryContainerImpl(
-    mapOf(
+    components = mapOf(
         Reporter::class createSingletonVia { c ->
-            OnlyFailureReporter(c.build())
+            c.build<TextReporter>()
         },
+        TextReporter::class createSingletonVia { c ->
+            DefaultTextReporter(c.build())
+        },
+        TextPreRenderController::class createVia { c ->
+            AssertionToProofConvertingPreRenderController(
+                DefaultTextPreRenderController(c.buildChained(), c.buildChained(), c.build(), c.build()),
+                c.build()
+            )
+        },
+        ReportableFilter::class createVia { _ ->
+            FailingProofsAndOthers
+        },
+        TextIconStyler::class createSingletonVia { c ->
+            DefaultTextIconStyler(c.build())
+        },
+        TextStyler::class createSingletonVia { c ->
+            DefaultTextStyler(c.build())
+        },
+        TextThemeProvider::class createSingletonVia {
+            DefaultAnsi8ColoursThemeProvider()
+        },
+        TextObjFormatter::class createVia { c ->
+            DefaultTextObjFormatter(c.build())
+        },
+
         //TODO 2.0.0 remove
         @Suppress("DEPRECATION")
         AssertionFormatterController::class createVia { _ ->
@@ -181,7 +205,18 @@ internal object DefaultComponentFactoryContainer : ComponentFactoryContainer by 
     ),
 
 
-    mapOf(
+    chainedComponents = mapOf(
+        TextPreRenderer::class createChainVia sequenceOf(
+            { _ -> DefaultSimpleProofTextPreRenderer() },
+            { c -> DefaultFeatureProofGroupTextPreRenderer(c.build()) },
+            { _ -> DefaultRootProofGroupTextPreRenderer() },
+            { c -> DefaultIconPreRenderer(c.build()) },
+            { _ -> DefaultTextElementTextPreRenderer() },
+        ),
+        TextDesignationPreRenderer::class createChainVia sequenceOf(
+            { c -> DefaultInlineDesignatorPreRenderer(c.build()) }
+        ),
+
         //TODO 2.0.0 remove
         @Suppress("DEPRECATION")
         TextAssertionFormatterFactory::class createChainVia

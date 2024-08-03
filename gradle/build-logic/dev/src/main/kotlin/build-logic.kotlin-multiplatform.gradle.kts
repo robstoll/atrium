@@ -1,21 +1,22 @@
 plugins {
     id("build-logic.kotlin-multiplatform-conventions")
     id("build-logic.kotlin-jvm-conventions")
-    id("ch.tutteli.gradle.plugins.spek")
+//TODO 1.3.0 activate again
+//    id("ch.tutteli.gradle.plugins.spek")
 }
 
 if (name != "atrium-specs") {
     apply(plugin = "ch.tutteli.gradle.plugins.kotlin.module.info")
 }
 
-
-val spekVersion: String by rootProject.extra
-
-spek {
-    if (rootProject.name != "gradle-kotlin-dsl-accessors") {
-        version = spekVersion
-    }
-}
+//TODO 1.3.0 activate again
+//val spekVersion: String by rootProject.extra
+//
+//spek {
+//    if (rootProject.name != "gradle-kotlin-dsl-accessors") {
+//        version = spekVersion
+//    }
+//}
 
 //TODO 1.4.0 remove once we moved away from spec to kotlin-test
 if (name == "atrium-logic" || name == "atrium-verbs" || name == "atrium-verbs-internal") {

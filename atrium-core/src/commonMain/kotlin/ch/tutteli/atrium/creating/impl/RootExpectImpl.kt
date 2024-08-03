@@ -57,14 +57,9 @@ internal class RootExpectImpl<T>(
     override fun append(proof: Proof): Expect<T> {
         proofs.add(proof)
         if (!proof.holds()) {
-            val root = Proof.rootGroup(expectationVerb, representation, proofs)
+            val rootProofGroup = Proof.rootGroup(expectationVerb, representation, proofs)
 
-            val sb = StringBuilder()
-
-            //TODO 1.3.0 this fails at runtime as root is not an Assertion
-            // switch to new proof based reporter and remove suppress
-            @Suppress("DEPRECATION")
-            components.build<Reporter>().format(root as ch.tutteli.atrium.assertions.Assertion, sb)
+            val sb = components.build<Reporter>().createReport(rootProofGroup)
 
             throw AtriumError.create(sb.toString(), assertionGroup, components.build<AtriumErrorAdjuster>())
         }

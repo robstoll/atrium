@@ -56,4 +56,7 @@ data class Some<T>(val value: T) : Option<T>()
 /**
  * Represents an absent value in terms of [Option].
  */
-object None : Option<Nothing>()
+//TODO 3.0.0 (once we require at least kotlin 1.9) switch to data object
+object None : Option<Nothing>() {
+    override fun toString(): String = "None"
+}

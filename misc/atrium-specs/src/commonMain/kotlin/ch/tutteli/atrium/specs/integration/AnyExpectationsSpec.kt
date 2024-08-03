@@ -2,18 +2,17 @@ package ch.tutteli.atrium.specs.integration
 
 import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.internal.expect
-import ch.tutteli.atrium.assertions.DescriptiveAssertion
 import ch.tutteli.atrium.core.polyfills.format
 import ch.tutteli.atrium.core.polyfills.fullName
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic.utils.expectLambda
 import ch.tutteli.atrium.reporting.Text
-import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionAnyProof
 import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionAnyProof.*
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.specs.integration.MapLikeToContainSpecBase.Companion.separator
 import ch.tutteli.atrium.translations.DescriptionAnyExpectation
-import ch.tutteli.atrium.translations.DescriptionComparableExpectation.*
+import ch.tutteli.atrium.translations.DescriptionComparableExpectation.TO_BE_GREATER_THAN
+import ch.tutteli.atrium.translations.DescriptionComparableExpectation.TO_BE_LESS_THAN
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.Suite
 import kotlin.reflect.KClass

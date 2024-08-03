@@ -14,20 +14,3 @@ interface ReportableGroup : Reportable {
     // children
     val children: List<Reportable>
 }
-
-//TODO 1.3.0 add KDOC and move to own file
-interface ReportableGroupWithDesignation : ReportableGroup {
-
-    /**
-     * The description of the group.
-     */
-    val description: InlineElement
-
-    /**
-     * A complementing representation to the [description] -- typically the subject for which the [children]
-     * are defined.
-     *
-     * For instance, if the description is `index 0` then the representation shows what is at index 0.
-     */
-    val representation: Any
-}
