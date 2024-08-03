@@ -9,15 +9,8 @@ import ch.tutteli.atrium.reporting.reportables.TextElement
  * @property string The string which should be treated as raw [String].
  * @param string The string which should be treated as raw [String].
  */
-//TODO 2.0.0 remove data, change toString, use Text(string)
+//TODO 2.0.0 remove data
 data class Text private constructor(override val string: String) : TextElement {
-
-    /**
-     * @suppress No need to document this behaviour.
-     */
-    override fun toString(): String {
-        return "$string (Text)"
-    }
 
     companion object {
 

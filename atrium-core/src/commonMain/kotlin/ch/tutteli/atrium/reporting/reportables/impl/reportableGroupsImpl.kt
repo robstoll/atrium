@@ -1,16 +1,13 @@
 package ch.tutteli.atrium.reporting.reportables.impl
 
 import ch.tutteli.atrium.creating.proofs.Proof
-import ch.tutteli.atrium.reporting.reportables.InlineElement
-import ch.tutteli.atrium.reporting.reportables.Reportable
-import ch.tutteli.atrium.reporting.reportables.ReportableGroup
-import ch.tutteli.atrium.reporting.reportables.ReportableGroupWithDesignation
+import ch.tutteli.atrium.reporting.reportables.*
 
 internal class DefaultReportableGroup(
-    override val description: InlineElement,
+    override val description: Reportable,
     override val representation: Any,
     override val children: List<Reportable>
-) : ReportableGroupWithDesignation
+) : ReportableGroup, ReportableWithDesignation
 
 internal class DefaultProofExplanation(
     proof: Proof
@@ -26,7 +23,7 @@ internal class DefaultUsageHintGroup(
 
 //TODO 1.3.0 several implementations vs. a group type.
 internal class DefaultDebugGroup(
-    val description: InlineElement,
+    val description: Reportable,
     override val children: List<Reportable>
 ) : ReportableGroup
 

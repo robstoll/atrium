@@ -1,14 +1,10 @@
 package ch.tutteli.atrium.creating.proofs
 
 import ch.tutteli.atrium.creating.proofs.impl.*
-import ch.tutteli.atrium.creating.proofs.impl.DefaultFixedClaimGroup
-import ch.tutteli.atrium.creating.proofs.impl.DefaultInvisibleProofGroup
-import ch.tutteli.atrium.creating.proofs.impl.DefaultProofGroup
-import ch.tutteli.atrium.creating.proofs.impl.DefaultSimpleProof
-import ch.tutteli.atrium.creating.proofs.impl.RepresentationOnlyProofImpl
+import ch.tutteli.atrium.reporting.Text
 import ch.tutteli.atrium.reporting.reportables.InlineElement
 import ch.tutteli.atrium.reporting.reportables.Reportable
-import ch.tutteli.atrium.reporting.Text
+import ch.tutteli.atrium.reporting.reportables.ReportableWithInlineDesignation
 
 /**
  * The base interface of all proofs, providing the method [holds].
@@ -59,3 +55,5 @@ interface Proof : Reportable {
 
     }
 }
+
+interface SimpleProof : Proof, ReportableWithInlineDesignation
