@@ -20,7 +20,7 @@ import ch.tutteli.atrium.reporting.translating.Translatable
 internal class BasicDescriptiveAssertion(
     override val description: Translatable,
     override val representation: Any,
-    private val test: () -> Boolean
+    val test: () -> Boolean
 ) : DescriptiveAssertion {
 
     override fun holds() = test()

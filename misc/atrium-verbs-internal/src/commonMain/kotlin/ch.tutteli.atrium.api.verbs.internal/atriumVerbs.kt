@@ -6,12 +6,14 @@ import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
 import ch.tutteli.atrium.creating.*
 import ch.tutteli.atrium.logic._logic
 import ch.tutteli.atrium.logic.creating.RootExpectBuilder
+import ch.tutteli.atrium.logic.creating.withComponent
 import ch.tutteli.atrium.logic.manualFeature
 import ch.tutteli.atrium.logic.toAssertionCreator
 import ch.tutteli.atrium.logic.toExpectGrouping
 import ch.tutteli.atrium.reporting.AtriumErrorAdjuster
 import ch.tutteli.atrium.reporting.Text
 import ch.tutteli.atrium.reporting.erroradjusters.MultiAtriumErrorAdjuster
+import ch.tutteli.atrium.reporting.erroradjusters.NoOpAtriumErrorAdjuster
 import ch.tutteli.atrium.reporting.erroradjusters.RemoveAtriumFromAtriumError
 import ch.tutteli.atrium.reporting.erroradjusters.RemoveRunnerFromAtriumError
 import ch.tutteli.atrium.testfactories.TestFactoryBuilder
@@ -23,13 +25,14 @@ fun <T> expect(subject: T): RootExpect<T> =
     RootExpectBuilder.forSubject(subject)
         .withVerb("I expected subject")
         .withOptions {
-            withComponent(AtriumErrorAdjuster::class) { c ->
-                MultiAtriumErrorAdjuster(
-                    c.build<RemoveRunnerFromAtriumError>(),
-                    RemoveAtriumButNotAtriumSpecsFromAtriumErrorImpl(),
-                    otherAdjusters = emptyList()
-                )
-            }
+            withComponent(AtriumErrorAdjuster::class){ NoOpAtriumErrorAdjuster }
+//            withComponent(AtriumErrorAdjuster::class) { c ->
+//                MultiAtriumErrorAdjuster(
+//                    c.build<RemoveRunnerFromAtriumError>(),
+//                    RemoveAtriumButNotAtriumSpecsFromAtriumErrorImpl(),
+//                    otherAdjusters = emptyList()
+//                )
+//            }
         }
         .build()
 

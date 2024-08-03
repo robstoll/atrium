@@ -43,7 +43,7 @@ abstract class BaseBuilder<
     fun <R : Reportable> add(r: R): R = r.also { reportables.add(it) }
     fun addAll(reportables: List<Reportable>): Unit = reportables.forEach(this::add)
 
-    fun <R : Reportable> _domain(proofCreator: ProofContainer<SubjectT>.() -> R): R =
+    fun <R : Reportable> _core(proofCreator: ProofContainer<SubjectT>.() -> R): R =
         add(proofContainer.proofCreator())
 
     fun simpleProof(description: InlineElement, representation: Any?, test: (SubjectT) -> Boolean): Proof =

@@ -1,15 +1,16 @@
 package ch.tutteli.atrium.creating.proofs.impl
 
+import ch.tutteli.atrium.creating.proofs.SimpleProof
 import ch.tutteli.atrium.reporting.reportables.InlineElement
 
 internal class DefaultSimpleProof(
-    val description: InlineElement,
-    val representation: Any,
+    override val description: InlineElement,
+    override val representation: Any,
     test: () -> Boolean
-) : TestBasedProof(test) {
+) : TestBasedProof(test), SimpleProof {
 
     /**
      * @suppress
      */
-    override fun toString() = "$description: $representation (holds=${holds()})"
+    override fun toString() = "DefaultSimpleProof (holds=${holds()}): $description: $representation "
 }

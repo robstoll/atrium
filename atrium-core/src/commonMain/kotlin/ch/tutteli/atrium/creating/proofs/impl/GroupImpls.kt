@@ -1,10 +1,9 @@
 package ch.tutteli.atrium.creating.proofs.impl
 
-import ch.tutteli.atrium.creating.proofs.Proof
-import ch.tutteli.atrium.creating.proofs.ProofGroup
+import ch.tutteli.atrium.creating.proofs.*
 import ch.tutteli.atrium.reporting.reportables.InlineElement
 import ch.tutteli.atrium.reporting.reportables.Reportable
-import ch.tutteli.atrium.reporting.reportables.ReportableGroupWithDesignation
+import ch.tutteli.atrium.reporting.reportables.ReportableWithDesignation
 
 internal abstract class MemoizingHoldsProofGroup(override val children: List<Reportable>) : ProofGroup {
     init {
@@ -24,7 +23,7 @@ internal abstract class BaseProofGroup(
     override val description: InlineElement,
     override val representation: Any,
     children: List<Reportable>
-) : MemoizingHoldsProofGroup(children), ReportableGroupWithDesignation {
+) : MemoizingHoldsProofGroup(children), ReportableWithDesignation {
     //TODO 1.3.0 override toString? checkout AssertionGroup impl.
 
 }
@@ -33,7 +32,7 @@ internal class DefaultRootGroup(
     expectationVerb: InlineElement,
     representation: Any,
     children: List<Reportable>
-) : BaseProofGroup(expectationVerb, representation, children)
+) : BaseProofGroup(expectationVerb, representation, children), RootProofGroup
 
 internal class DefaultProofGroup(
     description: InlineElement,
@@ -45,11 +44,11 @@ internal class DefaultFeatureGroup(
     description: InlineElement,
     representation: Any,
     children: List<Reportable>
-) : BaseProofGroup(description, representation, children)
+) : BaseProofGroup(description, representation, children), FeatureProofGroup
 
 internal class DefaultInvisibleProofGroup(
     children: List<Reportable>
-) : MemoizingHoldsProofGroup(children) {
+) : MemoizingHoldsProofGroup(children), InvisibleProofGroup {
 
     /**
      * @suppress No need to document this behaviour.
