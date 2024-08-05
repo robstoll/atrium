@@ -947,7 +947,7 @@ I expected subject: null
 On one hand, you can use `toEqual` and pass the same type -- 
 `String?` in the above example, so in other words either `null` as in the first example or a `String` as in the second example.
 On the other hand, you can use `notToEqualNull` to turn the subject into its non-null version.
-This is a shortcut for `toBeAnInstanceOf<Xy>` where `Xy` is the non-nullable type (see [Type Expectations](#type-expectations)).
+
 Following an example:
 
 <ex-nullable-3>
@@ -965,7 +965,7 @@ I expected subject: null
 ```
 </ex-nullable-3>
 
-Since `notToEqualNull` delegates to `toBeAnInstanceOf`, it also provides two overloads: 
+`notToEqualNull` provides two overloads: 
 one without (example above) and one with `assertionCreator`-lambda (example below); see 
 [Type Expectations](#type-expectations) for more information on the difference of the overloads.
 
@@ -1084,7 +1084,7 @@ This makes of course only sense if your `Iterable` contains nullable elements.
 
 Atrium provides also a `notToContain` shortcut function. 
 Furthermore, it provides aliases for `toContain` and `notToContain` named `toHaveElementsAndAny` and 
-`toHaveElementsAndNone`, which might be a better choice if you think in terms of: expect a predicate holds. 
+`toHaveElementsAndNone`, which might be a better choice if you think in terms of: I expect a predicate holds. 
 These two are completed with an `toHaveElementsAndAll` expectation function.
 
 Following each in action:
@@ -1183,7 +1183,7 @@ I expected subject: [1, 2, 2, 4]        (java.util.Arrays.ArrayList <1234789>)
 
 Since we have chosen the `only` option, Atrium shows us a summary<sup><a href="#in-order-only-summary">1</a></sup> where we see three things:
 - Whether a specified `assertionCreator`-lambda matched (signified by `✔` or `✘`) 
-  the corresponding element or not (e.g. `✘ ▶ entry 1:` was `2` and we expected, it `to be less than 2`)
+  the corresponding element or not (e.g. `✘ ▶ element 1:` was `2` and we expected, it `to be less than 2`)
 - Whether the expected size was correct or not (`✘ ▶ size:` was `4`, we expected it, `to equal: 2`
 - and last but not least, mismatches or additional elements as further clue (`❗❗ additional elements detected`).
 
@@ -1191,7 +1191,7 @@ Since we have chosen the `only` option, Atrium shows us a summary<sup><a href="#
 Please star Atrium if you like using it.
 
 <a name="in-order-only-summary"></a>
-<sup>1</sup> Atrium shows a summary up to 10 elements, if the Iterable contains more elements, 
+<sup>1</sup> Atrium shows a summary if we expect up to 10 elements, if we expect more elements, 
 then only failing expectations are shown.
 
 <details>
