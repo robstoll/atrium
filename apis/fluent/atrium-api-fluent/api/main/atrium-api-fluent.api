@@ -518,6 +518,13 @@ public final class ch/tutteli/atrium/api/fluent/en_GB/SequenceSubjectChangersKt 
 	public static final fun asList (Lch/tutteli/atrium/creating/Expect;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/creating/Expect;
 }
 
+public final class ch/tutteli/atrium/api/fluent/en_GB/SqlExceptionFeatureExtractorsKt {
+	public static final fun errorCode (Lch/tutteli/atrium/creating/Expect;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/creating/Expect;
+	public static final fun getErrorCode (Lch/tutteli/atrium/creating/Expect;)Lch/tutteli/atrium/creating/FeatureExpect;
+	public static final fun getSqlState (Lch/tutteli/atrium/creating/Expect;)Lch/tutteli/atrium/creating/FeatureExpect;
+	public static final fun sqlState (Lch/tutteli/atrium/creating/Expect;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/creating/Expect;
+}
+
 public final class ch/tutteli/atrium/api/fluent/en_GB/ThirdPartyExpectationsKt {
 	public static final fun toHoldThirdPartyExpectation (Lch/tutteli/atrium/creating/Expect;Ljava/lang/String;Ljava/lang/Object;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/creating/Expect;
 }
