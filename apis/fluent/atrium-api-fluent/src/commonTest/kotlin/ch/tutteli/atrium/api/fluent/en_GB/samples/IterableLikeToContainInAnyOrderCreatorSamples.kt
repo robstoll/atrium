@@ -19,6 +19,19 @@ class IterableLikeToContainInAnyOrderCreatorSamples {
     }
 
     @Test
+    fun values(){
+        expect(listOf("A","B")).toContain.inAnyOrder.exactly(1).values("B", "A")
+        expect(listOf("A","B","A","B")).toContain.inAnyOrder.atLeast(2).values("B", "A")
+        expect(listOf("A","B","B")).toContain.inAnyOrder.atMost(2).values("B", "A")
+
+        fails {
+            expect(listOf("A","B")).toContain.inAnyOrder.exactly(2).values("B", "A")
+            expect(listOf("A","B","A","B")).toContain.inAnyOrder.atLeast(3).values("B", "A")
+            expect(listOf("A","B","B","B")).toContain.inAnyOrder.atMost(2).values("B", "A")
+        }
+    }
+
+    @Test
     fun elementsOf(){
         expect(listOf("A","B")).toContain.inAnyOrder.exactly(1).elementsOf(listOf("A","B"))
         expect(listOf("A","B","A","B")).toContain.inAnyOrder.atLeast(2).elementsOf(listOf("A","B"))
