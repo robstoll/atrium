@@ -17,6 +17,8 @@ import ch.tutteli.atrium.reporting.text.*
 import ch.tutteli.atrium.reporting.text.TextObjectFormatter
 import ch.tutteli.atrium.reporting.text.impl.*
 import ch.tutteli.atrium.reporting.translating.*
+import com.github.ajalt.mordant.rendering.AnsiLevel
+import com.github.ajalt.mordant.terminal.Terminal
 import kotlin.reflect.KClass
 
 
@@ -130,16 +132,23 @@ internal object DefaultComponentFactoryContainer : ComponentFactoryContainer by 
             FailingProofsAndOthers
         },
         TextIconStyler::class createSingletonVia { c ->
-            DefaultTextIconStyler(c.build())
+            DefaultTextIconStyler(c.build(), c.build())
         },
         TextStyler::class createSingletonVia { c ->
             DefaultTextStyler(c.build())
         },
-        TextThemeProvider::class createSingletonVia {
-            DefaultAnsi8ColoursThemeProvider()
+        TextThemeProvider::class createSingletonVia { c ->
+            // TODO 1.3.0 would need to detect if ANSI is supported
+            DefaultThemeProvider(c.build())
         },
         TextObjFormatter::class createVia { c ->
             DefaultTextObjFormatter(c.build())
+        },
+        Utf8SupportDeterminer::class createVia { c ->
+            MordantBasedUtf8SupportDeterminer(c.build())
+        },
+        Terminal::class createVia { _ ->
+            Terminal(ansiLevel = AnsiLevel.TRUECOLOR)
         },
 
         //TODO 2.0.0 remove

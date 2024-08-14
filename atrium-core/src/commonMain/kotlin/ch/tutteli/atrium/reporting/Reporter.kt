@@ -12,8 +12,9 @@ import ch.tutteli.atrium.creating.proofs.Proof
 import ch.tutteli.atrium.creating.proofs.RootProofGroup
 import ch.tutteli.atrium.creating.proofs.SimpleProof
 import ch.tutteli.atrium.reporting.reportables.*
-import ch.tutteli.kbox.forEachRemaining
 import ch.tutteli.kbox.takeIf
+import com.github.ajalt.mordant.rendering.*
+import com.github.ajalt.mordant.terminal.Terminal
 import kotlin.reflect.KClass
 
 /**
@@ -129,7 +130,7 @@ class DefaultTextReporter(
         if (rootNodes.size != 1) throw IllegalStateException(
             "the transformation of the root reportable (in this case a ${
                 reportable::class.fullName(reportable)
-            } should always result in one ${OutputNode::class.simpleName}"
+            } should always result in one ${OutputNode::class.simpleName}, was ${rootNodes.size}"
         )
         val rootNode = rootNodes[0]
         val sb = StringBuilder()
@@ -137,76 +138,162 @@ class DefaultTextReporter(
         return sb
     }
 
-    private fun format(outputNode: OutputNode, indentLevels: List<Int>, sb: StringBuilder) {
-        val maxLengths = calculateMaxLengths(outputNode)
+    private fun format(outputNode: OutputNode, indentLevels: List<Int>, sb: StringBuilder) =
+        format(outputNode, indentLevels, sb, calculateMaxLengths(outputNode))
+
+
+    private fun format(outputNode: OutputNode, indentLevels: List<Int>, sb: StringBuilder, maxLengths: List<Int>) {
+
+        fun indentWithSpaces(untilColumn: Int) {
+            (0 until untilColumn).forEach { i ->
+                sb.appendSpaces(maxLengths[i])
+            }
+        }
+
         fun appendColumns(node: OutputNode) {
             val columns = node.columns
             val size = columns.size
             if (size > 0) {
                 val indentLevel = node.indentLevel
-                val span = node.span
+                val mergeColumns = node.mergeColumns
 
                 (0 until indentLevel).forEach { i ->
-                    val s = columns[i]
-                    sb.append(s.padEnd(indentLevels[i]))
+                    val styledString = columns[i]
+                    //TODO what about wrapping throw an error as well?
+                    sb.append(styledString.pad(indentLevels[i]))
                 }
-                val startIndex = if (span > 0) {
+                val startIndex = if (mergeColumns > 0) {
                     var additionalPadding = 0
                     var index = indentLevel
-                    repeat(span) {
-                        val s = columns[index]
-                        sb.append(s.result())
-                        additionalPadding += maxLengths[index] - s.unstyled.length
+                    repeat(mergeColumns) {
+                        val styledString = columns[index]
+                        checkIsNoWrapDueToMergeColumns(styledString)
+                        sb.append(styledString.result())
+                        additionalPadding += maxLengths[index] - styledString.unstyled.length
                         ++index
                     }
-                    val s = columns[index]
-                    sb.append(s.padEnd(additionalPadding + maxLengths[index] + indentLevels.drop(indentLevel).sum()))
+
+                    val styledString = columns[index]
+                    checkIsNoWrapDueToMergeColumns(styledString)
+                    sb.append(
+                        styledString.pad(
+                            additionalPadding + maxLengths[index] + indentLevels.asSequence().drop(indentLevel).sum()
+                        )
+                    )
                     ++index
                 } else {
                     indentLevel
                 }
                 (startIndex until size - 1).forEach { i ->
-                    val s = columns[i]
-                    sb.append(s.padEnd(maxLengths[i]))
+                    val styledString = columns[i]
+                    if (styledString.noWrap) {
+                        sb.append(styledString.pad(maxLengths[i]))
+                    } else {
+                        val lines = styledString.unstyled.split(Regex("\r\n|\n"))
+                        if (lines.size == 1) {
+                            // no newline, we can just pad the styledString
+                            sb.append(styledString.pad(maxLengths[i]))
+                        } else {
+                            val styledLines = styledString.maybeStyled.fold(
+                                {
+                                    lines.asSequence().map { it.noStyle() }
+                                },
+                                {
+                                    it.split('\n').asSequence().zip(lines.asSequence()).map { (styled, unstyled) ->
+                                        StyledString(
+                                            unstyled,
+                                            Some(styled),
+                                            noWrap = true,
+                                            align = styledString.align,
+                                        )
+                                    }
+                                }
+                            )
+                            sb.append(styledLines.first().pad(maxLengths[i]))
+                            styledLines.drop(1).forEach { styledLine ->
+                                sb.appendln()
+                                indentWithSpaces(indentLevel + i)
+                                sb.append(styledLine.pad(maxLengths[i]))
+                            }
+                        }
+                    }
                 }
-                sb.append(columns[size - 1].result())
+                val lastColumn = columns[size - 1]
+                if (lastColumn.noWrap) {
+                    sb.append(lastColumn.result())
+                } else {
+                    val lines = lastColumn.result().split(Regex("\r\n|\n"))
+                    sb.append(lines.first())
+                    lines.drop(1).forEach { line ->
+                        sb.appendln()
+                        indentWithSpaces(indentLevel + size - 1)
+                        sb.append(line)
+                    }
+                }
             }
         }
+
         appendColumns(outputNode)
         outputNode.children.forEach { child ->
             sb.appendln()
             if (child.definesOwnLevel) {
                 format(child, indentLevels + maxLengths.drop(indentLevels.size).first(), sb)
             } else {
-                appendColumns(child)
+                format(child, indentLevels, sb, maxLengths)
             }
         }
     }
 
+    private fun StyledString.getUnstyledLengthTakingWrappingIntoAccount() =
+        if (noWrap) unstyled.length
+        else unstyled.split("\n").maxOf { it.length }
+
     private fun calculateMaxLengths(node: OutputNode): List<Int> {
         val maxLengths = mutableListOf<Int>()
-        fun updateMaxLengths(child: OutputNode) {
-            //TODO take span into account. Is not 100% correct yet.
-            // e.g. `expected that subject` = 20, first column is empty
-            // there is no need to pad `expected that subject` with 22 in this particular case because 20 is the longest
-            // and no child is longer than 20 combining column 1 + 2
+
+        fun updateMaxLengthsIfNecessary(index: Int, length: Int) {
             val currentSize = maxLengths.size
-            child.columns.forEachIndexed { index, s ->
-                val length = s.unstyled.length
-                if (index < currentSize) {
-                    if (maxLengths[index] < length) {
-                        maxLengths[index] = length
-                    }
-                } else {
-                    maxLengths.add(index, length)
+            if (index < currentSize) {
+                if (maxLengths[index] < length) {
+                    maxLengths[index] = length
                 }
+            } else {
+                maxLengths.add(index, length)
             }
         }
-        updateMaxLengths(node)
+
+        fun updateMaxLengths(columns: Iterable<IndexedValue<StyledString>>) {
+            columns.forEach { (index, styledString) ->
+                updateMaxLengthsIfNecessary(index, styledString.getUnstyledLengthTakingWrappingIntoAccount())
+            }
+        }
+
+        fun updateMaxLengths(child: OutputNode) =
+            updateMaxLengths(child.columns.withIndex())
+
         node.children
             .asSequence()
             .filterNot { it.definesOwnLevel }
             .forEach(::updateMaxLengths)
+
+        // we are still interested in the first column of children which define an own level as the prefix (which is
+        // the first column) still counts towards the alignment of this node
+        node.children.asSequence()
+            .filter { it.definesOwnLevel }
+            .map { it.columns.asSequence().withIndex().first() }
+            .forEach { updateMaxLengths(listOf(it)) }
+
+        val (mergedColumns, rest) = node.columns.withIndex().partition { it.index <= node.mergeColumns }
+
+        val (lastIndex, lastStyledString) = mergedColumns.last()
+        val mergedLength = mergedColumns
+            .take(mergedColumns.size - 1)
+            .sumOf { (index, value) -> value.unstyled.length - maxLengths[index] } +
+            lastStyledString.unstyled.length
+
+        updateMaxLengthsIfNecessary(lastIndex, mergedLength)
+        updateMaxLengths(rest)
+
         return maxLengths
     }
 }
@@ -270,14 +357,15 @@ data class OutputNode(
     val children: List<OutputNode>,
     val definesOwnLevel: Boolean,
     val indentLevel: Int = 0,
-    val span: Int = 0,
+    val mergeColumns: Int = 0,
     val usesOwnPrefix: Boolean = false
 ) {
     init {
         require(columns.isNotEmpty() || children.isNotEmpty()) { "at least one of columns/children needs to have elements" }
-        require(span < columns.size) { "cannot span more than available columns. span: $span, columns size: ${columns.size}" }
+        require(mergeColumns < columns.size) { "cannot merge more than available columns - 1. mergeColumns: $mergeColumns, columns size: ${columns.size}" }
     }
 
+    //TODO 1.3.0 remove again?
     companion object {
         fun singleInline(vararg columns: StyledString) = singleInline(columns.asList())
         fun singleInline(columns: List<StyledString>) = listOf(inline(columns))
@@ -287,73 +375,84 @@ data class OutputNode(
 }
 
 
-interface ThemeProvider
+interface ThemeProvider {
+    fun render(s: String, styleId: String): String?
+}
 
 interface TextThemeProvider : ThemeProvider {
-
-    fun findColorCode(styleId: String): String?
-
-    @Deprecated(
-        "use findColorCode instead to give the return value more meaning",
-        ReplaceWith("findColorCode(styleId)")
-    )
-    fun findStyle(styleId: String): String? = findColorCode(styleId)
+    val supportsAnsi: Boolean
 }
 
-abstract class MapBasedTextThemeProvider : TextThemeProvider {
-    protected abstract val styleIdToColorCode: Map<String, String>
+abstract class MordantBasedThemeProvider(
+    private val terminal: Terminal
+) : TextThemeProvider {
+    protected abstract val styleIdToTextStyle: Map<String, TextStyle>
 
-    override fun findColorCode(styleId: String): String? = styleIdToColorCode[styleId]
+    override val supportsAnsi: Boolean = terminal.info.ansiLevel != AnsiLevel.NONE
+
+    override fun render(s: String, styleId: String): String? =
+        styleIdToTextStyle[styleId]?.let { textStyle ->
+            val spans = mutableListOf<Span>()
+            var startIndex = 0
+            var result = wordWithPossibleWhitespaceRegex.find(s, startIndex)
+            while (result != null) {
+                val word = result.groupValues[1]
+                val space = result.groupValues.getOrNull(2)
+                spans.add(Span.word(word, textStyle))
+                space?.also {
+                    spans.add(Span.space(it.length))
+                }
+                startIndex += word.length + (space?.length ?: 0)
+                result = wordWithPossibleWhitespaceRegex.find(s, startIndex)
+            }
+            terminal.render(Lines(listOf(Line(spans))))
+        }
+
+    companion object {
+        val wordWithPossibleWhitespaceRegex = Regex("(\\S+)(\\s*)")
+    }
 }
 
-class DefaultAnsi8ColoursThemeProvider : MapBasedTextThemeProvider() {
-    override val styleIdToColorCode = mapOf(
-        Style.SUCCESS.styleId to "\u001b[32m",
-        Style.FAILURE.styleId to "\u001b[31m",
-        Style.INFORMATION_SOURCE.styleId to "\u001b[1m\u001b[94m",
-        Style.BULB.styleId to "\u001B[1m\u001b[33;1m"
+class DefaultThemeProvider(terminal: Terminal) : MordantBasedThemeProvider(terminal) {
+    override val styleIdToTextStyle: Map<String, TextStyle> = mapOf(
+        Style.BULB.styleId to TextStyle(TextColors.yellow, bold = true),
+        Style.DEBUG_INFO.styleId to TextColors.blue,
+        Style.FAILURE.styleId to TextColors.red,
+        Style.FEATURE.styleId to TextColors.cyan,
+        Style.INFORMATION_SOURCE.styleId to TextStyle(TextColors.brightBlue, bold = true),
+        Style.SUCCESS.styleId to TextColors.green,
     )
 }
 
 enum class Style(val styleId: String) {
-    SUCCESS("SUCCESS"),
+    BULB("BULB"),
+    DEBUG_INFO("DEBUG_INFO"),
     FAILURE("FAILURE"),
+    FEATURE("FEATURE"),
     INFORMATION_SOURCE("INFORMATION_SOURCE"),
-    BULB("BULB")
+    SUCCESS("SUCCESS"),
 }
 
 interface TextStyler {
-    fun supportsAnsi(): Boolean
     fun style(s: String, maybeStyle: Option<Style>, noWrap: Boolean = true): StyledString =
         maybeStyle.fold({ s.noStyle(noWrap) }) { style(s, it, noWrap) }
 
-    fun style(s: String, style: Style, noWrap: Boolean = true): StyledString
+    fun style(s: String, style: Style, noWrap: Boolean = true): StyledString =
+        style(s, style.styleId, noWrap)
+
     fun style(s: String, styleId: String, noWrap: Boolean = true): StyledString
 }
 
+
 class DefaultTextStyler(
-    private val textThemeProvider: TextThemeProvider
+    private val textThemeProvider: TextThemeProvider,
 ) : TextStyler {
 
-    private val couldSupportAnsi by lazy {
-        true // System.console() != null
-    }
-
-    override fun supportsAnsi(): Boolean = couldSupportAnsi
-
-    override fun style(s: String, style: Style, noWrap: Boolean): StyledString =
-        style(s, style.styleId, noWrap)
-
     override fun style(s: String, styleId: String, noWrap: Boolean): StyledString {
-        val maybeStyled = takeIf(couldSupportAnsi) {
-            textThemeProvider.findStyle(styleId)?.let { colorCode -> Some(colorCode + s + RESET) }
+        val maybeStyled = takeIf(textThemeProvider.supportsAnsi) {
+            textThemeProvider.render(s, styleId)?.let { Some(it) }
         } ?: None
         return StyledString(s, noWrap = noWrap, maybeStyled = maybeStyled)
-    }
-
-
-    companion object {
-        const val RESET = "\u001B[0m"
     }
 }
 
@@ -364,52 +463,142 @@ enum class HorizontalAlignment {
     RIGHT,
 }
 
-data class StyledString(
-    val unstyled: String,
-    val maybeStyled: Option<String>,
-    val span: Int = 0,
-    val noWrap: Boolean = true,
-    //TODO take this one into account as well
-    val align: HorizontalAlignment = HorizontalAlignment.LEFT
-) {
 
-    override fun toString(): String = "SS(u=$unstyled)"
+interface StyledString {
+    val unstyled: String
+    val maybeStyled: Option<String>
+    val noWrap: Boolean
+    val align: HorizontalAlignment
+    fun result(): String
 
-    fun result(): String {
+    fun withNoWrap(): StyledString
+
+    companion object {
+        operator fun invoke(
+            unstyled: String,
+            maybeStyled: Option<String>,
+            noWrap: Boolean = true,
+            align: HorizontalAlignment = HorizontalAlignment.LEFT,
+        ): StyledString = DefaultStyledString(
+            unstyled = unstyled,
+            maybeStyled = maybeStyled,
+            noWrap = noWrap,
+            align = align,
+        )
+
+        val EMPTY_STRING = object : StyledString {
+            override val unstyled: String = ""
+            override val maybeStyled: Option<String> = None
+            override val noWrap: Boolean = true
+            override val align: HorizontalAlignment = HorizontalAlignment.LEFT
+
+            override fun withNoWrap() = this
+            override fun result(): String = unstyled
+
+            override fun toString(): String = "SS()"
+        }
+    }
+}
+
+private fun checkIsNoWrapDueToMergeColumns(styledString: StyledString) {
+    if (styledString.noWrap.not()) {
+        throw UnsupportedOperationException("cannot merge columns and wrap at the same time, behaviour not defined yet, please open a feature request $BUG_REPORT_URL")
+    }
+}
+
+
+data class DefaultStyledString(
+    override val unstyled: String,
+    override val maybeStyled: Option<String>,
+    override val noWrap: Boolean,
+    override val align: HorizontalAlignment,
+) : StyledString {
+
+    override fun toString(): String = "SS(u=$unstyled, nw=$noWrap, a=${align.name})"
+
+    override fun result(): String {
         val s = maybeStyled.getOrElse { unstyled }
         return replaceWrap(s)
     }
 
-    private fun replaceWrap(s: String) =
-        if (noWrap) s.replace('\n', ' ') else s
+//    override operator fun plus(s: StyledString): StyledString =
+//        DefaultStyledString(
+//        unstyled + s.unstyled,
+//        if (maybeStyled.isDefined() || s.maybeStyled.isDefined()) {
+//            Some(result() + s.result())
+//        } else {
+//            None
+//        }
+//    )
 
-    operator fun plus(s: StyledString) = StyledString(
-        unstyled + s.unstyled,
-        if (maybeStyled.isDefined() || s.maybeStyled.isDefined()) {
-            Some(result() + s.result())
-        } else {
-            None
+    override fun withNoWrap(): StyledString = if (this.noWrap) this else this.copy(noWrap = true)
+}
+
+fun String.noStyle(noWrap: Boolean = true): StyledString =
+    StyledString(this, None, noWrap = noWrap)
+
+fun StringBuilder.appendSpaces(numberOfSpaces: Int) = repeat(numberOfSpaces) { append(' ') }
+fun StyledString.pad(length: Int): String =
+    maybeStyled.fold(
+        {
+            val txt = replaceWrap(unstyled)
+            when (align) {
+                HorizontalAlignment.LEFT -> txt.padEnd(length)
+                HorizontalAlignment.CENTER -> txt.padStart(length / 2).padEnd(length)
+                HorizontalAlignment.RIGHT -> txt.padStart(length)
+            }
+        },
+        { styled ->
+            // Note, if someone should define ansi colours in the unstyled string -- for instance
+            // `Text("\u001b[31mred\u001b[0m")` -- then the length is wrong, i.e. we don't handle/support this for now
+            val unstyledLength = unstyled.length
+            val styleDiff = styled.length - unstyledLength
+            val sb = StringBuilder(length + styleDiff)
+            val pad = length - unstyledLength
+
+
+
+            when (align) {
+                HorizontalAlignment.LEFT -> {
+                    // no padding before
+                }
+
+                HorizontalAlignment.CENTER -> {
+                    // pad half before
+                    sb.appendSpaces(pad / 2)
+                }
+
+                HorizontalAlignment.RIGHT -> {
+                    // pad all before
+                    sb.appendSpaces(pad)
+                }
+            }
+
+            // append text as such
+            sb.append(replaceWrap(styled))
+
+            when (align) {
+                HorizontalAlignment.LEFT -> {
+                    // pad all after
+                    sb.appendSpaces(pad)
+                }
+
+                HorizontalAlignment.CENTER -> {
+                    // pad half after
+                    sb.appendSpaces(pad - (pad / 2))
+                }
+
+                HorizontalAlignment.RIGHT -> {
+                    // no padding after
+                }
+            }
+
+            sb.toString()
         }
     )
 
-    fun padEnd(length: Int): String =
-        maybeStyled.fold({ replaceWrap(unstyled).padEnd(length) }) { styled ->
-            val unstyledLength = unstyled.length
-            val styleDiff = styled.length - unstyledLength
-
-            val sb = StringBuilder(length + styleDiff)
-            sb.append(replaceWrap(styled))
-            repeat((length - unstyledLength)) { sb.append(' ') }
-            sb.toString()
-        }
-
-    companion object {
-        val EMPTY_STRING = "".noStyle()
-    }
-}
-
-fun String.noStyle(noWrap: Boolean = true): StyledString = StyledString(this, None, noWrap = noWrap)
-
+private fun StyledString.replaceWrap(s: String) =
+    if (noWrap) s.replace('\n', ' ') else s
 
 interface ReportableFilter {
     fun includeInReporting(reportable: Reportable): Boolean
@@ -468,11 +657,6 @@ interface PreRenderController {
 }
 
 interface TextPreRenderController : PreRenderController
-//
-//interface InlineElementPreRenderController{
-//    fun transformRoot(reportable: Reportable, controlObject: PreRenderControlObject): List<>
-//}
-//interface TextInlineElementPreRenderController: InlineElementPreRenderController
 
 
 class DefaultTextPreRenderController(
@@ -524,12 +708,14 @@ class DefaultTextPreRenderController(
         controlObject: PreRenderControlObject
     ): OutputNode {
         var list = ArrayList<StyledString>(controlObject.indentLevel + 1 + node.columns.size)
-        (0 until controlObject.indentLevel).forEach { i ->
+
+        // start inserting styled strings after indent..
+        var index = controlObject.indentLevel
+        // i.e. first add the indent in form of empty styled strings
+        (0 until index).forEach { i ->
             list.add(i, StyledString.EMPTY_STRING)
         }
-        // start inserting nodes after indent
-        var index = controlObject.indentLevel
-        val iterator = node.columns.iterator()
+
         fun addToList(styledString: StyledString) = list.add(index++, styledString)
 
         if (node.usesOwnPrefix.not()) {
@@ -538,65 +724,51 @@ class DefaultTextPreRenderController(
 
         var maybeNodes: Option<ArrayList<OutputNode>> = None
 
-        iterator.forEachRemaining {
-            if (it.noWrap) {
-                addToList(it)
-            } else {
-                val lines = it.result().split('\n')
-                if (lines.size == 1) {
-                    addToList(it)
-                } else {
-                    val nodes = ArrayList<OutputNode>(lines.size);
-                    lines.forEach { line ->
-                        addToList(line.noStyle())
-                        nodes.add(
-                            node.copy(
-                                columns = list,
-                                indentLevel = node.indentLevel + controlObject.indentLevel,
-                                children = emptyList(),
-                                definesOwnLevel = node.definesOwnLevel && nodes.isEmpty() && !maybeNodes.isDefined()
-                            )
-                        )
-                        // prepare for the next line, indent until we reach the same column
-                        --index
-                        val tmpList = ArrayList<StyledString>(controlObject.indentLevel + 1 + node.columns.size)
-                        repeat(list.size - 1) {
-                            tmpList.add(StyledString.EMPTY_STRING)
-                        }
-                        list = tmpList
-                    }
-                    maybeNodes = maybeNodes.fold({ Some(nodes) }, { existingNodes ->
-                        //side effect, addToExisting
-                        existingNodes.addAll(nodes)
-                        Some(existingNodes)
-                    })
-                }
-            }
+        node.columns.forEach { styledString ->
+            addToList(styledString)
+//            if (styledString.noWrap) {
+//                addToList(styledString)
+//            } else {
+//                val lines = styledString.result().split('\n')
+//                if (lines.size == 1) {
+//                    addToList(styledString)
+//                } else {
+//                    val nodes = ArrayList<OutputNode>(lines.size);
+//                    lines.forEach { line ->
+//                        addToList(line.noStyle())
+//                        nodes.add(
+//                            node.copy(
+//                                columns = list,
+//                                indentLevel = node.indentLevel + controlObject.indentLevel,
+//                                children = emptyList(),
+//                                definesOwnLevel = node.definesOwnLevel && nodes.isEmpty() && !maybeNodes.isDefined()
+//                            )
+//                        )
+//                        // prepare for the next line, indent until we reach the same column
+//                        --index
+//                        val tmpList = ArrayList<StyledString>(controlObject.indentLevel + 1 + node.columns.size)
+//                        repeat(list.size - 1) {
+//                            tmpList.add(StyledString.EMPTY_STRING)
+//                        }
+//                        list = tmpList
+//                    }
+//                    maybeNodes = maybeNodes.fold({ Some(nodes) }, { existingNodes ->
+//                        //side effect, addToExisting
+//                        existingNodes.addAll(nodes)
+//                        Some(existingNodes)
+//                    })
+//                }
+//            }
         }
 
-        return maybeNodes.fold({
-            node.copy(columns = list, indentLevel = node.indentLevel + controlObject.indentLevel)
-        }, { nodes ->
-            nodes.first().copy(children = nodes.drop(1) + node.children)
-        })
+//        return maybeNodes.fold({
+//            node.copy(columns = list, indentLevel = node.indentLevel + controlObject.indentLevel)
+//        }, { nodes ->
+//            nodes.first().copy(children = nodes.drop(1) + node.children)
+//        })
+        return node.copy(columns = list, indentLevel = node.indentLevel + controlObject.indentLevel)
     }
 }
-
-
-//interface InlineElementPreRenderController {
-//    fun transformRoot(reportable: Reportable): OutputNode
-//}
-//
-//interface TextInlineElementPreRenderController : InlineElementPreRenderController
-//
-//class DefaultTextInlineElementPreRenderController(
-//    private val preRenderers: Sequence<TextInlineElementPreRenderer>,
-//) : TextInlineElementPreRenderController{
-//    override fun transformRoot(reportable: Reportable): OutputNode {
-//        TODO("Not yet implemented")
-//    }
-//
-//}
 
 enum class Icon : InlineElement {
     BULB,
@@ -618,20 +790,38 @@ interface IconStyler {
 }
 
 interface TextIconStyler : IconStyler
+interface Utf8SupportDeterminer {
+    val isSupported: Boolean
+}
 
-class DefaultTextIconStyler(textStyler: TextStyler) : TextIconStyler {
-    private val icons = mapOf(
-        Icon.BULB to textStyler.style("💡 ", Style.BULB),
-        Icon.BANGBANG to textStyler.style("❗❗ ", Style.FAILURE),
-        Icon.DEBUG_INFO to "🔎 ".noStyle(),
-        Icon.EMPTY_STRING to StyledString.EMPTY_STRING,
-        Icon.FAILURE to textStyler.style("✘ ", Style.FAILURE),
-        Icon.FEATURE to "▶ ".noStyle(),
-        Icon.FEATURE_BULLET_POINT to "- ".noStyle(),
-        Icon.INFORMATION_SOURCE to textStyler.style("ℹ️", Style.INFORMATION_SOURCE),
-        Icon.ROOT_BULLET_POINT to "◆ ".noStyle(),
-        Icon.SUCCESS to textStyler.style("✔ ", Style.SUCCESS)
-    )
+class MordantBasedUtf8SupportDeterminer(terminal: Terminal) : Utf8SupportDeterminer {
+    override val isSupported: Boolean = run {
+        // doesn't need to be true at all, we simply assume that if the terminal supports the following AnsiLevel,
+        // then utf-8 is supported as well.
+        terminal.info.ansiLevel == AnsiLevel.ANSI256 || terminal.info.ansiLevel == AnsiLevel.TRUECOLOR
+    }
+}
+
+class DefaultTextIconStyler(textStyler: TextStyler, utf8SupportDeterminer: Utf8SupportDeterminer) : TextIconStyler {
+    private val icons = run {
+        val utf8IsSupported = utf8SupportDeterminer.isSupported
+
+        fun styleIcon(utf8String: String, fallbackAsciiString: String, style: Style) =
+            textStyler.style(if (utf8IsSupported) utf8String else fallbackAsciiString, style)
+
+        mapOf(
+            Icon.BULB to styleIcon("💡 ", "(i) ", Style.BULB),
+            Icon.BANGBANG to styleIcon("❗❗ ", "(!) ", Style.FAILURE),
+            Icon.DEBUG_INFO to styleIcon("🔎 ", "(d) ", Style.DEBUG_INFO),
+            Icon.EMPTY_STRING to StyledString.EMPTY_STRING,
+            Icon.FAILURE to styleIcon("✘ ", "(f) ", Style.FAILURE),
+            Icon.FEATURE to styleIcon("▶ ", "> ", Style.FEATURE),
+            Icon.FEATURE_BULLET_POINT to "- ".noStyle(),
+            Icon.INFORMATION_SOURCE to styleIcon("ℹ️ ", "(i) ", Style.INFORMATION_SOURCE),
+            Icon.ROOT_BULLET_POINT to "◆ ".noStyle(),
+            Icon.SUCCESS to styleIcon("✔ ", "(s)", Style.SUCCESS)
+        )
+    }
 
     override fun style(icon: Icon): StyledString =
         icons[icon] ?: throw IllegalArgumentException("unsupported icon: $icon")
@@ -665,9 +855,19 @@ interface TextObjFormatter {
 class DefaultTextObjFormatter(private val styler: TextStyler) : TextObjFormatter {
     override fun format(value: Any?): StyledString =
         when (value) {
-            is Text -> value.string.noStyle(noWrap = false)
-            is String -> "\"$value\"".noStyle(noWrap = false)
+            is TextElement -> value.string.noStyle(noWrap = false)
+            is String -> formatString(value)
             else -> value.toString().noStyle(noWrap = false)
+        }
+
+    private fun formatString(value: String): StyledString =
+        if (value.contains(Regex("[\n\"]"))) {
+            val s = "\"\"\"\n" +
+                value + "\n" +
+                "\"\"\""
+            s.noStyle(noWrap = false)
+        } else {
+            value.noStyle(noWrap = false)
         }
 }
 
@@ -679,6 +879,12 @@ class DefaultRootProofGroupTextPreRenderer : TypedTextPreRenderer<RootProofGroup
                 controlObject, child, Icon.ROOT_BULLET_POINT, shallIndentChildren = false
             )
             controlObject.transformChildIncludingIndentationAndPrefix(child, newControlObject)
+        }.let {
+            // usually a group has a prefix icon (or an own prefix) in which case, for root we get an empty_string as
+            // icon but we don't want to show it as column, instead this first column shall be merged with the columns
+            // needed for the description
+            val first = it.first()
+            (sequenceOf(first.copy(mergeColumns = first.mergeColumns + 1)) + it.asSequence().drop(1)).toList()
         }
 }
 
@@ -736,17 +942,18 @@ class DefaultTextElementTextPreRenderer : TypedTextPreRenderer<TextElement>(Text
             OutputNode(
                 columns = listOf(reportable.string.noStyle(noWrap = false)),
                 emptyList(),
-                definesOwnLevel = false
+                definesOwnLevel = true
             )
         )
 }
 
 class DefaultSimpleProofTextPreRenderer :
     TypedTextPreRenderer<SimpleProof>(SimpleProof::class) {
-    override fun transformIt(reportable: SimpleProof, controlObject: PreRenderControlObject): List<OutputNode> =
+    override fun transformIt(reportable: SimpleProof, controlObject: PreRenderControlObject): List<OutputNode> {
         // we kind of misuse transformGroup to re-use the logic for TextDesignationPreRenderer
-        // but we need to set definesOwnLevel to true
-        listOf(controlObject.transformGroup(reportable, controlObject).single().copy(definesOwnLevel = false))
+        // but we need to set definesOwnLevel to false as a SimpleProof does not define an own level
+        return listOf(controlObject.transformGroup(reportable, controlObject).single().copy(definesOwnLevel = false))
+    }
 }
 
 class DefaultIconPreRenderer(private val iconStyler: TextIconStyler) : TypedTextPreRenderer<Icon>(Icon::class) {
@@ -765,16 +972,19 @@ class DefaultInlineDesignatorPreRenderer(
         children: List<OutputNode>,
         controlObject: PreRenderControlObject,
     ): List<OutputNode> {
+
         val descriptionColumns = getDescriptionColumns(description, controlObject)
 
-        // one column is normal and does not require span, hence -1
-        val span = (prefixColumns.size + descriptionColumns.size) - 1
+        // one column is normal hence - 1, only if description takes 2 or more columns we need to merge x - 1
+        val mergeColumns = (prefixColumns.size + descriptionColumns.size) - 1
 
         return listOf(
             OutputNode(
-                // 1 the description + span if it spans over multiple columns + 2 as we add : and the representation
-                columns = ArrayList<StyledString>(1 + span + 2).apply {
-                    addAll(prefixColumns)
+                columns = ArrayList<StyledString>(mergeColumns + 2).apply {
+                    prefixColumns.forEach {
+                        checkIsNoWrapDueToMergeColumns(it)
+                        add(it)
+                    }
                     addAll(descriptionColumns)
                     add(" : ".noStyle())
                     add(objectFormatter.format(representation))
@@ -782,7 +992,7 @@ class DefaultInlineDesignatorPreRenderer(
                 children = children,
                 // a group defines an own level
                 definesOwnLevel = true,
-                span = span
+                mergeColumns = mergeColumns
             )
         )
     }
@@ -795,13 +1005,14 @@ class DefaultInlineDesignatorPreRenderer(
         val node = takeIf(nodes.size == 1) {
             nodes[0]
         } ?: errorDueToBug(
-            "transformChildIncludingIndentationAndPrefix for InlineElement $description returned ${nodes.size} nodes, expected 1"
+            "transformChild for InlineElement $description returned ${nodes.size} nodes, expected 1"
         )
 
         failWithBugErrorIf(node.columns.isEmpty()) {
-            "transformChildIncludingIndentationAndPrefix for InlineElement $description returned 0 columns"
+            "transformChild for InlineElement $description returned 0 columns"
         }
 
-        return node.columns
+        // we are going to merge the columns, hence ensure noWrap?true
+        return node.columns.map { it.withNoWrap() }
     }
 }
