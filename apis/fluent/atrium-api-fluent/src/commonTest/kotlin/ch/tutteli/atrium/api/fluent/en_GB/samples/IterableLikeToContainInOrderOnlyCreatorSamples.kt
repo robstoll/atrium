@@ -16,6 +16,10 @@ class IterableLikeToContainInOrderOnlyCreatorSamples {
         fails { // because subject list contains multiple elements
             expect(listOf("A","A")).toContain.inOrder.only.value("A")
         }
+
+        fails { // because the order is wrong
+            expect(listOf("B","A")).toContain.inOrder.only.value("A")
+        }
     }
 
     @Test
