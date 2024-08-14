@@ -9,11 +9,11 @@ class IterableLikeToContainInAnyOrderOnlyCreatorSamples {
     fun value() {
         expect(listOf("A")).toContain.inAnyOrder.only.value("A")
 
-        fails { // because subject list does not contain expected value
+        fails { // because the List does not contain expected value
             expect(listOf("B")).toContain.inAnyOrder.only.value("A")
         }
 
-        fails { // because subject list contains multiple elements
+        fails { // because the List contains multiple elements
             expect(listOf("A", "A")).toContain.inAnyOrder.only.value("A")
         }
     }
@@ -34,6 +34,37 @@ class IterableLikeToContainInAnyOrderOnlyCreatorSamples {
             expect(listOf("A", "B", "C")).toContain.inAnyOrder.only.values(
                 "D", "C", "B", "A"
             )
+        }
+    }
+
+    @Test
+    fun entry() {
+        expect(listOf("A")).toContain.inAnyOrder.only.entry {
+            toEqual("A")
+        }
+
+        expect(listOf(null)).toContain.inAnyOrder.only.entry(null)
+
+        fails { // because the List does not contain "A"
+            expect(listOf("B")).toContain.inAnyOrder.only.entry {
+                toEqual("A")
+            }
+        }
+
+        fails { // because the List does not contain null
+            expect(listOf("A")).toContain.inAnyOrder.only.entry(null)
+        }
+
+        fails { // because the List contains multiple elements
+            expect(listOf("A", "A")).toContain.inAnyOrder.only.entry {
+                toEqual("A")
+            }
+        }
+
+        fails { // because assertionCreatorOrNull is non-null and has no expectation
+            expect(listOf("A", "B", "C")).toContain.inAnyOrder.only.entry {
+                /* do nothing */
+            }
         }
     }
 

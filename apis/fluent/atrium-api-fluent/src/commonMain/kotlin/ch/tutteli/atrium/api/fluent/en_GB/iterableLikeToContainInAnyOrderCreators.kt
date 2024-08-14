@@ -73,6 +73,8 @@ fun <E, T: IterableLike> CheckerStep<E, T, InAnyOrderSearchBehaviour>.values(
  * @return an [Expect] for the subject of `this` expectation.
  *
  * @since 0.14.0 -- API existed for [Iterable] but not for [IterableLike].
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.IterableLikeToContainInAnyOrderCreatorSamples.entry
  */
 fun <E : Any, T: IterableLike> CheckerStep<out E?, T, InAnyOrderSearchBehaviour>.entry(
     assertionCreatorOrNull: (Expect<E>.() -> Unit)?
