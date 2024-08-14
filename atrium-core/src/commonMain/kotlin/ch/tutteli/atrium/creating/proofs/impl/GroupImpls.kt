@@ -26,6 +26,9 @@ internal abstract class BaseProofGroup(
 ) : MemoizingHoldsProofGroup(children), ReportableWithDesignation {
     //TODO 1.3.0 override toString? checkout AssertionGroup impl.
 
+    override fun toString(): String {
+        return super.toString() + "(holds=${holds()})"
+    }
 }
 
 internal class DefaultRootGroup(
