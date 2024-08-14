@@ -108,7 +108,7 @@ class IterableLikeToContainCheckerSamples {
             }
         }
 
-         fails { // because there are 3 elements which are greater than 2
+        fails { // because there are 3 elements which are greater than 2
             expect(listOf(1, 2, 3, 2, 4, 3)).toContain.inAnyOrder.atMost(2).entry {
                 toBeGreaterThan(2)
             }

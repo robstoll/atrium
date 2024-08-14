@@ -6,7 +6,7 @@ import kotlin.test.Test
 
 class IterableLikeToContainInOrderOnlyCreatorSamples {
     @Test
-    fun value(){
+    fun value() {
         expect(listOf("A")).toContain.inOrder.only.value("A")
 
         fails { // because subject list does not contain expected value
@@ -14,60 +14,62 @@ class IterableLikeToContainInOrderOnlyCreatorSamples {
         }
 
         fails { // because subject list contains multiple elements
-            expect(listOf("A","A")).toContain.inOrder.only.value("A")
-        }
-
-        fails { // because the order is wrong
-            expect(listOf("B","A")).toContain.inOrder.only.value("A")
+            expect(listOf("A", "A")).toContain.inOrder.only.value("A")
         }
     }
 
     @Test
-    fun values(){
-        expect(listOf("A","B","C")).toContain.inOrder.only.values(
-            "A","B","C"
+    fun values() {
+        expect(listOf("A", "B", "C")).toContain.inOrder.only.values(
+            "A", "B", "C"
         )
 
         fails { // although same elements but not in same order
-            expect(listOf("A","B","C")).toContain.inOrder.only.values(
-                "A","C","B"
+            expect(listOf("A", "B", "C")).toContain.inOrder.only.values(
+                "A", "C", "B"
             )
         }
 
         fails { // because not all elements found
-            expect(listOf("A","B","C")).toContain.inOrder.only.values(
-                "A","B"
+            expect(listOf("A", "B", "C")).toContain.inOrder.only.values(
+                "A", "B"
             )
         }
 
         fails { // because more elements expected than found
-            expect(listOf("A","B","C")).toContain.inOrder.only.values(
-                "A","B","C","D"
+            expect(listOf("A", "B", "C")).toContain.inOrder.only.values(
+                "A", "B", "C", "D"
+            )
+        }
+
+        fails { // because order is wrong
+            expect(listOf("A", "B")).toContain.inOrder.only.values(
+                "B", "A"
             )
         }
     }
 
     @Test
-    fun elementsOf(){
-        expect(listOf("A","B","C")).toContain.inOrder.only.elementsOf(
-            listOf("A","B","C")
+    fun elementsOf() {
+        expect(listOf("A", "B", "C")).toContain.inOrder.only.elementsOf(
+            listOf("A", "B", "C")
         )
 
         fails { // although same elements but not in same order
-            expect(listOf("A","B","C")).toContain.inOrder.only.elementsOf(
-                listOf("A","C","B")
+            expect(listOf("A", "B", "C")).toContain.inOrder.only.elementsOf(
+                listOf("A", "C", "B")
             )
         }
 
-         fails { // because not all elements found
-            expect(listOf("A","B","C")).toContain.inOrder.only.elementsOf(
-                listOf("A","B")
+        fails { // because not all elements found
+            expect(listOf("A", "B", "C")).toContain.inOrder.only.elementsOf(
+                listOf("A", "B")
             )
         }
 
         fails { // because more elements expected than found
-            expect(listOf("A","B","C")).toContain.inOrder.only.elementsOf(
-                listOf("A","B","C","D")
+            expect(listOf("A", "B", "C")).toContain.inOrder.only.elementsOf(
+                listOf("A", "B", "C", "D")
             )
         }
     }

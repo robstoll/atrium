@@ -6,7 +6,7 @@ import kotlin.test.Test
 
 class IterableLikeToContainInAnyOrderOnlyCreatorSamples {
     @Test
-    fun value(){
+    fun value() {
         expect(listOf("A")).toContain.inAnyOrder.only.value("A")
 
         fails { // because subject list does not contain expected value
@@ -14,43 +14,43 @@ class IterableLikeToContainInAnyOrderOnlyCreatorSamples {
         }
 
         fails { // because subject list contains multiple elements
-            expect(listOf("A","A")).toContain.inAnyOrder.only.value("A")
+            expect(listOf("A", "A")).toContain.inAnyOrder.only.value("A")
         }
     }
 
     @Test
-    fun values(){
-        expect(listOf("A","B","C")).toContain.inAnyOrder.only.values(
+    fun values() {
+        expect(listOf("A", "B", "C")).toContain.inAnyOrder.only.values(
             "C", "B", "A"
         )
 
         fails { // because not all elements found
-            expect(listOf("A","B","C")).toContain.inAnyOrder.only.values(
-                "B","A"
+            expect(listOf("A", "B", "C")).toContain.inAnyOrder.only.values(
+                "B", "A"
             )
         }
 
         fails { // because more elements expected than found
-            expect(listOf("A","B","C")).toContain.inAnyOrder.only.values(
-                "D","C","B","A"
+            expect(listOf("A", "B", "C")).toContain.inAnyOrder.only.values(
+                "D", "C", "B", "A"
             )
         }
     }
 
     @Test
-    fun elementsOf(){
-        expect(listOf("A","B","C")).toContain.inAnyOrder.only.elementsOf(
-            listOf("A","B","C")
+    fun elementsOf() {
+        expect(listOf("A", "B", "C")).toContain.inAnyOrder.only.elementsOf(
+            listOf("A", "B", "C")
         )
 
         fails { // because not all elements found
-            expect(listOf("A","B","C")).toContain.inAnyOrder.only.elementsOf(
+            expect(listOf("A", "B", "C")).toContain.inAnyOrder.only.elementsOf(
                 listOf("B", "A")
             )
         }
 
         fails { // because more elements expected than found
-            expect(listOf("A","B","C")).toContain.inAnyOrder.only.elementsOf(
+            expect(listOf("A", "B", "C")).toContain.inAnyOrder.only.elementsOf(
                 listOf("B", "A", "C", "D")
             )
         }

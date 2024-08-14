@@ -98,7 +98,8 @@ class IterableFeatureExtractorSamples {
             .toBeLessThan(4) // subject is still 3
 
         fails {
-            expect(iterable).last.toBeGreaterThan(3).toBeLessThan (4) // subject is 3, fails on first expectation, second is skipped
+            expect(iterable).last.toBeGreaterThan(3)
+                .toBeLessThan(4) // subject is 3, fails on first expectation, second is skipped
         }
 
         fails {
@@ -125,8 +126,8 @@ class IterableFeatureExtractorSamples {
 
             expect(iterable).last { // subject within this expectation-group is of type Int (actually 3)
                 toBeGreaterThan(3)   // fails
-                toBeLessThan (4)     // still evaluated, even though  `toBeGreaterThan` already fails,
-                //                      use `.last.` if you want a fail fast behaviour
+                toBeLessThan(4)      // still evaluated, even though  `toBeGreaterThan` already fails,
+                //                               use `.last.` if you want a fail fast behaviour
             } // subject here is back to type Iterable<Int>
         }
 
