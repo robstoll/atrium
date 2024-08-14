@@ -19,6 +19,25 @@ class IterableLikeToContainInAnyOrderOnlyCreatorSamples {
     }
 
     @Test
+    fun values(){
+        expect(listOf("A","B","C")).toContain.inAnyOrder.only.values(
+            "C", "B", "A"
+        )
+
+        fails { // because not all elements found
+            expect(listOf("A","B","C")).toContain.inAnyOrder.only.values(
+                "B","A"
+            )
+        }
+
+        fails { // because more elements expected than found
+            expect(listOf("A","B","C")).toContain.inAnyOrder.only.values(
+                "D","C","B","A"
+            )
+        }
+    }
+
+    @Test
     fun elementsOf(){
         expect(listOf("A","B","C")).toContain.inAnyOrder.only.elementsOf(
             listOf("A","B","C")
