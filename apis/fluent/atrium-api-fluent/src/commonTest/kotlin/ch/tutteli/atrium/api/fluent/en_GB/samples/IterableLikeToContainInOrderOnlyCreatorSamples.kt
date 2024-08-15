@@ -134,6 +134,13 @@ class IterableLikeToContainInOrderOnlyCreatorSamples {
                 { toEqual("A") },
             )
         }
+
+        fails { // because otherAssertionCreatorsOrNulls contains a lambda which is non-null and has no expectation
+            expect(listOf("A", "B")).toContain.inOrder.only.entries(
+                { toEqual("A") },
+                { /* do nothing */ }
+            )
+        }
     }
 
     @Test
