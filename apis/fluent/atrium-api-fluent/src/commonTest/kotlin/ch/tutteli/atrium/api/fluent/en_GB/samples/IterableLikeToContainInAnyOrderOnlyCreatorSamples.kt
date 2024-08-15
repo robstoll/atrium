@@ -90,7 +90,7 @@ class IterableLikeToContainInAnyOrderOnlyCreatorSamples {
             )
         }
 
-        fails { // because the List does not contain an "D" that is in entries
+        fails { // because the List does not contain a "D"
             expect(listOf("A", "B", "C")).toContain.inAnyOrder.only.entries(
                 { toEqual("D") },
                 { toEqual("C") },
