@@ -111,7 +111,7 @@ class IterableLikeToContainInOrderOnlyCreatorSamples {
             )
         }
 
-        fails { // because the List does not contain a null that is in entries
+        fails { // because the List contains a "C" and not null at the end
             expect(listOf("A", "B", "C")).toContain.inOrder.only.entries(
                 { toEqual("A") },
                 { toEqual("B") },
