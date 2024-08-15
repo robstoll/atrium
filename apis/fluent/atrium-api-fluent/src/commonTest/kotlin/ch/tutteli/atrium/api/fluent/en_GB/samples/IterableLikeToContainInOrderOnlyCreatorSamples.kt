@@ -95,7 +95,7 @@ class IterableLikeToContainInOrderOnlyCreatorSamples {
             { toEqual("A") }
         )
 
-        fails { // because the List contains an "A" that is not in entries
+        fails { // because the List contains an additional "A" at the beginning
             expect(listOf("A", "B", "C")).toContain.inOrder.only.entries(
                 { toEqual("B") },
                 { toEqual("C") }
