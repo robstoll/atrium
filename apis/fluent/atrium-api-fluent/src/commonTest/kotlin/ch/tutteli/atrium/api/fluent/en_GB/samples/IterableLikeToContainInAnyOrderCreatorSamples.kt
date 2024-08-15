@@ -89,7 +89,7 @@ class IterableLikeToContainInAnyOrderCreatorSamples {
         )
 
         expect(listOf(null, null)).toContain.inAnyOrder.exactly(2).entries(
-            null, null, null
+            null
         )
 
         expect(listOf("A", "B", "A", "B")).toContain.inAnyOrder.atLeast(2).entries(
