@@ -81,6 +81,62 @@ class IterableLikeToContainInOrderOnlyCreatorSamples {
     }
 
     @Test
+    fun entries() {
+        expect(listOf("A", "B", "C")).toContain.inOrder.only.entries(
+            { toEqual("A") },
+            { toEqual("B") },
+            { toEqual("C") }
+        )
+
+        expect(listOf(null, "A", null, "A")).toContain.inOrder.only.entries(
+            null,
+            { toEqual("A") },
+            null,
+            { toEqual("A") }
+        )
+
+        fails { // because the List contains an "A" that is not in entries
+            expect(listOf("A", "B", "C")).toContain.inOrder.only.entries(
+                { toEqual("B") },
+                { toEqual("C") }
+            )
+        }
+
+        fails { // because the List does not contain an "D" that is in entries
+            expect(listOf("A", "B", "C")).toContain.inOrder.only.entries(
+                { toEqual("A") },
+                { toEqual("B") },
+                { toEqual("C") },
+                { toEqual("D") }
+            )
+        }
+
+        fails { // because the List does not contain a null that is in entries
+            expect(listOf("A", "B", "C")).toContain.inOrder.only.entries(
+                { toEqual("A") },
+                { toEqual("B") },
+                null
+            )
+        }
+
+        fails { // because order is wrong
+            expect(listOf("A", "B", "C")).toContain.inOrder.only.entries(
+                { toEqual("C") },
+                { toEqual("B") },
+                { toEqual("A") }
+            )
+        }
+
+        fails { // because order is wrong
+            expect(listOf(null, "A", null)).toContain.inOrder.only.entries(
+                null,
+                null,
+                { toEqual("A") },
+            )
+        }
+    }
+
+    @Test
     fun elementsOf() {
         expect(listOf("A", "B", "C")).toContain.inOrder.only.elementsOf(
             listOf("A", "B", "C")
