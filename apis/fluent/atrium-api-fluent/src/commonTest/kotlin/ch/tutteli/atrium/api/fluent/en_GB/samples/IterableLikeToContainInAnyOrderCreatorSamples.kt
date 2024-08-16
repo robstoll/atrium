@@ -77,6 +77,68 @@ class IterableLikeToContainInAnyOrderCreatorSamples {
     }
 
     @Test
+    fun entries() {
+        expect(listOf("A", "B")).toContain.inAnyOrder.exactly(1).entries(
+            { toEqual("B") },
+            { toEqual("A") }
+        )
+
+        expect(listOf("A", null, "A", null)).toContain.inAnyOrder.exactly(2).entries(
+            null,
+            { toEqual("A") }
+        )
+
+        expect(listOf(null, null)).toContain.inAnyOrder.exactly(2).entries(
+            null
+        )
+
+        expect(listOf("A", "B", "A", "B")).toContain.inAnyOrder.atLeast(2).entries(
+            { toEqual("B") },
+            { toEqual("A") }
+        )
+
+        expect(listOf("A", "B", "B")).toContain.inAnyOrder.atMost(2).entries(
+            { toEqual("B") },
+            { toEqual("A") }
+        )
+
+        fails { // because the count of "A" is not 2
+            expect(listOf("A", "B", "B")).toContain.inAnyOrder.exactly(2).entries(
+                { toEqual("A") },
+                { toEqual("B") }
+            )
+        }
+
+        fails { // because all elements are not null
+            expect(listOf("A", "B", "C")).toContain.inAnyOrder.exactly(1).entries(
+                { toEqual("A") },
+                null
+            )
+        }
+
+        fails { // because otherAssertionCreatorsOrNulls contains a lambda which is non-null and has no expectation
+            expect(listOf("A", "B")).toContain.inAnyOrder.exactly(1).entries(
+                { toEqual("A") },
+                { /* do nothing */ }
+            )
+        }
+
+        fails { // because the count of "A" is less than 2
+            expect(listOf("A", "B", "B")).toContain.inAnyOrder.atLeast(2).entries(
+                { toEqual("B") },
+                { toEqual("A") }
+            )
+        }
+
+        fails { // because the count of "B" is more than 2
+            expect(listOf("A", "B", "B", "B")).toContain.inAnyOrder.atMost(2).entries(
+                { toEqual("B") },
+                { toEqual("A") }
+            )
+        }
+    }
+
+    @Test
     fun elementsOf() {
         expect(listOf("A", "B")).toContain.inAnyOrder.exactly(1).elementsOf(listOf("A", "B"))
         expect(listOf("A", "B", "A", "B")).toContain.inAnyOrder.atLeast(2).elementsOf(listOf("A", "B"))

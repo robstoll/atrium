@@ -69,6 +69,53 @@ class IterableLikeToContainInAnyOrderOnlyCreatorSamples {
     }
 
     @Test
+    fun entries() {
+        expect(listOf("A", "B", "C")).toContain.inAnyOrder.only.entries(
+            { toEqual("C") },
+            { toEqual("B") },
+            { toEqual("A") }
+        )
+
+        expect(listOf("A", null, "A", null)).toContain.inAnyOrder.only.entries(
+            null,
+            null,
+            { toEqual("A") },
+            { toEqual("A") }
+        )
+
+        fails { // because the List contains additionally an "A" (not covered in entries)
+            expect(listOf("A", "B", "C")).toContain.inAnyOrder.only.entries(
+                { toEqual("C") },
+                { toEqual("B") }
+            )
+        }
+
+        fails { // because the List does not contain a "D"
+            expect(listOf("A", "B", "C")).toContain.inAnyOrder.only.entries(
+                { toEqual("D") },
+                { toEqual("C") },
+                { toEqual("B") },
+                { toEqual("A") }
+            )
+        }
+
+        fails { // because the List does not contain a null
+            expect(listOf("A", "B", "C")).toContain.inAnyOrder.only.entries(
+                { toEqual("C") },
+                { toEqual("B") },
+                null
+            )
+        }
+
+        fails { // because otherAssertionCreatorsOrNulls contains a lambda which is non-null and has no expectation
+            expect(listOf("A", "B")).toContain.inAnyOrder.only.entries(
+                { toEqual("A") },
+                { /* do nothing */ }
+            )
+        }
+    }
+
+    @Test
     fun elementsOf() {
         expect(listOf("A", "B", "C")).toContain.inAnyOrder.only.elementsOf(
             listOf("A", "B", "C")
