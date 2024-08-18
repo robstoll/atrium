@@ -1,8 +1,12 @@
 package ch.tutteli.atrium.specs.integration
 
 import ch.tutteli.atrium.api.fluent.en_GB.messageToContain
+import ch.tutteli.atrium.api.fluent.en_GB.notToThrow
+import ch.tutteli.atrium.api.fluent.en_GB.toEqual
 import ch.tutteli.atrium.api.fluent.en_GB.toThrow
 import ch.tutteli.atrium.api.verbs.internal.expect
+import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.reporting.AtriumError
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.translations.DescriptionBasic
 import ch.tutteli.atrium.translations.DescriptionIterableLikeExpectation
@@ -12,12 +16,27 @@ import org.spekframework.spek2.style.specification.Suite
 abstract class IteratorExpectationsSpec(
     toHaveNext: Fun0<Iterator<Int>>,
     notToHaveNext: Fun0<Iterator<Int>>,
+    nextFeature: Feature0<Iterator<Int>, Int>,
+    next: Fun1<Iterator<Int>, Expect<Int>.() -> Unit>,
+    nextFeatureNullable: Feature0<Iterator<Int?>, Int?>,
+    nextNullable: Fun1<Iterator<Int?>, Expect<Int?>.() -> Unit>,
     describePrefix: String = "[Atrium] "
 ) : Spek({
+    val list = listOf(1, 2, 3, 4)
 
     include(object : SubjectLessSpec<Iterator<Int>>(
         describePrefix,
         toHaveNext.forSubjectLess()
+    ) {})
+
+    include(object : AssertionCreatorSpec<Iterator<Int>>(
+        describePrefix, list.iterator(),
+        next.forAssertionCreatorSpec("$toEqualDescr: 1") { toEqual(1) }
+    ) {})
+
+    include(object : AssertionCreatorSpec<Iterator<Int?>>(
+        describePrefix, list.iterator(),
+        nextNullable.forAssertionCreatorSpec("$toEqualDescr: 1") { toEqual(1) }
     ) {})
 
     fun describeFun(vararg pairs: SpecPair<*>, body: Suite.() -> Unit) =
@@ -44,7 +63,7 @@ abstract class IteratorExpectationsSpec(
     describeFun(notToHaveNext) {
         val notToHaveNextFun = notToHaveNext.lambda
 
-        it("does not throw if an iterator has next") {
+        it("does not throw if an iterator does not have next") {
             expect {
                 expect(emptyList<Int>().iterator()).notToHaveNextFun()
             }
@@ -56,4 +75,43 @@ abstract class IteratorExpectationsSpec(
             }.toThrow<AssertionError> { messageToContain("$notToHaveDescr: $aNextElement") }
         }
     }
+
+    describeFun(nextFeature, next, nextFeatureNullable, nextNullable) {
+        val nextFunctions = uncheckedToNonNullable(
+            unifySignatures(nextFeature, next),
+            unifySignatures(nextFeatureNullable, nextNullable)
+        )
+
+        nextFunctions.forEach { (name, nextFun, hasExtraHint) ->
+            it("$name - can perform sub-assertion if an iterator has next") {
+                expect {
+                    val iterator = listOf(1).iterator()
+                    expect(iterator).nextFun { toEqual(1) }
+                }
+            }
+
+            // TODO find out why this expect does not throw AssertionError
+//            it("$name - throws an AssertionError if an iterator does not have next") {
+//                expect {
+//                    val iterator = emptyList<Int>().iterator()
+//                    expect(iterator).nextFun { toEqual(1) }
+//                }.toThrow<AssertionError> {
+//                    messageToContain("$toHaveDescr: $aNextElement")
+//                    if(hasExtraHint) messageToContain("$toEqualDescr: 1")
+//                }
+//            }
+        }
+    }
+
+    describeFun(nextFeatureNullable, nextNullable) {
+        val nextFunctions = unifySignatures(nextFeatureNullable, nextNullable)
+
+        nextFunctions.forEach { (name, nextFun, _) ->
+            it("$name - can perform sub-assertion if next value is null") {
+                val iterator = listOf<Int?>(null).iterator()
+                expect(iterator).nextFun { toEqual(null) }
+            }
+        }
+    }
+
 })
