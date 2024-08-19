@@ -1,7 +1,6 @@
 package ch.tutteli.atrium.api.fluent.en_GB.samples
 
-import ch.tutteli.atrium.api.fluent.en_GB.notToHaveNext
-import ch.tutteli.atrium.api.fluent.en_GB.toHaveNext
+import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.expect
 import kotlin.test.Test
 
@@ -30,4 +29,60 @@ class IteratorExpectationSamples {
         iterator.next()                      // returns the next element in iteration
         expect(iterator).notToHaveNext()     // does not fail as by now iterator has no next element
     }
+
+    @Test
+    fun nextFeature() {
+        val iterator = listOf(1, 2, 3).iterator()
+
+        expect(iterator)
+            .next()                          // subject is now of type Int (actually 1)
+            .toBeGreaterThan(0)    // subject is still of type Int (still 1)
+            .toBeLessThan(2)
+
+        expect(iterator)
+            .next()                         // subject is now of type Int (actually 2)
+            .toBeGreaterThan(1)
+            .toBeLessThan(3)
+
+        fails {
+            expect(iterator)
+                .next()                     // subject is now of type Int (actually 3)
+                .notToEqual(3)    // fails as subject is exactly 3
+        }
+
+        fails {
+            expect(iterator)
+                .next()                    // fails as list has only 3 elements
+                .toEqual(4)      // not evaluated/reported because `next` already fails
+        }
+    }
+
+    @Test
+    fun next() {
+        val iterator = listOf(1, 2, 3).iterator()
+
+        expect(iterator)
+            .next { // subject inside this expectation-group is of type Int (actually 1)
+                toBeGreaterThan(0)
+                toBeLessThan(2)
+            } // subject here is back to type Iterator<Int>
+            .next { // subject inside this expectation-group is of type Int (actually 2)
+                toBeGreaterThan(1)
+                toBeLessThan(3)
+            }
+
+        fails {
+            expect(iterator)
+                .next { // subject inside this expectation-group is of type Int (actually 3)
+                    notToEqual(3) // fails as subject is exactly 3
+                }
+        }
+
+        fails {
+            expect(iterator).next { // fails as list has only 3 elements
+                toEqual(4) // not evaluated/reported because `next` already fails
+            }
+        }
+    }
+
 }

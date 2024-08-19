@@ -33,7 +33,7 @@ fun <T : Iterator<*>> Expect<T>.notToHaveNext(): Expect<T> =
  *
  * @return The newly created [Expect] for the next element.
  *
- * @sample TODO
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.IteratorExpectationSamples.nextFeature
  *
  * @since 1.3.0
  */
@@ -46,7 +46,7 @@ fun <E, T : Iterator<E>> Expect<T>.next(): Expect<E> =
  *
  * @return an [Expect] for the subject of the next expectation.
  *
- * @sample TODO
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.IteratorExpectationSamples.next
  *
  * @since 1.3.0
  */
