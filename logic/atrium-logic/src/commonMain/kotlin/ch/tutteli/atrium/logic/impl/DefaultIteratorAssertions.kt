@@ -24,8 +24,7 @@ class DefaultIteratorAssertions : IteratorAssertions {
             .methodCall("next")
             .withRepresentationForFailure(SIZE_EXCEEDED)
             .withFeatureExtraction {
-                val iterator = it.iterator()
-                Option.someIf(iterator.hasNext()) { iterator.next() }
+                Option.someIf(it.hasNext()) { it.next() }
             }
             .withoutOptions()
             .build()
