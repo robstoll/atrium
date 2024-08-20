@@ -26,6 +26,7 @@ interface Proof : Reportable {
         fun simple(description: InlineElement, representation: Any?, test: () -> Boolean): Proof =
             DefaultSimpleProof(description, representation ?: Text.NULL, test)
 
+        //TODO 1.3.0 lambda for test necessary?
         fun representationOnlyProof(representation: Any?, test: () -> Boolean): Proof =
             RepresentationOnlyProofImpl(representation ?: Text.NULL, test)
 

@@ -23,10 +23,26 @@ internal class DefaultUsageHintGroup(
 
 //TODO 1.3.0 several implementations vs. a group type.
 internal class DefaultDebugGroup(
-    val description: Reportable,
+    val description: InlineElement,
     override val children: List<Reportable>
 ) : ReportableGroup
+
+//TODO 1.3.0 several implementations vs. a group type.
+internal class DefaultErrorExplanation(
+    val description: InlineElement,
+    override val children: List<Reportable>
+) : ReportableGroup
+
+internal class DefaultInformationGroup(
+    val description: InlineElement,
+    override val children: List<Reportable>
+) : ReportableGroup
+
 
 internal class DefaultInlineGroup(
     val inlineElements: List<InlineElement>
 ) : InlineElement
+
+internal class DefaultRepresentationReportable(
+    val reportable: Any
+) : Reportable

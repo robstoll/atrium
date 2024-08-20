@@ -1,13 +1,18 @@
 package ch.tutteli.atrium.creating.proofs.impl
 
-import ch.tutteli.atrium.creating.ProofContainer
-import ch.tutteli.atrium.creating.changeSubject
-import ch.tutteli.atrium.creating.proofs.AnyProofs
-import ch.tutteli.atrium.creating.proofs.Proof
+import ch.tutteli.atrium._core
+import ch.tutteli.atrium.core.None
+import ch.tutteli.atrium.core.Option
+import ch.tutteli.atrium.core.Some
+import ch.tutteli.atrium.core.polyfills.cast
+import ch.tutteli.atrium.creating.*
+import ch.tutteli.atrium.creating.proofs.*
+import ch.tutteli.atrium.creating.transformers.SubjectChanger
 import ch.tutteli.atrium.creating.transformers.SubjectChangerBuilder
-import ch.tutteli.atrium.creating.proofs.buildProof
-import ch.tutteli.atrium.creating.proofs.buildSimpleProof
+import ch.tutteli.atrium.creating.transformers.subjectChanger
 import ch.tutteli.atrium.reporting.Text
+import ch.tutteli.atrium.reporting.forgotToAppendProofPseudoUsageHint
+import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionAnyProof
 import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionAnyProof.*
 import kotlin.reflect.KClass
 
@@ -33,6 +38,16 @@ class DefaultAnyProofs : AnyProofs {
             .downCastTo(subType)
             .build()
 
+    override fun <T : Any> notToEqualNullButToBeAnInstanceOf(
+        container: ProofContainer<T?>,
+        subType: KClass<T>
+    ): SubjectChangerBuilder.ExecutionStep<T?, T> = container.changeSubject.reportBuilder()
+        .withDescriptionAndRepresentation(description = NOT_TO_EQUAL, representation = Text.NULL)
+        .withTransformation {
+            Option.someIf(subType.isInstance(it)) { subType.cast(it) }
+        }
+        .withFailureHandler(NotToEqualNullFailureHandler(subType))
+        .build()
 
     override fun <T> notToEqualOneIn(container: ProofContainer<T>, expected: Iterable<T>): Proof =
         container.buildProof {
@@ -42,4 +57,29 @@ class DefaultAnyProofs : AnyProofs {
                 }
             }
         }
+}
+
+internal class NotToEqualNullFailureHandler<T : Any>(
+    private val subType: KClass<T>
+) : SubjectChanger.FailureHandler<T?, T> {
+
+    override fun createProof(
+        container: ProofContainer<T?>,
+        proof: Proof,
+        maybeExpectationCreatorWithUsageHints: Option<ExpectationCreatorWithUsageHints<T>>
+    ): Proof = container.buildProof {
+        add(proof)
+        collect(
+            ExpectationCreatorWithUsageHints(forgotToAppendProofPseudoUsageHint) {
+                // we already know that we cannot transform as we are in the failure handler
+                val expectAfterTheoreticalTransformation = _core.toBeAnInstanceOf(subType)
+                maybeExpectationCreatorWithUsageHints.fold({
+                    expectAfterTheoreticalTransformation.transform()
+                }, {
+                    expectAfterTheoreticalTransformation.transformAndAppend(it)
+                })
+            }
+        )
+
+    }
 }

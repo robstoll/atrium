@@ -6,6 +6,7 @@ import ch.tutteli.atrium.creating.*
 import ch.tutteli.atrium.creating.impl.ComponentFactoryContainerImpl
 import ch.tutteli.atrium.creating.impl.DefaultComponentFactoryContainer
 import ch.tutteli.atrium.creating.proofs.Proof
+import ch.tutteli.atrium.creating.proofs.SimpleProof
 import ch.tutteli.atrium.reporting.reportables.Reportable
 import com.github.ajalt.mordant.rendering.AnsiLevel
 import com.github.ajalt.mordant.rendering.TextColors
@@ -15,14 +16,15 @@ import kotlin.test.Test
 @OptIn(ExperimentalComponentFactoryContainer::class)
 class CreateReportTest {
     private val x = TextColors.red("✘")
+    private val f = TextColors.cyan("▶")
 
     @Test
     fun text() {
         val reportable = Text("bla")
         val expectedResult = "bla"
 
-        expectForReporterWithAnsi(reportable, expectedResult)
         expectForReporterWithoutAnsi(reportable, expectedResult)
+        expectForReporterWithAnsi(reportable, expectedResult)
     }
 
 
@@ -31,8 +33,8 @@ class CreateReportTest {
         val reportable = Proof.simple(Text("bla"), 1) { false }
         val expectedResult = "bla : 1"
 
-        expectForReporterWithAnsi(reportable, expectedResult)
         expectForReporterWithoutAnsi(reportable, expectedResult)
+        expectForReporterWithAnsi(reportable, expectedResult)
     }
 
     @Test
@@ -44,6 +46,14 @@ class CreateReportTest {
                 Text("some text")
             )
         )
+        expectForReporterWithoutAnsi(
+            reportable,
+            """
+            |a verb       : "representation"
+            |(f) to equal : 1
+            |◆ some text
+            """.trimMargin()
+        )
         expectForReporterWithAnsi(
             reportable,
             """
@@ -52,12 +62,42 @@ class CreateReportTest {
             |◆ some text
             """.trimMargin()
         )
+    }
+
+    @Test
+    fun featureProofGroup() {
+        val reportable = Proof.rootGroup(
+            Text("my expectations"), Text.EMPTY,
+            children = listOf(
+                Proof.featureGroup(
+                    Text("verb"), 2,
+                    children = listOf(
+                        Proof.featureGroup(
+                            Text("name"), "Robert",
+                            children = listOf(
+                                Proof.simple(Text("to equal"), "Peter") { false }
+                            )
+                        )
+                    )
+                )
+            )
+        )
         expectForReporterWithoutAnsi(
             reportable,
             """
-            |a verb       : "representation"
-            |(f) to equal : 1
-            |◆ some text
+            |my expectations :${" "}
+            |(f) > verb : 2
+            |      (f) > name         : "Robert"
+            |            (f) to equal : "Peter"
+            """.trimMargin()
+        )
+        expectForReporterWithAnsi(
+            reportable,
+            """
+            |my expectations :${" "}
+           |$x $f verb : 2
+           |    $x $f name       : "Robert"
+            |        $x to equal : "Peter"
             """.trimMargin()
         )
     }
@@ -74,6 +114,16 @@ class CreateReportTest {
             )
         )
 
+        expectForReporterWithoutAnsi(
+            reportable,
+            """
+            |I expected that the subject which was : 2
+            |(f) to equal                          : 3
+            |(f) to be less than                   : 3
+            |(f) to greater than                   : 10
+            """.trimMargin()
+        )
+
         expectForReporterWithAnsi(
             reportable,
             """
@@ -84,21 +134,12 @@ class CreateReportTest {
             """.trimMargin()
         )
 
-        expectForReporterWithoutAnsi(
-            reportable,
-            """
-            |I expected that the subject which was : 2
-            |(f) to equal                          : 3
-            |(f) to be less than                   : 3
-            |(f) to greater than                   : 10
-            """.trimMargin()
-        )
     }
 
     @Test
     fun representationWithNewLineIsWrappedCorrectly() {
         val reportable = Proof.rootGroup(
-            Text("verb\nalways not wrapped"),
+            Text("verb always\nwithout line break"),
             "a string with new line\nas representation is wrapped\nmaxLength calculated correctly",
             listOf(
                 Proof.simple(Text("test"), 1) { false },
@@ -114,31 +155,53 @@ class CreateReportTest {
             )
         )
 
-        expectForReporterWithAnsi(
-            reportable,
-            """
-            |verb always not wrapped : ""${"\""}
-            |                          a string with new line
-            |                          as representation is wrapped
-            |                          maxLength calculated correctly
-            |                          ""${"\""}
-           |$x   test                : 1
-            |(i) first column        : second longer than longest line of representation : 1
-            """.trimMargin()
-        )
-
         expectForReporterWithoutAnsi(
             reportable,
             """
-            |verb always not wrapped : ""${"\""}
-            |                          a string with new line
-            |                          as representation is wrapped
-            |                          maxLength calculated correctly
-            |                          ""${"\""}
-            |(f) test                : 1
-            |(i) first column        : second longer than longest line of representation : 1
+            |verb always without line break : ""${"\""}
+            |                                 a string with new line
+            |                                 as representation is wrapped
+            |                                 maxLength calculated correctly
+            |                                 ""${"\""}
+            |(f) test                       : 1
+            |(i) first column               : second longer than longest line of representation : 1
             """.trimMargin()
         )
+
+        expectForReporterWithAnsi(
+            reportable,
+            """
+            |verb always without line break : ""${"\""}
+            |                                 a string with new line
+            |                                 as representation is wrapped
+            |                                 maxLength calculated correctly
+            |                                 ""${"\""}
+           | $x  test                       : 1
+            |(i) first column               : second longer than longest line of representation : 1
+            """.trimMargin()
+        )
+
+    }
+
+    @Test
+    fun mergingColumnsWithAlignment() {
+        val reportable = Reportable.group(
+            Text("description always\n without line break"),
+            "a string with new line\nas representation is broken\nmaxLength calculated correctly",
+            listOf(
+                Proof.simple(Text("test"), 1) { false },
+                Columns(
+                    "(i) ",
+                    "first column",
+                    " : ",
+                    "second longer than longest line of representation",
+                    " : ",
+                    "1",
+                    usesOwnPrefix = true
+                )
+            )
+        )
+        //TODO 1.3.0 finish test
     }
 
 
@@ -156,7 +219,7 @@ class CreateReportTest {
         val reporter = componentFactoryContainer().merge(
             ComponentFactoryContainerImpl(
                 mapOf(
-                    Terminal::class to ComponentFactory({ c ->
+                    Terminal::class to ComponentFactory({ _ ->
                         Terminal(ansiLevel = AnsiLevel.NONE)
                     }, producesSingleton = false)
                 ),
@@ -193,7 +256,7 @@ class Columns(
         definesOwnLevel: Boolean = false,
         usesOwnPrefix: Boolean = false
     ) : this(
-        strings.map { it.noStyle(noWrap = false) },
+        strings.map { it.noStyle(noLineBreak = false) },
         mergeColumns = mergeColumns,
         definesOwnLevel = definesOwnLevel,
         usesOwnPrefix = usesOwnPrefix

@@ -33,6 +33,11 @@ sealed class Option<out T> {
         None -> default()
     }
 
+    /**
+     * Executed the given function [f] in case this [Option] is defined.
+     */
+    inline fun ifDefined(f: (T) -> Unit) = fold({}, f)
+
     companion object {
         /**
          * Factory method to create an [Option].

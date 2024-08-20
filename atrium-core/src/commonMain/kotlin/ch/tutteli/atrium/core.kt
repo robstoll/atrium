@@ -5,6 +5,7 @@ import ch.tutteli.atrium.creating.*
 import ch.tutteli.atrium.creating.proofs.Proof
 import ch.tutteli.atrium.reporting.BUG_REPORT_URL
 import ch.tutteli.atrium.reporting.Text
+import ch.tutteli.atrium.reporting.forgotToAppendProofPseudoUsageHint
 import ch.tutteli.atrium.reporting.reportables.Reportable
 
 /**
@@ -15,11 +16,7 @@ import ch.tutteli.atrium.reporting.reportables.Reportable
  * @since 1.3.0
  */
 inline fun <T> Expect<T>._coreAppend(crossinline proofCreator: ProofContainer<T>.() -> Proof): Expect<T> =
-    _core.appendAsGroupIndicateIfOneCollected(ExpectationCreatorWithUsageHints(
-        listOf(
-            Text("bug detected, looks like we forgot to append a proof, please open a bug at $BUG_REPORT_URL")
-        )
-    ) {
+    _core.appendAsGroupIndicateIfOneCollected(ExpectationCreatorWithUsageHints(forgotToAppendProofPseudoUsageHint) {
         _core.run { append(proofCreator()) }
     }).first
 

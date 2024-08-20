@@ -1,6 +1,7 @@
 package ch.tutteli.atrium.creating.transformers.impl
 
 import ch.tutteli.atrium._core
+import ch.tutteli.atrium._coreAppend
 import ch.tutteli.atrium.core.Option
 import ch.tutteli.atrium.core.trueProvider
 import ch.tutteli.atrium.creating.*
@@ -41,13 +42,16 @@ class DefaultSubjectChanger : SubjectChanger {
 
 
         return if (shallTransform) {
-            val e = expect._core.append(container.buildSimpleProof(description, representation) {
-                // only here if transformation could be carried out
-                true
-            })
-            maybeSubExpectationCreatorAndUsageHints.fold({ e }) {
-                expect._core.appendAsGroupIndicateIfOneCollected(it).first
+            val e = expect._coreAppend {
+                buildSimpleProof(description, representation) {
+                    // only here if transformation could be carried out
+                    true
+                }
             }
+            maybeSubExpectationCreatorAndUsageHints.fold(
+                { e },
+                { expect._core.appendAsGroupIndicateIfOneCollected(it).first }
+            )
         } else {
             val assertion =
                 failureHandler.createProof(container, container.buildSimpleProof(description, representation) {

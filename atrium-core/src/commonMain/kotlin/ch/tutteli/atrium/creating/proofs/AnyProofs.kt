@@ -1,5 +1,6 @@
 package ch.tutteli.atrium.creating.proofs
 
+import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.creating.ProofContainer
 import ch.tutteli.atrium.creating.transformers.SubjectChangerBuilder
 import kotlin.reflect.KClass
@@ -23,15 +24,10 @@ interface AnyProofs {
 //
 //    fun <T> notToBeAnInstanceOfAny(container: ProofContainer<T>, notExpectedTypes: List<KClass<*>>): Proof
 //
-//    fun <T : Any> notToEqualNullButToBeAnInstanceOf(
-//        container: ProofContainer<T?>,
-//        subType: KClass<T>
-//    ): SubjectChangerBuilder.ExecutionStep<T?, T>
-//
-//    fun <T : Any> toEqualNullIfNullGivenElse(
-//        container: ProofContainer<T?>,
-//        expectationCreatorOrNull: (Expect<T>.() -> Unit)?
-//    ): Proof
+    fun <T : Any> notToEqualNullButToBeAnInstanceOf(
+        container: ProofContainer<T?>,
+        subType: KClass<T>
+    ): SubjectChangerBuilder.ExecutionStep<T?, T>
 
     fun <T> notToEqualOneIn(container: ProofContainer<T>, expected: Iterable<T>): Proof
 }

@@ -5,6 +5,7 @@ import ch.tutteli.atrium.core.Option
 import ch.tutteli.atrium.core.falseProvider
 import ch.tutteli.atrium.creating.*
 import ch.tutteli.atrium.creating.proofs.Proof
+import ch.tutteli.atrium.creating.proofs.buildProof
 import ch.tutteli.atrium.reporting.reportables.Reportable
 import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionAnyProof
 import ch.tutteli.atrium.reporting.reportables.descriptions.ErrorMessages
@@ -61,16 +62,22 @@ internal class CollectingExpectImpl<T>(
             allProofs.addAll(newProofs)
         } else {
             allProofs.add(
-                Proof.fixedClaimGroup(
-                    ErrorMessages.AT_LEAST_ONE_EXPECTATION_DEFINED, false,
-                    listOf(Proof.simple(DescriptionAnyProof.TO_EQUAL, true, falseProvider)) +
-                        expectationCreatorWithUsageHints.usageHintsOverloadWithoutExpectationCreator.ifNotEmpty { hints ->
-                            listOf(
-                                Reportable.usageHintGroup(listOf(ErrorMessages.FORGOT_DO_DEFINE_EXPECTATION) + hints)
-                            )
-                        },
-                    holds = false,
-                ),
+                buildProof {
+                    fixedClaimGroup(
+                        ErrorMessages.AT_LEAST_ONE_EXPECTATION_DEFINED, false,
+                        holds = false,
+                    ) {
+                        simpleProof(DescriptionAnyProof.TO_EQUAL, true) { false }
+
+                        addAll(
+                            expectationCreatorWithUsageHints.usageHintsOverloadWithoutExpectationCreator.ifNotEmpty { hints ->
+                                listOf(
+                                    Reportable.usageHintGroup(listOf(ErrorMessages.FORGOT_DO_DEFINE_EXPECTATION) + hints)
+                                )
+                            }
+                        )
+                    }
+                }
             )
         }
         allProofs.forEach { append(it) }

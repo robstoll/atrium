@@ -4,6 +4,7 @@ import ch.tutteli.atrium.core.None
 import ch.tutteli.atrium.core.falseProvider
 import ch.tutteli.atrium.creating.ExpectationCreatorWithUsageHints
 import ch.tutteli.atrium.creating.ProofContainer
+import ch.tutteli.atrium.creating.collectForComposition
 import ch.tutteli.atrium.creating.collectForCompositionBasedOnGivenSubject
 import ch.tutteli.atrium.reporting.reportables.InlineElement
 import ch.tutteli.atrium.reporting.reportables.Reportable
@@ -46,6 +47,15 @@ abstract class BaseBuilder<
     fun <R : Reportable> _core(proofCreator: ProofContainer<SubjectT>.() -> R): R =
         add(proofContainer.proofCreator())
 
+    //TODO 1.3.0 add KDoc
+    fun collect(
+        expectationCreatorWithUsageHints: ExpectationCreatorWithUsageHints<SubjectT>
+    ): Boolean = proofContainer.collectForComposition(expectationCreatorWithUsageHints)
+        .let { (proofs, oneCollected) ->
+            addAll(proofs)
+            oneCollected
+        }
+
     fun simpleProof(description: InlineElement, representation: Any?, test: (SubjectT) -> Boolean): Proof =
         add(proofContainer.buildSimpleProof(description, representation, test))
 
@@ -72,11 +82,21 @@ abstract class BaseBuilder<
         description: InlineElement,
         representation: Any?,
         init: ReportableGroupBuilder<SubjectT>.() -> Unit
-    ): Reportable =
-        add(ReportableGroupBuilder(proofContainer, description, representation).build(init))
+    ): Reportable = add(ReportableGroupBuilder(proofContainer, description, representation).build(init))
 
-    fun explanatoryGroup(init: ExplanatoryGroupBuilder<SubjectT>.() -> Unit): Reportable =
-        add(ExplanatoryGroupBuilder(proofContainer).build(init))
+    fun proofExplanation(init: ProofExplanationGroupBuilder<SubjectT>.() -> Unit): Reportable =
+        add(ProofExplanationGroupBuilder(proofContainer).build(init))
+
+    fun errorExplanationGroup(
+        description: InlineElement,
+        init: ErrorExplanationGroupBuilder<SubjectT>.() -> Unit
+    ): Reportable = add(ErrorExplanationGroupBuilder(proofContainer, description).build(init))
+
+    fun informationGroup(
+        description: InlineElement,
+        init: InformationGroupBuilder<SubjectT>.() -> Unit
+    ): Reportable = add(InformationGroupBuilder(proofContainer, description).build(init))
+
 
     fun debugGroup(description: InlineElement, init: DebugGroupBuilder<SubjectT>.() -> Unit): Reportable =
         add(DebugGroupBuilder(proofContainer, description).build(init))
@@ -171,22 +191,40 @@ class ReportableGroupBuilder<SubjectT>(
         Reportable.group(description, representation, children)
 }
 
-class ExplanatoryGroupBuilder<SubjectT>(
+class ProofExplanationGroupBuilder<SubjectT>(
     proofContainer: ProofContainer<SubjectT>,
-) : BaseReportableBuilder<SubjectT, ExplanatoryGroupBuilder<SubjectT>>(proofContainer) {
+) : BaseReportableBuilder<SubjectT, ProofExplanationGroupBuilder<SubjectT>>(proofContainer) {
 
     override fun buildGroup(children: List<Reportable>): ReportableGroup =
         Reportable.proofExplanation(Proof.invisibleGroup(children))
 
     //TODO 1.3.0 add KDoc
-    fun <SomeSubjectT> collect(
+    fun <SomeSubjectT> collectWithoutSubject(
         expectationCreatorWithUsageHints: ExpectationCreatorWithUsageHints<SomeSubjectT>
     ): Boolean = proofContainer.collectForCompositionBasedOnGivenSubject(None, expectationCreatorWithUsageHints)
         .let { (proofs, oneCollected) ->
             addAll(proofs)
             oneCollected
         }
+}
 
+
+class ErrorExplanationGroupBuilder<SubjectT>(
+    proofContainer: ProofContainer<SubjectT>,
+    private val description: InlineElement,
+) : BaseReportableBuilder<SubjectT, ErrorExplanationGroupBuilder<SubjectT>>(proofContainer) {
+
+    override fun buildGroup(children: List<Reportable>): ReportableGroup =
+        Reportable.errorExplanationGroup(description, children)
+}
+
+class InformationGroupBuilder<SubjectT>(
+    proofContainer: ProofContainer<SubjectT>,
+    private val description: InlineElement,
+) : BaseReportableBuilder<SubjectT, InformationGroupBuilder<SubjectT>>(proofContainer) {
+
+    override fun buildGroup(children: List<Reportable>): ReportableGroup =
+        Reportable.informationGroup(description, children)
 }
 
 class DebugGroupBuilder<SubjectT>(
