@@ -13,6 +13,7 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic.creating.collectors.collectAssertions
 import ch.tutteli.atrium.logic.creating.transformers.SubjectChanger
 
+@Deprecated("Switch from Assertion to Proof and hence to DefaultFailureHandlerImpl in core instead of logic, will be removed with 2.0.0 at the latest")
 class DefaultFailureHandlerImpl<SubjectT, SubjectAfterChangeT> : SubjectChanger.FailureHandler<SubjectT, SubjectAfterChangeT> {
 
     override fun createAssertion(

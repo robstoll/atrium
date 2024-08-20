@@ -16,13 +16,13 @@ class DefaultFailureHandlerImpl<SubjectT, SubjectAfterChangeT> :
         proof: Proof,
         maybeExpectationCreatorWithUsageHints: Option<ExpectationCreatorWithUsageHints<SubjectAfterChangeT>>
     ): Proof = maybeExpectationCreatorWithUsageHints.fold(
-        { proof }
-    ) { expectationCreatorWithHints ->
-        container.buildProof {
-            add(proof)
-            explanatoryGroup {
-                collect(expectationCreatorWithHints)
+        { proof },
+        { expectationCreatorWithHints ->
+            container.buildProof {
+                add(proof)
+                proofExplanation {
+                    collectWithoutSubject(expectationCreatorWithHints)
+                }
             }
-        }
-    }
+        })
 }

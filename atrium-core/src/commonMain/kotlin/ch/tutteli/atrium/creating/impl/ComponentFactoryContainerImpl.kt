@@ -217,9 +217,11 @@ internal object DefaultComponentFactoryContainer : ComponentFactoryContainer by 
     chainedComponents = mapOf(
         TextPreRenderer::class createChainVia sequenceOf(
             { _ -> DefaultSimpleProofTextPreRenderer() },
+            { _ -> DefaultInvisibleProofGroupTextPreRenderer() },
             { c -> DefaultFeatureProofGroupTextPreRenderer(c.build()) },
             { _ -> DefaultRootProofGroupTextPreRenderer() },
-            { c -> DefaultIconPreRenderer(c.build()) },
+//            { c -> DefaultIconPreRenderer(c.build()) },
+            { _ -> DefaultTextElementTextPreRenderer() },
             { _ -> DefaultTextElementTextPreRenderer() },
         ),
         TextDesignationPreRenderer::class createChainVia sequenceOf(

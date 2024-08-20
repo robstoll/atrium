@@ -12,6 +12,8 @@ import ch.tutteli.atrium.reporting.reportables.TextElement
 //TODO 2.0.0 remove data
 data class Text private constructor(override val string: String) : TextElement {
 
+    override fun toString(): String = "Text($string)"
+
     companion object {
 
         operator fun invoke(string: String): Text {

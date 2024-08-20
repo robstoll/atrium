@@ -45,7 +45,7 @@ internal fun <E : Any> createExplanatoryAssertionGroup(
             it.collectAssertions(container, None, assertionCreatorOrNull)
         } else {
             it.withAssertion(
-                // it is for an explanatoryGroup where it does not matter if the assertion holds or not
+                // it is for an proofExplanation where it does not matter if the assertion holds or not
                 // thus it is OK to use trueProvider
                 assertionBuilder.createDescriptive(TO_EQUAL, Text.NULL, trueProvider)
             )

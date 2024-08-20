@@ -9,7 +9,10 @@ import ch.tutteli.atrium.creating.ExperimentalComponentFactoryContainer
 import ch.tutteli.atrium.creating.build
 import ch.tutteli.atrium.creating.impl.DefaultComponentFactoryContainer
 import ch.tutteli.atrium.creating.proofs.Proof
+import ch.tutteli.atrium.reporting.reportables.InlineElement
 import ch.tutteli.atrium.reporting.reportables.Reportable
+import ch.tutteli.atrium.reporting.reportables.TextElement
+import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionAnyProof
 import kotlin.test.Test
 
 class DefaultInlineDesignatorPreRendererTest {
@@ -19,7 +22,12 @@ class DefaultInlineDesignatorPreRendererTest {
         val preRenderer = DefaultInlineDesignatorPreRenderer()
         val inlineElements = listOf(
             Text("bla"),
-            Reportable.inlineGroup(listOf(Text("bli")))
+            Reportable.inlineGroup(listOf(Text("bli"))),
+            DescriptionAnyProof.TO_EQUAL,
+            object : InlineElement {},
+            object : TextElement {
+                override val string: String = ""
+            }
         )
         //TODO 1.4.0 switch to testFactory
         expectGrouped {
@@ -37,9 +45,11 @@ class DefaultInlineDesignatorPreRendererTest {
             simpleProof,
             Proof.group(Text("bla"), "rep", children = listOf(simpleProof)),
             Reportable.debugGroup(Text("bla"), emptyList()),
+            Reportable.errorExplanationGroup(Text("bli"), emptyList()),
             Reportable.group(Text("bla"), "rep", children = emptyList()),
+            Reportable.informationGroup(Text("info"), emptyList()),
             Reportable.proofExplanation(simpleProof),
-            Reportable.usageHintGroup(emptyList())
+            Reportable.usageHintGroup(emptyList()),
         )
         //TODO 1.4.0 switch to testFactory
         expectGrouped {
