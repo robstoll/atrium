@@ -143,7 +143,7 @@ class AdjustStackSpec : Spek({
                 MultiAtriumErrorAdjuster(
                     c.build<RemoveRunnerFromAtriumError>(),
                     c.build<RemoveAtriumFromAtriumError>(),
-                    listOf()
+                    emptyList()
                 )
             },
         "combine remove atrium adjuster and remove runner adjuster" to
@@ -151,7 +151,7 @@ class AdjustStackSpec : Spek({
                 MultiAtriumErrorAdjuster(
                     c.build<RemoveAtriumFromAtriumError>(),
                     c.build<RemoveRunnerFromAtriumError>(),
-                    listOf()
+                    emptyList()
                 )
             },
         "combine noop adjust, remove atrium adjuster and remove runner adjuster" to

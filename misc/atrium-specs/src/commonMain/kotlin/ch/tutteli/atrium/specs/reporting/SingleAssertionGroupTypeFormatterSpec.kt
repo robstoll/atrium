@@ -44,11 +44,11 @@ abstract class SingleAssertionGroupTypeFormatterSpec<out T : AssertionGroupType>
     }
     val unsupportedAssertionGroup = assertionBuilder.customType(object : AssertionGroupType {})
         .withDescriptionAndRepresentation(Untranslatable.EMPTY, 1)
-        .withAssertions(listOf())
+        .withAssertions(emptyList())
         .build()
     val supportedAssertionGroupWithAnonymousType = assertionBuilder.customType(supportedAnonymousAssertionGroupType)
         .withDescriptionAndRepresentation(Untranslatable.EMPTY, 1)
-        .withAssertions(listOf())
+        .withAssertions(emptyList())
         .build()
     val supportedAnonymousAssertionGroupWithAnonymousType = object : AssertionGroup {
         override val description = Untranslatable("test")
@@ -58,7 +58,7 @@ abstract class SingleAssertionGroupTypeFormatterSpec<out T : AssertionGroupType>
     }
     val supportedAssertionGroup = assertionBuilder.customType(supportedAssertionGroupType)
         .withDescriptionAndRepresentation(Untranslatable.EMPTY, 1)
-        .withAssertions(listOf())
+        .withAssertions(emptyList())
         .build()
     val supportedAnonymousAssertionGroup = object : AssertionGroup {
         override val description = Untranslatable("test")

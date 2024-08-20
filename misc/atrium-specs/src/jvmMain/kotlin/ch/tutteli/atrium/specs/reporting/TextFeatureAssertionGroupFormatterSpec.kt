@@ -56,7 +56,7 @@ abstract class TextFeatureAssertionGroupFormatterSpec(
                 assertionBuilder
                     .customType(object : FeatureAssertionGroupType {})
                     .withDescriptionAndRepresentation(Untranslatable.EMPTY, 1)
-                    .withAssertions(listOf())
+                    .withAssertions(emptyList())
                     .build()
             )
             expect(result).toEqual(true)

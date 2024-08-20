@@ -11,7 +11,7 @@ class TranslatableWithArgsSpec : Spek({
         context("for a translatable without args") {
             it("no arguments given; throws") {
                 expect {
-                    TranslatableWithArgs(HELLO, listOf())
+                    TranslatableWithArgs(HELLO, emptyList())
                 }.toThrow<IllegalArgumentException> {
                     its messageToContain values(
                         "No arguments specified"
@@ -33,7 +33,7 @@ class TranslatableWithArgsSpec : Spek({
         context("for a translatable with 1 arg") {
             it("no arguments given; throws") {
                 expect {
-                    TranslatableWithArgs(WITH_1_ARG, listOf())
+                    TranslatableWithArgs(WITH_1_ARG, emptyList())
                 }.toThrow<IllegalArgumentException> {
                     its messageToContain values(
                         "No arguments specified"
@@ -59,7 +59,7 @@ class TranslatableWithArgsSpec : Spek({
         context("for a translatable with 2 args") {
             it("no arguments given; throws") {
                 expect {
-                    TranslatableWithArgs(WITH_2_ARGS, listOf())
+                    TranslatableWithArgs(WITH_2_ARGS, emptyList())
                 }.toThrow<IllegalArgumentException> {
                     its messageToContain values(
                         "No arguments specified"

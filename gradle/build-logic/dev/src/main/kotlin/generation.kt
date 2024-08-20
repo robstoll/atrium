@@ -116,7 +116,7 @@ fun Project.registerGenerateLogicTaskForPackage(
 
             val typeIdentifier = Regex(""" *fun (?<generics><.+?> )?(?<funcName>$identifier)\((?:$newLineAndIndent)?$identifier *: (?<type>$identifier(?:\.$identifier)*<.+>)""")
             val patterns = (6 downTo 0).map { numOfParams ->
-                val params = if (numOfParams > 0) (1..numOfParams).toList() else listOf()
+                val params = if (numOfParams > 0) (1..numOfParams).toList() else emptyList()
                 Triple(
                     Regex(typeIdentifier.pattern + params.joinToString("") { paramNumber -> parameter(paramNumber).pattern } + returnType.pattern),
                     """fun ${"$"}{generics}${"$"}{type}\.${"$"}{funcName}\(""" +
