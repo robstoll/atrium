@@ -45,6 +45,7 @@ abstract class IteratorExpectationsSpec(
     val toHaveDescr = DescriptionBasic.TO_HAVE.getDefault()
     val notToHaveDescr = DescriptionBasic.NOT_TO_HAVE.getDefault()
     val aNextElement = DescriptionIterableLikeExpectation.A_NEXT_ELEMENT.getDefault()
+    val sizeExceededDescr = DescriptionIterableLikeExpectation.SIZE_EXCEEDED.getDefault()
 
     describeFun(toHaveNext) {
         val toHaveNextFun = toHaveNext.lambda
@@ -85,21 +86,18 @@ abstract class IteratorExpectationsSpec(
         nextFunctions.forEach { (name, nextFun, hasExtraHint) ->
             it("$name - can perform sub-assertion if an iterator has next") {
                 expect {
-                    val iterator = listOf(1).iterator()
-                    expect(iterator).nextFun { toEqual(1) }
+                    expect(listOf(1).iterator()).nextFun { toEqual(1) }
                 }
             }
 
-            // TODO find out why this expect does not throw AssertionError
-//            it("$name - throws an AssertionError if an iterator does not have next") {
-//                expect {
-//                    val iterator = emptyList<Int>().iterator()
-//                    expect(iterator).nextFun { toEqual(1) }
-//                }.toThrow<AssertionError> {
-//                    messageToContain("$toHaveDescr: $aNextElement")
-//                    if(hasExtraHint) messageToContain("$toEqualDescr: 1")
-//                }
-//            }
+            it("$name - throws an AssertionError if an iterator does not have next") {
+                expect {
+                    expect(emptyList<Int>().iterator()).nextFun { toEqual(1) }
+                }.toThrow<AssertionError> {
+                    messageToContain(sizeExceededDescr)
+                    if(hasExtraHint) messageToContain("$toEqualDescr: 1")
+                }
+            }
         }
     }
 
