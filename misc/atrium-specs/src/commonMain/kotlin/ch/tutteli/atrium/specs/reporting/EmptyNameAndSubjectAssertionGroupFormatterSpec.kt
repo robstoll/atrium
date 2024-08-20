@@ -47,7 +47,7 @@ abstract class EmptyNameAndSubjectAssertionGroupFormatterSpec<T : AssertionGroup
                     it("does not include ${AssertionGroup::description.name} nor ${AssertionGroup::representation.name}") {
                         val assertionGroup = assertionBuilder.customType(type)
                             .withDescriptionAndRepresentation(TestDescription.TEST_NAME, testSubject)
-                            .withAssertions(listOf())
+                            .withAssertions(emptyList())
                             .build()
                         val parameterObject = AssertionFormatterParameterObject.new(
                             sb,

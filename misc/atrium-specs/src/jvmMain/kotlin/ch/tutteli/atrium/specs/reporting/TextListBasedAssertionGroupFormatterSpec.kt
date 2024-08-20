@@ -52,7 +52,7 @@ abstract class TextListBasedAssertionGroupFormatterSpec<T : AssertionGroupType>(
             val result = testee.canFormat(
                 assertionBuilder.customType(anonymousAssertionGroupType)
                     .withDescriptionAndRepresentation(Untranslatable.EMPTY, 1)
-                    .withAssertions(listOf())
+                    .withAssertions(emptyList())
                     .build()
             )
             expect(result).toEqual(true)

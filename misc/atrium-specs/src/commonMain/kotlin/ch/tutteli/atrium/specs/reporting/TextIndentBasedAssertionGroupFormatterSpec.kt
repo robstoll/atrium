@@ -41,7 +41,7 @@ abstract class TextIndentBasedAssertionGroupFormatterSpec<T : AssertionGroupType
                 f(
                     it::canFormat, assertionBuilder.customType(anonymousAssertionGroupType)
                         .withDescriptionAndRepresentation(Untranslatable.EMPTY, 1)
-                        .withAssertions(listOf())
+                        .withAssertions(emptyList())
                         .build()
                 )
             }.toEqual(true)

@@ -45,7 +45,7 @@ abstract class TextSummaryAssertionGroupFormatterSpec(
             val result = testee.canFormat(
                 assertionBuilder.customType(object : SummaryAssertionGroupType {})
                     .withDescriptionAndRepresentation(Untranslatable.EMPTY, 1)
-                    .withAssertions(listOf())
+                    .withAssertions(emptyList())
                     .build()
             )
 

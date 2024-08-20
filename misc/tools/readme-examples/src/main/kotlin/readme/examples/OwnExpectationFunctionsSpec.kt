@@ -72,7 +72,7 @@ object OwnExpectationFunctionsSpec : Spek({
     }
 
     test("ex-own-compose-3") {
-        expect(Person("Susanne", "Whitley", 43, listOf()))
+        expect(Person("Susanne", "Whitley", 43, emptyList()))
             .toHaveNumberOfChildren(2)
     }
 
@@ -89,7 +89,7 @@ object OwnExpectationFunctionsSpec : Spek({
         //snippet-own-compose-4-insert
     }
     test("ex-own-compose-4") {
-        expect(Person("Susanne", "Whitley", 43, listOf()))
+        expect(Person("Susanne", "Whitley", 43, emptyList()))
             .toHaveAdultChildren()
     }
 
@@ -99,7 +99,7 @@ object OwnExpectationFunctionsSpec : Spek({
     }
     //@formatter:off
     test("ex-own-compose-5"){
-        expect(Person("Susanne", "Whitley", 43, listOf(Person("Petra", "Whitley", 12, listOf()))))
+        expect(Person("Susanne", "Whitley", 43, listOf(Person("Petra", "Whitley", 12, emptyList()))))
             .children { // using the fun -> expectation-group, ergo sub expectations don't fail fast
                 toHaveElementsAndNone {
                     feature { f(it::firstName) }.toStartWith("Ro")

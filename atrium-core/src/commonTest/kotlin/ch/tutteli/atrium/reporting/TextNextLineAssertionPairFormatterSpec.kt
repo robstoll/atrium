@@ -33,7 +33,7 @@ class TextNextLineAssertionPairFormatterSpec : AssertionFormatterSpecBase({
             val newParameterObject = parameterObject.createChildWithNewPrefix(bulletPoint)
             val assertionGroup = assertionBuilder.root
                 .withDescriptionAndRepresentation(name, subject)
-                .withAssertions(listOf())
+                .withAssertions(emptyList())
                 .build()
             testee.formatGroupHeader(parameterObject, assertionGroup, newParameterObject)
             expect(sb.toString()) toEqual "$name:$lineSeparator$indentBulletPoint$subject"
@@ -42,7 +42,7 @@ class TextNextLineAssertionPairFormatterSpec : AssertionFormatterSpecBase({
         it("does not append a new line if the subject is ${Text::class.simpleName}${Text.Companion::EMPTY.name}") {
             val assertionGroup = assertionBuilder.root
                 .withDescriptionAndEmptyRepresentation(name)
-                .withAssertions(listOf())
+                .withAssertions(emptyList())
                 .build()
             val newParameterObject = parameterObject.createChildWithNewPrefix(bulletPoint)
             testee.formatGroupHeader(parameterObject, assertionGroup, newParameterObject)

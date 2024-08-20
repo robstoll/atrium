@@ -14,7 +14,7 @@ import ch.tutteli.atrium.core.polyfills.format
  */
 class UsingDefaultTranslator(
     primaryLocale: Locale = getDefaultLocale()
-) : ArgumentsSupportingTranslator(primaryLocale, listOf()) {
+) : ArgumentsSupportingTranslator(primaryLocale, emptyList()) {
 
     override fun translateWithoutArgs(translatable: Translatable) = translatable.getDefault()
 }

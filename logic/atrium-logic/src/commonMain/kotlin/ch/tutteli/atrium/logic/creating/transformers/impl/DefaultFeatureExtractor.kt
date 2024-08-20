@@ -51,7 +51,7 @@ class DefaultFeatureExtractor : FeatureExtractor {
                     })
 
                 val subAssertions = maybeSubAssertions.fold({
-                    listOf()
+                    emptyList()
                 }) { assertionCreator ->
                     // TODO 1.3.0: factor out in common pattern, should not be the concern of the average expectation
                     // function writer
@@ -85,7 +85,7 @@ class DefaultFeatureExtractor : FeatureExtractor {
                     // shows why the extraction went wrong (e.g. index out of bound)
                     container.append(fixedClaimGroup)
                 })
-                createFeatureExpect(None, listOf())
+                createFeatureExpect(None, emptyList())
             },
             { subject ->
                 createFeatureExpect(Some(subject), maybeSubAssertions.fold({
