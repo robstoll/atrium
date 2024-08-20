@@ -14,7 +14,7 @@ import ch.tutteli.atrium.logic.next
  *
  * @since 1.3.0
  */
-infix fun <E, T : Iterator<E>> Expect<T>.next(@Suppress("UNUSED_PARAMETER") next: next): Expect<E> =
+infix fun <E, T : Iterator<E>> Expect<T>.next(@Suppress("UNUSED_PARAMETER") o: o): Expect<E> =
     _logic.next().transform()
 
 /**
