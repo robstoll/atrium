@@ -12,7 +12,7 @@ class ListFeatureExtractorSamples {
 
         expect(list)
             .get(0)             // subject is now of type Int (actually 1)
-            .toBeGreaterThan(0) // subject is still of type Int (still 1)
+            .toBeGreaterThan(0)
             .toBeLessThan(2)
 
         fails {
