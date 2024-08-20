@@ -46,7 +46,7 @@ class IteratorExpectationSamples {
 
         fails {
             expect(iterator)
-                .next()                     // subject is now of type Int (actually 3)
+                .next()           // subject is now of type Int (actually 3)
                 .notToEqual(3)    // fails as subject is exactly 3
         }
 
