@@ -23,22 +23,16 @@ class ThrowableThrownFailureHandler<SubjectT : Throwable?, SubjectAfterChangeT> 
         proof: Proof,
         maybeExpectationCreatorWithUsageHints: Option<ExpectationCreatorWithUsageHints<SubjectAfterChangeT>>
     ): Proof = container.buildProof {
-        invisibleGroup {
-            add(proof)
-            maybeExpectationCreatorWithUsageHints.fold({ /* nothing to do */ }) { expectationCreatorWithUsageHints ->
-                explanatoryGroup {
-                    collect(expectationCreatorWithUsageHints)
-                }
+        add(proof)
+        maybeExpectationCreatorWithUsageHints.ifDefined { expectationCreatorWithUsageHints ->
+            proofExplanation {
+                collectWithoutSubject(expectationCreatorWithUsageHints)
             }
-            container.maybeSubject.fold(
-                { /* nothing to do */ },
-                {
-                    if (it != null) add(container.propertiesOfThrowable(it))
-                }
-            )
+        }
+        container.maybeSubject.ifDefined {
+            if (it != null) add(container.propertiesOfThrowable(it))
         }
     }
-
 
     companion object {
 

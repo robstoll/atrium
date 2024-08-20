@@ -63,7 +63,7 @@ fun <T> expect(subject: T, assertionCreator: Expect<T>.() -> Unit): Expect<T> =
  */
 @Suppress("DEPRECATION")
 fun <T, R> Expect<T>.expect(newSubject: R): FeatureExpect<T, R> =
-    //TODO 1.3.0 change to _core
+    //TODO 1.3.0 change to _core and use EXPECT from ExpectationVerb
     _logic.manualFeature(ch.tutteli.atrium.api.verbs.AssertionVerb.EXPECT) { newSubject }.transform()
 
 /**
