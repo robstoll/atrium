@@ -54,6 +54,7 @@ class IteratorExpectationSamples {
             expect(iterator)
                 .next()                    // fails as list has only 3 elements
                 .toEqual(4)      // not evaluated/reported because `next` already fails
+            //                      use `.next { ... }` if you want that all expectations are evaluated
         }
     }
 
