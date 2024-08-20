@@ -2391,7 +2391,7 @@ Its usage is then as follows:
 <ex-own-compose-3>
 
 ```kotlin
-expect(Person("Susanne", "Whitley", 43, listOf()))
+expect(Person("Susanne", "Whitley", 43, emptyList()))
     .toHaveNumberOfChildren(2)
 ```
 ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/main/misc/tools/readme-examples/src/main/kotlin/readme/examples/OwnExpectationFunctionsSpec.kt#L74)</sub> ↓ <sub>[Output](#ex-own-compose-3)</sub>
@@ -2427,7 +2427,7 @@ I.e. it fails for a `Person` with 0 children, because such a person does not hav
 <ex-own-compose-4>
 
 ```kotlin
-expect(Person("Susanne", "Whitley", 43, listOf()))
+expect(Person("Susanne", "Whitley", 43, emptyList()))
     .toHaveAdultChildren()
 ```
 ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/main/misc/tools/readme-examples/src/main/kotlin/readme/examples/OwnExpectationFunctionsSpec.kt#L91)</sub> ↓ <sub>[Output](#ex-own-compose-4)</sub>
@@ -2461,7 +2461,7 @@ With this, we can write things like:
 <ex-own-compose-5>
 
 ```kotlin
-expect(Person("Susanne", "Whitley", 43, listOf(Person("Petra", "Whitley", 12, listOf()))))
+expect(Person("Susanne", "Whitley", 43, listOf(Person("Petra", "Whitley", 12, emptyList()))))
     .children { // using the fun -> expectation-group, ergo sub expectations don't fail fast
         toHaveElementsAndNone {
             feature { f(it::firstName) }.toStartWith("Ro")
