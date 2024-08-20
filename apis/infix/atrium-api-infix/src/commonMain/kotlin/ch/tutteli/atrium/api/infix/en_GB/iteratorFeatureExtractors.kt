@@ -10,7 +10,7 @@ import ch.tutteli.atrium.logic.next
  *
  * @return The newly created [Expect] for the next element.
  *
- * @sample TODO
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.IteratorFeatureExtractorSamples.nextFeature
  *
  * @since 1.3.0
  */
@@ -23,7 +23,7 @@ infix fun <E, T : Iterator<E>> Expect<T>.next(@Suppress("UNUSED_PARAMETER") o: o
  *
  * @return an [Expect] for the subject of the next expectation.
  *
- * @sample TODO
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.IteratorFeatureExtractorSamples.next
  *
  * @since 1.3.0
  */
