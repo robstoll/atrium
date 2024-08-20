@@ -3,7 +3,6 @@ package ch.tutteli.atrium.api.infix.en_GB
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.notImplemented
 import ch.tutteli.atrium.specs.withNullableSuffix
-import kotlin.jvm.JvmName
 import kotlin.reflect.KFunction2
 
 class IteratorExpectationsSpec : ch.tutteli.atrium.specs.integration.IteratorExpectationsSpec(
@@ -26,16 +25,16 @@ class IteratorExpectationsSpec : ch.tutteli.atrium.specs.integration.IteratorExp
 
         private fun notToHaveNext(expect: Expect<Iterator<Int>>) = expect notToHave next
 
-        private val nextFeature: KFunction2<Expect<Iterator<Int>>, next, Expect<Int>> = Expect<Iterator<Int>>::next
+        private val nextFeature: KFunction2<Expect<Iterator<Int>>, o, Expect<Int>> = Expect<Iterator<Int>>::next
         private fun getNextFeaturePair() = "${nextFeature.name} ${next::class.simpleName}" to Companion::nextFeatureNext
-        private fun nextFeatureNext(expect: Expect<Iterator<Int>>) = expect next next
+        private fun nextFeatureNext(expect: Expect<Iterator<Int>>) = expect next o
 
         private val nextFun:  KFunction2<Expect<Iterator<Int>>, Expect<Int>.() -> Unit, Expect<Iterator<Int>>> = Expect<Iterator<Int>>::next
         private fun getNextFunPair() = "${nextFun.name} ${next::class.simpleName}" to Companion::nextFunNext
         private fun nextFunNext(expect: Expect<Iterator<Int>>, assertionCreator: Expect<Int>.() -> Unit) = expect next { assertionCreator() }
 
         private fun getNextFeaturePairNullable() = "${nextFeature.name} ${next::class.simpleName}" to Companion::nextFeatureNextNullable
-        private fun nextFeatureNextNullable(expect: Expect<Iterator<Int?>>) = expect next next
+        private fun nextFeatureNextNullable(expect: Expect<Iterator<Int?>>) = expect next o
 
         private fun getNextFunPairNullable() = "${nextFun.name} ${next::class.simpleName}" to Companion::nextFunNextNullable
         private fun nextFunNextNullable(expect: Expect<Iterator<Int?>>, assertionCreator: Expect<Int?>.() -> Unit) = expect next { assertionCreator() }
@@ -50,6 +49,6 @@ class IteratorExpectationsSpec : ch.tutteli.atrium.specs.integration.IteratorExp
         a1 = a1 notToHave next
         a1 = a1 next { }
 
-        a2 = a1 next next
+        a2 = a1 next o
     }
 }
