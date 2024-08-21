@@ -11,7 +11,6 @@ class ListFeatureExtractorSamples {
         val list = listOf(1, 2, 3)
 
         expect(list) get 0 toBeGreaterThan 0 toBeLessThan 2
-        //               |                 | subject is still of type Int (still 1)
         //               | subject is now of type Int (actually 1)
 
         fails {
@@ -52,7 +51,7 @@ class ListFeatureExtractorSamples {
 
             expect(list) get index(0) {
                 it toBeGreaterThan 2    // fails
-                it toBeLessThan 0       // still evaluated even though `isGreaterThan(2)` already fails,
+                it toBeLessThan 0       // still evaluated even though `toBeGreaterThan 2` already fails,
                 //                         use `get index` if you want a fail fast behaviour
             }
         }

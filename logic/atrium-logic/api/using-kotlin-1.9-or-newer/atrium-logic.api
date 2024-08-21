@@ -276,11 +276,13 @@ public final class ch/tutteli/atrium/logic/IterableLikeKt {
 public abstract interface class ch/tutteli/atrium/logic/IteratorAssertions {
 	public abstract fun hasNext (Lch/tutteli/atrium/creating/AssertionContainer;)Lch/tutteli/atrium/assertions/Assertion;
 	public abstract fun hasNotNext (Lch/tutteli/atrium/creating/AssertionContainer;)Lch/tutteli/atrium/assertions/Assertion;
+	public abstract fun next (Lch/tutteli/atrium/creating/AssertionContainer;)Lch/tutteli/atrium/logic/creating/transformers/FeatureExtractorBuilder$ExecutionStep;
 }
 
 public final class ch/tutteli/atrium/logic/IteratorKt {
 	public static final fun hasNext (Lch/tutteli/atrium/creating/AssertionContainer;)Lch/tutteli/atrium/assertions/Assertion;
 	public static final fun hasNotNext (Lch/tutteli/atrium/creating/AssertionContainer;)Lch/tutteli/atrium/assertions/Assertion;
+	public static final fun next (Lch/tutteli/atrium/creating/AssertionContainer;)Lch/tutteli/atrium/logic/creating/transformers/FeatureExtractorBuilder$ExecutionStep;
 }
 
 public abstract interface class ch/tutteli/atrium/logic/ListAssertions {
@@ -2051,6 +2053,7 @@ public final class ch/tutteli/atrium/logic/impl/DefaultIteratorAssertions : ch/t
 	public fun <init> ()V
 	public fun hasNext (Lch/tutteli/atrium/creating/AssertionContainer;)Lch/tutteli/atrium/assertions/Assertion;
 	public fun hasNotNext (Lch/tutteli/atrium/creating/AssertionContainer;)Lch/tutteli/atrium/assertions/Assertion;
+	public fun next (Lch/tutteli/atrium/creating/AssertionContainer;)Lch/tutteli/atrium/logic/creating/transformers/FeatureExtractorBuilder$ExecutionStep;
 }
 
 public final class ch/tutteli/atrium/logic/impl/DefaultListAssertions : ch/tutteli/atrium/logic/ListAssertions {

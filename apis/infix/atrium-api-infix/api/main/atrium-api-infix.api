@@ -372,6 +372,11 @@ public final class ch/tutteli/atrium/api/infix/en_GB/IteratorExpectationsKt {
 	public static final fun toHave (Lch/tutteli/atrium/creating/Expect;Lch/tutteli/atrium/api/infix/en_GB/next;)Lch/tutteli/atrium/creating/Expect;
 }
 
+public final class ch/tutteli/atrium/api/infix/en_GB/IteratorFeatureExtractorsKt {
+	public static final fun next (Lch/tutteli/atrium/creating/Expect;Lch/tutteli/atrium/api/infix/en_GB/o;)Lch/tutteli/atrium/creating/Expect;
+	public static final fun next (Lch/tutteli/atrium/creating/Expect;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/creating/Expect;
+}
+
 public abstract interface class ch/tutteli/atrium/api/infix/en_GB/Keyword {
 }
 
