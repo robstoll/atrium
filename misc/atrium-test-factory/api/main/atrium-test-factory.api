@@ -1,0 +1,48 @@
+public final class ch/tutteli/atrium/testfactories/BranchTestNode : ch/tutteli/atrium/testfactories/TestNode {
+	public fun <init> (Ljava/lang/String;Ljava/util/List;)V
+	public final fun getDisplayName ()Ljava/lang/String;
+	public final fun getNodes ()Ljava/util/List;
+}
+
+public final class ch/tutteli/atrium/testfactories/LeafTestNode : ch/tutteli/atrium/testfactories/TestNode {
+	public fun <init> (Ljava/lang/String;Lkotlin/jvm/functions/Function1;)V
+	public final fun getDisplayName ()Ljava/lang/String;
+	public final fun getExecutable ()Lkotlin/jvm/functions/Function1;
+}
+
+public abstract interface class ch/tutteli/atrium/testfactories/TestExecutable {
+	public abstract fun expect (Ljava/lang/Object;)Lch/tutteli/atrium/creating/Expect;
+	public abstract fun expect (Ljava/lang/Object;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/creating/Expect;
+}
+
+public final class ch/tutteli/atrium/testfactories/TestFactoryBuilder {
+	public fun <init> ()V
+	public final fun describe (Ljava/lang/String;Lkotlin/jvm/functions/Function1;)V
+	public final fun getNodes ()Ljava/util/List;
+	public final fun it (Ljava/lang/String;Lkotlin/jvm/functions/Function1;)V
+}
+
+public final class ch/tutteli/atrium/testfactories/TestFactoryKt {
+	public static final fun buildTestNodes (Lkotlin/jvm/functions/Function1;)Ljava/util/List;
+}
+
+public final class ch/tutteli/atrium/testfactories/TestFactoryTemplatesKt {
+	public static final fun testFactoryTemplate (Lkotlin/jvm/functions/Function1;Lch/tutteli/atrium/creating/ExpectationVerbs;)Ljava/lang/Object;
+	public static final fun testFactoryTemplate (Lkotlin/jvm/functions/Function1;[Lkotlin/jvm/functions/Function1;Lch/tutteli/atrium/creating/ExpectationVerbs;)Ljava/lang/Object;
+}
+
+public final class ch/tutteli/atrium/testfactories/TestFactory_jvmKt {
+	public static final fun turnTestNodesIntoPlatformSpecificTestFactory (Ljava/util/List;Lch/tutteli/atrium/creating/ExpectationVerbs;)Ljava/lang/Object;
+}
+
+public abstract class ch/tutteli/atrium/testfactories/TestNode {
+}
+
+public final class ch/tutteli/atrium/testfactories/TurnTestNodesIntoExpectGroupingKt {
+	public static final fun turnTestNodesIntoExpectGrouping (Ljava/util/List;Lch/tutteli/atrium/creating/ExpectationVerbs;)Lch/tutteli/atrium/creating/ExpectGrouping;
+}
+
+public final class ch/tutteli/atrium/testfactories/junit/TestFactory_jvmKt {
+	public static final fun turnIntoJunitDynamicNodes (Ljava/util/List;Lch/tutteli/atrium/creating/ExpectationVerbs;)Ljava/util/List;
+}
+

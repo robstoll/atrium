@@ -100,12 +100,17 @@ class TextFallbackAssertionFormatter(
     }
 
     private fun formatGroupHeaderAndGetChildParameterObject(
-        assertionGroup: AssertionGroup, parameterObject: AssertionFormatterParameterObject
-    ) = when (assertionGroup.type) {
-        RootAssertionGroupType -> formatter.formatAfterAppendLnEtc(
-            assertionPairFormatter, assertionGroup, parameterObject
-        )
-        else -> formatter.formatWithGroupName(assertionPairFormatter, assertionGroup, parameterObject)
+        assertionGroup: AssertionGroup,
+        parameterObject: AssertionFormatterParameterObject
+    ): AssertionFormatterParameterObject {
+        // we don't check for root as we might get another root assertion group from a thrown AtriumError
+        return if (parameterObject.sb.isEmpty()) {
+            formatter.formatAfterAppendLnEtc(
+                assertionPairFormatter, assertionGroup, parameterObject
+            )
+        } else {
+            formatter.formatWithGroupName(assertionPairFormatter, assertionGroup, parameterObject)
+        }
     }
 
 }

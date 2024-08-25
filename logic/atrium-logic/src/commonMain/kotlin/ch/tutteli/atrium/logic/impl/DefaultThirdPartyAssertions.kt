@@ -5,7 +5,7 @@ import ch.tutteli.atrium.assertions.builders.assertionBuilder
 import ch.tutteli.atrium.assertions.builders.fixedClaimGroup
 import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.logic.ThirdPartyAssertions
-import ch.tutteli.atrium.logic.creating.transformers.impl.ThrowableThrownFailureHandler
+import ch.tutteli.atrium.logic.creating.transformers.propertiesOfThrowable
 
 class DefaultThirdPartyAssertions : ThirdPartyAssertions {
     override fun <T> toHoldThirdPartyExpectation(
@@ -33,7 +33,7 @@ class DefaultThirdPartyAssertions : ThirdPartyAssertions {
                     .withListType
                     .failing
                     .withDescriptionAndRepresentation(description, representation)
-                    .withAssertion(ThrowableThrownFailureHandler.propertiesOfThrowable(e, container))
+                    .withAssertion(propertiesOfThrowable(e, container ))
                     .build()
             }
         }

@@ -1,5 +1,6 @@
 package ch.tutteli.atrium.reporting
 
+import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.core.polyfills.fullName
 import ch.tutteli.atrium.reporting.AtriumError.Companion
 
@@ -12,7 +13,10 @@ import ch.tutteli.atrium.reporting.AtriumError.Companion
  *
  * To create such an error you need to use the [AtriumError.Companion.create][Companion.create] function.
  */
-actual class AtriumError internal actual constructor(message: String) : AssertionError(message, null) {
+actual class AtriumError internal actual constructor(
+    message: String,
+    actual val rootAssertion: Assertion
+) : AssertionError(message, null) {
 
     /**
      * Usually the error message but an empty string in case of certain test-runners.
@@ -59,7 +63,10 @@ actual class AtriumError internal actual constructor(message: String) : Assertio
          * * Creates an [AtriumError] and adjusts it with the given [atriumErrorAdjuster] before it is returned
          * (adjusting might filter the [stackTrace]).
          */
-        actual fun create(message: String, atriumErrorAdjuster: AtriumErrorAdjuster): AtriumError =
-            createAtriumError(message, atriumErrorAdjuster)
+        actual fun create(
+            message: String,
+            rootAssertion: Assertion,
+            atriumErrorAdjuster: AtriumErrorAdjuster
+        ): AtriumError = createAtriumError(message, rootAssertion, atriumErrorAdjuster)
     }
 }

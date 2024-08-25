@@ -7,8 +7,7 @@ actual val Throwable.stackBacktrace: List<String>
     get() {
         val nullableStack: String? = asDynamic().stack as? String
         return if (nullableStack.isNotNullAndNotBlank()) {
-            //TODO !! no longer necessary with Kotlin 1.3 and a newer KBox Version
-            splitStackLines(nullableStack!!)
+            splitStackLines(nullableStack)
         } else {
             listOf("Could not populate the stackBacktrace, please file a bug report at $BUG_REPORT_URL")
         }

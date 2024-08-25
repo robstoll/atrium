@@ -8,19 +8,15 @@ import ch.tutteli.atrium.assertions.builders.invisibleGroup
 import ch.tutteli.atrium.core.None
 import ch.tutteli.atrium.core.Option
 import ch.tutteli.atrium.core.polyfills.fullName
-import ch.tutteli.atrium.core.polyfills.stackBacktrace
 import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.creating.ExperimentalComponentFactoryContainer
-import ch.tutteli.atrium.creating.build
 import ch.tutteli.atrium.logic.creating.collectors.collectAssertions
 import ch.tutteli.atrium.logic.creating.transformers.SubjectChanger
-import ch.tutteli.atrium.reporting.AtriumErrorAdjuster
-import ch.tutteli.atrium.reporting.Text
-import ch.tutteli.atrium.reporting.translating.Translatable
-import ch.tutteli.atrium.translations.DescriptionThrowableExpectation.*
+import ch.tutteli.atrium.translations.DescriptionThrowableExpectation.OCCURRED_EXCEPTION_PROPERTIES
 
-class ThrowableThrownFailureHandler<SubjectT : Throwable?, SubjectAfterChangeT> : SubjectChanger.FailureHandler<SubjectT, SubjectAfterChangeT> {
+class ThrowableThrownFailureHandler<SubjectT : Throwable?, SubjectAfterChangeT> :
+    SubjectChanger.FailureHandler<SubjectT, SubjectAfterChangeT> {
 
     override fun createAssertion(
         container: AssertionContainer<SubjectT>,
@@ -39,7 +35,9 @@ class ThrowableThrownFailureHandler<SubjectT : Throwable?, SubjectAfterChangeT> 
         container.maybeSubject.fold(
             { /* nothing to do */ },
             {
-                if (it != null) assertions.add(propertiesOfThrowable(it, container))
+                if (it != null) assertions.add(
+                    ch.tutteli.atrium.logic.creating.transformers.propertiesOfThrowable(it, container)
+                )
             }
         )
 
@@ -59,20 +57,18 @@ class ThrowableThrownFailureHandler<SubjectT : Throwable?, SubjectAfterChangeT> 
          * of the given [throwable].
          */
         @OptIn(ExperimentalComponentFactoryContainer::class)
+        @Deprecated(
+            "use the function in package  ch.tutteli.atrium.logic.creating.transformers", ReplaceWith(
+                "ch.tutteli.atrium.logic.creating.transformers.propertiesOfThrowable(throwable, container, explanation)",
+            )
+        )
         fun propertiesOfThrowable(
             throwable: Throwable,
             container: AssertionContainer<*>,
             explanation: Assertion = createExplanation(throwable)
-        ): AssertionGroup {
-            container.components.build<AtriumErrorAdjuster>().adjust(throwable)
-            return assertionBuilder.explanatoryGroup
-                .withInformationType(withIndent = false)
-                .withAssertions(
-                    explanation,
-                    createHints(throwable, secondStackFrameOfParent = null)
-                )
-                .build()
-        }
+        ): AssertionGroup =
+            ch.tutteli.atrium.logic.creating.transformers.propertiesOfThrowable(throwable, container, explanation)
+
 
         private fun createExplanation(throwable: Throwable) =
             assertionBuilder.explanatory
@@ -82,69 +78,6 @@ class ThrowableThrownFailureHandler<SubjectT : Throwable?, SubjectAfterChangeT> 
                 )
                 .build()
 
-        private fun createHints(
-            throwable: Throwable,
-            secondStackFrameOfParent: String?
-        ): Assertion {
-            val assertions = mutableListOf(
-                createMessageHint(throwable),
-                createStackTraceHint(throwable, secondStackFrameOfParent)
-            )
-            assertions.addAll(createAdditionalHints(throwable))
-            createCauseHint(throwable)?.let { assertions.add(it) }
-
-            return assertionBuilder.explanatoryGroup
-                .withDefaultType
-                .withAssertions(assertions)
-                .build()
-        }
-
-        private fun createMessageHint(throwable: Throwable) =
-            assertionBuilder.descriptive
-                .holding
-                .withDescriptionAndRepresentation(
-                    OCCURRED_EXCEPTION_MESSAGE,
-                    throwable.message
-                )
-                .build()
-
-        private fun createStackTraceHint(
-            throwable: Throwable,
-            secondStackFrameOfParent: String?
-        ): Assertion {
-            val stackTrace = if (secondStackFrameOfParent != null) {
-                throwable.stackBacktrace.takeWhile { it != secondStackFrameOfParent }
-            } else {
-                throwable.stackBacktrace
-            }
-            val assertions = stackTrace.map {
-                assertionBuilder.explanatory.withExplanation(Text(it)).build()
-            }
-
-            return assertionBuilder.list
-                .withDescriptionAndEmptyRepresentation(OCCURRED_EXCEPTION_STACKTRACE)
-                .withAssertions(assertions)
-                .build()
-        }
-
-
-        private fun createCauseHint(throwable: Throwable): AssertionGroup? =
-            throwable.cause?.let { cause -> createChildHint(throwable, cause, OCCURRED_EXCEPTION_CAUSE) }
-
-        /**
-         * Creates a hint for a given [child] of the given [throwable] using the given [childDescription].
-         */
-        fun createChildHint(
-            throwable: Throwable,
-            child: Throwable,
-            childDescription: Translatable
-        ): AssertionGroup {
-            val secondStackTrace = if (throwable.stackBacktrace.size > 1) throwable.stackBacktrace[1] else null
-            return assertionBuilder.list
-                .withDescriptionAndRepresentation(childDescription, child)
-                .withAssertion(createHints(child, secondStackTrace))
-                .build()
-        }
     }
 }
 

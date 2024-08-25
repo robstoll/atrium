@@ -9,6 +9,7 @@ kotlin {
         commonMain {
             dependencies {
                 api(prefixedProject("logic"))
+                api(prefixedProject("test-factory"))
                 compileOnly(prefixedProject("translations-en_GB"))
             }
         }

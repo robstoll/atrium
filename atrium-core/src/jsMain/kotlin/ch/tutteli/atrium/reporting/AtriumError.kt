@@ -1,5 +1,6 @@
 package ch.tutteli.atrium.reporting
 
+import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.core.polyfills.stackBacktrace
 
 /**
@@ -15,9 +16,11 @@ import ch.tutteli.atrium.core.polyfills.stackBacktrace
  */
 actual class AtriumError private constructor(
     private val internalMessage: String,
+    actual val rootAssertion: Assertion,
     @Suppress("UNUSED_PARAMETER") dummyUnit: Unit
 ) : AssertionError(internalMessage) {
-    internal actual constructor(message: String) : this(message, Unit)
+
+    internal actual constructor(message: String, rootAssertion: Assertion) : this(message, rootAssertion, Unit)
 
     override val message: String?
         get() {
@@ -51,7 +54,10 @@ actual class AtriumError private constructor(
          *
          * @return The newly created [AtriumError]
          */
-        actual fun create(message: String, atriumErrorAdjuster: AtriumErrorAdjuster): AtriumError =
-            createAtriumError(message, atriumErrorAdjuster)
+        actual fun create(
+            message: String,
+            rootAssertion: Assertion,
+            atriumErrorAdjuster: AtriumErrorAdjuster
+        ): AtriumError = createAtriumError(message, rootAssertion, atriumErrorAdjuster)
     }
 }
