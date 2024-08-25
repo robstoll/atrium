@@ -1646,6 +1646,11 @@ public final class ch/tutteli/atrium/logic/creating/transformers/ImplsKt {
 	public static final fun getSubjectChanger (Lch/tutteli/atrium/creating/AssertionContainer;)Lch/tutteli/atrium/logic/creating/transformers/SubjectChanger;
 }
 
+public final class ch/tutteli/atrium/logic/creating/transformers/PropertiesOfThrowableKt {
+	public static final fun propertiesOfThrowable (Ljava/lang/Throwable;Lch/tutteli/atrium/creating/AssertionContainer;Lch/tutteli/atrium/assertions/Assertion;)Lch/tutteli/atrium/assertions/AssertionGroup;
+	public static synthetic fun propertiesOfThrowable$default (Ljava/lang/Throwable;Lch/tutteli/atrium/creating/AssertionContainer;Lch/tutteli/atrium/assertions/Assertion;ILjava/lang/Object;)Lch/tutteli/atrium/assertions/AssertionGroup;
+}
+
 public abstract interface class ch/tutteli/atrium/logic/creating/transformers/SubjectChanger {
 	public abstract fun reported (Lch/tutteli/atrium/creating/AssertionContainer;Lch/tutteli/atrium/reporting/translating/Translatable;Ljava/lang/Object;Lkotlin/jvm/functions/Function1;Lch/tutteli/atrium/logic/creating/transformers/SubjectChanger$FailureHandler;Lch/tutteli/atrium/core/Option;)Lch/tutteli/atrium/creating/Expect;
 	public abstract fun unreported (Lch/tutteli/atrium/creating/AssertionContainer;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/creating/Expect;
@@ -1781,7 +1786,6 @@ public final class ch/tutteli/atrium/logic/creating/transformers/impl/ThrowableT
 }
 
 public final class ch/tutteli/atrium/logic/creating/transformers/impl/ThrowableThrownFailureHandler$Companion {
-	public final fun createChildHint (Ljava/lang/Throwable;Ljava/lang/Throwable;Lch/tutteli/atrium/reporting/translating/Translatable;)Lch/tutteli/atrium/assertions/AssertionGroup;
 	public final fun propertiesOfThrowable (Ljava/lang/Throwable;Lch/tutteli/atrium/creating/AssertionContainer;Lch/tutteli/atrium/assertions/Assertion;)Lch/tutteli/atrium/assertions/AssertionGroup;
 	public static synthetic fun propertiesOfThrowable$default (Lch/tutteli/atrium/logic/creating/transformers/impl/ThrowableThrownFailureHandler$Companion;Ljava/lang/Throwable;Lch/tutteli/atrium/creating/AssertionContainer;Lch/tutteli/atrium/assertions/Assertion;ILjava/lang/Object;)Lch/tutteli/atrium/assertions/AssertionGroup;
 }

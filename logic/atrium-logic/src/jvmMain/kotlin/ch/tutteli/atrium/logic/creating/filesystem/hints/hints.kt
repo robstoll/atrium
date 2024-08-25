@@ -3,15 +3,14 @@ package ch.tutteli.atrium.logic.creating.filesystem.hints
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.builders.*
-import ch.tutteli.atrium.core.getOrElse
 import ch.tutteli.atrium.core.polyfills.fullName
 import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic._logic
-import ch.tutteli.atrium.logic.creating.transformers.impl.ThrowableThrownFailureHandler
 import ch.tutteli.atrium.logic.creating.filesystem.Failure
 import ch.tutteli.atrium.logic.creating.filesystem.IoResult
 import ch.tutteli.atrium.logic.creating.filesystem.Success
+import ch.tutteli.atrium.logic.creating.transformers.propertiesOfThrowable
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.translations.DescriptionBasic
 import ch.tutteli.atrium.translations.DescriptionPathAssertion.*
@@ -393,7 +392,7 @@ private fun hintForNotDirectory(actualType: Translatable) =
         .build()
 
 private fun AssertionContainer<*>.hintForOtherIoException(exception: IOException) =
-    ThrowableThrownFailureHandler.propertiesOfThrowable(
+    propertiesOfThrowable(
         exception,
         this,
         explanation = assertionBuilder.explanatory

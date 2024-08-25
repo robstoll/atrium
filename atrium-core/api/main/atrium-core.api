@@ -755,6 +755,14 @@ public final class ch/tutteli/atrium/creating/ExpectInternal$DefaultImpls {
 	public static fun createAndAppend (Lch/tutteli/atrium/creating/ExpectInternal;Ljava/lang/String;Ljava/lang/Object;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/creating/Expect;
 }
 
+public abstract interface class ch/tutteli/atrium/creating/ExpectationVerbs {
+	public abstract fun expect (Ljava/lang/Object;)Lch/tutteli/atrium/creating/Expect;
+	public abstract fun expect (Ljava/lang/Object;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/creating/Expect;
+	public abstract fun expectGrouped (Ljava/lang/String;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/creating/ExpectGrouping;
+	public abstract fun expectInExpectGrouped (Lch/tutteli/atrium/creating/ExpectGrouping;Ljava/lang/Object;)Lch/tutteli/atrium/creating/Expect;
+	public abstract fun expectInExpectGrouped (Lch/tutteli/atrium/creating/ExpectGrouping;Ljava/lang/Object;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/creating/Expect;
+}
+
 public abstract interface annotation class ch/tutteli/atrium/creating/ExperimentalComponentFactoryContainer : java/lang/annotation/Annotation {
 }
 
@@ -909,11 +917,12 @@ public final class ch/tutteli/atrium/reporting/AtriumError : java/lang/Assertion
 	public static final field Companion Lch/tutteli/atrium/reporting/AtriumError$Companion;
 	public fun getLocalizedMessage ()Ljava/lang/String;
 	public fun getMessage ()Ljava/lang/String;
+	public final fun getRootAssertion ()Lch/tutteli/atrium/assertions/Assertion;
 	public fun toString ()Ljava/lang/String;
 }
 
 public final class ch/tutteli/atrium/reporting/AtriumError$Companion {
-	public final fun create (Ljava/lang/String;Lch/tutteli/atrium/reporting/AtriumErrorAdjuster;)Lch/tutteli/atrium/reporting/AtriumError;
+	public final fun create (Ljava/lang/String;Lch/tutteli/atrium/assertions/Assertion;Lch/tutteli/atrium/reporting/AtriumErrorAdjuster;)Lch/tutteli/atrium/reporting/AtriumError;
 }
 
 public abstract interface class ch/tutteli/atrium/reporting/AtriumErrorAdjuster : ch/tutteli/atrium/reporting/AtriumErrorAdjusterCommon {

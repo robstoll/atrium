@@ -9,6 +9,7 @@ import ch.tutteli.atrium.creating.*
 import ch.tutteli.atrium.logic.collectForCompositionBasedOnSubject
 import ch.tutteli.atrium.logic.creating.collectors.collectAssertions
 import ch.tutteli.atrium.logic.creating.transformers.FeatureExtractor
+import ch.tutteli.atrium.logic.creating.transformers.propertiesOfThrowable
 import ch.tutteli.atrium.logic.toExpect
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
@@ -46,7 +47,7 @@ class DefaultFeatureExtractor : FeatureExtractor {
                 val (failureHintAssertions, repForFailure) = maybeThrowable.fold(
                     { emptyList<Assertion>() to representationForFailure },
                     { throwable ->
-                        listOf(ThrowableThrownFailureHandler.propertiesOfThrowable(throwable, container)) to
+                        listOf(propertiesOfThrowable(throwable, container )) to
                             TranslatableWithArgs(DescriptionFunLikeExpectation.THREW, throwable::class.fullName)
                     })
 

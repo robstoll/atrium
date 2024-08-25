@@ -1,14 +1,17 @@
 package ch.tutteli.atrium.api.verbs
 
 import ch.tutteli.atrium.api.verbs.AssertionVerb.EXPECT
+import ch.tutteli.atrium.api.verbs.factory.DefaultExpectationVerbs
 import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
-import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.creating.ExpectGrouping
-import ch.tutteli.atrium.creating.FeatureExpect
-import ch.tutteli.atrium.creating.RootExpect
+import ch.tutteli.atrium.creating.*
 import ch.tutteli.atrium.logic.*
 import ch.tutteli.atrium.logic.creating.RootExpectBuilder
 import ch.tutteli.atrium.reporting.Text
+import ch.tutteli.atrium.testfactories.TestFactory
+import ch.tutteli.atrium.testfactories.TestFactoryBuilder
+import ch.tutteli.atrium.testfactories.testFactoryTemplate
+
+import ch.tutteli.atrium.api.verbs.expect as atriumVerb
 
 /**
  * Creates an [Expect] for the given [subject].
@@ -34,7 +37,7 @@ fun <T> expect(subject: T): RootExpect<T> =
  * @throws AssertionError in case an assertion does not hold.
  */
 fun <T> expect(subject: T, assertionCreator: Expect<T>.() -> Unit): Expect<T> =
-    expect(subject)._logic.appendAsGroup(assertionCreator)
+    atriumVerb(subject)._logic.appendAsGroup(assertionCreator)
 
 /**
  * Creates an [Expect] for the given (unrelated) [newSubject].
@@ -55,8 +58,8 @@ fun <T, R> Expect<T>.expect(newSubject: R): FeatureExpect<T, R> =
  * Creates an [Expect] for the given (unrelated) [newSubject] and appends the expectations the given
  * [assertionCreator]-lambda creates as group to it.
  *
- * Consider to use [expectGrouped] instead of [expect] as expectation entry point if you want to state expectations
- * about several unrelated subjects. [expectGrouped] fulfills exactly this purpose.
+ * Consider to use [expectGrouped] instead of [ch.tutteli.atrium.api.verbs.expect] as expectation entry point if you
+ * want to state expectations about several unrelated subjects. [expectGrouped] fulfills exactly this purpose.
  *
  * We recommend to use `its` or `feature` or another feature extractor if you want to extract a feature out of the
  * current subject.
@@ -75,9 +78,9 @@ fun <T, R> Expect<T>.expect(newSubject: R, assertionCreator: Expect<R>.() -> Uni
  *
  * @param description Description of the root group.
  * @param groupingActions Some action which defines what happens within the group (typically, creating some
- *   expectations via [expect] or nesting the grouping further).
+ *   expectations via [ch.tutteli.atrium.api.verbs.expect] or nesting the grouping further).
  * @param configuration, Optionally, you can define more options via [RootExpectBuilder.OptionsChooser] such
- *   as exchange components etc.
+ *   as exchange components etc -- experimental.
  *
  * @since 1.1.0
  */
@@ -104,7 +107,7 @@ fun expectGrouped(
  *
  * @since 1.1.0
  */
-fun <R> ExpectGrouping.expect(subject: R): Expect<R> =
+fun <T> ExpectGrouping.expect(subject: T): Expect<T> =
     expectWithinExpectGroup(subject).transform()
 
 /**
@@ -118,11 +121,11 @@ fun <R> ExpectGrouping.expect(subject: R): Expect<R> =
  *
  * @since 1.1.0
  */
-fun <R> ExpectGrouping.expect(subject: R, assertionCreator: Expect<R>.() -> Unit): Expect<R> =
+fun <T> ExpectGrouping.expect(subject: T, assertionCreator: Expect<T>.() -> Unit): Expect<T> =
     expectWithinExpectGroup(subject).transformAndAppend(assertionCreator)
 
 
-private fun <R> ExpectGrouping.expectWithinExpectGroup(subject: R) =
+private fun <T> ExpectGrouping.expectWithinExpectGroup(subject: T) =
     _logic.manualFeature(EXPECT) { subject }
 
 /**
@@ -138,3 +141,24 @@ fun ExpectGrouping.expectGrouped(
     representationProvider: () -> Any = Text.EMPTY_PROVIDER,
     groupingActions: ExpectGrouping.() -> Unit
 ): ExpectGrouping = _logicAppend { grouping(description, representationProvider, groupingActions) }
+
+/**
+ * Creates a test factory which can be used in conjunction with Atrium's [TestFactory] annotation and uses Atrium's
+ * default expectation verbs.
+ *
+ * @return The platform specific test factory.
+ * @since 1.3.0
+ */
+fun testFactory(setup: TestFactoryBuilder.() -> Unit): Any = testFactoryTemplate(setup, DefaultExpectationVerbs)
+
+/**
+ * Creates a test factory which can be used in conjunction with Atrium's [TestFactory] annotation and uses Atrium's
+ * default expectation verbs.
+ *
+ * @return The platform specific test factory.
+ * @since 1.3.0
+ */
+fun testFactory(
+    setup: TestFactoryBuilder.() -> Unit,
+    vararg otherSetups: TestFactoryBuilder.() -> Unit
+): Any = testFactoryTemplate(setup, otherSetups, DefaultExpectationVerbs)

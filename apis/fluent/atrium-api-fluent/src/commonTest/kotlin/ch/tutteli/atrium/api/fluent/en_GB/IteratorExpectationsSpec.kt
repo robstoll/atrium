@@ -12,7 +12,7 @@ class IteratorExpectationsSpec : ch.tutteli.atrium.specs.integration.IteratorExp
     fun1(Expect<Iterator<Int?>>::next).withNullableSuffix(),
 ) {
 
-    @Suppress("unused", "UNUSED_VALUE")
+    @Suppress("unused", "UNUSED_VALUE", "ASSIGNED_BUT_NEVER_ACCESSED_VARIABLE")
     private fun ambiguityTest() {
         var a1: Expect<Iterator<Double>> = notImplemented()
         var a2: Expect<Double> = notImplemented()

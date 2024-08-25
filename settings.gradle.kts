@@ -37,9 +37,10 @@ listOf("en_GB").forEach { lang ->
     include("translations", "atrium-translations-$lang")
 }
 
+include("misc", "atrium-specs")
+include("misc", "atrium-test-factory")
 include("misc", "atrium-verbs")
 include("misc", "atrium-verbs-internal")
-include("misc", "atrium-specs")
 include("misc", "js-stubs")
 include("misc/tools", "readme-examples")
 

@@ -33,7 +33,7 @@ interface CollectingExpect<T> : Expect<T> {
      * @return an [Expect] for the subject of `this` expectation.
      *
      * @throws AssertionError Might throw an [AssertionError] in case [Assertion]s are immediately evaluated.
-    */
+     */
     fun appendAsGroup(assertionCreator: Expect<T>.() -> Unit): CollectingExpect<T>
 
     companion object {
@@ -41,7 +41,6 @@ interface CollectingExpect<T> : Expect<T> {
         operator fun <T> invoke(
             maybeSubject: Option<T>,
             componentFactoryContainer: ComponentFactoryContainer
-        ): CollectingExpect<T> =
-            CollectingExpectImpl(maybeSubject, componentFactoryContainer)
+        ): CollectingExpect<T> = CollectingExpectImpl(maybeSubject, componentFactoryContainer)
     }
 }
