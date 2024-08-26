@@ -91,7 +91,7 @@ Atrium is published to [mavenCentral](https://search.maven.org/search?q=g:ch.tut
 It has the following minimum requirement:
 - Kotlin: 1.4
 - JVM: 11
-- JS: IR-Backend (LEGACY supported was dropped with Atrium 1.2.0)
+- JS: IR-Backend (LEGACY support was dropped with Atrium 1.2.0)
 
 In case you use Kotlin 1.5 or newer, then regardless of the target platform, you can use the following group and artifactId
 
