@@ -5,6 +5,7 @@ import ch.tutteli.atrium.api.infix.en_GB.of
 import ch.tutteli.atrium.api.infix.en_GB.toEqual
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.api.verbs.internal.expectGrouped
+import ch.tutteli.atrium.api.verbs.internal.testFactory
 import ch.tutteli.atrium.creating.ExperimentalComponentFactoryContainer
 import ch.tutteli.atrium.creating.build
 import ch.tutteli.atrium.creating.impl.DefaultComponentFactoryContainer
@@ -13,12 +14,13 @@ import ch.tutteli.atrium.reporting.reportables.InlineElement
 import ch.tutteli.atrium.reporting.reportables.Reportable
 import ch.tutteli.atrium.reporting.reportables.TextElement
 import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionAnyProof
+import ch.tutteli.atrium.testfactories.TestFactory
 import kotlin.test.Test
 
 class DefaultInlineDesignatorPreRendererTest {
 
-    @Test
-    fun canTransform_InlineElement_true() {
+    @TestFactory
+    fun canTransform_InlineElement_true() = testFactory {
         val preRenderer = DefaultInlineDesignatorPreRenderer()
         val inlineElements = listOf(
             Text("bla"),
@@ -29,9 +31,8 @@ class DefaultInlineDesignatorPreRendererTest {
                 override val string: String = ""
             }
         )
-        //TODO 1.4.0 switch to testFactory
-        expectGrouped {
-            inlineElements.forEach {
+        inlineElements.forEach {
+            it("inline element ${it::class.simpleName}") {
                 expect(preRenderer) feature of(DefaultInlineDesignatorPreRenderer::canTransform, it) toEqual true
             }
         }

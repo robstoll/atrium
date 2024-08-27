@@ -1,15 +1,23 @@
 package ch.tutteli.atrium.reporting
 
+import ch.tutteli.atrium._core
 import ch.tutteli.atrium.api.infix.en_GB.toEqual
 import ch.tutteli.atrium.api.verbs.internal.expect
+import ch.tutteli.atrium.assertions.*
+import ch.tutteli.atrium.assertions.BasicExplanatoryAssertion
+import ch.tutteli.atrium.assertions.ExplanatoryAssertionGroup
 import ch.tutteli.atrium.creating.*
 import ch.tutteli.atrium.creating.impl.ComponentFactoryContainerImpl
 import ch.tutteli.atrium.creating.impl.DefaultComponentFactoryContainer
 import ch.tutteli.atrium.creating.proofs.Proof
-import ch.tutteli.atrium.creating.proofs.SimpleProof
+import ch.tutteli.atrium.creating.proofs.ProofBuilder
+import ch.tutteli.atrium.creating.proofs.buildProof
+import ch.tutteli.atrium.reporting.reportables.InlineElement
 import ch.tutteli.atrium.reporting.reportables.Reportable
+import ch.tutteli.atrium.translations.DescriptionThrowableExpectation
 import com.github.ajalt.mordant.rendering.AnsiLevel
 import com.github.ajalt.mordant.rendering.TextColors
+import com.github.ajalt.mordant.rendering.TextStyle
 import com.github.ajalt.mordant.terminal.Terminal
 import kotlin.test.Test
 
@@ -17,6 +25,7 @@ import kotlin.test.Test
 class CreateReportTest {
     private val x = TextColors.red("✘")
     private val f = TextColors.cyan("▶")
+    private val i = TextStyle(TextColors.brightBlue, bold = true).invoke("ℹ\uFE0F ")
 
     @Test
     fun text() {
@@ -39,15 +48,12 @@ class CreateReportTest {
 
     @Test
     fun rootProofGroupWithSimpleProofAndRepresentation() {
-        val reportable = Proof.rootGroup(
-            Text("a verb"), "representation",
-            children = listOf(
-                Proof.simple(Text("to equal"), 1) { false },
-                Text("some text")
-            )
-        )
+        val builder = buildRootGroup {
+            simpleProof(Text("to equal"), 1) { false }
+            add(Text("some text"))
+        }
         expectForReporterWithoutAnsi(
-            reportable,
+            builder,
             """
             |a verb       : "representation"
             |(f) to equal : 1
@@ -55,7 +61,7 @@ class CreateReportTest {
             """.trimMargin()
         )
         expectForReporterWithAnsi(
-            reportable,
+            builder,
             """
             |a verb     : "representation"
            |$x to equal : 1
@@ -66,24 +72,15 @@ class CreateReportTest {
 
     @Test
     fun featureProofGroup() {
-        val reportable = Proof.rootGroup(
-            Text("my expectations"), Text.EMPTY,
-            children = listOf(
-                Proof.featureGroup(
-                    Text("verb"), 2,
-                    children = listOf(
-                        Proof.featureGroup(
-                            Text("name"), "Robert",
-                            children = listOf(
-                                Proof.simple(Text("to equal"), "Peter") { false }
-                            )
-                        )
-                    )
-                )
-            )
-        )
+        val builder = buildRootGroup(verb = Text("my expectations"), representation = Text.EMPTY) {
+            feature(Text("verb"), 2) {
+                feature(Text("name"), "Robert") {
+                    simpleProof(Text("to equal"), "Peter") { false }
+                }
+            }
+        }
         expectForReporterWithoutAnsi(
-            reportable,
+            builder,
             """
             |my expectations :${" "}
             |(f) > verb : 2
@@ -92,7 +89,7 @@ class CreateReportTest {
             """.trimMargin()
         )
         expectForReporterWithAnsi(
-            reportable,
+            builder,
             """
             |my expectations :${" "}
            |$x $f verb : 2
@@ -100,6 +97,21 @@ class CreateReportTest {
             |        $x to equal : "Peter"
             """.trimMargin()
         )
+    }
+
+    @Test
+    fun featureProofGroupWithMultilineDescription(){
+        //TODO 1.3.0 use case method call with multiple arguments
+    }
+
+    @Test
+    fun invisibleGroup_singleInRoot_shouldBeUnwrapped(){
+        val builder = buildRootGroup {
+            invisibleGroup {
+                simpleProof(Text("simple"), 1){ false}
+                add(Text("text"))
+            }
+        }
     }
 
     @Test
@@ -180,7 +192,87 @@ class CreateReportTest {
             |(i) first column               : second longer than longest line of representation : 1
             """.trimMargin()
         )
+    }
 
+    @Suppress("DEPRECATION")
+    @Test
+    fun explanatoryAssertionGroupNested() {
+        val reportable = Proof.rootGroup(
+            Text("verb"), 1,
+            listOf(
+                ExplanatoryAssertionGroup(
+                    InformationAssertionGroupType(withIndent = false), listOf(
+                        BasicExplanatoryAssertion(Text("properties of the unknown Exception")),
+                        ExplanatoryAssertionGroup(
+                            DefaultExplanatoryAssertionGroupType, listOf(
+                                BasicDescriptiveAssertion(
+                                    DescriptionThrowableExpectation.OCCURRED_EXCEPTION_MESSAGE,
+                                    "bla"
+                                ) { true },
+                                BasicAssertionGroup(
+                                    DefaultListAssertionGroupType,
+                                    DescriptionThrowableExpectation.OCCURRED_EXCEPTION_STACKTRACE,
+                                    Text.EMPTY,
+                                    listOf(
+                                        BasicExplanatoryAssertion(Text("test")),
+                                        BasicExplanatoryAssertion(Text("lines"))
+                                    )
+                                )
+                            ), holds = true
+                        )
+                    ), holds = false
+                )
+            )
+        )
+        expectForReporterWithoutAnsi(
+            reportable,
+            """
+            |verb : 1
+            |(i) properties of the unknown Exception
+            |    » message : "bla"
+            |    » stacktrace :${" "}
+            |      ⚬ test
+            |      ⚬ lines
+            """.trimMargin()
+        )
+        expectForReporterWithAnsi(
+            reportable,
+            """
+            |verb : 1
+            |${i}properties of the unknown Exception
+            |   » message : "bla"
+            |   » stacktrace :${" "}
+            |     ⚬ test
+            |     ⚬ lines
+            """.trimMargin()
+        )
+    }
+
+    @Test
+    fun debugGroup() {
+        val reportable = Proof.rootGroup(
+            Text("verb"), 1,
+            listOf(
+                Proof.simple(Text("to equal"), 2) { false },
+                Reportable.debugGroup(
+                    Text("further information"), listOf(
+
+                    )
+                )
+            )
+        )
+        expectForReporterWithoutAnsi(
+            reportable,
+            """
+            |verb         : 1
+            |(f) to equal : 2
+            |(d) further information :
+            |    » message : "bla"
+            |    » stacktrace :${" "}
+            |      ⚬ test
+            |      ⚬ lines
+            """.trimMargin()
+        )
     }
 
     @Test
@@ -205,10 +297,16 @@ class CreateReportTest {
     }
 
 
-    private fun expectForReporterWithAnsi(reportable: Reportable, expectedResult: String) {
-        val reporter = componentFactoryContainer().build<TextReporter>()
-        expect(reporter.createReport(reportable).toString()).toEqual(expectedResult)
+    private fun buildRootGroup(
+        verb: InlineElement = Text("a verb"),
+        representation: Any = "representation",
+        setup: ProofBuilder<*>.() -> Unit,
+    ): Expect<*>.() -> Proof = {
+        Proof.rootGroup(verb, representation, listOf(this._core.buildProof(setup)))
     }
+
+    private fun expectForReporterWithoutAnsi(builder: Expect<*>.() -> Proof, expectedResult: String) =
+        expectForReporterWithoutAnsi(expect(Unit).builder(), expectedResult)
 
     private fun expectForReporterWithoutAnsi(reportable: Reportable, expectedResult: String) {
         val reporter = reporterWithoutAnsi()
@@ -228,6 +326,16 @@ class CreateReportTest {
         ).build<TextReporter>()
         return reporter
     }
+
+    private fun expectForReporterWithAnsi(builder: Expect<*>.() -> Proof, expectedResult: String) =
+        expectForReporterWithAnsi(expect(Unit).builder(), expectedResult)
+
+    private fun expectForReporterWithAnsi(reportable: Reportable, expectedResult: String) {
+        val reporter = componentFactoryContainer().build<TextReporter>()
+        val subject = reporter.createReport(reportable).toString()
+        expect(subject).toEqual(expectedResult)
+    }
+
 
     private fun componentFactoryContainer() = DefaultComponentFactoryContainer.merge(
         ComponentFactoryContainerImpl(

@@ -3,7 +3,6 @@ package ch.tutteli.atrium.creating.proofs.impl
 import ch.tutteli.atrium.creating.proofs.*
 import ch.tutteli.atrium.reporting.reportables.InlineElement
 import ch.tutteli.atrium.reporting.reportables.Reportable
-import ch.tutteli.atrium.reporting.reportables.ReportableWithDesignation
 
 internal abstract class MemoizingHoldsProofGroup(override val children: List<Reportable>) : ProofGroup {
     init {
@@ -20,10 +19,10 @@ internal abstract class MemoizingHoldsProofGroup(override val children: List<Rep
 }
 
 internal abstract class BaseProofGroup(
-    override val description: InlineElement,
+    override val description: Reportable,
     override val representation: Any,
     children: List<Reportable>
-) : MemoizingHoldsProofGroup(children), ReportableWithDesignation {
+) : MemoizingHoldsProofGroup(children), ProofGroupWithDesignation {
     //TODO 1.3.0 override toString? checkout AssertionGroup impl.
 
     override fun toString(): String {
@@ -38,13 +37,13 @@ internal class DefaultRootGroup(
 ) : BaseProofGroup(expectationVerb, representation, children), RootProofGroup
 
 internal class DefaultProofGroup(
-    description: InlineElement,
+    description: Reportable,
     representation: Any,
     children: List<Reportable>
 ) : BaseProofGroup(description, representation, children)
 
 internal class DefaultFeatureGroup(
-    description: InlineElement,
+    description: Reportable,
     representation: Any,
     children: List<Reportable>
 ) : BaseProofGroup(description, representation, children), FeatureProofGroup
@@ -64,7 +63,7 @@ internal class DefaultInvisibleProofGroup(
 internal class DefaultInvisibleFixedClaimGroup(
     override val children: List<Reportable>,
     private val holds: Boolean
-) : ProofGroup {
+) : InvisibleFixedClaimGroup {
 
     override fun holds(): Boolean = holds
 
@@ -81,6 +80,6 @@ internal class DefaultFixedClaimGroup(
     representation: Any,
     children: List<Reportable>,
     private val itHolds: Boolean,
-) : BaseProofGroup(description, representation, children) {
+) : BaseProofGroup(description, representation, children), FixedClaimGroup {
     override fun holds(): Boolean = itHolds
 }

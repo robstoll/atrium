@@ -33,28 +33,42 @@ interface Proof : Reportable {
         //TODO 1.3.0 return a RootProofGroup or do we introduce a GroupType? At the moment I think different types would
         // be better than a GroupType
         //TODO 1.3.0 here and also for other functions returning a ProofGroup, we should check that at least one child is a proof
-        fun rootGroup(expectationVerb: InlineElement, representation: Any?, children: List<Reportable>): ProofGroup =
-            DefaultRootGroup(expectationVerb, representation ?: Text.NULL, children)
+        fun rootGroup(
+            expectationVerb: InlineElement,
+            representation: Any?,
+            children: List<Reportable>
+        ): RootProofGroup = DefaultRootGroup(
+            expectationVerb,
+            representation ?: Text.NULL,
+            children//.unwrapInvisibleGroupIfSingleElement()
+        )
 
-        fun group(description: InlineElement, representation: Any?, children: List<Reportable>): ProofGroup =
-            DefaultProofGroup(description, representation ?: Text.NULL, children)
+        fun group(description: Reportable, representation: Any?, children: List<Reportable>): ProofGroup =
+            DefaultProofGroup(description, representation ?: Text.NULL, children.unwrapInvisibleGroupIfSingleElement())
 
-        fun featureGroup(description: InlineElement, representation: Any?, children: List<Reportable>): ProofGroup =
-            DefaultFeatureGroup(description, representation ?: Text.NULL, children)
+        fun featureGroup(description: Reportable, representation: Any?, children: List<Reportable>): FeatureProofGroup =
+            DefaultFeatureGroup(
+                description,
+                representation ?: Text.NULL,
+                children.unwrapInvisibleGroupIfSingleElement()
+            )
 
-        fun invisibleGroup(children: List<Reportable>): ProofGroup = DefaultInvisibleProofGroup(children)
+        fun invisibleGroup(children: List<Reportable>): InvisibleProofGroup =
+            DefaultInvisibleProofGroup(children.unwrapInvisibleGroupIfSingleElement())
 
-        fun invisibleFixedClaimGroup(children: List<Reportable>, holds: Boolean): ProofGroup =
-            DefaultInvisibleFixedClaimGroup(children, holds)
+        fun invisibleFixedClaimGroup(children: List<Reportable>, holds: Boolean): InvisibleFixedClaimGroup =
+            DefaultInvisibleFixedClaimGroup(children.unwrapInvisibleGroupIfSingleElement(), holds)
 
         fun fixedClaimGroup(
             description: InlineElement,
             representation: Any?,
             children: List<Reportable>,
             holds: Boolean
-        ): ProofGroup = DefaultFixedClaimGroup(description, representation ?: Text.NULL, children, holds)
+        ): FixedClaimGroup = DefaultFixedClaimGroup(description, representation ?: Text.NULL, children, holds)
 
     }
 }
 
 interface SimpleProof : Proof, ReportableWithInlineDesignation
+
+

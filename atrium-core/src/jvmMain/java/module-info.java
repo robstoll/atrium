@@ -13,6 +13,7 @@ module ch.tutteli.atrium.core.api {
     exports ch.tutteli.atrium.creating;
     exports ch.tutteli.atrium.creating.proofs;
     exports ch.tutteli.atrium.creating.feature;
+    exports ch.tutteli.atrium.creating.transformers;
     exports ch.tutteli.atrium.reporting;
     exports ch.tutteli.atrium.reporting.erroradjusters;
     exports ch.tutteli.atrium.reporting.reportables;

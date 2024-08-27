@@ -4,6 +4,7 @@ public final class ch/tutteli/atrium/api/verbs/AssertionVerb : java/lang/Enum, c
 	public fun getDefault ()Ljava/lang/String;
 	public fun getId ()Ljava/lang/String;
 	public synthetic fun getName ()Ljava/lang/String;
+	public fun getString ()Ljava/lang/String;
 	public fun getValue ()Ljava/lang/String;
 	public static fun valueOf (Ljava/lang/String;)Lch/tutteli/atrium/api/verbs/AssertionVerb;
 	public static fun values ()[Lch/tutteli/atrium/api/verbs/AssertionVerb;

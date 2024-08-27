@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.creating.proofs
 
 import ch.tutteli.atrium.reporting.reportables.ReportableGroup
-import ch.tutteli.atrium.reporting.reportables.ReportableWithDesignation
+import ch.tutteli.atrium.reporting.reportables.ReportableGroupWithDesignation
 
 /**
  * The base interface for [Proof] groups, providing a default implementation for [Proof.holds]
@@ -24,6 +24,10 @@ interface ProofGroup : Proof, ReportableGroup {
     override fun holds(): Boolean  = proofs.all(Proof::holds)
 }
 
-interface RootProofGroup: ProofGroup, ReportableWithDesignation
-interface FeatureProofGroup: ProofGroup, ReportableWithDesignation
+interface ProofGroupWithDesignation: ProofGroup, ReportableGroupWithDesignation
+
+interface RootProofGroup: ProofGroupWithDesignation
+interface FeatureProofGroup: ProofGroupWithDesignation
 interface InvisibleProofGroup: ProofGroup
+interface InvisibleFixedClaimGroup: ProofGroup
+interface FixedClaimGroup: ProofGroup
