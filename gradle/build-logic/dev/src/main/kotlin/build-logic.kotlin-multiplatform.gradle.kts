@@ -27,11 +27,6 @@ kotlin {
     jvm {
         // for module-info.java and Java sources in test
         withJava()
-        testRuns["test"].executionTask.configure {
-            useJUnitPlatform {
-                includeEngines("spek2", "junit-jupiter")
-            }
-        }
     }
 
     js(IR) {
@@ -76,5 +71,20 @@ kotlin {
 rootProject.plugins.withType<org.jetbrains.kotlin.gradle.targets.js.yarn.YarnPlugin> {
     rootProject.configure<org.jetbrains.kotlin.gradle.targets.js.yarn.YarnRootExtension> {
         lockFileDirectory = rootProject.projectDir.resolve("gradle")
+    }
+}
+
+// need to do it afterEvaluate as the spek plugin adds spek and we don't want it
+// also the reason why we don't addIncludeEngines but set it
+project.afterEvaluate {
+    kotlin {
+        jvm {
+            // for module-info.java and Java sources in test
+            testRuns["test"].executionTask.configure {
+                useJUnitPlatform {
+                    includeEngines = setOf("spek2-atrium", "junit-jupiter")
+                }
+            }
+        }
     }
 }
