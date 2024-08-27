@@ -1,12 +1,12 @@
 package ch.tutteli.atrium.testfactories
 
+import ch.tutteli.atrium._coreAppend
 import ch.tutteli.atrium.creating.ExpectGrouping
 import ch.tutteli.atrium.creating.ExpectationVerbs
-import ch.tutteli.atrium.logic._logicAppend
 import ch.tutteli.atrium.logic.grouping
 import ch.tutteli.atrium.reporting.Text
 import ch.tutteli.atrium.testfactories.impl.ExpectGroupingBasedTestExecutable
-import ch.tutteli.atrium.testfactories.impl.executeAndAppendExceptionAsAssertion
+import ch.tutteli.atrium.testfactories.impl.executeAndAppendExceptionAsProof
 
 /**
  * Turns the given [testNodes] into one [ExpectGrouping] with corresponding subgroups and uses
@@ -29,7 +29,10 @@ fun turnTestNodesIntoExpectGrouping(
 private fun ExpectGrouping.processNodes(testNodes: List<TestNode>, expectationVerbs: ExpectationVerbs) {
     testNodes.forEach { node ->
         when (node) {
-            is BranchTestNode -> _logicAppend {
+            is BranchTestNode -> _coreAppend {
+                // I doubt we will run into stack-overflow issues as the nesting is normally very limited.
+                // If we should run into stack-overflow issues, then we could turn this into a tailrec function
+                // using an own stack
                 grouping(node.displayName, Text.EMPTY_PROVIDER) {
                     // I doubt we will run into stack-overflow issues as the nesting is normally very limited.
                     // If we should run into stack-overflow issues, then we could turn this into a tailrec function
@@ -38,9 +41,9 @@ private fun ExpectGrouping.processNodes(testNodes: List<TestNode>, expectationVe
                 }
             }
 
-            is LeafTestNode -> _logicAppend {
+            is LeafTestNode -> _coreAppend {
                 grouping(node.displayName, Text.EMPTY_PROVIDER) {
-                    executeAndAppendExceptionAsAssertion {
+                    executeAndAppendExceptionAsProof {
                         node.executable(ExpectGroupingBasedTestExecutable(this, expectationVerbs))
                     }
                 }

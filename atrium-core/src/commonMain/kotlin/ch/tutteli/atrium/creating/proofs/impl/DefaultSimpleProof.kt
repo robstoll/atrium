@@ -12,5 +12,5 @@ internal class DefaultSimpleProof(
     /**
      * @suppress
      */
-    override fun toString() = "DefaultSimpleProof (holds=${holds()}): $description: $representation "
+    override fun toString() = "DefaultSimpleProof(h=${holds()}, $description: $representation)"
 }

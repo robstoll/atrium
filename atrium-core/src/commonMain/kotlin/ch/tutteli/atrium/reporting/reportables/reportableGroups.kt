@@ -14,3 +14,16 @@ interface ReportableGroup : Reportable {
     // children
     val children: List<Reportable>
 }
+
+interface ReportableGroupWithDescription : ReportableGroup {
+    val description: Reportable
+}
+
+interface DebugGroup : ReportableGroupWithDescription
+interface ErrorExplanationGroup : ReportableGroupWithDescription
+interface InformationGroup : ReportableGroupWithDescription
+
+//TODO 1.3.0 check KDOC (including @since) of all types in this file
+interface ProofExplanation : ReportableGroup
+
+interface UsageHintGroup : ReportableGroup

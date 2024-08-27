@@ -61,7 +61,7 @@ internal class RootExpectImpl<T>(
 
             val sb = components.build<Reporter>().createReport(rootProofGroup)
 
-            throw AtriumError.create(sb.toString(), assertionGroup, components.build<AtriumErrorAdjuster>())
+            throw AtriumError.create(sb.toString(), rootProofGroup, components.build<AtriumErrorAdjuster>())
         }
         return this
     }

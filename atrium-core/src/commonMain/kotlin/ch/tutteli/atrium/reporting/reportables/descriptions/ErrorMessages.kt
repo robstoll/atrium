@@ -15,4 +15,6 @@ enum class ErrorMessages(override val string: String) : TextElement {
 
     /** @since 1.3.0 */
     DEFAULT_HINT_AT_LEAST_ONE_EXPECTATION_DEFINED("Sometimes you can use an alternative to `{ }` For instance, instead of `toThrow<..> { }` you should use `toThrow<..>()`"),
+    /** @since 1.3.0 */
+    NO_PROF_ADDED_IN_PROOF_GROUP("no Proof added within a ProofGroupBuilder, at least one expected")
 }

@@ -6,9 +6,7 @@ import ch.tutteli.atrium.creating.ExpectationCreatorWithUsageHints
 import ch.tutteli.atrium.creating.ProofContainer
 import ch.tutteli.atrium.creating.collectForComposition
 import ch.tutteli.atrium.creating.collectForCompositionBasedOnGivenSubject
-import ch.tutteli.atrium.reporting.reportables.InlineElement
-import ch.tutteli.atrium.reporting.reportables.Reportable
-import ch.tutteli.atrium.reporting.reportables.ReportableGroup
+import ch.tutteli.atrium.reporting.reportables.*
 
 fun <T> ProofContainer<T>.buildSimpleProof(
     description: InlineElement,
@@ -31,13 +29,12 @@ annotation class ReportableBuilderMarker
 abstract class BaseBuilder<
     SubjectT,
     ReportableT : Reportable,
-    ReportableGroupT,
-    SELF : BaseBuilder<SubjectT, ReportableT, ReportableGroupT, SELF>
+    SelfT : BaseBuilder<SubjectT, ReportableT, SelfT>
     >(
     protected val proofContainer: ProofContainer<SubjectT>
-) where ReportableGroupT : ReportableGroup, ReportableGroupT : ReportableT {
+) {
     @Suppress("UNCHECKED_CAST")
-    private inline val self: SELF get() = this as SELF
+    private inline val self: SelfT get() = this as SelfT
 
     private val reportables = mutableListOf<Reportable>()
 
@@ -62,12 +59,19 @@ abstract class BaseBuilder<
     fun representationOnlyProof(representation: Any?, test: (SubjectT) -> Boolean): Proof =
         add(Proof.representationOnlyProof(representation, proofContainer.toTestFunction(test)))
 
-    fun group(description: InlineElement, representation: Any?, init: ProofGroupBuilder<SubjectT>.() -> Unit): Proof =
+    fun group(description: Reportable, representation: Any?, init: ProofGroupBuilder<SubjectT>.() -> Unit): Proof =
         add(ProofGroupBuilder(proofContainer, description, representation).build(init))
+
+    fun feature(
+        description: Reportable,
+        representation: Any?,
+        init: FeatureProofGroupBuilder<SubjectT>.() -> Unit
+    ): Proof = add(FeatureProofGroupBuilder(proofContainer, description, representation).build(init))
 
     fun invisibleGroup(init: InvisibleProofGroupBuilder<SubjectT>.() -> Unit): Proof =
         add(InvisibleProofGroupBuilder(proofContainer).build(init))
 
+    //TODO 1.3.0 this is smelly again, looks a bit like the same hack as we hade with ExplanatoryAssertionGroup which should not have been an Assertion which can fail
     fun invisibleFixedClaimGroup(holds: Boolean, init: InvisibleFixedClaimGroupBuilder<SubjectT>.() -> Unit): Proof =
         add(InvisibleFixedClaimGroupBuilder(proofContainer, holds).build(init))
 
@@ -103,100 +107,120 @@ abstract class BaseBuilder<
 
     fun inlineGroup(vararg inlineElements: InlineElement): Reportable = Reportable.inlineGroup(inlineElements.toList())
 
-
-    fun build(init: SELF.() -> Unit): ReportableT {
+    fun build(init: SelfT.() -> Unit): ReportableT {
         //TODO 1.3.0 transform an unexpected exception into a failing proof
         self.also(init)
-        return when (reportables.size) {
-            0 -> TODO("1.3.0 create proof which tells wrong usage of buildProof -- no proof created")
-            1 -> buildSingle(reportables.first())
-            else -> buildGroup(reportables)
-        }
+        return build(reportables)
     }
 
-    protected abstract fun buildSingle(singleChild: Reportable): ReportableT
-    protected abstract fun buildGroup(children: List<Reportable>): ReportableGroupT
+    protected abstract fun build(children: List<Reportable>): ReportableT
 }
+//
+typealias AnyBuilder = BaseBuilder<*, *,  *>
+typealias AnyProofBuilder = BaseBuilder<*, Proof, *>
+typealias AnyReportableBuilder = BaseBuilder<*, Reportable, *>
 
-typealias AnyBuilder = BaseBuilder<*, *, *, *>
-typealias AnyProofBuilder = BaseBuilder<*, Proof, ProofGroup, *>
-typealias AnyReportableBuilder = BaseBuilder<*, Reportable, ReportableGroup, *>
-
-
-abstract class BaseReportableBuilder<SubjectT, SELF : BaseReportableBuilder<SubjectT, SELF>>(
-    proofContainer: ProofContainer<SubjectT>
-) : BaseBuilder<SubjectT, Reportable, ReportableGroup, SELF>(proofContainer) {
-    override fun buildSingle(singleChild: Reportable): Reportable = singleChild
-}
-
-abstract class BaseProofBuilder<SubjectT, SELF : BaseProofBuilder<SubjectT, SELF>>(
-    proofContainer: ProofContainer<SubjectT>
-) : BaseBuilder<SubjectT, Proof, ProofGroup, SELF>(proofContainer) {
-    override fun buildSingle(singleChild: Reportable): Proof = when (singleChild) {
-        is Proof -> singleChild
-        else -> TODO("1.3.0 create group explaining that only one reportable was created and not a proof, without proof we cannot build a ProofGroup")
-    }
-}
+//abstract class BaseReportableBuilder<SubjectT, SelfT : BaseReportableBuilder<SubjectT, SelfT>>(
+//    proofContainer: ProofContainer<SubjectT>
+//) : BaseBuilder<SubjectT, Reportable, ReportableGroup, SelfT>(proofContainer) {
+////    override fun buildSingle(singleChild: Reportable): Reportable = singleChild
+//}
+//
+//abstract class BaseProofGroupBuilder<SubjectT, SelfT : BaseProofGroupBuilder<SubjectT, SelfT>>(
+//    proofContainer: ProofContainer<SubjectT>
+//) : BaseBuilder<SubjectT, Proof, SelfT>(proofContainer) {
+//    override fun build(children: List<Reportable>): ProofGroup =
+//        when (chil)
+//    when (singleChild)
+//    {
+//        is Proof -> singleChild
+//        else -> TODO("1.3.0 create group explaining that only one reportable was created and not a proof, without proof we cannot build a ProofGroup")
+//    }
+//}
 
 class ProofBuilder<T> internal constructor(
     proofContainer: ProofContainer<T>
-) : BaseProofBuilder<T, ProofBuilder<T>>(proofContainer) {
+) : BaseBuilder<T, Proof, ProofBuilder<T>>(proofContainer) {
 
-    override fun buildGroup(children: List<Reportable>): ProofGroup = Proof.invisibleGroup(children)
+    override fun build(children: List<Reportable>): Proof =
+        when (children.size) {
+            1 -> when (val first = children.first()) {
+                is Proof -> first
+                else -> throw IllegalArgumentException("You need to add at least one Proof when building a Proof. Given: $first")
+            }
+
+            else -> Proof.invisibleGroup(children)
+        }
+}
+
+abstract class BaseGroupBuilder<SubjectT,
+    ReportableT : Reportable,
+    SelfT : BaseBuilder<SubjectT, ReportableT, SelfT>
+    >(
+    proofContainer: ProofContainer<SubjectT>,
+    private val factory: (children: List<Reportable>) -> ReportableT,
+) : BaseBuilder<SubjectT, ReportableT, SelfT>(proofContainer) {
+    override fun build(children: List<Reportable>): ReportableT = factory(children)
 }
 
 class ProofGroupBuilder<SubjectT>(
     proofContainer: ProofContainer<SubjectT>,
-    private val description: InlineElement,
+    private val description: Reportable,
     private val representation: Any?
-) : BaseProofBuilder<SubjectT, ProofGroupBuilder<SubjectT>>(proofContainer) {
+) : BaseGroupBuilder<SubjectT, ProofGroup, ProofGroupBuilder<SubjectT>>(
+    proofContainer,
+    { children -> Proof.group(description, representation, children) }
+)
 
-    override fun buildGroup(children: List<Reportable>): ProofGroup = Proof.group(description, representation, children)
-}
+class FeatureProofGroupBuilder<SubjectT>(
+    proofContainer: ProofContainer<SubjectT>,
+    private val description: Reportable,
+    private val representation: Any?
+) : BaseGroupBuilder<SubjectT, FeatureProofGroup, FeatureProofGroupBuilder<SubjectT>>(
+    proofContainer,
+    { children -> Proof.featureGroup(description, representation, children) }
+)
 
 class InvisibleProofGroupBuilder<SubjectT>(
     proofContainer: ProofContainer<SubjectT>,
-) : BaseProofBuilder<SubjectT, InvisibleProofGroupBuilder<SubjectT>>(proofContainer) {
-
-    override fun buildGroup(children: List<Reportable>): ProofGroup = Proof.invisibleGroup(children)
-}
+) : BaseGroupBuilder<SubjectT, InvisibleProofGroup, InvisibleProofGroupBuilder<SubjectT>>(
+    proofContainer,
+    Proof::invisibleGroup
+)
 
 class InvisibleFixedClaimGroupBuilder<SubjectT>(
     proofContainer: ProofContainer<SubjectT>,
     private val holds: Boolean
-) : BaseProofBuilder<SubjectT, InvisibleFixedClaimGroupBuilder<SubjectT>>(proofContainer) {
-
-    override fun buildGroup(children: List<Reportable>): ProofGroup = Proof.invisibleFixedClaimGroup(children, holds)
-}
-
+) : BaseGroupBuilder<SubjectT, InvisibleFixedClaimGroup, InvisibleFixedClaimGroupBuilder<SubjectT>>(
+    proofContainer,
+    { children -> Proof.invisibleFixedClaimGroup(children, holds) }
+)
 
 class FixedClaimGroupBuilder<SubjectT>(
     proofContainer: ProofContainer<SubjectT>,
     private val description: InlineElement,
     private val representation: Any?,
     private val holds: Boolean
-) : BaseProofBuilder<SubjectT, FixedClaimGroupBuilder<SubjectT>>(proofContainer) {
-
-    override fun buildGroup(children: List<Reportable>): ProofGroup =
-        Proof.fixedClaimGroup(description, representation, children, holds)
-}
+) : BaseGroupBuilder<SubjectT, FixedClaimGroup, FixedClaimGroupBuilder<SubjectT>>(
+    proofContainer,
+    { children -> Proof.fixedClaimGroup(description, representation, children, holds) }
+)
 
 class ReportableGroupBuilder<SubjectT>(
     proofContainer: ProofContainer<SubjectT>,
     private val description: InlineElement,
     private val representation: Any?
-) : BaseReportableBuilder<SubjectT, ReportableGroupBuilder<SubjectT>>(proofContainer) {
-
-    override fun buildGroup(children: List<Reportable>): ReportableGroup =
-        Reportable.group(description, representation, children)
-}
+) : BaseGroupBuilder<SubjectT, ReportableGroup, ReportableGroupBuilder<SubjectT>>(
+    proofContainer,
+    { children -> Reportable.group(description, representation, children) }
+)
 
 class ProofExplanationGroupBuilder<SubjectT>(
     proofContainer: ProofContainer<SubjectT>,
-) : BaseReportableBuilder<SubjectT, ProofExplanationGroupBuilder<SubjectT>>(proofContainer) {
-
-    override fun buildGroup(children: List<Reportable>): ReportableGroup =
-        Reportable.proofExplanation(Proof.invisibleGroup(children))
+) : BaseGroupBuilder<SubjectT, ProofExplanation, ProofExplanationGroupBuilder<SubjectT>>(
+    proofContainer,
+    { children -> Reportable.proofExplanation(Proof.invisibleGroup(children)) }
+) {
 
     //TODO 1.3.0 add KDoc
     fun <SomeSubjectT> collectWithoutSubject(
@@ -208,30 +232,26 @@ class ProofExplanationGroupBuilder<SubjectT>(
         }
 }
 
-
 class ErrorExplanationGroupBuilder<SubjectT>(
     proofContainer: ProofContainer<SubjectT>,
     private val description: InlineElement,
-) : BaseReportableBuilder<SubjectT, ErrorExplanationGroupBuilder<SubjectT>>(proofContainer) {
-
-    override fun buildGroup(children: List<Reportable>): ReportableGroup =
-        Reportable.errorExplanationGroup(description, children)
-}
+) : BaseGroupBuilder<SubjectT, ErrorExplanationGroup, ErrorExplanationGroupBuilder<SubjectT>>(
+    proofContainer,
+    { children -> Reportable.errorExplanationGroup(description, children) }
+)
 
 class InformationGroupBuilder<SubjectT>(
     proofContainer: ProofContainer<SubjectT>,
     private val description: InlineElement,
-) : BaseReportableBuilder<SubjectT, InformationGroupBuilder<SubjectT>>(proofContainer) {
-
-    override fun buildGroup(children: List<Reportable>): ReportableGroup =
-        Reportable.informationGroup(description, children)
-}
+) : BaseGroupBuilder<SubjectT, InformationGroup, InformationGroupBuilder<SubjectT>>(
+    proofContainer,
+    { children -> Reportable.informationGroup(description, children) }
+)
 
 class DebugGroupBuilder<SubjectT>(
     proofContainer: ProofContainer<SubjectT>,
     private val description: InlineElement,
-) : BaseReportableBuilder<SubjectT, DebugGroupBuilder<SubjectT>>(proofContainer) {
-
-    override fun buildGroup(children: List<Reportable>): ReportableGroup =
-        Reportable.debugGroup(description, children)
-}
+) : BaseGroupBuilder<SubjectT, DebugGroup, DebugGroupBuilder<SubjectT>>(
+    proofContainer,
+    { children -> Reportable.debugGroup(description, children) }
+)

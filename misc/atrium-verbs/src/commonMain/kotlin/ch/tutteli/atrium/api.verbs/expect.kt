@@ -147,7 +147,7 @@ fun <T> ExpectGrouping.expect(subject: T, assertionCreator: Expect<T>.() -> Unit
 @Suppress("DEPRECATION")
 private fun <T> ExpectGrouping.expectWithinExpectGroup(subject: T) =
     //TODO 1.3.0 change to _core
-    _logic.manualFeature(EXPECT) { subject }
+    _logic.manualFeature(AssertionVerb.EXPECT) { subject }
 
 /**
  * In order to have one way only, use the function provided by the API such as `group`.

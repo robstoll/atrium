@@ -7,7 +7,6 @@ import ch.tutteli.atrium.reporting.reportables.impl.DefaultDebugGroup
 import ch.tutteli.atrium.reporting.reportables.impl.DefaultInlineGroup
 import ch.tutteli.atrium.reporting.reportables.impl.DefaultProofExplanation
 import ch.tutteli.atrium.reporting.reportables.impl.DefaultReportableGroup
-import ch.tutteli.atrium.reporting.reportables.impl.DefaultRepresentationReportable
 import ch.tutteli.atrium.reporting.reportables.impl.DefaultUsageHintGroup
 
 //TODO 1.3.0 check KDOC (including @since) of all types in this file
@@ -29,23 +28,20 @@ interface Reportable {
         fun group(description: InlineElement, representation: Any?, children: List<Reportable>): ReportableGroup =
             DefaultReportableGroup(description, representation ?: Text.NULL, children)
 
-        fun proofExplanation(proof: Proof): ReportableGroup = DefaultProofExplanation(proof)
+        fun proofExplanation(proof: Proof): ProofExplanation = DefaultProofExplanation(proof)
 
-        fun errorExplanationGroup(description: InlineElement, reportables: List<Reportable>): ReportableGroup =
-            DefaultErrorExplanation(description, reportables)
+        fun errorExplanationGroup(description: InlineElement, reportables: List<Reportable>): ErrorExplanationGroup =
+            DefaultErrorExplanationGroup(description, reportables)
 
-        fun informationGroup(description: InlineElement, reportables: List<Reportable>): ReportableGroup =
+        fun informationGroup(description: InlineElement, reportables: List<Reportable>): InformationGroup =
             DefaultInformationGroup(description, reportables)
 
-        fun usageHintGroup(reportables: List<Reportable>): ReportableGroup = DefaultUsageHintGroup(reportables)
+        fun usageHintGroup(reportables: List<Reportable>): UsageHintGroup = DefaultUsageHintGroup(reportables)
 
-        fun debugGroup(description: InlineElement, reportables: List<Reportable>): ReportableGroup =
+        fun debugGroup(description: InlineElement, reportables: List<Reportable>): DebugGroup =
             DefaultDebugGroup(description, reportables)
 
         fun inlineGroup(inlineElements: List<InlineElement>): InlineElement = DefaultInlineGroup(inlineElements)
-
-        fun representation(representation: Any?): Reportable =
-            DefaultRepresentationReportable(representation ?: Text.NULL)
     }
 }
 
@@ -71,10 +67,8 @@ interface ReportableWithDesignation : Reportable {
     val representation: Any
 }
 
+interface ReportableGroupWithDesignation : ReportableGroup, ReportableWithDesignation
+
 interface ReportableWithInlineDesignation : ReportableWithDesignation {
     override val description: InlineElement
-}
-
-interface RepresentationReportable : Reportable {
-    val representation: Any
 }

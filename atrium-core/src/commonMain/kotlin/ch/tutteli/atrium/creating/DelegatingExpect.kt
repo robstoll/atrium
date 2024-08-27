@@ -27,6 +27,6 @@ interface DelegatingExpect<T> : Expect<T> {
         )
         @OptIn(ExperimentalNewExpectTypes::class, ExperimentalComponentFactoryContainer::class)
         operator fun <T> invoke(expect: AssertionContainer<*>, maybeSubject: Option<T>): Expect<T> =
-            DelegatingExpectImpl(expect, maybeSubject)
+            DelegatingExpectBasedOnProofContainer(expect.toExpect().toProofContainer(), maybeSubject)
     }
 }
