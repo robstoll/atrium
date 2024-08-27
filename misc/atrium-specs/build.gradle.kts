@@ -28,12 +28,18 @@ kotlin {
         jvmMain {
             dependencies {
                 api(libs.mockk.jvm)
-                api(libs.spek.jvm)
                 api(libs.niok)
                 api(libs.tutteli.spek)
                 api(libs.mockitoKotlin)
                 api(kotlin("test-junit5"))
                 api(libs.junit.platform.commons)
+
+                //TODO 1.5.0 remove once we moved away from spek
+                api(libs.spek.jvm)
+                implementation(libs.spek.runner)
+                implementation(libs.spek.runtime)
+                implementation(libs.junit.platform.console)
+
             }
         }
 
