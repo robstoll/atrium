@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.creating.transformers.impl
 
-import ch.tutteli.atrium.creating.transformers.impl.ThrowableThrownFailureHandler.Companion.addChildHint
 import ch.tutteli.atrium.creating.proofs.AnyBuilder
+import ch.tutteli.atrium.creating.transformers.addChildHint
 import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionThrowableProof
 
 actual fun AnyBuilder.addAdditionalHints(

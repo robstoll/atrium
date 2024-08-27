@@ -46,7 +46,7 @@ inline fun <SomeSubjectT> ProofContainer<*>.collectForFailureHint(
 ): Pair<List<Proof>, Boolean> =
     collectForCompositionBasedOnGivenSubject(None, expectationCreatorWithUsageHints).mapFirst { collectedProofs ->
         maybeSubject.fold({
-            // already in an explanatory expectation-group, no need to wrap again
+            // already in a proofExplanation group no need to wrap again
             collectedProofs
         }, {
             listOf(buildProof {

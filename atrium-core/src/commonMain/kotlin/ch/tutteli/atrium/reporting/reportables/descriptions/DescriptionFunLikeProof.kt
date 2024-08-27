@@ -13,5 +13,5 @@ enum class DescriptionFunLikeProof(override val string: String) : Description {
     THROWN_EXCEPTION_WHEN_CALLED("thrown exception when called"),
 
     /** @since 1.3.0 (but was since 0.18.0 in atrium-translations DescriptionFunLikeExpectation) */
-    THREW("❗❗ threw %s")
+    THREW("❗❗ threw")
 }

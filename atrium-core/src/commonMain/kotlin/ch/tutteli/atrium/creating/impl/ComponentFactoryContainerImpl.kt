@@ -13,6 +13,7 @@ import ch.tutteli.atrium.reporting.erroradjusters.RemoveAtriumFromAtriumError
 import ch.tutteli.atrium.reporting.erroradjusters.RemoveRunnerFromAtriumError
 import ch.tutteli.atrium.reporting.erroradjusters.impl.RemoveAtriumFromAtriumErrorImpl
 import ch.tutteli.atrium.reporting.erroradjusters.impl.RemoveRunnerFromAtriumErrorImpl
+import ch.tutteli.atrium.reporting.reportables.impl.DefaultUsageHintGroup
 import ch.tutteli.atrium.reporting.text.*
 import ch.tutteli.atrium.reporting.text.TextObjectFormatter
 import ch.tutteli.atrium.reporting.text.impl.*
@@ -123,10 +124,7 @@ internal object DefaultComponentFactoryContainer : ComponentFactoryContainer by 
             DefaultTextReporter(c.build())
         },
         TextPreRenderController::class createVia { c ->
-            AssertionToProofConvertingPreRenderController(
-                DefaultTextPreRenderController(c.buildChained(), c.buildChained(), c.build(), c.build()),
-                c.build()
-            )
+            DefaultTextPreRenderController(c.buildChained(), c.buildChained(), c.build(), c.build())
         },
         ReportableFilter::class createVia { _ ->
             FailingProofsAndOthers
@@ -216,13 +214,43 @@ internal object DefaultComponentFactoryContainer : ComponentFactoryContainer by 
 
     chainedComponents = mapOf(
         TextPreRenderer::class createChainVia sequenceOf(
+
+            { c ->
+                @Suppress("DEPRECATION")
+                DefaultExplanatoryAssertionTextPreRenderer(c.build())
+            },
+            { c ->
+                @Suppress("DEPRECATION")
+                DefaultRepresentationOnlyAssertionTextPreRenderer(c.build())
+            },
+            { _ ->
+                @Suppress("DEPRECATION")
+                DefaultDescriptiveAssertionTextPreRenderer()
+            },
+            { _ ->
+                @Suppress("DEPRECATION")
+                DefaultExplanatoryAssertionGroupTextPreRenderer()
+            },
+            { c ->
+                @Suppress("DEPRECATION")
+                DefaultAssertionGroupTextPreRenderer(c.build())
+            },
+
             { _ -> DefaultSimpleProofTextPreRenderer() },
             { _ -> DefaultInvisibleProofGroupTextPreRenderer() },
             { c -> DefaultFeatureProofGroupTextPreRenderer(c.build()) },
             { _ -> DefaultRootProofGroupTextPreRenderer() },
+            { c -> DefaultDebugGroupTextPreRenderer(c.build()) },
+            { _ -> DefaultUsageHintGroupTextPreRenderer() },
+
+            { _ -> DefaultFallbackProofGroupWithDesignationTextPreRenderer() },
+            { _ -> DefaultFallbackReportableGroupWithDesignationTextPreRenderer() },
+
 //            { c -> DefaultIconPreRenderer(c.build()) },
             { _ -> DefaultTextElementTextPreRenderer() },
             { _ -> DefaultTextElementTextPreRenderer() },
+
+
         ),
         TextDesignationPreRenderer::class createChainVia sequenceOf(
             { c -> DefaultInlineDesignatorPreRenderer(c.build()) }

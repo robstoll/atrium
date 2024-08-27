@@ -3,6 +3,7 @@
 
 package ch.tutteli.atrium.assertions
 
+import ch.tutteli.atrium.reporting.reportables.ReportableWithDesignation
 import ch.tutteli.atrium.reporting.translating.Translatable
 
 /**
@@ -19,14 +20,14 @@ import ch.tutteli.atrium.reporting.translating.Translatable
         "ch.tutteli.atrium.creating.proofs.Proof"
     )
 )
-interface DescriptiveAssertion : Assertion {
+interface DescriptiveAssertion : Assertion, ReportableWithDesignation {
     /**
      * The representation of the expected result such as `1`, `null` etc.
      */
-    val representation: Any
+    override val representation: Any
 
     /**
      * The complementary description to the [representation] result such as `contains`, `is not` etc.
      */
-    val description: Translatable
+    override val description: Translatable
 }

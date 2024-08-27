@@ -11,6 +11,7 @@ public final class ch/tutteli/atrium/translations/DescriptionAnyExpectation : ja
 	public fun getDefault ()Ljava/lang/String;
 	public fun getId ()Ljava/lang/String;
 	public synthetic fun getName ()Ljava/lang/String;
+	public fun getString ()Ljava/lang/String;
 	public fun getValue ()Ljava/lang/String;
 	public static fun valueOf (Ljava/lang/String;)Lch/tutteli/atrium/translations/DescriptionAnyExpectation;
 	public static fun values ()[Lch/tutteli/atrium/translations/DescriptionAnyExpectation;
@@ -28,6 +29,7 @@ public final class ch/tutteli/atrium/translations/DescriptionBasic : java/lang/E
 	public fun getDefault ()Ljava/lang/String;
 	public fun getId ()Ljava/lang/String;
 	public synthetic fun getName ()Ljava/lang/String;
+	public fun getString ()Ljava/lang/String;
 	public fun getValue ()Ljava/lang/String;
 	public static fun valueOf (Ljava/lang/String;)Lch/tutteli/atrium/translations/DescriptionBasic;
 	public static fun values ()[Lch/tutteli/atrium/translations/DescriptionBasic;
@@ -42,6 +44,7 @@ public final class ch/tutteli/atrium/translations/DescriptionBigDecimalAssertion
 	public fun getDefault ()Ljava/lang/String;
 	public fun getId ()Ljava/lang/String;
 	public synthetic fun getName ()Ljava/lang/String;
+	public fun getString ()Ljava/lang/String;
 	public fun getValue ()Ljava/lang/String;
 	public static fun valueOf (Ljava/lang/String;)Lch/tutteli/atrium/translations/DescriptionBigDecimalAssertion;
 	public static fun values ()[Lch/tutteli/atrium/translations/DescriptionBigDecimalAssertion;
@@ -70,6 +73,7 @@ public final class ch/tutteli/atrium/translations/DescriptionCharSequenceExpecta
 	public fun getDefault ()Ljava/lang/String;
 	public fun getId ()Ljava/lang/String;
 	public synthetic fun getName ()Ljava/lang/String;
+	public fun getString ()Ljava/lang/String;
 	public fun getValue ()Ljava/lang/String;
 	public static fun valueOf (Ljava/lang/String;)Lch/tutteli/atrium/translations/DescriptionCharSequenceExpectation;
 	public static fun values ()[Lch/tutteli/atrium/translations/DescriptionCharSequenceExpectation;
@@ -81,6 +85,7 @@ public final class ch/tutteli/atrium/translations/DescriptionCollectionExpectati
 	public fun getDefault ()Ljava/lang/String;
 	public fun getId ()Ljava/lang/String;
 	public synthetic fun getName ()Ljava/lang/String;
+	public fun getString ()Ljava/lang/String;
 	public fun getValue ()Ljava/lang/String;
 	public static fun valueOf (Ljava/lang/String;)Lch/tutteli/atrium/translations/DescriptionCollectionExpectation;
 	public static fun values ()[Lch/tutteli/atrium/translations/DescriptionCollectionExpectation;
@@ -97,6 +102,7 @@ public final class ch/tutteli/atrium/translations/DescriptionComparableExpectati
 	public fun getDefault ()Ljava/lang/String;
 	public fun getId ()Ljava/lang/String;
 	public synthetic fun getName ()Ljava/lang/String;
+	public fun getString ()Ljava/lang/String;
 	public fun getValue ()Ljava/lang/String;
 	public static fun valueOf (Ljava/lang/String;)Lch/tutteli/atrium/translations/DescriptionComparableExpectation;
 	public static fun values ()[Lch/tutteli/atrium/translations/DescriptionComparableExpectation;
@@ -116,6 +122,7 @@ public final class ch/tutteli/atrium/translations/DescriptionDateTimeLikeExpecta
 	public fun getDefault ()Ljava/lang/String;
 	public fun getId ()Ljava/lang/String;
 	public synthetic fun getName ()Ljava/lang/String;
+	public fun getString ()Ljava/lang/String;
 	public fun getValue ()Ljava/lang/String;
 	public static fun valueOf (Ljava/lang/String;)Lch/tutteli/atrium/translations/DescriptionDateTimeLikeExpectation;
 	public static fun values ()[Lch/tutteli/atrium/translations/DescriptionDateTimeLikeExpectation;
@@ -128,6 +135,7 @@ public final class ch/tutteli/atrium/translations/DescriptionFloatingPointExcept
 	public fun getDefault ()Ljava/lang/String;
 	public fun getId ()Ljava/lang/String;
 	public synthetic fun getName ()Ljava/lang/String;
+	public fun getString ()Ljava/lang/String;
 	public fun getValue ()Ljava/lang/String;
 	public static fun valueOf (Ljava/lang/String;)Lch/tutteli/atrium/translations/DescriptionFloatingPointException;
 	public static fun values ()[Lch/tutteli/atrium/translations/DescriptionFloatingPointException;
@@ -140,6 +148,7 @@ public final class ch/tutteli/atrium/translations/DescriptionFunLikeExpectation 
 	public fun getDefault ()Ljava/lang/String;
 	public fun getId ()Ljava/lang/String;
 	public synthetic fun getName ()Ljava/lang/String;
+	public fun getString ()Ljava/lang/String;
 	public fun getValue ()Ljava/lang/String;
 	public static fun valueOf (Ljava/lang/String;)Lch/tutteli/atrium/translations/DescriptionFunLikeExpectation;
 	public static fun values ()[Lch/tutteli/atrium/translations/DescriptionFunLikeExpectation;
@@ -181,6 +190,7 @@ public final class ch/tutteli/atrium/translations/DescriptionIterableLikeExpecta
 	public fun getDefault ()Ljava/lang/String;
 	public fun getId ()Ljava/lang/String;
 	public synthetic fun getName ()Ljava/lang/String;
+	public fun getString ()Ljava/lang/String;
 	public fun getValue ()Ljava/lang/String;
 	public static fun valueOf (Ljava/lang/String;)Lch/tutteli/atrium/translations/DescriptionIterableLikeExpectation;
 	public static fun values ()[Lch/tutteli/atrium/translations/DescriptionIterableLikeExpectation;
@@ -191,6 +201,7 @@ public final class ch/tutteli/atrium/translations/DescriptionListLikeExpectation
 	public fun getDefault ()Ljava/lang/String;
 	public fun getId ()Ljava/lang/String;
 	public synthetic fun getName ()Ljava/lang/String;
+	public fun getString ()Ljava/lang/String;
 	public fun getValue ()Ljava/lang/String;
 	public static fun valueOf (Ljava/lang/String;)Lch/tutteli/atrium/translations/DescriptionListLikeExpectation;
 	public static fun values ()[Lch/tutteli/atrium/translations/DescriptionListLikeExpectation;
@@ -210,6 +221,7 @@ public final class ch/tutteli/atrium/translations/DescriptionMapLikeExpectation 
 	public fun getDefault ()Ljava/lang/String;
 	public fun getId ()Ljava/lang/String;
 	public synthetic fun getName ()Ljava/lang/String;
+	public fun getString ()Ljava/lang/String;
 	public fun getValue ()Ljava/lang/String;
 	public static fun valueOf (Ljava/lang/String;)Lch/tutteli/atrium/translations/DescriptionMapLikeExpectation;
 	public static fun values ()[Lch/tutteli/atrium/translations/DescriptionMapLikeExpectation;
@@ -222,6 +234,7 @@ public final class ch/tutteli/atrium/translations/DescriptionOptionalAssertion :
 	public fun getDefault ()Ljava/lang/String;
 	public fun getId ()Ljava/lang/String;
 	public synthetic fun getName ()Ljava/lang/String;
+	public fun getString ()Ljava/lang/String;
 	public fun getValue ()Ljava/lang/String;
 	public static fun valueOf (Ljava/lang/String;)Lch/tutteli/atrium/translations/DescriptionOptionalAssertion;
 	public static fun values ()[Lch/tutteli/atrium/translations/DescriptionOptionalAssertion;
@@ -267,6 +280,7 @@ public final class ch/tutteli/atrium/translations/DescriptionPathAssertion : jav
 	public fun getDefault ()Ljava/lang/String;
 	public fun getId ()Ljava/lang/String;
 	public synthetic fun getName ()Ljava/lang/String;
+	public fun getString ()Ljava/lang/String;
 	public fun getValue ()Ljava/lang/String;
 	public static fun valueOf (Ljava/lang/String;)Lch/tutteli/atrium/translations/DescriptionPathAssertion;
 	public static fun values ()[Lch/tutteli/atrium/translations/DescriptionPathAssertion;
@@ -280,6 +294,7 @@ public final class ch/tutteli/atrium/translations/DescriptionResultExpectation :
 	public fun getDefault ()Ljava/lang/String;
 	public fun getId ()Ljava/lang/String;
 	public synthetic fun getName ()Ljava/lang/String;
+	public fun getString ()Ljava/lang/String;
 	public fun getValue ()Ljava/lang/String;
 	public static fun valueOf (Ljava/lang/String;)Lch/tutteli/atrium/translations/DescriptionResultExpectation;
 	public static fun values ()[Lch/tutteli/atrium/translations/DescriptionResultExpectation;
@@ -296,6 +311,7 @@ public final class ch/tutteli/atrium/translations/DescriptionThrowableExpectatio
 	public fun getDefault ()Ljava/lang/String;
 	public fun getId ()Ljava/lang/String;
 	public synthetic fun getName ()Ljava/lang/String;
+	public fun getString ()Ljava/lang/String;
 	public fun getValue ()Ljava/lang/String;
 	public static fun valueOf (Ljava/lang/String;)Lch/tutteli/atrium/translations/DescriptionThrowableExpectation;
 	public static fun values ()[Lch/tutteli/atrium/translations/DescriptionThrowableExpectation;
@@ -307,6 +323,7 @@ public final class ch/tutteli/atrium/translations/ErrorMessages : java/lang/Enum
 	public fun getDefault ()Ljava/lang/String;
 	public fun getId ()Ljava/lang/String;
 	public synthetic fun getName ()Ljava/lang/String;
+	public fun getString ()Ljava/lang/String;
 	public fun getValue ()Ljava/lang/String;
 	public static fun valueOf (Ljava/lang/String;)Lch/tutteli/atrium/translations/ErrorMessages;
 	public static fun values ()[Lch/tutteli/atrium/translations/ErrorMessages;

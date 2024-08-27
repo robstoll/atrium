@@ -3,7 +3,7 @@
 
 package ch.tutteli.atrium.assertions
 
-import ch.tutteli.atrium.creating.proofs.ProofGroup
+import ch.tutteli.atrium.creating.proofs.ProofGroupWithDesignation
 import ch.tutteli.atrium.reporting.reportables.Reportable
 import ch.tutteli.atrium.reporting.translating.Translatable
 
@@ -15,14 +15,14 @@ import ch.tutteli.atrium.reporting.translating.Translatable
     "switch to ProofGroup, will be removed with 2.0.0 at the latest",
     ReplaceWith("ProofGroup", "ch.tutteli.atrium.creating.proofs.ProofGroup")
 )
-interface AssertionGroup : Assertion, ProofGroup {
+interface AssertionGroup : Assertion, ProofGroupWithDesignation {
 
     override val children: List<Reportable> get() = assertions
 
     /**
      * The description of the group.
      */
-    val description: Translatable
+    override val description: Translatable
 
     /**
      * The type of the group, e.g. [RootAssertionGroupType].
@@ -36,7 +36,7 @@ interface AssertionGroup : Assertion, ProofGroup {
      *
      * For instance, if the description is `index 0` then the representation shows what is at index 0.
      */
-    val representation: Any
+    override val representation: Any
 
     /**
      * The [Assertion]s of this group, which are defined for the subject represented by [representation].

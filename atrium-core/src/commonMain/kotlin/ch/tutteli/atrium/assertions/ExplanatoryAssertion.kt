@@ -15,7 +15,7 @@ import  ch.tutteli.atrium.reporting.ObjectFormatter
  * This assertion will be turned into a `Reportable` with 1.0.0 and eventually/latest be removed with 1.0.0
  * See https://github.com/robstoll/atrium-roadmap/issues/1 for more information.
  */
-//TODO 1.3.0 deprecate
+//TODO 1.3.0 deprecate, introduce RepresentationReportable?
 interface ExplanatoryAssertion : Assertion {
     /**
      * The object used to explain something.

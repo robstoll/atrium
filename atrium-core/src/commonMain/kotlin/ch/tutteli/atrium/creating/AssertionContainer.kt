@@ -10,6 +10,7 @@ import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
 import ch.tutteli.atrium.core.None
 import ch.tutteli.atrium.core.Option
 import ch.tutteli.atrium.core.Some
+import ch.tutteli.atrium.reporting.BUG_REPORT_URL
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.reporting.translating.Untranslatable
 import kotlin.reflect.KClass
@@ -119,3 +120,9 @@ interface AssertionContainer<T> {
                 .build()
         )
 }
+
+fun <T> AssertionContainer<T>.toExpect(): Expect<T> =
+    when (this) {
+        is ExpectInternal<T> -> this
+        else -> throw UnsupportedOperationException("Unsupported AssertionContainer: $this -- Please open an issue that a hook shall be implemented: $BUG_REPORT_URL?template=feature_request&title=Hook%20for%20AssertionContainer.toExpect")
+    }

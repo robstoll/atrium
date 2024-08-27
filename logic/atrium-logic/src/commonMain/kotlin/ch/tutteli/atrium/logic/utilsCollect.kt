@@ -81,10 +81,11 @@ inline fun <T> AssertionContainer<*>.collectBasedOnSubject(
     noinline assertionCreator: Expect<T>.() -> Unit
 ): Assertion {
     val collectedAssertions = collectForCompositionBasedOnSubject(maybeSubject, assertionCreator)
-    return if (collectedAssertions.size > 1) {
-        assertionBuilder.invisibleGroup.withAssertions(collectedAssertions).build()
-    } else {
-        collectedAssertions[0]
+    return when (collectedAssertions.size) {
+        0 -> throw IllegalStateException("no assertion was collected for $maybeSubject")
+        1 -> collectedAssertions[0]
+        else ->
+            assertionBuilder.invisibleGroup.withAssertions(collectedAssertions).build()
     }
 }
 
