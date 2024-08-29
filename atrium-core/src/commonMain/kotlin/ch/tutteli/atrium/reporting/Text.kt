@@ -27,9 +27,16 @@ data class Text private constructor(override val string: String) : TextElement {
         val NULL = Text("null")
 
         /**
-         * An empty string as [Text]
+         * An empty string as [Text].
          */
         val EMPTY = Text("")
+
+        /**
+         * One space as [Text].
+         *
+         * @since 1.3.0
+         */
+        val SPACE = Text(" ")
 
         /**
          * A provider which returns [EMPTY].

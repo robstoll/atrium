@@ -25,15 +25,6 @@ public final class ch/tutteli/atrium/api/verbs/ExpectKt {
 	public static final fun testFactory (Lkotlin/jvm/functions/Function1;[Lkotlin/jvm/functions/Function1;)Ljava/lang/Object;
 }
 
-public final class ch/tutteli/atrium/api/verbs/factory/DefaultExpectationVerbs : ch/tutteli/atrium/creating/ExpectationVerbs {
-	public static final field INSTANCE Lch/tutteli/atrium/api/verbs/factory/DefaultExpectationVerbs;
-	public fun expect (Ljava/lang/Object;)Lch/tutteli/atrium/creating/Expect;
-	public fun expect (Ljava/lang/Object;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/creating/Expect;
-	public fun expectGrouped (Ljava/lang/String;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/creating/ExpectGrouping;
-	public fun expectInExpectGrouped (Lch/tutteli/atrium/creating/ExpectGrouping;Ljava/lang/Object;)Lch/tutteli/atrium/creating/Expect;
-	public fun expectInExpectGrouped (Lch/tutteli/atrium/creating/ExpectGrouping;Ljava/lang/Object;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/creating/Expect;
-}
-
 public final class ch/tutteli/atrium/api/verbs/ExpectationVerb : java/lang/Enum, ch/tutteli/atrium/reporting/reportables/Description {
 	public static final field EXPECT Lch/tutteli/atrium/api/verbs/ExpectationVerb;
 	public static final field EXPECT_GROUPED Lch/tutteli/atrium/api/verbs/ExpectationVerb;
@@ -41,5 +32,14 @@ public final class ch/tutteli/atrium/api/verbs/ExpectationVerb : java/lang/Enum,
 	public fun getString ()Ljava/lang/String;
 	public static fun valueOf (Ljava/lang/String;)Lch/tutteli/atrium/api/verbs/ExpectationVerb;
 	public static fun values ()[Lch/tutteli/atrium/api/verbs/ExpectationVerb;
+}
+
+public final class ch/tutteli/atrium/api/verbs/factory/DefaultExpectationVerbs : ch/tutteli/atrium/creating/ExpectationVerbs {
+	public static final field INSTANCE Lch/tutteli/atrium/api/verbs/factory/DefaultExpectationVerbs;
+	public fun expect (Ljava/lang/Object;)Lch/tutteli/atrium/creating/Expect;
+	public fun expect (Ljava/lang/Object;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/creating/Expect;
+	public fun expectGrouped (Ljava/lang/String;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/creating/ExpectGrouping;
+	public fun expectInExpectGrouped (Lch/tutteli/atrium/creating/ExpectGrouping;Ljava/lang/Object;)Lch/tutteli/atrium/creating/Expect;
+	public fun expectInExpectGrouped (Lch/tutteli/atrium/creating/ExpectGrouping;Ljava/lang/Object;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/creating/Expect;
 }
 

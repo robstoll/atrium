@@ -5,6 +5,7 @@ import ch.tutteli.atrium.reporting.Text
 import ch.tutteli.atrium.reporting.reportables.InlineElement
 import ch.tutteli.atrium.reporting.reportables.Reportable
 import ch.tutteli.atrium.reporting.reportables.ReportableWithInlineDesignation
+import ch.tutteli.kbox.takeIf
 
 /**
  * The base interface of all proofs, providing the method [holds].
@@ -53,8 +54,22 @@ interface Proof : Reportable {
                 children.unwrapInvisibleGroupIfSingleElement()
             )
 
+
+        /**
+         * Creates an [InvisibleProofGroup] if there are more than one [children], otherwise it returns the only child.
+         *
+         * @returns The newly created [InvisibleProofGroup] if there are more than one child
+         * @throws IllegalArgumentException in case none of the [children] is a [Proof], at least one needs to be
+         *
+         * @since 1.3.0
+         */
+        fun invisibleGroupOrSingleChildIfProof(children: List<Reportable>): Proof =
+            takeIf(children.size == 1) {
+                children[0] as? Proof
+            } ?: invisibleGroup(children)
+
         fun invisibleGroup(children: List<Reportable>): InvisibleProofGroup =
-            DefaultInvisibleProofGroup(children.unwrapInvisibleGroupIfSingleElement())
+            DefaultInvisibleProofGroup(children.unwrapInvisibleGroup())
 
         fun invisibleFixedClaimGroup(children: List<Reportable>, holds: Boolean): InvisibleFixedClaimGroup =
             DefaultInvisibleFixedClaimGroup(children.unwrapInvisibleGroupIfSingleElement(), holds)

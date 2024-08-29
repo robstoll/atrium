@@ -6,6 +6,7 @@ import ch.tutteli.atrium.creating.ExpectationCreatorWithUsageHints
 import ch.tutteli.atrium.creating.ProofContainer
 import ch.tutteli.atrium.creating.collectForComposition
 import ch.tutteli.atrium.creating.collectForCompositionBasedOnGivenSubject
+import ch.tutteli.atrium.reporting.HorizontalAlignment
 import ch.tutteli.atrium.reporting.reportables.*
 
 fun <T> ProofContainer<T>.buildSimpleProof(
@@ -18,28 +19,42 @@ fun <T> ProofContainer<T>.toTestFunction(test: (T) -> Boolean): () -> Boolean = 
     this.maybeSubject.fold(falseProvider, test)
 }
 
-fun <T> ProofContainer<T>.buildProof(init: ProofBuilder<T>.() -> Unit): Proof =
-    ProofBuilder(this).build(init)
+fun <T> ProofContainer<T>.buildProof(init: EntryPointProofBuilder<T>.() -> Unit): Proof =
+    EntryPointProofBuilder(this).build(init)
 
-@DslMarker
-annotation class ReportableBuilderMarker
-
-@Suppress("BOUNDS_NOT_ALLOWED_IF_BOUNDED_BY_TYPE_PARAMETER")
-@ReportableBuilderMarker
 abstract class BaseBuilder<
     SubjectT,
     ReportableT : Reportable,
-    SelfT : BaseBuilder<SubjectT, ReportableT, SelfT>
+    ReportableElementT : Reportable,
+    SelfT : BaseBuilder<SubjectT, ReportableT, ReportableElementT, SelfT>
     >(
     protected val proofContainer: ProofContainer<SubjectT>
 ) {
     @Suppress("UNCHECKED_CAST")
     private inline val self: SelfT get() = this as SelfT
 
-    private val reportables = mutableListOf<Reportable>()
+    private val reportables = mutableListOf<ReportableElementT>()
 
-    fun <R : Reportable> add(r: R): R = r.also { reportables.add(it) }
-    fun addAll(reportables: List<Reportable>): Unit = reportables.forEach(this::add)
+    fun <R : ReportableElementT> add(r: R): R = r.also { reportables.add(it) }
+    fun addAll(reportables: List<ReportableElementT>): Unit = reportables.forEach(this::add)
+
+    fun build(init: SelfT.() -> Unit): ReportableT {
+        //TODO 1.3.0 transform an unexpected exception into a failing proof
+        self.also(init)
+        return build(reportables)
+    }
+
+    protected abstract fun build(children: List<ReportableElementT>): ReportableT
+}
+
+
+abstract class BaseGroupBuilder<
+    SubjectT,
+    ReportableT : Reportable,
+    SelfT : BaseGroupBuilder<SubjectT, ReportableT, SelfT>
+    >(
+    proofContainer: ProofContainer<SubjectT>
+) : BaseBuilder<SubjectT, ReportableT, Reportable, SelfT>(proofContainer) {
 
     fun <R : Reportable> _core(proofCreator: ProofContainer<SubjectT>.() -> R): R =
         add(proofContainer.proofCreator())
@@ -105,42 +120,21 @@ abstract class BaseBuilder<
     fun debugGroup(description: InlineElement, init: DebugGroupBuilder<SubjectT>.() -> Unit): Reportable =
         add(DebugGroupBuilder(proofContainer, description).build(init))
 
-    fun inlineGroup(vararg inlineElements: InlineElement): Reportable = Reportable.inlineGroup(inlineElements.toList())
+    fun inlineGroup(vararg inlineElements: InlineElement): InlineElement =
+        Reportable.inlineGroup(inlineElements.toList())
 
-    fun build(init: SelfT.() -> Unit): ReportableT {
-        //TODO 1.3.0 transform an unexpected exception into a failing proof
-        self.also(init)
-        return build(reportables)
-    }
+    fun row(init: RowBuilder<SubjectT>.() -> Unit): Reportable =
+        add(RowBuilder(proofContainer).build(init))
 
-    protected abstract fun build(children: List<Reportable>): ReportableT
 }
-//
-typealias AnyBuilder = BaseBuilder<*, *,  *>
-typealias AnyProofBuilder = BaseBuilder<*, Proof, *>
-typealias AnyReportableBuilder = BaseBuilder<*, Reportable, *>
+//TODO 1.3.0 remove again?
+typealias AnyBuilder = BaseGroupBuilder<*, *, *>
+typealias AnyProofBuilder = BaseGroupBuilder<*, Proof, *>
+typealias AnyReportableBuilder = BaseGroupBuilder<*, Reportable, *>
 
-//abstract class BaseReportableBuilder<SubjectT, SelfT : BaseReportableBuilder<SubjectT, SelfT>>(
-//    proofContainer: ProofContainer<SubjectT>
-//) : BaseBuilder<SubjectT, Reportable, ReportableGroup, SelfT>(proofContainer) {
-////    override fun buildSingle(singleChild: Reportable): Reportable = singleChild
-//}
-//
-//abstract class BaseProofGroupBuilder<SubjectT, SelfT : BaseProofGroupBuilder<SubjectT, SelfT>>(
-//    proofContainer: ProofContainer<SubjectT>
-//) : BaseBuilder<SubjectT, Proof, SelfT>(proofContainer) {
-//    override fun build(children: List<Reportable>): ProofGroup =
-//        when (chil)
-//    when (singleChild)
-//    {
-//        is Proof -> singleChild
-//        else -> TODO("1.3.0 create group explaining that only one reportable was created and not a proof, without proof we cannot build a ProofGroup")
-//    }
-//}
-
-class ProofBuilder<T> internal constructor(
+class EntryPointProofBuilder<T> internal constructor(
     proofContainer: ProofContainer<T>
-) : BaseBuilder<T, Proof, ProofBuilder<T>>(proofContainer) {
+) : BaseGroupBuilder<T, Proof, EntryPointProofBuilder<T>>(proofContainer) {
 
     override fun build(children: List<Reportable>): Proof =
         when (children.size) {
@@ -149,17 +143,17 @@ class ProofBuilder<T> internal constructor(
                 else -> throw IllegalArgumentException("You need to add at least one Proof when building a Proof. Given: $first")
             }
 
-            else -> Proof.invisibleGroup(children)
+            else -> Proof.invisibleGroupOrSingleChildIfProof(children)
         }
 }
 
-abstract class BaseGroupBuilder<SubjectT,
+abstract class BaseSubGroupBuilder<SubjectT,
     ReportableT : Reportable,
-    SelfT : BaseBuilder<SubjectT, ReportableT, SelfT>
+    SelfT : BaseGroupBuilder<SubjectT, ReportableT, SelfT>
     >(
     proofContainer: ProofContainer<SubjectT>,
     private val factory: (children: List<Reportable>) -> ReportableT,
-) : BaseBuilder<SubjectT, ReportableT, SelfT>(proofContainer) {
+) : BaseGroupBuilder<SubjectT, ReportableT, SelfT>(proofContainer) {
     override fun build(children: List<Reportable>): ReportableT = factory(children)
 }
 
@@ -167,7 +161,7 @@ class ProofGroupBuilder<SubjectT>(
     proofContainer: ProofContainer<SubjectT>,
     private val description: Reportable,
     private val representation: Any?
-) : BaseGroupBuilder<SubjectT, ProofGroup, ProofGroupBuilder<SubjectT>>(
+) : BaseSubGroupBuilder<SubjectT, ProofGroup, ProofGroupBuilder<SubjectT>>(
     proofContainer,
     { children -> Proof.group(description, representation, children) }
 )
@@ -176,22 +170,22 @@ class FeatureProofGroupBuilder<SubjectT>(
     proofContainer: ProofContainer<SubjectT>,
     private val description: Reportable,
     private val representation: Any?
-) : BaseGroupBuilder<SubjectT, FeatureProofGroup, FeatureProofGroupBuilder<SubjectT>>(
+) : BaseSubGroupBuilder<SubjectT, FeatureProofGroup, FeatureProofGroupBuilder<SubjectT>>(
     proofContainer,
     { children -> Proof.featureGroup(description, representation, children) }
 )
 
 class InvisibleProofGroupBuilder<SubjectT>(
     proofContainer: ProofContainer<SubjectT>,
-) : BaseGroupBuilder<SubjectT, InvisibleProofGroup, InvisibleProofGroupBuilder<SubjectT>>(
+) : BaseSubGroupBuilder<SubjectT, Proof, InvisibleProofGroupBuilder<SubjectT>>(
     proofContainer,
-    Proof::invisibleGroup
+    Proof::invisibleGroupOrSingleChildIfProof
 )
 
 class InvisibleFixedClaimGroupBuilder<SubjectT>(
     proofContainer: ProofContainer<SubjectT>,
     private val holds: Boolean
-) : BaseGroupBuilder<SubjectT, InvisibleFixedClaimGroup, InvisibleFixedClaimGroupBuilder<SubjectT>>(
+) : BaseSubGroupBuilder<SubjectT, InvisibleFixedClaimGroup, InvisibleFixedClaimGroupBuilder<SubjectT>>(
     proofContainer,
     { children -> Proof.invisibleFixedClaimGroup(children, holds) }
 )
@@ -201,7 +195,7 @@ class FixedClaimGroupBuilder<SubjectT>(
     private val description: InlineElement,
     private val representation: Any?,
     private val holds: Boolean
-) : BaseGroupBuilder<SubjectT, FixedClaimGroup, FixedClaimGroupBuilder<SubjectT>>(
+) : BaseSubGroupBuilder<SubjectT, FixedClaimGroup, FixedClaimGroupBuilder<SubjectT>>(
     proofContainer,
     { children -> Proof.fixedClaimGroup(description, representation, children, holds) }
 )
@@ -210,14 +204,14 @@ class ReportableGroupBuilder<SubjectT>(
     proofContainer: ProofContainer<SubjectT>,
     private val description: InlineElement,
     private val representation: Any?
-) : BaseGroupBuilder<SubjectT, ReportableGroup, ReportableGroupBuilder<SubjectT>>(
+) : BaseSubGroupBuilder<SubjectT, ReportableGroup, ReportableGroupBuilder<SubjectT>>(
     proofContainer,
     { children -> Reportable.group(description, representation, children) }
 )
 
 class ProofExplanationGroupBuilder<SubjectT>(
     proofContainer: ProofContainer<SubjectT>,
-) : BaseGroupBuilder<SubjectT, ProofExplanation, ProofExplanationGroupBuilder<SubjectT>>(
+) : BaseSubGroupBuilder<SubjectT, ProofExplanation, ProofExplanationGroupBuilder<SubjectT>>(
     proofContainer,
     { children -> Reportable.proofExplanation(Proof.invisibleGroup(children)) }
 ) {
@@ -235,7 +229,7 @@ class ProofExplanationGroupBuilder<SubjectT>(
 class ErrorExplanationGroupBuilder<SubjectT>(
     proofContainer: ProofContainer<SubjectT>,
     private val description: InlineElement,
-) : BaseGroupBuilder<SubjectT, ErrorExplanationGroup, ErrorExplanationGroupBuilder<SubjectT>>(
+) : BaseSubGroupBuilder<SubjectT, ErrorExplanationGroup, ErrorExplanationGroupBuilder<SubjectT>>(
     proofContainer,
     { children -> Reportable.errorExplanationGroup(description, children) }
 )
@@ -243,7 +237,7 @@ class ErrorExplanationGroupBuilder<SubjectT>(
 class InformationGroupBuilder<SubjectT>(
     proofContainer: ProofContainer<SubjectT>,
     private val description: InlineElement,
-) : BaseGroupBuilder<SubjectT, InformationGroup, InformationGroupBuilder<SubjectT>>(
+) : BaseSubGroupBuilder<SubjectT, InformationGroup, InformationGroupBuilder<SubjectT>>(
     proofContainer,
     { children -> Reportable.informationGroup(description, children) }
 )
@@ -251,7 +245,20 @@ class InformationGroupBuilder<SubjectT>(
 class DebugGroupBuilder<SubjectT>(
     proofContainer: ProofContainer<SubjectT>,
     private val description: InlineElement,
-) : BaseGroupBuilder<SubjectT, DebugGroup, DebugGroupBuilder<SubjectT>>(
+) : BaseSubGroupBuilder<SubjectT, DebugGroup, DebugGroupBuilder<SubjectT>>(
     proofContainer,
     { children -> Reportable.debugGroup(description, children) }
 )
+
+class RowBuilder<SubjectT>(
+    proofContainer: ProofContainer<SubjectT>
+) : BaseBuilder<SubjectT, Row, Column, RowBuilder<SubjectT>>(proofContainer) {
+
+    fun column(inlineElement: InlineElement, alignment: HorizontalAlignment = HorizontalAlignment.DEFAULT) =
+        add(Reportable.column(inlineElement, alignment))
+
+    override fun build(children: List<Column>): Row =
+        Reportable.row(children)
+}
+
+

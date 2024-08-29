@@ -10,7 +10,7 @@ import ch.tutteli.atrium.creating.*
 import ch.tutteli.atrium.creating.impl.ComponentFactoryContainerImpl
 import ch.tutteli.atrium.creating.impl.DefaultComponentFactoryContainer
 import ch.tutteli.atrium.creating.proofs.Proof
-import ch.tutteli.atrium.creating.proofs.ProofBuilder
+import ch.tutteli.atrium.creating.proofs.EntryPointProofBuilder
 import ch.tutteli.atrium.creating.proofs.buildProof
 import ch.tutteli.atrium.reporting.reportables.InlineElement
 import ch.tutteli.atrium.reporting.reportables.Reportable
@@ -25,7 +25,8 @@ import kotlin.test.Test
 class CreateReportTest {
     private val x = TextColors.red("✘")
     private val f = TextColors.cyan("▶")
-    private val i = TextStyle(TextColors.brightBlue, bold = true).invoke("ℹ\uFE0F ")
+    private val i = TextStyle(TextColors.brightBlue, bold = true).invoke("ℹ\uFE0F") + " "
+    private val d = TextColors.blue("🔎")
 
     @Test
     fun text() {
@@ -35,7 +36,6 @@ class CreateReportTest {
         expectForReporterWithoutAnsi(reportable, expectedResult)
         expectForReporterWithAnsi(reportable, expectedResult)
     }
-
 
     @Test
     fun simpleProof() {
@@ -47,7 +47,7 @@ class CreateReportTest {
     }
 
     @Test
-    fun rootProofGroupWithSimpleProofAndRepresentation() {
+    fun rootWithSimpleProofAndRepresentation() {
         val builder = buildRootGroup {
             simpleProof(Text("to equal"), 1) { false }
             add(Text("some text"))
@@ -66,6 +66,28 @@ class CreateReportTest {
             |a verb     : "representation"
            |$x to equal : 1
             |◆ some text
+            """.trimMargin()
+        )
+    }
+
+    @Test
+    fun rootWithTwoSimpleProof_onlyOneFailing_calculatesColumnsOnlyBasedOnVisible() {
+        val builder = buildRootGroup {
+            simpleProof(Text("to equal"), 1) { false }
+            simpleProof(Text("a longer text than to equal"), 1) { true }
+        }
+        expectForReporterWithoutAnsi(
+            builder,
+            """
+            |a verb       : "representation"
+            |(f) to equal : 1
+            """.trimMargin()
+        )
+        expectForReporterWithAnsi(
+            builder,
+            """
+            |a verb     : "representation"
+           |$x to equal : 1
             """.trimMargin()
         )
     }
@@ -100,31 +122,47 @@ class CreateReportTest {
     }
 
     @Test
-    fun featureProofGroupWithMultilineDescription(){
+    fun featureProofGroupWithMultilineDescription() {
         //TODO 1.3.0 use case method call with multiple arguments
     }
 
     @Test
-    fun invisibleGroup_singleInRoot_shouldBeUnwrapped(){
+    fun invisibleGroup_childrenPrefixedAccordingToType_notJustAsFailure() {
         val builder = buildRootGroup {
             invisibleGroup {
-                simpleProof(Text("simple"), 1){ false}
+                simpleProof(Text("simple"), 1) { false }
                 add(Text("text"))
             }
+            // so that the above invisibleGroup is not unwrapped
+            simpleProof(Text("another"), 2) { false }
         }
+        expectForReporterWithoutAnsi(
+            builder,
+            """
+            |a verb      : "representation"
+            |(f) simple  : 1
+            |◆ text
+            |(f) another : 2
+            """.trimMargin()
+        )
+        expectForReporterWithAnsi(
+            builder,
+            """
+            |a verb    : "representation"
+           |$x simple  : 1
+            |◆ text
+           |$x another : 2
+            """.trimMargin()
+        )
     }
 
     @Test
     fun rootVerbLongerThanExpectations() {
-        val reportable = Proof.rootGroup(
-            Text("I expected that the subject which was"),
-            2,
-            listOf(
-                Proof.simple(Text("to equal"), 3) { false },
-                Proof.simple(Text("to be less than"), 3) { false },
-                Proof.simple(Text("to greater than"), 10) { false }
-            )
-        )
+        val reportable = buildRootGroup(verb = Text("I expected that the subject which was"), representation = 2) {
+            simpleProof(Text("to equal"), 3) { false }
+            simpleProof(Text("to be less than"), 3) { false }
+            simpleProof(Text("to greater than"), 10) { false }
+        }
 
         expectForReporterWithoutAnsi(
             reportable,
@@ -150,11 +188,14 @@ class CreateReportTest {
 
     @Test
     fun representationWithNewLineIsWrappedCorrectly() {
-        val reportable = Proof.rootGroup(
+        val builder = buildRootGroup(
+            verb =
             Text("verb always\nwithout line break"),
-            "a string with new line\nas representation is wrapped\nmaxLength calculated correctly",
-            listOf(
-                Proof.simple(Text("test"), 1) { false },
+            representation = "a string with new line\nas representation is wrapped\nmaxLength calculated correctly",
+        ) {
+            simpleProof(Text("test"), 1) { false }
+            add(
+                //TODO 1.3.0 add ownPrefix to row?
                 Columns(
                     "(i) ",
                     "first column",
@@ -165,10 +206,10 @@ class CreateReportTest {
                     usesOwnPrefix = true
                 )
             )
-        )
+        }
 
         expectForReporterWithoutAnsi(
-            reportable,
+            builder,
             """
             |verb always without line break : ""${"\""}
             |                                 a string with new line
@@ -181,7 +222,7 @@ class CreateReportTest {
         )
 
         expectForReporterWithAnsi(
-            reportable,
+            builder,
             """
             |verb always without line break : ""${"\""}
             |                                 a string with new line
@@ -250,27 +291,60 @@ class CreateReportTest {
 
     @Test
     fun debugGroup() {
-        val reportable = Proof.rootGroup(
-            Text("verb"), 1,
-            listOf(
-                Proof.simple(Text("to equal"), 2) { false },
-                Reportable.debugGroup(
-                    Text("further information"), listOf(
+        val builder = buildRootGroup(representation = Text("/usr/bin/noprogram")) {
+            simpleProof(Text("to"), Text("exist")) { false }
+            debugGroup(Text("properties of unexpected exception")) {
+                row {
+                    column(Text("message"))
+                    column(Text("oho..."))
+                }
+            }
+        }
+        expectForReporterWithoutAnsi(
+            builder,
+            """
+            |a verb : /usr/bin/noprogram
+            |(f) to : exist
+            |(d) properties of unexpected exception :${" "}
+            |    ⚬ message : oho...
+            """.trimMargin()
+        )
+        expectForReporterWithAnsi(
+            builder,
+            """
+            |a verb : /usr/bin/noprogram
+           |$x  to  : exist
+            |$d properties of unexpected exception :${" "}
+            |   ⚬ message : oho...
+            """.trimMargin()
+        )
+    }
 
-                    )
+    @Test
+    fun usageHintGroup() {
+        val reportable = Proof.rootGroup(
+            Text("verb"), Text("/usr/bin/noprogram"),
+            listOf(
+                Proof.simple(Text("to"), Text("exist")) { false },
+                Reportable.debugGroup(
+                    Text("the closest existing parent directory is /usr/bin"), emptyList()
                 )
             )
         )
         expectForReporterWithoutAnsi(
             reportable,
             """
-            |verb         : 1
-            |(f) to equal : 2
-            |(d) further information :
-            |    » message : "bla"
-            |    » stacktrace :${" "}
-            |      ⚬ test
-            |      ⚬ lines
+            |verb   : /usr/bin/noprogram
+            |(f) to : exist
+            |(d) the closest existing parent directory is /usr/bin
+            """.trimMargin()
+        )
+        expectForReporterWithoutAnsi(
+            reportable,
+            """
+            |verb   : /usr/bin/noprogram
+            |(f) to : exist
+            |(d) the closest existing parent directory is /usr/bin
             """.trimMargin()
         )
     }
@@ -300,7 +374,7 @@ class CreateReportTest {
     private fun buildRootGroup(
         verb: InlineElement = Text("a verb"),
         representation: Any = "representation",
-        setup: ProofBuilder<*>.() -> Unit,
+        setup: EntryPointProofBuilder<*>.() -> Unit,
     ): Expect<*>.() -> Proof = {
         Proof.rootGroup(verb, representation, listOf(this._core.buildProof(setup)))
     }

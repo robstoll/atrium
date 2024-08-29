@@ -1,12 +1,15 @@
 package ch.tutteli.atrium.creating.impl
 
+import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
 import ch.tutteli.atrium.core.Option
-import ch.tutteli.atrium.core.falseProvider
 import ch.tutteli.atrium.creating.*
+import ch.tutteli.atrium.creating.proofs.FeatureProofGroup
 import ch.tutteli.atrium.creating.proofs.Proof
+import ch.tutteli.atrium.creating.proofs.ProofGroupWithDesignation
 import ch.tutteli.atrium.creating.proofs.buildProof
 import ch.tutteli.atrium.reporting.reportables.Reportable
+import ch.tutteli.atrium.reporting.reportables.ReportableWithDesignation
 import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionAnyProof
 import ch.tutteli.atrium.reporting.reportables.descriptions.ErrorMessages
 import ch.tutteli.kbox.ifNotEmpty
@@ -24,12 +27,38 @@ internal class CollectingExpectImpl<T>(
         "Assertion is deprecated, move to Proof and use getCollectedProofs instead. Will be removed with 2.0.0 at the latest",
         replaceWith = ReplaceWith("this.getCollectedProofs()")
     )
-    override fun getAssertions(): List<ch.tutteli.atrium.assertions.Assertion> =
-        proofs.filterIsInstance<ch.tutteli.atrium.assertions.Assertion>()
+    override fun getAssertions(): List<Assertion> =
+        mapProofsToAssertion(proofs)
+
+    @Suppress("DEPRECATION")
+    private fun mapProofsToAssertion(proofs: List<Proof>): List<Assertion> =
+        proofs.map { proof ->
+            if (proof is Assertion) proof
+            else when (proof) {
+                is ProofGroupWithDesignation -> BasicAssertionGroup(
+                    if (proof is FeatureProofGroup) DefaultFeatureAssertionGroupType else DefaultListAssertionGroupType,
+                    ch.tutteli.atrium.reporting.translating.Untranslatable(proof.description.toString()),
+                    proof.representation,
+                    mapProofsToAssertion(proof.children.filterIsInstance<Proof>())
+                )
+
+                is ReportableWithDesignation -> BasicDescriptiveAssertion(
+                    ch.tutteli.atrium.reporting.translating.Untranslatable(proof.description.toString()),
+                    proof.description
+                ) { proof.holds() }
+
+                else -> BasicDescriptiveAssertion(
+                    ch.tutteli.atrium.reporting.translating.Untranslatable("❗❗ Assertion is deprecated, move to Proof, cannot show description"),
+                    proof
+                ) { proof.holds() }
+            }
+        }
 
     override fun getCollectedProofs(): List<Proof> = proofs.toList()
 
-    override fun append(proof: Proof): Expect<T> = apply { proofs.add(proof) }
+    override fun append(proof: Proof): Expect<T> = apply {
+        proofs.add(proof)
+    }
 
     @Deprecated(
         "Use appendAsGroupIndicateIfOneCollected and define the alternative or pass an empty list if you don't have any",

@@ -25,11 +25,10 @@ fun ProofContainer<*>.propertiesOfThrowable(
 ): Reportable {
     components.build<AtriumErrorAdjuster>().adjust(throwable)
     return buildProof {
-        val description = Reportable.inlineGroup(
-            listOf(
-                OCCURRED_EXCEPTION_PROPERTIES,
-                Text(throwable::class.simpleName ?: throwable::class.fullName)
-            )
+        val description = inlineGroup(
+            OCCURRED_EXCEPTION_PROPERTIES,
+            Text.SPACE,
+            Text(throwable::class.simpleName ?: throwable::class.fullName)
         )
         debugGroup(description) {
             addHints(throwable, secondStackFrameOfParent = null)
@@ -48,13 +47,16 @@ private fun AnyBuilder.addHints(
 }
 
 private fun AnyBuilder.addMessageHint(throwable: Throwable) =
-    inlineGroup(ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionThrowableProof.OCCURRED_EXCEPTION_MESSAGE, throwable.message?.let { Text(it) } ?: ch.tutteli.atrium.reporting.Text.NULL)
+    row {
+        column(OCCURRED_EXCEPTION_MESSAGE)
+        column(throwable.message?.let { Text(it) } ?: Text.NULL)
+    }
 
 private fun AnyBuilder.addStackTraceHint(
     throwable: Throwable,
     secondStackFrameOfParent: String?
 ) {
-    reportableGroup(ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionThrowableProof.OCCURRED_EXCEPTION_STACKTRACE, ch.tutteli.atrium.reporting.Text.EMPTY) {
+    reportableGroup(OCCURRED_EXCEPTION_STACKTRACE, Text.EMPTY) {
         val stackTrace = if (secondStackFrameOfParent != null) {
             throwable.stackBacktrace.asSequence().takeWhile { it != secondStackFrameOfParent }
         } else {
@@ -68,9 +70,12 @@ private fun AnyBuilder.addStackTraceHint(
 
 
 private fun AnyBuilder.addCauseHint(throwable: Throwable) {
-    throwable.cause?.let { cause -> addChildHint(throwable, cause,
-        ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionThrowableProof.OCCURRED_EXCEPTION_CAUSE
-    ) }
+    throwable.cause?.let { cause ->
+        addChildHint(
+            throwable, cause,
+            OCCURRED_EXCEPTION_CAUSE
+        )
+    }
 }
 
 /**
@@ -83,7 +88,7 @@ fun AnyBuilder.addChildHint(
 ) {
     val secondStackTrace = takeIf(throwable.stackBacktrace.size > 1) { throwable.stackBacktrace[1] }
 
-    reportableGroup(childDescription, ch.tutteli.atrium.reporting.Text.EMPTY) {
+    reportableGroup(childDescription, Text.EMPTY) {
         addHints(child, secondStackTrace)
     }
 }

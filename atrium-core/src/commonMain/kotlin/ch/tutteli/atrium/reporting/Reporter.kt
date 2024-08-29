@@ -114,7 +114,7 @@ class DefaultTextReporter(
                                     unstyled,
                                     Some(styled),
                                     noLineBreak = true,
-                                    align = styledString.align,
+                                    horizontalAlignment = styledString.horizontalAlignment,
                                 )
                             }
                         }
@@ -389,7 +389,7 @@ data class OutputNode(
 }
 
 interface ThemeProvider {
-    fun render(s: String, styleId: String): String?
+    fun render(unstyledString: String, styleId: String): String?
 }
 
 interface TextThemeProvider : ThemeProvider {
@@ -455,14 +455,14 @@ interface TextStyler {
         unstyledString: String,
         style: Style,
         noLineBreak: Boolean = true,
-        align: HorizontalAlignment = HorizontalAlignment.LEFT
+        align: HorizontalAlignment = HorizontalAlignment.DEFAULT
     ): StyledString = style(unstyledString, style.styleId, noLineBreak, align)
 
     fun style(
         unstyledString: String,
         styleId: String,
         noLineBreak: Boolean = true,
-        align: HorizontalAlignment = HorizontalAlignment.LEFT
+        align: HorizontalAlignment = HorizontalAlignment.DEFAULT
     ): StyledString
 }
 
@@ -480,15 +480,25 @@ class DefaultTextStyler(
         val maybeStyled = takeIf(textThemeProvider.supportsAnsi) {
             textThemeProvider.render(unstyledString, styleId)?.let { Some(it) }
         } ?: None
-        return StyledString(unstyledString, maybeStyled = maybeStyled, noLineBreak = noLineBreak, align = align)
+        return StyledString(
+            unstyledString,
+            maybeStyled = maybeStyled,
+            noLineBreak = noLineBreak,
+            horizontalAlignment = align
+        )
     }
 }
 
 
 enum class HorizontalAlignment {
     LEFT,
-    CENTER,
+    CENTRE,
     RIGHT,
+    ;
+
+    companion object {
+        val DEFAULT = LEFT
+    }
 }
 
 //TODO 1.3.0 KDOC
@@ -496,40 +506,48 @@ interface StyledString {
     val unstyled: String
     val maybeStyled: Option<String>
     val noLineBreak: Boolean
-    val align: HorizontalAlignment
+    val horizontalAlignment: HorizontalAlignment
     fun result(): String
 
     fun withoutLineBreaks(): StyledString
     fun appendUnstyled(unstyledString: String): StyledString
+    fun withHorizontalAlignment(alignment: HorizontalAlignment): StyledString
 
     companion object {
         operator fun invoke(
             unstyled: String,
             maybeStyled: Option<String>,
             noLineBreak: Boolean = true,
-            align: HorizontalAlignment = HorizontalAlignment.LEFT,
+            horizontalAlignment: HorizontalAlignment = HorizontalAlignment.DEFAULT,
         ): StyledString = DefaultStyledString(
             unstyled = unstyled,
             maybeStyled = maybeStyled,
             noLineBreak = noLineBreak,
-            align = align,
+            horizontalAlignment = horizontalAlignment,
         )
 
-        val EMPTY_STRING = object : StyledString {
-            override val unstyled: String = ""
-            override val maybeStyled: Option<String> = None
-            override val noLineBreak: Boolean = true
-            override val align: HorizontalAlignment = HorizontalAlignment.LEFT
-
-            override fun withoutLineBreaks() = this
-            override fun appendUnstyled(unstyledString: String): StyledString =
-                unstyledString.noStyle()
-
-            override fun result(): String = unstyled
-
-            override fun toString(): String = "SS()"
-        }
+        val EMPTY_STRING: StyledString = PredefinedNoStyleStyledString("", HorizontalAlignment.DEFAULT)
+        val COLON_SEPARATOR: StyledString = PredefinedNoStyleStyledString(" : ", HorizontalAlignment.CENTRE)
     }
+}
+
+internal class PredefinedNoStyleStyledString(
+    override val unstyled: String,
+    override val horizontalAlignment: HorizontalAlignment
+) : StyledString {
+    override val maybeStyled: Option<String> = None
+    override val noLineBreak: Boolean = true
+    override fun withoutLineBreaks() = this
+    override fun result(): String = unstyled
+
+    override fun withHorizontalAlignment(alignment: HorizontalAlignment): StyledString =
+        // we don't return this as using appendUnstyled afterwards should reflect the choice
+        StyledString(unstyled, maybeStyled, noLineBreak, alignment)
+
+    override fun appendUnstyled(unstyledString: String): StyledString =
+        (unstyled + unstyledString).noStyle(noLineBreak = noLineBreak, horizontalAlignment = horizontalAlignment)
+
+    override fun toString(): String = "SS($unstyled)"
 }
 
 private fun checkIsNoLineBreakDueToMergeColumns(styledString: StyledString) {
@@ -543,44 +561,39 @@ data class DefaultStyledString(
     override val unstyled: String,
     override val maybeStyled: Option<String>,
     override val noLineBreak: Boolean,
-    override val align: HorizontalAlignment,
+    override val horizontalAlignment: HorizontalAlignment,
 ) : StyledString {
 
-    override fun toString(): String = "SS(u=$unstyled, n=$noLineBreak, a=${align.name})"
+    override fun toString(): String = "SS(u=$unstyled, n=$noLineBreak, a=${horizontalAlignment.name})"
 
     override fun result(): String {
         val s = maybeStyled.getOrElse { unstyled }
         return replaceWrap(s)
     }
 
-//    override operator fun plus(s: StyledString): StyledString =
-//        DefaultStyledString(
-//        unstyled + s.unstyled,
-//        if (maybeStyled.isDefined() || s.maybeStyled.isDefined()) {
-//            Some(result() + s.result())
-//        } else {
-//            None
-//        }
-//    )
-
     override fun withoutLineBreaks(): StyledString = if (this.noLineBreak) this else this.copy(noLineBreak = true)
     override fun appendUnstyled(unstyledString: String) =
         copy(unstyled = unstyled + unstyledString, maybeStyled = maybeStyled.map { it + unstyledString })
 
+    override fun withHorizontalAlignment(alignment: HorizontalAlignment): StyledString =
+        copy(horizontalAlignment = alignment)
 }
 
-fun String.noStyle(noLineBreak: Boolean = true): StyledString =
+fun String.noStyle(
+    noLineBreak: Boolean = true,
+    horizontalAlignment: HorizontalAlignment = HorizontalAlignment.DEFAULT
+): StyledString =
     if (this == "") StyledString.EMPTY_STRING
-    else StyledString(this, None, noLineBreak = noLineBreak)
+    else StyledString(this, None, noLineBreak = noLineBreak, horizontalAlignment = horizontalAlignment)
 
 fun StringBuilder.appendSpaces(numberOfSpaces: Int) = repeat(numberOfSpaces) { append(' ') }
 fun StyledString.pad(length: Int): String =
     maybeStyled.fold(
         {
             val txt = replaceWrap(unstyled)
-            when (align) {
+            when (horizontalAlignment) {
                 HorizontalAlignment.LEFT -> txt.padEnd(length)
-                HorizontalAlignment.CENTER -> txt.padStart(length / 2).padEnd(length)
+                HorizontalAlignment.CENTRE -> txt.padStart(length / 2).padEnd(length)
                 HorizontalAlignment.RIGHT -> txt.padStart(length)
             }
         },
@@ -594,12 +607,12 @@ fun StyledString.pad(length: Int): String =
 
 
 
-            when (align) {
+            when (horizontalAlignment) {
                 HorizontalAlignment.LEFT -> {
                     // no padding before
                 }
 
-                HorizontalAlignment.CENTER -> {
+                HorizontalAlignment.CENTRE -> {
                     // pad half before
                     sb.appendSpaces(pad / 2)
                 }
@@ -613,13 +626,13 @@ fun StyledString.pad(length: Int): String =
             // append text as such
             sb.append(replaceWrap(styled))
 
-            when (align) {
+            when (horizontalAlignment) {
                 HorizontalAlignment.LEFT -> {
                     // pad all after
                     sb.appendSpaces(pad)
                 }
 
-                HorizontalAlignment.CENTER -> {
+                HorizontalAlignment.CENTRE -> {
                     // pad half after
                     sb.appendSpaces(pad - (pad / 2))
                 }
@@ -645,8 +658,11 @@ object IncludeAllReportableFilter : ReportableFilter {
 }
 
 object FailingProofsAndOthers : ReportableFilter {
+
     override fun includeInReporting(reportable: Reportable): Boolean =
+        @Suppress("DEPRECATION")
         when (reportable) {
+            //TODO remove with 2.0.0 at the latest and remove @Suppress above
             is AssertionGroup -> {
                 reportable.holds().not() || reportable.type is DoNotFilterAssertionGroupType
             }
@@ -771,6 +787,9 @@ class DefaultTextPreRenderController(
         suffixDescriptionColumns: List<StyledString>,
         startMergeAtColumn: Int
     ): List<OutputNode> {
+        //TODO #724 allow that one can specify a reportableFilter which is only used on the current level but fall
+        // back to default for its children
+
         val preRenderer = designationPreRenderer
             .firstOrNull { it.canTransform(description) }
             ?: throw UnsupportedOperationException("no suitable ${TextDesignationPreRenderer::class.simpleName} found for the given description: $description")
@@ -874,7 +893,7 @@ class DefaultTextIconStyler(textStyler: TextStyler, utf8SupportDeterminer: Utf8S
             textStyler.style(
                 if (utf8IsSupported) utf8String else fallbackAsciiString,
                 style,
-                align = HorizontalAlignment.CENTER
+                align = HorizontalAlignment.CENTRE
             ).let {
                 if (utf8IsSupported) it.appendUnstyled(utf8Space) else it
             }
@@ -912,18 +931,28 @@ private fun determineChildControlObject(
     additionalIndent: Int = 0
 ): PreRenderControlObject {
     val indentLevel = controlObject.indentLevel + additionalIndent
-    return when (child) {
-        //TODO remove with 2.0.0 latest
-        is ExplanatoryAssertion -> controlObject.copy(prefix = childPrefix, indentLevel = indentLevel)
 
-        is Proof -> if (child.holds()) {
-            controlObject.copy(prefix = Icon.SUCCESS, indentLevel = indentLevel)
-        } else {
-            controlObject.copy(prefix = Icon.FAILURE, indentLevel = indentLevel)
+    val newControlObject = when (child) {
+        //TODO remove with 2.0.0 latest
+        is ExplanatoryAssertion -> null
+
+        is Proof -> {
+            @Suppress("DEPRECATION")
+            if (child is InvisibleProofGroup ||
+                //TODO remove with 2.0.0 latest and with it the above @Suppress
+                child is AssertionGroup && child.type is InvisibleAssertionGroupType
+            ) {
+                null
+            } else if (child.holds()) {
+                controlObject.copy(prefix = Icon.SUCCESS, indentLevel = indentLevel)
+            } else {
+                controlObject.copy(prefix = Icon.FAILURE, indentLevel = indentLevel)
+            }
         }
 
-        else -> controlObject.copy(prefix = childPrefix, indentLevel = indentLevel)
+        else -> null
     }
+    return newControlObject ?: controlObject.copy(prefix = childPrefix, indentLevel = indentLevel)
 }
 
 
@@ -995,14 +1024,23 @@ class DefaultFeatureProofGroupTextPreRenderer(
         }
 }
 
-class DefaultInvisibleProofGroupTextPreRenderer :
-    TypedTextPreRenderer<InvisibleProofGroup>(InvisibleProofGroup::class) {
+class DefaultInvisibleProofGroupTextPreRenderer(
+    private val iconStyler: TextIconStyler
+) : TypedTextPreRenderer<InvisibleProofGroup>(InvisibleProofGroup::class) {
     override fun transformIt(
         reportable: InvisibleProofGroup,
         controlObject: PreRenderControlObject
     ): List<OutputNode> =
         reportable.children.flatMap { child ->
-            controlObject.transformChild(child, controlObject)
+            val newControlObject =
+                determineChildControlObject(controlObject, child, childPrefix = controlObject.prefix)
+
+            controlObject.transformChild(child, newControlObject).map {
+                if (child is Proof) it.copy(
+                    columns = listOf(iconStyler.style(if (child.holds()) Icon.SUCCESS else Icon.FAILURE)) + it.columns,
+                    usesOwnPrefix = true
+                ) else it
+            }
         }
 }
 
@@ -1085,12 +1123,15 @@ class DefaultAssertionGroupTextPreRenderer(private val iconStyler: TextIconStyle
                     // icon but we don't want to show it as column, instead this first column shall be merged with the columns
                     // needed for the description
                     val first = it.first()
-                    (sequenceOf(first.copy(mergeColumns = first.mergeColumns + 1)) + it.asSequence().drop(1)).toList()
+                    (sequenceOf(first.copy(mergeColumns = first.mergeColumns + 1)) + it.asSequence()
+                        .drop(1)).toList()
                 }
 
-                is InvisibleAssertionGroupType -> assertionGroup.children.flatMap { child ->
-                    controlObject.transformChild(child, controlObject)
-                }
+                is InvisibleAssertionGroupType ->
+                    controlObject.transformChild(
+                        Proof.invisibleGroup(assertionGroup.assertions),
+                        controlObject
+                    )
 
                 is FeatureAssertionGroupType -> controlObject.transformGroup(
                     reportable,
@@ -1119,6 +1160,16 @@ class DefaultAssertionGroupTextPreRenderer(private val iconStyler: TextIconStyle
                         Icon.LIST_BULLET_POINT,
                         additionalIndent = 1
                     )
+                    controlObject.transformChildIncludingIndentationAndPrefix(child, newControlObject)
+                }
+
+                is SummaryAssertionGroupType -> controlObject.transformGroup(reportable, controlObject) { child ->
+                    val newControlObject = determineChildControlObject(
+                        controlObject,
+                        child,
+                        Icon.LIST_BULLET_POINT,
+                        additionalIndent = 1,
+                    ).copy(reportableFilter = IncludeAllReportableFilter)
                     controlObject.transformChildIncludingIndentationAndPrefix(child, newControlObject)
                 }
 
@@ -1160,6 +1211,47 @@ class DefaultTextElementTextPreRenderer : TypedTextPreRenderer<TextElement>(Text
                 definesOwnLevel = true
             )
         )
+}
+
+class DefaultRowTextPreRenderer : TypedTextPreRenderer<Row>(Row::class) {
+    override fun transformIt(reportable: Row, controlObject: PreRenderControlObject): List<OutputNode> {
+        val columnsWithSeparator = reportable.columns.let { columns ->
+            val first = controlObject.transformAndGetSingleColumnOfSingleNode(columns.first())
+            when (columns.size) {
+                1 -> listOf(first)
+                else -> {
+                    columns.asSequence().drop(1)
+                        .fold(ArrayList<StyledString>(columns.size * 2 - 1).also { it.add(first) }) { acc, column ->
+                            acc.also {
+                                it.add(StyledString.COLON_SEPARATOR)
+                                it.add(controlObject.transformAndGetSingleColumnOfSingleNode(column))
+                            }
+                        }
+                }
+            }
+        }
+        return listOf(
+            OutputNode(
+                columns = columnsWithSeparator,
+                children = emptyList(),
+                definesOwnLevel = true
+            )
+        )
+    }
+}
+
+class DefaultColumnTextPreRenderer : TypedTextPreRenderer<Column>(Column::class) {
+    override fun transformIt(reportable: Column, controlObject: PreRenderControlObject): List<OutputNode> {
+        val styledString = controlObject.transformAndGetSingleColumnOfSingleNode(reportable.inlineElement)
+
+        return listOf(
+            OutputNode(
+                columns = listOf(styledString.withHorizontalAlignment(reportable.alignment)),
+                emptyList(),
+                definesOwnLevel = true
+            )
+        )
+    }
 }
 
 
@@ -1235,9 +1327,7 @@ class DefaultExplanatoryAssertionGroupTextPreRenderer : TextPreRenderer {
                     val newControlObject = controlObject.copy(
                         prefix = icon,
                         indentLevel = controlObject.indentLevel + additionalIndent,
-                        reportableFilter = object : ReportableFilter {
-                            override fun includeInReporting(reportable: Reportable): Boolean = true
-                        },
+                        reportableFilter = IncludeAllReportableFilter,
                     )
                     controlObject.transformChildIncludingIndentationAndPrefix(child, newControlObject)
                 }.toList(),
@@ -1286,7 +1376,7 @@ class DefaultInlineDesignatorPreRenderer(
                         checkIsNoLineBreakDueToMergeColumns(it)
                         add(it)
                     }
-                    add(" : ".noStyle())
+                    add(StyledString.COLON_SEPARATOR)
                     add(objectFormatter.format(representation))
                 },
                 children = children,
@@ -1302,18 +1392,35 @@ class DefaultInlineDesignatorPreRenderer(
         description: InlineElement,
         controlObject: PreRenderControlObject
     ): List<StyledString> {
-        val nodes = controlObject.transformChild(description, controlObject)
-        val node = takeIf(nodes.size == 1) {
-            nodes[0]
-        } ?: errorDueToBug(
-            "transformChild for InlineElement $description returned ${nodes.size} nodes, expected 1"
-        )
+        val node = controlObject.transformAndGetSingleNode(description)
 
         failWithBugErrorIf(node.columns.isEmpty()) {
             "transformChild for InlineElement $description returned 0 columns"
         }
-
         // we are going to merge the columns, hence ensure noLineBreak=true
         return node.columns.map { it.withoutLineBreaks() }
     }
+}
+
+private fun PreRenderControlObject.transformAndGetSingleColumnOfSingleNode(
+    reportable: Reportable
+): StyledString {
+    val node = transformAndGetSingleNode(reportable)
+    failWithBugErrorIf(node.columns.size != 1) {
+        "transformChild for InlineElement $reportable returned ${node.columns.size} columns, expected 1"
+    }
+    return node.columns.first()
+}
+
+private fun PreRenderControlObject.transformAndGetSingleNode(
+    reportable: Reportable
+): OutputNode {
+    val nodes = transformChild(reportable, this)
+    val node = takeIf(nodes.size == 1) {
+        nodes[0]
+    } ?: errorDueToBug(
+        "transformChild for InlineElement $reportable returned ${nodes.size} nodes, expected 1"
+    )
+
+    return node
 }

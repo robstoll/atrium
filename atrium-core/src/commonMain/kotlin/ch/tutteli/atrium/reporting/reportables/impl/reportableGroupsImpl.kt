@@ -2,13 +2,22 @@ package ch.tutteli.atrium.reporting.reportables.impl
 
 import ch.tutteli.atrium.creating.proofs.InvisibleProofGroup
 import ch.tutteli.atrium.creating.proofs.Proof
+import ch.tutteli.atrium.reporting.HorizontalAlignment
 import ch.tutteli.atrium.reporting.reportables.*
+
+abstract class BaseReportableGroup(override val children: List<Reportable>) : ReportableGroup {
+    init {
+        require(children.isNotEmpty()) {
+            "a group requires at least one child"
+        }
+    }
+}
 
 internal class DefaultReportableGroup(
     override val description: Reportable,
     override val representation: Any,
-    override val children: List<Reportable>
-) : ReportableGroupWithDesignation
+    children: List<Reportable>
+) : BaseReportableGroup(children), ReportableGroupWithDesignation
 
 internal class DefaultProofExplanation(
     proof: Proof
@@ -20,25 +29,47 @@ internal class DefaultProofExplanation(
 }
 
 internal class DefaultUsageHintGroup(
-    override val children: List<Reportable>
-) : UsageHintGroup
+    children: List<Reportable>
+) : BaseReportableGroup(children), UsageHintGroup
 
 internal class DefaultDebugGroup(
     override val description: InlineElement,
-    override val children: List<Reportable>
-) : DebugGroup
+    children: List<Reportable>
+) : BaseReportableGroup(children), DebugGroup
 
 internal class DefaultErrorExplanationGroup(
     override val description: Reportable,
-    override val children: List<Reportable>
-) : ErrorExplanationGroup
+    children: List<Reportable>
+) : BaseReportableGroup(children), ErrorExplanationGroup
 
 internal class DefaultInformationGroup(
     override val description: Reportable,
-    override val children: List<Reportable>
-) : InformationGroup
+    children: List<Reportable>
+) : BaseReportableGroup(children), InformationGroup
 
+abstract class BaseInlineElementBased
 
 internal class DefaultInlineGroup(
-    val inlineElements: List<InlineElement>
-) : InlineElement
+    override val inlineElements: List<InlineElement>
+) : InlineGroup {
+    init {
+        require(inlineElements.isNotEmpty()) {
+            "an inline group requires at least one inline element"
+        }
+    }
+}
+
+internal class DefaultRow(
+    override val columns: List<Column>
+) : Row {
+    init {
+        require(columns.isNotEmpty()) {
+            "a row requires at least one column"
+        }
+    }
+}
+
+internal class DefaultColumn(
+    override val inlineElement: InlineElement,
+    override val alignment: HorizontalAlignment
+) : Column
