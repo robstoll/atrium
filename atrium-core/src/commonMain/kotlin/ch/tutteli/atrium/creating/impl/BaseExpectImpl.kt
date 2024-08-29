@@ -76,8 +76,7 @@ abstract class BaseExpectImpl<T>(
     protected fun appendAsGroup(proofs: List<Proof>): Expect<T> =
         when (proofs.size) {
             0 -> this
-            1 -> append(proofs.first())
-            else -> append(Proof.invisibleGroup(proofs))
+            else -> append(Proof.invisibleGroupOrSingleChildIfProof(proofs))
         }
 
     companion object {

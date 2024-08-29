@@ -1,5 +1,7 @@
 package ch.tutteli.atrium.reporting.reportables
 
+import ch.tutteli.atrium.reporting.HorizontalAlignment
+
 //TODO 1.3.0 check KDOC (including @since) of all types in this file
 
 /**
@@ -27,3 +29,16 @@ interface InformationGroup : ReportableGroupWithDescription
 interface ProofExplanation : ReportableGroup
 
 interface UsageHintGroup : ReportableGroup
+
+interface InlineGroup : InlineElement {
+    val inlineElements: List<InlineElement>
+}
+
+interface Row : Reportable {
+    val columns: List<Column>
+}
+
+interface Column : Reportable {
+    val inlineElement: InlineElement
+    val alignment: HorizontalAlignment
+}

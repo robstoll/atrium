@@ -60,6 +60,7 @@ interface AssertionContainer<T> {
      *
      * @throws AssertionError Might throw an [AssertionError] in case [Assertion]s are immediately evaluated.
      */
+    @Deprecated("Switch from Assertion to Proof, AssertionContainer will be removed with 2.0.0 at the latest")
     fun append(assertion: Assertion): Expect<T>
 
     /**

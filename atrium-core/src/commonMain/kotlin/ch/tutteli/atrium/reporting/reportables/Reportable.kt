@@ -1,6 +1,7 @@
 package ch.tutteli.atrium.reporting.reportables
 
 import ch.tutteli.atrium.creating.proofs.Proof
+import ch.tutteli.atrium.reporting.HorizontalAlignment
 import ch.tutteli.atrium.reporting.Text
 import ch.tutteli.atrium.reporting.reportables.impl.*
 import ch.tutteli.atrium.reporting.reportables.impl.DefaultDebugGroup
@@ -8,6 +9,7 @@ import ch.tutteli.atrium.reporting.reportables.impl.DefaultInlineGroup
 import ch.tutteli.atrium.reporting.reportables.impl.DefaultProofExplanation
 import ch.tutteli.atrium.reporting.reportables.impl.DefaultReportableGroup
 import ch.tutteli.atrium.reporting.reportables.impl.DefaultUsageHintGroup
+import ch.tutteli.kbox.takeIf
 
 //TODO 1.3.0 check KDOC (including @since) of all types in this file
 
@@ -41,7 +43,17 @@ interface Reportable {
         fun debugGroup(description: InlineElement, reportables: List<Reportable>): DebugGroup =
             DefaultDebugGroup(description, reportables)
 
-        fun inlineGroup(inlineElements: List<InlineElement>): InlineElement = DefaultInlineGroup(inlineElements)
+        fun inlineGroupOrSingleElement(inlineElements: List<InlineElement>): InlineElement =
+            takeIf(inlineElements.size == 1) {
+                inlineElements[0]
+            } ?: inlineGroup(inlineElements)
+
+        fun inlineGroup(inlineElements: List<InlineElement>): InlineGroup = DefaultInlineGroup(inlineElements)
+
+        fun row(columns: List<Column>): Row = DefaultRow(columns)
+
+        fun column(inlineElement: InlineElement, alignment: HorizontalAlignment): Column =
+            DefaultColumn(inlineElement, alignment)
     }
 }
 
