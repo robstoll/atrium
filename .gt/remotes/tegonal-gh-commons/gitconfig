@@ -1,0 +1,8 @@
+[core]
+	repositoryformatversion = 0
+	filemode = true
+	bare = false
+	logallrefupdates = true
+[remote "tegonal-gh-commons"]
+	url = https://github.com/tegonal/github-commons
+	fetch = +refs/heads/*:refs/remotes/tegonal-gh-commons/*
