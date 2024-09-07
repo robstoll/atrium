@@ -7,6 +7,7 @@ import ch.tutteli.atrium.creating.ProofContainer
 import ch.tutteli.atrium.creating.collectForComposition
 import ch.tutteli.atrium.creating.collectForCompositionBasedOnGivenSubject
 import ch.tutteli.atrium.reporting.HorizontalAlignment
+import ch.tutteli.atrium.reporting.Text
 import ch.tutteli.atrium.reporting.reportables.*
 
 fun <T> ProofContainer<T>.buildSimpleProof(
@@ -19,9 +20,19 @@ fun <T> ProofContainer<T>.toTestFunction(test: (T) -> Boolean): () -> Boolean = 
     this.maybeSubject.fold(falseProvider, test)
 }
 
+
 fun <T> ProofContainer<T>.buildProof(init: EntryPointProofBuilder<T>.() -> Unit): Proof =
     EntryPointProofBuilder(this).build(init)
 
+/**
+ * Used to prevent that one can use e.g. [ProofExplanationGroupBuilder.collectWithoutSubject] in a nested [ProofExplanationGroupBuilder.group].
+ *
+ * @since 1.3.0
+ */
+@DslMarker
+annotation class ProofBuilderMarker
+
+@ProofBuilderMarker
 abstract class BaseBuilder<
     SubjectT,
     ReportableT : Reportable,
@@ -37,6 +48,7 @@ abstract class BaseBuilder<
 
     fun <R : ReportableElementT> add(r: R): R = r.also { reportables.add(it) }
     fun addAll(reportables: List<ReportableElementT>): Unit = reportables.forEach(this::add)
+    fun addAll(vararg reportables: ReportableElementT): Unit = reportables.forEach(this::add)
 
     fun build(init: SelfT.() -> Unit): ReportableT {
         //TODO 1.3.0 transform an unexpected exception into a failing proof
@@ -116,15 +128,21 @@ abstract class BaseGroupBuilder<
         init: InformationGroupBuilder<SubjectT>.() -> Unit
     ): Reportable = add(InformationGroupBuilder(proofContainer, description).build(init))
 
-
     fun debugGroup(description: InlineElement, init: DebugGroupBuilder<SubjectT>.() -> Unit): Reportable =
         add(DebugGroupBuilder(proofContainer, description).build(init))
+
+
+    fun usageHintGroup(init: UsageHintGroupBuilder<SubjectT>.() -> Unit): Reportable =
+        add(UsageHintGroupBuilder(proofContainer).build(init))
+
 
     fun inlineGroup(vararg inlineElements: InlineElement): InlineElement =
         Reportable.inlineGroup(inlineElements.toList())
 
     fun row(init: RowBuilder<SubjectT>.() -> Unit): Reportable =
         add(RowBuilder(proofContainer).build(init))
+
+    fun text(string: String): Reportable = add(Text(string))
 
 }
 //TODO 1.3.0 remove again?
@@ -248,6 +266,13 @@ class DebugGroupBuilder<SubjectT>(
 ) : BaseSubGroupBuilder<SubjectT, DebugGroup, DebugGroupBuilder<SubjectT>>(
     proofContainer,
     { children -> Reportable.debugGroup(description, children) }
+)
+
+class UsageHintGroupBuilder<SubjectT>(
+    proofContainer: ProofContainer<SubjectT>,
+) : BaseSubGroupBuilder<SubjectT, UsageHintGroup, UsageHintGroupBuilder<SubjectT>>(
+    proofContainer,
+    { children -> Reportable.usageHintGroup(children) }
 )
 
 class RowBuilder<SubjectT>(

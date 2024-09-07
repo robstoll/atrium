@@ -245,7 +245,7 @@ internal object DefaultComponentFactoryContainer : ComponentFactoryContainer by 
 
             // ReportableGroup
             { c -> DefaultDebugGroupTextPreRenderer(c.build()) },
-            { _ -> DefaultUsageHintGroupTextPreRenderer() },
+            { c -> DefaultUsageHintGroupTextPreRenderer(c.build()) },
             { _ -> DefaultFallbackReportableGroupWithDesignationTextPreRenderer() },
 
 
