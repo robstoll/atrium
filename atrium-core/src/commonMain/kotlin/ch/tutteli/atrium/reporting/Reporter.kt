@@ -84,8 +84,11 @@ class DefaultTextReporter(
 
     private fun format(outputNode: OutputNode, indentLevels: List<Int>, sb: StringBuilder, maxLengths: List<Int>) {
 
-        fun indentWithSpaces(untilColumn: Int) {
-            (0 until untilColumn).forEach { i ->
+        fun indentWithSpaces(indentLevel: Int, untilColumn: Int) {
+            (0 until indentLevel).forEach {
+                sb.appendSpaces(indentLevels[it])
+            }
+            (indentLevel until untilColumn).forEach { i ->
                 sb.appendSpaces(maxLengths[i])
             }
         }
@@ -104,6 +107,15 @@ class DefaultTextReporter(
                     // no newline, we can just pad the styledString
                     sb.append(styledString.pad(maxLengths[index]))
                 } else {
+                    TODO(
+                        """
+                      1.3.0 this is wrong, if we have a column in the middle then we still need to print the remaining on
+                      the same line first.
+                      I.e. we kind of need to turn one row into multiple rows with multiple columns. Maybe we should do
+                      this in DefaultRowTextPreRenderer, i.e. generate multiple output nodes. On the other hand, if we
+                      do it here then not every TextPreRenderer which supports this feature need to care about it
+                    """
+                    )
                     val styledLines = styledString.maybeStyled.fold(
                         {
                             lines.asSequence().map { it.noStyle() }
@@ -122,7 +134,7 @@ class DefaultTextReporter(
                     sb.append(styledLines.first().pad(maxLengths[index]))
                     styledLines.drop(1).forEach { styledLine ->
                         sb.appendln()
-                        indentWithSpaces(untilColumn = indentLevel + index)
+                        indentWithSpaces(indentLevel = indentLevel, untilColumn = index)
                         sb.append(styledLine.pad(maxLengths[index]))
                     }
                 }
@@ -182,7 +194,7 @@ class DefaultTextReporter(
                     sb.append(lines.first())
                     lines.drop(1).forEach { line ->
                         sb.appendln()
-                        indentWithSpaces(untilColumn = indentLevel + lastIndex)
+                        indentWithSpaces(indentLevel = indentLevel, untilColumn = lastIndex)
                         sb.append(line)
                     }
                 }
@@ -684,56 +696,6 @@ interface PreRenderController {
     fun transformChild(child: Reportable, controlObject: PreRenderControlObject): List<OutputNode>
 
     fun transformGroup(
-        reportableGroupWithDescription: ReportableGroupWithDescription,
-        controlObject: PreRenderControlObject,
-        prefixDescriptionColumns: List<StyledString> = emptyList(),
-        suffixDescriptionColumns: List<StyledString> = emptyList(),
-        startMergeAtColumn: Int = 0,
-        childTransformer: (child: Reportable) -> List<OutputNode>,
-    ) = transformGroup(
-        reportableGroupWithDescription.description,
-        Text.EMPTY,
-        controlObject,
-        reportableGroupWithDescription.children.flatMap(childTransformer),
-        prefixDescriptionColumns,
-        suffixDescriptionColumns,
-        startMergeAtColumn
-    )
-
-    fun <T> transformGroup(
-        reportableGroupWithDesignation: T,
-        controlObject: PreRenderControlObject,
-        prefixDescriptionColumns: List<StyledString> = emptyList(),
-        suffixDescriptionColumns: List<StyledString> = emptyList(),
-        startMergeAtColumn: Int = 0,
-        childTransformer: (child: Reportable) -> List<OutputNode>,
-    ) where T : ReportableGroup, T : ReportableWithDesignation = transformGroup(
-        reportableGroupWithDesignation.description,
-        reportableGroupWithDesignation.representation,
-        controlObject,
-        reportableGroupWithDesignation.children.flatMap(childTransformer),
-        prefixDescriptionColumns,
-        suffixDescriptionColumns,
-        startMergeAtColumn
-    )
-
-    fun transformGroup(
-        reportableWithDesignation: ReportableWithDesignation,
-        controlObject: PreRenderControlObject,
-        prefixDescriptionColumns: List<StyledString> = emptyList(),
-        suffixDescriptionColumns: List<StyledString> = emptyList(),
-        startMergeAtColumn: Int = 0,
-    ) = transformGroup(
-        reportableWithDesignation.description,
-        reportableWithDesignation.representation,
-        controlObject,
-        children = emptyList(),
-        prefixDescriptionColumns,
-        suffixDescriptionColumns,
-        startMergeAtColumn
-    )
-
-    fun transformGroup(
         description: Reportable,
         representation: Any,
         controlObject: PreRenderControlObject,
@@ -743,6 +705,89 @@ interface PreRenderController {
         startMergeAtColumn: Int = 0,
     ): List<OutputNode>
 }
+
+fun PreRenderController.transformGroup(
+    reportableGroupWithDescription: ReportableGroupWithDescription,
+    controlObject: PreRenderControlObject,
+    prefixDescriptionColumns: List<StyledString> = emptyList(),
+    suffixDescriptionColumns: List<StyledString> = emptyList(),
+    startMergeAtColumn: Int = 0,
+    childTransformer: (child: Reportable) -> List<OutputNode>,
+) = transformGroup(
+    reportableGroupWithDescription.description,
+    Text.EMPTY,
+    controlObject,
+    reportableGroupWithDescription.children.flatMap(childTransformer),
+    prefixDescriptionColumns,
+    suffixDescriptionColumns,
+    startMergeAtColumn
+)
+
+fun <T> PreRenderController.transformSubProofGroup(
+    reportableGroupWithDesignation: T,
+    controlObject: PreRenderControlObject,
+    icon: Icon
+) where T : ReportableGroup, T : ReportableWithDesignation =
+    transformSubProofGroup(reportableGroupWithDesignation, controlObject) { child ->
+        val newControlObject = determineChildControlObject(
+            controlObject,
+            child,
+            icon,
+            additionalIndent = 1
+        )
+        controlObject.transformChildIncludingIndentationAndPrefix(child, newControlObject)
+    }
+
+fun <T> PreRenderController.transformSubProofGroup(
+    reportableGroupWithDesignation: T,
+    controlObject: PreRenderControlObject,
+    prefixDescriptionColumns: List<StyledString> = listOf(StyledString.EMPTY_STRING),
+    suffixDescriptionColumns: List<StyledString> = emptyList(),
+    startMergeAtColumn: Int = 1,
+    childTransformer: (child: Reportable) -> List<OutputNode>,
+) where T : ReportableGroup, T : ReportableWithDesignation =
+    transformGroup(
+        reportableGroupWithDesignation,
+        controlObject,
+        prefixDescriptionColumns,
+        suffixDescriptionColumns,
+        startMergeAtColumn,
+        childTransformer
+    )
+
+fun <T> PreRenderController.transformGroup(
+    reportableGroupWithDesignation: T,
+    controlObject: PreRenderControlObject,
+    prefixDescriptionColumns: List<StyledString> = emptyList(),
+    suffixDescriptionColumns: List<StyledString> = emptyList(),
+    startMergeAtColumn: Int = 0,
+    childTransformer: (child: Reportable) -> List<OutputNode>,
+) where T : ReportableGroup, T : ReportableWithDesignation = transformGroup(
+    reportableGroupWithDesignation.description,
+    reportableGroupWithDesignation.representation,
+    controlObject,
+    reportableGroupWithDesignation.children.flatMap(childTransformer),
+    prefixDescriptionColumns,
+    suffixDescriptionColumns,
+    startMergeAtColumn
+)
+
+
+fun PreRenderController.transformGroup(
+    reportableWithDesignation: ReportableWithDesignation,
+    controlObject: PreRenderControlObject,
+    prefixDescriptionColumns: List<StyledString> = emptyList(),
+    suffixDescriptionColumns: List<StyledString> = emptyList(),
+    startMergeAtColumn: Int = 0,
+) = transformGroup(
+    reportableWithDesignation.description,
+    reportableWithDesignation.representation,
+    controlObject,
+    children = emptyList(),
+    prefixDescriptionColumns,
+    suffixDescriptionColumns,
+    startMergeAtColumn
+)
 
 interface TextPreRenderController : PreRenderController
 
@@ -903,7 +948,7 @@ class DefaultTextIconStyler(textStyler: TextStyler, utf8SupportDeterminer: Utf8S
             // \uFE0F means animate emoji according to terminal
             //TODO 1.3.0 animated emojis look nicer but they don't have a mono width which makes alignment sometimes
             // a bit ugly - keep or use only the text variation (which also means we can choose the colour as we like)
-            Icon.BULB to styleIcon("💡\uFE0F", " ", "(i) ", Style.BULB),
+            Icon.BULB to styleIcon("💡\uFE0F", " ", "(u) ", Style.BULB),
             Icon.BANGBANG to styleIcon("❗❗", " ", "(!) ", Style.FAILURE),
             Icon.DEBUG_INFO to styleIcon("🔎", " ", "(d) ", Style.DEBUG_INFO),
             Icon.EMPTY_STRING to StyledString.EMPTY_STRING,
@@ -1003,7 +1048,7 @@ class DefaultFeatureProofGroupTextPreRenderer(
         reportable: FeatureProofGroup,
         controlObject: PreRenderControlObject
     ): List<OutputNode> =
-        controlObject.transformGroup(
+        controlObject.transformSubProofGroup(
             reportable,
             controlObject,
             // we use an empty string as additional colum because we want to indent the children by 2 and still
@@ -1036,6 +1081,10 @@ class DefaultInvisibleProofGroupTextPreRenderer(
                 determineChildControlObject(controlObject, child, childPrefix = controlObject.prefix)
 
             controlObject.transformChild(child, newControlObject).map {
+                //TODO 1.3.0 adjusting children after transformation is fishy, maybe better use the approach we took with ExplanatoryAssertionGroup, i.e. create an OutputNode without columns
+                // this way we keep the grouping we introduced with usageGroup also here
+                // What if the child had defined his own prefix as well, no we override it again, of course, we could check that
+                // here instead of blindly set usesOwnPrefix -- not sure yet what is better, an OutputNode with empty columns introduces other complexities
                 if (child is Proof) it.copy(
                     columns = listOf(iconStyler.style(if (child.holds()) Icon.SUCCESS else Icon.FAILURE)) + it.columns,
                     usesOwnPrefix = true
@@ -1064,21 +1113,25 @@ class DefaultDebugGroupTextPreRenderer(
     }
 }
 
-abstract class PrefixChangingReportableGroupWithoutColumns<R : ReportableGroup>(
-    kClass: KClass<R>,
-    private val icon: Icon
-) : TypedTextPreRenderer<R>(kClass) {
+
+class DefaultUsageHintGroupTextPreRenderer(
+    private val iconStyler: TextIconStyler
+) : TypedTextPreRenderer<UsageHintGroup>(UsageHintGroup::class) {
+
     override fun transformIt(
-        reportable: R,
+        reportable: UsageHintGroup,
         controlObject: PreRenderControlObject
     ): List<OutputNode> = reportable.children.flatMap { child ->
-        controlObject.transformChild(child, controlObject.copy(prefix = icon))
+        controlObject.transformChild(child, controlObject).map {
+            it.copy(
+                // we use an empty string as column as we want to indent by one
+                columns = listOf(StyledString.EMPTY_STRING, iconStyler.style(Icon.BULB)) + it.columns,
+                indentLevel = it.indentLevel + 1,
+                usesOwnPrefix = true
+            )
+        }
     }
 }
-
-class DefaultUsageHintGroupTextPreRenderer : PrefixChangingReportableGroupWithoutColumns<UsageHintGroup>(
-    UsageHintGroup::class, Icon.BULB
-)
 
 
 class DefaultFallbackProofGroupWithDesignationTextPreRenderer :
@@ -1086,12 +1139,7 @@ class DefaultFallbackProofGroupWithDesignationTextPreRenderer :
     override fun transformIt(
         reportable: ProofGroupWithDesignation,
         controlObject: PreRenderControlObject
-    ): List<OutputNode> =
-        controlObject.transformGroup(reportable, controlObject) { child ->
-            val newControlObject =
-                determineChildControlObject(controlObject, child, Icon.LIST_BULLET_POINT, additionalIndent = 1)
-            controlObject.transformChildIncludingIndentationAndPrefix(child, newControlObject)
-        }
+    ): List<OutputNode> = controlObject.transformSubProofGroup(reportable, controlObject, Icon.LIST_BULLET_POINT)
 }
 
 class DefaultFallbackReportableGroupWithDesignationTextPreRenderer :
@@ -1100,8 +1148,9 @@ class DefaultFallbackReportableGroupWithDesignationTextPreRenderer :
         reportable: ProofGroupWithDesignation,
         controlObject: PreRenderControlObject
     ): List<OutputNode> {
-        val newControlObject = controlObject.copy(prefix = Icon.LIST_BULLET_POINT)
-        return controlObject.transformGroup(reportable, controlObject) { child ->
+        val newControlObject =
+            controlObject.copy(prefix = Icon.LIST_BULLET_POINT, indentLevel = controlObject.indentLevel + 1)
+        return controlObject.transformSubProofGroup(reportable, controlObject) { child ->
             controlObject.transformChildIncludingIndentationAndPrefix(child, newControlObject)
         }
     }
@@ -1133,7 +1182,7 @@ class DefaultAssertionGroupTextPreRenderer(private val iconStyler: TextIconStyle
                         controlObject
                     )
 
-                is FeatureAssertionGroupType -> controlObject.transformGroup(
+                is FeatureAssertionGroupType -> controlObject.transformSubProofGroup(
                     reportable,
                     controlObject,
                     // we use an empty string as additional colum because we want to indent the children by 2 and still
@@ -1153,17 +1202,13 @@ class DefaultAssertionGroupTextPreRenderer(private val iconStyler: TextIconStyle
                     controlObject.transformChildIncludingIndentationAndPrefix(child, newControlObject)
                 }
 
-                is ListAssertionGroupType -> controlObject.transformGroup(reportable, controlObject) { child ->
-                    val newControlObject = determineChildControlObject(
-                        controlObject,
-                        child,
-                        Icon.LIST_BULLET_POINT,
-                        additionalIndent = 1
-                    )
-                    controlObject.transformChildIncludingIndentationAndPrefix(child, newControlObject)
-                }
+                is ListAssertionGroupType ->
+                    controlObject.transformSubProofGroup(reportable, controlObject, Icon.LIST_BULLET_POINT)
 
-                is SummaryAssertionGroupType -> controlObject.transformGroup(reportable, controlObject) { child ->
+                is SummaryAssertionGroupType -> controlObject.transformSubProofGroup(
+                    reportable,
+                    controlObject
+                ) { child ->
                     val newControlObject = determineChildControlObject(
                         controlObject,
                         child,
@@ -1173,16 +1218,8 @@ class DefaultAssertionGroupTextPreRenderer(private val iconStyler: TextIconStyle
                     controlObject.transformChildIncludingIndentationAndPrefix(child, newControlObject)
                 }
 
-                is GroupingAssertionGroupType -> controlObject.transformGroup(reportable, controlObject) { child ->
-                    val newControlObject = determineChildControlObject(
-                        controlObject,
-                        child,
-                        Icon.GROUPING_BULLET_POINT,
-                        // indent by two because we want that the children are after Icon.FEATURE
-                        // (1 additional indent for the x prefix of the feature group
-                    )
-                    controlObject.transformChildIncludingIndentationAndPrefix(child, newControlObject)
-                }
+                is GroupingAssertionGroupType ->
+                    controlObject.transformSubProofGroup(reportable, controlObject, Icon.GROUPING_BULLET_POINT)
 
                 else -> throw UnsupportedOperationException("Unsupported assertionGroupType ${assertionGroup.type}")
             }

@@ -30,7 +30,7 @@ abstract class AssertionCreatorSpec<T>(
                     }.toThrow<AssertionError> {
                         message {
                             toContain(
-                                ErrorMessages.AT_LEAST_ONE_EXPECTATION_DEFINED.string + ": false",
+                                ErrorMessages.AT_LEAST_ONE_EXPECTATION_DEFINED.string + " : false",
                                 ErrorMessages.FORGOT_DO_DEFINE_EXPECTATION.string,
                                 ErrorMessages.DEFAULT_HINT_AT_LEAST_ONE_EXPECTATION_DEFINED.string
                             )

@@ -4,16 +4,19 @@ import ch.tutteli.atrium._core
 import ch.tutteli.atrium.api.infix.en_GB.toEqual
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.assertions.*
-import ch.tutteli.atrium.assertions.BasicExplanatoryAssertion
-import ch.tutteli.atrium.assertions.ExplanatoryAssertionGroup
-import ch.tutteli.atrium.creating.*
+import ch.tutteli.atrium.creating.ComponentFactory
+import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.creating.ExperimentalComponentFactoryContainer
+import ch.tutteli.atrium.creating.build
 import ch.tutteli.atrium.creating.impl.ComponentFactoryContainerImpl
 import ch.tutteli.atrium.creating.impl.DefaultComponentFactoryContainer
-import ch.tutteli.atrium.creating.proofs.Proof
 import ch.tutteli.atrium.creating.proofs.EntryPointProofBuilder
+import ch.tutteli.atrium.creating.proofs.Proof
 import ch.tutteli.atrium.creating.proofs.buildProof
 import ch.tutteli.atrium.reporting.reportables.InlineElement
 import ch.tutteli.atrium.reporting.reportables.Reportable
+import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionAnyProof
+import ch.tutteli.atrium.reporting.reportables.descriptions.ErrorMessages
 import ch.tutteli.atrium.translations.DescriptionThrowableExpectation
 import com.github.ajalt.mordant.rendering.AnsiLevel
 import com.github.ajalt.mordant.rendering.TextColors
@@ -27,6 +30,7 @@ class CreateReportTest {
     private val f = TextColors.cyan("▶")
     private val i = TextStyle(TextColors.brightBlue, bold = true).invoke("ℹ\uFE0F") + " "
     private val d = TextColors.blue("🔎")
+    private val u = TextStyle(TextColors.yellow, bold = true).invoke("💡\uFE0F")
 
     @Test
     fun text() {
@@ -50,7 +54,7 @@ class CreateReportTest {
     fun rootWithSimpleProofAndRepresentation() {
         val builder = buildRootGroup {
             simpleProof(Text("to equal"), 1) { false }
-            add(Text("some text"))
+            text("some text")
         }
         expectForReporterWithoutAnsi(
             builder,
@@ -122,16 +126,11 @@ class CreateReportTest {
     }
 
     @Test
-    fun featureProofGroupWithMultilineDescription() {
-        //TODO 1.3.0 use case method call with multiple arguments
-    }
-
-    @Test
     fun invisibleGroup_childrenPrefixedAccordingToType_notJustAsFailure() {
         val builder = buildRootGroup {
             invisibleGroup {
                 simpleProof(Text("simple"), 1) { false }
-                add(Text("text"))
+                text("text")
             }
             // so that the above invisibleGroup is not unwrapped
             simpleProof(Text("another"), 2) { false }
@@ -156,16 +155,124 @@ class CreateReportTest {
         )
     }
 
+
     @Test
-    fun rootVerbLongerThanExpectations() {
-        val reportable = buildRootGroup(verb = Text("I expected that the subject which was"), representation = 2) {
+    fun fixedClaimGroup() {
+        val builder = buildRootGroup {
+            fixedClaimGroup(
+                ErrorMessages.AT_LEAST_ONE_EXPECTATION_DEFINED,
+                representation = false,
+                holds = false
+            ) {
+                simpleProof(DescriptionAnyProof.TO_EQUAL, true) { false }
+                usageHintGroup {
+                    addAll(
+                        ErrorMessages.FORGOT_DO_DEFINE_EXPECTATION,
+                        ErrorMessages.DEFAULT_HINT_AT_LEAST_ONE_EXPECTATION_DEFINED
+                    )
+                }
+            }
+        }
+        expectForReporterWithoutAnsi(
+            builder,
+            """
+            |a verb : "representation"
+            |(f) at least one expectation defined : false
+            |    (f) to equal                     : true
+            |        (u) You forgot to create expectations in the expectationCreator-lambda
+            |        (u) Sometimes you can use an alternative to `{ }` For instance, instead of `toThrow<..> { }` you should use `toThrow<..>()`
+            """.trimMargin()
+        )
+
+        expectForReporterWithAnsi(
+            builder,
+            """
+            |a verb : "representation"
+           |$x at least one expectation defined : false
+           |  $x to equal                       : true
+            |    $u You forgot to create expectations in the expectationCreator-lambda
+            |    $u Sometimes you can use an alternative to `{ }` For instance, instead of `toThrow<..> { }` you should use `toThrow<..>()`
+            """.trimMargin()
+        )
+    }
+
+    @Test
+    fun debugGroup() {
+        val builder = buildRootGroup(representation = Text("/usr/bin/noprogram")) {
+            simpleProof(Text("to"), Text("exist")) { false }
+            debugGroup(Text("properties of unexpected exception")) {
+                row {
+                    column(Text("message"))
+                    column(Text("oho..."))
+                }
+            }
+        }
+        expectForReporterWithoutAnsi(
+            builder,
+            """
+            |a verb : /usr/bin/noprogram
+            |(f) to : exist
+            |(d) properties of unexpected exception :${" "}
+            |    ⚬ message : oho...
+            """.trimMargin()
+        )
+        expectForReporterWithAnsi(
+            builder,
+            """
+            |a verb : /usr/bin/noprogram
+           |$x  to  : exist
+            |$d properties of unexpected exception :${" "}
+            |   ⚬ message : oho...
+            """.trimMargin()
+        )
+    }
+
+    @Test
+    fun usageHintGroup() {
+        val builder = buildRootGroup(representation = Text("/usr/bin/noprogram")) {
+            simpleProof(Text("to"), Text("exist")) { false }
+            usageHintGroup {
+                add(ErrorMessages.FORGOT_DO_DEFINE_EXPECTATION)
+                add(ErrorMessages.DEFAULT_HINT_AT_LEAST_ONE_EXPECTATION_DEFINED)
+            }
+        }
+        expectForReporterWithoutAnsi(
+            builder,
+            """
+            |a verb : /usr/bin/noprogram
+            |(f) to : exist
+            |    (u) You forgot to create expectations in the expectationCreator-lambda
+            |    (u) Sometimes you can use an alternative to `{ }` For instance, instead of `toThrow<..> { }` you should use `toThrow<..>()`
+            """.trimMargin()
+        )
+        expectForReporterWithAnsi(
+            builder,
+            """
+            |a verb : /usr/bin/noprogram
+           |$x to   : exist
+            |  $u You forgot to create expectations in the expectationCreator-lambda
+            |  $u Sometimes you can use an alternative to `{ }` For instance, instead of `toThrow<..> { }` you should use `toThrow<..>()`
+            """.trimMargin()
+        )
+    }
+
+
+    @Test
+    fun featureProofGroupWithMultilineDescription() {
+        //TODO 1.3.0 use case method call with multiple arguments
+    }
+
+
+    @Test
+    fun rootVerbLongerThanExpectations_alignmentCorrect() {
+        val builder = buildRootGroup(verb = Text("I expected that the subject which was"), representation = 2) {
             simpleProof(Text("to equal"), 3) { false }
             simpleProof(Text("to be less than"), 3) { false }
             simpleProof(Text("to greater than"), 10) { false }
         }
 
         expectForReporterWithoutAnsi(
-            reportable,
+            builder,
             """
             |I expected that the subject which was : 2
             |(f) to equal                          : 3
@@ -175,7 +282,7 @@ class CreateReportTest {
         )
 
         expectForReporterWithAnsi(
-            reportable,
+            builder,
             """
             |I expected that the subject which was : 2
            |$x to equal                            : 3
@@ -187,15 +294,17 @@ class CreateReportTest {
     }
 
     @Test
-    fun representationWithNewLineIsWrappedCorrectly() {
+    fun representationWithNewLine_isWrappedAndIndentedCorrectly() {
         val builder = buildRootGroup(
             verb =
             Text("verb always\nwithout line break"),
             representation = "a string with new line\nas representation is wrapped\nmaxLength calculated correctly",
         ) {
             simpleProof(Text("test"), 1) { false }
+            //TODO 1.3.0 use row{ } instead?
             add(
                 //TODO 1.3.0 add ownPrefix to row?
+
                 Columns(
                     "(i) ",
                     "first column",
@@ -234,6 +343,120 @@ class CreateReportTest {
             """.trimMargin()
         )
     }
+
+    @Test
+    fun representationWithNewLineAndAnsiColours_isWrappedAndIndentedCorrectly() {
+        val representation = """
+        I expected subject : 1
+        [31m✘[39m at least one expectation defined : false
+          [31m✘[39m to equal                       : true
+          [33;1m💡️[39;22m You forgot to create expectations in the expectationCreator-lambda
+          [33;1m💡️[39;22m Sometimes you can use an alternative to `{ }` For instance, instead of `toThrow<..> { }` you should use `toThrow<..>()`
+        """.trimIndent()
+        val builder = buildRootGroup {
+            feature(Text("to throw"), representation = representation) {
+                simpleProof(Text("to equal"), "a") { false }
+            }
+        }
+
+        expectForReporterWithoutAnsi(
+            builder,
+            """
+            |a verb : "representation"
+            |(f) > to throw     : ""${'"'}
+            |                     I expected subject : 1
+            |                     $x at least one expectation defined : false
+            |                       $x to equal                       : true
+            |                       $u You forgot to create expectations in the expectationCreator-lambda
+            |                       $u Sometimes you can use an alternative to `{ }` For instance, instead of `toThrow<..> { }` you should use `toThrow<..>()`
+            |                     ""${'"'}
+            |      (f) to equal : "a"
+            """.trimMargin()
+        )
+
+        expectForReporterWithAnsi(
+            builder,
+            """
+            |a verb : "representation"
+           |$x $f to throw   : ""${'"'}
+            |                 I expected subject : 1
+            |                 $x at least one expectation defined : false
+            |                   $x to equal                       : true
+            |                   $u You forgot to create expectations in the expectationCreator-lambda
+            |                   $u Sometimes you can use an alternative to `{ }` For instance, instead of `toThrow<..> { }` you should use `toThrow<..>()`
+            |                 ""${'"'}
+            |    $x to equal : "a"
+            """.trimMargin()
+        )
+    }
+
+    @Test
+    fun representationWithNewLineInNestedFeature_isWrappedAndIndentedCorrectly() {
+        val builder = buildRootGroup {
+            feature(Text("to throw"), 1) {
+                feature(Text("message"), "line\nanother line") {
+                    simpleProof(Text("to equal"), "a") { false }
+                }
+            }
+        }
+        expectForReporterWithoutAnsi(
+            builder,
+            """
+            |a verb : "representation"
+            |(f) > to throw : 1
+            |      (f) > message      : ""${'"'}
+            |                           line
+            |                           another line
+            |                           ""${'"'}
+            |            (f) to equal : "a"
+            """.trimMargin()
+        )
+
+        expectForReporterWithAnsi(
+            builder,
+            """
+            |a verb : "representation"
+           |$x $f to throw : 1
+            |    $x $f message    : ""${'"'}
+            |                     line
+            |                     another line
+            |                     ""${'"'}
+            |        $x to equal : "a"
+            """.trimMargin()
+        )
+    }
+
+    @Test
+    fun threeColumnsMiddleWithLineBreaks_isWrappedCorrectly(){
+
+    }
+
+
+    @Test
+    fun mergingColumnsWithAlignment() {
+        val reportable = Reportable.group(
+            Text("description always\n without line break"),
+            "a string with new line\nas representation is broken\nmaxLength calculated correctly",
+            listOf(
+                Proof.simple(Text("test"), 1) { false },
+                Columns(
+                    "(i) ",
+                    "first column",
+                    " : ",
+                    "second longer than longest line of representation",
+                    " : ",
+                    "1",
+                    usesOwnPrefix = true
+                )
+            )
+        )
+        //TODO 1.3.0 finish test
+    }
+
+
+// --------------------------------------------------------------------------------------------------------------
+// Backwards compatibility with Assertions, regression tests
+// --------------------------------------------------------------------------------------------------------------
 
     @Suppress("DEPRECATION")
     @Test
@@ -288,88 +511,6 @@ class CreateReportTest {
             """.trimMargin()
         )
     }
-
-    @Test
-    fun debugGroup() {
-        val builder = buildRootGroup(representation = Text("/usr/bin/noprogram")) {
-            simpleProof(Text("to"), Text("exist")) { false }
-            debugGroup(Text("properties of unexpected exception")) {
-                row {
-                    column(Text("message"))
-                    column(Text("oho..."))
-                }
-            }
-        }
-        expectForReporterWithoutAnsi(
-            builder,
-            """
-            |a verb : /usr/bin/noprogram
-            |(f) to : exist
-            |(d) properties of unexpected exception :${" "}
-            |    ⚬ message : oho...
-            """.trimMargin()
-        )
-        expectForReporterWithAnsi(
-            builder,
-            """
-            |a verb : /usr/bin/noprogram
-           |$x  to  : exist
-            |$d properties of unexpected exception :${" "}
-            |   ⚬ message : oho...
-            """.trimMargin()
-        )
-    }
-
-    @Test
-    fun usageHintGroup() {
-        val reportable = Proof.rootGroup(
-            Text("verb"), Text("/usr/bin/noprogram"),
-            listOf(
-                Proof.simple(Text("to"), Text("exist")) { false },
-                Reportable.debugGroup(
-                    Text("the closest existing parent directory is /usr/bin"), emptyList()
-                )
-            )
-        )
-        expectForReporterWithoutAnsi(
-            reportable,
-            """
-            |verb   : /usr/bin/noprogram
-            |(f) to : exist
-            |(d) the closest existing parent directory is /usr/bin
-            """.trimMargin()
-        )
-        expectForReporterWithoutAnsi(
-            reportable,
-            """
-            |verb   : /usr/bin/noprogram
-            |(f) to : exist
-            |(d) the closest existing parent directory is /usr/bin
-            """.trimMargin()
-        )
-    }
-
-    @Test
-    fun mergingColumnsWithAlignment() {
-        val reportable = Reportable.group(
-            Text("description always\n without line break"),
-            "a string with new line\nas representation is broken\nmaxLength calculated correctly",
-            listOf(
-                Proof.simple(Text("test"), 1) { false },
-                Columns(
-                    "(i) ",
-                    "first column",
-                    " : ",
-                    "second longer than longest line of representation",
-                    " : ",
-                    "1",
-                    usesOwnPrefix = true
-                )
-            )
-        )
-        //TODO 1.3.0 finish test
-    }
-
 
     private fun buildRootGroup(
         verb: InlineElement = Text("a verb"),
