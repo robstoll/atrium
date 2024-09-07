@@ -940,6 +940,7 @@ public abstract class ch/tutteli/atrium/creating/proofs/BaseBuilder {
 	public fun <init> (Lch/tutteli/atrium/creating/ProofContainer;)V
 	public final fun add (Lch/tutteli/atrium/reporting/reportables/Reportable;)Lch/tutteli/atrium/reporting/reportables/Reportable;
 	public final fun addAll (Ljava/util/List;)V
+	public final fun addAll ([Lch/tutteli/atrium/reporting/reportables/Reportable;)V
 	protected abstract fun build (Ljava/util/List;)Lch/tutteli/atrium/reporting/reportables/Reportable;
 	public final fun build (Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/reporting/reportables/Reportable;
 	protected final fun getProofContainer ()Lch/tutteli/atrium/creating/ProofContainer;
@@ -963,6 +964,8 @@ public abstract class ch/tutteli/atrium/creating/proofs/BaseGroupBuilder : ch/tu
 	public final fun representationOnlyProof (Ljava/lang/Object;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/creating/proofs/Proof;
 	public final fun row (Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/reporting/reportables/Reportable;
 	public final fun simpleProof (Lch/tutteli/atrium/reporting/reportables/InlineElement;Ljava/lang/Object;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/creating/proofs/Proof;
+	public final fun text (Ljava/lang/String;)Lch/tutteli/atrium/reporting/reportables/Reportable;
+	public final fun usageHintGroup (Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/reporting/reportables/Reportable;
 }
 
 public abstract class ch/tutteli/atrium/creating/proofs/BaseSubGroupBuilder : ch/tutteli/atrium/creating/proofs/BaseGroupBuilder {
@@ -1057,6 +1060,9 @@ public final class ch/tutteli/atrium/creating/proofs/Proof$Companion {
 	public final fun simple (Lch/tutteli/atrium/reporting/reportables/InlineElement;Ljava/lang/Object;Lkotlin/jvm/functions/Function0;)Lch/tutteli/atrium/creating/proofs/Proof;
 }
 
+public abstract interface annotation class ch/tutteli/atrium/creating/proofs/ProofBuilderMarker : java/lang/annotation/Annotation {
+}
+
 public final class ch/tutteli/atrium/creating/proofs/ProofExplanationGroupBuilder : ch/tutteli/atrium/creating/proofs/BaseSubGroupBuilder {
 	public fun <init> (Lch/tutteli/atrium/creating/ProofContainer;)V
 	public final fun collectWithoutSubject (Lch/tutteli/atrium/creating/ExpectationCreatorWithUsageHints;)Z
@@ -1104,6 +1110,10 @@ public final class ch/tutteli/atrium/creating/proofs/RowBuilder : ch/tutteli/atr
 }
 
 public abstract interface class ch/tutteli/atrium/creating/proofs/SimpleProof : ch/tutteli/atrium/creating/proofs/Proof, ch/tutteli/atrium/reporting/reportables/ReportableWithInlineDesignation {
+}
+
+public final class ch/tutteli/atrium/creating/proofs/UsageHintGroupBuilder : ch/tutteli/atrium/creating/proofs/BaseSubGroupBuilder {
+	public fun <init> (Lch/tutteli/atrium/creating/ProofContainer;)V
 }
 
 public final class ch/tutteli/atrium/creating/proofs/UtilsKt {
@@ -1655,9 +1665,6 @@ public final class ch/tutteli/atrium/reporting/DefaultTextPreRenderController : 
 	public fun transformChild (Lch/tutteli/atrium/reporting/reportables/Reportable;Lch/tutteli/atrium/reporting/PreRenderControlObject;)Ljava/util/List;
 	public fun transformChildIncludingIndentationAndPrefix (Lch/tutteli/atrium/reporting/reportables/Reportable;Lch/tutteli/atrium/reporting/PreRenderControlObject;)Ljava/util/List;
 	public fun transformGroup (Lch/tutteli/atrium/reporting/reportables/Reportable;Ljava/lang/Object;Lch/tutteli/atrium/reporting/PreRenderControlObject;Ljava/util/List;Ljava/util/List;Ljava/util/List;I)Ljava/util/List;
-	public fun transformGroup (Lch/tutteli/atrium/reporting/reportables/ReportableGroup;Lch/tutteli/atrium/reporting/PreRenderControlObject;Ljava/util/List;Ljava/util/List;ILkotlin/jvm/functions/Function1;)Ljava/util/List;
-	public fun transformGroup (Lch/tutteli/atrium/reporting/reportables/ReportableGroupWithDescription;Lch/tutteli/atrium/reporting/PreRenderControlObject;Ljava/util/List;Ljava/util/List;ILkotlin/jvm/functions/Function1;)Ljava/util/List;
-	public fun transformGroup (Lch/tutteli/atrium/reporting/reportables/ReportableWithDesignation;Lch/tutteli/atrium/reporting/PreRenderControlObject;Ljava/util/List;Ljava/util/List;I)Ljava/util/List;
 	public fun transformRoot (Lch/tutteli/atrium/reporting/reportables/Reportable;Z)Ljava/util/List;
 }
 
@@ -1679,8 +1686,9 @@ public final class ch/tutteli/atrium/reporting/DefaultThemeProvider : ch/tutteli
 	public fun <init> (Lcom/github/ajalt/mordant/terminal/Terminal;)V
 }
 
-public final class ch/tutteli/atrium/reporting/DefaultUsageHintGroupTextPreRenderer : ch/tutteli/atrium/reporting/PrefixChangingReportableGroupWithoutColumns {
-	public fun <init> ()V
+public final class ch/tutteli/atrium/reporting/DefaultUsageHintGroupTextPreRenderer : ch/tutteli/atrium/reporting/TypedTextPreRenderer {
+	public fun <init> (Lch/tutteli/atrium/reporting/TextIconStyler;)V
+	public synthetic fun transformIt (Lch/tutteli/atrium/reporting/reportables/Reportable;Lch/tutteli/atrium/reporting/PreRenderControlObject;)Ljava/util/List;
 }
 
 public final class ch/tutteli/atrium/reporting/FailingProofsAndOthers : ch/tutteli/atrium/reporting/ReportableFilter {
@@ -1797,9 +1805,6 @@ public final class ch/tutteli/atrium/reporting/PreRenderControlObject : ch/tutte
 	public fun transformChild (Lch/tutteli/atrium/reporting/reportables/Reportable;Lch/tutteli/atrium/reporting/PreRenderControlObject;)Ljava/util/List;
 	public fun transformChildIncludingIndentationAndPrefix (Lch/tutteli/atrium/reporting/reportables/Reportable;Lch/tutteli/atrium/reporting/PreRenderControlObject;)Ljava/util/List;
 	public fun transformGroup (Lch/tutteli/atrium/reporting/reportables/Reportable;Ljava/lang/Object;Lch/tutteli/atrium/reporting/PreRenderControlObject;Ljava/util/List;Ljava/util/List;Ljava/util/List;I)Ljava/util/List;
-	public fun transformGroup (Lch/tutteli/atrium/reporting/reportables/ReportableGroup;Lch/tutteli/atrium/reporting/PreRenderControlObject;Ljava/util/List;Ljava/util/List;ILkotlin/jvm/functions/Function1;)Ljava/util/List;
-	public fun transformGroup (Lch/tutteli/atrium/reporting/reportables/ReportableGroupWithDescription;Lch/tutteli/atrium/reporting/PreRenderControlObject;Ljava/util/List;Ljava/util/List;ILkotlin/jvm/functions/Function1;)Ljava/util/List;
-	public fun transformGroup (Lch/tutteli/atrium/reporting/reportables/ReportableWithDesignation;Lch/tutteli/atrium/reporting/PreRenderControlObject;Ljava/util/List;Ljava/util/List;I)Ljava/util/List;
 	public fun transformRoot (Lch/tutteli/atrium/reporting/reportables/Reportable;Z)Ljava/util/List;
 }
 
@@ -1807,27 +1812,12 @@ public abstract interface class ch/tutteli/atrium/reporting/PreRenderController 
 	public abstract fun transformChild (Lch/tutteli/atrium/reporting/reportables/Reportable;Lch/tutteli/atrium/reporting/PreRenderControlObject;)Ljava/util/List;
 	public abstract fun transformChildIncludingIndentationAndPrefix (Lch/tutteli/atrium/reporting/reportables/Reportable;Lch/tutteli/atrium/reporting/PreRenderControlObject;)Ljava/util/List;
 	public abstract fun transformGroup (Lch/tutteli/atrium/reporting/reportables/Reportable;Ljava/lang/Object;Lch/tutteli/atrium/reporting/PreRenderControlObject;Ljava/util/List;Ljava/util/List;Ljava/util/List;I)Ljava/util/List;
-	public abstract fun transformGroup (Lch/tutteli/atrium/reporting/reportables/ReportableGroup;Lch/tutteli/atrium/reporting/PreRenderControlObject;Ljava/util/List;Ljava/util/List;ILkotlin/jvm/functions/Function1;)Ljava/util/List;
-	public abstract fun transformGroup (Lch/tutteli/atrium/reporting/reportables/ReportableGroupWithDescription;Lch/tutteli/atrium/reporting/PreRenderControlObject;Ljava/util/List;Ljava/util/List;ILkotlin/jvm/functions/Function1;)Ljava/util/List;
-	public abstract fun transformGroup (Lch/tutteli/atrium/reporting/reportables/ReportableWithDesignation;Lch/tutteli/atrium/reporting/PreRenderControlObject;Ljava/util/List;Ljava/util/List;I)Ljava/util/List;
 	public abstract fun transformRoot (Lch/tutteli/atrium/reporting/reportables/Reportable;Z)Ljava/util/List;
 }
 
 public final class ch/tutteli/atrium/reporting/PreRenderController$DefaultImpls {
-	public static fun transformGroup (Lch/tutteli/atrium/reporting/PreRenderController;Lch/tutteli/atrium/reporting/reportables/ReportableGroup;Lch/tutteli/atrium/reporting/PreRenderControlObject;Ljava/util/List;Ljava/util/List;ILkotlin/jvm/functions/Function1;)Ljava/util/List;
-	public static fun transformGroup (Lch/tutteli/atrium/reporting/PreRenderController;Lch/tutteli/atrium/reporting/reportables/ReportableGroupWithDescription;Lch/tutteli/atrium/reporting/PreRenderControlObject;Ljava/util/List;Ljava/util/List;ILkotlin/jvm/functions/Function1;)Ljava/util/List;
-	public static fun transformGroup (Lch/tutteli/atrium/reporting/PreRenderController;Lch/tutteli/atrium/reporting/reportables/ReportableWithDesignation;Lch/tutteli/atrium/reporting/PreRenderControlObject;Ljava/util/List;Ljava/util/List;I)Ljava/util/List;
 	public static synthetic fun transformGroup$default (Lch/tutteli/atrium/reporting/PreRenderController;Lch/tutteli/atrium/reporting/reportables/Reportable;Ljava/lang/Object;Lch/tutteli/atrium/reporting/PreRenderControlObject;Ljava/util/List;Ljava/util/List;Ljava/util/List;IILjava/lang/Object;)Ljava/util/List;
-	public static synthetic fun transformGroup$default (Lch/tutteli/atrium/reporting/PreRenderController;Lch/tutteli/atrium/reporting/reportables/ReportableGroup;Lch/tutteli/atrium/reporting/PreRenderControlObject;Ljava/util/List;Ljava/util/List;ILkotlin/jvm/functions/Function1;ILjava/lang/Object;)Ljava/util/List;
-	public static synthetic fun transformGroup$default (Lch/tutteli/atrium/reporting/PreRenderController;Lch/tutteli/atrium/reporting/reportables/ReportableGroupWithDescription;Lch/tutteli/atrium/reporting/PreRenderControlObject;Ljava/util/List;Ljava/util/List;ILkotlin/jvm/functions/Function1;ILjava/lang/Object;)Ljava/util/List;
-	public static synthetic fun transformGroup$default (Lch/tutteli/atrium/reporting/PreRenderController;Lch/tutteli/atrium/reporting/reportables/ReportableWithDesignation;Lch/tutteli/atrium/reporting/PreRenderControlObject;Ljava/util/List;Ljava/util/List;IILjava/lang/Object;)Ljava/util/List;
 	public static synthetic fun transformRoot$default (Lch/tutteli/atrium/reporting/PreRenderController;Lch/tutteli/atrium/reporting/reportables/Reportable;ZILjava/lang/Object;)Ljava/util/List;
-}
-
-public abstract class ch/tutteli/atrium/reporting/PrefixChangingReportableGroupWithoutColumns : ch/tutteli/atrium/reporting/TypedTextPreRenderer {
-	public fun <init> (Lkotlin/reflect/KClass;Lch/tutteli/atrium/reporting/Icon;)V
-	public synthetic fun transformIt (Lch/tutteli/atrium/reporting/reportables/Reportable;Lch/tutteli/atrium/reporting/PreRenderControlObject;)Ljava/util/List;
-	protected fun transformIt (Lch/tutteli/atrium/reporting/reportables/ReportableGroup;Lch/tutteli/atrium/reporting/PreRenderControlObject;)Ljava/util/List;
 }
 
 public abstract interface class ch/tutteli/atrium/reporting/ReportableFilter {
@@ -1848,6 +1838,15 @@ public final class ch/tutteli/atrium/reporting/ReporterKt {
 	public static final fun noStyle (Ljava/lang/String;ZLch/tutteli/atrium/reporting/HorizontalAlignment;)Lch/tutteli/atrium/reporting/StyledString;
 	public static synthetic fun noStyle$default (Ljava/lang/String;ZLch/tutteli/atrium/reporting/HorizontalAlignment;ILjava/lang/Object;)Lch/tutteli/atrium/reporting/StyledString;
 	public static final fun pad (Lch/tutteli/atrium/reporting/StyledString;I)Ljava/lang/String;
+	public static final fun transformGroup (Lch/tutteli/atrium/reporting/PreRenderController;Lch/tutteli/atrium/reporting/reportables/ReportableGroup;Lch/tutteli/atrium/reporting/PreRenderControlObject;Ljava/util/List;Ljava/util/List;ILkotlin/jvm/functions/Function1;)Ljava/util/List;
+	public static final fun transformGroup (Lch/tutteli/atrium/reporting/PreRenderController;Lch/tutteli/atrium/reporting/reportables/ReportableGroupWithDescription;Lch/tutteli/atrium/reporting/PreRenderControlObject;Ljava/util/List;Ljava/util/List;ILkotlin/jvm/functions/Function1;)Ljava/util/List;
+	public static final fun transformGroup (Lch/tutteli/atrium/reporting/PreRenderController;Lch/tutteli/atrium/reporting/reportables/ReportableWithDesignation;Lch/tutteli/atrium/reporting/PreRenderControlObject;Ljava/util/List;Ljava/util/List;I)Ljava/util/List;
+	public static synthetic fun transformGroup$default (Lch/tutteli/atrium/reporting/PreRenderController;Lch/tutteli/atrium/reporting/reportables/ReportableGroup;Lch/tutteli/atrium/reporting/PreRenderControlObject;Ljava/util/List;Ljava/util/List;ILkotlin/jvm/functions/Function1;ILjava/lang/Object;)Ljava/util/List;
+	public static synthetic fun transformGroup$default (Lch/tutteli/atrium/reporting/PreRenderController;Lch/tutteli/atrium/reporting/reportables/ReportableGroupWithDescription;Lch/tutteli/atrium/reporting/PreRenderControlObject;Ljava/util/List;Ljava/util/List;ILkotlin/jvm/functions/Function1;ILjava/lang/Object;)Ljava/util/List;
+	public static synthetic fun transformGroup$default (Lch/tutteli/atrium/reporting/PreRenderController;Lch/tutteli/atrium/reporting/reportables/ReportableWithDesignation;Lch/tutteli/atrium/reporting/PreRenderControlObject;Ljava/util/List;Ljava/util/List;IILjava/lang/Object;)Ljava/util/List;
+	public static final fun transformSubProofGroup (Lch/tutteli/atrium/reporting/PreRenderController;Lch/tutteli/atrium/reporting/reportables/ReportableGroup;Lch/tutteli/atrium/reporting/PreRenderControlObject;Lch/tutteli/atrium/reporting/Icon;)Ljava/util/List;
+	public static final fun transformSubProofGroup (Lch/tutteli/atrium/reporting/PreRenderController;Lch/tutteli/atrium/reporting/reportables/ReportableGroup;Lch/tutteli/atrium/reporting/PreRenderControlObject;Ljava/util/List;Ljava/util/List;ILkotlin/jvm/functions/Function1;)Ljava/util/List;
+	public static synthetic fun transformSubProofGroup$default (Lch/tutteli/atrium/reporting/PreRenderController;Lch/tutteli/atrium/reporting/reportables/ReportableGroup;Lch/tutteli/atrium/reporting/PreRenderControlObject;Ljava/util/List;Ljava/util/List;ILkotlin/jvm/functions/Function1;ILjava/lang/Object;)Ljava/util/List;
 }
 
 public final class ch/tutteli/atrium/reporting/Style : java/lang/Enum {
@@ -1915,12 +1914,6 @@ public abstract interface class ch/tutteli/atrium/reporting/TextObjFormatter {
 }
 
 public abstract interface class ch/tutteli/atrium/reporting/TextPreRenderController : ch/tutteli/atrium/reporting/PreRenderController {
-}
-
-public final class ch/tutteli/atrium/reporting/TextPreRenderController$DefaultImpls {
-	public static fun transformGroup (Lch/tutteli/atrium/reporting/TextPreRenderController;Lch/tutteli/atrium/reporting/reportables/ReportableGroup;Lch/tutteli/atrium/reporting/PreRenderControlObject;Ljava/util/List;Ljava/util/List;ILkotlin/jvm/functions/Function1;)Ljava/util/List;
-	public static fun transformGroup (Lch/tutteli/atrium/reporting/TextPreRenderController;Lch/tutteli/atrium/reporting/reportables/ReportableGroupWithDescription;Lch/tutteli/atrium/reporting/PreRenderControlObject;Ljava/util/List;Ljava/util/List;ILkotlin/jvm/functions/Function1;)Ljava/util/List;
-	public static fun transformGroup (Lch/tutteli/atrium/reporting/TextPreRenderController;Lch/tutteli/atrium/reporting/reportables/ReportableWithDesignation;Lch/tutteli/atrium/reporting/PreRenderControlObject;Ljava/util/List;Ljava/util/List;I)Ljava/util/List;
 }
 
 public abstract interface class ch/tutteli/atrium/reporting/TextPreRenderer {

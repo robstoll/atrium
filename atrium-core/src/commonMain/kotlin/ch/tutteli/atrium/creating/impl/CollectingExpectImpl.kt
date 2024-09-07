@@ -8,6 +8,7 @@ import ch.tutteli.atrium.creating.proofs.FeatureProofGroup
 import ch.tutteli.atrium.creating.proofs.Proof
 import ch.tutteli.atrium.creating.proofs.ProofGroupWithDesignation
 import ch.tutteli.atrium.creating.proofs.buildProof
+import ch.tutteli.atrium.creating.proofs.impl.DefaultInvisibleProofGroup
 import ch.tutteli.atrium.reporting.reportables.Reportable
 import ch.tutteli.atrium.reporting.reportables.ReportableWithDesignation
 import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionAnyProof
@@ -46,6 +47,8 @@ internal class CollectingExpectImpl<T>(
                     ch.tutteli.atrium.reporting.translating.Untranslatable(proof.description.toString()),
                     proof.description
                 ) { proof.holds() }
+
+                is DefaultInvisibleProofGroup -> InvisibleAssertionGroup(mapProofsToAssertion(proof.children.filterIsInstance<Proof>()))
 
                 else -> BasicDescriptiveAssertion(
                     ch.tutteli.atrium.reporting.translating.Untranslatable("❗❗ Assertion is deprecated, move to Proof, cannot show description"),
