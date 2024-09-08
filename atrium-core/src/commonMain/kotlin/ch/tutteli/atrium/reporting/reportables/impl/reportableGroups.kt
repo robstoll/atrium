@@ -2,10 +2,10 @@ package ch.tutteli.atrium.reporting.reportables.impl
 
 import ch.tutteli.atrium.creating.proofs.InvisibleProofGroup
 import ch.tutteli.atrium.creating.proofs.Proof
-import ch.tutteli.atrium.reporting.HorizontalAlignment
 import ch.tutteli.atrium.reporting.reportables.*
+import ch.tutteli.atrium.reporting.HorizontalAlignment
 
-abstract class BaseReportableGroup(override val children: List<Reportable>) : ReportableGroup {
+internal abstract class BaseReportableGroup(final override val children: List<Reportable>) : ReportableGroup {
     init {
         require(children.isNotEmpty()) {
             "a group requires at least one child"
@@ -46,8 +46,6 @@ internal class DefaultInformationGroup(
     override val description: Reportable,
     children: List<Reportable>
 ) : BaseReportableGroup(children), InformationGroup
-
-abstract class BaseInlineElementBased
 
 internal class DefaultInlineGroup(
     override val inlineElements: List<InlineElement>

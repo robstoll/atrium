@@ -10,6 +10,8 @@ import ch.tutteli.atrium.creating.ExperimentalComponentFactoryContainer
 import ch.tutteli.atrium.creating.build
 import ch.tutteli.atrium.creating.impl.DefaultComponentFactoryContainer
 import ch.tutteli.atrium.creating.proofs.Proof
+import ch.tutteli.atrium.reporting.prerendering.text.TextDesignationPreRenderer
+import ch.tutteli.atrium.reporting.prerendering.text.impl.DefaultInlineDesignatorPreRenderer
 import ch.tutteli.atrium.reporting.reportables.InlineElement
 import ch.tutteli.atrium.reporting.reportables.Reportable
 import ch.tutteli.atrium.reporting.reportables.TextElement
@@ -21,7 +23,7 @@ class DefaultInlineDesignatorPreRendererTest {
 
     @TestFactory
     fun canTransform_InlineElement_true() = testFactory {
-        val preRenderer = DefaultInlineDesignatorPreRenderer()
+        val preRenderer = buildDefaultInlineDesignatorPreRenderer()
         val inlineElements = listOf(
             Text("bla"),
             Reportable.inlineGroup(listOf(Text("bli"))),
@@ -40,7 +42,7 @@ class DefaultInlineDesignatorPreRendererTest {
 
     @Test
     fun canTransform_notInlineElement_false() {
-        val preRenderer = DefaultInlineDesignatorPreRenderer()
+        val preRenderer = buildDefaultInlineDesignatorPreRenderer()
         val simpleProof = Proof.simple(Text("bla"), "rep") { false }
         val nonInlineElements = listOf(
             simpleProof,
@@ -52,7 +54,7 @@ class DefaultInlineDesignatorPreRendererTest {
             Reportable.proofExplanation(simpleProof),
             Reportable.usageHintGroup(emptyList()),
         )
-        //TODO 1.4.0 switch to testFactory
+        //TODO 1.3.0 switch to testFactory
         expectGrouped {
             nonInlineElements.forEach {
                 expect(preRenderer) feature of(DefaultInlineDesignatorPreRenderer::canTransform, it) toEqual false
@@ -61,9 +63,6 @@ class DefaultInlineDesignatorPreRendererTest {
     }
 
     @OptIn(ExperimentalComponentFactoryContainer::class)
-    @Suppress("TestFunctionName")
-    private fun DefaultInlineDesignatorPreRenderer() =
-        DefaultInlineDesignatorPreRenderer(
-            DefaultComponentFactoryContainer.build()
-        )
+    private fun buildDefaultInlineDesignatorPreRenderer() =
+        DefaultInlineDesignatorPreRenderer(DefaultComponentFactoryContainer.build())
 }

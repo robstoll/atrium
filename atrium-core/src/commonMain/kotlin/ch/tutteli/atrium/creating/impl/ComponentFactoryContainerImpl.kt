@@ -5,18 +5,30 @@ import ch.tutteli.atrium.core.polyfills.MutableConcurrentMap
 import ch.tutteli.atrium.core.polyfills.cast
 import ch.tutteli.atrium.creating.*
 import ch.tutteli.atrium.creating.feature.ExperimentalFeatureInfo
-import ch.tutteli.atrium.creating.feature.impl.StackTraceBasedFeatureInfo
 import ch.tutteli.atrium.creating.feature.FeatureInfo
+import ch.tutteli.atrium.creating.feature.impl.StackTraceBasedFeatureInfo
 import ch.tutteli.atrium.reporting.*
 import ch.tutteli.atrium.reporting.erroradjusters.MultiAtriumErrorAdjuster
 import ch.tutteli.atrium.reporting.erroradjusters.RemoveAtriumFromAtriumError
 import ch.tutteli.atrium.reporting.erroradjusters.RemoveRunnerFromAtriumError
 import ch.tutteli.atrium.reporting.erroradjusters.impl.RemoveAtriumFromAtriumErrorImpl
 import ch.tutteli.atrium.reporting.erroradjusters.impl.RemoveRunnerFromAtriumErrorImpl
-import ch.tutteli.atrium.reporting.reportables.impl.DefaultUsageHintGroup
+import ch.tutteli.atrium.reporting.filters.ReportableFilter
+import ch.tutteli.atrium.reporting.prerendering.text.TextDesignationPreRenderer
+import ch.tutteli.atrium.reporting.prerendering.text.TextPreRenderController
+import ch.tutteli.atrium.reporting.prerendering.text.TextPreRenderer
+import ch.tutteli.atrium.reporting.prerendering.text.impl.*
+import ch.tutteli.atrium.reporting.prerendering.text.impl.assertion.*
 import ch.tutteli.atrium.reporting.text.*
-import ch.tutteli.atrium.reporting.text.TextObjectFormatter
 import ch.tutteli.atrium.reporting.text.impl.*
+import ch.tutteli.atrium.reporting.theming.text.TextIconStyler
+import ch.tutteli.atrium.reporting.theming.text.TextStyler
+import ch.tutteli.atrium.reporting.theming.text.TextThemeProvider
+import ch.tutteli.atrium.reporting.theming.text.Utf8SupportDeterminer
+import ch.tutteli.atrium.reporting.theming.text.impl.DefaultTextIconStyler
+import ch.tutteli.atrium.reporting.theming.text.impl.DefaultTextStyler
+import ch.tutteli.atrium.reporting.theming.text.impl.DefaultThemeProvider
+import ch.tutteli.atrium.reporting.theming.text.impl.MordantBasedUtf8SupportDeterminer
 import ch.tutteli.atrium.reporting.translating.*
 import com.github.ajalt.mordant.rendering.AnsiLevel
 import com.github.ajalt.mordant.terminal.Terminal
@@ -127,7 +139,7 @@ internal object DefaultComponentFactoryContainer : ComponentFactoryContainer by 
             DefaultTextPreRenderController(c.buildChained(), c.buildChained(), c.build(), c.build())
         },
         ReportableFilter::class createVia { _ ->
-            FailingProofsAndOthers
+            ReportableFilter.failingProofsAndNonProof()
         },
         TextIconStyler::class createSingletonVia { c ->
             DefaultTextIconStyler(c.build(), c.build())
@@ -211,7 +223,6 @@ internal object DefaultComponentFactoryContainer : ComponentFactoryContainer by 
         BulletPointProvider::class createVia { _ -> UsingDefaultBulletPoints }
     ),
 
-
     chainedComponents = mapOf(
         TextPreRenderer::class createChainVia sequenceOf(
 
@@ -256,7 +267,6 @@ internal object DefaultComponentFactoryContainer : ComponentFactoryContainer by 
             { _ -> DefaultRowTextPreRenderer() },
             { _ -> DefaultColumnTextPreRenderer() },
             { _ -> DefaultTextElementTextPreRenderer() },
-
         ),
         TextDesignationPreRenderer::class createChainVia sequenceOf(
             { c -> DefaultInlineDesignatorPreRenderer(c.build()) }
