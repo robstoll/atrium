@@ -13,10 +13,21 @@ import ch.tutteli.atrium.creating.impl.DefaultComponentFactoryContainer
 import ch.tutteli.atrium.creating.proofs.EntryPointProofBuilder
 import ch.tutteli.atrium.creating.proofs.Proof
 import ch.tutteli.atrium.creating.proofs.buildProof
+import ch.tutteli.atrium.reporting.prerendering.text.OutputNode
+import ch.tutteli.atrium.reporting.prerendering.text.TextPreRenderControlObject
+import ch.tutteli.atrium.reporting.prerendering.text.TextPreRenderer
+import ch.tutteli.atrium.reporting.prerendering.text.TypedTextPreRenderer
 import ch.tutteli.atrium.reporting.reportables.InlineElement
 import ch.tutteli.atrium.reporting.reportables.Reportable
 import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionAnyProof
+import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionFunLikeProof
 import ch.tutteli.atrium.reporting.reportables.descriptions.ErrorMessages
+import ch.tutteli.atrium.reporting.text.TextReporter
+import ch.tutteli.atrium.reporting.theming.text.StyledString
+import ch.tutteli.atrium.reporting.theming.text.noStyle
+import ch.tutteli.atrium.reporting.translating.Untranslatable
+import ch.tutteli.atrium.translations.DescriptionAnyExpectation
+import ch.tutteli.atrium.translations.DescriptionCharSequenceExpectation
 import ch.tutteli.atrium.translations.DescriptionThrowableExpectation
 import com.github.ajalt.mordant.rendering.AnsiLevel
 import com.github.ajalt.mordant.rendering.TextColors
@@ -427,12 +438,6 @@ class CreateReportTest {
     }
 
     @Test
-    fun threeColumnsMiddleWithLineBreaks_isWrappedCorrectly(){
-
-    }
-
-
-    @Test
     fun mergingColumnsWithAlignment() {
         val reportable = Reportable.group(
             Text("description always\n without line break"),
@@ -512,6 +517,70 @@ class CreateReportTest {
         )
     }
 
+
+    @Suppress("DEPRECATION")
+    @Test
+    fun featureWithFeatureAssertionWithDescriptiveWithVeryLongRepresentation() {
+        val representation = """
+                |I expected subject : 1
+                |[31m✘[39m AT_LEAST_ONE_EXPECTATION_DEFINED : false
+                |  [31m✘[39m TO_EQUAL                       : to equal
+                |
+                """.trimMargin()
+
+        val builder = buildRootGroup {
+            feature(
+                DescriptionFunLikeProof.THROWN_EXCEPTION_WHEN_CALLED,
+                "$representation\n\nch.tutteli.atrium.reporting.AtriumError"
+            ) {
+                add(
+                    BasicAssertionGroup(
+                        DefaultFeatureAssertionGroupType, Untranslatable("message"), representation,
+                        listOf(
+                            // should not be shown
+                            BasicDescriptiveAssertion(
+                                DescriptionAnyExpectation.NOT_TO_EQUAL_NULL_TO_BE_AN_INSTANCE_OF,
+                                String::class
+                            ) { true },
+                            BasicAssertionGroup(
+                                DefaultListAssertionGroupType,
+                                DescriptionCharSequenceExpectation.TO_CONTAIN,
+                                Text.EMPTY,
+                                listOf(
+                                    BasicAssertionGroup(
+                                        DefaultListAssertionGroupType,
+                                        DescriptionCharSequenceExpectation.VALUE,
+                                        "at least one expectation defined : false",
+                                        listOf(
+                                            ExplanatoryAssertionGroup(
+                                                DefaultExplanatoryAssertionGroupType,
+                                                holds = false,
+                                                explanatoryAssertions = listOf(
+                                                    BasicExplanatoryAssertion(DescriptionCharSequenceExpectation.NOT_FOUND)
+                                                )
+                                            )
+                                        )
+                                    )
+                                )
+                            )
+                        )
+                    )
+                )
+            }
+        }
+        expectForReporterWithoutAnsi(
+            builder,
+            """
+            |verb : 1
+            |(i) properties of the unknown Exception
+            |    » message : "bla"
+            |    » stacktrace :${" "}
+            |      ⚬ test
+            |      ⚬ lines
+            """.trimMargin()
+        )
+    }
+
     private fun buildRootGroup(
         verb: InlineElement = Text("a verb"),
         representation: Any = "representation",
@@ -572,29 +641,33 @@ class Columns(
     val mergeColumns: Int = 0,
     val definesOwnLevel: Boolean = false,
     val usesOwnPrefix: Boolean = false,
+    val additionalIndent: Int = 0,
 ) : Reportable {
     constructor(
         vararg strings: String,
         mergeColumns: Int = 0,
         definesOwnLevel: Boolean = false,
-        usesOwnPrefix: Boolean = false
+        usesOwnPrefix: Boolean = false,
+        additionalIndent: Int = 0,
     ) : this(
         strings.map { it.noStyle(noLineBreak = false) },
         mergeColumns = mergeColumns,
         definesOwnLevel = definesOwnLevel,
-        usesOwnPrefix = usesOwnPrefix
+        usesOwnPrefix = usesOwnPrefix,
+        additionalIndent = additionalIndent
     )
 }
 
 class DefaultColumnsPreRenderer : TypedTextPreRenderer<Columns>(Columns::class) {
-    override fun transformIt(reportable: Columns, controlObject: PreRenderControlObject): List<OutputNode> =
+    override fun transformIt(reportable: Columns, controlObject: TextPreRenderControlObject): List<OutputNode> =
         listOf(
             OutputNode(
                 columns = reportable.columns,
                 children = emptyList(),
                 definesOwnLevel = reportable.definesOwnLevel,
                 mergeColumns = reportable.mergeColumns,
-                usesOwnPrefix = reportable.usesOwnPrefix
+                usesOwnPrefix = reportable.usesOwnPrefix,
+                indentLevel = reportable.additionalIndent
             )
         )
 }

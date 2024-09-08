@@ -2,7 +2,6 @@ package ch.tutteli.atrium.specs.integration
 
 import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.internal.expect
-import ch.tutteli.atrium.core.polyfills.format
 import ch.tutteli.atrium.core.polyfills.fullName
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic.utils.expectLambda
@@ -45,8 +44,8 @@ abstract class AnyExpectationsSpec(
     because: Fun2<String, String, Expect<String>.() -> Unit>,
     becauseInt: Fun2<Int, String, Expect<Int>.() -> Unit>,
 
-    toBeNull: Fun0<Int?>,
-    toBeNullIfNullGivenElse: Fun1<Int?, (Expect<Int>.() -> Unit)?>,
+    toEqualNull: Fun0<Int?>,
+    toEqualNullIfNullGivenElse: Fun1<Int?, (Expect<Int>.() -> Unit)?>,
 
     toBeAnInstanceOfIntFeature: Feature0<out Any?, Int>,
     toBeAnInstanceOfInt: Feature1<out Any?, Expect<Int>.() -> Unit, Int>,
@@ -88,7 +87,7 @@ abstract class AnyExpectationsSpec(
         notToBeTheInstanceNullableInt.forSubjectLess(1),
         notToEqualOneOfNullableInt.forSubjectLess(1, emptyArray()),
         notToBeNullableInt.forSubjectLess(listOf(1)),
-        toBeNull.forSubjectLess(),
+        toEqualNull.forSubjectLess(),
         toBeAnInstanceOfIntFeature.forSubjectLess(),
         toBeAnInstanceOfInt.forSubjectLess { toEqual(1) },
         notToEqualNullFeature.forSubjectLess(),
@@ -113,7 +112,7 @@ abstract class AnyExpectationsSpec(
     ) {})
     include(object : AssertionCreatorSpec<Int?>(
         "$describePrefix[nullable Element] ", 1,
-        toBeNullIfNullGivenElse.forAssertionCreatorSpec("$toEqualDescr: 1") { toEqual(1) },
+        toEqualNullIfNullGivenElse.forAssertionCreatorSpec("$toEqualDescr: 1") { toEqual(1) },
         assertionCreatorSpecTriple(
             toBeAnInstanceOfInt.name,
             "$toEqualDescr: 1",
@@ -487,13 +486,13 @@ abstract class AnyExpectationsSpec(
         )
     }
 
-    describeFun(toBeNull) {
+    describeFun(toEqualNull) {
 
-        val toBeNullFun = toBeNull.lambda
+        val toEqualNullFun = toEqualNull.lambda
         context("subject is null") {
             val subject: Int? = null
             it("does not throw an Exception") {
-                expect(subject).toBeNullFun()
+                expect(subject).toEqualNullFun()
             }
         }
 
@@ -502,7 +501,7 @@ abstract class AnyExpectationsSpec(
             val testee = expect(1 as Int?)
             val expectFun by memoized {
                 expect {
-                    testee.toBeNullFun()
+                    testee.toEqualNullFun()
                 }
             }
             context("throws an AssertionError and exception message") {
@@ -558,16 +557,16 @@ abstract class AnyExpectationsSpec(
         }
     }
 
-    describeFun(toBeNullIfNullGivenElse) {
-        val toBeNullIfNullElseFun = toBeNullIfNullGivenElse.lambda
+    describeFun(toEqualNullIfNullGivenElse) {
+        val toEqualNullIfNullElseFun = toEqualNullIfNullGivenElse.lambda
         context("subject is null") {
             val subject: Int? = null
             it("does not throw if null is passed") {
-                expect(subject).toBeNullIfNullElseFun(null)
+                expect(subject).toEqualNullIfNullElseFun(null)
             }
             it("throws an AssertionError if not null is passed") {
                 expect {
-                    expect(subject).toBeNullIfNullElseFun { toEqual(1) }
+                    expect(subject).toEqualNullIfNullElseFun { toEqual(1) }
                 }.toThrow<AssertionError> {
                     messageToContain(": null", "$toEqualDescr: 1")
                 }
@@ -577,18 +576,18 @@ abstract class AnyExpectationsSpec(
         context("subject is not null") {
             val subject = 1 as Int?
             it("does not throw if sub assertion holds") {
-                expect(subject).toBeNullIfNullElseFun { toBeLessThan(2) }
+                expect(subject).toEqualNullIfNullElseFun { toBeLessThan(2) }
             }
             it("throws an AssertionError if sub assertion does not hold") {
                 expect {
-                    expect(subject).toBeNullIfNullElseFun { toBeGreaterThan(1) }
+                    expect(subject).toEqualNullIfNullElseFun { toBeGreaterThan(1) }
                 }.toThrow<AssertionError> {
                     messageToContain(": 1", "$toBeGreaterThanDescr: 1")
                 }
             }
             it("throws an AssertionError if null is passed") {
                 expect {
-                    expect(subject).toBeNullIfNullElseFun(null)
+                    expect(subject).toEqualNullIfNullElseFun(null)
                 }.toThrow<AssertionError> {
                     messageToContain(": 1", "$toEqualDescr: null")
                 }
@@ -955,7 +954,7 @@ abstract class AnyExpectationsSpec(
         val becauseFunForInt = becauseInt.lambda
 
         fun Expect<String>.containsBecause(reason: String) =
-            toContain.exactly(1).value("$separator${informationBulletPoint}${DescriptionAnyExpectation.BECAUSE.getDefault().format(reason)}")
+            toContain.exactly(1).value("$separator${informationBulletPoint}${DescriptionAnyExpectation.BECAUSE.getDefault()} $reason")
 
         it("the test on the supplied subject is not throwing an assertion error") {
             expect("filename")
