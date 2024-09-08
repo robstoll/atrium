@@ -43,6 +43,7 @@ include("misc", "atrium-verbs")
 include("misc", "atrium-verbs-internal")
 include("misc", "js-stubs")
 include("misc/tools", "readme-examples")
+include("misc/tools", "readme-examples-junit5")
 
 fun Settings_gradle.include(subPath: String, projectName: String) {
     val dir = file("${rootProject.projectDir}/$subPath/$projectName")
