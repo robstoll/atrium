@@ -9,7 +9,6 @@ kotlin {
         commonMain {
             dependencies {
                 api(prefixedProject("logic"))
-                compileOnly(prefixedProject("translations-en_GB"))
             }
         }
 

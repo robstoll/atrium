@@ -12,8 +12,7 @@ kotlin {
         commonMain {
             dependencies {
                 api(prefixedProject("core"))
-                // it is up to the consumer which atrium-translations module is used at runtime
-                compileOnly(prefixedProject("translations-en_GB"))
+                api(prefixedProject("translations-en_GB"))
             }
         }
         jvmMain {
