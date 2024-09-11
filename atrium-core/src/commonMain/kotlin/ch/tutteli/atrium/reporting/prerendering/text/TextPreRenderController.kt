@@ -136,12 +136,15 @@ fun determineChildControlObject(
 
         is Proof -> {
             @Suppress("DEPRECATION")
+            // TODO 1.3.0 what about InvisibleFixedClaimGroup? In case we keep it we need to address it here as well
+            // I guess. create a test in CreateReportTest (similar to invisibleGroup_...)
             if (child is InvisibleProofGroup ||
                 //TODO remove with 2.0.0 latest and with it the above @Suppress
                 child is ch.tutteli.atrium.assertions.AssertionGroup && child.type is  ch.tutteli.atrium.assertions.InvisibleAssertionGroupType
             ) {
                 null
-            } else if (child.holds()) {
+            } else
+                if (child.holds()) {
                 controlObject.copy(prefix = Icon.SUCCESS, indentLevel = indentLevel)
             } else {
                 controlObject.copy(prefix = Icon.FAILURE, indentLevel = indentLevel)

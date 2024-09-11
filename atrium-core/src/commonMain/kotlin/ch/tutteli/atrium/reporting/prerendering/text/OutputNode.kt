@@ -14,7 +14,13 @@ data class OutputNode(
     val usesOwnPrefix: Boolean = false,
 ) {
     init {
-        require(columns.isNotEmpty() || children.isNotEmpty()) { "at least one of columns/children needs to have elements" }
+        if (columns.isEmpty()) {
+            require(children.isNotEmpty()) { "a node without columns need to define children" }
+            val childWithoutColumnsNotOwnLevel = children.filter { it.definesOwnLevel.not() && it.columns.isEmpty() }
+            require(childWithoutColumnsNotOwnLevel.isEmpty()) {
+                "a node without columns cannot define children with definesOwnLevel=false which don't have columns (they should be flattened instead). Following children don't define own columns:\n${childWithoutColumnsNotOwnLevel.joinToString(", ")}"
+            }
+        }
         require(indentLevel >= 0) { "cannot define a negative indent level, was $indentLevel" }
         require(mergeColumns >= 0) { "cannot merge columns backwards, mergeColumns was $mergeColumns" }
         val mergeUntil = startMergeAtColumn + mergeColumns
