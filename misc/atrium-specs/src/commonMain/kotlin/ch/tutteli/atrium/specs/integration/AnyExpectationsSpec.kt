@@ -569,8 +569,8 @@ abstract class AnyExpectationsSpec(
                     expect(subject).toEqualFun(1)
                 }.toThrow<AssertionError> {
                     message {
-                        toContainSubject("null")
-                        toContainToEqualDescr("1")
+                        toContainSubject(null)
+                        toContainToEqualDescr(1)
                     }
                 }
             }
@@ -586,8 +586,8 @@ abstract class AnyExpectationsSpec(
                     expect(subject).toEqualFun(null)
                 }.toThrow<AssertionError> {
                     message {
-                        toContainSubject("1")
-                        toContainToEqualDescr("null")
+                        toContainSubject(1)
+                        toContainToEqualDescr(null)
                     }
                 }
             }
@@ -596,8 +596,7 @@ abstract class AnyExpectationsSpec(
                     expect(subject).toEqualFun(2)
                 }.toThrow<AssertionError> {
                     message {
-                        toContainSubject("1")
-                        toContainToEqualDescr("2")
+                        toContainToEqualDescr(2)
                     }
                 }
             }
@@ -616,8 +615,7 @@ abstract class AnyExpectationsSpec(
                     expect(subject).toEqualNullIfNullElseFun { toEqual(1) }
                 }.toThrow<AssertionError> {
                     message {
-                        toContainSubject("null")
-                        toContainToEqualDescr("1")
+                        toContainToEqualDescr(1)
                     }
                 }
             }
@@ -633,8 +631,7 @@ abstract class AnyExpectationsSpec(
                     expect(subject).toEqualNullIfNullElseFun { toBeGreaterThan(1) }
                 }.toThrow<AssertionError> {
                     message {
-                        toContainSubject("1")
-                        toContainToBeGreaterDescr("1")
+                        toContainToBeGreaterDescr(1)
                     }
                 }
             }
@@ -643,8 +640,7 @@ abstract class AnyExpectationsSpec(
                     expect(subject).toEqualNullIfNullElseFun(null)
                 }.toThrow<AssertionError> {
                     message {
-                        toContainSubject("1")
-                        toContainToEqualDescr("null")
+                        toContainToEqualDescr(null)
                     }
                 }
             }
@@ -663,7 +659,7 @@ abstract class AnyExpectationsSpec(
                     }.toThrow<AssertionError> {
                         message {
                             toContainDescr(notToEqualNullButToBeInstanceOfDescr, "Int (kotlin.Int)")
-                            if (hasExtraHint) toContainToEqualDescr("1")
+                            if (hasExtraHint) toContainToEqualDescr(1)
                         }
 
                     }
@@ -685,7 +681,7 @@ abstract class AnyExpectationsSpec(
                             expect(1 as Int?).notToBeNullFun { toBeLessThan(0) }
                         }.toThrow<AssertionError> {
                             message {
-                                toContainToBeLessThanDescr("0")
+                                toContainToBeLessThanDescr(0)
                             }
                         }
                     }
@@ -732,7 +728,7 @@ abstract class AnyExpectationsSpec(
                         message {
                             toContainSubject(A::class.fullName)
                             toContainDescr(notToEqualNullButToBeInstanceOfDescr, "Int (kotlin.Int)")
-                            if (hasExtraHint) toContainToEqualDescr("1")
+                            if (hasExtraHint) toContainToEqualDescr(1)
                         }
                     }
                 }
@@ -745,7 +741,7 @@ abstract class AnyExpectationsSpec(
                         message {
                             toContainSubject(A::class.fullName)
                             toContainDescr(notToEqualNullButToBeInstanceOfDescr, "Int (kotlin.Int)")
-                            toContainToBeLessThanDescr("1")
+                            toContainToBeLessThanDescr(1)
                         }
                     }
                 }
@@ -764,7 +760,7 @@ abstract class AnyExpectationsSpec(
                     }.toThrow<AssertionError> {
                         message{
                             toContainDescr(DescriptionAnyProof.TO_BE_AN_INSTANCE_OF,"Int (kotlin.Int)" )
-                            if (hasExtraHint) toContainToEqualDescr("1")
+                            if (hasExtraHint) toContainToEqualDescr(1)
                         }
                     }
                 }

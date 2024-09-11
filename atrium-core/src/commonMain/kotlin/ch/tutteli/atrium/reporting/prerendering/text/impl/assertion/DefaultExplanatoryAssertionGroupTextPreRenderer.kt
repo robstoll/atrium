@@ -18,13 +18,13 @@ class DefaultExplanatoryAssertionGroupTextPreRenderer : TextPreRenderer {
     override fun transform(
         reportable: Reportable,
         controlObject: TextPreRenderControlObject
-    ): List<OutputNode> = (reportable as ExplanatoryAssertionGroup).let { assertion ->
-        val (icon, additionalIndent) = when (assertion.type) {
+    ): List<OutputNode> = (reportable as AssertionGroup).let { assertion ->
+        val (icon, additionalIndent) = when (val type = assertion.type) {
             is DefaultExplanatoryAssertionGroupType -> Icon.PROOF_EXPLANATION_BULLET_POINT to 1
             is WarningAssertionGroupType -> Icon.BANGBANG to 1
-            is InformationAssertionGroupType -> Icon.INFORMATION_SOURCE to if (assertion.type.withIndent) 1 else 0
-            is HintAssertionGroupType -> Icon.DEBUG_INFO to 1
-            else -> throw UnsupportedOperationException("Unsupported assertionGroupType ${assertion.type}")
+            is InformationAssertionGroupType -> Icon.INFORMATION_SOURCE to if (type.withIndent) 1 else 0
+            is HintAssertionGroupType -> Icon.BULB to 1
+            else -> throw UnsupportedOperationException("Unsupported assertionGroupType $type")
         }
 
         listOf(

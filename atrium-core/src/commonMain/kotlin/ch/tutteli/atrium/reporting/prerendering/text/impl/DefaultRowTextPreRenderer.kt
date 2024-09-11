@@ -20,10 +20,6 @@ internal class DefaultRowTextPreRenderer : TypedTextPreRenderer<Row>(Row::class)
                                 it.add(StyledString.COLON_SEPARATOR)
                                 it.add(controlObject.transformAndGetSingleColumnOfSingleNode(column))
                             }
-                        }.also { columnsWithColons ->
-                            check(columnsWithColons.dropLast(1).all { it.noLineBreak }) {
-                                "only the last column can define noLineBreak=false"
-                            }
                         }
                 }
             }

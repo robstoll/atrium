@@ -174,22 +174,23 @@ class DefaultTextReporter(
         fun updateMaxLengths(child: OutputNode) =
             updateMaxLengths(child.columns.withIndex())
 
-        node.children
-            .asSequence()
+        // if we have children without own columns (i.e. invisible groups) then we need to their children into account
+        // as well.
+        val childrenToTakeIntoAccount = node.children.asSequence().flatMap {
+            if (it.columns.isEmpty() && it.definesOwnLevel.not()) {
+                it.children.asSequence()
+            } else sequenceOf(it)
+        }
+
+        childrenToTakeIntoAccount
             .filterNot { it.definesOwnLevel }
-            .flatMap {
-                if (it.columns.isEmpty()) {
-                    it.children.asSequence()
-                        .filterNot { subChild -> subChild.definesOwnLevel }
-                } else sequenceOf(it)
-            }
             .forEach(::updateMaxLengths)
 
         // we are still interested in the first column of children which define an own level as the prefix (which is
         // the first column after indent of this node) still counts towards the alignment of this node. Now, if the child
         // should be further indented (i.e. prefix is after node.indentLevel + 1) then it doesn't count towards the
         // lengths of this node
-        node.children.asSequence()
+        childrenToTakeIntoAccount
             .filter { it.definesOwnLevel }
             .flatMap {
                 it.columns.asSequence().withIndex().take(node.indentLevel + 1)

@@ -14,7 +14,7 @@ const val failingBulletPoint = "✘ "
 const val explanatoryBulletPoint = "» "
 const val warningBulletPoint = "❗❗ "
 const val informationBulletPoint = "ℹ\uFE0F "
-const val hintBulletPoint ="\uD83D\uDCA1 "
+const val hintBulletPoint ="\uD83D\uDCA1\uFE0F "
 const val groupingBulletPoint = "# "
 
 val indentRootBulletPoint = " ".repeat(rootBulletPoint.length)
