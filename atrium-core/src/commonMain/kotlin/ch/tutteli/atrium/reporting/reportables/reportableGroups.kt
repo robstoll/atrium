@@ -22,7 +22,7 @@ interface ReportableGroupWithDescription : ReportableGroup {
 }
 
 interface DebugGroup : ReportableGroupWithDescription
-interface ErrorExplanationGroup : ReportableGroupWithDescription
+interface FailureExplanationGroup : ReportableGroupWithDescription
 interface InformationGroup : ReportableGroupWithDescription
 
 //TODO 1.3.0 check KDOC (including @since) of all types in this file

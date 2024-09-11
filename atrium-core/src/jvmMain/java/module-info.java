@@ -18,6 +18,10 @@ module ch.tutteli.atrium.core.api {
     exports ch.tutteli.atrium.reporting.erroradjusters;
     exports ch.tutteli.atrium.reporting.reportables;
     exports ch.tutteli.atrium.reporting.reportables.descriptions;
+    exports ch.tutteli.atrium.reporting.prerendering.text;
     exports ch.tutteli.atrium.reporting.text;
+    exports ch.tutteli.atrium.reporting.theming.text;
     exports ch.tutteli.atrium.reporting.translating;
+
+    exports ch.tutteli.atrium.reporting.theming.text.impl to ch.tutteli.atrium.verbs.internal;
 }

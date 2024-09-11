@@ -26,6 +26,5 @@ enum class DescriptionAnyProof(override val string: String) : Description {
 
     /** @since 1.3.0 (but was since 0.18.0 in atrium-translations DescriptionAnyExpectation) */
     NOT_TO_EQUAL_ONE_OF("not to equal one of"),
-
 }
 

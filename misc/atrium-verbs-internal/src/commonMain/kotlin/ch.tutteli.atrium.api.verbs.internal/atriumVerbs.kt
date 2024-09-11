@@ -13,9 +13,10 @@ import ch.tutteli.atrium.logic.toExpectGrouping
 import ch.tutteli.atrium.reporting.AtriumErrorAdjuster
 import ch.tutteli.atrium.reporting.Text
 import ch.tutteli.atrium.reporting.erroradjusters.MultiAtriumErrorAdjuster
-import ch.tutteli.atrium.reporting.erroradjusters.NoOpAtriumErrorAdjuster
 import ch.tutteli.atrium.reporting.erroradjusters.RemoveAtriumFromAtriumError
 import ch.tutteli.atrium.reporting.erroradjusters.RemoveRunnerFromAtriumError
+import ch.tutteli.atrium.reporting.theming.text.*
+import ch.tutteli.atrium.reporting.theming.text.impl.MarkdownTextIconStyler
 import ch.tutteli.atrium.testfactories.TestFactoryBuilder
 import ch.tutteli.atrium.testfactories.testFactoryTemplate
 
@@ -25,14 +26,16 @@ fun <T> expect(subject: T): RootExpect<T> =
     RootExpectBuilder.forSubject(subject)
         .withVerb("I expected subject")
         .withOptions {
-            withComponent(AtriumErrorAdjuster::class){ NoOpAtriumErrorAdjuster }
-//            withComponent(AtriumErrorAdjuster::class) { c ->
-//                MultiAtriumErrorAdjuster(
-//                    c.build<RemoveRunnerFromAtriumError>(),
-//                    RemoveAtriumButNotAtriumSpecsFromAtriumErrorImpl(),
-//                    otherAdjusters = emptyList()
-//                )
-//            }
+            withComponent(AtriumErrorAdjuster::class) { c ->
+                MultiAtriumErrorAdjuster(
+                    c.build<RemoveRunnerFromAtriumError>(),
+                    RemoveAtriumButNotAtriumSpecsFromAtriumErrorImpl(),
+                    otherAdjusters = emptyList()
+                )
+            }
+            withComponent(TextIconStyler::class) { c->
+                MarkdownTextIconStyler(c.build())
+            }
         }
         .build()
 

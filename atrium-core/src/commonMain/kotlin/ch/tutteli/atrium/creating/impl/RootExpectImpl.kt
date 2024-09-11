@@ -51,7 +51,7 @@ internal class RootExpectImpl<T>(
      */
     private val proofs: MutableList<Proof> = mutableListOf()
 
-    @Suppress("DEPRECATION")
+    @Suppress("DEPRECATION", "OVERRIDE_DEPRECATION")
     override fun append(assertion: ch.tutteli.atrium.assertions.Assertion): Expect<T> = append(assertion as Proof)
 
     override fun append(proof: Proof): Expect<T> {

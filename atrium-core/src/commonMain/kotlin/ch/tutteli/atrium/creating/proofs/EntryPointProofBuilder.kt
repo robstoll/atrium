@@ -118,10 +118,10 @@ abstract class BaseGroupBuilder<
     fun proofExplanation(init: ProofExplanationGroupBuilder<SubjectT>.() -> Unit): Reportable =
         add(ProofExplanationGroupBuilder(proofContainer).build(init))
 
-    fun errorExplanationGroup(
+    fun failureExplanationGroup(
         description: InlineElement,
-        init: ErrorExplanationGroupBuilder<SubjectT>.() -> Unit
-    ): Reportable = add(ErrorExplanationGroupBuilder(proofContainer, description).build(init))
+        init: FailureExplanationGroupBuilder<SubjectT>.() -> Unit
+    ): Reportable = add(FailureExplanationGroupBuilder(proofContainer, description).build(init))
 
     fun informationGroup(
         description: InlineElement,
@@ -244,12 +244,12 @@ class ProofExplanationGroupBuilder<SubjectT>(
         }
 }
 
-class ErrorExplanationGroupBuilder<SubjectT>(
+class FailureExplanationGroupBuilder<SubjectT>(
     proofContainer: ProofContainer<SubjectT>,
     private val description: InlineElement,
-) : BaseSubGroupBuilder<SubjectT, ErrorExplanationGroup, ErrorExplanationGroupBuilder<SubjectT>>(
+) : BaseSubGroupBuilder<SubjectT, FailureExplanationGroup, FailureExplanationGroupBuilder<SubjectT>>(
     proofContainer,
-    { children -> Reportable.errorExplanationGroup(description, children) }
+    { children -> Reportable.failureExplanationGroup(description, children) }
 )
 
 class InformationGroupBuilder<SubjectT>(

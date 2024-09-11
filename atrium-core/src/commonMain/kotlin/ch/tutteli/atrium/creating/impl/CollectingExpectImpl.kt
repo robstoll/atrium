@@ -1,16 +1,14 @@
 package ch.tutteli.atrium.creating.impl
 
 import ch.tutteli.atrium.assertions.*
+import ch.tutteli.atrium.assertions.builders.impl.fixedClaimGroup.FixedClaimAssertionGroup
 import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
 import ch.tutteli.atrium.core.Option
 import ch.tutteli.atrium.creating.*
-import ch.tutteli.atrium.creating.proofs.FeatureProofGroup
-import ch.tutteli.atrium.creating.proofs.Proof
-import ch.tutteli.atrium.creating.proofs.ProofGroupWithDesignation
-import ch.tutteli.atrium.creating.proofs.buildProof
+import ch.tutteli.atrium.creating.proofs.*
 import ch.tutteli.atrium.creating.proofs.impl.DefaultInvisibleProofGroup
-import ch.tutteli.atrium.reporting.reportables.Reportable
-import ch.tutteli.atrium.reporting.reportables.ReportableWithDesignation
+import ch.tutteli.atrium.reporting.Text
+import ch.tutteli.atrium.reporting.reportables.*
 import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionAnyProof
 import ch.tutteli.atrium.reporting.reportables.descriptions.ErrorMessages
 import ch.tutteli.kbox.ifNotEmpty
@@ -29,33 +27,113 @@ internal class CollectingExpectImpl<T>(
         replaceWith = ReplaceWith("this.getCollectedProofs()")
     )
     override fun getAssertions(): List<Assertion> =
-        mapProofsToAssertion(proofs)
+        mapReportablesToAssertions(proofs)
 
     @Suppress("DEPRECATION")
-    private fun mapProofsToAssertion(proofs: List<Proof>): List<Assertion> =
-        proofs.map { proof ->
-            if (proof is Assertion) proof
-            else when (proof) {
-                is ProofGroupWithDesignation -> BasicAssertionGroup(
-                    if (proof is FeatureProofGroup) DefaultFeatureAssertionGroupType else DefaultListAssertionGroupType,
-                    ch.tutteli.atrium.reporting.translating.Untranslatable(proof.description.toString()),
-                    proof.representation,
-                    mapProofsToAssertion(proof.children.filterIsInstance<Proof>())
+    private fun mapReportablesToAssertions(reportables: List<Reportable>): List<Assertion> =
+        reportables.map { reportable ->
+            when (reportable) {
+                is Assertion -> reportable
+                is Proof -> mapProofToAssertion(reportable)
+
+                is ProofExplanation -> ExplanatoryAssertionGroup(
+                    DefaultExplanatoryAssertionGroupType,
+                    mapReportablesToAssertions(reportable.children),
+                    holds = false
+                )
+
+                is UsageHintGroup -> ExplanatoryAssertionGroup(
+                    HintAssertionGroupType,
+                    mapReportablesToAssertions(reportable.children),
+                    holds = false
+                )
+
+                is DebugGroup -> ExplanatoryAssertionGroup(
+                    InformationAssertionGroupType(withIndent = true),
+                    listOf(
+                        BasicAssertionGroup(
+                            DefaultListAssertionGroupType,
+                            descriptionToUntranslatable(reportable.description),
+                            Text.EMPTY,
+                            mapReportablesToAssertions(reportable.children)
+                        )
+                    ),
+                    holds = false
+                )
+
+                is InformationGroup -> ExplanatoryAssertionGroup(
+                    InformationAssertionGroupType(withIndent = true),
+                    listOf(
+                        BasicAssertionGroup(
+                            DefaultListAssertionGroupType,
+                            descriptionToUntranslatable(reportable.description),
+                            Text.EMPTY,
+                            mapReportablesToAssertions(reportable.children)
+                        )
+                    ),
+                    holds = false
+                )
+
+                is FailureExplanationGroup -> ExplanatoryAssertionGroup(
+                    WarningAssertionGroupType,
+                    listOf(
+                        BasicAssertionGroup(
+                            DefaultListAssertionGroupType,
+                            descriptionToUntranslatable(reportable.description),
+                            Text.EMPTY,
+                            mapReportablesToAssertions(reportable.children)
+                        )
+                    ),
+                    holds = false
                 )
 
                 is ReportableWithDesignation -> BasicDescriptiveAssertion(
-                    ch.tutteli.atrium.reporting.translating.Untranslatable(proof.description.toString()),
-                    proof.description
-                ) { proof.holds() }
-
-                is DefaultInvisibleProofGroup -> InvisibleAssertionGroup(mapProofsToAssertion(proof.children.filterIsInstance<Proof>()))
+                    descriptionToUntranslatable(reportable.description),
+                    reportable.representation
+                ) { false }
 
                 else -> BasicDescriptiveAssertion(
                     ch.tutteli.atrium.reporting.translating.Untranslatable("❗❗ Assertion is deprecated, move to Proof, cannot show description"),
-                    proof
-                ) { proof.holds() }
+                    reportable
+                ) { false }
             }
         }
+
+    @Suppress("DEPRECATION")
+    private fun mapProofToAssertion(proof: Proof): Assertion = when (proof) {
+
+        is DefaultInvisibleProofGroup -> InvisibleAssertionGroup(mapReportablesToAssertions(proof.children))
+
+        is ProofGroupWithDesignation -> BasicAssertionGroup(
+            if (proof is FeatureProofGroup) DefaultFeatureAssertionGroupType else DefaultListAssertionGroupType,
+            descriptionToUntranslatable(proof.description),
+            proof.representation,
+            mapReportablesToAssertions(proof.children)
+        )
+
+        is ProofGroup -> BasicAssertionGroup(
+            DefaultListAssertionGroupType,
+            ch.tutteli.atrium.reporting.translating.Untranslatable("❗❗ Assertion is deprecated, move to Proof, cannot show description"),
+            proof,
+            mapReportablesToAssertions(proof.children),
+        )
+
+        is ReportableWithDesignation -> BasicDescriptiveAssertion(
+            descriptionToUntranslatable(proof.description),
+            proof.representation
+        ) { proof.holds() }
+
+        else -> BasicDescriptiveAssertion(
+            ch.tutteli.atrium.reporting.translating.Untranslatable("❗❗ Assertion is deprecated, move to Proof, cannot show description"),
+            proof
+        ) { proof.holds() }
+    }
+
+    @Suppress("DEPRECATION")
+    private fun descriptionToUntranslatable(description: Reportable) =
+        ch.tutteli.atrium.reporting.translating.Untranslatable(
+            (description as? TextElement)?.string ?: description.toString()
+        )
 
     override fun getCollectedProofs(): List<Proof> = proofs.toList()
 

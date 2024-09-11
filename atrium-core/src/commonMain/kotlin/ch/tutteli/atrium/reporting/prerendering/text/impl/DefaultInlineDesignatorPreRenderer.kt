@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.reporting.prerendering.text.impl
 
 import ch.tutteli.atrium.reporting.text.TextObjFormatter
-import ch.tutteli.atrium.reporting.checkIsNoLineBreakDueToMergeColumns
+import ch.tutteli.atrium.reporting.theming.text.checkIsNoLineBreakDueToMergeColumns
 import ch.tutteli.atrium.reporting.failWithBugErrorIf
 import ch.tutteli.atrium.reporting.prerendering.text.OutputNode
 import ch.tutteli.atrium.reporting.prerendering.text.TextPreRenderControlObject

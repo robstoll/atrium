@@ -1,3 +1,6 @@
+//TODO remove with 2.0.0 at the latest
+@file:Suppress("DEPRECATION")
+
 import ch.tutteli.atrium.api.infix.en_GB.*
 import ch.tutteli.atrium.api.verbs.expect
 import ch.tutteli.atrium.assertions.Assertion
@@ -11,7 +14,8 @@ import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
 import ch.tutteli.atrium.translations.DescriptionBasic.TO_BE
 import kotlin.test.Test
 
-class SmokeTest {
+//TODO 1.3.0 SmokeTest with Proof
+class AssertionSmokeTest {
 
     @Test
     fun toEqual_canBeUsed() {

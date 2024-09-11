@@ -66,9 +66,11 @@ enum class DescriptionAnyExpectation(override val value: String) : StringBasedTr
         ReplaceWith("ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionAnyProof.NOT_TO_EQUAL_ONE_OF")
     )
     /** @since 0.18.0 */
-    NOT_TO_EQUAL_ONE_IN("not to equal one in"),
+    NOT_TO_EQUAL_ONE_IN("not to equal one of"),
 
-    //TODO 1.3.0 deprecate and define replacement
-    /** @since 0.18.0 */
+    @Deprecated(
+        "will be removed with 2.0.0 at the latest",
+        ReplaceWith("ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionDocumentationUtil.BECAUSE")
+    )
     BECAUSE("because"),
 }
