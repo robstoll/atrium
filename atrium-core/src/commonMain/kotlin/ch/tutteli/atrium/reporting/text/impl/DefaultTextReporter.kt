@@ -12,9 +12,6 @@ import ch.tutteli.atrium.reporting.theming.text.checkIsNoLineBreakDueToMergeColu
 import ch.tutteli.atrium.reporting.theming.text.pad
 import ch.tutteli.kbox.ifWithinBound
 
-/**
- * A [Reporter] which reports only failing assertions.
- */
 class DefaultTextReporter(
     private val preRenderController: TextPreRenderController
 ) : TextReporter {
@@ -124,7 +121,7 @@ class DefaultTextReporter(
 
         appendColumns(outputNode)
         outputNode.children.forEachIndexed { index, child ->
-            if (outputNode.columns.isNotEmpty() || index == 1) {
+            if (outputNode.columns.isNotEmpty() || index > 0) {
                 sb.appendln()
             }
             if (child.definesOwnLevel) {
@@ -180,6 +177,12 @@ class DefaultTextReporter(
         node.children
             .asSequence()
             .filterNot { it.definesOwnLevel }
+            .flatMap {
+                if (it.columns.isEmpty()) {
+                    it.children.asSequence()
+                        .filterNot { subChild -> subChild.definesOwnLevel }
+                } else sequenceOf(it)
+            }
             .forEach(::updateMaxLengths)
 
         // we are still interested in the first column of children which define an own level as the prefix (which is

@@ -37,10 +37,10 @@ internal class DefaultDebugGroup(
     children: List<Reportable>
 ) : BaseReportableGroup(children), DebugGroup
 
-internal class DefaultErrorExplanationGroup(
+internal class DefaultFailureExplanationGroup(
     override val description: Reportable,
     children: List<Reportable>
-) : BaseReportableGroup(children), ErrorExplanationGroup
+) : BaseReportableGroup(children), FailureExplanationGroup
 
 internal class DefaultInformationGroup(
     override val description: Reportable,

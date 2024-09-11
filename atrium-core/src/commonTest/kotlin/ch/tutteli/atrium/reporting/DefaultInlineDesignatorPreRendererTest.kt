@@ -10,7 +10,6 @@ import ch.tutteli.atrium.creating.ExperimentalComponentFactoryContainer
 import ch.tutteli.atrium.creating.build
 import ch.tutteli.atrium.creating.impl.DefaultComponentFactoryContainer
 import ch.tutteli.atrium.creating.proofs.Proof
-import ch.tutteli.atrium.reporting.prerendering.text.TextDesignationPreRenderer
 import ch.tutteli.atrium.reporting.prerendering.text.impl.DefaultInlineDesignatorPreRenderer
 import ch.tutteli.atrium.reporting.reportables.InlineElement
 import ch.tutteli.atrium.reporting.reportables.Reportable
@@ -48,7 +47,7 @@ class DefaultInlineDesignatorPreRendererTest {
             simpleProof,
             Proof.group(Text("bla"), "rep", children = listOf(simpleProof)),
             Reportable.debugGroup(Text("bla"), emptyList()),
-            Reportable.errorExplanationGroup(Text("bli"), emptyList()),
+            Reportable.failureExplanationGroup(Text("bli"), emptyList()),
             Reportable.group(Text("bla"), "rep", children = emptyList()),
             Reportable.informationGroup(Text("info"), emptyList()),
             Reportable.proofExplanation(simpleProof),

@@ -6,7 +6,11 @@ import ch.tutteli.atrium.core.polyfills.fullName
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic.utils.expectLambda
 import ch.tutteli.atrium.reporting.Text
+import ch.tutteli.atrium.reporting.reportables.Description
+import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionAnyProof
 import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionAnyProof.*
+import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionComparableProof
+import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionDocumentationUtil
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.specs.integration.MapLikeToContainSpecBase.Companion.separator
 import ch.tutteli.atrium.translations.DescriptionAnyExpectation
@@ -139,7 +143,7 @@ abstract class AnyExpectationsSpec(
 
     fun <T : Int?> Suite.checkInt(
         description: String,
-        expectSubject: Expect<T>,
+        expectSubject: () -> Expect<T>,
         toEqual: Fun1<T, Int>,
         notToEqual: Fun1<T, Int>,
         toBeTheInstance: Fun1<T, Int>,
@@ -157,71 +161,105 @@ abstract class AnyExpectationsSpec(
 
             context("one equals the other") {
                 it("${toEqual.name} does not throw") {
-                    expectSubject.toEqualFun(1)
+                    expectSubject().toEqualFun(1)
                 }
                 it("${toBeTheInstance.name} does not throw") {
-                    expectSubject.toBeTheInstanceFun(1)
+                    expectSubject().toBeTheInstanceFun(1)
                 }
                 it("${notToEqual.name} throws AssertionError") {
                     expect {
-                        expectSubject.notToEqualFun(1)
+                        expectSubject().notToEqualFun(1)
                     }.toThrow<AssertionError> { messageToContain(NOT_TO_EQUAL.string) }
                 }
                 it("${notToBeTheInstance.name} throws AssertionError") {
                     expect {
-                        expectSubject.notToBeTheInstanceFun(1)
+                        expectSubject().notToBeTheInstanceFun(1)
                     }.toThrow<AssertionError> { messageToContain(NOT_TO_BE_THE_INSTANCE.string) }
                 }
-            }
-            context("one does not equal the other") {
-                it("${toEqual.name} throws AssertionError") {
-                    expect {
-                        expectSubject.toEqualFun(2)
-                    }.toThrow<AssertionError> { messageToContain(TO_EQUAL.string) }
-                }
-                it("${notToEqual.name} does not throw") {
-                    expectSubject.notToEqualFun(2)
-                }
-                it("${toBeTheInstance.name} throws AssertionError") {
-                    expect {
-                        expectSubject.toBeTheInstanceFun(2)
-                    }.toThrow<AssertionError> { messageToContain(TO_BE_THE_INSTANCE.string) }
-                }
-                it("${notToBeTheInstance.name} does not throw") {
-                    expectSubject.notToBeTheInstanceFun(2)
-                }
-            }
-            context("one equals only one of the others") {
                 it("${notToEqualOneOf.name} throws AssertionError") {
                     expect {
-                        expectSubject.notToEqualOneOfFun(1, arrayOf(2))
+                        expectSubject().notToEqualOneOfFun(1, arrayOf())
                     }.toThrow<AssertionError> {
                         message {
+                            toContain("${NOT_TO_EQUAL_ONE_OF.string} :")
                             toContainRegex(
-                                "\\Q$rootBulletPoint${NOT_TO_EQUAL_ONE_OF.string}\\E:.*$separator" +
-                                    "$indentRootBulletPoint${listBulletPoint}1"
+                                "\\Q$failingBulletPoint${NOT_TO_EQUAL_ONE_OF.string}\\E :.*$separator" +
+                                    "$indentFailingBulletPoint${failingBulletPoint}1"
                             )
-                            notToContain("$listBulletPoint 2")
                         }
                     }
                 }
                 it("${notToEqualOneIn.name} throws AssertionError") {
                     expect {
-                        expectSubject.notToEqualOneInFun(listOf(1, 2))
+                        expectSubject().notToEqualOneInFun(listOf(1))
                     }.toThrow<AssertionError> {
                         message {
-                            toContain(NOT_TO_EQUAL_ONE_OF.string, "${listBulletPoint}1")
-                            notToContain("$listBulletPoint 2")
+                            toContainRegex(
+                                "\\Q$failingBulletPoint${NOT_TO_EQUAL_ONE_OF.string}\\E :.*$separator" +
+                                    "$indentFailingBulletPoint${failingBulletPoint}1"
+                            )
+                        }
+                    }
+                }
+            }
+            context("one does not equal the other") {
+                it("${toEqual.name} throws AssertionError") {
+                    expect {
+                        expectSubject().toEqualFun(2)
+                    }.toThrow<AssertionError> { messageToContain(TO_EQUAL.string) }
+                }
+                it("${notToEqual.name} does not throw") {
+                    expectSubject().notToEqualFun(2)
+                }
+                it("${toBeTheInstance.name} throws AssertionError") {
+                    expect {
+                        expectSubject().toBeTheInstanceFun(2)
+                    }.toThrow<AssertionError> { messageToContain(TO_BE_THE_INSTANCE.string) }
+                }
+                it("${notToBeTheInstance.name} does not throw") {
+                    expectSubject().notToBeTheInstanceFun(2)
+                }
+                it("${notToEqualOneOf.name} does not throw") {
+                    expectSubject().notToEqualOneOfFun(2, arrayOf())
+                }
+                it("${notToEqualOneIn.name} does not throw") {
+                    expectSubject().notToEqualOneInFun(listOf(2))
+                }
+            }
+            context("one equals only one of the others") {
+                it("${notToEqualOneOf.name} throws AssertionError") {
+                    expect {
+                        expectSubject().notToEqualOneOfFun(1, arrayOf(2))
+                    }.toThrow<AssertionError> {
+                        message {
+                            toContainRegex(
+                                "\\Q$failingBulletPoint${NOT_TO_EQUAL_ONE_OF.string}\\E :.*$separator" +
+                                    "$indentFailingBulletPoint${failingBulletPoint}1"
+                            )
+                            notToContain("${failingBulletPoint}2")
+                        }
+                    }
+                }
+                it("${notToEqualOneIn.name} throws AssertionError") {
+                    expect {
+                        expectSubject().notToEqualOneInFun(listOf(1, 2))
+                    }.toThrow<AssertionError> {
+                        message {
+                            toContainRegex(
+                                "\\Q$failingBulletPoint${NOT_TO_EQUAL_ONE_OF.string}\\E :.*$separator" +
+                                    "$indentFailingBulletPoint${failingBulletPoint}1"
+                            )
+                            notToContain("${failingBulletPoint}2")
                         }
                     }
                 }
             }
             context("one does not equal to any of the others") {
                 it("${notToEqualOneOf.name} does not throw") {
-                    expectSubject.notToEqualOneOfFun(2, arrayOf(3))
+                    expectSubject().notToEqualOneOfFun(2, arrayOf(3))
                 }
                 it("${notToEqualOneIn.name} does not throw") {
-                    expectSubject.notToEqualOneInFun(listOf(2, 3))
+                    expectSubject().notToEqualOneInFun(listOf(2, 3))
                 }
             }
         }
@@ -229,7 +267,7 @@ abstract class AnyExpectationsSpec(
 
     fun <T : DataClass?> Suite.checkDataClass(
         description: String,
-        expectSubject: Expect<T>,
+        expectSubject: () -> Expect<T>,
         toEqual: Fun1<T, DataClass>,
         notToEqual: Fun1<T, DataClass>,
         toBeTheInstance: Fun1<T, DataClass>,
@@ -248,58 +286,58 @@ abstract class AnyExpectationsSpec(
         context(description) {
             context("same") {
                 it("${toEqual.name} does not throw") {
-                    expectSubject.toEqualFun(test)
+                    expectSubject().toEqualFun(test)
                 }
                 it("${notToEqual.name} throws AssertionError") {
                     expect {
-                        expectSubject.notToEqualFun(test)
+                        expectSubject().notToEqualFun(test)
                     }.toThrow<AssertionError>()
                 }
                 it("${toBeTheInstance.name} does not throw") {
-                    expectSubject.toBeTheInstanceFun(test)
+                    expectSubject().toBeTheInstanceFun(test)
                 }
                 it("${notToBeTheInstance.name} throws AssertionError") {
                     expect {
-                        expectSubject.notToBeTheInstanceFun(test)
+                        expectSubject().notToBeTheInstanceFun(test)
                     }.toThrow<AssertionError>()
                 }
                 it("${notToEqualOneOf.name} throws AssertionError") {
                     expect {
-                        expectSubject.notToEqualOneOfFun(test, emptyArray())
+                        expectSubject().notToEqualOneOfFun(test, emptyArray())
                     }.toThrow<AssertionError> { messageToContain(NOT_TO_EQUAL_ONE_OF.string) }
                 }
                 it("${notToEqualOneIn.name} throws AssertionError") {
                     expect {
-                        expectSubject.notToEqualOneInFun(listOf(test))
+                        expectSubject().notToEqualOneInFun(listOf(test))
                     }.toThrow<AssertionError> { messageToContain(NOT_TO_EQUAL_ONE_OF.string) }
                 }
             }
             context("not same but one equals the other") {
                 val other = DataClass(true)
                 it("${toEqual.name} does not throw") {
-                    expectSubject.toEqualFun(other)
+                    expectSubject().toEqualFun(other)
                 }
                 it("${notToEqual.name} throws AssertionError") {
                     expect {
-                        expectSubject.notToEqualFun(other)
+                        expectSubject().notToEqualFun(other)
                     }.toThrow<AssertionError>()
                 }
                 it("${toBeTheInstance.name} throws AssertionError") {
                     expect {
-                        expectSubject.toBeTheInstanceFun(other)
+                        expectSubject().toBeTheInstanceFun(other)
                     }.toThrow<AssertionError>()
                 }
                 it("${notToBeTheInstance.name} does not throw") {
-                    expectSubject.notToBeTheInstanceFun(other)
+                    expectSubject().notToBeTheInstanceFun(other)
                 }
                 it("${notToEqualOneOf.name} throws AssertionError") {
                     expect {
-                        expectSubject.notToEqualOneOfFun(other, emptyArray())
+                        expectSubject().notToEqualOneOfFun(other, emptyArray())
                     }.toThrow<AssertionError> { messageToContain(NOT_TO_EQUAL_ONE_OF.string) }
                 }
                 it("${notToEqualOneIn.name} throws AssertionError") {
                     expect {
-                        expectSubject.notToEqualOneInFun(listOf(other))
+                        expectSubject().notToEqualOneInFun(listOf(other))
                     }.toThrow<AssertionError> { messageToContain(NOT_TO_EQUAL_ONE_OF.string) }
                 }
             }
@@ -307,25 +345,25 @@ abstract class AnyExpectationsSpec(
                 val other = DataClass(false)
                 it("${toEqual.name} does not throw") {
                     expect {
-                        expectSubject.toEqualFun(other)
+                        expectSubject().toEqualFun(other)
                     }.toThrow<AssertionError>()
                 }
                 it("${notToEqual.name} throws AssertionError") {
-                    expectSubject.notToEqualFun(other)
+                    expectSubject().notToEqualFun(other)
                 }
                 it("${toBeTheInstance.name} throws AssertionError") {
                     expect {
-                        expectSubject.toBeTheInstanceFun(other)
+                        expectSubject().toBeTheInstanceFun(other)
                     }.toThrow<AssertionError>()
                 }
                 it("${notToBeTheInstance.name} does not throw") {
-                    expectSubject.notToBeTheInstanceFun(other)
+                    expectSubject().notToBeTheInstanceFun(other)
                 }
                 it("${notToEqualOneOf.name} does not throw") {
-                    expectSubject.notToEqualOneOfFun(other, emptyArray())
+                    expectSubject().notToEqualOneOfFun(other, emptyArray())
                 }
                 it("${notToEqualOneIn.name} does not throw") {
-                    expectSubject.notToEqualOneInFun(listOf(other))
+                    expectSubject().notToEqualOneInFun(listOf(other))
                 }
             }
         }
@@ -349,34 +387,34 @@ abstract class AnyExpectationsSpec(
         val notToBeTheInstanceFun = notToBeTheInstance.lambda
         val notToEqualOneOfFun = notToEqualOneOf.lambda
         val notToEqualOneInFun = notToEqualOneIn.lambda
-        val expectSubject = expect(null as T?)
+        val expectSubject = { expect(null as T?) }
 
         context(description) {
             context("one equals the other") {
                 it("${toEqual.name} does not throw") {
-                    expectSubject.toEqualFun(null)
+                    expectSubject().toEqualFun(null)
                 }
                 it("${toBeTheInstance.name} does not throw") {
-                    expectSubject.toBeTheInstanceFun(null)
+                    expectSubject().toBeTheInstanceFun(null)
                 }
                 it("${notToEqual.name} throws AssertionError") {
                     expect {
-                        expectSubject.notToEqualFun(null)
+                        expectSubject().notToEqualFun(null)
                     }.toThrow<AssertionError> { messageToContain(NOT_TO_EQUAL.string) }
                 }
                 it("${notToBeTheInstance.name} throws AssertionError") {
                     expect {
-                        expectSubject.notToBeTheInstanceFun(null)
+                        expectSubject().notToBeTheInstanceFun(null)
                     }.toThrow<AssertionError> { messageToContain(NOT_TO_BE_THE_INSTANCE.string) }
                 }
                 it("${notToEqualOneOf.name} throws AssertionError") {
                     expect {
-                        expectSubject.notToEqualOneOfFun(null, emptyArray)
+                        expectSubject().notToEqualOneOfFun(null, emptyArray)
                     }.toThrow<AssertionError> { messageToContain(NOT_TO_EQUAL_ONE_OF.string) }
                 }
                 it("${notToEqualOneIn.name} throws AssertionError") {
                     expect {
-                        expectSubject.notToEqualOneInFun(listOf(null))
+                        expectSubject().notToEqualOneInFun(listOf(null))
                     }.toThrow<AssertionError> { messageToContain(NOT_TO_EQUAL_ONE_OF.string) }
                 }
             }
@@ -389,21 +427,21 @@ abstract class AnyExpectationsSpec(
                     }
                 }
                 it("${notToEqual.name} does not throw") {
-                    expectSubject.notToEqualFun(value)
+                    expectSubject().notToEqualFun(value)
                 }
                 it("${toBeTheInstance.name} throws AssertionError") {
                     expect {
-                        expectSubject.toBeTheInstanceFun(value)
+                        expectSubject().toBeTheInstanceFun(value)
                     }.toThrow<AssertionError> { messageToContain(TO_BE_THE_INSTANCE.string) }
                 }
                 it("${notToBeTheInstance.name} does not throw") {
-                    expectSubject.notToBeTheInstanceFun(value)
+                    expectSubject().notToBeTheInstanceFun(value)
                 }
                 it("${notToEqualOneOf.name} does not throw") {
-                    expectSubject.notToEqualOneOfFun(value, emptyArray)
+                    expectSubject().notToEqualOneOfFun(value, emptyArray)
                 }
                 it("${notToEqualOneIn.name} does not throw") {
-                    expectSubject.notToEqualOneInFun(listOf(value))
+                    expectSubject().notToEqualOneInFun(listOf(value))
                 }
             }
         }
@@ -419,7 +457,7 @@ abstract class AnyExpectationsSpec(
     ) {
         checkInt(
             "primitive",
-            expect(1),
+            { expect(1) },
             toEqualInt,
             notToEqualInt,
             toBeTheInstanceInt,
@@ -429,7 +467,7 @@ abstract class AnyExpectationsSpec(
         )
         checkInt(
             "nullable primitive",
-            expect(1 as Int?),
+            { expect(1 as Int?) },
             toEqualNullableInt,
             notToEqualNullableInt,
             toBeTheInstanceNullableInt,
@@ -441,7 +479,7 @@ abstract class AnyExpectationsSpec(
         val subject = DataClass(true)
         checkDataClass(
             "class",
-            expect(subject),
+            { expect(subject) },
             toEqualDataClass,
             notToEqualDataClass,
             toBeTheInstanceDataClass,
@@ -452,7 +490,7 @@ abstract class AnyExpectationsSpec(
         )
         checkDataClass(
             "nullable class",
-            expect(subject as DataClass?),
+            { expect(subject as DataClass?) },
             toEqualNullableDataClass,
             notToEqualNullableDataClass,
             toBeTheInstanceNullableDataClass,
@@ -530,7 +568,10 @@ abstract class AnyExpectationsSpec(
                 expect {
                     expect(subject).toEqualFun(1)
                 }.toThrow<AssertionError> {
-                    messageToContain(": null", "$toEqualDescr: 1")
+                    message {
+                        toContainSubject("null")
+                        toContainToEqualDescr("1")
+                    }
                 }
             }
         }
@@ -544,14 +585,20 @@ abstract class AnyExpectationsSpec(
                 expect {
                     expect(subject).toEqualFun(null)
                 }.toThrow<AssertionError> {
-                    messageToContain(": 1", "$toEqualDescr: null")
+                    message {
+                        toContainSubject("1")
+                        toContainToEqualDescr("null")
+                    }
                 }
             }
             it("throws an AssertionError if expected does not equal subject") {
                 expect {
                     expect(subject).toEqualFun(2)
                 }.toThrow<AssertionError> {
-                    messageToContain(": 1", "$toEqualDescr: 2")
+                    message {
+                        toContainSubject("1")
+                        toContainToEqualDescr("2")
+                    }
                 }
             }
         }
@@ -568,7 +615,10 @@ abstract class AnyExpectationsSpec(
                 expect {
                     expect(subject).toEqualNullIfNullElseFun { toEqual(1) }
                 }.toThrow<AssertionError> {
-                    messageToContain(": null", "$toEqualDescr: 1")
+                    message {
+                        toContainSubject("null")
+                        toContainToEqualDescr("1")
+                    }
                 }
             }
         }
@@ -582,17 +632,22 @@ abstract class AnyExpectationsSpec(
                 expect {
                     expect(subject).toEqualNullIfNullElseFun { toBeGreaterThan(1) }
                 }.toThrow<AssertionError> {
-                    messageToContain(": 1", "$toBeGreaterThanDescr: 1")
+                    message {
+                        toContainSubject("1")
+                        toContainToBeGreaterDescr("1")
+                    }
                 }
             }
             it("throws an AssertionError if null is passed") {
                 expect {
                     expect(subject).toEqualNullIfNullElseFun(null)
                 }.toThrow<AssertionError> {
-                    messageToContain(": 1", "$toEqualDescr: null")
+                    message {
+                        toContainSubject("1")
+                        toContainToEqualDescr("null")
+                    }
                 }
             }
-
         }
     }
 
@@ -606,8 +661,11 @@ abstract class AnyExpectationsSpec(
                     expect {
                         expect(null as Int?).notToEqualNullFun { toEqual(1) }
                     }.toThrow<AssertionError> {
-                        messageToContain("$notToEqualNullButToBeInstanceOfDescr: Int (kotlin.Int)")
-                        if (hasExtraHint) messageToContain("$toEqualDescr: 1")
+                        message {
+                            toContainDescr(notToEqualNullButToBeInstanceOfDescr, "Int (kotlin.Int)")
+                            if (hasExtraHint) toContainToEqualDescr("1")
+                        }
+
                     }
                 }
             }
@@ -626,7 +684,9 @@ abstract class AnyExpectationsSpec(
                         expect {
                             expect(1 as Int?).notToBeNullFun { toBeLessThan(0) }
                         }.toThrow<AssertionError> {
-                            messageToContain("$toBeLessThanDescr: 0")
+                            message {
+                                toContainToBeLessThanDescr("0")
+                            }
                         }
                     }
                 }
@@ -669,11 +729,11 @@ abstract class AnyExpectationsSpec(
                     expect {
                         expect(A()).feature(A::i).notToBeNullFun { toEqual(1) }
                     }.toThrow<AssertionError> {
-                        messageToContain(
-                            A::class.simpleName!!,
-                            "$notToEqualNullButToBeInstanceOfDescr: Int (kotlin.Int)"
-                        )
-                        if (hasExtraHint) messageToContain("$toEqualDescr: 1")
+                        message {
+                            toContainSubject(A::class.fullName)
+                            toContainDescr(notToEqualNullButToBeInstanceOfDescr, "Int (kotlin.Int)")
+                            if (hasExtraHint) toContainToEqualDescr("1")
+                        }
                     }
                 }
 
@@ -682,13 +742,11 @@ abstract class AnyExpectationsSpec(
                     expect {
                         expect(A()).feature(A::i).notToEqualNull { toBeLessThan(1) }
                     }.toThrow<AssertionError> {
-                        messageToContain(
-                            A::class.simpleName!!,
-                            "$notToEqualNullButToBeInstanceOfDescr: Int (kotlin.Int)",
-                            //TODO 1.3.0 check if kotlin bug is fixed by now and use $toBeLessThanDescr
-                            // see https://youtrack.jetbrains.com/issue/KT-63052
-                            "${TO_BE_LESS_THAN.getDefault()}: 1"
-                        )
+                        message {
+                            toContainSubject(A::class.fullName)
+                            toContainDescr(notToEqualNullButToBeInstanceOfDescr, "Int (kotlin.Int)")
+                            toContainToBeLessThanDescr("1")
+                        }
                     }
                 }
             }
@@ -704,8 +762,10 @@ abstract class AnyExpectationsSpec(
                     expect {
                         expect("hello" as Any?).toBeAnInstanceOfInt { toEqual(1) }
                     }.toThrow<AssertionError> {
-                        messageToContain("$toBeAnInstanceOfDescr: Int (kotlin.Int)")
-                        if (hasExtraHint) messageToContain("$toEqualDescr: 1")
+                        message{
+                            toContainDescr(DescriptionAnyProof.TO_BE_AN_INSTANCE_OF,"Int (kotlin.Int)" )
+                            if (hasExtraHint) toContainToEqualDescr("1")
+                        }
                     }
                 }
             }
@@ -954,7 +1014,7 @@ abstract class AnyExpectationsSpec(
         val becauseFunForInt = becauseInt.lambda
 
         fun Expect<String>.containsBecause(reason: String) =
-            toContain.exactly(1).value("$separator${informationBulletPoint}${DescriptionAnyExpectation.BECAUSE.getDefault()} $reason")
+            toContain.exactly(1).matchFor(Regex("$separator\\Q${informationBulletPoint}${DescriptionDocumentationUtil.BECAUSE.string}\\E\\s+: \\Q$reason\\E"))
 
         it("the test on the supplied subject is not throwing an assertion error") {
             expect("filename")

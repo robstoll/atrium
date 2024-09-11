@@ -32,8 +32,8 @@ interface Reportable {
 
         fun proofExplanation(proof: Proof): ProofExplanation = DefaultProofExplanation(proof)
 
-        fun errorExplanationGroup(description: InlineElement, reportables: List<Reportable>): ErrorExplanationGroup =
-            DefaultErrorExplanationGroup(description, reportables)
+        fun failureExplanationGroup(description: InlineElement, reportables: List<Reportable>): FailureExplanationGroup =
+            DefaultFailureExplanationGroup(description, reportables)
 
         fun informationGroup(description: InlineElement, reportables: List<Reportable>): InformationGroup =
             DefaultInformationGroup(description, reportables)

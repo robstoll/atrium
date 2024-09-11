@@ -9,11 +9,11 @@ const val featureArrow = "▶ "
 const val featureBulletPoint = "◾ "
 
 const val successfulBulletPoint = "✔ "
-const val failingBulletPoint = "✘ "
+const val failingBulletPoint = "✘ "
 
 const val explanatoryBulletPoint = "» "
 const val warningBulletPoint = "❗❗ "
-const val informationBulletPoint = "ℹ "
+const val informationBulletPoint = "ℹ\uFE0F "
 const val hintBulletPoint ="\uD83D\uDCA1 "
 const val groupingBulletPoint = "# "
 

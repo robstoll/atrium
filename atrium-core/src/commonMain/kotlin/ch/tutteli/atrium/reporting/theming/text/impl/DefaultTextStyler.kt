@@ -15,7 +15,7 @@ internal class DefaultTextStyler(
         unstyledString: String,
         styleId: String,
         noLineBreak: Boolean,
-        align: HorizontalAlignment
+        horizontalAlignment: HorizontalAlignment
     ): StyledString {
         val maybeStyled = ch.tutteli.kbox.takeIf(textThemeProvider.supportsAnsi) {
             textThemeProvider.render(unstyledString, styleId)?.let { Some(it) }
@@ -24,7 +24,7 @@ internal class DefaultTextStyler(
             unstyledString,
             maybeStyled = maybeStyled,
             noLineBreak = noLineBreak,
-            horizontalAlignment = align
+            horizontalAlignment = horizontalAlignment
         )
     }
 }

@@ -6,7 +6,6 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.creating.PleaseUseReplacementException
 import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionAnyProof
 import ch.tutteli.atrium.specs.*
-import ch.tutteli.atrium.translations.DescriptionAnyExpectation.NOT_TO_EQUAL
 import ch.tutteli.atrium.translations.DescriptionBigDecimalAssertion
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.Suite

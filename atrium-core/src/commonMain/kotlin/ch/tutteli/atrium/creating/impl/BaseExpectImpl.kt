@@ -41,7 +41,7 @@ abstract class BaseExpectImpl<T>(
     }
 
     //TODO remove with 2.0.0 at the latest
-    @Suppress("DEPRECATION")
+    @Suppress("DEPRECATION", "OVERRIDE_DEPRECATION")
     override fun append(assertion: ch.tutteli.atrium.assertions.Assertion): Expect<T> =
         append(assertion as Proof)
 

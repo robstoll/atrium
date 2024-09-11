@@ -20,14 +20,10 @@ import ch.tutteli.atrium.reporting.prerendering.text.TypedTextPreRenderer
 import ch.tutteli.atrium.reporting.reportables.InlineElement
 import ch.tutteli.atrium.reporting.reportables.Reportable
 import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionAnyProof
-import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionFunLikeProof
 import ch.tutteli.atrium.reporting.reportables.descriptions.ErrorMessages
 import ch.tutteli.atrium.reporting.text.TextReporter
 import ch.tutteli.atrium.reporting.theming.text.StyledString
 import ch.tutteli.atrium.reporting.theming.text.noStyle
-import ch.tutteli.atrium.reporting.translating.Untranslatable
-import ch.tutteli.atrium.translations.DescriptionAnyExpectation
-import ch.tutteli.atrium.translations.DescriptionCharSequenceExpectation
 import ch.tutteli.atrium.translations.DescriptionThrowableExpectation
 import com.github.ajalt.mordant.rendering.AnsiLevel
 import com.github.ajalt.mordant.rendering.TextColors
@@ -279,7 +275,7 @@ class CreateReportTest {
         val builder = buildRootGroup(verb = Text("I expected that the subject which was"), representation = 2) {
             simpleProof(Text("to equal"), 3) { false }
             simpleProof(Text("to be less than"), 3) { false }
-            simpleProof(Text("to greater than"), 10) { false }
+            simpleProof(Text("to be greater than"), 10) { false }
         }
 
         expectForReporterWithoutAnsi(
@@ -288,7 +284,7 @@ class CreateReportTest {
             |I expected that the subject which was : 2
             |(f) to equal                          : 3
             |(f) to be less than                   : 3
-            |(f) to greater than                   : 10
+            |(f) to be greater than                : 10
             """.trimMargin()
         )
 
@@ -298,7 +294,7 @@ class CreateReportTest {
             |I expected that the subject which was : 2
            |$x to equal                            : 3
            |$x to be less than                     : 3
-           |$x to greater than                     : 10
+           |$x to be greater than                  : 10
             """.trimMargin()
         )
 
@@ -517,66 +513,38 @@ class CreateReportTest {
         )
     }
 
-
     @Suppress("DEPRECATION")
     @Test
-    fun featureWithFeatureAssertionWithDescriptiveWithVeryLongRepresentation() {
-        val representation = """
-                |I expected subject : 1
-                |[31m✘[39m AT_LEAST_ONE_EXPECTATION_DEFINED : false
-                |  [31m✘[39m TO_EQUAL                       : to equal
-                |
-                """.trimMargin()
-
+    fun explanatoryAssertionGroupAsSecondChild() {
         val builder = buildRootGroup {
-            feature(
-                DescriptionFunLikeProof.THROWN_EXCEPTION_WHEN_CALLED,
-                "$representation\n\nch.tutteli.atrium.reporting.AtriumError"
-            ) {
-                add(
-                    BasicAssertionGroup(
-                        DefaultFeatureAssertionGroupType, Untranslatable("message"), representation,
-                        listOf(
-                            // should not be shown
-                            BasicDescriptiveAssertion(
-                                DescriptionAnyExpectation.NOT_TO_EQUAL_NULL_TO_BE_AN_INSTANCE_OF,
-                                String::class
-                            ) { true },
-                            BasicAssertionGroup(
-                                DefaultListAssertionGroupType,
-                                DescriptionCharSequenceExpectation.TO_CONTAIN,
-                                Text.EMPTY,
-                                listOf(
-                                    BasicAssertionGroup(
-                                        DefaultListAssertionGroupType,
-                                        DescriptionCharSequenceExpectation.VALUE,
-                                        "at least one expectation defined : false",
-                                        listOf(
-                                            ExplanatoryAssertionGroup(
-                                                DefaultExplanatoryAssertionGroupType,
-                                                holds = false,
-                                                explanatoryAssertions = listOf(
-                                                    BasicExplanatoryAssertion(DescriptionCharSequenceExpectation.NOT_FOUND)
-                                                )
-                                            )
-                                        )
-                                    )
-                                )
-                            )
-                        )
-                    )
+            simpleProof(DescriptionAnyProof.TO_EQUAL, 0) { false }
+            add(
+                ExplanatoryAssertionGroup(
+                    InformationAssertionGroupType(withIndent = false),
+                    listOf(
+                        BasicDescriptiveAssertion(
+                            ch.tutteli.atrium.translations.DescriptionAnyExpectation.BECAUSE,
+                            Text("? is not allowed in file names on Windows")
+                        ) { false }),
+                    holds = true
                 )
-            }
+            )
         }
+
         expectForReporterWithoutAnsi(
             builder,
             """
-            |verb : 1
-            |(i) properties of the unknown Exception
-            |    » message : "bla"
-            |    » stacktrace :${" "}
-            |      ⚬ test
-            |      ⚬ lines
+            |a verb       : "representation"
+            |(f) to equal : 0
+            |(i) because : ? is not allowed in file names on Windows
+            """.trimMargin()
+        )
+        expectForReporterWithAnsi(
+            builder,
+            """
+            |a verb     : "representation"
+           |$x to equal : 0
+            |${i}because : ? is not allowed in file names on Windows
             """.trimMargin()
         )
     }
@@ -620,10 +588,13 @@ class CreateReportTest {
         expect(subject).toEqual(expectedResult)
     }
 
-
     private fun componentFactoryContainer() = DefaultComponentFactoryContainer.merge(
         ComponentFactoryContainerImpl(
-            emptyMap(),
+            mapOf(
+                Terminal::class to ComponentFactory({ _ ->
+                    Terminal(ansiLevel = AnsiLevel.TRUECOLOR)
+                }, producesSingleton = false)
+            ),
             mapOf(
                 TextPreRenderer::class to sequenceOf(
                     ComponentFactory({ _ ->
