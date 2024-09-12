@@ -248,7 +248,7 @@ internal object DefaultComponentFactoryContainer : ComponentFactoryContainer by 
             },
 
             // ProofGroup
-            { c -> DefaultInvisibleProofGroupTextPreRenderer(c.build()) },
+            { _ -> DefaultInvisibleProofGroupTextPreRenderer() },
             { c -> DefaultFeatureProofGroupTextPreRenderer(c.build()) },
             { _ -> DefaultRootProofGroupTextPreRenderer() },
             { _ -> DefaultFallbackProofGroupWithDesignationTextPreRenderer() },
@@ -256,7 +256,7 @@ internal object DefaultComponentFactoryContainer : ComponentFactoryContainer by 
 
             // ReportableGroup
             { c -> DefaultDebugGroupTextPreRenderer(c.build()) },
-            { c -> DefaultUsageHintGroupTextPreRenderer(c.build()) },
+            { _ -> DefaultUsageHintGroupTextPreRenderer() },
             { _ -> DefaultFallbackReportableGroupWithDesignationTextPreRenderer() },
 
 

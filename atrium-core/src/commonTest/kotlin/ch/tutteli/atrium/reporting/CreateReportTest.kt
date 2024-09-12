@@ -20,10 +20,13 @@ import ch.tutteli.atrium.reporting.prerendering.text.TypedTextPreRenderer
 import ch.tutteli.atrium.reporting.reportables.InlineElement
 import ch.tutteli.atrium.reporting.reportables.Reportable
 import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionAnyProof
+import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionCharSequenceProof
 import ch.tutteli.atrium.reporting.reportables.descriptions.ErrorMessages
 import ch.tutteli.atrium.reporting.text.TextReporter
 import ch.tutteli.atrium.reporting.theming.text.StyledString
 import ch.tutteli.atrium.reporting.theming.text.noStyle
+import ch.tutteli.atrium.reporting.translating.Untranslatable
+import ch.tutteli.atrium.translations.DescriptionAnyExpectation
 import ch.tutteli.atrium.translations.DescriptionThrowableExpectation
 import com.github.ajalt.mordant.rendering.AnsiLevel
 import com.github.ajalt.mordant.rendering.TextColors
@@ -128,6 +131,45 @@ class CreateReportTest {
            |$x $f verb : 2
            |    $x $f name       : "Robert"
             |        $x to equal : "Peter"
+            """.trimMargin()
+        )
+    }
+
+    @Test
+    fun twoFeatureGroup(){
+        val builder = buildRootGroup(
+            verb = Text("I expected subject"),
+            representation = Text("Person(firstName=Robert, lastName=Stoll, isStudent=false)        (readme.examples.Person <1234789>)")
+        ) {
+            feature(Text("its.definedIn(FeatureExtractorSpec.kt:54)"), "Robert"){
+                simpleProof(DescriptionCharSequenceProof.TO_START_WITH, "Pe"){ false }
+                simpleProof(DescriptionCharSequenceProof.TO_END_WITH, "er"){ false }
+            }
+            feature(Text("its.definedIn(FeatureExtractorSpec.kt:60)"), "Stoll") {
+                simpleProof(DescriptionAnyProof.TO_EQUAL, "Dummy"){ false }
+            }
+        }
+
+        expectForReporterWithoutAnsi(
+            builder,
+            """
+            |I expected subject : Person(firstName=Robert, lastName=Stoll, isStudent=false)        (readme.examples.Person <1234789>)
+            |(f) > its.definedIn(FeatureExtractorSpec.kt:54) : "Robert"
+            |      (f) to start with                         : "Pe"
+            |      (f) to end with                           : "er"
+            |(f) > its.definedIn(FeatureExtractorSpec.kt:60) : "Stoll"
+            |      (f) to equal                              : "Dummy"
+            """.trimMargin()
+        )
+        expectForReporterWithAnsi(
+            builder,
+            """
+            |I expected subject : Person(firstName=Robert, lastName=Stoll, isStudent=false)        (readme.examples.Person <1234789>)
+           |$x $f its.definedIn(FeatureExtractorSpec.kt:54) : "Robert"
+            |    $x to start with                           : "Pe"
+            |    $x to end with                             : "er"
+           |$x $f its.definedIn(FeatureExtractorSpec.kt:60) : "Stoll"
+            |    $x to equal                                : "Dummy"
             """.trimMargin()
         )
     }
@@ -263,6 +305,40 @@ class CreateReportTest {
         )
     }
 
+    @Test
+    fun veryShortVerb_withMultipleProofsDefiningOwnLevel() {
+        // due to the short verb the merged 2 columns of the rootGroup is less in size than the prefix of the feature
+        // this test ensures we don't use minus numbers for indent levels
+        val builder = buildRootGroup(verb = Text("a"), 2) {
+            feature(Text("firstname"), "Robert") {
+                simpleProof(Text("to equal"), 1) { false }
+            }
+            feature(Text("lastname"), "Stoll") {
+                simpleProof(Text("to be greater than"), 2) { false }
+            }
+
+        }
+        expectForReporterWithoutAnsi(
+            builder,
+            """
+            |a : 2
+            |(f) > firstname    : "Robert"
+            |      (f) to equal : 1
+            |(f) > lastname               : "Stoll"
+            |      (f) to be greater than : 2
+            """.trimMargin()
+        )
+        expectForReporterWithAnsi(
+            builder,
+            """
+            |a : 2
+           |$x $f firstname  : "Robert"
+            |    $x to equal : 1
+           |$x $f lastname             : "Stoll"
+            |    $x to be greater than : 2
+            """.trimMargin()
+        )
+    }
 
     @Test
     fun featureProofGroupWithMultilineDescription() {
