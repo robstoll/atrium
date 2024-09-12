@@ -18,7 +18,11 @@ data class OutputNode(
             require(children.isNotEmpty()) { "a node without columns need to define children" }
             val childWithoutColumnsNotOwnLevel = children.filter { it.definesOwnLevel.not() && it.columns.isEmpty() }
             require(childWithoutColumnsNotOwnLevel.isEmpty()) {
-                "a node without columns cannot define children with definesOwnLevel=false which don't have columns (they should be flattened instead). Following children don't define own columns:\n${childWithoutColumnsNotOwnLevel.joinToString(", ")}"
+                "a node without columns cannot define children with definesOwnLevel=false which don't have columns (they should be flattened instead). Following children don't define own columns:\n${
+                    childWithoutColumnsNotOwnLevel.joinToString(
+                        ", "
+                    )
+                }"
             }
         }
         require(indentLevel >= 0) { "cannot define a negative indent level, was $indentLevel" }
@@ -30,5 +34,19 @@ data class OutputNode(
         } else {
             require(startMergeAtColumn == 0) { "cannot define startMergeAtColumn > 0 (was $startMergeAtColumn) if we don't want to merge columns (mergeColumns was $mergeColumns)" }
         }
+    }
+
+    companion object {
+        fun singleWithoutColumnsNotOwnLevel(children: List<OutputNode>) =
+            listOf(
+                OutputNode(
+                    columns = emptyList(),
+                    children = children.flatMap {
+                        if (it.definesOwnLevel.not() && it.columns.isEmpty()) it.children
+                        else listOf(it)
+                    },
+                    definesOwnLevel = false,
+                )
+            )
     }
 }

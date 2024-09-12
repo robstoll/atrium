@@ -59,12 +59,7 @@ fun <T> TextPreRenderController.transformSubProofGroup(
     icon: Icon
 ) where T : ReportableGroup, T : ReportableWithDesignation =
     transformSubProofGroup(reportableGroupWithDesignation, controlObject) { child ->
-        val newControlObject = determineChildControlObject(
-            controlObject,
-            child,
-            icon,
-            additionalIndent = 1
-        )
+        val newControlObject = determineChildControlObject(controlObject, child, icon, additionalIndent = 1)
         controlObject.transformChildIncludingIndentationAndPrefix(child, newControlObject)
     }
 

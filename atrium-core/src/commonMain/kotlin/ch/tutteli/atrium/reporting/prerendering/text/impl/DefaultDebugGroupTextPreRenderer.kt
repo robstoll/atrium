@@ -12,15 +12,17 @@ internal class DefaultDebugGroupTextPreRenderer(
     override fun transformIt(
         reportable: DebugGroup,
         controlObject: TextPreRenderControlObject
-    ): List<OutputNode> = controlObject.transformGroup(
-        reportable,
-        controlObject,
-        prefixDescriptionColumns = listOf(iconStyler.style(Icon.DEBUG_INFO)),
-    ) { child ->
-        val newControlObject =
-            determineChildControlObject(controlObject, child, Icon.LIST_BULLET_POINT, additionalIndent = 1)
-        controlObject.transformChildIncludingIndentationAndPrefix(child, newControlObject)
-    }.let {
-        listOf(it.first().copy(usesOwnPrefix = true)) + it.drop(1)
-    }
+    ): List<OutputNode> =
+        controlObject.transformGroup(
+            reportable,
+            controlObject,
+            prefixDescriptionColumns = listOf(iconStyler.style(Icon.DEBUG_INFO)),
+        ) { child ->
+            val newControlObject = determineChildControlObject(
+                controlObject, child, Icon.LIST_BULLET_POINT, additionalIndent = 1
+            )
+            controlObject.transformChildIncludingIndentationAndPrefix(child, newControlObject)
+        }.let {
+            listOf(it.first().copy(usesOwnPrefix = true)) + it.drop(1)
+        }
 }

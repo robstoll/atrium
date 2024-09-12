@@ -25,13 +25,9 @@ class DefaultTextReporter(
         )
         val rootNode = rootNodes[0]
         val sb = StringBuilder()
-        format(rootNode, emptyList(), sb)
+        format(rootNode, emptyList(), sb, calculateMaxLengths(rootNode))
         return sb
     }
-
-    private fun format(outputNode: OutputNode, indentLevels: List<Int>, sb: StringBuilder) =
-        format(outputNode, indentLevels, sb, calculateMaxLengths(outputNode))
-
 
     private fun format(outputNode: OutputNode, indentLevels: List<Int>, sb: StringBuilder, maxLengths: List<Int>) {
 
@@ -69,7 +65,8 @@ class DefaultTextReporter(
                 (0 until indentLevel).forEach { i ->
                     val styledString = columns[i]
                     //TODO 1.3.0 what about wrapping throw an error as well?
-                    sb.append(styledString.pad(indentLevels[i]))
+                    val indent = indentLevels[i]
+                    sb.append(styledString.pad(if (indent > 0) indent else 0))
                 }
 
                 val startIndex = if (mergeColumns > 0) {
@@ -100,6 +97,7 @@ class DefaultTextReporter(
                 } else {
                     indentLevel
                 }
+
                 val lastIndex = size - 1
                 (startIndex until lastIndex).forEach { i ->
                     appendColumn(columns, index = i)
@@ -120,30 +118,87 @@ class DefaultTextReporter(
         }
 
         appendColumns(outputNode)
+
+        val indentLevelsForChildrenWhichDoNotDefineOwnLevel =
+            indentLevels + maxLengths.asSequence().drop(indentLevels.size)
+
         outputNode.children.forEachIndexed { index, child ->
             if (outputNode.columns.isNotEmpty() || index > 0) {
                 sb.appendln()
             }
+
             if (child.definesOwnLevel) {
-                //TODO 2.0.0 don't call calculateMaxLengths here but use format with 3 args instead if we restrict
-                // that node.columns has to be non-empty (currently only the case because of ExplanatoryAssertionGroup)
-                // because then the indent is always given via description columns and we don't need to do this hack
-                val newMaxLengths = calculateMaxLengths(child)
-                val maxLengthsToConvertToIndent =
-                    if (child.columns.isNotEmpty()) {
-                        child.indentLevel - outputNode.indentLevel
-                    } else {
-                        val numberOfZeroIndents =
-                            newMaxLengths.asSequence().drop(indentLevels.size).takeWhile { it == 0 }.count()
-                        maxOf(child.indentLevel - outputNode.indentLevel, numberOfZeroIndents)
-                    }
-                val newIndentLevels = indentLevels +
-                    maxLengths.asSequence().drop(indentLevels.size).take(maxLengthsToConvertToIndent)
+                val (newIndentLevels, newMaxLengths) = calculateIndentLevelsAndMaxLengths(
+                    child, outputNode, indentLevels, maxLengths
+                )
                 format(child, newIndentLevels, sb, newMaxLengths)
             } else {
-                format(child, indentLevels + maxLengths.drop(indentLevels.size), sb, maxLengths)
+                format(child, indentLevelsForChildrenWhichDoNotDefineOwnLevel, sb, maxLengths)
             }
         }
+    }
+
+    private fun calculateIndentLevelsAndMaxLengths(
+        child: OutputNode,
+        parent: OutputNode,
+        parentIndentLevels: List<Int>,
+        parentMaxLengths: List<Int>
+    ): Pair<List<Int>, List<Int>> {
+        val newMaxLengths = calculateMaxLengths(child)
+
+        val indentLevelsInheritedFromParent = run {
+            // the child defines an own level and hence also own indent levels. It only "inherits" the
+            // indent levels of the parent for which it itself is already indented. For instance:
+            // ------------------------------
+            // I expected subject: 1
+            // (d) some debug info
+            //     (u) usage hint
+            // -------------------------
+            // above the debug group `(d)` defines an own level. Since it is not indented at all, it doesn't
+            // "inherit" any identLevel from the root group. On the other hand, the usage hint group `(u)` which
+            // defines an own level as well, inherits one indent level from the debug group (indentLevel[0] = 4)
+            parentIndentLevels.asSequence().take(child.indentLevel)
+        }
+
+        val indentLevelsDeducedFromMaxLengthOfParent = run {
+
+            val maxLengthsFromParentToConvertToIndent = run {
+                // TODO 1.4.0 consider the following, once we drop ExplanatoryAssertionGroup then we don't have any
+                // pre-renderer left which defines an outputNode without columns but with definesOwnLevel=true
+                // in such a case the if branch is always taken and we could simplify this code (we should then
+                // establish a corresponding invariant in OutputNode)
+                if (child.columns.isNotEmpty()) {
+                    child.indentLevel - parent.indentLevel
+                } else {
+                    // special case nested ExplanatoryAssertionGroup where all children define an own level and
+                    // are indented further, for instance:
+                    // ---------------------------
+                    // (i) properties of the unknown Exception
+                    //     » stacktrace :
+                    //       ⚬ test
+                    //       ⚬ lines
+                    //-----------------------------
+                    // `(i)` is an ExplanatoryAssertionGroup and the `stacktrace` is a proof group wrapped into another
+                    // ExplanatoryAssertionGroup. The indentLevel of `(i)` is 0 here, same same for the hidden
+                    // ExplanatoryGroup (i.e. child.indentLevel - parent.indentLevel would be 0). However, `stacktrace`
+                    // has indentLevel=1 which only works if we take the maxLength[0] from the parent (because the
+                    // nextMaxLength[0] = 0)
+                    val numberOfZeroIndents = newMaxLengths.asSequence()
+                        .drop(child.indentLevel)
+                        .takeWhile { it == 0 }.count()
+                    maxOf(child.indentLevel - parent.indentLevel, numberOfZeroIndents)
+                }
+            }
+
+            parentMaxLengths.asSequence()
+                .drop(minOf(parentIndentLevels.size, child.indentLevel))
+                .take(maxLengthsFromParentToConvertToIndent)
+        }
+
+        val newIndentLevels = run {
+            indentLevelsInheritedFromParent + indentLevelsDeducedFromMaxLengthOfParent
+        }.toList()
+        return newIndentLevels to newMaxLengths
     }
 
     private fun calculateMaxLengths(node: OutputNode): List<Int> {
@@ -174,8 +229,8 @@ class DefaultTextReporter(
         fun updateMaxLengths(child: OutputNode) =
             updateMaxLengths(child.columns.withIndex())
 
-        // if we have children without own columns (i.e. invisible groups) then we need to their children into account
-        // as well.
+        // if we have children without own columns (i.e. invisible groups) then we need to take their children
+        // into account as well.
         val childrenToTakeIntoAccount = node.children.asSequence().flatMap {
             if (it.columns.isEmpty() && it.definesOwnLevel.not()) {
                 it.children.asSequence()
@@ -224,6 +279,7 @@ class DefaultTextReporter(
                 .sumOf { (index, value) ->
                     value.unstyled.length - maxLengths[index]
                 } + lastStyledString.unstyled.length
+
 
             updateMaxLengthsIfNecessary(lastIndex, mergedLength)
             updateMaxLengths(rest)

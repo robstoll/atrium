@@ -6,7 +6,6 @@ import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
 import ch.tutteli.atrium.creating.*
 import ch.tutteli.atrium.logic._logic
 import ch.tutteli.atrium.logic.creating.RootExpectBuilder
-import ch.tutteli.atrium.logic.creating.withComponent
 import ch.tutteli.atrium.logic.manualFeature
 import ch.tutteli.atrium.logic.toAssertionCreator
 import ch.tutteli.atrium.logic.toExpectGrouping
@@ -15,7 +14,7 @@ import ch.tutteli.atrium.reporting.Text
 import ch.tutteli.atrium.reporting.erroradjusters.MultiAtriumErrorAdjuster
 import ch.tutteli.atrium.reporting.erroradjusters.RemoveAtriumFromAtriumError
 import ch.tutteli.atrium.reporting.erroradjusters.RemoveRunnerFromAtriumError
-import ch.tutteli.atrium.reporting.theming.text.*
+import ch.tutteli.atrium.reporting.theming.text.TextIconStyler
 import ch.tutteli.atrium.reporting.theming.text.impl.MarkdownTextIconStyler
 import ch.tutteli.atrium.testfactories.TestFactoryBuilder
 import ch.tutteli.atrium.testfactories.testFactoryTemplate
@@ -33,8 +32,8 @@ fun <T> expect(subject: T): RootExpect<T> =
                     otherAdjusters = emptyList()
                 )
             }
-            withComponent(TextIconStyler::class) { c->
-                MarkdownTextIconStyler(c.build())
+            withComponent(TextIconStyler::class) {
+                MarkdownTextIconStyler()
             }
         }
         .build()
@@ -82,7 +81,7 @@ private fun <R> ExpectGrouping.expectWithinExpectGroup(subject: R) =
     //TODO 1.3.0 change to _core
     _logic.manualFeature("I expected subject") { subject }
 
-expect class RemoveAtriumButNotAtriumSpecsFromAtriumErrorImpl() : RemoveAtriumFromAtriumError{
+expect class RemoveAtriumButNotAtriumSpecsFromAtriumErrorImpl() : RemoveAtriumFromAtriumError {
     override fun adjust(throwable: Throwable)
     override fun adjustOtherThanStacks(throwable: Throwable)
 }
