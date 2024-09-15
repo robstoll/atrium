@@ -92,7 +92,7 @@ apiValidation {
             //misc not relevant for bc
             "atrium-specs",
             "atrium-verbs-internal",
-            "readme-examples"
+            "readme-examples",
         )
     )
     val kotlinVersion = KotlinVersion.fromVersion(buildParameters.kotlin.version)

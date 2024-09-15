@@ -1,10 +1,7 @@
-package readme.examples
+package readme.examples.jupiter
 
-import ch.tutteli.atrium.api.fluent.en_GB.asIterable
-import ch.tutteli.atrium.api.fluent.en_GB.feature
-import ch.tutteli.atrium.api.fluent.en_GB.toContain
-import org.spekframework.spek2.Spek
-import readme.examples.utils.expect
+import org.junit.jupiter.api.Order
+import org.junit.jupiter.api.extension.ExtendWith
 
 /**
  * The tests and error message are written here and automatically placed into the README via generation.
@@ -19,12 +16,16 @@ import readme.examples.utils.expect
  * - <code> => is not supposed to fail and only the code is put into the code
  *
  * Moreover, all tags can reuse snippets defined in this file with corresponding markers
+ * //snippet-xy-start
+ * ...
+ * //snippet-xy-end
+ *
+ * and then in code
+ * ```
+ * fun `ex-...`(){
+ *   //snippet-xy-insert
+ * }
  */
-object FaqSpec : Spek({
-    test("code-faq-1") {
-        expect(sequenceOf(1, 2, 3)).asIterable().toContain(2)
-    }
-    test("code-faq-2") {
-        expect(sequenceOf(1, 2, 3)).feature { f(it::asIterable) }.toContain(2)
-    }
-})
+@ExtendWith(ReadmeInvocationInterceptor::class)
+@Order(0)
+interface ReadmeTest

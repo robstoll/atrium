@@ -1,6 +1,4 @@
-package readme.examples
-
-//@formatter:off
+package readme.examples//@formatter:off
 //snippet-mapArguments-start
 import ch.tutteli.atrium.logic.utils.mapArguments
 //snippet-mapArguments-end
@@ -12,36 +10,27 @@ import ch.tutteli.atrium.logic._logic
 import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.reporting.Text
-import org.spekframework.spek2.Spek
+import org.junit.jupiter.api.Test
+import readme.examples.jupiter.ReadmeTest
 import readme.examples.utils.expect
 
 /**
- * The tests and error message are written here and automatically placed into the README via generation.
- * The generation is done during the project built. To trigger it manually, you have to run:
- * ```
- * ./gradlew :readme-examples:build
- * ```
- *
- * There are currently three kind of tags supported:
- * - <ex-xy> => places code and output into the tag
- * - <exs-xy> => places code into the tag, output will be put into a tag named <exs-xy-output>
- * - <code> => is not supposed to fail and only the code is put into the code
- *
- * Moreover, all tags can reuse snippets defined in this file with corresponding markers
+ * See [ReadmeTest] on how these tests are written into README.md
  */
-
-object OwnExpectationFunctionsSpec : Spek({
+class OwnExpectationFunctions : ReadmeTest {
 
     //snippet-own-boolean-1-start
     fun Expect<Int>.toBeAMultipleOf(base: Int) =
         _logic.createAndAppend("is multiple of", base) { it % base == 0 }
     //snippet-own-boolean-1-end
-    test("code-own-boolean-1") {
+    @Test
+    fun `code-own-boolean-1`() {
         //snippet-own-boolean-import-insert
 
         //snippet-own-boolean-1-insert
     }
-    test("ex-own-boolean-1") {
+    @Test
+    fun `ex-own-boolean-1`() {
         expect(12).toBeAMultipleOf(5)
     }
 
@@ -49,16 +38,18 @@ object OwnExpectationFunctionsSpec : Spek({
     fun Expect<Int>.toBeEven() =
         _logic.createAndAppend("is", Text("an even number")) { it % 2 == 0 }
     //snippet-own-boolean-2-end
-    test("code-own-boolean-2") {
+    @Test
+    fun `code-own-boolean-2`() {
         //snippet-own-boolean-import-insert
 
         //snippet-own-boolean-2-insert
     }
-    test("ex-own-boolean-2") {
+    @Test
+    fun `ex-own-boolean-2`() {
         expect(13).toBeEven()
     }
-
-    test("code-own-compose-3a") {
+    @Test
+    fun `code-own-compose-3a`() {
         //snippet-own-Person-insert
     }
 
@@ -67,11 +58,13 @@ object OwnExpectationFunctionsSpec : Spek({
         feature(Person::children) { toHaveSize(number) }
 
     //snippet-own-compose-3b-end
-    test("code-own-compose-3b") {
+    @Test
+    fun `code-own-compose-3b`() {
         //snippet-own-compose-3b-insert
     }
 
-    test("ex-own-compose-3") {
+    @Test
+    fun `ex-own-compose-3`() {
         expect(Person("Susanne", "Whitley", 43, emptyList()))
             .toHaveNumberOfChildren(2)
     }
@@ -85,20 +78,23 @@ object OwnExpectationFunctionsSpec : Spek({
         }
 
     //snippet-own-compose-4-end
-    test("code-own-compose-4") {
+    @Test
+    fun `code-own-compose-4`() {
         //snippet-own-compose-4-insert
     }
-    test("ex-own-compose-4") {
+    @Test
+    fun `ex-own-compose-4`() {
         expect(Person("Susanne", "Whitley", 43, emptyList()))
             .toHaveAdultChildren()
     }
 
-
-    test("code-own-compose-5") {
+    @Test
+    fun `code-own-compose-5`() {
         //snippet-children-insert
     }
     //@formatter:off
-    test("ex-own-compose-5"){
+    @Test
+    fun `ex-own-compose-5`() {
         expect(Person("Susanne", "Whitley", 43, listOf(Person("Petra", "Whitley", 12, emptyList()))))
             .children { // using the fun -> expectation-group, ergo sub expectations don't fail fast
                 toHaveElementsAndNone {
@@ -126,12 +122,14 @@ object OwnExpectationFunctionsSpec : Spek({
     }
     //snippet-own-compose-6-end
 
-    test("code-own-compose-6") {
+    @Test
+    fun `code-own-compose-6`() {
         //snippet-mapArguments-insert
 
         //snippet-own-compose-6-insert
     }
-    test("code-own-compose-7") {
+    @Test
+    fun `code-own-compose-7`() {
         fun <T : List<Pair<String, String>>> Expect<T>.sameInitialsAs(
             person: Person, vararg otherPersons: Person
         ): Expect<T> {
@@ -142,7 +140,7 @@ object OwnExpectationFunctionsSpec : Spek({
             return toContain.inOrder.only.entries(first, *others)
         }
     }
-})
+}
 
 //snippet-own-Person-start
 data class Person(

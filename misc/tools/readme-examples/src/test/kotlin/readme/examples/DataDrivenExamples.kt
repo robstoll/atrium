@@ -4,29 +4,20 @@ import readme.examples.utils.expect
 import readme.examples.utils.expectGrouped
 import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.creating.ExpectationCreator
-import org.spekframework.spek2.Spek
+import org.junit.jupiter.api.Test
+import readme.examples.jupiter.ReadmeTest
 
 /**
- * The tests and error message are written here and automatically placed into the README via generation.
- * The generation is done during the project built. To trigger it manually, you have to run:
- * ```
- * ./gradlew :readme-examples:build
- * ```
- *
- * There are currently three kind of tags supported:
- * - <ex-xy> => places code and output into the tag
- * - <exs-xy> => places code into the tag, output will be put into a tag named <exs-xy-output>
- * - <code> => is not supposed to fail and only the code is put into the code
- *
- * Moreover, all tags can reuse snippets defined in this file with corresponding markers
+ * See [ReadmeTest] on how these tests are written into README.md
  */
-class DataDrivenSpec : Spek({
+class DataDrivenExamples : ReadmeTest {
 
     //snippet-data-driven-1-start
     fun myFun(i: Int) = (i + 97).toChar()
     //snippet-data-driven-1-end
 
-    test("ex-data-driven-1") {
+    @Test
+    fun `ex-data-driven-1`() {
         //snippet-data-driven-1-insert
 
         expectGrouped {
@@ -42,7 +33,8 @@ class DataDrivenSpec : Spek({
         }
     }
 
-    test("ex-data-driven-2") {
+    @Test
+    fun `ex-data-driven-2`() {
         expectGrouped {
             mapOf<Int, ExpectationCreator<Char>>(
                 1 to { toBeLessThan('f') },
@@ -60,7 +52,8 @@ class DataDrivenSpec : Spek({
     fun myNullableFun(i: Int) = if (i > 0) i.toString() else null
     //snippet-data-driven-3-end
 
-    test("ex-data-driven-3") {
+    @Test
+    fun `ex-data-driven-3`() {
         //snippet-data-driven-3-insert
 
         expectGrouped {
@@ -79,7 +72,8 @@ class DataDrivenSpec : Spek({
         }
     }
 
-    test("ex-data-driven-nesting") {
+    @Test
+    fun `ex-data-driven-nesting`() {
         val x1 = 1
         val x2 = 3
         val y = 6
@@ -104,6 +98,6 @@ class DataDrivenSpec : Spek({
             }
         }
     }
-})
+}
 
 

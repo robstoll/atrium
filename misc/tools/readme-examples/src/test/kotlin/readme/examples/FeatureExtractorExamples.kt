@@ -2,25 +2,15 @@ package readme.examples
 
 import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.creating.Expect
-import org.spekframework.spek2.Spek
+import org.junit.jupiter.api.Test
+import readme.examples.jupiter.ReadmeTest
 import readme.examples.utils.expect
 import java.util.*
 
 /**
- * The tests and error message are written here and automatically placed into the README via generation.
- * The generation is done during the project built. To trigger it manually, you have to run:
- * ```
- * ./gradlew :readme-examples:build
- * ```
- *
- * There are currently three kind of tags supported:
- * - <ex-xy> => places code and output into the tag
- * - <exs-xy> => places code into the tag, output will be put into a tag named <exs-xy-output>
- * - <code> => is not supposed to fail and only the code is put into the code
- *
- * Moreover, all tags can reuse snippets defined in this file with corresponding markers
+ * See [ReadmeTest] on how these tests are written into README.md
  */
-class FeatureExtractorSpec : Spek({
+class FeatureExtractorExamples : ReadmeTest {
 
     //snippet-Person-start
     data class Person(val firstName: String, val lastName: String, val isStudent: Boolean) {
@@ -34,11 +24,13 @@ class FeatureExtractorSpec : Spek({
     val myPerson = Person("Robert", "Stoll", false)
     //snippet-Person-end
 
-    test("code-Person") {
+    @Test
+    fun `code-Person`() {
         //snippet-Person-insert
     }
 
-    test("ex-its-single") {
+    @Test
+    fun `ex-its-single`() {
         expect(myPerson)
             .its({ isStudent }) { toEqual(true) } // fails, subject still Person afterwards
             .its { fullName() }                   // not evaluated anymore, subject String afterwards
@@ -46,7 +38,8 @@ class FeatureExtractorSpec : Spek({
     }
 
     //@formatter:off
-    test("ex-its-group") {
+    @Test
+    fun `ex-its-group`() {
         expect(myPerson) { // forms an expectation-group
 
             its({ firstName }) {   // forms an expectation-group
@@ -60,7 +53,8 @@ class FeatureExtractorSpec : Spek({
     }
     //@formatter:on
 
-    test("ex-property-methods-single") {
+    @Test
+    fun `ex-property-methods-single`() {
         expect(myPerson)
             .feature({ f(it::isStudent) }) { toEqual(true) } // fails, subject still Person afterwards
             .feature { f(it::fullName) }                     // not evaluated anymore, subject String afterwards
@@ -68,7 +62,8 @@ class FeatureExtractorSpec : Spek({
     }
 
     //@formatter:off
-    test("ex-property-methods-group") {
+    @Test
+    fun `ex-property-methods-group`() {
         expect(myPerson) { // forms an expectation-group
 
             feature({ f(it::firstName) }) { // forms an expectation-group
@@ -82,7 +77,8 @@ class FeatureExtractorSpec : Spek({
     }
     //@formatter:on
 
-    test("ex-methods-args") {
+    @Test
+    fun `ex-methods-args`() {
         expect(myPerson)
             .feature { f(it::nickname, false) } // subject narrowed to String
             .toEqual("Robert aka. Stoll")       // fails
@@ -99,7 +95,8 @@ class FeatureExtractorSpec : Spek({
     //snippet-Family-end
     //@formatter:on
 
-    test("ex-arbitrary-features") {
+    @Test
+    fun `ex-arbitrary-features`() {
         //snippet-Family-insert
         expect(myFamily)
             .feature("the number of members", { members.size }) { toEqual(1) } // subject still Family afterwards
@@ -115,7 +112,8 @@ class FeatureExtractorSpec : Spek({
         feature(Pair<F, *>::first) { toEqual(expected) }
     //snippet-within-funs-end
 
-    test("ex-within-expectation-functions") {
+    @Test
+    fun `ex-within-expectation-functions`() {
         //snippet-within-funs-insert
 
         expect(listOf(1 to "a", 2 to "b")).get(10) {
@@ -136,7 +134,8 @@ class FeatureExtractorSpec : Spek({
     }
     //snippet-worst-case-end
 
-    test("code-ambiguity-problems") {
+    @Test
+    fun `code-ambiguity-problems`() {
         //snippet-worst-case-insert
 
         expect(WorstCase()) {
@@ -161,7 +160,8 @@ class FeatureExtractorSpec : Spek({
 
     val dataGenerator = DataGenerator()
 
-    test("code-extractSubject"){
+    @Test
+    fun `code-extractSubject`() {
         val persons = dataGenerator.getRandomPersonsWithChildren()
         expect(persons).toHaveElementsAndAll {
             extractSubject { person ->
@@ -173,4 +173,4 @@ class FeatureExtractorSpec : Spek({
             }
         }
     }
-})
+}
