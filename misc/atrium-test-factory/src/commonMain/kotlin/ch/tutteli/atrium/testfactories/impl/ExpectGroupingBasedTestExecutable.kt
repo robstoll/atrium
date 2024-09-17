@@ -6,8 +6,8 @@ import ch.tutteli.atrium.creating.transformers.propertiesOfThrowable
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.creating.ExpectGrouping
 import ch.tutteli.atrium.creating.ExpectationVerbs
-import ch.tutteli.atrium.creating.proofs.buildProof
-import ch.tutteli.atrium.creating.proofs.buildSimpleProof
+import ch.tutteli.atrium.creating.proofs.builders.buildProof
+import ch.tutteli.atrium.creating.proofs.builders.buildSimpleProof
 import ch.tutteli.atrium.reporting.AtriumError
 import ch.tutteli.atrium.reporting.Text
 import ch.tutteli.atrium.reporting.reportables.Reportable

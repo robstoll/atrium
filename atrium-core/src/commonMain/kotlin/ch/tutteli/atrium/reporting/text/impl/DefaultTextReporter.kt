@@ -25,7 +25,7 @@ class DefaultTextReporter(
         )
         val rootNode = rootNodes[0]
         val sb = StringBuilder()
-        format(rootNode, emptyList(), sb, calculateMaxLengths(rootNode))
+        format(rootNode, emptyList(), sb, calculateMaxLengths(rootNode, mutableListOf()))
         return sb
     }
 
@@ -69,7 +69,9 @@ class DefaultTextReporter(
                     sb.append(styledString.pad(if (indent > 0) indent else 0))
                 }
 
-                val startIndex = if (mergeColumns > 0) {
+                val startIndex = if (mergeColumns == 0) {
+                    indentLevel
+                } else {
                     (indentLevel until node.startMergeAtColumn).forEach { i ->
                         // we want to merge columns but apparently not directly after the indent, i.e. append those
                         // columns first
@@ -94,8 +96,6 @@ class DefaultTextReporter(
                         styledString.pad(additionalPadding + maxLengths[index])
                     )
                     ++index
-                } else {
-                    indentLevel
                 }
 
                 val lastIndex = size - 1
@@ -144,7 +144,7 @@ class DefaultTextReporter(
         parentIndentLevels: List<Int>,
         parentMaxLengths: List<Int>
     ): Pair<List<Int>, List<Int>> {
-        val newMaxLengths = calculateMaxLengths(child)
+        val newMaxLengths = calculateMaxLengths(child, parentMaxLengths.take(parent.indentLevel + 1))
 
         val indentLevelsInheritedFromParent = run {
             // the child defines an own level and hence also own indent levels. It only "inherits" the
@@ -201,8 +201,9 @@ class DefaultTextReporter(
         return newIndentLevels to newMaxLengths
     }
 
-    private fun calculateMaxLengths(node: OutputNode): List<Int> {
+    private fun calculateMaxLengths(node: OutputNode, parentMaxLengthsToConsider: List<Int>): List<Int> {
         val maxLengths = mutableListOf<Int>()
+        maxLengths.addAll(parentMaxLengthsToConsider)
 
         fun updateMaxLengthsIfNecessary(index: Int, length: Int) {
             maxLengths.ifWithinBound(

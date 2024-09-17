@@ -7,6 +7,8 @@ import ch.tutteli.atrium.core.Some
 import ch.tutteli.atrium.core.polyfills.cast
 import ch.tutteli.atrium.creating.*
 import ch.tutteli.atrium.creating.proofs.*
+import ch.tutteli.atrium.creating.proofs.builders.buildProof
+import ch.tutteli.atrium.creating.proofs.builders.buildSimpleProof
 import ch.tutteli.atrium.creating.transformers.SubjectChanger
 import ch.tutteli.atrium.creating.transformers.SubjectChangerBuilder
 import ch.tutteli.atrium.creating.transformers.subjectChanger

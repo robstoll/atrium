@@ -6,8 +6,11 @@ import ch.tutteli.atrium.reporting.prerendering.text.TypedTextPreRenderer
 import ch.tutteli.atrium.reporting.prerendering.text.transformAndGetSingleColumnOfSingleNode
 import ch.tutteli.atrium.reporting.reportables.Row
 import ch.tutteli.atrium.reporting.theming.text.StyledString
+import ch.tutteli.atrium.reporting.theming.text.TextIconStyler
 
-internal class DefaultRowTextPreRenderer : TypedTextPreRenderer<Row>(Row::class) {
+internal class DefaultRowTextPreRenderer(
+    private val textIconStyler: TextIconStyler
+) : TypedTextPreRenderer<Row>(Row::class) {
     override fun transformIt(reportable: Row, controlObject: TextPreRenderControlObject): List<OutputNode> {
         val columnsWithSeparator = reportable.columns.let { columns ->
             val first = controlObject.transformAndGetSingleColumnOfSingleNode(columns.first())
@@ -24,11 +27,13 @@ internal class DefaultRowTextPreRenderer : TypedTextPreRenderer<Row>(Row::class)
                 }
             }
         }
+        val prefix = reportable.icon?.let { listOf(textIconStyler.style(it)) } ?: emptyList()
         return listOf(
             OutputNode(
-                columns = columnsWithSeparator,
+                columns = prefix + columnsWithSeparator,
                 children = emptyList(),
-                definesOwnLevel = true
+                definesOwnLevel = true,
+                usesOwnPrefix = reportable.icon != null
             )
         )
     }

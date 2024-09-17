@@ -52,7 +52,7 @@ fun StyledString.pad(length: Int): String =
             val txt = replaceWrap(unstyled)
             when (horizontalAlignment) {
                 HorizontalAlignment.LEFT -> txt.padEnd(length)
-                HorizontalAlignment.CENTRE -> txt.padStart(length / 2).padEnd(length)
+                HorizontalAlignment.CENTRE -> txt.padStart(length / 2 + ((length - txt.length) / 2)).padEnd(length)
                 HorizontalAlignment.RIGHT -> txt.padStart(length)
             }
         },
@@ -63,8 +63,6 @@ fun StyledString.pad(length: Int): String =
             val styleDiff = styled.length - unstyledLength
             val sb = StringBuilder(length + styleDiff)
             val pad = length - unstyledLength
-
-
 
             when (horizontalAlignment) {
                 HorizontalAlignment.LEFT -> {

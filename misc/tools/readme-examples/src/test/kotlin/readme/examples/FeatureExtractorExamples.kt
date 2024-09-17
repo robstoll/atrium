@@ -105,10 +105,10 @@ class FeatureExtractorExamples : ReadmeTest {
     }
 
     //snippet-within-funs-start
-    fun <F : Any, T : Pair<F, *>> Expect<T>.firstToBeDoneWrong(expected: F) =
+    fun <F : Any, T : Pair<F, *>> Expect<T>.firstToEqualDoneWrong(expected: F) =
         feature({ f(it::first) }) { toEqual(expected) }
 
-    fun <F : Any, T : Pair<F, *>> Expect<T>.firstToBe(expected: F) =
+    fun <F : Any, T : Pair<F, *>> Expect<T>.firstToEqual(expected: F) =
         feature(Pair<F, *>::first) { toEqual(expected) }
     //snippet-within-funs-end
 
@@ -117,8 +117,8 @@ class FeatureExtractorExamples : ReadmeTest {
         //snippet-within-funs-insert
 
         expect(listOf(1 to "a", 2 to "b")).get(10) {
-            firstToBeDoneWrong(1)
-            firstToBe(1)
+            firstToEqualDoneWrong(1)
+            firstToEqual(1)
         }
     }
 

@@ -4,19 +4,17 @@ import ch.tutteli.atrium._core
 import ch.tutteli.atrium.api.infix.en_GB.toEqual
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.assertions.*
-import ch.tutteli.atrium.creating.ComponentFactory
-import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.creating.ExperimentalComponentFactoryContainer
-import ch.tutteli.atrium.creating.build
+import ch.tutteli.atrium.creating.*
 import ch.tutteli.atrium.creating.impl.ComponentFactoryContainerImpl
 import ch.tutteli.atrium.creating.impl.DefaultComponentFactoryContainer
-import ch.tutteli.atrium.creating.proofs.EntryPointProofBuilder
 import ch.tutteli.atrium.creating.proofs.Proof
-import ch.tutteli.atrium.creating.proofs.buildProof
+import ch.tutteli.atrium.creating.proofs.builders.EntryPointProofBuilder
+import ch.tutteli.atrium.creating.proofs.builders.buildProof
 import ch.tutteli.atrium.reporting.prerendering.text.OutputNode
 import ch.tutteli.atrium.reporting.prerendering.text.TextPreRenderControlObject
 import ch.tutteli.atrium.reporting.prerendering.text.TextPreRenderer
 import ch.tutteli.atrium.reporting.prerendering.text.TypedTextPreRenderer
+import ch.tutteli.atrium.reporting.reportables.Icon
 import ch.tutteli.atrium.reporting.reportables.InlineElement
 import ch.tutteli.atrium.reporting.reportables.Reportable
 import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionAnyProof
@@ -25,8 +23,6 @@ import ch.tutteli.atrium.reporting.reportables.descriptions.ErrorMessages
 import ch.tutteli.atrium.reporting.text.TextReporter
 import ch.tutteli.atrium.reporting.theming.text.StyledString
 import ch.tutteli.atrium.reporting.theming.text.noStyle
-import ch.tutteli.atrium.reporting.translating.Untranslatable
-import ch.tutteli.atrium.translations.DescriptionAnyExpectation
 import ch.tutteli.atrium.translations.DescriptionThrowableExpectation
 import com.github.ajalt.mordant.rendering.AnsiLevel
 import com.github.ajalt.mordant.rendering.TextColors
@@ -41,6 +37,7 @@ class CreateReportTest {
     private val i = TextStyle(TextColors.brightBlue, bold = true).invoke("ℹ\uFE0F") + " "
     private val d = TextColors.blue("🔎")
     private val u = TextStyle(TextColors.yellow, bold = true).invoke("💡\uFE0F")
+    private val bb = TextColors.red("❗❗")
 
     @Test
     fun text() {
@@ -71,7 +68,7 @@ class CreateReportTest {
             """
             |a verb       : "representation"
             |(f) to equal : 1
-            |◆ some text
+            | ◆  some text
             """.trimMargin()
         )
         expectForReporterWithAnsi(
@@ -136,17 +133,17 @@ class CreateReportTest {
     }
 
     @Test
-    fun twoFeatureGroup(){
+    fun twoFeatureGroup() {
         val builder = buildRootGroup(
             verb = Text("I expected subject"),
             representation = Text("Person(firstName=Robert, lastName=Stoll, isStudent=false)        (readme.examples.Person <1234789>)")
         ) {
-            feature(Text("its.definedIn(FeatureExtractorSpec.kt:54)"), "Robert"){
-                simpleProof(DescriptionCharSequenceProof.TO_START_WITH, "Pe"){ false }
-                simpleProof(DescriptionCharSequenceProof.TO_END_WITH, "er"){ false }
+            feature(Text("its.definedIn(FeatureExtractorSpec.kt:54)"), "Robert") {
+                simpleProof(DescriptionCharSequenceProof.TO_START_WITH, "Pe") { false }
+                simpleProof(DescriptionCharSequenceProof.TO_END_WITH, "er") { false }
             }
             feature(Text("its.definedIn(FeatureExtractorSpec.kt:60)"), "Stoll") {
-                simpleProof(DescriptionAnyProof.TO_EQUAL, "Dummy"){ false }
+                simpleProof(DescriptionAnyProof.TO_EQUAL, "Dummy") { false }
             }
         }
 
@@ -189,7 +186,7 @@ class CreateReportTest {
             """
             |a verb      : "representation"
             |(f) simple  : 1
-            |◆ text
+            | ◆  text
             |(f) another : 2
             """.trimMargin()
         )
@@ -262,7 +259,7 @@ class CreateReportTest {
             |a verb : /usr/bin/noprogram
             |(f) to : exist
             |(d) properties of unexpected exception :${" "}
-            |    ⚬ message : oho...
+            |    • message : oho...
             """.trimMargin()
         )
         expectForReporterWithAnsi(
@@ -271,7 +268,7 @@ class CreateReportTest {
             |a verb : /usr/bin/noprogram
            |$x  to  : exist
             |$d properties of unexpected exception :${" "}
-            |   ⚬ message : oho...
+            |   • message : oho...
             """.trimMargin()
         )
     }
@@ -301,6 +298,252 @@ class CreateReportTest {
            |$x to   : exist
             |  $u You forgot to create expectations in the expectationCreator-lambda
             |  $u Sometimes you can use an alternative to `{ }` For instance, instead of `toThrow<..> { }` you should use `toThrow<..>()`
+            """.trimMargin()
+        )
+    }
+
+    @Test
+    fun proofExplanation_simpleProof_showsRepresentation() {
+        val builder = buildRootGroup {
+            feature(Text("get(10)"), Text("❗❗ Index out of bounds")) {
+                invisibleFixedClaimGroup(holds = false) {
+                    proofExplanation {
+                        simpleProof(Text("to start with"), "Ro") { false }
+                    }
+                }
+            }
+        }
+        expectForReporterWithoutAnsi(
+            builder,
+            """
+            |a verb : "representation"
+            |(f) > get(10)         : ❗❗ Index out of bounds
+            |      » to start with : "Ro"
+            """.trimMargin()
+        )
+        expectForReporterWithAnsi(
+            builder,
+            """
+            |a verb : "representation"
+           |$x $f get(10)         : ❗❗ Index out of bounds
+             |    » to start with : "Ro"
+            """.trimMargin()
+        )
+    }
+
+
+    @Test
+    fun proofExplanation_feature_doesNotShowRepresentation() {
+        val builder = buildRootGroup {
+            feature(Text("get(10)"), Text("❗❗ Index out of bounds")) {
+                invisibleFixedClaimGroup(holds = false) {
+                    proofExplanation {
+                        feature(Text("firstName"), Text("Cannot show representation")) {
+                            simpleProof(Text("to start with"), "Ro") { false }
+                        }
+                    }
+                }
+            }
+        }
+        expectForReporterWithoutAnsi(
+            builder,
+            """
+            |a verb : "representation"
+            |(f) > get(10) : ❗❗ Index out of bounds
+            |      » > firstName       :${' '}
+            |          • to start with : "Ro"
+            """.trimMargin()
+        )
+        expectForReporterWithAnsi(
+            builder,
+            """
+            |a verb : "representation"
+           |$x $f get(10) : ❗❗ Index out of bounds
+             |    » $f firstName       :${' '}
+              |        • to start with : "Ro"
+            """.trimMargin()
+        )
+    }
+
+    @Test
+    fun proofExplanation_withFailureExplanation() {
+        val builder = buildRootGroup {
+            group(Text("not to contain"), Text.EMPTY) {
+                group(Text("an element which needs"), Text.EMPTY) {
+                    invisibleFixedClaimGroup(holds = false) {
+                        proofExplanation {
+                            simpleProof(Text("to be greater than"), 2) { false }
+                            failureExplanationGroup(Text("following elements were found")) {
+                                row {
+                                    column(Text("index 0"))
+                                    column(Reportable.representation(4))
+                                }
+                                row {
+                                    column(Text("index 2"))
+                                    column(Reportable.representation(3))
+                                }
+                                row {
+                                    column(Text("index 6"))
+                                    column(Reportable.representation(10))
+                                }
+                            }
+                        }
+                    }
+                }
+                group(Text("an element which needs"), Text.EMPTY) {
+                    invisibleFixedClaimGroup(holds = false) {
+                        proofExplanation {
+                            simpleProof(Text("to be less than"), 1) { false }
+                            simpleProof(Text("to be greater than"), -5) { false }
+                            failureExplanationGroup(Text("following elements were found")) {
+                                row {
+                                    column(Text("index 3"))
+                                    column(Reportable.representation(0))
+                                }
+                                row {
+                                    column(Text("index 4"))
+                                    column(Reportable.representation(-4))
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        expectForReporterWithoutAnsi(
+            builder,
+            """
+            |a verb : "representation"
+            |(f) not to contain :${' '}
+            |    (f) an element which needs :${' '}
+            |        » to be greater than   : 2
+            |        (!) following elements were found :${' '}
+            |            • index 0 : 4
+            |            • index 2 : 3
+            |            • index 6 : 10
+            |    (f) an element which needs :${' '}
+            |        » to be less than      : 1
+            |        » to be greater than   : -5
+            |        (!) following elements were found :${' '}
+            |            • index 3 : 0
+            |            • index 4 : -4
+            """.trimMargin()
+        )
+        expectForReporterWithAnsi(
+            builder,
+            """
+            |a verb : "representation"
+           |$x not to contain :${' '}
+           |  $x an element which needs :${' '}
+            |    » to be greater than   : 2
+            |    $bb following elements were found :${' '}
+            |       • index 0 : 4
+            |       • index 2 : 3
+            |       • index 6 : 10
+           |  $x an element which needs :${' '}
+            |    » to be less than      : 1
+            |    » to be greater than   : -5
+            |    $bb following elements were found :${' '}
+            |       • index 3 : 0
+            |       • index 4 : -4
+            """.trimMargin()
+        )
+    }
+
+    @Test
+    fun proofExplanation_withFailureExplanationAndSubProofs_showsOnlyFailingProofs() {
+        val builder = buildRootGroup {
+            group(Text("elements need all"), Text.EMPTY) {
+                invisibleFixedClaimGroup(holds = false) {
+                    proofExplanation {
+                        feature(Text("login"), Text("should not be shown")) {
+                            feature(Text("length"), Text("should not be shown")) {
+                                simpleProof(Text("to be greater than"), 1) { false }
+                            }
+                        }
+                        feature(Text("password"), Text("should not be shown")) {
+                            simpleProof(Text("not to equal"), "qwerty") { false }
+                            row(icon = Icon.INFORMATION_SOURCE) {
+                                column(Text("because"))
+                                column(Text("password should be secure"))
+                            }
+                        }
+                        failureExplanationGroup(Text("following elements were mismatched")) {
+                            group(Text("index 0"), Text("User(login=joe, password=qwerty)")) {
+                                feature(Text("password"), "qwerty") {
+                                    simpleProof(Text("not to equal"), "qwerty") { false }
+                                    row(icon = Icon.INFORMATION_SOURCE) {
+                                        column(Text("because"))
+                                        column(Text("password should be secure"))
+                                    }
+                                }
+                                feature(Text("login"), "q") {
+                                    feature(Text("length"), Text("should not be shown")) {
+                                        simpleProof(Text("to be greater than"), 1) { true }
+                                    }
+                                }
+                            }
+                            group(Text("index 1"), Text("User(login=q, password=qwerty1)")) {
+                                feature(Text("password"), "qwerty") {
+                                    simpleProof(Text("not to equal"), "qwerty") { true }
+                                    row(icon = Icon.INFORMATION_SOURCE) {
+                                        column(Text("because"))
+                                        column(Text("password should be secure"))
+                                    }
+                                }
+                                feature(Text("login"), "q") {
+                                    feature(Text("length"), Text("should not be shown")) {
+                                        simpleProof(Text("to be greater than"), 1) { false }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        expectForReporterWithoutAnsi(
+            builder,
+            """
+            |a verb : "representation"
+            |(f) elements need all :${' '}
+            |    » > login :${' '}
+            |        • > length               :${' '}
+            |            • to be greater than : 1
+            |    » > password       :${' '}
+            |        • not to equal : "qwerty"
+            |        (i) because : password should be secure
+            |    (!) following elements were mismatched :${' '}
+            |        • index 0 : User(login=joe, password=qwerty)
+            |          (f) > password         : "qwerty"
+            |                (f) not to equal : "qwerty"
+            |                (i) because : password should be secure
+            |        • index 1 : User(login=q, password=qwerty1)
+            |          (f) > login : "q"
+            |                (f) > length                 : should not be shown
+            |                      (f) to be greater than : 1
+            """.trimMargin()
+        )
+        expectForReporterWithAnsi(
+            builder,
+            """
+            |a verb : "representation"
+           |$x elements need all :${' '}
+            |  » $f login :${' '}
+           |      • $f length               :${' '}
+            |          • to be greater than : 1
+           |  » $f password       :${' '}
+            |      • not to equal : "qwerty"
+            |      ${i}because : password should be secure
+            |  $bb following elements were mismatched :${' '}
+            |     • index 0 : User(login=joe, password=qwerty)
+            |       $x $f password       : "qwerty"
+            |           $x not to equal : "qwerty"
+            |           ${i}because : password should be secure
+            |     • index 1 : User(login=q, password=qwerty1)
+            |       $x $f login : "q"
+           |           $x $f length               : should not be shown
+            |               $x to be greater than : 1
             """.trimMargin()
         )
     }
@@ -572,8 +815,8 @@ class CreateReportTest {
             |(i) properties of the unknown Exception
             |    » message : "bla"
             |    » stacktrace :${" "}
-            |      ⚬ test
-            |      ⚬ lines
+            |      • test
+            |      • lines
             """.trimMargin()
         )
         expectForReporterWithAnsi(
@@ -583,8 +826,8 @@ class CreateReportTest {
             |${i}properties of the unknown Exception
             |   » message : "bla"
             |   » stacktrace :${" "}
-            |     ⚬ test
-            |     ⚬ lines
+            |     • test
+            |     • lines
             """.trimMargin()
         )
     }

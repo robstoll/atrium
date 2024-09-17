@@ -3,8 +3,8 @@ package ch.tutteli.atrium.creating.transformers.impl
 import ch.tutteli.atrium.core.*
 import ch.tutteli.atrium.core.polyfills.fullName
 import ch.tutteli.atrium.creating.*
+import ch.tutteli.atrium.creating.proofs.builders.buildProof
 import ch.tutteli.atrium.creating.transformers.FeatureExtractor
-import ch.tutteli.atrium.creating.proofs.buildProof
 import ch.tutteli.atrium.creating.transformers.propertiesOfThrowable
 import ch.tutteli.atrium.reporting.Text
 import ch.tutteli.atrium.reporting.reportables.InlineElement

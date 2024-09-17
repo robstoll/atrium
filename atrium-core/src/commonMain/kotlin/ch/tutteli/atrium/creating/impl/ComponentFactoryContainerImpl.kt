@@ -248,7 +248,7 @@ internal object DefaultComponentFactoryContainer : ComponentFactoryContainer by 
             },
 
             // ProofGroup
-            { _ -> DefaultInvisibleProofGroupTextPreRenderer() },
+            { _ -> DefaultInvisibleLikeProofGroupTextPreRenderer() },
             { c -> DefaultFeatureProofGroupTextPreRenderer(c.build()) },
             { _ -> DefaultRootProofGroupTextPreRenderer() },
             { _ -> DefaultFallbackProofGroupWithDesignationTextPreRenderer() },
@@ -256,6 +256,9 @@ internal object DefaultComponentFactoryContainer : ComponentFactoryContainer by 
 
             // ReportableGroup
             { c -> DefaultDebugGroupTextPreRenderer(c.build()) },
+            { c -> DefaultInformationGroupTextPreRenderer(c.build()) },
+            { c -> DefaultFailureExplanationGroupTextPreRenderer(c.build()) },
+            { _ -> DefaultProofExplanationTextPreRenderer() },
             { _ -> DefaultUsageHintGroupTextPreRenderer() },
             { _ -> DefaultFallbackReportableGroupWithDesignationTextPreRenderer() },
 
@@ -264,8 +267,9 @@ internal object DefaultComponentFactoryContainer : ComponentFactoryContainer by 
             { _ -> DefaultSimpleProofTextPreRenderer() },
 
             // Reportable non-group
-            { _ -> DefaultRowTextPreRenderer() },
+            { c -> DefaultRowTextPreRenderer(c.build()) },
             { _ -> DefaultColumnTextPreRenderer() },
+            { c -> DefaultRepresentationTextPreRenderer(c.build()) },
             { _ -> DefaultTextElementTextPreRenderer() },
         ),
         TextDesignationPreRenderer::class createChainVia sequenceOf(
