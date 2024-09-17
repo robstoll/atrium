@@ -1,4 +1,3 @@
-
 import org.gradle.api.Project
 import org.gradle.api.Task
 import org.gradle.api.tasks.TaskProvider
@@ -63,7 +62,8 @@ fun Project.createGenerateCoreTask(
                 mainSrcFolder,
                 f
             )
-            val generatedPackageFiles = project.files("$generatedFolder/${prefixLogicPackagePath(relativePackagePathWithSlash)}")
+            val generatedPackageFiles =
+                project.files("$generatedFolder/${prefixLogicPackagePath(relativePackagePathWithSlash)}")
             generatedPackageFiles.builtBy(task)
             generateProofs.configure {
                 dependsOn(task)
@@ -135,13 +135,13 @@ fun Project.registerGenerateCoreTaskForPackage(
                 val decapitalized = type.replaceFirstChar { it.lowercase(Locale.getDefault()) }
                 val output = File("$generatedPath/${decapitalized}.kt")
                 val content = interfacePath.toFile().readText(StandardCharsets.UTF_8)
-                val interfaceName = "${type}Proofs"
+                val interfaceName = if(type == "DocumentationUtils") type else "${type}Proofs"
                 val implValName = "impl"
 
                 var tmp = content.replace(Regex("""(${newLine}/\*\*[\S\s]+?\*/)?${newLine}interface $interfaceName \{"""),
                     """
                     import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
-                    import ${fullPackage}.impl.Default${type}Proofs
+                    import ${fullPackage}.impl.Default${interfaceName}
 
                     """.trimIndent().replace("\n", ln))
                 patterns.forEach { (regex, prefix, suffix) ->
@@ -155,8 +155,8 @@ fun Project.registerGenerateCoreTaskForPackage(
                     """
 
                     @OptIn(ExperimentalNewExpectTypes::class)
-                    private inline val ${extensionTypeSignature}.impl: ${type}Proofs
-                        get() = $getImpl(${type}Proofs::class) { Default${type}Proofs() }
+                    private inline val ${extensionTypeSignature}.impl: $interfaceName
+                        get() = $getImpl(${interfaceName}::class) { Default${interfaceName}() }
 
                     """.trimIndent().replace("\n", ln),
                     StandardCharsets.UTF_8
@@ -171,14 +171,18 @@ fun prefixProofsPackagePath(relativePackagePath: String) = "ch/tutteli/atrium/cr
 fun getProofInterfaces(path: String): List<Path> =
     Files.walk(Paths.get(path), 1).use { stream ->
         stream.asSequence()
-            .filter { file -> file.fileName.toString().endsWith("Proofs.kt") }
+            .filter { file ->
+                file.fileName.toString().endsWith("Proofs.kt") ||
+                    file.fileName.toString().endsWith("DocumentationUtils.kt")
+            }
             .sortedWith { a, b -> a.fileName.toString().compareTo(b.fileName.toString()) }
             .toList()
     }
 
 fun getTypeForProofFile(input: Path): String {
     val fileName = input.fileName.toString()
-    return fileName.substring(0, fileName.length - "Proofs.kt".length)
+   return if(fileName == "DocumentationUtils.kt") "DocumentationUtils"
+    else fileName.substring(0, fileName.length - "Proofs.kt".length)
 }
 
 
