@@ -64,6 +64,10 @@ interface AnyAssertions {
 
     fun <T> isNotIn(container: AssertionContainer<T>, expected: Iterable<T>): Assertion
 
+    @Deprecated(
+        "Migrate from AssertionContainer to ProofContainer and use DocumentationUtils.because, will be removed with 2.0.0 at the latest",
+        ReplaceWith("this.because(Text(reason), assertionContainer)", "ch.tutteli.atrium.creating.proofs.because")
+    )
     fun <T> because(
         container: AssertionContainer<T>,
         reason: String,
