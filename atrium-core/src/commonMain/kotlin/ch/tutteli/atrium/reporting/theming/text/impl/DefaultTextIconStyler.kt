@@ -32,11 +32,11 @@ internal class DefaultTextIconStyler(textStyler: TextStyler, utf8SupportDetermin
             Icon.SUCCESS to styleIcon("✔", " ", "(s)", Style.SUCCESS),
 
             // bullet points
-            Icon.GROUPING_BULLET_POINT to "# ".noStyle(),
-            Icon.ROOT_BULLET_POINT to "◆ ".noStyle(),
-            Icon.FEATURE_BULLET_POINT to "- ".noStyle(),
-            Icon.LIST_BULLET_POINT to "⚬ ".noStyle(),
-            Icon.PROOF_EXPLANATION_BULLET_POINT to "» ".noStyle(),
+            Icon.GROUPING_BULLET_POINT to "# ".noStyle( horizontalAlignment = HorizontalAlignment.CENTRE),
+            Icon.ROOT_BULLET_POINT to "◆ ".noStyle( horizontalAlignment = HorizontalAlignment.CENTRE),
+            Icon.FEATURE_BULLET_POINT to "• ".noStyle( horizontalAlignment = HorizontalAlignment.CENTRE),
+            Icon.LIST_BULLET_POINT to "• ".noStyle( horizontalAlignment = HorizontalAlignment.CENTRE),
+            Icon.PROOF_EXPLANATION_BULLET_POINT to "» ".noStyle( horizontalAlignment = HorizontalAlignment.CENTRE),
         )
     }
 

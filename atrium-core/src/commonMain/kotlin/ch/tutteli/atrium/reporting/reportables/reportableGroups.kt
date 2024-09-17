@@ -35,6 +35,7 @@ interface InlineGroup : InlineElement {
 }
 
 interface Row : Reportable {
+    val icon: Icon?
     val columns: List<Column>
 }
 

@@ -25,11 +25,10 @@ class MarkdownTextIconStyler : TextIconStyler {
             Icon.SUCCESS to styleIcon("✔"),
 
             // bullet points
-            Icon.GROUPING_BULLET_POINT to "# ".noStyle(),
-            Icon.ROOT_BULLET_POINT to "◆ ".noStyle(),
-            Icon.FEATURE_BULLET_POINT to "- ".noStyle(),
-            Icon.LIST_BULLET_POINT to "⚬ ".noStyle(),
-            Icon.PROOF_EXPLANATION_BULLET_POINT to "» ".noStyle(),
+            Icon.GROUPING_BULLET_POINT to styleIcon("#"),
+            Icon.ROOT_BULLET_POINT to styleIcon("◆"),
+            Icon.LIST_BULLET_POINT to styleIcon("•"),
+            Icon.PROOF_EXPLANATION_BULLET_POINT to styleIcon("»"),
         )
     }
 

@@ -5,7 +5,8 @@ import ch.tutteli.atrium.api.infix.en_GB.*
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.proofs.InvisibleProofGroup
 import ch.tutteli.atrium.creating.proofs.SimpleProof
-import ch.tutteli.atrium.creating.proofs.buildProof
+import ch.tutteli.atrium.creating.proofs.builders.buildProof
+import ch.tutteli.atrium.reporting.reportables.ProofExplanation
 import kotlin.test.Test
 
 class ProofBuilderTest {
@@ -73,6 +74,30 @@ class ProofBuilderTest {
             feature { f(it::children) } toContainExactly entries(
                 { it.toBeAnInstanceOf<SimpleProof>() },
                 { it.toBeAnInstanceOf<Text>() },
+            )
+        }
+    }
+
+    @Test
+    fun createProofExplanationWithInvisibleProofGroupWithSingleChild_unwrapsInvisibleGroup() {
+        val subject = core.buildProof {
+            simpleProof(Text("a"), 1) { false }
+            proofExplanation {
+                invisibleGroup {
+                    simpleProof(Text("a"), 1) { true }
+                }
+            }
+        }
+        expect(subject).toBeAnInstanceOf<InvisibleProofGroup> {
+            feature { f(it::children) } toContainExactly entries(
+                { it.toBeAnInstanceOf<SimpleProof>() },
+                {
+                    it.toBeAnInstanceOf<ProofExplanation> {
+                        feature { f(it::children) } toContainExactly entries(
+                            { it.toBeAnInstanceOf<SimpleProof>() }
+                        )
+                    }
+                },
             )
         }
     }

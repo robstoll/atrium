@@ -5,8 +5,8 @@ import ch.tutteli.atrium.core.polyfills.stackBacktrace
 import ch.tutteli.atrium.creating.ExperimentalComponentFactoryContainer
 import ch.tutteli.atrium.creating.ProofContainer
 import ch.tutteli.atrium.creating.build
-import ch.tutteli.atrium.creating.proofs.AnyBuilder
-import ch.tutteli.atrium.creating.proofs.buildProof
+import ch.tutteli.atrium.creating.proofs.builders.AnyBuilder
+import ch.tutteli.atrium.creating.proofs.builders.buildProof
 import ch.tutteli.atrium.creating.transformers.impl.addAdditionalHints
 import ch.tutteli.atrium.reporting.AtriumErrorAdjuster
 import ch.tutteli.atrium.reporting.Text
@@ -36,6 +36,7 @@ fun ProofContainer<*>.propertiesOfThrowable(
     }
 }
 
+//TODO 1.3.0 shouldn't the receiver be AnyReportableGroupBuilder (same same for the one below)
 private fun AnyBuilder.addHints(
     throwable: Throwable,
     secondStackFrameOfParent: String?

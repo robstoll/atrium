@@ -35,6 +35,7 @@ class DefaultExplanatoryAssertionGroupTextPreRenderer : TextPreRenderer {
                         prefix = icon,
                         indentLevel = controlObject.indentLevel + additionalIndent,
                         reportableFilter = ReportableFilter.includeAll(),
+                        explainsProof = true
                     )
                     controlObject.transformChildIncludingIndentationAndPrefix(child, newControlObject)
                 }.toList(),

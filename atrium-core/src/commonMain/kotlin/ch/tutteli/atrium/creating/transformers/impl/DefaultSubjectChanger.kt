@@ -5,8 +5,8 @@ import ch.tutteli.atrium._coreAppend
 import ch.tutteli.atrium.core.Option
 import ch.tutteli.atrium.core.trueProvider
 import ch.tutteli.atrium.creating.*
+import ch.tutteli.atrium.creating.proofs.builders.buildSimpleProof
 import ch.tutteli.atrium.creating.transformers.SubjectChanger
-import ch.tutteli.atrium.creating.proofs.buildSimpleProof
 import ch.tutteli.atrium.reporting.reportables.InlineElement
 
 class DefaultSubjectChanger : SubjectChanger {

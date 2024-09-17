@@ -10,6 +10,7 @@ import ch.tutteli.atrium.reporting.reportables.ReportableGroup
 import ch.tutteli.atrium.reporting.reportables.ReportableGroupWithDescription
 import ch.tutteli.atrium.reporting.reportables.ReportableWithDesignation
 import ch.tutteli.atrium.reporting.theming.text.StyledString
+import ch.tutteli.kbox.takeIf
 
 // TODO 1.3.0 KDOC
 interface TextPreRenderController {
@@ -125,28 +126,31 @@ fun determineChildControlObject(
 ): TextPreRenderControlObject {
     val indentLevel = controlObject.indentLevel + additionalIndent
 
-    val newControlObject = when (child) {
-        //TODO remove with 2.0.0 latest
-        is ExplanatoryAssertion -> null
+    // we don't use failure/success icons in case we explain a proof
+    val newControlObject = takeIf(controlObject.explainsProof.not()) {
+        when (child) {
+            //TODO remove with 2.0.0 latest
+            is ExplanatoryAssertion -> null
 
-        is Proof -> {
-            @Suppress("DEPRECATION")
-            // TODO 1.3.0 what about InvisibleFixedClaimGroup? In case we keep it we need to address it here as well
-            // I guess. create a test in CreateReportTest (similar to invisibleGroup_...)
-            if (child is InvisibleProofGroup ||
-                //TODO remove with 2.0.0 latest and with it the above @Suppress
-                child is ch.tutteli.atrium.assertions.AssertionGroup && child.type is  ch.tutteli.atrium.assertions.InvisibleAssertionGroupType
-            ) {
-                null
-            } else
-                if (child.holds()) {
-                controlObject.copy(prefix = Icon.SUCCESS, indentLevel = indentLevel)
-            } else {
-                controlObject.copy(prefix = Icon.FAILURE, indentLevel = indentLevel)
+            is Proof -> {
+                @Suppress("DEPRECATION")
+                // TODO 1.3.0 what about InvisibleFixedClaimGroup? In case we keep it we need to address it here as well
+                // I guess. create a test in CreateReportTest (similar to invisibleGroup_...)
+                if (child is InvisibleProofGroup ||
+                    //TODO remove with 2.0.0 latest and with it the above @Suppress
+                    child is ch.tutteli.atrium.assertions.AssertionGroup && child.type is ch.tutteli.atrium.assertions.InvisibleAssertionGroupType
+                ) {
+                    null
+                } else
+                    if (child.holds()) {
+                        controlObject.copy(prefix = Icon.SUCCESS, indentLevel = indentLevel)
+                    } else {
+                        controlObject.copy(prefix = Icon.FAILURE, indentLevel = indentLevel)
+                    }
             }
-        }
 
-        else -> null
+            else -> null
+        }
     }
     return newControlObject ?: controlObject.copy(prefix = childPrefix, indentLevel = indentLevel)
 }

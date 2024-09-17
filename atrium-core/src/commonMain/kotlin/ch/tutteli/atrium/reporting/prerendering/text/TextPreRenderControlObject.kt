@@ -13,6 +13,7 @@ data class TextPreRenderControlObject(
     val indentLevel: Int,
     private val controller: TextPreRenderController,
     val reportableFilter: ReportableFilter,
+    val explainsProof: Boolean
 ) : TextPreRenderController by controller {
     fun includeInReporting(reportable: Reportable) = reportableFilter.includeInReporting(reportable)
 }

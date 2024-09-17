@@ -6,6 +6,7 @@ import ch.tutteli.atrium.reporting.prerendering.text.*
 import ch.tutteli.atrium.reporting.reportables.Reportable
 import ch.tutteli.atrium.reporting.theming.text.StyledString
 import ch.tutteli.atrium.reporting.theming.text.TextIconStyler
+import ch.tutteli.kbox.ifNotEmpty
 
 internal class DefaultTextPreRenderController(
     //TODO 1.3.0 does it make sense to use Sequence, why not List, looks like we don't do operations with it
@@ -18,7 +19,7 @@ internal class DefaultTextPreRenderController(
     override fun transformRoot(reportable: Reportable, indentNewLine: Boolean): List<OutputNode> =
         transformChildIncludingIndentationAndPrefix(
             reportable,
-            TextPreRenderControlObject(Icon.EMPTY_STRING, 0, controller = this, reportableFilter)
+            TextPreRenderControlObject(Icon.EMPTY_STRING, 0, controller = this, reportableFilter, explainsProof = false)
         )
 
     override fun transformChildIncludingIndentationAndPrefix(
@@ -68,9 +69,7 @@ internal class DefaultTextPreRenderController(
         node: OutputNode,
         controlObject: TextPreRenderControlObject
     ): OutputNode {
-        val columns = node.columns
-        //TODO 1.3.0 remove this check if we assure that columns can never be empty
-        val newColumns = if (columns.isNotEmpty()) {
+        val newColumns =   node.columns.ifNotEmpty { columns ->
             val list = ArrayList<StyledString>(
                 controlObject.indentLevel + (if (node.usesOwnPrefix.not()) 1 else 0) + columns.size
             )
@@ -96,8 +95,6 @@ internal class DefaultTextPreRenderController(
             }
 
             list
-        } else {
-            emptyList()
         }
 
         val newIndentLevel = node.indentLevel + controlObject.indentLevel

@@ -43,7 +43,9 @@ class DefaultInlineDesignatorPreRenderer(
                         add(it)
                     }
                     add(StyledString.COLON_SEPARATOR)
-                    add(objectFormatter.format(representation))
+                    if (controlObject.explainsProof.not()) {
+                        add(objectFormatter.format(representation))
+                    }
                 },
                 children = children,
                 // a group defines an own level

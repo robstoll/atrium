@@ -4,8 +4,8 @@ import ch.tutteli.atrium.core.Option
 import ch.tutteli.atrium.creating.ExpectationCreatorWithUsageHints
 import ch.tutteli.atrium.creating.ProofContainer
 import ch.tutteli.atrium.creating.proofs.Proof
+import ch.tutteli.atrium.creating.proofs.builders.buildProof
 import ch.tutteli.atrium.creating.transformers.SubjectChanger
-import ch.tutteli.atrium.creating.proofs.buildProof
 
 //TODO 1.3.0 merge with other failure handlers?
 class DefaultFailureHandlerImpl<SubjectT, SubjectAfterChangeT> :

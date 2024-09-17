@@ -8,7 +8,7 @@ import ch.tutteli.atrium.core.Option
 import ch.tutteli.atrium.core.Some
 import ch.tutteli.atrium.creating.proofs.Proof
 import ch.tutteli.atrium.creating.proofs.ProofGroup
-import ch.tutteli.atrium.creating.proofs.buildProof
+import ch.tutteli.atrium.creating.proofs.builders.buildProof
 import ch.tutteli.atrium.creating.transformers.TransformationExecutionStep
 import ch.tutteli.atrium.reporting.reportables.Reportable
 import ch.tutteli.kbox.mapFirst

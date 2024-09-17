@@ -52,7 +52,7 @@ class DefaultAssertionGroupTextPreRenderer(private val iconStyler: TextIconStyle
                     val newControlObject = determineChildControlObject(
                         controlObject,
                         child,
-                        Icon.FEATURE_BULLET_POINT,
+                        Icon.LIST_BULLET_POINT,
                         // indent by two because we want that the children are after Icon.FEATURE
                         // (1 additional indent for the x prefix of the feature group
                         additionalIndent = 2
