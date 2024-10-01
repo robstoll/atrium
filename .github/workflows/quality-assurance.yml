@@ -39,7 +39,7 @@ jobs:
         run: ./gradlew build
 
       - name: Upload build code coverage
-        uses: codecov/codecov-action@v4.5.0
+        uses: codecov/codecov-action@v4.6.0
         if: ${{ github.event_name == 'pull_request' || (github.event_name == 'push' && github.ref == 'refs/heads/main') }}
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
