@@ -4,8 +4,9 @@ package ch.tutteli.atrium.specs
 
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic.utils.expectLambda
+import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionAnyProof
+import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionBasic
 import ch.tutteli.atrium.translations.DescriptionAnyExpectation
-import ch.tutteli.atrium.translations.DescriptionBasic
 import ch.tutteli.atrium.translations.DescriptionComparableExpectation
 import kotlin.jvm.JvmName
 import kotlin.reflect.*
@@ -283,10 +284,10 @@ inline fun <T, A1, A2, A3, A4, A5> fun5(f: KFunction6<Expect<T>, A1, A2, A3, A4,
 
 fun <T> notImplemented(): T = throw NotImplementedError()
 
-val toEqualDescr = DescriptionAnyExpectation.TO_EQUAL.getDefault()
-val toBeDescr = DescriptionBasic.TO_BE.getDefault()
-val notToBeDescr = DescriptionBasic.NOT_TO_BE.getDefault()
-val toBeAnInstanceOfDescr = DescriptionAnyExpectation.TO_BE_AN_INSTANCE_OF.getDefault()
+val toEqualDescr = DescriptionAnyProof.TO_EQUAL.string
+val toBeDescr = DescriptionBasic.TO_BE.string
+val notToBeDescr = DescriptionBasic.NOT_TO_BE.string
+val toBeAnInstanceOfDescr = DescriptionAnyProof.TO_BE_AN_INSTANCE_OF.string
 val toBeLessThanDescr = DescriptionComparableExpectation.TO_BE_LESS_THAN.getDefault()
 val toBeGreaterThanDescr = DescriptionComparableExpectation.TO_BE_GREATER_THAN.getDefault()
 val notToEqualNullButToBeInstanceOfDescr = DescriptionAnyExpectation.NOT_TO_EQUAL_NULL_TO_BE_AN_INSTANCE_OF.getDefault()

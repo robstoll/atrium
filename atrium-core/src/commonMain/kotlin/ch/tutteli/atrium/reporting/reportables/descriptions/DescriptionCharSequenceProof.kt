@@ -1,7 +1,6 @@
 package ch.tutteli.atrium.reporting.reportables.descriptions
 
 import ch.tutteli.atrium.reporting.reportables.Description
-import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
 
 /**
  * Contains [Description]s that are related to expectation functions which are applicable to [CharSequence].
@@ -29,11 +28,7 @@ enum class DescriptionCharSequenceProof(override val string: String) : Descripti
     NOT_FOUND("but no match was found"),
 
     /** @since 1.3.0 (but was since 0.18.0 in atrium-translations DescriptionCharSequenceExpectation) */
-    NUMBER_OF_MATCHES_FOUND("and %s matches were found"),
-
-    /** @since 1.3.0 (but was since 0.18.0 in atrium-translations DescriptionCharSequenceExpectation) */
     NUMBER_OF_MATCHES("number of matches"),
-
 
     /** @since 1.3.0 (but was since 0.18.0 in atrium-translations DescriptionCharSequenceExpectation) */
     TO_CONTAIN("to contain"),

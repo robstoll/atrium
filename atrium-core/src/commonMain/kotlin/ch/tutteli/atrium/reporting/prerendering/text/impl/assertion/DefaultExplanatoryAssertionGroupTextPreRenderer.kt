@@ -1,3 +1,5 @@
+//TODO 2.0.0 remove file
+@file:Suppress("DEPRECATION")
 package ch.tutteli.atrium.reporting.prerendering.text.impl.assertion
 
 import ch.tutteli.atrium.assertions.*
@@ -9,7 +11,6 @@ import ch.tutteli.atrium.reporting.prerendering.text.OutputNode
 import ch.tutteli.atrium.reporting.prerendering.text.TextPreRenderer
 import ch.tutteli.atrium.reporting.reportables.Reportable
 
-@Suppress("DEPRECATION")
 @Deprecated("Switch from Assertion to Proof, was introduced to ease the migration to Proof, will be removed with 2.0.0 at the latest")
 class DefaultExplanatoryAssertionGroupTextPreRenderer : TextPreRenderer {
     override fun canTransform(reportable: Reportable): Boolean =

@@ -1,11 +1,13 @@
 package ch.tutteli.atrium.specs.integration
 
+import ch.tutteli.atrium._core
 import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic._logic
+import ch.tutteli.atrium.reporting.Text
 import ch.tutteli.atrium.specs.*
-import ch.tutteli.atrium.translations.DescriptionCharSequenceExpectation.NOT_TO_CONTAIN
+import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionCharSequenceProof.NOT_TO_CONTAIN
 import org.spekframework.spek2.style.specification.Suite
 
 abstract class CharSequenceToContainNotToContainExpectationsSpec(
@@ -28,7 +30,7 @@ abstract class CharSequenceToContainNotToContainExpectationsSpec(
     fun Expect<CharSequence>.notToContainFun(t: String, vararg tX: String) = notToContain.invoke(this, t, tX)
 
     val valueWithIndent = "$indentRootBulletPoint$listBulletPoint$value"
-    val notToContainDescr = NOT_TO_CONTAIN.getDefault()
+    val notToContainDescr = NOT_TO_CONTAIN.string
 
     describeFun(toContain.name, notToContain.name) {
         context("empty string") {
@@ -58,7 +60,8 @@ abstract class CharSequenceToContainNotToContainExpectationsSpec(
                 it("${notToContain.name} 'Hello' throws AssertionError") {
                     expect {
                         expect(text).notToContainFun("Hello")
-                    }.toThrow<AssertionError> { messageToContain(notToContainDescr, "$valueWithIndent: \"Hello\"") }
+                    }.toThrow<AssertionError> {
+                        messageToContain(notToContainDescr, "$valueWithIndent: \"Hello\"") }
                 }
 
                 it("${toContain.name} 'Hello' and 'Robert' does not throw") {
@@ -166,18 +169,14 @@ abstract class CharSequenceToContainNotToContainExpectationsSpec(
                 val nameWithArrow = "${featureArrow}name"
                 it("${toContain.name} 'treboR' and 'llotS' - error message toContain '$nameWithArrow' exactly once") {
                     expect {
-                        expect(person)._logic.appendAsGroup {
-                            feature(Person::name).toContainFun("treboR", "llotS")
-                        }
+                        expect(person).feature(Person::name).toContainFun("treboR", "llotS")
                     }.toThrow<AssertionError> {
                         message { this.toContain.exactly(1).value(nameWithArrow) }
                     }
                 }
                 it("${notToContain.name} 'Robert' and 'Stoll' - error message toContain '$nameWithArrow' exactly once") {
                     expect {
-                        expect(person)._logic.appendAsGroup {
-                            feature(Person::name).notToContainFun("Robert", "Stoll")
-                        }
+                        expect(person).feature(Person::name).notToContainFun("Robert", "Stoll")
                     }.toThrow<AssertionError> {
                         message { this.toContain.exactly(1).value(nameWithArrow) }
                     }

@@ -1,3 +1,5 @@
+//TODO 2.0.0 remove file
+@file:Suppress("DEPRECATION")
 package ch.tutteli.atrium.reporting.prerendering.text.impl.assertion
 
 import ch.tutteli.atrium.assertions.ExplanatoryAssertion
@@ -6,7 +8,6 @@ import ch.tutteli.atrium.reporting.prerendering.text.TextPreRenderControlObject
 import ch.tutteli.atrium.reporting.prerendering.text.OutputNode
 import ch.tutteli.atrium.reporting.prerendering.text.TypedTextPreRenderer
 
-@Suppress("DEPRECATION")
 @Deprecated("Switch from Assertion to Proof, was introduced to ease the migration to Proof, will be removed with 2.0.0 at the latest")
 class DefaultExplanatoryAssertionTextPreRenderer(private val objFormatter: TextObjFormatter) :
     TypedTextPreRenderer<ExplanatoryAssertion>(ExplanatoryAssertion::class) {

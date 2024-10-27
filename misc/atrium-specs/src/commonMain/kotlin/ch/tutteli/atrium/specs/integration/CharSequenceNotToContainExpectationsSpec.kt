@@ -1,12 +1,15 @@
 package ch.tutteli.atrium.specs.integration
 
+import ch.tutteli.atrium.api.fluent.en_GB.message
 import ch.tutteli.atrium.api.fluent.en_GB.messageToContain
 import ch.tutteli.atrium.api.fluent.en_GB.toThrow
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.core.polyfills.format
 import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.reporting.Text
+import ch.tutteli.atrium.reporting.reportables.Description
+import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionCharSequenceProof
 import ch.tutteli.atrium.specs.*
-import ch.tutteli.atrium.translations.DescriptionCharSequenceExpectation
 import org.spekframework.spek2.style.specification.Suite
 
 abstract class CharSequenceNotToContainExpectationsSpec(
@@ -31,11 +34,18 @@ abstract class CharSequenceNotToContainExpectationsSpec(
 
     fun Expect<CharSequence>.notToContainIgnoringCaseFun(a: Any, vararg aX: Any) = notToContainIgnoringCase(this, a, aX)
 
-    val notToContainDescr = DescriptionCharSequenceExpectation.NOT_TO_CONTAIN.getDefault()
+    val notToContainDescr = DescriptionCharSequenceProof.NOT_TO_CONTAIN.string
     val notToContainIgnoringCaseDescr =
-        DescriptionCharSequenceExpectation.IGNORING_CASE.getDefault().format(notToContainDescr)
+        DescriptionCharSequenceProof.IGNORING_CASE.string.format(notToContainDescr)
 
     val valueWithIndent = "$indentRootBulletPoint$listBulletPoint$value"
+
+    fun Expect<String>.toContainValue(representation: Any?) =
+        toContainDescr(DescriptionCharSequenceProof.VALUE, representation)
+
+    fun Expect<String>.toContainNumberOfMatches(representation: Any?) =
+        toContainDescr(DescriptionCharSequenceProof.NUMBER_OF_MATCHES, representation)
+
 
     describeFun(notToContain.name, notToContainIgnoringCase.name) {
 
@@ -84,12 +94,13 @@ abstract class CharSequenceNotToContainExpectationsSpec(
                     expect {
                         expect(helloWorld).notToContainFun('l')
                     }.toThrow<AssertionError> {
-                        messageToContain(
-                            "$rootBulletPoint$notToContainDescr: $separator" +
-                                "$valueWithIndent: 'l'",
-                            "$numberOfOccurrences: 3",
-                            "$toEqualDescr: 0"
-                        )
+                        message {
+                            toContainSubject(helloWorld)
+                            toContainDescr(DescriptionCharSequenceProof.NOT_TO_CONTAIN, Text.EMPTY)
+                            toContainValue('l')
+                            toContainNumberOfMatches(3)
+                            toContainToEqualDescr(0)
+                        }
                     }
                 }
                 it("${notToContainPair.first("'H', 'l'")} throws AssertionError") {

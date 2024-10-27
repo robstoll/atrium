@@ -8,7 +8,7 @@ import ch.tutteli.atrium.api.verbs.expect
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.creating.ProofContainer
 import ch.tutteli.atrium.creating.proofs.Proof
-import ch.tutteli.atrium.creating.proofs.buildSimpleProof
+import ch.tutteli.atrium.creating.proofs.builders.buildSimpleProof
 import ch.tutteli.atrium.reporting.Text
 import ch.tutteli.atrium.reporting.reportables.Description
 import ch.tutteli.atrium.translations.DescriptionBasic.TO_BE

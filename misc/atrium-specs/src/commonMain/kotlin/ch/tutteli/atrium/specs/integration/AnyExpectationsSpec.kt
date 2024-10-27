@@ -6,14 +6,10 @@ import ch.tutteli.atrium.core.polyfills.fullName
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic.utils.expectLambda
 import ch.tutteli.atrium.reporting.Text
-import ch.tutteli.atrium.reporting.reportables.Description
-import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionAnyProof
 import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionAnyProof.*
-import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionComparableProof
 import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionDocumentationUtil
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.specs.integration.MapLikeToContainSpecBase.Companion.separator
-import ch.tutteli.atrium.translations.DescriptionAnyExpectation
 import ch.tutteli.atrium.translations.DescriptionComparableExpectation.TO_BE_GREATER_THAN
 import ch.tutteli.atrium.translations.DescriptionComparableExpectation.TO_BE_LESS_THAN
 import org.spekframework.spek2.Spek
@@ -138,8 +134,6 @@ abstract class AnyExpectationsSpec(
 
     val toBeGreaterThanDescr = TO_BE_GREATER_THAN.getDefault()
     val toBeLessThanDescr = TO_BE_LESS_THAN.getDefault()
-
-    val indentRootBulletPoint = " ".repeat(rootBulletPoint.length)
 
     fun <T : Int?> Suite.checkInt(
         description: String,
@@ -658,7 +652,7 @@ abstract class AnyExpectationsSpec(
                         expect(null as Int?).notToEqualNullFun { toEqual(1) }
                     }.toThrow<AssertionError> {
                         message {
-                            toContainDescr(notToEqualNullButToBeInstanceOfDescr, "Int (kotlin.Int)")
+                            toContainDescr(notToEqualNullButToBeInstanceOfDescr, "In2t (kotlin.Int)")
                             if (hasExtraHint) toContainToEqualDescr(1)
                         }
 
@@ -758,8 +752,8 @@ abstract class AnyExpectationsSpec(
                     expect {
                         expect("hello" as Any?).toBeAnInstanceOfInt { toEqual(1) }
                     }.toThrow<AssertionError> {
-                        message{
-                            toContainDescr(DescriptionAnyProof.TO_BE_AN_INSTANCE_OF,"Int (kotlin.Int)" )
+                        message {
+                            toContainDescr(TO_BE_AN_INSTANCE_OF, "Int (kotlin.Int)")
                             if (hasExtraHint) toContainToEqualDescr(1)
                         }
                     }
@@ -1010,7 +1004,8 @@ abstract class AnyExpectationsSpec(
         val becauseFunForInt = becauseInt.lambda
 
         fun Expect<String>.containsBecause(reason: String) =
-            toContain.exactly(1).matchFor(Regex("$separator\\Q${informationBulletPoint}${DescriptionDocumentationUtil.BECAUSE.string}\\E\\s+: \\Q$reason\\E"))
+            toContain.exactly(1)
+                .matchFor(Regex("$separator\\Q${informationBulletPoint}${DescriptionDocumentationUtil.BECAUSE.string}\\E\\s+: \\Q$reason\\E"))
 
         it("the test on the supplied subject is not throwing an assertion error") {
             expect("filename")

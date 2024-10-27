@@ -1,6 +1,5 @@
 package ch.tutteli.atrium.reporting.text
 
-import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.reporting.Reporter
 
 // TODO 1.3.0 KDOC
@@ -10,6 +9,6 @@ interface TextReporter : Reporter {
         ReplaceWith("sb.append(this.createReport(assertion))"),
         level = DeprecationLevel.ERROR
     )
-    override fun format(@Suppress("DEPRECATION") assertion: Assertion, sb: StringBuilder) =
+    override fun format(@Suppress("DEPRECATION") assertion: ch.tutteli.atrium.assertions.Assertion, sb: StringBuilder) =
         throw UnsupportedOperationException("no longer supported")
 }
