@@ -4,7 +4,7 @@ import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
-import ch.tutteli.atrium.translations.DescriptionCharSequenceExpectation
+import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionCharSequenceProof
 import ch.tutteli.atrium.translations.DescriptionComparableExpectation
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.Suite
@@ -76,7 +76,7 @@ abstract class KeyValueLikeExpectationsSpec<T : Any, TNullable : Any>(
                     }.toThrow<AssertionError> {
                         messageToContain(
                             "$keyName: \"hello\"",
-                            DescriptionCharSequenceExpectation.TO_END_WITH.getDefault() + ": \"h\""
+                            DescriptionCharSequenceProof.TO_END_WITH.string + ": \"h\""
                         )
                     }
                 }

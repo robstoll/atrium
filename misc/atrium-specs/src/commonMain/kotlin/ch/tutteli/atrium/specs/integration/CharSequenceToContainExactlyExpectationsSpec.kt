@@ -3,8 +3,8 @@ package ch.tutteli.atrium.specs.integration
 import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionCharSequenceProof
 import ch.tutteli.atrium.specs.*
-import ch.tutteli.atrium.translations.DescriptionCharSequenceExpectation.EXACTLY
 import org.spekframework.spek2.style.specification.Suite
 
 abstract class CharSequenceToContainExactlyExpectationsSpec(
@@ -32,7 +32,7 @@ abstract class CharSequenceToContainExactlyExpectationsSpec(
     fun Expect<CharSequence>.toContainExactlyIgnoringCaseFun(exactly: Int, a: Any, vararg aX: Any) =
         toContainExactlyIgnoringCase(this, exactly, a, aX)
 
-    val exactlyDescr = EXACTLY.getDefault()
+    val exactlyDescr = DescriptionCharSequenceProof.EXACTLY.string
     val valueWithIndent = "$indentRootBulletPoint$listBulletPoint$value"
 
     describeFun(toContainExactly.name, toContainExactlyIgnoringCase.name) {

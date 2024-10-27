@@ -13,4 +13,10 @@ enum class DescriptionBasic(override val string: String) : Description {
 
     /** @since 1.3.0 (but was in DescriptionBasic of atrium-translations before) */
     NOT_TO_BE("not to be"),
+
+    /** @since 1.3.0 (but was since 0.18.0 in DescriptionBasic of atrium-translations before) */
+    TO_HAVE("to have"),
+
+    /** @since 1.3.0 (but was since 0.18.0 in DescriptionBasic of atrium-translations before) */
+    NOT_TO_HAVE("not to have"),
 }

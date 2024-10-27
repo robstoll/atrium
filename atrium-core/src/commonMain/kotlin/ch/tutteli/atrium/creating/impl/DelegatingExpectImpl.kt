@@ -20,6 +20,7 @@ internal class DelegatingExpectImpl<T>(private val container: AssertionContainer
     override val components: ComponentFactoryContainer
         get() = container.components
 
+    @Suppress("OVERRIDE_DEPRECATION")
     override fun append(assertion: Assertion): Expect<T> =
         apply { container.append(assertion) }
 

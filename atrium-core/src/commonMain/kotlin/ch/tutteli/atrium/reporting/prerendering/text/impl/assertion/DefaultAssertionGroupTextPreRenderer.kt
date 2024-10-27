@@ -1,3 +1,5 @@
+//TODO 2.0.0 remove file
+@file:Suppress("DEPRECATION")
 package ch.tutteli.atrium.reporting.prerendering.text.impl.assertion
 
 import ch.tutteli.atrium.assertions.*
@@ -14,7 +16,6 @@ import ch.tutteli.atrium.reporting.reportables.Reportable
 import ch.tutteli.atrium.reporting.theming.text.StyledString
 import ch.tutteli.atrium.reporting.theming.text.TextIconStyler
 
-@Suppress("DEPRECATION")
 @Deprecated("Switch from Assertion to Proof, was introduced to ease the migration to Proof, will be removed with 2.0.0 at the latest")
 class DefaultAssertionGroupTextPreRenderer(private val iconStyler: TextIconStyler) : TextPreRenderer {
     override fun canTransform(reportable: Reportable): Boolean = reportable is AssertionGroup

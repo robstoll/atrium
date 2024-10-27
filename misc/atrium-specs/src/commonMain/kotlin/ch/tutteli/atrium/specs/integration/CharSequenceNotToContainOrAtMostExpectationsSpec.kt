@@ -4,7 +4,7 @@ import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
-import ch.tutteli.atrium.translations.DescriptionCharSequenceExpectation.AT_MOST
+import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionCharSequenceProof.AT_MOST
 import org.spekframework.spek2.style.specification.Suite
 
 abstract class CharSequenceNotToContainOrAtMostExpectationsSpec(
@@ -148,7 +148,9 @@ abstract class CharSequenceNotToContainOrAtMostExpectationsSpec(
                 it("${notToContainOrAtMostIgnoringCasePair.first("'o'", "twice")} throws AssertionError") {
                     expect {
                         expect(helloWorld).notToContainOrAtMostIgnoringCaseFun(2, 'o')
-                    }.toThrow<AssertionError> { messageToContain(AT_MOST.getDefault()) }
+                    }.toThrow<AssertionError> { message {
+                        toContainDescr(AT_MOST, 2)
+                    } }
                 }
 
                 it("${notToContainOrAtMostPair.first("'o'", "3 times")} does not throw") {

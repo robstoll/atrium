@@ -11,7 +11,7 @@ package ch.tutteli.atrium.reporting.translating
 @Suppress("DEPRECATION")
 @Deprecated(
     "Will be removed with 2.0.0 at the latest",
-    ReplaceWith("Text(getDefault())", "ch.tutteli.atrium.reporting.Text")
+    ReplaceWith("Text(representation)", "ch.tutteli.atrium.reporting.Text")
 )
 class Untranslatable(representation: String) : Translatable {
     override val name: String = representation

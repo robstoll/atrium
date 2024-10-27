@@ -1,3 +1,6 @@
+//TODO 1.3.0 remove deprecation or copy spec and use replacements
+@file:Suppress("DEPRECATION")
+
 package ch.tutteli.atrium.specs.integration
 
 import ch.tutteli.atrium.core.polyfills.format

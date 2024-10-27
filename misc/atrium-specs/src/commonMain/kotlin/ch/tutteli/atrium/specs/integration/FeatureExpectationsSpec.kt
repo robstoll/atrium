@@ -2,9 +2,9 @@ package ch.tutteli.atrium.specs.integration
 
 import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.internal.expect
-import ch.tutteli.atrium.creating.ErrorMessages
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic.utils.expectLambda
+import ch.tutteli.atrium.reporting.reportables.descriptions.ErrorMessages
 import ch.tutteli.atrium.specs.*
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.Suite
@@ -263,11 +263,13 @@ abstract class FeatureExpectationsSpec(
                     expect {
                         expect(TestData("hello robert", 1)).lambda()
                     }.toThrow<AssertionError> {
-                        messageToContain(
-                            ErrorMessages.AT_LEAST_ONE_EXPECTATION_DEFINED.getDefault() + ": false",
-                            ErrorMessages.FORGOT_DO_DEFINE_EXPECTATION.getDefault(),
-                            ErrorMessages.HINT_AT_LEAST_ONE_EXPECTATION_DEFINED.getDefault()
-                        )
+                        message {
+                            toContain(
+                                ErrorMessages.FORGOT_DO_DEFINE_EXPECTATION.string,
+                                ErrorMessages.DEFAULT_HINT_AT_LEAST_ONE_EXPECTATION_DEFINED.string
+                            )
+                            toContainRegex(ErrorMessages.AT_LEAST_ONE_EXPECTATION_DEFINED.string + "\\s+: false",)
+                        }
                     }
                 }
             }

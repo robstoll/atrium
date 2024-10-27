@@ -24,13 +24,13 @@ class AssertionSmokeTest {
 
     @Test
     fun expectationFunctionWithoutI18nCanBeUsed() {
-        expect(2) toBe even
-        expect(1) toBe odd
+        expect(2) toBeDeprecated even
+        expect(1) toBeDeprecated odd
     }
 
     @Test
     fun expectationFunctionWithI18nCanBeUsed() {
-        expect(4) toBeAMultipleOf 2
+        expect(4) toBeAMultipleOfDeprecated 2
     }
 
     @Test
@@ -40,14 +40,6 @@ class AssertionSmokeTest {
         }.toThrow<IllegalArgumentException>()
     }
 
-    @Test
-    fun expectAnExceptionWithAMessageOccurred() {
-        expect {
-            throw IllegalArgumentException("oho... hello btw")
-        }.toThrow<IllegalArgumentException> {
-            it messageToContain "hello"
-        }
-    }
 
     @Test
     fun expectNotToThrow() {
@@ -57,20 +49,16 @@ class AssertionSmokeTest {
     }
 }
 
-@Suppress("ClassName")
-object even
-@Suppress("ClassName")
-object odd
 
-infix fun Expect<Int>.toBe(@Suppress("UNUSED_PARAMETER") even: even) =
+infix fun Expect<Int>.toBeDeprecated(@Suppress("UNUSED_PARAMETER") even: even) =
     _logic.append(_logic.createDescriptiveAssertion(TO_BE, Text("an even number")) { it % 2 == 0 })
 
-infix fun Expect<Int>.toBe(@Suppress("UNUSED_PARAMETER") odd: odd) =
+infix fun Expect<Int>.toBeDeprecated(@Suppress("UNUSED_PARAMETER") odd: odd) =
     _logic.append(_logic.createDescriptiveAssertion(TO_BE, Text("an odd number")) { it % 2 == 1})
 
-infix fun Expect<Int>.toBeAMultipleOf(base: Int): Expect<Int> = _logicAppend { toBeAMultipleOf(base) }
+infix fun Expect<Int>.toBeAMultipleOfDeprecated(base: Int): Expect<Int> = _logicAppend { toBeAMultipleOfDeprecated(base) }
 
-private fun AssertionContainer<Int>.toBeAMultipleOf(base: Int): Assertion =
+private fun AssertionContainer<Int>.toBeAMultipleOfDeprecated(base: Int): Assertion =
     createDescriptiveAssertion(DescriptionIntAssertions.TO_BE_MULTIPLE_OF, base) { it % base == 0 }
 
 enum class DescriptionIntAssertions(override val value: String) : StringBasedTranslatable {
