@@ -20,7 +20,6 @@ tutteli-moduleinfo = { module = "ch.tutteli.gradle.plugins.kotlin.module.info:ch
 tutteli-publish = { module = "ch.tutteli.gradle.plugins.publish:ch.tutteli.gradle.plugins.publish.gradle.plugin", version.ref = "tutteli" }
 tutteli-spek = { module = "ch.tutteli.gradle.plugins.spek:ch.tutteli.gradle.plugins.spek.gradle.plugin", version.ref = "tutteli" }
 
-vlsi-crlf = { module = "com.github.vlsi.crlf:com.github.vlsi.crlf.gradle.plugin", version.ref = "vlsi" }
 vlsi-gradle = { module = "com.github.vlsi.gradle-extensions:com.github.vlsi.gradle-extensions.gradle.plugin", version.ref = "vlsi" }
 
 [bundles]
