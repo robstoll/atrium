@@ -1,0 +1,19 @@
+name: "Submit Gradle Dependencies"
+on:
+  push:
+    branches:
+      - 'main'
+
+jobs:
+  dependency-submission:
+    name: "submit gradle dependencies"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+
+      - name: Generate and submit dependency graph
+        uses: gradle/actions/dependency-submission@v4
