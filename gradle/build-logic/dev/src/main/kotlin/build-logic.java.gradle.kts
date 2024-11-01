@@ -1,5 +1,5 @@
 plugins {
-    id("java")
+    id("java-base")
     id("build-logic.gradle-conventions")
 }
 
@@ -8,8 +8,10 @@ java {
         // reading JAVA_VERSION from env to enable jdk17 build in CI
         languageVersion.set(JavaLanguageVersion.of(buildParameters.java.version))
     }
-    consistentResolution {
-        useCompileClasspathVersions()
+    project.afterEvaluate {
+        consistentResolution {
+            useCompileClasspathVersions()
+        }
     }
 }
 
