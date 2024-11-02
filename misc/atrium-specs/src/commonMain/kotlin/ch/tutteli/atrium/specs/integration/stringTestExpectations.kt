@@ -12,7 +12,7 @@ import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionComparabl
 fun Expect<String>.toContainSubject(subject: Any?) =
     toContainDescr("I expected subject", subject)
 
-fun Expect<String>.toContainToEqualDescr(representation: Any?) = toContainDescr(TO_EQUAL, representation)
+fun Expect<String>.toContainToEqualDescr(representation: Any?, numOfMatches: Int = 1) = toContainDescr(TO_EQUAL, representation, numOfMatches)
 fun Expect<String>.toContainToBeDescr(representation: Any?) = toContainDescr(DescriptionBasic.TO_BE, representation)
 fun Expect<String>.toContainNotToBeDescr(representation: Any?) = toContainDescr(DescriptionBasic.NOT_TO_BE, representation)
 
@@ -24,9 +24,8 @@ fun Expect<String>.toContainToBeLessThanDescr(representation: Any?) =
     toContainDescr(DescriptionComparableProof.TO_BE_LESS_THAN, representation)
 
 
-fun Expect<String>.toContainDescr(description: Description, representation: Any?) =
-    toContainDescr(description.string, representation)
+fun Expect<String>.toContainDescr(description: Description, representation: Any?, numOfMatches: Int = 1) =
+    toContainDescr(description.string, representation, numOfMatches)
 
-fun Expect<String>.toContainDescr(description: String, representation: Any?) =
-    toContain.exactly(1).matchFor(Regex("\\Q$description\\E\\s+: \\Q$representation\\E"))
-
+fun Expect<String>.toContainDescr(description: String, representation: Any?, numOfMatches: Int = 1) =
+    toContain.exactly(numOfMatches).matchFor(Regex("\\Q$description\\E\\s+: \\Q$representation\\E"))

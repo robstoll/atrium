@@ -1,6 +1,7 @@
 package ch.tutteli.atrium.reporting.reportables.descriptions
 
 import ch.tutteli.atrium.reporting.reportables.Description
+import ch.tutteli.atrium.reporting.reportables.impl.SuffixedDescription
 
 /**
  * Contains [Description]s that are related to expectation functions which are applicable to [CharSequence].
@@ -20,9 +21,6 @@ enum class DescriptionCharSequenceProof(override val string: String) : Descripti
 
     /** @since 1.3.0 (but was since 0.18.0 in atrium-translations DescriptionCharSequenceExpectation) */
     EXACTLY("is exactly"),
-
-    /** @since 1.3.0 (but was since 0.18.0 in atrium-translations DescriptionCharSequenceExpectation) */
-    IGNORING_CASE("%s, ignoring case"),
 
     /** @since 1.3.0 (but was since 0.18.0 in atrium-translations DescriptionCharSequenceExpectation) */
     NOT_FOUND("but no match was found"),
@@ -59,4 +57,12 @@ enum class DescriptionCharSequenceProof(override val string: String) : Descripti
 
     /** @since 1.3.0 (but was since 0.18.0 in atrium-translations DescriptionCharSequenceExpectation) */
     VALUE("value"),
+    ;
+
+    @Suppress("FunctionName")
+    companion object {
+        //TODO 1.3.0 think about if you want to support placeholders like that
+        /** @since 1.3.0 (but was since 0.18.0 in atrium-translations DescriptionCharSequenceExpectation) */
+        val Description.IGNORING_CASE get(): Description = SuffixedDescription(this, ", ignoring case")
+    }
 }

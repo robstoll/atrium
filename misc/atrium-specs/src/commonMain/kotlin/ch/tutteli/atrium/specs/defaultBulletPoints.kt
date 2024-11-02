@@ -8,7 +8,7 @@ import ch.tutteli.atrium.assertions.*
 const val rootBulletPoint = "◆ "
 const val listBulletPoint = "⚬ "
 
-const val featureArrow = "▶ "
+const val featureArrow = "▶ "
 const val featureBulletPoint = "◾ "
 
 const val successfulBulletPoint = "✔ "

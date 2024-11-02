@@ -10,7 +10,7 @@ import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
  * Contains the [DescriptiveAssertion.description]s of the expectation functions which are applicable to [CharSequence].
  */
 @Deprecated(
-    "Switch to DescriptionBasic from core, will be removed with 2.0.0 at the latest",
+    "Switch to DescriptionCharSequenceProof from core, will be removed with 2.0.0 at the latest",
     ReplaceWith("ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionCharSequenceProof")
 )
 enum class DescriptionCharSequenceExpectation(override val value: String) : StringBasedTranslatable {

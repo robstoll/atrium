@@ -3,6 +3,8 @@ package ch.tutteli.atrium.specs.integration
 import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionCharSequenceProof.*
+import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionCharSequenceProof.Companion.IGNORING_CASE
 import ch.tutteli.atrium.specs.*
 import org.spekframework.spek2.style.specification.Suite
 
@@ -23,7 +25,6 @@ abstract class CharSequenceToContainRegexExpectationsSpec(
     val toContainAtMost = toContainAtMostPair.second
     val toContainAtMostIgnoringCase = toContainAtMostIgnoringCasePair.second
 
-
     include(object : SubjectLessSpec<CharSequence>(
         describePrefix,
         toContainAtLeast.forSubjectLess(2, "a|b", arrayOf()),
@@ -37,7 +38,7 @@ abstract class CharSequenceToContainRegexExpectationsSpec(
         describeFunTemplate(describePrefix, funName, body = body)
 
 
-    val text : CharSequence = "Hello my name is Robert"
+    val text: CharSequence = "Hello my name is Robert"
     val hello = "[hH][ea]llo"
     val roberto = "Roberto?"
 
@@ -56,62 +57,81 @@ abstract class CharSequenceToContainRegexExpectationsSpec(
     fun Expect<CharSequence>.toContainAtMostIgnoringCaseFun(atLeast: Int, a: String, vararg aX: String) =
         toContainAtMostIgnoringCase(this, atLeast, a, aX)
 
-    val regexWithIndent = "$indentRootBulletPoint$listBulletPoint$stringMatchingRegex"
-
     describeFun(toContainRegex) {
         context("throws an ${IllegalArgumentException::class.simpleName}") {
+
             it("if an erroneous pattern is passed to `${toContainAtLeast.name}` as first argument") {
                 expect {
                     expect("a" as CharSequence).toContainAtLeastFun(1, "notA(validPattern")
-                }.toThrow<IllegalArgumentException>()
+                }.toThrow<IllegalArgumentException> {
+                    messageToContain("Unclosed group")
+                }
             }
             it("if an erroneous pattern is passed to `${toContainAtLeast.name}` as second argument") {
                 expect {
                     expect("a" as CharSequence).toContainAtLeastFun(1, "h(a|e)llo", "notA(validPattern")
-                }.toThrow<IllegalArgumentException>()
+                }.toThrow<IllegalArgumentException> {
+                    messageToContain("Unclosed group")
+                }
             }
             it("if an erroneous pattern is passed to `${toContainAtLeastIgnoringCase.name}` as first argument") {
                 expect {
                     expect("a" as CharSequence).toContainAtLeastIgnoringCaseFun(1, "notA(validPattern")
-                }.toThrow<IllegalArgumentException>()
+                }.toThrow<IllegalArgumentException> {
+                    messageToContain("Unclosed group")
+                }
             }
             it("if an erroneous pattern is passed to `${toContainAtLeastIgnoringCase.name}` as second argument") {
                 expect {
                     expect("a" as CharSequence).toContainAtLeastIgnoringCaseFun(1, "h(a|e)llo", "notA(validPattern")
-                }.toThrow<IllegalArgumentException>()
+                }.toThrow<IllegalArgumentException> {
+                    messageToContain("Unclosed group")
+                }
             }
 
             it("if an erroneous pattern is passed to `${toContainShortcut.name}` as first argument") {
                 expect {
                     expect("a" as CharSequence).toContainShortcutFun("notA(validPattern")
-                }.toThrow<IllegalArgumentException>()
+                }.toThrow<IllegalArgumentException> {
+                    messageToContain("Unclosed group")
+                }
             }
             it("if an erroneous pattern is passed to `${toContainShortcut.name}` as second argument") {
                 expect {
                     expect("a" as CharSequence).toContainShortcutFun("h(a|e)llo", "notA(validPattern")
-                }.toThrow<IllegalArgumentException>()
+                }.toThrow<IllegalArgumentException> {
+                    messageToContain("Unclosed group")
+                }
             }
 
             it("if an erroneous pattern is passed to `${toContainAtMost.name}` as first argument") {
                 expect {
                     expect("a" as CharSequence).toContainAtMostFun(2, "notA(validPattern")
-                }.toThrow<IllegalArgumentException>()
+                }.toThrow<IllegalArgumentException> {
+                    messageToContain("Unclosed group")
+                }
             }
             it("if an erroneous pattern is passed to `${toContainAtMost.name}` as second argument") {
                 expect {
                     expect("a" as CharSequence).toContainAtMostFun(2, "h(a|e)llo", "notA(validPattern")
-                }.toThrow<IllegalArgumentException>()
+                }.toThrow<IllegalArgumentException> {
+                    messageToContain("Unclosed group")
+                }
             }
 
             it("if an erroneous pattern is passed to `${toContainAtMostIgnoringCase.name}` as first argument") {
                 expect {
                     expect("a" as CharSequence).toContainAtMostIgnoringCaseFun(2, "notA(validPattern")
-                }.toThrow<IllegalArgumentException>()
+                }.toThrow<IllegalArgumentException> {
+                    messageToContain("Unclosed group")
+                }
             }
             it("if an erroneous pattern is passed to `${toContainAtMostIgnoringCase.name}` as second argument") {
                 expect {
                     expect("a" as CharSequence).toContainAtMostIgnoringCaseFun(2, "h(a|e)llo", "notA(validPattern")
-                }.toThrow<IllegalArgumentException>()
+                }.toThrow<IllegalArgumentException> {
+                    messageToContain("Unclosed group")
+                }
             }
         }
 
@@ -130,11 +150,12 @@ abstract class CharSequenceToContainRegexExpectationsSpec(
                     expect(text).toContainAtLeastFun(1, roberto.toLowerCase())
                 }.toThrow<AssertionError> {
                     message {
-                        toContain(
-                            "$rootBulletPoint$toContainDescr: $separator" +
-                                "$regexWithIndent: ${roberto.toLowerCase()}",
-                            noMatchFoundDescr
-                        )
+                        toContainSubject("\"$text\"")
+                        toContainDescr(TO_CONTAIN, "")
+                        //TODO 1.3.0 regex should not be wrapped into ""
+                        toContainDescr(STRING_MATCHING_REGEX, roberto.toLowerCase())
+                        //TODO 1.3.0 expect that it starts with ❗❗ (right now it starts with »)
+                        toContain(NOT_FOUND.string)
                     }
                 }
             }
@@ -167,12 +188,12 @@ abstract class CharSequenceToContainRegexExpectationsSpec(
                     expect(text).toContainAtMostFun(16, "[a-z]")
                 }.toThrow<AssertionError> {
                     message {
-                        toContain(
-                            "$rootBulletPoint$toContainDescr: $separator" +
-                                "$regexWithIndent: [a-z]",
-                            "$numberOfOccurrences: 17",
-                            "$atMost: 16"
-                        )
+                        toContainSubject("\"$text\"")
+                        toContainDescr(TO_CONTAIN, "")
+                        toContainDescr(STRING_MATCHING_REGEX, "[a-z]")
+                        toContainNumberOfMatches(17)
+                        notToContain(AT_LEAST.string)
+                        toContainDescr(AT_MOST, 16)
                     }
                 }
             }
@@ -181,12 +202,13 @@ abstract class CharSequenceToContainRegexExpectationsSpec(
                     expect(text).toContainAtMostIgnoringCaseFun(18, "[a-z]")
                 }.toThrow<AssertionError> {
                     message {
-                        toContain(
-                            "$rootBulletPoint$toContainIgnoringCase: $separator" +
-                                "$regexWithIndent: \"[a-z]\"",
-                            "$numberOfOccurrences: 19",
-                            "$atMost: 18"
-                        )
+                        toContainSubject("\"$text\"")
+                        toContainDescr(TO_CONTAIN.IGNORING_CASE, "")
+                        //TODO 1.4.0 would be nice if we don't show the quotes here
+                        toContainDescr(STRING_MATCHING_REGEX, "\"[a-z]\"")
+                        toContainNumberOfMatches(19)
+                        notToContain(AT_LEAST.string)
+                        toContainDescr(AT_MOST, 18)
                     }
                 }
             }
