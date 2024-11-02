@@ -652,7 +652,7 @@ abstract class AnyExpectationsSpec(
                         expect(null as Int?).notToEqualNullFun { toEqual(1) }
                     }.toThrow<AssertionError> {
                         message {
-                            toContainDescr(notToEqualNullButToBeInstanceOfDescr, "In2t (kotlin.Int)")
+                            toContainDescr(notToEqualNullButToBeInstanceOfDescr, "Int (kotlin.Int)")
                             if (hasExtraHint) toContainToEqualDescr(1)
                         }
 

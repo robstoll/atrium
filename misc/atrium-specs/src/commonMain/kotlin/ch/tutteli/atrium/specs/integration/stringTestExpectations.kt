@@ -30,3 +30,6 @@ fun Expect<String>.toContainDescr(description: Description, representation: Any?
 fun Expect<String>.toContainDescr(description: String, representation: Any?) =
     toContain.exactly(1).matchFor(Regex("\\Q$description\\E\\s+: \\Q$representation\\E"))
 
+fun Expect<String>.notToContainDescr(description: String, representation: Any?) =
+    toContain.exactly(1).matchFor(Regex("\\Q$description\\E\\s+: \\Q$representation\\E"))
+
