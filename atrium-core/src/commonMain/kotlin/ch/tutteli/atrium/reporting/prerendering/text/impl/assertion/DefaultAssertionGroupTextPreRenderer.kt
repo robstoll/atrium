@@ -1,9 +1,11 @@
 //TODO 2.0.0 remove file
 @file:Suppress("DEPRECATION")
+
 package ch.tutteli.atrium.reporting.prerendering.text.impl.assertion
 
 import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.creating.proofs.Proof
+import ch.tutteli.atrium.reporting.Text
 import ch.tutteli.atrium.reporting.filters.ReportableFilter
 import ch.tutteli.atrium.reporting.reportables.Icon
 import ch.tutteli.atrium.reporting.prerendering.text.TextPreRenderControlObject
@@ -62,7 +64,22 @@ class DefaultAssertionGroupTextPreRenderer(private val iconStyler: TextIconStyle
                 }
 
                 is ListAssertionGroupType ->
-                    controlObject.transformSubProofGroup(reportable, controlObject, Icon.LIST_BULLET_POINT)
+                    if (controlObject.explainsProof && assertionGroup.representation != Text.EMPTY) {
+                        // if we are in an ExplanatoryAssertionGroup, and the listGroup has a representation,
+                        // then we want to show it in reporting (with proofs, a debugGroup never consists of proofs
+                        // and hence this
+                        controlObject.transformSubProofGroup(reportable, controlObject.copy(explainsProof = false)) { child ->
+                            val newControlObject = determineChildControlObject(
+                                controlObject,
+                                child,
+                                Icon.LIST_BULLET_POINT,
+                                additionalIndent = 1
+                            )
+                            controlObject.transformChildIncludingIndentationAndPrefix(child, newControlObject)
+                        }
+                    } else {
+                        controlObject.transformSubProofGroup(reportable, controlObject, Icon.LIST_BULLET_POINT)
+                    }
 
                 is SummaryAssertionGroupType -> controlObject.transformSubProofGroup(
                     reportable,

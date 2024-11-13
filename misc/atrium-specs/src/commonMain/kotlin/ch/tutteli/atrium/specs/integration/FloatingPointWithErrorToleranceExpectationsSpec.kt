@@ -100,11 +100,9 @@ fun <T : Number> Root.checkFloatingPoint(
                                     @Suppress("DEPRECATION")
                                     formatFloatingPointNumber(tolerance)
                                 )
-                                toContain(
-                                    subject,
-                                    "$toEqualInclErrorToleranceDescr: $num",
-                                    exactCheck
-                                )
+                                toContainSubject(subject)
+                                toContainDescr(toEqualInclErrorToleranceDescr, num)
+                                toContain(exactCheck)
                                 if (withFailureNotice) {
                                     toContain(failureNotice)
                                 } else {

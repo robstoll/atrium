@@ -1,5 +1,6 @@
 package readme.examples//@formatter:off
 //snippet-mapArguments-start
+import ch.tutteli.atrium._core
 import ch.tutteli.atrium.logic.utils.mapArguments
 //snippet-mapArguments-end
 //snippet-own-boolean-import-start
@@ -21,7 +22,7 @@ class OwnExpectationFunctions : ReadmeTest {
 
     //snippet-own-boolean-1-start
     fun Expect<Int>.toBeAMultipleOf(base: Int) =
-        _logic.createAndAppend("is multiple of", base) { it % base == 0 }
+        _core.createAndAppend("is multiple of", base) { it % base == 0 }
     //snippet-own-boolean-1-end
     @Test
     fun `code-own-boolean-1`() {
@@ -36,7 +37,7 @@ class OwnExpectationFunctions : ReadmeTest {
 
     //snippet-own-boolean-2-start
     fun Expect<Int>.toBeEven() =
-        _logic.createAndAppend("is", Text("an even number")) { it % 2 == 0 }
+        _core.createAndAppend("is", Text("an even number")) { it % 2 == 0 }
     //snippet-own-boolean-2-end
     @Test
     fun `code-own-boolean-2`() {

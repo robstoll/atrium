@@ -1,16 +1,16 @@
 package ch.tutteli.atrium.reporting.prerendering.text.impl
 
-import ch.tutteli.atrium.creating.proofs.ProofGroupWithDesignation
-import ch.tutteli.atrium.reporting.reportables.Icon
-import ch.tutteli.atrium.reporting.prerendering.text.TextPreRenderControlObject
 import ch.tutteli.atrium.reporting.prerendering.text.OutputNode
+import ch.tutteli.atrium.reporting.prerendering.text.TextPreRenderControlObject
 import ch.tutteli.atrium.reporting.prerendering.text.TypedTextPreRenderer
 import ch.tutteli.atrium.reporting.prerendering.text.transformSubProofGroup
+import ch.tutteli.atrium.reporting.reportables.Icon
+import ch.tutteli.atrium.reporting.reportables.ReportableGroupWithDesignation
 
 internal class DefaultFallbackReportableGroupWithDesignationTextPreRenderer :
-    TypedTextPreRenderer<ProofGroupWithDesignation>(ProofGroupWithDesignation::class) {
+    TypedTextPreRenderer<ReportableGroupWithDesignation>(ReportableGroupWithDesignation::class) {
     override fun transformIt(
-        reportable: ProofGroupWithDesignation,
+        reportable: ReportableGroupWithDesignation,
         controlObject: TextPreRenderControlObject
     ): List<OutputNode> {
         val newControlObject =

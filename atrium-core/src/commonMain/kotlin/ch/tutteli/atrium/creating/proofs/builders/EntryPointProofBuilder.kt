@@ -28,6 +28,12 @@ fun <T> ProofContainer<T>.buildProof(init: EntryPointProofBuilder<T>.() -> Unit)
 @DslMarker
 annotation class ProofBuilderMarker
 
+//TODO 1.4.0 also introduce a DslMarker for Atrium as such to prevent scenarios as the following:
+// expect{ .. }.toThrow<...> {
+//   message { message { } }
+// }
+// makes it look like `message` has again a `message` feature where in reality its the same,
+// a DslMarker should prevent this
 
 //TODO 1.3.0 remove again?
 typealias AnyBuilder = BaseGroupBuilder<*, *, *>

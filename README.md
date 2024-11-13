@@ -444,7 +444,7 @@ I expected subject : () -> kotlin.Nothing        (readme.examples.ToThrowExample
          • java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
          • java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
          • java.base/java.lang.reflect.Method.invoke(Method.java:566)
-       » cause : 
+       » cause : java.lang.RuntimeException
          » message : "a cause"
          » stacktrace : 
            • readme.examples.ToThrowExamples$ex-notToThrow$1.invoke(ToThrowExamples.kt:42)
@@ -1724,7 +1724,7 @@ expect(listOf(1, 2, 3, -1)).toHaveElementsAndAll {
     }
 }
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/main/misc/tools/readme-examples/src/test/kotlin/readme/examples/ThirdPartyExamples.kt#L24)</sub> ↓ <sub>[Output](#ex-third-party-1)</sub>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/main/misc/tools/readme-examples/src/test/kotlin/readme/examples/ThirdPartyExamples.kt#L25)</sub> ↓ <sub>[Output](#ex-third-party-1)</sub>
 <a name="ex-third-party-1"></a>
 ```text
 I expected subject : [1, 2, 3, -1]        (java.util.Arrays.ArrayList <1234789>)
@@ -1757,7 +1757,7 @@ fun <T : Number> Expect<T>.notToBeNegative() =
 
 expect(-10).notToBeNegative()
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/main/misc/tools/readme-examples/src/test/kotlin/readme/examples/ThirdPartyExamples.kt#L34)</sub> ↓ <sub>[Output](#ex-third-party-2)</sub>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/main/misc/tools/readme-examples/src/test/kotlin/readme/examples/ThirdPartyExamples.kt#L35)</sub> ↓ <sub>[Output](#ex-third-party-2)</sub>
 <a name="ex-third-party-2"></a>
 ```text
 I expected subject : -10
@@ -1772,10 +1772,10 @@ I expected subject : -10
                  
                  """
      » stacktrace : 
-       • readme.examples.ThirdPartyExamples$ex-third-party-2$notToBeNegative$1.invoke(ThirdPartyExamples.kt:38)
-       • readme.examples.ThirdPartyExamples$ex-third-party-2$notToBeNegative$1.invoke(ThirdPartyExamples.kt:36)
-       • readme.examples.ThirdPartyExamples.ex_third_party_2$notToBeNegative(ThirdPartyExamples.kt:36)
-       • readme.examples.ThirdPartyExamples.ex-third-party-2(ThirdPartyExamples.kt:48)
+       • readme.examples.ThirdPartyExamples$ex-third-party-2$notToBeNegative$1.invoke(ThirdPartyExamples.kt:39)
+       • readme.examples.ThirdPartyExamples$ex-third-party-2$notToBeNegative$1.invoke(ThirdPartyExamples.kt:37)
+       • readme.examples.ThirdPartyExamples.ex_third_party_2$notToBeNegative(ThirdPartyExamples.kt:37)
+       • readme.examples.ThirdPartyExamples.ex-third-party-2(ThirdPartyExamples.kt:49)
        • java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
        • java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
        • java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -1793,7 +1793,7 @@ Atrium (and create a PR so that others benefit as well 😉):
 import ch.tutteli.atrium.logic._logic
 
 fun <T : Number> Expect<T>.notToBeNegative() =
-    _logic.createAndAppend("not to be", Text("negative")) { subject ->
+    _core.createAndAppend("not to be", Text("negative")) { subject ->
         when (subject) {
             is Int -> subject.sign >= 0
             is Long -> subject.sign >= 0
@@ -1807,7 +1807,7 @@ fun <T : Number> Expect<T>.notToBeNegative() =
 
 expect(-10).notToBeNegative()
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/main/misc/tools/readme-examples/src/test/kotlin/readme/examples/ThirdPartyExamples.kt#L52)</sub> ↓ <sub>[Output](#ex-third-party-3)</sub>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/main/misc/tools/readme-examples/src/test/kotlin/readme/examples/ThirdPartyExamples.kt#L53)</sub> ↓ <sub>[Output](#ex-third-party-3)</sub>
 <a name="ex-third-party-3"></a>
 ```text
 I expected subject : -10
@@ -1989,7 +1989,7 @@ my expectations :
 ✘ calling myFun with -2147483648 : 
   ✘ ▶ I expected subject : null
       » to contain : 
-        • value : 
+        • value : "min"
           » but no match was found
 ✘ calling myFun with 2147483647 : 
   ✘ ▶ I expected subject : "2147483647"
@@ -2110,7 +2110,7 @@ I expected subject : () -> kotlin.Nothing        (readme.examples.MostExamples$e
     » ▶ message                                       : 
         • not to equal: null but to be an instance of : String (kotlin.String) -- Class: java.lang.String
         • to contain : 
-          • value : 
+          • value : "no no no"
             » but no match was found
     ℹ️ Properties of the unexpected IllegalArgumentException
        » message : "no no no..."
@@ -2122,7 +2122,7 @@ I expected subject : () -> kotlin.Nothing        (readme.examples.MostExamples$e
          • java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
          • java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
          • java.base/java.lang.reflect.Method.invoke(Method.java:566)
-       » cause : 
+       » cause : java.lang.UnsupportedOperationException
          » message : "not supported"
          » stacktrace : 
            • readme.examples.MostExamples$ex-add-info-3$1.invoke(MostExamples.kt:115)
@@ -2217,7 +2217,7 @@ This is kind of the simplest way of defining expectation functions. Following an
 import ch.tutteli.atrium.logic._logic
 
 fun Expect<Int>.toBeAMultipleOf(base: Int) =
-    _logic.createAndAppend("is multiple of", base) { it % base == 0 }
+    _core.createAndAppend("is multiple of", base) { it % base == 0 }
 ```
 </code-own-boolean-1>
 
@@ -2228,7 +2228,7 @@ and its usage:
 ```kotlin
 expect(12).toBeAMultipleOf(5)
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/main/misc/tools/readme-examples/src/test/kotlin/readme/examples/OwnExpectationFunctions.kt#L33)</sub> ↓ <sub>[Output](#ex-own-boolean-1)</sub>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/main/misc/tools/readme-examples/src/test/kotlin/readme/examples/OwnExpectationFunctions.kt#L34)</sub> ↓ <sub>[Output](#ex-own-boolean-1)</sub>
 <a name="ex-own-boolean-1"></a>
 ```text
 I expected subject : 12
@@ -2263,7 +2263,7 @@ Consider the following expectation function:
 import ch.tutteli.atrium.logic._logic
 
 fun Expect<Int>.toBeEven() =
-    _logic.createAndAppend("is", Text("an even number")) { it % 2 == 0 }
+    _core.createAndAppend("is", Text("an even number")) { it % 2 == 0 }
 ```
 </code-own-boolean-2>
 
@@ -2276,7 +2276,7 @@ Its usage looks then as follows:
 ```kotlin
 expect(13).toBeEven()
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/main/misc/tools/readme-examples/src/test/kotlin/readme/examples/OwnExpectationFunctions.kt#L48)</sub> ↓ <sub>[Output](#ex-own-boolean-2)</sub>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/main/misc/tools/readme-examples/src/test/kotlin/readme/examples/OwnExpectationFunctions.kt#L49)</sub> ↓ <sub>[Output](#ex-own-boolean-2)</sub>
 <a name="ex-own-boolean-2"></a>
 ```text
 I expected subject : 13
@@ -2305,7 +2305,7 @@ fun Expect<MyDomainModel>.toComplyValidation() =
 
 expect(MyDomainModel(alpha1 = 1204)).toComplyValidation()
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/main/misc/tools/readme-examples/src/test/kotlin/readme/examples/ThirdPartyExamples.kt#L79)</sub> ↓ <sub>[Output](#ex-third-party-10)</sub>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/main/misc/tools/readme-examples/src/test/kotlin/readme/examples/ThirdPartyExamples.kt#L80)</sub> ↓ <sub>[Output](#ex-third-party-10)</sub>
 <a name="ex-third-party-10"></a>
 ```text
 I expected subject : MyDomainModel(alpha1=1204)        (readme.examples.ThirdPartyExamples.MyDomainModel <1234789>)
@@ -2313,11 +2313,11 @@ I expected subject : MyDomainModel(alpha1=1204)        (readme.examples.ThirdPar
   ℹ️ Properties of the unexpected IllegalStateException
      » message : "threshold value for alpha1 exceeded, expected <= 1000, was 1204"
      » stacktrace : 
-       • readme.examples.ThirdPartyExamples.validateMaxThreshold(ThirdPartyExamples.kt:75)
-       • readme.examples.ThirdPartyExamples$ex-third-party-10$toComplyValidation$1.invoke(ThirdPartyExamples.kt:83)
-       • readme.examples.ThirdPartyExamples$ex-third-party-10$toComplyValidation$1.invoke(ThirdPartyExamples.kt:81)
-       • readme.examples.ThirdPartyExamples.ex_third_party_10$toComplyValidation(ThirdPartyExamples.kt:81)
-       • readme.examples.ThirdPartyExamples.ex-third-party-10(ThirdPartyExamples.kt:87)
+       • readme.examples.ThirdPartyExamples.validateMaxThreshold(ThirdPartyExamples.kt:76)
+       • readme.examples.ThirdPartyExamples$ex-third-party-10$toComplyValidation$1.invoke(ThirdPartyExamples.kt:84)
+       • readme.examples.ThirdPartyExamples$ex-third-party-10$toComplyValidation$1.invoke(ThirdPartyExamples.kt:82)
+       • readme.examples.ThirdPartyExamples.ex_third_party_10$toComplyValidation(ThirdPartyExamples.kt:82)
+       • readme.examples.ThirdPartyExamples.ex-third-party-10(ThirdPartyExamples.kt:88)
        • java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
        • java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
        • java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -2412,7 +2412,7 @@ Its usage is then as follows:
 expect(Person("Susanne", "Whitley", 43, emptyList()))
     .toHaveNumberOfChildren(2)
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/main/misc/tools/readme-examples/src/test/kotlin/readme/examples/OwnExpectationFunctions.kt#L67)</sub> ↓ <sub>[Output](#ex-own-compose-3)</sub>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/main/misc/tools/readme-examples/src/test/kotlin/readme/examples/OwnExpectationFunctions.kt#L68)</sub> ↓ <sub>[Output](#ex-own-compose-3)</sub>
 <a name="ex-own-compose-3"></a>
 ```text
 I expected subject : Person(firstName=Susanne, lastName=Whitley, age=43, children=[])        (readme.examples.Person <1234789>)
@@ -2448,7 +2448,7 @@ I.e. it fails for a `Person` with 0 children, because such a person does not hav
 expect(Person("Susanne", "Whitley", 43, emptyList()))
     .toHaveAdultChildren()
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/main/misc/tools/readme-examples/src/test/kotlin/readme/examples/OwnExpectationFunctions.kt#L86)</sub> ↓ <sub>[Output](#ex-own-compose-4)</sub>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/main/misc/tools/readme-examples/src/test/kotlin/readme/examples/OwnExpectationFunctions.kt#L87)</sub> ↓ <sub>[Output](#ex-own-compose-4)</sub>
 <a name="ex-own-compose-4"></a>
 ```text
 I expected subject : Person(firstName=Susanne, lastName=Whitley, age=43, children=[])        (readme.examples.Person <1234789>)
@@ -2494,7 +2494,7 @@ expect(Person("Susanne", "Whitley", 43, listOf(Person("Petra", "Whitley", 12, em
             feature { f(it::age) }.toBeGreaterThan(18)
         }
 ```
-↑ <sub>[Example](https://github.com/robstoll/atrium/tree/main/misc/tools/readme-examples/src/test/kotlin/readme/examples/OwnExpectationFunctions.kt#L97)</sub> ↓ <sub>[Output](#ex-own-compose-5)</sub>
+↑ <sub>[Example](https://github.com/robstoll/atrium/tree/main/misc/tools/readme-examples/src/test/kotlin/readme/examples/OwnExpectationFunctions.kt#L98)</sub> ↓ <sub>[Output](#ex-own-compose-5)</sub>
 <a name="ex-own-compose-5"></a>
 ```text
 I expected subject : Person(firstName=Susanne, lastName=Whitley, age=43, children=[Person(firstName=Petra, lastName=Whitley, age=12, children=[])])        (readme.examples.Person <1234789>)
@@ -2521,6 +2521,7 @@ because Kotlin cannot infer the types automatically.
 <code-own-compose-6>
 
 ```kotlin
+import ch.tutteli.atrium._core
 import ch.tutteli.atrium.logic.utils.mapArguments
 
 fun <T : List<Pair<String, String>>> Expect<T>.areNamesOf(

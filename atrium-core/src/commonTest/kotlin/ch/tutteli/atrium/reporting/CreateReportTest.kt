@@ -17,8 +17,11 @@ import ch.tutteli.atrium.reporting.prerendering.text.TypedTextPreRenderer
 import ch.tutteli.atrium.reporting.reportables.Icon
 import ch.tutteli.atrium.reporting.reportables.InlineElement
 import ch.tutteli.atrium.reporting.reportables.Reportable
+import ch.tutteli.atrium.reporting.reportables.Representation
 import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionAnyProof
 import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionCharSequenceProof
+import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionThrowableProof
+import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionThrowableProof.OCCURRED_EXCEPTION_STACKTRACE
 import ch.tutteli.atrium.reporting.reportables.descriptions.ErrorMessages
 import ch.tutteli.atrium.reporting.text.TextReporter
 import ch.tutteli.atrium.reporting.theming.text.StyledString
@@ -259,7 +262,7 @@ class CreateReportTest {
             |a verb : /usr/bin/noprogram
             |(f) to : exist
             |(d) properties of unexpected exception :${" "}
-            |    • message : oho...
+            |    • message : "oho..."
             """.trimMargin()
         )
         expectForReporterWithAnsi(
@@ -268,7 +271,49 @@ class CreateReportTest {
             |a verb : /usr/bin/noprogram
            |$x  to  : exist
             |$d properties of unexpected exception :${" "}
-            |   • message : oho...
+            |   • message : "oho..."
+            """.trimMargin()
+        )
+    }
+
+    @Test
+    fun debugGroup_withReportableGroup() {
+        val builder = buildRootGroup(representation = Text("/usr/bin/noprogram")) {
+            simpleProof(Text("to"), Text("exist")) { false }
+            debugGroup(Text("properties of unexpected exception")) {
+                reportableGroup(OCCURRED_EXCEPTION_STACKTRACE, Text.EMPTY) {
+                    text("com.example.MyClass:32:8")
+                }
+                reportableGroup(DescriptionThrowableProof.OCCURRED_EXCEPTION_CAUSE, IllegalStateException("oho..")){
+                    row {
+                        column(Text("message"))
+                        column(Reportable.representation("oho..."))
+                    }
+                }
+            }
+        }
+        expectForReporterWithoutAnsi(
+            builder,
+            """
+            |a verb : /usr/bin/noprogram
+            |(f) to : exist
+            |(d) properties of unexpected exception :${" "}
+            |    • stacktrace :${" "}
+            |      • com.example.MyClass:32:8
+            |    • cause : java.lang.IllegalStateException
+            |      • message : "oho..."
+            """.trimMargin()
+        )
+        expectForReporterWithAnsi(
+            builder,
+            """
+            |a verb : /usr/bin/noprogram
+           |$x  to  : exist
+            |$d properties of unexpected exception :${" "}
+            |   • stacktrace :${" "}
+            |     • com.example.MyClass:32:8
+            |   • cause : java.lang.IllegalStateException
+            |     • message : "oho..."
             """.trimMargin()
         )
     }
@@ -801,6 +846,29 @@ class CreateReportTest {
                                         BasicExplanatoryAssertion(Text("test")),
                                         BasicExplanatoryAssertion(Text("lines"))
                                     )
+                                ),
+                                BasicAssertionGroup(
+                                    DefaultListAssertionGroupType,
+                                    DescriptionThrowableExpectation.OCCURRED_EXCEPTION_CAUSE,
+                                    IllegalStateException("oho.. error occurred"),
+                                    listOf(
+                                        ExplanatoryAssertionGroup(
+                                            DefaultExplanatoryAssertionGroupType, listOf(
+                                                BasicDescriptiveAssertion(
+                                                    DescriptionThrowableExpectation.OCCURRED_EXCEPTION_MESSAGE,
+                                                    "oho.. error occurred"
+                                                ) { true },
+                                                BasicAssertionGroup(
+                                                    DefaultListAssertionGroupType,
+                                                    DescriptionThrowableExpectation.OCCURRED_EXCEPTION_STACKTRACE,
+                                                    Text.EMPTY,
+                                                    listOf(
+                                                        BasicExplanatoryAssertion(Text("some other line"))
+                                                    )
+                                                ),
+                                            ), holds = true
+                                        )
+                                    )
                                 )
                             ), holds = true
                         )
@@ -817,6 +885,10 @@ class CreateReportTest {
             |    » stacktrace :${" "}
             |      • test
             |      • lines
+            |    » cause : java.lang.IllegalStateException
+            |      » message : "oho.. error occurred"
+            |      » stacktrace :${" "}
+            |        • some other line
             """.trimMargin()
         )
         expectForReporterWithAnsi(
@@ -828,6 +900,10 @@ class CreateReportTest {
             |   » stacktrace :${" "}
             |     • test
             |     • lines
+            |   » cause : java.lang.IllegalStateException
+            |     » message : "oho.. error occurred"
+            |     » stacktrace :${" "}
+            |       • some other line
             """.trimMargin()
         )
     }

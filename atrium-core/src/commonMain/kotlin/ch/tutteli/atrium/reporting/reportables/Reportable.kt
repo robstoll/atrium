@@ -2,7 +2,6 @@ package ch.tutteli.atrium.reporting.reportables
 
 import ch.tutteli.atrium.creating.proofs.InvisibleProofGroup
 import ch.tutteli.atrium.creating.proofs.Proof
-import ch.tutteli.atrium.creating.proofs.unwrapInvisibleGroup
 import ch.tutteli.atrium.reporting.HorizontalAlignment
 import ch.tutteli.atrium.reporting.Text
 import ch.tutteli.atrium.reporting.reportables.impl.*

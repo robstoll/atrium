@@ -6,7 +6,7 @@ package ch.tutteli.atrium.specs
 import ch.tutteli.atrium.assertions.*
 
 const val rootBulletPoint = "◆ "
-const val listBulletPoint = "⚬ "
+const val listBulletPoint = "• "
 
 const val featureArrow = "▶ "
 const val featureBulletPoint = "◾ "

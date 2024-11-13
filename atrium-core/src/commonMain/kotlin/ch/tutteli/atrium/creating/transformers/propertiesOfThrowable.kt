@@ -50,7 +50,7 @@ private fun AnyBuilder.addHints(
 private fun AnyBuilder.addMessageHint(throwable: Throwable) =
     row {
         column(OCCURRED_EXCEPTION_MESSAGE)
-        column(throwable.message?.let { Text(it) } ?: Text.NULL)
+        column(Reportable.representation(throwable.message))
     }
 
 private fun AnyBuilder.addStackTraceHint(
@@ -64,7 +64,7 @@ private fun AnyBuilder.addStackTraceHint(
             throwable.stackBacktrace.asSequence()
         }
         stackTrace.forEach {
-            add(Text(it))
+            text(it)
         }
     }
 }
@@ -89,7 +89,7 @@ fun AnyBuilder.addChildHint(
 ) {
     val secondStackTrace = takeIf(throwable.stackBacktrace.size > 1) { throwable.stackBacktrace[1] }
 
-    reportableGroup(childDescription, Text.EMPTY) {
+    reportableGroup(childDescription, child) {
         addHints(child, secondStackTrace)
     }
 }
