@@ -99,7 +99,7 @@ class WriteReadmeTest {
         """```kotlin
         |$sourceCode
         |```
-        |↑ <sub>[Example](https://github.com/robstoll/atrium/${System.getenv("README_SOURCETREE")}/misc/tools/readme-examples/src/main/kotlin/$qualifiedClass.kt#L$lineNumber)</sub> ↓ <sub>[Output](#$exampleId)</sub>
+        |↑ <sub>[Example](https://github.com/robstoll/atrium/${System.getenv("README_SOURCETREE")}/misc/tools/readme-examples/src/test/kotlin/$qualifiedClass.kt#L$lineNumber)</sub> ↓ <sub>[Output](#$exampleId)</sub>
         |<a name="$exampleId"></a>
         |```text
         |$exampleOutput
