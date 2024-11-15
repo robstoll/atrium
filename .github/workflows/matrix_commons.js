@@ -5,7 +5,7 @@
 //  \__/\__/\_, /\___/_//_/\_,_/_/         It is licensed under Apache License 2.0
 //         /___/                           Please report bugs and contribute back your improvements
 //
-//                                         Version: v2.7.1
+//                                         Version: v2.8.2
 //##################################
 // adapted version of https://github.com/vlsi/github-actions-random-matrix/blob/main/examples/matrix.js
 // licensed under Apache License 2.0
@@ -22,6 +22,7 @@ const javaDistributionAxis = {
 		'semeru',
 		'temurin',
 		'zulu',
+		'sapmachine'
 	]
 };
 
@@ -63,9 +64,6 @@ function configureJavaDefaults(matrix, distributionAxis = javaDistributionAxis, 
 
 	// This specifies the order of axes in CI job name (individual titles would be joined with a comma)
 	matrix.setNamePattern(['java_version', 'java_distribution', 'os']);
-
-	// arm64 architecture is not supported by IBM Semeru
-	matrix.exclude({java_distribution: 'semeru', os: 'macos-latest'});
 
 	generateJavaMinMaxRows(matrix);
 	generateUbuntuWindowsRows(matrix);
