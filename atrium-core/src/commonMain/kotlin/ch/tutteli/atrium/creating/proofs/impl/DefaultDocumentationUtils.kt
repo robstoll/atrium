@@ -6,6 +6,7 @@ import ch.tutteli.atrium.creating.ProofContainer
 import ch.tutteli.atrium.creating.proofs.DocumentationUtils
 import ch.tutteli.atrium.creating.proofs.Proof
 import ch.tutteli.atrium.creating.proofs.builders.buildProof
+import ch.tutteli.atrium.reporting.Text
 import ch.tutteli.atrium.reporting.reportables.Icon
 import ch.tutteli.atrium.reporting.reportables.InlineElement
 import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionDocumentationUtil
@@ -22,8 +23,9 @@ class DefaultDocumentationUtils : DocumentationUtils {
                 expectationCreator
             )
         )
-        row(icon = Icon.INFORMATION_SOURCE) {
+        row(icon = Icon.INFORMATION_SOURCE, includingBorder = false) {
             column(DescriptionDocumentationUtil.BECAUSE)
+            column(Text.SPACE)
             column(reason)
         }
     }

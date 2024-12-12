@@ -293,6 +293,7 @@ val toBeGreaterThanDescr = DescriptionComparableExpectation.TO_BE_GREATER_THAN.g
 val notToEqualNullButToBeInstanceOfDescr = DescriptionAnyExpectation.NOT_TO_EQUAL_NULL_TO_BE_AN_INSTANCE_OF.getDefault()
 
 expect val lineSeparator: String
+val expectationVerb = "I expected subject"
 
 fun showsSubAssertionIf(hasExtraHint: Boolean): String = if (hasExtraHint) "; shows intended sub assertion" else ""
 

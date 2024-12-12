@@ -2,6 +2,7 @@ package ch.tutteli.atrium.specs.integration
 
 import ch.tutteli.atrium.core.polyfills.format
 import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionComparableProof
 import ch.tutteli.atrium.specs.Fun2
 import ch.tutteli.atrium.specs.Fun3
 import ch.tutteli.atrium.specs.fun2
@@ -30,9 +31,7 @@ abstract class MapLikeToContainSpecBase(spec: Root.() -> Unit) : Spek(spec) {
 
     companion object {
         val keyDoesNotExist = DescriptionMapLikeExpectation.KEY_DOES_NOT_EXIST.getDefault()
-        val toBeLessThanDescr = DescriptionComparableExpectation.TO_BE_LESS_THAN.getDefault()
-
-        val separator = lineSeparator
+        val toBeLessThanDescr = DescriptionComparableProof.TO_BE_LESS_THAN.string
 
         val map: Map<out String, Int> = mapOf("a" to 1, "b" to 2)
         val nullableMap: Map<out String?, Int?> = mapOf("a" to null, null to 1, "b" to 2)

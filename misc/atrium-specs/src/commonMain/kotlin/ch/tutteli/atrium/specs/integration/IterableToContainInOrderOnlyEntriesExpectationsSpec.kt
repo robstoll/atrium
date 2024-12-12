@@ -52,8 +52,8 @@ abstract class IterableToContainInOrderOnlyEntriesExpectationsSpec(
         withBulletPoint: Boolean = true
     ): Expect<String> {
         return this.toContain.exactly(1).regex(
-            "\\Q${if (withBulletPoint) failingBulletPoint else ""}$featureArrow${elementWithIndex(index)}: $actual\\E.*$separator" +
-                "$indentRootBulletPoint$indentFailingBulletPoint$indentFeatureArrow${if (explaining) "$indentFeatureBulletPoint$explanatoryBulletPoint" else featureBulletPoint}$expected"
+            "\\Q${if (withBulletPoint) x else ""}$featureArrow${elementWithIndex(index)}: $actual\\E.*$separator" +
+                "$indentRootBulletPoint$indentX$indentFeatureArrow${if (explaining) "$indentFeatureBulletPoint$explanatoryBulletPoint" else featureBulletPoint}$expected"
         )
     }
 
