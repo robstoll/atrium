@@ -180,7 +180,7 @@ expect(x).toEqual(9)
 <a name="ex-first"></a>
 ```text
 I expected subject : 10
-✘ to equal         : 9
+🚫️ to equal        : 9
 ```
 </ex-first>
 
@@ -212,7 +212,7 @@ expect(4 + 6).toBeLessThan(5).toBeGreaterThan(10)
 <a name="ex-single"></a>
 ```text
 I expected subject : 10
-✘ to be less than  : 5
+🚫️ to be less than : 5
 ```
 </ex-single>
 
@@ -249,9 +249,9 @@ expect(4 + 6) {
 ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/main/misc/tools/readme-examples/src/test/kotlin/readme/examples/MostExamples.kt#L33)</sub> ↓ <sub>[Output](#ex-group)</sub>
 <a name="ex-group"></a>
 ```text
-I expected subject   : 10
-✘ to be less than    : 5
-✘ to be greater than : 10
+I expected subject    : 10
+🚫️ to be less than    : 5
+🚫️ to be greater than : 10
 ```
 </ex-group>
 
@@ -347,9 +347,9 @@ expect {
 <a name="ex-toThrow1"></a>
 ```text
 I expected subject : () -> kotlin.Nothing        (readme.examples.ToThrowExamples$ex-toThrow1$1 <1234789>)
-✘ ▶ thrown exception when called : java.lang.IllegalArgumentException
-    ✘ to be an instance of type  : IllegalStateException (java.lang.IllegalStateException)
-    ℹ️ Properties of the unexpected IllegalArgumentException
+🚩️ ▶ thrown exception when called : java.lang.IllegalArgumentException
+     🚫️ to be an instance of type : IllegalStateException (java.lang.IllegalStateException)
+     ℹ️ Properties of the unexpected IllegalArgumentException
        » message : "name is empty"
        » stacktrace : 
          • readme.examples.ToThrowExamples$ex-toThrow1$1.invoke(ToThrowExamples.kt:18)
@@ -389,10 +389,10 @@ expect {
 <a name="ex-toThrow2"></a>
 ```text
 I expected subject : () -> kotlin.Nothing        (readme.examples.ToThrowExamples$ex-toThrow2$1 <1234789>)
-✘ ▶ thrown exception when called : java.lang.IllegalArgumentException
-    ✘ ▶ message                                       : null
-        ✘ not to equal: null but to be an instance of : String (kotlin.String) -- Class: java.lang.String
-        » to start with : "firstName"
+🚩️ ▶ thrown exception when called : java.lang.IllegalArgumentException
+     🚩️ ▶ message                                        : null
+          🚫️ not to equal: null but to be an instance of : String (kotlin.String) -- Class: java.lang.String
+          » to start with : "firstName"
 ```
 </ex-toThrow2>
 
@@ -410,9 +410,9 @@ expect {
 <a name="ex-toThrow3"></a>
 ```text
 I expected subject : () -> kotlin.Nothing        (readme.examples.ToThrowExamples$ex-toThrow3$1 <1234789>)
-✘ ▶ thrown exception when called : java.lang.IllegalArgumentException
-    ✘ ▶ message                                       : null
-        ✘ not to equal: null but to be an instance of : String (kotlin.String) -- Class: java.lang.String
+🚩️ ▶ thrown exception when called : java.lang.IllegalArgumentException
+     🚩️ ▶ message                                        : null
+          🚫️ not to equal: null but to be an instance of : String (kotlin.String) -- Class: java.lang.String
 ```
 </ex-toThrow3>
 
@@ -433,8 +433,8 @@ expect {
 <a name="ex-notToThrow"></a>
 ```text
 I expected subject : () -> kotlin.Nothing        (readme.examples.ToThrowExamples$ex-notToThrow$1 <1234789>)
-✘ ▶ invoke() : ❗❗ threw java.lang.IllegalArgumentException
-    ℹ️ Properties of the unexpected IllegalArgumentException
+🚩️ ▶ invoke() : ❗❗ threw java.lang.IllegalArgumentException
+     ℹ️ Properties of the unexpected IllegalArgumentException
        » message : "name is empty"
        » stacktrace : 
          • readme.examples.ToThrowExamples$ex-notToThrow$1.invoke(ToThrowExamples.kt:42)
@@ -504,8 +504,8 @@ expect(myPerson)
 <a name="ex-its-single"></a>
 ```text
 I expected subject : Person(firstName=Robert, lastName=Stoll, isStudent=false)        (readme.examples.FeatureExtractorExamples.Person <1234789>)
-✘ ▶ its.definedIn(FeatureExtractorExamples.kt:35) : false
-    ✘ to equal                                    : true
+🚩️ ▶ its.definedIn(FeatureExtractorExamples.kt:35) : false
+     🚫️ to equal                                   : true
 ```
 </ex-its-single>
 
@@ -549,11 +549,11 @@ Feature extractors follow the common pattern of having two overloads:
   <a name="ex-its-group"></a>
   ```text
   I expected subject : Person(firstName=Robert, lastName=Stoll, isStudent=false)        (readme.examples.FeatureExtractorExamples.Person <1234789>)
-  ✘ ▶ its.definedIn(FeatureExtractorExamples.kt:45) : "Robert"
-      ✘ to start with                               : "Pe"
-      ✘ to end with                                 : "er"
-  ✘ ▶ its.definedIn(FeatureExtractorExamples.kt:51) : "Stoll"
-      ✘ to equal                                    : "Dummy"
+  🚩️ ▶ its.definedIn(FeatureExtractorExamples.kt:45) : "Robert"
+       🚫️ to start with                              : "Pe"
+       🚫️ to end with                                : "er"
+  🚩️ ▶ its.definedIn(FeatureExtractorExamples.kt:51) : "Stoll"
+       🚫️ to equal                                   : "Dummy"
   ```
   </ex-its-group>
 
@@ -577,8 +577,8 @@ expect(myPerson)
 <a name="ex-property-methods-single"></a>
 ```text
 I expected subject : Person(firstName=Robert, lastName=Stoll, isStudent=false)        (readme.examples.FeatureExtractorExamples.Person <1234789>)
-✘ ▶ isStudent  : false
-    ✘ to equal : true
+🚩️ ▶ isStudent   : false
+     🚫️ to equal : true
 ```
 </ex-property-methods-single>
 
@@ -620,11 +620,11 @@ expect(myPerson) { // forms an expectation-group
 <a name="ex-property-methods-group"></a>
 ```text
 I expected subject : Person(firstName=Robert, lastName=Stoll, isStudent=false)        (readme.examples.FeatureExtractorExamples.Person <1234789>)
-✘ ▶ firstName       : "Robert"
-    ✘ to start with : "Pe"
-    ✘ to end with   : "er"
-✘ ▶ lastName   : "Stoll"
-    ✘ to equal : "Dummy"
+🚩️ ▶ firstName        : "Robert"
+     🚫️ to start with : "Pe"
+     🚫️ to end with   : "er"
+🚩️ ▶ lastName    : "Stoll"
+     🚫️ to equal : "Dummy"
 ```
 </ex-property-methods-group>
 
@@ -669,8 +669,8 @@ expect(myPerson)
 <a name="ex-methods-args"></a>
 ```text
 I expected subject : Person(firstName=Robert, lastName=Stoll, isStudent=false)        (readme.examples.FeatureExtractorExamples.Person <1234789>)
-✘ ▶ nickname(false) : "Mr. Robert"
-    ✘ to equal      : "Robert aka. Stoll"
+🚩️ ▶ nickname(false) : "Mr. Robert"
+     🚫️ to equal     : "Robert aka. Stoll"
 ```
 </ex-methods-args>
 
@@ -711,8 +711,8 @@ expect(myFamily)
 <a name="ex-arbitrary-features"></a>
 ```text
 I expected subject : Family(members=[FamilyMember(name=Robert)])        (readme.examples.FeatureExtractorExamples.Family <1234789>)
-✘ ▶ the first member's name : "Robert"
-    ✘ to equal              : "Peter"
+🚩️ ▶ the first member's name : "Robert"
+     🚫️ to equal             : "Peter"
 ```
 </ex-arbitrary-features>
 
@@ -759,11 +759,11 @@ expect(listOf(1 to "a", 2 to "b")).get(10) {
 <a name="ex-within-expectation-functions"></a>
 ```text
 I expected subject : [(1, a), (2, b)]        (java.util.Arrays.ArrayList <1234789>)
-✘ ▶ get(10) : ❗❗ Index out of bounds
-    » ▶ CANNOT show description as it is based on subject which is not defined : 
-        • to equal                                                             : 1
-    » ▶ first      : 
-        • to equal : 1
+🚩️ ▶ get(10) : ❗❗ Index out of bounds
+     » ▶ CANNOT show description as it is based on subject which is not defined : 
+         • to equal                                                             : 1
+     » ▶ first      : 
+         • to equal : 1
 ```
 </ex-within-expectation-functions>
 
@@ -879,10 +879,10 @@ expect(x).toBeAnInstanceOf<SubType2> {
 <a name="ex-type-expectations-1"></a>
 ```text
 I expected subject : SubType2(word=hello, flag=true)        (readme.examples.SubType2 <1234789>)
-✘ ▶ word       : "hello"
-    ✘ to equal : "goodbye"
-✘ ▶ flag       : true
-    ✘ to equal : false
+🚩️ ▶ word        : "hello"
+     🚫️ to equal : "goodbye"
+🚩️ ▶ flag        : true
+     🚫️ to equal : false
 ```
 </ex-type-expectations-1>
 
@@ -902,8 +902,8 @@ expect(x).toBeAnInstanceOf<SubType1>()
 ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/main/misc/tools/readme-examples/src/test/kotlin/readme/examples/MostExamples.kt#L67)</sub> ↓ <sub>[Output](#ex-type-expectations-2)</sub>
 <a name="ex-type-expectations-2"></a>
 ```text
-I expected subject          : SubType2(word=hello, flag=true)        (readme.examples.SubType2 <1234789>)
-✘ to be an instance of type : SubType1 (readme.examples.SubType1)
+I expected subject           : SubType2(word=hello, flag=true)        (readme.examples.SubType2 <1234789>)
+🚫️ to be an instance of type : SubType1 (readme.examples.SubType1)
 ```
 </ex-type-expectations-2>
 
@@ -933,7 +933,7 @@ expect(slogan1).toEqual(null)
 <a name="ex-nullable-1"></a>
 ```text
 I expected subject : "postulating expectations made easy"
-✘ to equal         : null
+🚫️ to equal        : null
 ```
 </ex-nullable-1>
 
@@ -947,7 +947,7 @@ expect(slogan2).toEqual("postulating expectations made easy")
 <a name="ex-nullable-2"></a>
 ```text
 I expected subject : null
-✘ to equal         : "postulating expectations made easy"
+🚫️ to equal        : "postulating expectations made easy"
 ```
 </ex-nullable-2>
 
@@ -967,8 +967,8 @@ expect(slogan2)        // subject has type String?
 ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/main/misc/tools/readme-examples/src/test/kotlin/readme/examples/MostExamples.kt#L85)</sub> ↓ <sub>[Output](#ex-nullable-3)</sub>
 <a name="ex-nullable-3"></a>
 ```text
-I expected subject                            : null
-✘ not to equal: null but to be an instance of : String (kotlin.String) -- Class: java.lang.String
+I expected subject                             : null
+🚫️ not to equal: null but to be an instance of : String (kotlin.String) -- Class: java.lang.String
 ```
 </ex-nullable-3>
 
@@ -984,9 +984,9 @@ expect(slogan2).notToEqualNull { toStartWith("atrium") }
 ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/main/misc/tools/readme-examples/src/test/kotlin/readme/examples/MostExamples.kt#L91)</sub> ↓ <sub>[Output](#ex-nullable-4)</sub>
 <a name="ex-nullable-4"></a>
 ```text
-I expected subject                            : null
-✘ not to equal: null but to be an instance of : String (kotlin.String) -- Class: java.lang.String
-  » to start with : "atrium"
+I expected subject                             : null
+🚫️ not to equal: null but to be an instance of : String (kotlin.String) -- Class: java.lang.String
+   » to start with : "atrium"
 ```
 </ex-nullable-4>
 
@@ -1027,9 +1027,9 @@ expect(listOf(1, 2, 2, 4)).toContain(2, 3)
 <a name="ex-collection-short-1"></a>
 ```text
 I expected subject : [1, 2, 2, 4]        (java.util.Arrays.ArrayList <1234789>)
-✘ to contain, in any order : 
-  ✘ an element which equals : 3
-    » but no such element was found
+🚩️ to contain, in any order : 
+   🚩️ an element which equals : 3
+      » but no such element was found
 ```
 </ex-collection-short-1>
  
@@ -1065,14 +1065,14 @@ expect(listOf(1, 2, 2, 4)).toContain(
 <a name="ex-collection-short-2"></a>
 ```text
 I expected subject : [1, 2, 2, 4]        (java.util.Arrays.ArrayList <1234789>)
-✘ to contain, in any order : 
-  ✘ an element which needs : 
-    » to be less than : 0
-    » but no such element was found
-  ✘ an element which needs : 
-    » to be greater than : 2
-    » to be less than    : 4
-    » but no such element was found
+🚩️ to contain, in any order : 
+   🚩️ an element which needs : 
+      » to be less than : 0
+      » but no such element was found
+   🚩️ an element which needs : 
+      » to be greater than : 2
+      » to be less than    : 4
+      » but no such element was found
 ```
 </ex-collection-short-2>
 
@@ -1107,10 +1107,10 @@ expect(listOf(1, 2, 3, 4)).toHaveElementsAndAny {
 <a name="ex-collection-any"></a>
 ```text
 I expected subject : [1, 2, 3, 4]        (java.util.Arrays.ArrayList <1234789>)
-✘ to contain, in any order : 
-  ✘ an element which needs : 
-    » to be less than : 0
-    » but no such element was found
+🚩️ to contain, in any order : 
+   🚩️ an element which needs : 
+      » to be less than : 0
+      » but no such element was found
 ```
 </ex-collection-any>
 <hr/>
@@ -1125,12 +1125,12 @@ expect(listOf(1, 2, 3, 4)).toHaveElementsAndNone {
 <a name="ex-collection-none"></a>
 ```text
 I expected subject : [1, 2, 3, 4]        (java.util.Arrays.ArrayList <1234789>)
-✘ not to contain : 
-  ✘ an element which needs : 
-    » to be greater than : 2
-    ❗❗ following elements were mismatched : 
-       • index 2                          : 3
-       • index 3                          : 4
+🚩️ not to contain : 
+   🚩️ an element which needs : 
+      » to be greater than : 2
+      ❗❗ following elements were mismatched : 
+          • index 2                          : 3
+          • index 3                          : 4
 ```
 </ex-collection-none>
 <hr/>
@@ -1145,11 +1145,11 @@ expect(listOf(1, 2, 3, 4)).toHaveElementsAndAll {
 <a name="ex-collection-all"></a>
 ```text
 I expected subject : [1, 2, 3, 4]        (java.util.Arrays.ArrayList <1234789>)
-✘ elements need all : 
-  » to be greater than : 2
-  ❗❗ following elements were mismatched : 
-     • index 0                          : 1
-     • index 1                          : 2
+🚩️ elements need all : 
+   » to be greater than : 2
+   ❗❗ following elements were mismatched : 
+       • index 0                          : 1
+       • index 1                          : 2
 ```
 </ex-collection-all>
 
@@ -1175,16 +1175,16 @@ expect(listOf(1, 2, 2, 4)).toContain.inOrder.only.entries({ toBeLessThan(3) }, {
 <a name="ex-collection-builder-1"></a>
 ```text
 I expected subject : [1, 2, 2, 4]        (java.util.Arrays.ArrayList <1234789>)
-✘ ▶ size       : 4
-    ✘ to equal : 2
-✘ to contain only, in order : 
-  ✔ ▶ element 0         : 1
-      ✔ to be less than : 3
-  ✘ ▶ element 1         : 2
-      ✘ to be less than : 2
-  ❗❗ additional elements detected : 
-     • element 2                  : 2
-     • element 3                  : 4
+🚩️ ▶ size        : 4
+     🚫️ to equal : 2
+🚩️ to contain only, in order : 
+   ✔ ▶ element 0         : 1
+       ✔ to be less than : 3
+   🚩️ ▶ element 1          : 2
+        🚫️ to be less than : 2
+   ❗❗ additional elements detected : 
+       • element 2                  : 2
+       • element 3                  : 4
 ```
 </ex-collection-builder-1>
 
@@ -1221,13 +1221,13 @@ expect(listOf(1, 2, 2, 4)).toContainExactly(
 <a name="ex-collection-reportOptions-1"></a>
 ```text
 I expected subject : [1, 2, 2, 4]        (java.util.Arrays.ArrayList <1234789>)
-✘ ▶ size       : 4
-    ✘ to equal : 3
-✘ to contain only, in order : 
-  ✘ ▶ element 1         : 2
-      ✘ to be less than : 2
-  ❗❗ additional elements detected : 
-     • element 3                  : 4
+🚩️ ▶ size        : 4
+     🚫️ to equal : 3
+🚩️ to contain only, in order : 
+   🚩️ ▶ element 1          : 2
+        🚫️ to be less than : 2
+   ❗❗ additional elements detected : 
+       • element 3                  : 4
 ```
 </ex-collection-reportOptions-1>
 
@@ -1252,19 +1252,19 @@ expect(listOf(1, 2, 2, 4)).toContain.inOrder.only.values(1, 2, 2, 3, 4)
 <a name="ex-collection-builder-2"></a>
 ```text
 I expected subject : [1, 2, 2, 4]        (java.util.Arrays.ArrayList <1234789>)
-✘ ▶ size       : 4
-    ✘ to equal : 5
-✘ to contain only, in order : 
-  ✔ ▶ element 0  : 1
-      ✔ to equal : 1
-  ✔ ▶ element 1  : 2
-      ✔ to equal : 2
-  ✔ ▶ element 2  : 2
-      ✔ to equal : 2
-  ✘ ▶ element 3  : 4
-      ✘ to equal : 3
-  ✘ ▶ element 4 : ❗❗ hasNext() returned false
-      » to equal : 4
+🚩️ ▶ size        : 4
+     🚫️ to equal : 5
+🚩️ to contain only, in order : 
+   ✔ ▶ element 0  : 1
+       ✔ to equal : 1
+   ✔ ▶ element 1  : 2
+       ✔ to equal : 2
+   ✔ ▶ element 2  : 2
+       ✔ to equal : 2
+   🚩️ ▶ element 3   : 4
+        🚫️ to equal : 3
+   🚩️ ▶ element 4 : ❗❗ hasNext() returned false
+        » to equal : 4
 ```
 </ex-collection-builder-2>
 <hr/>
@@ -1277,11 +1277,11 @@ expect(listOf(1, 2, 2, 4)).toContain.inAnyOrder.atLeast(1).butAtMost(2).entries(
 <a name="ex-collection-builder-3"></a>
 ```text
 I expected subject : [1, 2, 2, 4]        (java.util.Arrays.ArrayList <1234789>)
-✘ to contain, in any order : 
-  ✘ an element which needs : 
-    » to be less than : 3
-    ✘ ▶ number of such elements : 3
-        ✘ is at most            : 2
+🚩️ to contain, in any order : 
+   🚩️ an element which needs : 
+      » to be less than : 3
+      🚩️ ▶ number of such elements : 3
+           🚫️ is at most           : 2
 ```
 </ex-collection-builder-3>
 <hr/>
@@ -1294,13 +1294,13 @@ expect(listOf(1, 2, 2, 4)).toContain.inAnyOrder.only.values(1, 2, 3, 4)
 <a name="ex-collection-builder-4"></a>
 ```text
 I expected subject : [1, 2, 2, 4]        (java.util.Arrays.ArrayList <1234789>)
-✘ to contain only, in any order : 
-  ✔ an element which equals     : 1
-  ✔ an element which equals     : 2
-  ✘ an element which equals     : 3
-  ✔ an element which equals     : 4
-  ❗❗ following elements were mismatched : 
-     • 2
+🚩️ to contain only, in any order : 
+   ✔  an element which equals    : 1
+   ✔  an element which equals    : 2
+   🚫️ an element which equals    : 3
+   ✔  an element which equals    : 4
+   ❗❗ following elements were mismatched : 
+       • 2
 ```
 </ex-collection-builder-4>
 <hr/>
@@ -1313,14 +1313,14 @@ expect(listOf(1, 2, 2, 4)).toContain.inAnyOrder.only.values(4, 3, 2, 2, 1)
 <a name="ex-collection-builder-5"></a>
 ```text
 I expected subject : [1, 2, 2, 4]        (java.util.Arrays.ArrayList <1234789>)
-✘ ▶ size       : 4
-    ✘ to equal : 5
-✘ to contain only, in any order : 
-  ✔ an element which equals     : 4
-  ✘ an element which equals     : 3
-  ✔ an element which equals     : 2
-  ✔ an element which equals     : 2
-  ✔ an element which equals     : 1
+🚩️ ▶ size        : 4
+     🚫️ to equal : 5
+🚩️ to contain only, in any order : 
+   ✔  an element which equals    : 4
+   🚫️ an element which equals    : 3
+   ✔  an element which equals    : 2
+   ✔  an element which equals    : 2
+   ✔  an element which equals    : 1
 ```
 </ex-collection-builder-5>
 
@@ -1347,11 +1347,11 @@ expect(mapOf("a" to 1, "b" to 2)).toContain("c" to 2, "a" to 1, "b" to 1)
 <a name="ex-map-1"></a>
 ```text
 I expected subject : {a=1, b=2}        (java.util.LinkedHashMap <1234789>)
-✘ to contain, in any order : 
-  ✘ ▶ entry "c" : ❗❗ key does not exist
-      » to equal : 2
-  ✘ ▶ entry "b"  : 2
-      ✘ to equal : 1
+🚩️ to contain, in any order : 
+   🚩️ ▶ entry "c" : ❗❗ key does not exist
+        » to equal : 2
+   🚩️ ▶ entry "b"   : 2
+        🚫️ to equal : 1
 ```
 </ex-map-1>
 
@@ -1371,13 +1371,13 @@ expect(mapOf("a" to 1, "b" to 2)).toContain(
 <a name="ex-map-2"></a>
 ```text
 I expected subject : {a=1, b=2}        (java.util.LinkedHashMap <1234789>)
-✘ to contain, in any order : 
-  ✘ ▶ entry "c" : ❗❗ key does not exist
-      » to equal : 2
-  ✘ ▶ entry "a"            : 1
-      ✘ to be greater than : 2
-  ✘ ▶ entry "b"         : 2
-      ✘ to be less than : 2
+🚩️ to contain, in any order : 
+   🚩️ ▶ entry "c" : ❗❗ key does not exist
+        » to equal : 2
+   🚩️ ▶ entry "a"             : 1
+        🚫️ to be greater than : 2
+   🚩️ ▶ entry "b"          : 2
+        🚫️ to be less than : 2
 ```
 </ex-map-2>
 
@@ -1393,13 +1393,13 @@ expect(mapOf("a" to 1, "b" to 2)).toContainOnly("b" to 2)
 <a name="ex-map-only-1"></a>
 ```text
 I expected subject : {a=1, b=2}        (java.util.LinkedHashMap <1234789>)
-✘ ▶ size       : 2
-    ✘ to equal : 1
-✘ to contain only, in any order : 
-  ✔ ▶ entry "b"  : 2
-      ✔ to equal : 2
-  ❗❗ additional entries detected : 
-     • entry "a"                 : 1
+🚩️ ▶ size        : 2
+     🚫️ to equal : 1
+🚩️ to contain only, in any order : 
+   ✔ ▶ entry "b"  : 2
+       ✔ to equal : 2
+   ❗❗ additional entries detected : 
+       • entry "a"                 : 1
 ```
 </ex-map-only-1>
 
@@ -1418,15 +1418,15 @@ expect(mapOf("a" to 1, "b" to 2)).toContainOnly(
 <a name="ex-map-only-2"></a>
 ```text
 I expected subject : {a=1, b=2}        (java.util.LinkedHashMap <1234789>)
-✘ ▶ size       : 2
-    ✘ to equal : 3
-✘ to contain only, in any order : 
-  ✘ ▶ entry "c" : ❗❗ key does not exist
-      » to equal : 2
-  ✔ ▶ entry "a"         : 1
-      ✔ to be less than : 2
-  ✘ ▶ entry "b"         : 2
-      ✘ to be less than : 2
+🚩️ ▶ size        : 2
+     🚫️ to equal : 3
+🚩️ to contain only, in any order : 
+   🚩️ ▶ entry "c" : ❗❗ key does not exist
+        » to equal : 2
+   ✔ ▶ entry "a"         : 1
+       ✔ to be less than : 2
+   🚩️ ▶ entry "b"          : 2
+        🚫️ to be less than : 2
 ```
 </ex-map-only-2>
 
@@ -1446,17 +1446,17 @@ expect(mapOf("a" to 1, "b" to 2)).toContain.inOrder.only.entries("b" to 2, "a" t
 <a name="ex-map-builder-1"></a>
 ```text
 I expected subject : {a=1, b=2}        (java.util.LinkedHashMap <1234789>)
-✘ to contain only, in order : 
-  ✘ ▶ element 0 : a=1        (java.util.LinkedHashMap.Entry <1234789>)
-      ✘ ▶ key        : "a"
-          ✘ to equal : "b"
-      ✘ ▶ value      : 1
-          ✘ to equal : 2
-  ✘ ▶ element 1 : b=2        (java.util.LinkedHashMap.Entry <1234789>)
-      ✘ ▶ key        : "b"
-          ✘ to equal : "a"
-      ✘ ▶ value      : 2
-          ✘ to equal : 1
+🚩️ to contain only, in order : 
+   🚩️ ▶ element 0 : a=1        (java.util.LinkedHashMap.Entry <1234789>)
+        🚩️ ▶ key         : "a"
+             🚫️ to equal : "b"
+        🚩️ ▶ value       : 1
+             🚫️ to equal : 2
+   🚩️ ▶ element 1 : b=2        (java.util.LinkedHashMap.Entry <1234789>)
+        🚩️ ▶ key         : "b"
+             🚫️ to equal : "a"
+        🚩️ ▶ value       : 2
+             🚫️ to equal : 1
 ```
 </ex-map-builder-1>
 
@@ -1473,17 +1473,17 @@ expect(mapOf("a" to 1, "b" to 2)).toContain.inOrder.only.entries(
 <a name="ex-map-builder-2"></a>
 ```text
 I expected subject : {a=1, b=2}        (java.util.LinkedHashMap <1234789>)
-✘ to contain only, in order : 
-  ✔ ▶ element 0 : a=1        (java.util.LinkedHashMap.Entry <1234789>)
-      ✔ ▶ key        : "a"
-          ✔ to equal : "a"
-      ✔ ▶ value             : 1
-          ✔ to be less than : 2
-  ✘ ▶ element 1 : b=2        (java.util.LinkedHashMap.Entry <1234789>)
-      ✔ ▶ key        : "b"
-          ✔ to equal : "b"
-      ✘ ▶ value             : 2
-          ✘ to be less than : 2
+🚩️ to contain only, in order : 
+   ✔ ▶ element 0 : a=1        (java.util.LinkedHashMap.Entry <1234789>)
+       ✔ ▶ key        : "a"
+           ✔ to equal : "a"
+       ✔ ▶ value             : 1
+           ✔ to be less than : 2
+   🚩️ ▶ element 1 : b=2        (java.util.LinkedHashMap.Entry <1234789>)
+        ✔ ▶ key        : "b"
+            ✔ to equal : "b"
+        🚩️ ▶ value              : 2
+             🚫️ to be less than : 2
 ```
 </ex-map-builder-2>
 
@@ -1510,9 +1510,9 @@ expect(mapOf("bernstein" to bernstein))
 <a name="ex-map-3"></a>
 ```text
 I expected subject : {bernstein=Person(firstName=Leonard, lastName=Bernstein, age=50)}        (java.util.Collections.SingletonMap <1234789>)
-✘ ▶ get("bernstein") : Person(firstName=Leonard, lastName=Bernstein, age=50)        (readme.examples.MapExamples.Person <1234789>)
-    ✘ ▶ age        : 50
-        ✘ to equal : 60
+🚩️ ▶ get("bernstein") : Person(firstName=Leonard, lastName=Bernstein, age=50)        (readme.examples.MapExamples.Person <1234789>)
+     🚩️ ▶ age         : 50
+          🚫️ to equal : 60
 ```
 </ex-map-3>
 
@@ -1530,17 +1530,17 @@ expect(mapOf("a" to 1, "b" to 2)) {
 <a name="ex-map-4"></a>
 ```text
 I expected subject : {a=1, b=2}        (java.util.LinkedHashMap <1234789>)
-✘ ▶ keys : [a, b]        (java.util.LinkedHashMap.LinkedKeySet <1234789>)
-    ✘ elements need all : 
-      » to start with : "a"
-      ❗❗ following elements were mismatched : 
-         • index 1                          : "b"
-✘ ▶ values : [1, 2]        (java.util.LinkedHashMap.LinkedValues <1234789>)
-    ✘ not to contain : 
-      ✘ an element which needs : 
-        » to be greater than : 1
+🚩️ ▶ keys : [a, b]        (java.util.LinkedHashMap.LinkedKeySet <1234789>)
+     🚩️ elements need all : 
+        » to start with : "a"
         ❗❗ following elements were mismatched : 
-           • index 1                          : 2
+            • index 1                          : "b"
+🚩️ ▶ values : [1, 2]        (java.util.LinkedHashMap.LinkedValues <1234789>)
+     🚩️ not to contain : 
+        🚩️ an element which needs : 
+           » to be greater than : 1
+           ❗❗ following elements were mismatched : 
+               • index 1                          : 2
 ```
 </ex-map-4>
 
@@ -1566,17 +1566,17 @@ expect(linkedMapOf("a" to 1, "b" to 2)).asEntries().toContain.inOrder.only.entri
 <a name="ex-map-5"></a>
 ```text
 I expected subject : {a=1, b=2}        (java.util.LinkedHashMap <1234789>)
-✘ to contain only, in order : 
-  ✔ ▶ element 0 : a=1        (java.util.LinkedHashMap.Entry <1234789>)
-      ✔ ▶ key        : "a"
-          ✔ to equal : "a"
-      ✔ ▶ value      : 1
-          ✔ to equal : 1
-  ✘ ▶ element 1 : b=2        (java.util.LinkedHashMap.Entry <1234789>)
-      ✘ ▶ key             : "b"
-          ✘ to start with : "a"
-      ✘ ▶ value                : 2
-          ✘ to be greater than : 2
+🚩️ to contain only, in order : 
+   ✔ ▶ element 0 : a=1        (java.util.LinkedHashMap.Entry <1234789>)
+       ✔ ▶ key        : "a"
+           ✔ to equal : "a"
+       ✔ ▶ value      : 1
+           ✔ to equal : 1
+   🚩️ ▶ element 1 : b=2        (java.util.LinkedHashMap.Entry <1234789>)
+        🚩️ ▶ key              : "b"
+             🚫️ to start with : "a"
+        🚩️ ▶ value                 : 2
+             🚫️ to be greater than : 2
 ```
 </ex-map-5>
 
@@ -1604,8 +1604,8 @@ expect(Paths.get("/usr/bin/noprogram")).toExist()
 <a name="ex-path-exists"></a>
 ```text
 I expected subject : /usr/bin/noprogram        (sun.nio.fs.UnixPath <1234789>)
-✘ to : exist
-  » the closest existing parent directory is /usr/bin
+🚩️ to : exist
+   » the closest existing parent directory is /usr/bin
 ```
 </ex-path-exists>
 
@@ -1620,11 +1620,11 @@ expect(Paths.get("/root/.ssh/config")).toBeWritable()
 <a name="ex-path-writable"></a>
 ```text
 I expected subject : /root/.ssh/config        (sun.nio.fs.UnixPath <1234789>)
-✘ to be : writable
-  » failure at parent path : /root        (sun.nio.fs.UnixPath <1234789>)
-  » access was denied
-  » the owner is root, the group is root
-  » the permissions are u=rwx g= o=
+🚩️ to be : writable
+   » failure at parent path : /root        (sun.nio.fs.UnixPath <1234789>)
+   » access was denied
+   » the owner is root, the group is root
+   » the permissions are u=rwx g= o=
 ```
 </ex-path-writable>
 
@@ -1643,10 +1643,10 @@ expect(filePointer.resolve("subfolder/file")).toBeARegularFile()
 <a name="ex-path-symlink-and-parent-not-folder"></a>
 ```text
 I expected subject : /tmp/atrium-path/directory/subfolder/file        (sun.nio.fs.UnixPath <1234789>)
-✘ to be : a file
-  » followed the symbolic link /tmp/atrium-path/directory to /tmp/atrium-path/file
-  » failure at parent path : /tmp/atrium-path/file        (sun.nio.fs.UnixPath <1234789>)
-  » was a file instead of a directory
+🚩️ to be : a file
+   » followed the symbolic link /tmp/atrium-path/directory to /tmp/atrium-path/file
+   » failure at parent path : /tmp/atrium-path/file        (sun.nio.fs.UnixPath <1234789>)
+   » was a file instead of a directory
 ```
 </ex-path-symlink-and-parent-not-folder>
 
@@ -1667,11 +1667,11 @@ expect("filename?")
 <a name="ex-because-1"></a>
 ```text
 I expected subject : "filename?"
-✘  not to contain : 
-   ✘ value : "?"
-     ✘ ▶ number of matches : 1
-         ✘ to equal        : 0
-ℹ️ because : ? is not allowed in file names on Windows
+🚩️ not to contain : 
+   🚩️ value : "?"
+      🚩️ ▶ number of matches : 1
+           🚫️ to equal       : 0
+ℹ️ because ? is not allowed in file names on Windows
 ```
 </ex-because-1>
 
@@ -1728,10 +1728,10 @@ expect(listOf(1, 2, 3, -1)).toHaveElementsAndAll {
 <a name="ex-third-party-1"></a>
 ```text
 I expected subject : [1, 2, 3, -1]        (java.util.Arrays.ArrayList <1234789>)
-✘ elements need all : 
-  » not to be : negative
-  ❗❗ following elements were mismatched : 
-     • index 3                          : -1
+🚩️ elements need all : 
+   » not to be : negative
+   ❗❗ following elements were mismatched : 
+       • index 3                          : -1
 ```
 </ex-third-party-1>
 
@@ -1761,8 +1761,8 @@ expect(-10).notToBeNegative()
 <a name="ex-third-party-2"></a>
 ```text
 I expected subject : -10
-✘ not to be : negative
-  ℹ️ Properties of the unexpected AssertionError
+🚩️ not to be : negative
+   ℹ️ Properties of the unexpected AssertionError
      » message : """
                  
                  Expecting actual:
@@ -1811,7 +1811,7 @@ expect(-10).notToBeNegative()
 <a name="ex-third-party-3"></a>
 ```text
 I expected subject : -10
-✘ not to be        : negative
+🚫️ not to be       : negative
 ```
 </ex-third-party-3>
 
@@ -1851,12 +1851,12 @@ expectGrouped {
 <a name="ex-data-driven-1"></a>
 ```text
 my expectations : 
-✘ calling myFun with 1 : 
-  ✘ ▶ I expected subject : 'b'
-      ✘ to equal         : 'a'
-✘ calling myFun with 3 : 
-  ✘ ▶ I expected subject : 'd'
-      ✘ to equal         : 'e'
+🚩️ calling myFun with 1 : 
+   🚩️ ▶ I expected subject : 'b'
+        🚫️ to equal        : 'a'
+🚩️ calling myFun with 3 : 
+   🚩️ ▶ I expected subject : 'd'
+        🚫️ to equal        : 'e'
 ```
 </ex-data-driven-1>
 
@@ -1894,9 +1894,9 @@ expectGrouped {
 <a name="ex-data-driven-2"></a>
 ```text
 my expectations : 
-✘ calling myFun with 3 : 
-  ✘ ▶ I expected subject   : 'd'
-      ✘ to be greater than : 'e'
+🚩️ calling myFun with 3 : 
+   🚩️ ▶ I expected subject    : 'd'
+        🚫️ to be greater than : 'e'
 ```
 </ex-data-driven-2>
 
@@ -1939,18 +1939,18 @@ expectGrouped {
 <a name="ex-data-driven-nesting"></a>
 ```text
 my expectations : 
-✘ first group : 
-  ✘ ▶ I expected subject : 1
-      ✘ to equal         : 2
-  ✘ sub-group : 
-    ✘ ▶ I expected subject   : 3
-        ✘ to be greater than : 5
-✘ second group : 
-  ✘ ▶ I expected subject : 6
-      ✘ sub-group 1       : 
-        ✘ to be less than : 5
-      ✘ sub-group 2    : 
-        ✘ not to equal : 6
+🚩️ first group : 
+   🚩️ ▶ I expected subject : 1
+        🚫️ to equal        : 2
+   🚩️ sub-group : 
+      🚩️ ▶ I expected subject    : 3
+           🚫️ to be greater than : 5
+🚩️ second group : 
+   🚩️ ▶ I expected subject : 6
+        🚩️ sub-group 1        : 
+           🚫️ to be less than : 5
+        🚩️ sub-group 2     : 
+           🚫️ not to equal : 6
 ```
 </ex-data-driven-nesting>
 
@@ -1986,14 +1986,14 @@ expectGrouped {
 <a name="ex-data-driven-3"></a>
 ```text
 my expectations : 
-✘ calling myFun with -2147483648 : 
-  ✘ ▶ I expected subject : null
-      » to contain : 
-        • value : "min"
-          » but no match was found
-✘ calling myFun with 2147483647 : 
-  ✘ ▶ I expected subject : "2147483647"
-      ✘ to equal         : "max"
+🚩️ calling myFun with -2147483648 : 
+   🚩️ ▶ I expected subject : null
+        » to contain : 
+          • value : "min"
+            » but no match was found
+🚩️ calling myFun with 2147483647 : 
+   🚩️ ▶ I expected subject : "2147483647"
+        🚫️ to equal        : "max"
 ```
 </ex-data-driven-3>
 
@@ -2050,15 +2050,15 @@ also states which entries were additionally contained in the list:
 
 ```text
 I expected subject : [1, 2, 3]        (java.util.Arrays.ArrayList <1234789>)
-✘ ▶ size       : 3
-    ✘ to equal : 2
-✘ to contain only, in order : 
-  ✔ ▶ element 0  : 1
-      ✔ to equal : 1
-  ✘ ▶ element 1  : 2
-      ✘ to equal : 3
-  ❗❗ additional elements detected : 
-     • element 2                  : 3
+🚩️ ▶ size        : 3
+     🚫️ to equal : 2
+🚩️ to contain only, in order : 
+   ✔ ▶ element 0  : 1
+       ✔ to equal : 1
+   🚩️ ▶ element 1   : 2
+        🚫️ to equal : 3
+   ❗❗ additional elements detected : 
+       • element 2                  : 3
 ```
 </exs-add-info-1-output>
 
@@ -2080,9 +2080,9 @@ But Atrium shows where it goes wrong and even gives a possible hint:
 
 ```text
 I expected subject : 9.99
-✘ to equal (error ± 0.01) : 10.0
-  » failure might be due to using kotlin.Float, see exact check on the next line
-  » exact check was |9.989999771118164 - 10.0| = 0.010000228881835938 ≤ 0.009999999776482582
+🚩️ to equal (error ± 0.01) : 10.0
+   » failure might be due to using kotlin.Float, see exact check on the next line
+   » exact check was |9.989999771118164 - 10.0| = 0.010000228881835938 ≤ 0.009999999776482582
 ```
 </exs-add-info-2-output>
 
@@ -2105,14 +2105,14 @@ expect {
 <a name="ex-add-info-3"></a>
 ```text
 I expected subject : () -> kotlin.Nothing        (readme.examples.MostExamples$ex-add-info-3$1 <1234789>)
-✘ ▶ thrown exception when called : java.lang.IllegalArgumentException
-    ✘ to be an instance of type  : IllegalStateException (java.lang.IllegalStateException)
-    » ▶ message                                       : 
-        • not to equal: null but to be an instance of : String (kotlin.String) -- Class: java.lang.String
-        • to contain : 
-          • value : "no no no"
-            » but no match was found
-    ℹ️ Properties of the unexpected IllegalArgumentException
+🚩️ ▶ thrown exception when called : java.lang.IllegalArgumentException
+     🚫️ to be an instance of type : IllegalStateException (java.lang.IllegalStateException)
+     » ▶ message                                       : 
+         • not to equal: null but to be an instance of : String (kotlin.String) -- Class: java.lang.String
+         • to contain : 
+           • value : "no no no"
+             » but no match was found
+     ℹ️ Properties of the unexpected IllegalArgumentException
        » message : "no no no..."
        » stacktrace : 
          • readme.examples.MostExamples$ex-add-info-3$1.invoke(MostExamples.kt:117)
@@ -2150,8 +2150,8 @@ expect(BigDecimal.TEN).toEqualIncludingScale(BigDecimal("10.0"))
 <a name="ex-pitfall-1"></a>
 ```text
 I expected subject : 10
-✘ is equal (including scale) : 10.0
-  💡️ notice, if you used toEqualNumerically then the expectation would have been met.
+🚩️ is equal (including scale) : 10.0
+   💡️ notice, if you used toEqualNumerically then the expectation would have been met.
 ```
 </ex-pitfall-1>
 
@@ -2168,11 +2168,11 @@ expect(listOf(1)).get(0) {}
 <a name="ex-pitfall-2"></a>
 ```text
 I expected subject : [1]        (java.util.Collections.SingletonList <1234789>)
-✘ ▶ get(0) : 1
-    ✘ at least one expectation defined : false
-      ✘ to equal                       : true
-      💡️ ❗❗ Assertion is deprecated, move to Proof, cannot show description : You forgot to create expectations in the expectationCreator-lambda
-      💡️ ❗❗ Assertion is deprecated, move to Proof, cannot show description : Sometimes you can use an alternative to `{ }` For instance, instead of `toThrow<..> { }` you should use `toThrow<..>()`
+🚩️ ▶ get(0) : 1
+     🚩️ at least one expectation defined : false
+        🚫️ to equal                      : true
+        💡️ ❗❗ Assertion is deprecated, move to Proof, cannot show description : You forgot to create expectations in the expectationCreator-lambda
+        💡️ ❗❗ Assertion is deprecated, move to Proof, cannot show description : Sometimes you can use an alternative to `{ }` For instance, instead of `toThrow<..> { }` you should use `toThrow<..>()`
 ```
 </ex-pitfall-2>
 
@@ -2232,7 +2232,7 @@ expect(12).toBeAMultipleOf(5)
 <a name="ex-own-boolean-1"></a>
 ```text
 I expected subject : 12
-✘ is multiple of   : 5
+🚫️ is multiple of  : 5
 ```
 </ex-own-boolean-1>
 
@@ -2280,7 +2280,7 @@ expect(13).toBeEven()
 <a name="ex-own-boolean-2"></a>
 ```text
 I expected subject : 13
-✘ is               : an even number
+🚫️ is              : an even number
 ```
 </ex-own-boolean-2>
 
@@ -2309,8 +2309,8 @@ expect(MyDomainModel(alpha1 = 1204)).toComplyValidation()
 <a name="ex-third-party-10"></a>
 ```text
 I expected subject : MyDomainModel(alpha1=1204)        (readme.examples.ThirdPartyExamples.MyDomainModel <1234789>)
-✘ to comply : validation
-  ℹ️ Properties of the unexpected IllegalStateException
+🚩️ to comply : validation
+   ℹ️ Properties of the unexpected IllegalStateException
      » message : "threshold value for alpha1 exceeded, expected <= 1000, was 1204"
      » stacktrace : 
        • readme.examples.ThirdPartyExamples.validateMaxThreshold(ThirdPartyExamples.kt:76)
@@ -2416,9 +2416,9 @@ expect(Person("Susanne", "Whitley", 43, emptyList()))
 <a name="ex-own-compose-3"></a>
 ```text
 I expected subject : Person(firstName=Susanne, lastName=Whitley, age=43, children=[])        (readme.examples.Person <1234789>)
-✘ ▶ children : []        (kotlin.collections.EmptyList <1234789>)
-    ✘ ▶ size       : 0
-        ✘ to equal : 2
+🚩️ ▶ children : []        (kotlin.collections.EmptyList <1234789>)
+     🚩️ ▶ size        : 0
+          🚫️ to equal : 2
 ```
 </ex-own-compose-3>
 
@@ -2452,11 +2452,11 @@ expect(Person("Susanne", "Whitley", 43, emptyList()))
 <a name="ex-own-compose-4"></a>
 ```text
 I expected subject : Person(firstName=Susanne, lastName=Whitley, age=43, children=[])        (readme.examples.Person <1234789>)
-✘ ▶ children  : []        (kotlin.collections.EmptyList <1234789>)
-    ✘ to have : a next element
-    » elements need all : 
-      » ▶ age                              : 
-          • to be greater than or equal to : 18
+🚩️ ▶ children   : []        (kotlin.collections.EmptyList <1234789>)
+     🚫️ to have : a next element
+     » elements need all : 
+       » ▶ age                              : 
+           • to be greater than or equal to : 18
 ```
 </ex-own-compose-4>
 
@@ -2498,9 +2498,9 @@ expect(Person("Susanne", "Whitley", 43, listOf(Person("Petra", "Whitley", 12, em
 <a name="ex-own-compose-5"></a>
 ```text
 I expected subject : Person(firstName=Susanne, lastName=Whitley, age=43, children=[Person(firstName=Petra, lastName=Whitley, age=12, children=[])])        (readme.examples.Person <1234789>)
-✘ ▶ children : [Person(firstName=Petra, lastName=Whitley, age=12, children=[])]        (java.util.Collections.SingletonList <1234789>)
-    ✘ ▶ size       : 1
-        ✘ to equal : 2
+🚩️ ▶ children : [Person(firstName=Petra, lastName=Whitley, age=12, children=[])]        (java.util.Collections.SingletonList <1234789>)
+     🚩️ ▶ size        : 1
+          🚫️ to equal : 2
 ```
 </ex-own-compose-5>
 
@@ -2680,7 +2680,7 @@ expect(10).toEqual(9)
 <a name="ex-own-expectation-verb"></a>
 ```text
 I expected subject : 10
-[31m✘[39m to equal         : 9
+[31m🚫️[39m to equal        : 9
 ```
 </ex-own-expectation-verb>
 

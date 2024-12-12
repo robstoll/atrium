@@ -18,7 +18,7 @@ class ZonedDateTimeExpectationsSpec : ch.tutteli.atrium.specs.integration.ZonedD
     fun1<ZonedDateTime, Expect<DayOfWeek>.() -> Unit>(Expect<ZonedDateTime>::dayOfWeek)
 ) {
 
-    @Suppress("unused", "UNUSED_VALUE")
+    @Suppress("unused")
     private fun ambiguityTest() {
         var a1: Expect<ZonedDateTime> = notImplemented()
 

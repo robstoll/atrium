@@ -40,7 +40,7 @@ class CharSequenceToContainNotToContainExpectationsSpec : Spek({
             fun2<CharSequence, Any, Array<out Any>>(Expect<CharSequence>::notToContain)
     }
 
-    @Suppress("unused", "UNUSED_VALUE")
+    @Suppress("unused")
     private fun ambiguityTest() {
         val a1: Expect<String> = notImplemented()
 

@@ -35,7 +35,7 @@ abstract class MapToContainInOrderOnlyKeyValueExpectationsSpec(
 
     include(object : AssertionCreatorSpec<Map<out String, Int>>(
         describePrefix, map,
-        ExpectationCreatorTriple(keyWithValueAssertions.name, "$toBeLessThanDescr: 2",
+        ExpectationCreatorTriple(keyWithValueAssertions.name, "$toBeLessThanDescr\\s+: 2",
             {
                 keyWithValueAssertions(
                     this,
@@ -57,7 +57,7 @@ abstract class MapToContainInOrderOnlyKeyValueExpectationsSpec(
 
     include(object : AssertionCreatorSpec<Map<out String?, Int?>>(
         "$describePrefix[nullable] ", mapOf("a" to 1, "b" to null),
-        ExpectationCreatorTriple(keyWithNullableValueAssertions.name, "$toBeLessThanDescr: 2",
+        ExpectationCreatorTriple(keyWithNullableValueAssertions.name, "$toBeLessThanDescr\\s+: 2",
             {
                 keyWithNullableValueAssertions(
                     this,
@@ -85,7 +85,7 @@ abstract class MapToContainInOrderOnlyKeyValueExpectationsSpec(
         actual: Any,
         expectedKey: String,
         expectedValue: String
-    ): Expect<String> = element(successfulBulletPoint, index, actual, expectedKey, expectedValue)
+    ): Expect<String> = element(s, index, actual, expectedKey, expectedValue)
 
     fun Expect<String>.elementFailing(
         index: Int,
@@ -98,7 +98,7 @@ abstract class MapToContainInOrderOnlyKeyValueExpectationsSpec(
         withValue: Boolean = true
     ): Expect<String> =
         element(
-            failingBulletPoint,
+            x,
             index,
             actual,
             expectedKey,
@@ -115,7 +115,7 @@ abstract class MapToContainInOrderOnlyKeyValueExpectationsSpec(
         expectedValue: String,
         withBulletPoint: Boolean = true
     ): Expect<String> = element(
-        failingBulletPoint,
+        x,
         index,
         IterableToContainSpecBase.sizeExceeded,
         expectedKey,
@@ -127,11 +127,11 @@ abstract class MapToContainInOrderOnlyKeyValueExpectationsSpec(
     fun Expect<String>.additionalEntries(vararg pairs: Pair<Int, String>): Expect<String> =
         and {
             val additionalEntries =
-                "\\Q${warningBulletPoint}${IterableToContainSpecBase.additionalElements}\\E: $separator"
+                "\\Q${bb}${IterableToContainSpecBase.additionalElements}\\E: $lineSeparator"
             toContain.exactly(1).regex(additionalEntries)
             pairs.forEach { (index, entry) ->
                 toContain.exactly(1).regex(
-                    additionalEntries + "(.|$separator)+${listBulletPoint}${
+                    additionalEntries + "(.|$lineSeparator)+${listBulletPoint}${
                         IterableToContainSpecBase.elementWithIndex(index) + ": " + entry
                     }"
                 )

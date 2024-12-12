@@ -4,13 +4,18 @@ package ch.tutteli.atrium.logic.impl
 
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
-import ch.tutteli.atrium.assertions.builders.*
+import ch.tutteli.atrium.assertions.builders.assertionBuilder
+import ch.tutteli.atrium.assertions.builders.partiallyFixedClaimGroup
+import ch.tutteli.atrium.assertions.builders.withExplanatoryAssertion
+import ch.tutteli.atrium.assertions.builders.withHelpOnFailure
 import ch.tutteli.atrium.core.Option
 import ch.tutteli.atrium.core.getOrElse
 import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.logic.*
+import ch.tutteli.atrium.logic.IterableLikeAssertions
+import ch.tutteli.atrium.logic._logic
 import ch.tutteli.atrium.logic.assertions.impl.LazyThreadUnsafeAssertionGroup
+import ch.tutteli.atrium.logic.createDescriptiveAssertion
 import ch.tutteli.atrium.logic.creating.iterable.contains.IterableLikeContains
 import ch.tutteli.atrium.logic.creating.iterable.contains.creators.impl.mapSubjectToList
 import ch.tutteli.atrium.logic.creating.iterable.contains.searchbehaviours.NoOpSearchBehaviour
@@ -22,6 +27,7 @@ import ch.tutteli.atrium.logic.creating.iterable.contains.steps.impl.EntryPointS
 import ch.tutteli.atrium.logic.creating.iterable.contains.steps.notCheckerStep
 import ch.tutteli.atrium.logic.creating.transformers.FeatureExtractorBuilder
 import ch.tutteli.atrium.logic.creating.typeutils.IterableLike
+import ch.tutteli.atrium.logic.extractFeature
 import ch.tutteli.atrium.translations.DescriptionBasic.NOT_TO_HAVE
 import ch.tutteli.atrium.translations.DescriptionBasic.TO_HAVE
 import ch.tutteli.atrium.translations.DescriptionIterableLikeExpectation.*

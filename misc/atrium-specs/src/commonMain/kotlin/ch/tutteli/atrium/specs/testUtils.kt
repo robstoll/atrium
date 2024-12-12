@@ -6,8 +6,10 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic.utils.expectLambda
 import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionAnyProof
 import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionBasic
+import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionComparableProof
 import ch.tutteli.atrium.specs.integration.utils.ExpectationCreatorTriple
 import ch.tutteli.atrium.translations.DescriptionAnyExpectation
+import ch.tutteli.atrium.translations.DescriptionAnyExpectation.NOT_TO_EQUAL_NULL_TO_BE_AN_INSTANCE_OF
 import ch.tutteli.atrium.translations.DescriptionComparableExpectation
 import kotlin.jvm.JvmName
 import kotlin.reflect.*
@@ -271,11 +273,12 @@ val toEqualDescr = DescriptionAnyProof.TO_EQUAL.string
 val toBeDescr = DescriptionBasic.TO_BE.string
 val notToBeDescr = DescriptionBasic.NOT_TO_BE.string
 val toBeAnInstanceOfDescr = DescriptionAnyProof.TO_BE_AN_INSTANCE_OF.string
-val toBeLessThanDescr = DescriptionComparableExpectation.TO_BE_LESS_THAN.getDefault()
-val toBeGreaterThanDescr = DescriptionComparableExpectation.TO_BE_GREATER_THAN.getDefault()
-val notToEqualNullButToBeInstanceOfDescr = DescriptionAnyExpectation.NOT_TO_EQUAL_NULL_TO_BE_AN_INSTANCE_OF.getDefault()
+val toBeLessThanDescr = DescriptionComparableProof.TO_BE_LESS_THAN.string
+val toBeGreaterThanDescr = DescriptionComparableProof.TO_BE_GREATER_THAN.string
+val notToEqualNullButToBeInstanceOfDescr = NOT_TO_EQUAL_NULL_TO_BE_AN_INSTANCE_OF.string
 
 expect val lineSeparator: String
+val expectationVerb = "I expected subject"
 
 fun showsSubExpectationIf(hasExtraHint: Boolean): String = if (hasExtraHint) "; shows intended sub assertion" else ""
 

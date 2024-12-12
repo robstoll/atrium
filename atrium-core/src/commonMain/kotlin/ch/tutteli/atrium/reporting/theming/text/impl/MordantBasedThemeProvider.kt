@@ -9,7 +9,7 @@ internal abstract class MordantBasedThemeProvider(
 ) : TextThemeProvider {
     protected abstract val styleIdToTextStyle: Map<String, TextStyle>
 
-    override val supportsAnsi: Boolean = terminal.info.ansiLevel != AnsiLevel.NONE
+    override val supportsAnsiColours: Boolean = terminal.info.ansiLevel != AnsiLevel.NONE
 
     override fun render(unstyledString: String, styleId: String): String? =
         styleIdToTextStyle[styleId]?.let { textStyle ->

@@ -6,6 +6,7 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic.creating.iterablelike.contains.reporting.InOrderOnlyReportingOptions
 import ch.tutteli.atrium.logic.utils.expectLambda
 import ch.tutteli.atrium.specs.*
+import ch.tutteli.atrium.specs.lineSeparator
 
 abstract class IterableToContainInOrderOnlyEntriesExpectationsSpec(
     toContainInOrderOnlyEntries: Fun3<Iterable<Double>, Expect<Double>.() -> Unit, Array<out Expect<Double>.() -> Unit>, InOrderOnlyReportingOptions.() -> Unit>,
@@ -25,22 +26,22 @@ abstract class IterableToContainInOrderOnlyEntriesExpectationsSpec(
     include(object : AssertionCreatorSpec<Iterable<Double>>(
         describePrefix, listOf(1.2, 2.0),
         *toContainInOrderOnlyEntries.forExpectationCreatorTest(
-            "$toEqualDescr: 1.2", "$toEqualDescr: 2.0",
+            "$toEqualDescr\\s+: 1.2", "$toEqualDescr\\s+: 2.0",
             { toEqual(1.2) }, arrayOf(expectLambda { toEqual(2.0) }), emptyInOrderOnlyReportOptions
         )
     ) {})
     include(object : AssertionCreatorSpec<Iterable<Double?>>(
         "$describePrefix[nullable] ", listOf(1.2, 2.0) as Iterable<Double?>,
         *toContainInOrderOnlyNullableEntries.forExpectationCreatorTest(
-            "$toEqualDescr: 1.2", "$toEqualDescr: 2.0",
+            "$toEqualDescr\\s+: 1.2", "$toEqualDescr\\s+: 2.0",
             { toEqual(1.2) }, arrayOf(expectLambda { toEqual(2.0) }), emptyInOrderOnlyReportOptions
         )
     ) {})
 
     fun Expect<String>.elementSuccess(index: Int, actual: Any, expected: String): Expect<String> {
         return this.toContain.exactly(1).regex(
-            "\\Q$successfulBulletPoint$featureArrow${elementWithIndex(index)}: $actual\\E.*$separator" +
-                "$indentRootBulletPoint$indentSuccessfulBulletPoint$indentFeatureArrow$featureBulletPoint$expected"
+            "\\Q$s$f${elementWithIndex(index)}: $actual\\E.*$lineSeparator" +
+                    "$indentRoot$indentSuccess$indentF$featureBulletPoint$expected"
         )
     }
 
@@ -52,8 +53,8 @@ abstract class IterableToContainInOrderOnlyEntriesExpectationsSpec(
         withBulletPoint: Boolean = true
     ): Expect<String> {
         return this.toContain.exactly(1).regex(
-            "\\Q${if (withBulletPoint) failingBulletPoint else ""}$featureArrow${elementWithIndex(index)}: $actual\\E.*$separator" +
-                "$indentRootBulletPoint$indentFailingBulletPoint$indentFeatureArrow${if (explaining) "$indentFeatureBulletPoint$explanatoryBulletPoint" else featureBulletPoint}$expected"
+            "\\Q${if (withBulletPoint) x else ""}$f${elementWithIndex(index)}: $actual\\E.*$lineSeparator" +
+                    "$indentRoot$indentX$indentF${if (explaining) "$indentFeature$explanatoryBulletPoint" else featureBulletPoint}$expected"
         )
     }
 
@@ -163,7 +164,7 @@ abstract class IterableToContainInOrderOnlyEntriesExpectationsSpec(
                             elementSuccess(2, 3.0, "$toEqualDescr: 3.0")
                             elementSuccess(3, 4.0, "$toEqualDescr: 4.0")
                             toContain(
-                                "$warningBulletPoint$additionalElements:",
+                                "$bb$additionalElements:",
                                 "$listBulletPoint${elementWithIndex(4)}: 4.0"
                             )
                             toContainSize(5, 4)
@@ -180,7 +181,7 @@ abstract class IterableToContainInOrderOnlyEntriesExpectationsSpec(
                             elementSuccess(0, 1.0, "$toEqualDescr: 1.0")
                             elementFailing(1, 2.0, "$toEqualDescr: 4.0")
                             toContain(
-                                "$warningBulletPoint$additionalElements:",
+                                "$bb$additionalElements:",
                                 "$listBulletPoint${elementWithIndex(2)}: 3.0",
                                 "$listBulletPoint${elementWithIndex(3)}: 4.0",
                                 "$listBulletPoint${elementWithIndex(4)}: 4.0"
@@ -200,7 +201,7 @@ abstract class IterableToContainInOrderOnlyEntriesExpectationsSpec(
                             elementFailing(1, 2.0, "$toEqualDescr: 3.0")
                             elementFailing(2, 3.0, "$toBeGreaterThanDescr: 4.0")
                             toContain(
-                                "$warningBulletPoint$additionalElements:",
+                                "$bb$additionalElements:",
                                 "$listBulletPoint${elementWithIndex(3)}: 4.0",
                                 "$listBulletPoint${elementWithIndex(4)}: 4.0"
                             )

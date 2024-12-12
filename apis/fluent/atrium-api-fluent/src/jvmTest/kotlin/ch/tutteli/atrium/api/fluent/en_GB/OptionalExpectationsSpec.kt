@@ -10,7 +10,7 @@ class OptionalExpectationsSpec : OptionalExpectationsSpec(
     feature0<Optional<Int>, Int>(Expect<Optional<Int>>::toBePresent),
     fun1<Optional<Int>, Expect<Int>.() -> Unit>(Expect<Optional<Int>>::toBePresent)
 ) {
-    @Suppress("unused", "UNUSED_VALUE")
+    @Suppress("unused")
     private fun ambiguityTest() {
         var o1: Expect<Optional<Any>> = notImplemented()
         var o1b: Expect<Optional<Any?>> = notImplemented()

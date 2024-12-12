@@ -70,7 +70,7 @@ class IterableToContainInOrderOnlyEntriesExpectationsSpec : Spek({
         ): Expect<Iterable<Double?>> = expect.toContainExactly(a, *aX, report = report)
     }
 
-    @Suppress("unused", "UNUSED_VALUE")
+    @Suppress("unused")
     private fun ambiguityTest() {
         var list: Expect<List<Number>> = notImplemented()
         var nList: Expect<Set<Number?>> = notImplemented()

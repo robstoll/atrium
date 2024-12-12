@@ -1,9 +1,6 @@
 package ch.tutteli.atrium.specs.integration
 
-import ch.tutteli.atrium.api.fluent.en_GB.message
-import ch.tutteli.atrium.api.fluent.en_GB.messageToContain
-import ch.tutteli.atrium.api.fluent.en_GB.notToContain
-import ch.tutteli.atrium.api.fluent.en_GB.toThrow
+import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionCharSequenceProof.Companion.IGNORING_CASE
@@ -83,7 +80,15 @@ abstract class CharSequenceNotToContainExpectationsSpec(
                     }.toThrow<AssertionError> {
                         message {
                             toContainSubject("\"$helloWorld\"")
-                            toContainDescr(NOT_TO_CONTAIN, "")
+                            //TODO 1.4.0 once migrated to proof, I would like to see
+                            // 🚩️ not to contain :
+                            //    🚫️ value : 'l'
+                            //       🔎 number of matches : 3
+//                            toContain.exactly(1).matchFor(Regex(
+//                                "$groupFailingBulletPoint${NOT_TO_CONTAIN.string} : $lineSeparator" +
+//                                    "${indentGroupFailingBulletPoint}${failingBulletPoint}${DescriptionCharSequenceProof.VALUE.string}\\s+: 'l'$lineSeparator"+
+//                                    "${indentGroupFailingBulletPoint}${indentFailingBulletPoint}${debugBulletPoint}${DescriptionCharSequenceProof.NUMBER_OF_MATCHES.string} : 3"
+//                            ))
                             toContainValue("'l'")
                             toContainNumberOfMatches(3)
                             toContainToEqualDescr(0)
@@ -95,6 +100,12 @@ abstract class CharSequenceNotToContainExpectationsSpec(
                         expect(helloWorld).notToContainFun('H', 'l', 'A')
                     }.toThrow<AssertionError> {
                         message {
+                            //TODO 1.3.0 once migrated to proof, I would like to see
+                            // 🚩️ not to contain :
+                            //    🚫️ value : 'H'
+                            //       🔎 number of matches : 1
+                            //    🚫️ value : 'l'
+                            //       🔎 number of matches : 3
                             toContainValue("'H'")
                             toContainNumberOfMatches(1)
                             toContainValue("'l'")
@@ -104,7 +115,7 @@ abstract class CharSequenceNotToContainExpectationsSpec(
                         }
                     }
                 }
-                it("${notToContainPair.first("'l', 'H'")} once throws AssertionError") {
+                it("${notToContainPair.first("'l', 'H'")} throws AssertionError") {
                     expect {
                         expect(helloWorld).notToContainFun('l', 'H')
                     }.toThrow<AssertionError> {

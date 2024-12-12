@@ -6,10 +6,9 @@ import ch.tutteli.atrium.core.polyfills.format
 import ch.tutteli.atrium.core.polyfills.fullName
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionCharSequenceProof
+import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionThrowableProof
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.translations.DescriptionCharSequenceExpectation
-import ch.tutteli.atrium.translations.DescriptionThrowableExpectation
-import ch.tutteli.atrium.translations.DescriptionThrowableExpectation.OCCURRED_EXCEPTION_PROPERTIES
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.Suite
 
@@ -178,7 +177,7 @@ abstract class ThrowableExpectationsSpec(
                         expect(throwable).causeFun { messageToContain("WRONG message") }
                     }.toThrow<AssertionError> {
                         messageToContain(
-                            DescriptionThrowableExpectation.OCCURRED_EXCEPTION_CAUSE.getDefault() + ": java.lang.IllegalArgumentException",
+                            DescriptionThrowableProof.OCCURRED_EXCEPTION_CAUSE.string + ": java.lang.IllegalArgumentException",
                             "$valueDescr: \"WRONG message\""
                         )
                     }
@@ -194,7 +193,7 @@ abstract class ThrowableExpectationsSpec(
                         expect(throwableWithDifferentCauseType).causeFun { messageToContain("Cause exception") }
                     }.toThrow<AssertionError> {
                         messageToContain(
-                            OCCURRED_EXCEPTION_PROPERTIES.getDefault().format(
+                            DescriptionThrowableProof.OCCURRED_EXCEPTION_PROPERTIES.string.format(
                                 UnsupportedOperationException::class.simpleName!!
                             )
                         )
@@ -211,7 +210,7 @@ abstract class ThrowableExpectationsSpec(
                         expect(throwable).causeFun { messageToContain("Hello") }
                     }.toThrow<AssertionError> {
                         messageToContain(
-                            DescriptionThrowableExpectation.HAS_NO_CAUSE.getDefault(),
+                            DescriptionThrowableProof.HAS_NO_CAUSE.string,
                             IllegalArgumentException::class.fullName
                         )
                     }

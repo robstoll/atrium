@@ -6,6 +6,7 @@ import ch.tutteli.atrium.core.polyfills.format
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic.utils.expectLambda
 import ch.tutteli.atrium.specs.*
+import ch.tutteli.atrium.specs.lineSeparator
 import ch.tutteli.atrium.translations.DescriptionIterableLikeExpectation
 
 abstract class IterableToHaveElementsAndAllExpectationsSpec(
@@ -23,16 +24,16 @@ abstract class IterableToHaveElementsAndAllExpectationsSpec(
 
     include(object : AssertionCreatorSpec<Iterable<Double>>(
         describePrefix, oneToSeven().toList().asIterable(),
-        toHaveElementsAndAll.forExpectationCreatorTest("$toBeGreaterThanDescr: 0.0") { toBeGreaterThan(0.0) }
+        toHaveElementsAndAll.forExpectationCreatorTest("$toBeGreaterThanDescr\\s+: 0.0") { toBeGreaterThan(0.0) }
     ) {})
     include(object : AssertionCreatorSpec<Iterable<Double?>>(
         "$describePrefix[nullable Element] ", oneToSeven().toList().asIterable(),
-        toHaveElementsAndAllNullable.forExpectationCreatorTest("$toBeGreaterThanDescr: 0.0") { toBeGreaterThan(0.0) }
+        toHaveElementsAndAllNullable.forExpectationCreatorTest("$toBeGreaterThanDescr\\s+: 0.0") { toBeGreaterThan(0.0) }
     ) {})
 
     val allElementsDescr = DescriptionIterableLikeExpectation.ALL_ELEMENTS.getDefault()
 
-    val explanatoryPointWithIndent = "$indentRootBulletPoint$indentListBulletPoint$explanatoryBulletPoint"
+    val explanatoryPointWithIndent = "$indentRoot$indentList$explanatoryBulletPoint"
 
     fun index(index: Int) = listBulletPoint + DescriptionIterableLikeExpectation.INDEX.getDefault().format(index)
 
@@ -48,7 +49,7 @@ abstract class IterableToHaveElementsAndAllExpectationsSpec(
                     expect(fluentEmpty()).toHaveElementsAndAllFun { toBeLessThan(1.0) }
                 }.toThrow<AssertionError> {
                     message.toContainRegex(
-                        hasANextElement,
+                        "${toHaveDescr}\\s+: ${aNextElement}",
                         "$explanatoryBulletPoint$allElementsDescr: ",
                         "$explanatoryPointWithIndent$toBeLessThanDescr: 1.0"
                     )
@@ -64,10 +65,10 @@ abstract class IterableToHaveElementsAndAllExpectationsSpec(
                     }.toThrow<AssertionError> {
                         message {
                             toContain.exactly(1).values(
-                                "$rootBulletPoint$allElementsDescr: $separator",
+                                "$rootBulletPoint$allElementsDescr: $lineSeparator",
                                 "$explanatoryPointWithIndent$toBeGreaterThanDescr: 2.5",
                                 "$explanatoryPointWithIndent$toBeLessThanDescr: 7.0",
-                                "$warningBulletPoint$mismatches:",
+                                "$bb$mismatches:",
                                 "${index(0)}: 1.0",
                                 "${index(1)}: 2.0",
                                 "${index(9)}: 7.0"
@@ -104,9 +105,9 @@ abstract class IterableToHaveElementsAndAllExpectationsSpec(
                     }.toThrow<AssertionError> {
                         message {
                             toContain.exactly(1).values(
-                                "$rootBulletPoint$allElementsDescr: $separator",
+                                "$rootBulletPoint$allElementsDescr: $lineSeparator",
                                 "$explanatoryPointWithIndent$toBeGreaterThanDescr: 0.5",
-                                "$warningBulletPoint$mismatches:",
+                                "$bb$mismatches:",
                                 "${index(1)}: null",
                                 "${index(5)}: null"
                             )

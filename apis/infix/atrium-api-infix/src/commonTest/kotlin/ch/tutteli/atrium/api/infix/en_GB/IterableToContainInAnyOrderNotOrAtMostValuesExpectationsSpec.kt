@@ -29,7 +29,7 @@ class IterableToContainInAnyOrderNotOrAtMostValuesExpectationsSpec :
         private fun getErrorMsgNotToContain(times: Int) = "use `$notToContain` instead of `$notOrAtMost $times`"
     }
 
-    @Suppress("unused", "UNUSED_VALUE")
+    @Suppress("unused")
     private fun ambiguityTest() {
         var list: Expect<List<Number>> = notImplemented()
         var nList: Expect<Set<Number?>> = notImplemented()

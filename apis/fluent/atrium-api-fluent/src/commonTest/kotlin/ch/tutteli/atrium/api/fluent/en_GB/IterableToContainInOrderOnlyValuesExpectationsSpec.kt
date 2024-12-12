@@ -55,7 +55,7 @@ class IterableToContainInOrderOnlyValuesExpectationsSpec : Spek({
             } else expect.toContain.inOrder.only.values(a, *aX, report = report)
     }
 
-    @Suppress("unused", "UNUSED_VALUE")
+    @Suppress("unused")
     private fun ambiguityTest() {
         var list: Expect<List<Number>> = notImplemented()
         var nList: Expect<Set<Number?>> = notImplemented()

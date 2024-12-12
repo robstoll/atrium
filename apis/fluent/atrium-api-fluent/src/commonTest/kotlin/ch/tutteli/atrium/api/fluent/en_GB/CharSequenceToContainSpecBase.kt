@@ -34,7 +34,7 @@ abstract class CharSequenceToContainSpecBase {
     protected val values = CharSequenceContains.CheckerStep<CharSequence, NoOpSearchBehaviour>::values.name
     protected val elementsOf = CharSequenceContains.EntryPointStep<String, IgnoringCaseSearchBehaviour>::elementsOf.name
 
-    @Suppress("unused", "UNUSED_VALUE")
+    @Suppress("unused")
     private fun ambiguityTest() {
         val a1: Expect<String> = notImplemented()
 

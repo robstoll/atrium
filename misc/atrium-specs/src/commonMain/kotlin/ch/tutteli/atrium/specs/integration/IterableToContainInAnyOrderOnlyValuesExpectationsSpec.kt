@@ -40,9 +40,14 @@ abstract class IterableToContainInAnyOrderOnlyValuesExpectationsSpec(
                     expect(fluentEmpty()).toContainFun(1.0)
                 }.toThrow<AssertionError> {
                     message {
-                        toContain(
-                            "$rootBulletPoint$toContainInAnyOrderOnly:",
-                            "$failingBulletPoint$anElementWhichEquals: 1.0"
+                        // TODO 1.3.0 we should be able to switch to the following, i.e. the elements should define an own level
+//                        toContain(
+//                            "$g$toContainInAnyOrderOnly :",
+//                            "$x$anElementWhichEquals : 1.0"
+//                        )
+                        toContainRegex(
+                            "\\Q$g\\E$toContainInAnyOrderOnly :",
+                            "\\Q$x\\E$anElementWhichEquals\\s+: 1.0"
                         )
                         notToContain(additionalElements)
                         toContainSize(0, 1)
@@ -54,10 +59,15 @@ abstract class IterableToContainInAnyOrderOnlyValuesExpectationsSpec(
                     expect(fluentEmpty()).toContainFun(1.0, 4.0)
                 }.toThrow<AssertionError> {
                     message {
-                        toContain.exactly(1).values(
-                            "$rootBulletPoint$toContainInAnyOrderOnly:",
-                            "$failingBulletPoint$anElementWhichEquals: 1.0",
-                            "$failingBulletPoint$anElementWhichEquals: 4.0"
+//                        toContain.exactly(1).values(
+//                            "$g$toContainInAnyOrderOnly :",
+//                            "$x$anElementWhichEquals : 1.0",
+//                            "$x$anElementWhichEquals : 4.0"
+//                        )
+                        toContain.exactly(1).regex(
+                            "\\Q$g\\E$toContainInAnyOrderOnly :",
+                            "\\Q$x\\E$anElementWhichEquals\\s+: 1.0",
+                            "\\Q$x\\E$anElementWhichEquals\\s+: 4.0"
                         )
                         notToContain(additionalElements)
                         toContainSize(0, 2)
@@ -92,12 +102,12 @@ abstract class IterableToContainInAnyOrderOnlyValuesExpectationsSpec(
                         }.toThrow<AssertionError> {
                             message {
                                 toContain.exactly(1).values(
-                                    "$rootBulletPoint$toContainInAnyOrderOnly:",
-                                    "$successfulBulletPoint$anElementWhichEquals: 1.0",
-                                    "$successfulBulletPoint$anElementWhichEquals: 2.0",
-                                    "$successfulBulletPoint$anElementWhichEquals: 3.0",
-                                    "$successfulBulletPoint$anElementWhichEquals: 4.0",
-                                    "$warningBulletPoint$additionalElements:",
+                                    "$g$toContainInAnyOrderOnly :",
+                                    "$s$anElementWhichEquals : 1.0",
+                                    "$s$anElementWhichEquals : 2.0",
+                                    "$s$anElementWhichEquals : 3.0",
+                                    "$s$anElementWhichEquals : 4.0",
+                                    "$bb$additionalElements :",
                                     "${listBulletPoint}4.0"
                                 )
                                 toContainSize(5, 4)
@@ -111,10 +121,10 @@ abstract class IterableToContainInAnyOrderOnlyValuesExpectationsSpec(
                         }.toThrow<AssertionError> {
                             message {
                                 toContain.exactly(1).values(
-                                    "$rootBulletPoint$toContainInAnyOrderOnly:",
-                                    "$successfulBulletPoint$anElementWhichEquals: 1.0",
-                                    "$successfulBulletPoint$anElementWhichEquals: 4.0",
-                                    "$warningBulletPoint$additionalElements:",
+                                    "$g$toContainInAnyOrderOnly :",
+                                    "$s$anElementWhichEquals : 1.0",
+                                    "$s$anElementWhichEquals : 4.0",
+                                    "$bb$additionalElements :",
                                     "${listBulletPoint}2.0",
                                     "${listBulletPoint}3.0",
                                     "${listBulletPoint}4.0"
@@ -132,12 +142,12 @@ abstract class IterableToContainInAnyOrderOnlyValuesExpectationsSpec(
                         }.toThrow<AssertionError> {
                             message {
                                 toContain.exactly(1).values(
-                                    "$rootBulletPoint$toContainInAnyOrderOnly:",
-                                    "$successfulBulletPoint$anElementWhichEquals: 1.0",
-                                    "$successfulBulletPoint$anElementWhichEquals: 2.0",
-                                    "$successfulBulletPoint$anElementWhichEquals: 3.0",
-                                    "$failingBulletPoint$anElementWhichEquals: 5.0",
-                                    "$warningBulletPoint$mismatches:",
+                                    "$g$toContainInAnyOrderOnly :",
+                                    "$s$anElementWhichEquals : 1.0",
+                                    "$s$anElementWhichEquals : 2.0",
+                                    "$s$anElementWhichEquals : 3.0",
+                                    "$x$anElementWhichEquals : 5.0",
+                                    "$bb$mismatches:",
                                     "${listBulletPoint}4.0"
                                 )
                                 notToContain(sizeDescr)
@@ -154,10 +164,10 @@ abstract class IterableToContainInAnyOrderOnlyValuesExpectationsSpec(
                             message {
                                 toContain.exactly(1).values(
                                     "$rootBulletPoint$toContainInAnyOrderOnly:",
-                                    "$successfulBulletPoint$anElementWhichEquals: 1.0",
-                                    "$successfulBulletPoint$anElementWhichEquals: 3.0",
-                                    "$failingBulletPoint$anElementWhichEquals: 5.0",
-                                    "$warningBulletPoint$mismatchesAdditionalElements:",
+                                    "$s$anElementWhichEquals: 1.0",
+                                    "$s$anElementWhichEquals: 3.0",
+                                    "$x$anElementWhichEquals: 5.0",
+                                    "$bb$mismatchesAdditionalElements :",
                                     "${listBulletPoint}2.0"
                                 )
                                 toContain.exactly(2).value("${listBulletPoint}4.0")
@@ -174,13 +184,13 @@ abstract class IterableToContainInAnyOrderOnlyValuesExpectationsSpec(
                         }.toThrow<AssertionError> {
                             message {
                                 toContain.exactly(1).values(
-                                    "$rootBulletPoint$toContainInAnyOrderOnly:",
-                                    "$successfulBulletPoint$anElementWhichEquals: 1.0",
-                                    "$successfulBulletPoint$anElementWhichEquals: 2.0",
-                                    "$successfulBulletPoint$anElementWhichEquals: 3.0",
-                                    "$failingBulletPoint$anElementWhichEquals: 5.0"
+                                    "$g$toContainInAnyOrderOnly :",
+                                    "$s$anElementWhichEquals : 1.0",
+                                    "$s$anElementWhichEquals : 2.0",
+                                    "$s$anElementWhichEquals : 3.0",
+                                    "$x$anElementWhichEquals : 5.0"
                                 )
-                                toContain.exactly(2).value("$successfulBulletPoint$anElementWhichEquals: 4.0")
+                                toContain.exactly(2).value("$s$anElementWhichEquals : 4.0")
                                 toContainSize(5, 6)
                                 notToContain(additionalElements, mismatches, mismatchesAdditionalElements)
                             }
@@ -199,13 +209,13 @@ abstract class IterableToContainInAnyOrderOnlyValuesExpectationsSpec(
                         message {
                             toContainSize(5, 1)
                             toContain.exactly(1).values(
-                                "$rootBulletPoint$toContainInAnyOrderOnly:",
-                                "$warningBulletPoint$additionalElements:",
+                                "$g$toContainInAnyOrderOnly :",
+                                "$bb$additionalElements :",
                                 "${listBulletPoint}1.0",
                                 "${listBulletPoint}3.0"
                             )
                             toContain.exactly(2).value("${listBulletPoint}4.0")
-                            notToContain("$anElementWhichEquals: 2.0")
+                            notToContain("$anElementWhichEquals : 2.0")
 
                         }
                     }
@@ -223,12 +233,12 @@ abstract class IterableToContainInAnyOrderOnlyValuesExpectationsSpec(
                     }.toThrow<AssertionError> {
                         message {
                             toContainSize(5, 6)
-                            toContain.exactly(1).values("$listBulletPoint$anElementWhichEquals: 5.0")
+                            toContain.exactly(1).values("$listBulletPoint$anElementWhichEquals : 5.0")
                             notToContain(
-                                "$anElementWhichEquals: 1.0",
-                                "$anElementWhichEquals: 2.0",
-                                "$anElementWhichEquals: 3.0",
-                                "$anElementWhichEquals: 4.0"
+                                "$anElementWhichEquals : 1.0",
+                                "$anElementWhichEquals : 2.0",
+                                "$anElementWhichEquals : 3.0",
+                                "$anElementWhichEquals : 4.0"
                             )
                             notToContain(additionalElements, mismatches, mismatchesAdditionalElements)
                         }
@@ -256,22 +266,22 @@ abstract class IterableToContainInAnyOrderOnlyValuesExpectationsSpec(
                     }.toThrow<AssertionError> {
                         message {
                             toContain.exactly(1).values(
-                                "$listBulletPoint$anElementWhichEquals: -1.0",
-                                "$listBulletPoint$anElementWhichEquals: -2.0",
-                                "$warningBulletPoint$mismatches:",
+                                "$listBulletPoint$anElementWhichEquals : -1.0",
+                                "$listBulletPoint$anElementWhichEquals : -2.0",
+                                "$bb$mismatches:",
                                 "${listBulletPoint}5.0",
                                 "${listBulletPoint}8.0"
                             )
                             notToContain(
-                                "$anElementWhichEquals: 1.0",
-                                "$anElementWhichEquals: 2.0",
-                                "$anElementWhichEquals: 3.0",
-                                "$anElementWhichEquals: 4.0",
-                                "$anElementWhichEquals: 6.0",
-                                "$anElementWhichEquals: 7.0",
-                                "$anElementWhichEquals: 9.0",
-                                "$anElementWhichEquals: 10.0",
-                                "$anElementWhichEquals: 11.0",
+                                "$anElementWhichEquals : 1.0",
+                                "$anElementWhichEquals : 2.0",
+                                "$anElementWhichEquals : 3.0",
+                                "$anElementWhichEquals : 4.0",
+                                "$anElementWhichEquals : 6.0",
+                                "$anElementWhichEquals : 7.0",
+                                "$anElementWhichEquals : 9.0",
+                                "$anElementWhichEquals : 10.0",
+                                "$anElementWhichEquals : 11.0",
 
                                 additionalElements, mismatchesAdditionalElements
                             )
@@ -297,18 +307,18 @@ abstract class IterableToContainInAnyOrderOnlyValuesExpectationsSpec(
                     }.toThrow<AssertionError> {
                         message {
                             toContain.exactly(1).values(
-                                "$successfulBulletPoint$anElementWhichEquals: 1.0",
-                                "$successfulBulletPoint$anElementWhichEquals: 2.0",
-                                "$successfulBulletPoint$anElementWhichEquals: 3.0",
-                                "$successfulBulletPoint$anElementWhichEquals: 4.0",
-                                "$failingBulletPoint$anElementWhichEquals: -1.0",
-                                "$successfulBulletPoint$anElementWhichEquals: 6.0",
-                                "$successfulBulletPoint$anElementWhichEquals: 7.0",
-                                "$failingBulletPoint$anElementWhichEquals: -2.0",
-                                "$successfulBulletPoint$anElementWhichEquals: 9.0",
-                                "$successfulBulletPoint$anElementWhichEquals: 10.0",
-                                "$successfulBulletPoint$anElementWhichEquals: 11.0",
-                                "$warningBulletPoint$mismatches:",
+                                "$s$anElementWhichEquals : 1.0",
+                                "$s$anElementWhichEquals : 2.0",
+                                "$s$anElementWhichEquals : 3.0",
+                                "$s$anElementWhichEquals : 4.0",
+                                "$x$anElementWhichEquals : -1.0",
+                                "$s$anElementWhichEquals : 6.0",
+                                "$s$anElementWhichEquals : 7.0",
+                                "$x$anElementWhichEquals : -2.0",
+                                "$s$anElementWhichEquals : 9.0",
+                                "$s$anElementWhichEquals : 10.0",
+                                "$s$anElementWhichEquals : 11.0",
+                                "$bb$mismatches:",
                                 "${listBulletPoint}5.0",
                                 "${listBulletPoint}8.0"
                             )
@@ -358,11 +368,11 @@ abstract class IterableToContainInAnyOrderOnlyValuesExpectationsSpec(
                         }.toThrow<AssertionError> {
                             message {
                                 toContain.exactly(1).values(
-                                    "$rootBulletPoint$toContainInAnyOrderOnly:",
-                                    "$successfulBulletPoint$anElementWhichEquals: null",
-                                    "$successfulBulletPoint$anElementWhichEquals: 1.0",
-                                    "$successfulBulletPoint$anElementWhichEquals: 3.0",
-                                    "$warningBulletPoint$additionalElements:",
+                                    "$g$toContainInAnyOrderOnly :",
+                                    "$s$anElementWhichEquals : null",
+                                    "$s$anElementWhichEquals : 1.0",
+                                    "$s$anElementWhichEquals : 3.0",
+                                    "$bb$additionalElements :",
                                     "${listBulletPoint}null"
                                 )
                                 toContainSize(4, 3)

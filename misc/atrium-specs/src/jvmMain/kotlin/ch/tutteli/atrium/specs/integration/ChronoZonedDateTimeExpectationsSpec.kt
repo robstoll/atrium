@@ -1,8 +1,12 @@
 package ch.tutteli.atrium.specs.integration
 
+import ch.tutteli.atrium.api.fluent.en_GB.message
 import ch.tutteli.atrium.api.fluent.en_GB.messageToContain
 import ch.tutteli.atrium.api.fluent.en_GB.toThrow
 import ch.tutteli.atrium.api.verbs.internal.expect
+import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionAnyProof
+import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionDateTimeLikeProof
+import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionDateTimeLikeProof.*
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.translations.DescriptionDateTimeLikeExpectation
 import org.spekframework.spek2.Spek
@@ -33,13 +37,6 @@ abstract class ChronoZonedDateTimeExpectationsSpec(
         toBeTheSamePointInTimeAs.forSubjectLessTest(eleven)
     ) {})
 
-    val toBeBeforeDescr = DescriptionDateTimeLikeExpectation.TO_BE_BEFORE.getDefault()
-    val toBeBeforeOrTheSamePointInTimeAsDescr = DescriptionDateTimeLikeExpectation.TO_BE_BEFORE_OR_THE_SAME_POINT_IN_TIME_AS.getDefault()
-    val toBeAfterDescr = DescriptionDateTimeLikeExpectation.TO_BE_AFTER.getDefault()
-    val toBeAfterOrTheSamePointInTimeAsDescr = DescriptionDateTimeLikeExpectation.TO_BE_AFTER_OR_THE_SAME_POINT_IN_TIME_AS.getDefault()
-    val toBeTheSamePointInTimeAsDescr = DescriptionDateTimeLikeExpectation.TO_BE_THE_SAME_POINT_IN_TIME_AS.getDefault()
-
-
     listOf<ChronoZonedDateTime<*>>(
         eleven,
         eleven.withZoneSameInstant(ZoneOffset.UTC)
@@ -52,12 +49,16 @@ abstract class ChronoZonedDateTimeExpectationsSpec(
                 it("$ten throws an AssertionError") {
                     expect {
                         expect(subject).toBeBeforeFun(ten)
-                    }.toThrow<AssertionError> { messageToContain("$toBeBeforeDescr: $ten") }
+                    }.toThrow<AssertionError> {
+                        message { toContainDescr(TO_BE_BEFORE, ten) }
+                    }
                 }
                 it("$eleven does not throw") {
                     expect {
                         expect(subject).toBeBeforeFun(eleven)
-                    }.toThrow<AssertionError> { messageToContain("$toBeBeforeDescr: $eleven") }
+                    }.toThrow<AssertionError> {
+                        message { toContainDescr(TO_BE_BEFORE, eleven) }
+                    }
                 }
                 it("$twelve does not throw") {
                     expect(subject).toBeBeforeFun(twelve)
@@ -69,7 +70,9 @@ abstract class ChronoZonedDateTimeExpectationsSpec(
                 it("$ten throws an AssertionError") {
                     expect {
                         expect(subject).toBeBeforeOrTheSamePointInTimeAsFun(ten)
-                    }.toThrow<AssertionError> { messageToContain("$toBeBeforeOrTheSamePointInTimeAsDescr: $ten") }
+                    }.toThrow<AssertionError> {
+                        message { toContainDescr(TO_BE_BEFORE_OR_THE_SAME_POINT_IN_TIME_AS, ten) }
+                    }
                 }
                 it("$eleven does not throw") {
                     expect(subject).toBeBeforeOrTheSamePointInTimeAsFun(eleven)
@@ -87,12 +90,16 @@ abstract class ChronoZonedDateTimeExpectationsSpec(
                 it("$eleven throws an AssertionError") {
                     expect {
                         expect(subject).toBeAfterFun(eleven)
-                    }.toThrow<AssertionError> { messageToContain("$toBeAfterDescr: $eleven") }
+                    }.toThrow<AssertionError> {
+                        message { toContainDescr(TO_BE_AFTER, eleven) }
+                    }
                 }
                 it("$twelve throws an AssertionError") {
                     expect {
                         expect(subject).toBeAfterFun(twelve)
-                    }.toThrow<AssertionError> { messageToContain("$toBeAfterDescr: $twelve") }
+                    }.toThrow<AssertionError> {
+                        message { toContainDescr(TO_BE_AFTER, twelve) }
+                    }
                 }
             }
             describe("${toBeAfterOrTheSamePointInTimeAs.name} ...") {
@@ -107,7 +114,9 @@ abstract class ChronoZonedDateTimeExpectationsSpec(
                 it("$twelve throws an AssertionError") {
                     expect {
                         expect(subject).toBeAfterOrTheSamePointInTimeAsFun(twelve)
-                    }.toThrow<AssertionError> { messageToContain("$toBeAfterOrTheSamePointInTimeAsDescr: $twelve") }
+                    }.toThrow<AssertionError> {
+                        message { toContainDescr(TO_BE_AFTER_OR_THE_SAME_POINT_IN_TIME_AS, twelve) }
+                    }
                 }
             }
             describe("${toBeTheSamePointInTimeAs.name} ...") {
@@ -116,7 +125,9 @@ abstract class ChronoZonedDateTimeExpectationsSpec(
                 it("$ten throws an AssertionError") {
                     expect {
                         expect(subject).toBeTheSamePointInTimeAsFun(ten)
-                    }.toThrow<AssertionError> { messageToContain("$toBeTheSamePointInTimeAsDescr: $ten") }
+                    }.toThrow<AssertionError> {
+                        message { toContainDescr(TO_BE_THE_SAME_POINT_IN_TIME_AS, ten) }
+                    }
                 }
                 it("$eleven does not throw") {
                     expect(subject).toBeTheSamePointInTimeAsFun(eleven)
@@ -124,7 +135,9 @@ abstract class ChronoZonedDateTimeExpectationsSpec(
                 it("$twelve throws an AssertionError") {
                     expect {
                         expect(subject).toBeTheSamePointInTimeAsFun(twelve)
-                    }.toThrow<AssertionError> { messageToContain("$toBeTheSamePointInTimeAsDescr: $twelve") }
+                    }.toThrow<AssertionError> {
+                        message { toContainDescr(TO_BE_THE_SAME_POINT_IN_TIME_AS, twelve) }
+                    }
                 }
             }
         }

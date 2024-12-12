@@ -17,7 +17,7 @@ class LocalDateExpectationsSpec : ch.tutteli.atrium.specs.integration.LocalDateE
     property<LocalDate, DayOfWeek>(Expect<LocalDate>::dayOfWeek),
     fun1<LocalDate, Expect<DayOfWeek>.() -> Unit>(Expect<LocalDate>::dayOfWeek)
 ) {
-    @Suppress("unused", "UNUSED_VALUE")
+    @Suppress("unused")
     private fun ambiguityTest() {
         var a1: Expect<LocalDate> = notImplemented()
 

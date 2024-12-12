@@ -10,7 +10,8 @@ import java.time.chrono.ChronoLocalDate
 import java.time.chrono.ChronoZonedDateTime
 
 class ChronoZonedDateTimeExpectationsSpec : Spek({
-    include(ChronoLocalDateTimeExpectationsSpec.ChronoLocalDateTimeSpec)
+    include(ChronoZonedDateTimeSpec)
+    include(ChronoZonedDateTimeAsStringSpec)
 }) {
     object ChronoZonedDateTimeSpec : ch.tutteli.atrium.specs.integration.ChronoZonedDateTimeExpectationsSpec(
         fun1<ChronoZonedDateTime<*>, ChronoZonedDateTime<*>>(Expect<ChronoZonedDateTime<*>>::toBeBefore),
@@ -29,7 +30,7 @@ class ChronoZonedDateTimeExpectationsSpec : Spek({
             fun1<ChronoZonedDateTime<*>, String>(Expect<ChronoZonedDateTime<*>>::toBeTheSamePointInTimeAs)
         )
 
-    @Suppress("unused", "UNUSED_VALUE")
+    @Suppress("unused")
     private fun ambiguityTest() {
         val chronoZonedDateTime: ChronoZonedDateTime<*> = notImplemented()
         var a1: Expect<ChronoZonedDateTime<ChronoLocalDate>> = notImplemented()

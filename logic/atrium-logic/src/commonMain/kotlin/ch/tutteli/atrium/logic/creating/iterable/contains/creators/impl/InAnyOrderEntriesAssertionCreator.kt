@@ -47,11 +47,13 @@ class InAnyOrderEntriesAssertionCreator<E : Any, T : IterableLike>(
 
     //TODO 1.3.0 replace with Representable and remove suppression
     @Suppress("DEPRECATION")
-    override val descriptionToContain: ch.tutteli.atrium.reporting.translating.Translatable = DescriptionIterableLikeExpectation.TO_CONTAIN
+    override val descriptionToContain: ch.tutteli.atrium.reporting.translating.Translatable =
+        DescriptionIterableLikeExpectation.TO_CONTAIN
 
     //TODO 1.3.0 replace with Representable and remove suppression
     @Suppress("DEPRECATION")
-    override val descriptionNotFound: ch.tutteli.atrium.reporting.translating.Translatable = DescriptionIterableLikeExpectation.ELEMENT_NOT_FOUND
+    override val descriptionNotFound: ch.tutteli.atrium.reporting.translating.Translatable =
+        DescriptionIterableLikeExpectation.ELEMENT_NOT_FOUND
 
     //TODO 1.3.0 replace with Representable and remove suppression
     @Suppress("DEPRECATION")
@@ -67,7 +69,7 @@ class InAnyOrderEntriesAssertionCreator<E : Any, T : IterableLike>(
     ): AssertionGroup {
         return if (searchBehaviour is NotSearchBehaviour) {
             val assertion = decorateAssertionWithHasNext(inAnyOrderAssertion, multiConsumableContainer)
-           decorateWithHintUseNotToHaveElementsOrNone(assertion, multiConsumableContainer, notToHaveNextOrNoneFunName)
+            decorateWithHintUseNotToHaveElementsOrNone(assertion, multiConsumableContainer, notToHaveNextOrNoneFunName)
         } else {
             inAnyOrderAssertion
         }

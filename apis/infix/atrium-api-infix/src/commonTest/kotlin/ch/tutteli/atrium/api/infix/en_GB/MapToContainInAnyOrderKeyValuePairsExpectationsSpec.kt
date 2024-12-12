@@ -60,7 +60,7 @@ class MapToContainInAnyOrderKeyValuePairsExpectationsSpec : Spek({
             else expect toContain pairs(a, *aX)
     }
 
-    @Suppress("unused", "UNUSED_VALUE")
+    @Suppress("unused")
     private fun ambiguityTest() {
         var map: Expect<Map<Number, CharSequence>> = notImplemented()
         var subMap: Expect<LinkedHashMap<out Number, String>> = notImplemented()

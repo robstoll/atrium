@@ -39,11 +39,11 @@ abstract class ResultExpectationsSpec(
 
     include(object : AssertionCreatorSpec<Result<Int>>(
         describePrefix, Result.success(2),
-        toBeASuccess.forExpectationCreatorTest("$toEqualDescr: 2") { toEqual(2) }
+        toBeASuccess.forExpectationCreatorTest("$toEqualDescr\\s+: 2") { toEqual(2) }
     ) {})
     include(object : AssertionCreatorSpec<Result<Int?>>(
         "$describePrefix[nullable] ", Result.success(2),
-        toBeASuccessNullable.forExpectationCreatorTest("$toEqualDescr: 2") { toEqual(2) }
+        toBeASuccessNullable.forExpectationCreatorTest("$toEqualDescr\\s+: 2") { toEqual(2) }
     ) {})
 
     include(object : AssertionCreatorSpec<Result<Int>>(

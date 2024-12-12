@@ -3,8 +3,7 @@ package ch.tutteli.atrium.specs.integration
 import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionCharSequenceProof.AT_MOST
-import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionCharSequenceProof.TO_CONTAIN
+import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionCharSequenceProof.*
 import ch.tutteli.atrium.specs.*
 import org.spekframework.spek2.style.specification.Suite
 
@@ -84,13 +83,15 @@ abstract class CharSequenceNotToContainOrAtMostExpectationsSpec(
                     expect {
                         expect(helloWorld).notToContainOrAtMostFun(1, 'l')
                     }.toThrow<AssertionError> {
-                        message {
-                            toContainSubject("\"$helloWorld\"")
-                            toContainDescr(TO_CONTAIN, "")
-                            toContainValue("'l'")
-                            toContainNumberOfMatches(3)
-                            toContainDescr(AT_MOST, 1)
-                        }
+                        message.toMatch(
+                            Regex(
+                                "$expectationVerb : \"$helloWorld\"$lineSeparator" +
+                                    "$g${TO_CONTAIN.string} : $lineSeparator" +
+                                    "${indentG}${g}${VALUE.string} : 'l'$lineSeparator" +
+                                    "${indentG}${indentG}${g}${f}${NUMBER_OF_MATCHES.string} : 3$lineSeparator" +
+                                    "${indentG}${indentG}${indentG}${indentF}${x}${AT_MOST.string}\\s+: 1"
+                            )
+                        )
                     }
                 }
                 it("${notToContainOrAtMostPair.first("'H', 'l'", "once")} throws AssertionError mentioning only 'l'") {

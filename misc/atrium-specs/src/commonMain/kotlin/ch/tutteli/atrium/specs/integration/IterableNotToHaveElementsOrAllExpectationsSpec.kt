@@ -5,8 +5,9 @@ import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.core.polyfills.format
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic.utils.expectLambda
+import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionIterableLikeProof
 import ch.tutteli.atrium.specs.*
-import ch.tutteli.atrium.translations.DescriptionIterableLikeExpectation
+import ch.tutteli.atrium.specs.lineSeparator
 
 abstract class IterableNotToHaveElementsOrAllExpectationsSpec(
     notToHaveElementsOrAll: Fun1<Iterable<Double>, Expect<Double>.() -> Unit>,
@@ -14,27 +15,29 @@ abstract class IterableNotToHaveElementsOrAllExpectationsSpec(
     describePrefix: String = "[Atrium] "
 ) : IterableToContainEntriesSpecBase({
 
-    include(object : SubjectLessSpec<Iterable<Double>>(describePrefix,
+    include(object : SubjectLessSpec<Iterable<Double>>(
+        describePrefix,
         notToHaveElementsOrAll.first to expectLambda { notToHaveElementsOrAll.second(this) { toEqual(2.5) } }
     ) {})
-    include(object : SubjectLessSpec<Iterable<Double?>>(describePrefix,
-        "${notToHaveElementsOrAllNullable.first} for nullable" to expectLambda { notToHaveElementsOrAllNullable.second(this, null) }
+    include(object : SubjectLessSpec<Iterable<Double?>>(
+        describePrefix,
+        "${notToHaveElementsOrAllNullable.first} for nullable" to expectLambda {
+            notToHaveElementsOrAllNullable.second(this, null)
+        }
     ) {})
 
     include(object : AssertionCreatorSpec<Iterable<Double>>(
         describePrefix, oneToSeven().toList().asIterable(),
-        notToHaveElementsOrAll.forExpectationCreatorTest("$toBeGreaterThanDescr: 0.0") { toBeGreaterThan(0.0) }
+        notToHaveElementsOrAll.forExpectationCreatorTest("$toBeGreaterThanDescr\\s+: 0.0") { toBeGreaterThan(0.0) }
     ) {})
     include(object : AssertionCreatorSpec<Iterable<Double?>>(
         "$describePrefix[nullable Element] ", oneToSeven().toList().asIterable(),
-        notToHaveElementsOrAllNullable.forExpectationCreatorTest("$toBeGreaterThanDescr: 0.0") { toBeGreaterThan(0.0) }
+        notToHaveElementsOrAllNullable.forExpectationCreatorTest("$toBeGreaterThanDescr\\s+: 0.0") { toBeGreaterThan(0.0) }
     ) {})
 
-    val allElementsDescr = DescriptionIterableLikeExpectation.NOT_TO_HAVE_ELEMENTS_OR_ALL.getDefault()
+    val allElementsDescr = DescriptionIterableLikeProof.NOT_TO_HAVE_ELEMENTS_OR_ALL.string
 
-    val explanatoryPointWithIndent = "$indentRootBulletPoint$indentListBulletPoint$explanatoryBulletPoint"
-
-    fun index(index: Int) = listBulletPoint + DescriptionIterableLikeExpectation.INDEX.getDefault().format(index)
+    fun index(index: Int) = DescriptionIterableLikeProof.INDEX.string.format(index)
 
     nonNullableCases(
         describePrefix,
@@ -53,19 +56,21 @@ abstract class IterableNotToHaveElementsOrAllExpectationsSpec(
                 it("throws AssertionError containing both assumptions in one assertion") {
                     expect {
                         expect(oneToSeven()).notToHaveElementsOrAllFun { toBeGreaterThan(2.5); toBeLessThan(7.0) }
-                    }.toThrow<AssertionError> {
-                        message {
-                            toContain.exactly(1).values(
-                                "$rootBulletPoint$allElementsDescr: $separator",
-                                "$explanatoryPointWithIndent$toBeGreaterThanDescr: 2.5",
-                                "$explanatoryPointWithIndent$toBeLessThanDescr: 7.0",
-                                "$warningBulletPoint$mismatches:",
-                                "${index(0)}: 1.0",
-                                "${index(1)}: 2.0",
-                                "${index(9)}: 7.0"
-                            )
-                        }
-                    }
+                    }.toThrow<AssertionError>().message.toMatch(
+                        Regex(
+                            "${expectationVerb}\\s+:.*$lineSeparator" +
+                                "\\Q$g\\E${allElementsDescr} : $lineSeparator" +
+                                "$indentG$explanatoryBulletPoint$toBeGreaterThanDescr\\s+: 2.5$lineSeparator" +
+                                "$indentG$explanatoryBulletPoint$toBeLessThanDescr\\s+: 7.0$lineSeparator" +
+                                "${indentG}$bb$mismatches : $lineSeparator" +
+                                //TODO 1.3.0 should be on an own level so that they are not aligned with the description, i.e
+                                // ${index(0)} :
+                                // also, we should see the sub-assertions which failed
+                                "${indentG}${indentBb}${listBulletPoint}${index(0)}\\s+: 1.0$lineSeparator" +
+                                "${indentG}${indentBb}${listBulletPoint}${index(1)}\\s+: 2.0$lineSeparator" +
+                                "${indentG}${indentBb}${listBulletPoint}${index(9)}\\s+: 7.0"
+                        )
+                    )
                 }
             }
 
@@ -95,12 +100,18 @@ abstract class IterableNotToHaveElementsOrAllExpectationsSpec(
                         expect(oneToSevenNullable()).notToHaveElementsOrAllNullableFun { toBeGreaterThan(0.5) }
                     }.toThrow<AssertionError> {
                         message {
+                            //TODO 1.3.0 should be $x and not $g as we don't have details, should be use the debug icon instead of warning??
                             toContain.exactly(1).values(
-                                "$rootBulletPoint$allElementsDescr: $separator",
-                                "$explanatoryPointWithIndent$toBeGreaterThanDescr: 0.5",
-                                "$warningBulletPoint$mismatches:",
-                                "${index(1)}: null",
-                                "${index(5)}: null"
+                                "$g$allElementsDescr : $lineSeparator",
+                                "$indentG$explanatoryBulletPoint$toBeGreaterThanDescr : 0.5",
+                                "$bb$mismatches :"
+                            )
+                            //TODO 1.3.0 should be on an own level so that they are not aligned with the description, i.e
+                            // ${index(0)} :
+                            // we don't need to see why it failed because we only defined one expectation
+                            toContain.exactly(1).regex(
+                                "${index(1)}\\s+: null",
+                                "${index(5)}\\s+: null"
                             )
                         }
                     }
