@@ -7,6 +7,11 @@ import ch.tutteli.atrium.reporting.reportables.Description
  * a different wording in two different expectation functions.
  */
 enum class DescriptionBasic(override val string: String) : Description {
+    /** @since 1.3.0 (but was in DescriptionBasic of atrium-translations before) */
+    TO("to"),
+
+    /** @since 1.3.0 (but was in DescriptionBasic of atrium-translations before) */
+    NOT_TO("not to"),
 
     /** @since 1.3.0 (but was in DescriptionBasic of atrium-translations before) */
     TO_BE("to be"),
@@ -19,4 +24,7 @@ enum class DescriptionBasic(override val string: String) : Description {
 
     /** @since 1.3.0 (but was since 0.18.0 in DescriptionBasic of atrium-translations before) */
     NOT_TO_HAVE("not to have"),
+
+    /** @since 1.3.0 (but was since 0.18.0 in DescriptionBasic of atrium-translations before) */
+    WAS("was"),
 }

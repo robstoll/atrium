@@ -49,7 +49,7 @@ class PathExpectationsSpec : ch.tutteli.atrium.specs.integration.PathExpectation
             expect.toHaveTheDirectoryEntries(entry)
     }
 
-    @Suppress("unused", "UNUSED_VALUE")
+    @Suppress("unused")
     private fun ambiguityTest() {
         var a1: Expect<DummyPath> = notImplemented()
 
@@ -86,6 +86,7 @@ class PathExpectationsSpec : ch.tutteli.atrium.specs.integration.PathExpectation
         a1.resolve("test")
         a1.resolve("test") {}
     }
+
+    class DummyPath(path: Path) : Path by path
 }
 
-class DummyPath(path: Path) : Path by path

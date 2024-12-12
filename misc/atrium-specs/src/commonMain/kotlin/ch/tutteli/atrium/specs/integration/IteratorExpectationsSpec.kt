@@ -29,12 +29,12 @@ abstract class IteratorExpectationsSpec(
 
     include(object : AssertionCreatorSpec<Iterator<Int>>(
         describePrefix, list.iterator(),
-        next.forAssertionCreatorSpec("$toEqualDescr: 1") { toEqual(1) }
+        next.forAssertionCreatorSpec("$toEqualDescr\\s+: 1") { toEqual(1) }
     ) {})
 
     include(object : AssertionCreatorSpec<Iterator<Int?>>(
         describePrefix, list.iterator(),
-        nextNullable.forAssertionCreatorSpec("$toEqualDescr: 1") { toEqual(1) }
+        nextNullable.forAssertionCreatorSpec("$toEqualDescr\\s+: 1") { toEqual(1) }
     ) {})
 
     fun describeFun(vararg pairs: SpecPair<*>, body: Suite.() -> Unit) =

@@ -1,48 +1,50 @@
-//TODO remove with 2.0.0 latest
-@file:Suppress("DEPRECATION")
-
 package ch.tutteli.atrium.specs
 
 import ch.tutteli.atrium.assertions.*
 
-const val rootBulletPoint = "◆ "
+const val rootBulletPoint = "◆ "
 const val listBulletPoint = "• "
+const val featureBulletPoint = "• "
 
-const val featureArrow = "▶ "
-const val featureBulletPoint = "◾ "
-
-const val successfulBulletPoint = "✔ "
-const val failingBulletPoint = "✘ "
+const val s = "✔ "
+const val g = "🚩\uFE0F "
+const val x = "🚫\uFE0F "
+const val f = "▶ "
+const val i = "i\uFE0F "
+const val d = "🔎\uFE0F"
+const val u = "💡\uFE0F "
+const val bb = "❗❗ "
 
 const val explanatoryBulletPoint = "» "
-const val warningBulletPoint = "❗❗ "
-const val informationBulletPoint = "ℹ\uFE0F "
-const val hintBulletPoint ="\uD83D\uDCA1\uFE0F "
 const val groupingBulletPoint = "# "
 
-val indentRootBulletPoint = " ".repeat(rootBulletPoint.length)
-val indentListBulletPoint = " ".repeat(listBulletPoint.length)
+val indentRoot = " ".repeat(rootBulletPoint.length)
+val indentList = " ".repeat(listBulletPoint.length)
+val indentExplanatory = " ".repeat(explanatoryBulletPoint.length)
 
-val indentFeatureArrow = " ".repeat(featureArrow.length)
-val indentFeatureBulletPoint = " ".repeat(featureBulletPoint.length)
+val indentFeature = " ".repeat(featureBulletPoint.length)
 
-val indentSuccessfulBulletPoint = " ".repeat(successfulBulletPoint.length)
-val indentFailingBulletPoint = " ".repeat(failingBulletPoint.length)
+val indentSuccess = " ".repeat(s.length)
+val indentG = " ".repeat(3)
+val indentGg = "$indentG$indentG"
+val indentX = " ".repeat(3)
+val indentF = " ".repeat(f.length)
+val indentBb = " ".repeat(4)
+val indentGrouping = " ".repeat(4)
 
-val indentWarningBulletPoint = " ".repeat(warningBulletPoint.length)
-val indentGroupingBulletPointIndent = " ".repeat(groupingBulletPoint.length)
-
+//TODO 1.3.0 remove already?
+@Suppress("DEPRECATION")
 val defaultBulletPoints = mapOf(
     RootAssertionGroupType::class to rootBulletPoint,
     ListAssertionGroupType::class to listBulletPoint,
-    PrefixFeatureAssertionGroupHeader::class to featureArrow,
+    PrefixFeatureAssertionGroupHeader::class to f,
     FeatureAssertionGroupType::class to featureBulletPoint,
-    PrefixSuccessfulSummaryAssertion::class to successfulBulletPoint,
-    PrefixFailingSummaryAssertion::class to failingBulletPoint,
+    PrefixSuccessfulSummaryAssertion::class to s,
+    PrefixFailingSummaryAssertion::class to x,
     ExplanatoryAssertionGroupType::class to explanatoryBulletPoint,
-    WarningAssertionGroupType::class to warningBulletPoint,
-    InformationAssertionGroupType::class to informationBulletPoint,
-    HintAssertionGroupType::class to hintBulletPoint,
+    WarningAssertionGroupType::class to bb,
+    InformationAssertionGroupType::class to i,
+    HintAssertionGroupType::class to u,
     GroupingAssertionGroupType::class to groupingBulletPoint
 )
 

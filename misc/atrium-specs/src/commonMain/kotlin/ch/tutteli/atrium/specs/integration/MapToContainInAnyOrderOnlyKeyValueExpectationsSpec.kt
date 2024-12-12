@@ -33,7 +33,7 @@ abstract class MapToContainInAnyOrderOnlyKeyValueExpectationsSpec(
     include(
     object : AssertionCreatorSpec<Map<out String, Int>>(
         describePrefix, map,
-        assertionCreatorSpecTriple(keyWithValueAssertions.name, "$toBeLessThanDescr: 2",
+        assertionCreatorSpecTriple(keyWithValueAssertions.name, "$toBeLessThanDescr\\s+: 2",
             {
                 keyWithValueAssertions(
                     this,
@@ -48,7 +48,7 @@ abstract class MapToContainInAnyOrderOnlyKeyValueExpectationsSpec(
     include(
     object : AssertionCreatorSpec<Map<out String?, Int?>>(
         "$describePrefix[nullable] ", mapOf("a" to 1, "b" to null),
-        assertionCreatorSpecTriple(keyWithNullableValueAssertions.name, "$toBeLessThanDescr: 2",
+        assertionCreatorSpecTriple(keyWithNullableValueAssertions.name, "$toBeLessThanDescr\\s+: 2",
             {
                 keyWithNullableValueAssertions(
                     this,

@@ -2,7 +2,69 @@ package ch.tutteli.atrium.reporting
 
 import ch.tutteli.atrium.core.polyfills.fullName
 import ch.tutteli.atrium.creating.proofs.Proof
-import ch.tutteli.atrium.reporting.AtriumError.Companion
+import ch.tutteli.atrium.creating.proofs.RootProofGroup
+import ch.tutteli.atrium.creating.proofs.SimpleProof
+import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionAnyProof
+import ch.tutteli.kbox.takeIf
+import org.opentest4j.AssertionFailedError
+
+private const val poweredByAtrium = "\n\n===================== powered by Atrium"
+
+fun extractExpected(causingProof: Proof): Any? =
+    when (causingProof) {
+        is RootProofGroup -> takeIf(causingProof.proofs.size == 1) {
+            @Suppress("DEPRECATION")
+            when (val first = causingProof.proofs.first()) {
+                is SimpleProof ->
+                    takeIf(first.description == DescriptionAnyProof.TO_EQUAL) {
+                        first.representation.toString()
+                    }
+
+                is ch.tutteli.atrium.assertions.BasicDescriptiveAssertion ->
+                    takeIf(first.description.getDefault() == "to equal") {
+                        first.representation.toString()
+                    }
+
+                else -> null
+            }?.let {
+                if (it.contains("\n").not()) {
+                    it + poweredByAtrium
+                } else it
+            }
+        }
+
+        else -> null
+    }
+
+
+fun extractActual(causingProof: Proof): Any? =
+    when (causingProof) {
+        is RootProofGroup -> takeIf(causingProof.proofs.size == 1) {
+            @Suppress("DEPRECATION")
+            when (val first = causingProof.proofs.first()) {
+                is SimpleProof ->
+                    takeIf(first.description == DescriptionAnyProof.TO_EQUAL) {
+                        causingProof.representation.toString()
+                    }
+
+                is ch.tutteli.atrium.assertions.BasicDescriptiveAssertion ->
+                    takeIf(first.description.getDefault() == "to equal") {
+                        causingProof.representation.toString()
+                    }
+
+                else -> null
+            }?.let {
+                if (it.contains("\n").not()) {
+                    it + poweredByAtrium
+                } else it
+            }
+        }
+
+        else -> null
+    }
+
+actual typealias AssertionErrorLikeIntermediate = java.lang.AssertionError
+actual typealias AssertionErrorLike = AssertionFailedError
 
 /**
  * Indicates that an expectation stated via Atrium was not.
@@ -16,7 +78,7 @@ import ch.tutteli.atrium.reporting.AtriumError.Companion
 actual class AtriumError internal actual constructor(
     message: String,
     actual val causingProof: Proof
-) : AssertionError(message, null) {
+) : AssertionFailedError(message, extractExpected(causingProof), extractActual(causingProof), null) {
 
     /**
      * Usually the error message but an empty string in case of certain test-runners.

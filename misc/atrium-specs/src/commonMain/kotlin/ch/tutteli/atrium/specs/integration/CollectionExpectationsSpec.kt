@@ -3,13 +3,9 @@ package ch.tutteli.atrium.specs.integration
 import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionCharSequenceProof.NOT_FOUND
-import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionCharSequenceProof.TO_CONTAIN
 import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionCollectionProof
+import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionCollectionProof.EMPTY
 import ch.tutteli.atrium.specs.*
-import ch.tutteli.atrium.specs.integration.CharSequenceToContainSpecBase.Companion.helloWorld
-import ch.tutteli.atrium.specs.integration.CharSequenceToContainSpecBase.Companion.toContainValue
-import ch.tutteli.atrium.translations.DescriptionCollectionExpectation
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.Suite
 
@@ -31,13 +27,11 @@ abstract class CollectionExpectationsSpec(
 
     include(object : AssertionCreatorSpec<Collection<Int>>(
         describePrefix, listOf(999),
-        size.forAssertionCreatorSpec("$toEqualDescr: 1") { toEqual(1) }
+        size.forAssertionCreatorSpec("$toEqualDescr\\s+: 1") { toEqual(1) }
     ) {})
 
     fun describeFun(vararg pairs: SpecPair<*>, body: Suite.() -> Unit) =
         describeFunTemplate(describePrefix, pairs.map { it.name }.toTypedArray(), body = body)
-
-    val empty = DescriptionCollectionProof.EMPTY.string
 
     describeFun(isEmpty, isNotEmpty) {
         val isEmptyFun = isEmpty.lambda
@@ -53,7 +47,7 @@ abstract class CollectionExpectationsSpec(
                 }.toThrow<AssertionError> {
                     message {
                         toContainSubject("[]")
-                        toContainNotToBeDescr(empty)
+                        toContainNotToBeDescr(EMPTY.string)
                     }
                 }
             }
@@ -66,7 +60,7 @@ abstract class CollectionExpectationsSpec(
                 }.toThrow<AssertionError> {
                     message {
                         toContainSubject("[1, 2]")
-                        toContainToBeDescr(empty)
+                        toContainToBeDescr(EMPTY)
                     }
                 }
             }

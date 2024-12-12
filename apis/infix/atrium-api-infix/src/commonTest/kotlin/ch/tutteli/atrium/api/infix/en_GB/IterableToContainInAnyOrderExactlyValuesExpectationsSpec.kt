@@ -30,7 +30,7 @@ class IterableToContainInAnyOrderExactlyValuesExpectationsSpec :
     }
 
 
-    @Suppress("unused", "UNUSED_VALUE")
+    @Suppress("unused")
     private fun ambiguityTest() {
         var list: Expect<List<Number>> = notImplemented()
         var nList: Expect<Set<Number?>> = notImplemented()

@@ -8,7 +8,7 @@ import ch.tutteli.atrium.creating.*
 import ch.tutteli.atrium.creating.proofs.Proof
 import ch.tutteli.atrium.reporting.SHOULD_NOT_BE_SHOWN_TO_THE_USER_BUG
 import ch.tutteli.atrium.reporting.Text
-import ch.tutteli.atrium.reporting.reportables.descriptions.ErrorMessages
+import ch.tutteli.atrium.reporting.reportables.ErrorMessages
 import kotlin.reflect.KClass
 
 @ExperimentalNewExpectTypes
@@ -51,7 +51,7 @@ abstract class BaseExpectImpl<T>(
         ReplaceWith(
             "this.appendAsGroupIndicateIfOneCollected(ExpectationCreatorWithUsageHints<T>(assertionCreator, listOf(/* .. add a custom usage hint in case you have an overload which does not expect an expectationCreator or use the generic */ ErrorMessages.DEFAULT_HINT_AT_LEAST_ONE_EXPECTATION_DEFINED))).first",
             "ch.tutteli.atrium.creating.ExpectationCreatorWithUsageHints",
-            "ch.tutteli.atrium.reporting.reportables.descriptions.ErrorMessages"
+            "ch.tutteli.atrium.reporting.reportables.ErrorMessages"
         )
     )
     override fun appendAsGroup(assertionCreator: Expect<T>.() -> Unit): Expect<T> =

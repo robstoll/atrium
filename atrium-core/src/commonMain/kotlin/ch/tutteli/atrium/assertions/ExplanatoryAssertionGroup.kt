@@ -27,7 +27,16 @@ internal class ExplanatoryAssertionGroup(
     type: ExplanatoryAssertionGroupType,
     explanatoryAssertions: List<Assertion>,
     private val holds: Boolean
-) : EmptyNameAndRepresentationAssertionGroup(type, explanatoryAssertions) {
+) : EmptyNameAndRepresentationAssertionGroup(
+    type, when (explanatoryAssertions.size) {
+        1 -> when (val assertion = explanatoryAssertions[0]) {
+            is AssertionGroup -> if (assertion.type is InvisibleAssertionGroupType) assertion.assertions else explanatoryAssertions
+            else -> explanatoryAssertions
+        }
+
+        else -> explanatoryAssertions
+    }
+) {
 
     override fun holds() = holds
 

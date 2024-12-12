@@ -8,10 +8,7 @@ import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.builders.assertionBuilder
 import ch.tutteli.atrium.assertions.builders.invisibleGroup
 import ch.tutteli.atrium.assertions.builders.withExplanatoryAssertion
-import ch.tutteli.atrium.core.None
-import ch.tutteli.atrium.core.Some
-import ch.tutteli.atrium.core.falseProvider
-import ch.tutteli.atrium.core.trueProvider
+import ch.tutteli.atrium.core.*
 import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic.collectBasedOnSubject
@@ -33,16 +30,16 @@ internal fun <E : Any> allCreatedAssertionsHold(
 
 internal fun <E : Any> createExplanatoryAssertionGroup(
     container: AssertionContainer<*>,
-    assertionCreatorOrNull: (Expect<E>.() -> Unit)?
+    assertionCreatorOrNull: (Expect<E>.() -> Unit)?,
+    maybeSubject: Option<E> = None
 ): AssertionGroup = assertionBuilder
     .explanatoryGroup
     .withDefaultType
     .let {
-        // we don't use toBeNullOrNullGivenElse because we want to report an empty assertionCreatorOrNull and
+        // we don't use toEqualNullIfNullGivenElse because we want to report an empty assertionCreatorOrNull and
         // since we use None as subject and are already inside an explanatory assertion group, it would not be reported
         if (assertionCreatorOrNull != null) {
-            // we don't use a subject, we will not show it anyway
-            it.collectAssertions(container, None, assertionCreatorOrNull)
+            it.collectAssertions(container, maybeSubject, assertionCreatorOrNull)
         } else {
             it.withAssertion(
                 // it is for an proofExplanation where it does not matter if the assertion holds or not

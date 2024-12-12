@@ -6,7 +6,7 @@ import ch.tutteli.atrium.core.polyfills.format
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionBasic
-import ch.tutteli.atrium.translations.DescriptionIterableLikeExpectation
+import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionIterableLikeProof
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.Suite
 
@@ -36,11 +36,12 @@ abstract class IterableExpectationsSpec(
 
     include(object : AssertionCreatorSpec<Iterable<Int>>(
         describePrefix, listOf(-20, 20, 0),
-        min.forAssertionCreatorSpec("$toEqualDescr: -20") { toEqual(-20) },
-        max.forAssertionCreatorSpec("$toEqualDescr: 20") { toEqual(20) }
+        min.forAssertionCreatorSpec("$toEqualDescr\\s+: -20") { toEqual(-20) },
+        max.forAssertionCreatorSpec("$toEqualDescr\\s+: 20") { toEqual(20) }
     ) {})
 
-    include(object : SubjectLessSpec<Iterable<Int>>(describePrefix,
+    include(object : SubjectLessSpec<Iterable<Int>>(
+        describePrefix,
         lastFeature.forSubjectLess(),
         last.forSubjectLess { toEqual(1) }
     ) {})
@@ -48,12 +49,8 @@ abstract class IterableExpectationsSpec(
     fun describeFun(vararg pairs: SpecPair<*>, body: Suite.() -> Unit) =
         describeFunTemplate(describePrefix, pairs.map { it.name }.toTypedArray(), body = body)
 
-    val toHaveDescr = DescriptionBasic.TO_HAVE.string
-    val notToHaveDescr = DescriptionBasic.NOT_TO_HAVE.string
-    val aNextElementDescr = DescriptionIterableLikeExpectation.A_NEXT_ELEMENT.getDefault()
-    val duplicateElements = DescriptionIterableLikeExpectation.DUPLICATE_ELEMENTS.getDefault()
-
-    val toHaveANextElement = "$toHaveDescr: $aNextElementDescr"
+    val aNextElementDescr = DescriptionIterableLikeProof.A_NEXT_ELEMENT.string
+    val duplicateElements = DescriptionIterableLikeProof.DUPLICATE_ELEMENTS.string
 
     describeFun(toHaveElements) {
         val toHaveElementsFun = toHaveElements.lambda
@@ -65,7 +62,9 @@ abstract class IterableExpectationsSpec(
         it("throws an AssertionError if an iterable does not have next") {
             expect {
                 expect(emptyList<Int>() as Iterable<Int>).toHaveElementsFun()
-            }.toThrow<AssertionError> { messageToContain(toHaveANextElement) }
+            }.toThrow<AssertionError> {
+                message { toContainDescr(DescriptionBasic.TO_HAVE, aNextElementDescr) }
+            }
         }
     }
 
@@ -79,7 +78,9 @@ abstract class IterableExpectationsSpec(
         it("throws an AssertionError if an iterable has next element") {
             expect {
                 expect(listOf(1, 2) as Iterable<Int>).notToHaveElementsFun()
-            }.toThrow<AssertionError> { messageToContain("$notToHaveDescr: $aNextElementDescr") }
+            }.toThrow<AssertionError> {
+                message { toContainDescr(DescriptionBasic.NOT_TO_HAVE, aNextElementDescr) }
+            }
         }
     }
 
@@ -97,7 +98,7 @@ abstract class IterableExpectationsSpec(
                     expect {
                         expect(iterableWith4And3).minFun { toBeLessThan(2) }
                     }.toThrow<AssertionError> {
-                        messageToContain("min(): 3")
+                        message { toContainDescr("min()", 3) }
                     }
                 }
             }
@@ -109,7 +110,7 @@ abstract class IterableExpectationsSpec(
                     expect {
                         expect(iterableWith4And3).maxFun { toEqual(3) }
                     }.toThrow<AssertionError> {
-                        messageToContain("max(): 4")
+                        message { toContainDescr("max()", 4) }
                     }
                 }
             }
@@ -117,7 +118,7 @@ abstract class IterableExpectationsSpec(
 
         context("empty list") {
             val emptyIterable = expect(emptyList<Int>() as Iterable<Int>)
-            val noElementsDescr = DescriptionIterableLikeExpectation.NO_ELEMENTS.getDefault()
+            val noElementsDescr = DescriptionIterableLikeProof.NO_ELEMENTS.string
 
             minFunctions.forEach { (name, minFun, _) ->
                 it("$name - fails warning about empty iterable") {
@@ -149,10 +150,8 @@ abstract class IterableExpectationsSpec(
                     expect(emptyList<Int>() as Iterable<Int>).toHaveElementsAndNoDuplicatesFun()
                 }.toThrow<AssertionError> {
                     message {
-                        toContain(
-                            toHaveANextElement,
-                            "$notToHaveDescr: $duplicateElements"
-                        )
+                        toContainDescr(DescriptionBasic.TO_HAVE, aNextElementDescr)
+                        toContainDescr(DescriptionBasic.NOT_TO_HAVE, duplicateElements)
                     }
                 }
             }
@@ -166,9 +165,11 @@ abstract class IterableExpectationsSpec(
 
         describe("list with duplicates") {
             it("throws AssertionError with details of duplicate indices") {
-                fun index(i: Int, element: Int) = DescriptionIterableLikeExpectation.INDEX.getDefault().format("$i: $element")
+                fun index(i: Int, element: Int) =
+                    DescriptionIterableLikeProof.INDEX.string.format("$i : $element")
+
                 fun duplicatedBy(vararg elements: Int) =
-                    DescriptionIterableLikeExpectation.DUPLICATED_BY.getDefault().format(elements.joinToString(", "))
+                    DescriptionIterableLikeProof.DUPLICATED_BY.string.format(elements.joinToString(", "))
 
                 val input = listOf(1, 2, 1, 2, 3, 4, 4, 4).asIterable()
 
@@ -176,7 +177,7 @@ abstract class IterableExpectationsSpec(
                     expect(input).toHaveElementsAndNoDuplicatesFun()
                 }.toThrow<AssertionError> {
                     message {
-                        toContain("$notToHaveDescr: $duplicateElements")
+                        toContainDescr(DescriptionBasic.NOT_TO_HAVE, duplicateElements)
                         toContain(index(0, 1), index(1, 2), index(5, 4))
                         toContain(duplicatedBy(2), duplicatedBy(3), duplicatedBy(6, 7))
                     }
@@ -186,23 +187,21 @@ abstract class IterableExpectationsSpec(
     }
 
     val listNullable = listOf(1, 3, 4) as Iterable<Int>
-    val fluentNullable = expect(listNullable)
 
     describeFun(lastFeature, last) {
         val lastFunctions = unifySignatures(lastFeature, last)
         context("list $listNullable") {
             lastFunctions.forEach { (name, lastFun, _) ->
                 it("$name - can perform sub-assertion on last element with value") {
-                    fluentNullable.lastFun { toEqual(4) }
+                    expect(listNullable).lastFun { toEqual(4) }
                 }
             }
         }
     }
 
     val emptyList = emptyList<Int>() as Iterable<Int>
-    val fluentEmptyList = expect(emptyList)
 
-    val listIsEmptyDescr = DescriptionIterableLikeExpectation.NO_ELEMENTS.getDefault()
+    val listIsEmptyDescr = DescriptionIterableLikeProof.NO_ELEMENTS.string
 
     describeFun(lastFeature, last) {
         val lastFunctions = unifySignatures(lastFeature, last)
@@ -210,10 +209,12 @@ abstract class IterableExpectationsSpec(
             lastFunctions.forEach { (name, lastFun, hasExtraHint) ->
                 it("$name - empty list throws" + showsSubAssertionIf(hasExtraHint)) {
                     expect {
-                        fluentEmptyList.lastFun { toEqual(3) }
+                        expect(emptyList).lastFun { toEqual(3) }
                     }.toThrow<AssertionError> {
-                        messageToContain("last(): $listIsEmptyDescr")
-                        if (hasExtraHint) messageToContain("$toEqualDescr: 3")
+                        message{
+                            toContainDescr("last()", listIsEmptyDescr)
+                            if (hasExtraHint) toContainToEqualDescr(3)
+                        }
                     }
                 }
             }

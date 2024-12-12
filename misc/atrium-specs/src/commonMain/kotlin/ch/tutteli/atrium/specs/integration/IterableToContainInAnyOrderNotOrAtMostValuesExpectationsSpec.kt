@@ -4,6 +4,7 @@ import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
+import ch.tutteli.atrium.specs.lineSeparator
 import org.spekframework.spek2.style.specification.Suite
 
 abstract class IterableToContainInAnyOrderNotOrAtMostValuesExpectationsSpec(
@@ -62,15 +63,15 @@ abstract class IterableToContainInAnyOrderNotOrAtMostValuesExpectationsSpec(
                 it("${notToContainOrAtMostPair.first("4.0", "once")} throws AssertionError") {
                     expect {
                         expect(oneToSeven()).notToContainOrAtMostFun(1, 4.0)
-                    }.toThrow<AssertionError> { messageToContain("$atMostDescr: 1", "$anElementWhichEquals: 4.0") }
+                    }.toThrow<AssertionError> { message.toContainRegex("$atMostDescr\\s+: 1", "$anElementWhichEquals : 4.0") }
                 }
                 it("${notToContainOrAtMostPair.first("1.0, 4.0", "once")} throws AssertionError mentioning only 4.0") {
                     expect {
                         expect(oneToSeven()).notToContainOrAtMostFun(1, 1.0, 4.0)
                     }.toThrow<AssertionError> {
                         message {
-                            toContain("$atMostDescr: 1", "$anElementWhichEquals: 4.0")
-                            notToContain("$anElementWhichEquals: 1.0")
+                            toContainRegex("$atMostDescr\\s+: 1", "$anElementWhichEquals : 4.0")
+                            notToContain("$anElementWhichEquals : 1.0")
                         }
                     }
                 }
@@ -84,8 +85,8 @@ abstract class IterableToContainInAnyOrderNotOrAtMostValuesExpectationsSpec(
                         expect(oneToSeven()).notToContainOrAtMostFun(1, 4.0, 1.0)
                     }.toThrow<AssertionError> {
                         message {
-                            toContain("$atMostDescr: 1", "$anElementWhichEquals: 4.0")
-                            notToContain("$anElementWhichEquals: 1.0")
+                            toContainRegex("$atMostDescr\\s+: 1", "$anElementWhichEquals : 4.0")
+                            notToContain("$anElementWhichEquals : 1.0")
                         }
                     }
                 }
@@ -94,15 +95,13 @@ abstract class IterableToContainInAnyOrderNotOrAtMostValuesExpectationsSpec(
                         expect(oneToSeven()).notToContainOrAtMostFun(1, 5.0, 3.1, 3.0, 4.0)
                     }.toThrow<AssertionError> {
                         message {
-                            toContain.exactly(2).values(
-                                "$atMostDescr: 1"
-                            )
+                            toContain.exactly(2).regex("$atMostDescr\\s+: 1")
                             toContain.exactly(1).values(
-                                "$rootBulletPoint$toContainInAnyOrder: $separator",
-                                "$anElementWhichEquals: 5.0",
-                                "$numberOfSuchElements: 2",
-                                "$anElementWhichEquals: 4.0",
-                                "$numberOfSuchElements: 3"
+                                "$g$toContainInAnyOrder : $lineSeparator",
+                                "$anElementWhichEquals : 5.0",
+                                "$numberOfSuchElements : 2",
+                                "$anElementWhichEquals : 4.0",
+                                "$numberOfSuchElements : 3"
                             )
                         }
                     }
@@ -121,11 +120,11 @@ abstract class IterableToContainInAnyOrderNotOrAtMostValuesExpectationsSpec(
                     }.toThrow<AssertionError> {
                         message {
                             toContain(
-                                "$rootBulletPoint$toContainInAnyOrder: $separator",
-                                "$anElementWhichEquals: 5.0",
-                                "$numberOfSuchElements: 2$separator"
+                                "$g$toContainInAnyOrder : $lineSeparator",
+                                "$anElementWhichEquals : 5.0",
+                                "$numberOfSuchElements : 2$lineSeparator"
                             )
-                            toEndWith("$atMostDescr: 1")
+                            toContainRegex("$atMostDescr\\s+: 1")
                         }
                     }
                 }
@@ -149,12 +148,12 @@ abstract class IterableToContainInAnyOrderNotOrAtMostValuesExpectationsSpec(
                     }.toThrow<AssertionError> {
                         message {
                             toContain(
-                                "$rootBulletPoint$toContainInAnyOrder: $separator",
-                                "$anElementWhichEquals: 4.0",
-                                "$numberOfSuchElements: 3$separator"
+                                "$g$toContainInAnyOrder : $lineSeparator",
+                                "$anElementWhichEquals : 4.0",
+                                "$numberOfSuchElements : 3$lineSeparator"
                             )
-                            toEndWith("$atMostDescr: 2")
-                            notToContain("$anElementWhichEquals: 5.0")
+                            toContainRegex("$atMostDescr\\s+: 2")
+                            notToContain("$anElementWhichEquals : 5.0")
                         }
                     }
                 }

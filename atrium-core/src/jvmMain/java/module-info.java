@@ -1,5 +1,6 @@
 module ch.tutteli.atrium.core.api {
     requires    ch.tutteli.kbox;
+    requires    org.opentest4j;
     requires    kotlin.stdlib;
     requires    kotlin.reflect;
 

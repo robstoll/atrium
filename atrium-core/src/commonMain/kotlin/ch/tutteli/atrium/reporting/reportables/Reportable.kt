@@ -39,8 +39,10 @@ interface Reportable {
             return DefaultProofExplanation(proofToExplain)
         }
 
-        fun failureExplanationGroup(description: InlineElement, reportables: List<Reportable>): FailureExplanationGroup =
-            DefaultFailureExplanationGroup(description, reportables)
+        fun failureExplanationGroup(
+            description: InlineElement,
+            reportables: List<Reportable>
+        ): FailureExplanationGroup = DefaultFailureExplanationGroup(description, reportables)
 
         //TODO 1.3.0 note sure we need this
         fun informationGroup(description: InlineElement, reportables: List<Reportable>): InformationGroup =
@@ -51,6 +53,7 @@ interface Reportable {
         fun debugGroup(description: InlineElement, reportables: List<Reportable>): DebugGroup =
             DefaultDebugGroup(description, reportables)
 
+        //TODO 1.3.0 remove?
         fun inlineGroupOrSingleElement(inlineElements: List<InlineElement>): InlineElement =
             takeIf(inlineElements.size == 1) {
                 inlineElements[0]
@@ -58,7 +61,8 @@ interface Reportable {
 
         fun inlineGroup(inlineElements: List<InlineElement>): InlineGroup = DefaultInlineGroup(inlineElements)
 
-        fun row(icon: Icon?, columns: List<Column>): Row = DefaultRow(icon, columns)
+        fun row(icon: Icon?, includingBorder: Boolean, columns: List<Column>): Row =
+            DefaultRow(icon, includingBorder, columns)
 
         fun column(inlineElement: InlineElement, alignment: HorizontalAlignment): Column =
             DefaultColumn(inlineElement, alignment)

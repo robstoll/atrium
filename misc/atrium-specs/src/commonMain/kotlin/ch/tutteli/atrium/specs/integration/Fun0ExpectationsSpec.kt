@@ -8,7 +8,6 @@ import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionAnyProof
 import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionFunLikeProof
 import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionThrowableProof
 import ch.tutteli.atrium.specs.*
-import ch.tutteli.atrium.translations.DescriptionThrowableExpectation
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.Suite
 

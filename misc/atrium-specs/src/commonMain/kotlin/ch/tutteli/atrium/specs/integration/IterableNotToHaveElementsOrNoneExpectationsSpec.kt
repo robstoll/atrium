@@ -3,8 +3,9 @@ package ch.tutteli.atrium.specs.integration
 import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionIterableLikeProof
 import ch.tutteli.atrium.specs.*
-import ch.tutteli.atrium.translations.DescriptionIterableLikeExpectation
+import ch.tutteli.atrium.specs.lineSeparator
 
 abstract class IterableNotToHaveElementsOrNoneExpectationsSpec(
     notToHaveElementsOrNone: Fun1<Iterable<Double>, Expect<Double>.() -> Unit>,
@@ -12,29 +13,29 @@ abstract class IterableNotToHaveElementsOrNoneExpectationsSpec(
     describePrefix: String = "[Atrium] "
 ) : IterableToContainEntriesSpecBase({
 
-    include(object : SubjectLessSpec<Iterable<Double>>(describePrefix,
+    include(object : SubjectLessSpec<Iterable<Double>>(
+        describePrefix,
         notToHaveElementsOrNone.forSubjectLess { toEqual(2.3) }
     ) {})
-    include(object : SubjectLessSpec<Iterable<Double?>>(describePrefix,
+    include(object : SubjectLessSpec<Iterable<Double?>>(
+        describePrefix,
         notToHaveElementsOrNoneNullable.forSubjectLess { toEqual(2.3) }
     ) {})
 
     include(object : AssertionCreatorSpec<Iterable<Double>>(
         describePrefix, oneToSeven().toList().asIterable(),
-        notToHaveElementsOrNone.forAssertionCreatorSpec("$toBeGreaterThanDescr: 10.0") { toBeGreaterThan(10.0) }
+        notToHaveElementsOrNone.forAssertionCreatorSpec("$toBeGreaterThanDescr\\s+: 10.0") { toBeGreaterThan(10.0) }
     ) {})
     include(object : AssertionCreatorSpec<Iterable<Double?>>(
         "$describePrefix[nullable Element] ", oneToSeven().toList().asIterable(),
-        notToHaveElementsOrNoneNullable.forAssertionCreatorSpec("$toBeGreaterThanDescr: 10.0") { toBeGreaterThan(10.0) }
+        notToHaveElementsOrNoneNullable.forAssertionCreatorSpec("$toBeGreaterThanDescr\\s+: 10.0") { toBeGreaterThan(10.0) }
     ) {})
 
-    val notToHaveElementsOrNoneDescr = DescriptionIterableLikeExpectation.NOT_TO_HAVE_ELEMENTS_OR_NONE.getDefault()
+    val notToHaveElementsOrNoneDescr = DescriptionIterableLikeProof.NOT_TO_HAVE_ELEMENTS_OR_NONE.string
 
 
-    fun mismatch(index: Int, value: String) =
-        "$indentRootBulletPoint$indentListBulletPoint$indentWarningBulletPoint\\Q$listBulletPoint\\E${
-            mismatchedIndex(index, value)
-        }"
+    fun indentAndMismatch(index: Int, value: String) =
+        "$indentG$indentBb$listBulletPoint${mismatchedIndex(index, value)}"
 
     nonNullableCases(
         describePrefix,
@@ -61,18 +62,17 @@ abstract class IterableNotToHaveElementsOrNoneExpectationsSpec(
                 it("$toEqualDescr(4.0) throws AssertionError") {
                     expect {
                         expect(oneToSeven()).notToHaveElementsOrNoneFun { toEqual(4.0) }
-                    }.toThrow<AssertionError> {
-                        message {
-                            toContainRegex(
-                                "\\Q$rootBulletPoint\\E$notToHaveElementsOrNoneDescr: $separator" +
-                                    "$indentRootBulletPoint$indentListBulletPoint\\Q$explanatoryBulletPoint\\E$toEqualDescr: 4.0.*$separator" +
-                                    "$indentRootBulletPoint$indentListBulletPoint\\Q$warningBulletPoint$mismatches:\\E $separator" +
-                                    "${mismatch(2, "4.0")}.*$separator" +
-                                    "${mismatch(3, "4.0")}.*$separator" +
-                                    "${mismatch(8, "4.0")}.*"
-                            )
-                        }
-                    }
+                    }.toThrow<AssertionError>().message.toMatch(
+                        Regex(
+                            "$expectationVerb :.+$lineSeparator"+
+                            "\\Q$g\\E$notToHaveElementsOrNoneDescr : $lineSeparator" +
+                                "$indentG$explanatoryBulletPoint$toEqualDescr : 4.0$lineSeparator" +
+                                "$indentG$bb$mismatches : $lineSeparator" +
+                                "${indentAndMismatch(2, "4.0")}$lineSeparator" +
+                                "${indentAndMismatch(3, "4.0")}$lineSeparator" +
+                                indentAndMismatch(8, "4.0")
+                        )
+                    )
                 }
             }
         }
@@ -90,32 +90,30 @@ abstract class IterableNotToHaveElementsOrNoneExpectationsSpec(
                 it("null throws AssertionError") {
                     expect {
                         expect(oneToSevenNullable()).notToHaveElementsOrNoneFun(null)
-                    }.toThrow<AssertionError> {
-                        message {
-                            toContainRegex(
-                                "\\Q$rootBulletPoint\\E$notToHaveElementsOrNoneDescr: $separator" +
-                                    "$indentRootBulletPoint$indentListBulletPoint\\Q$explanatoryBulletPoint\\E$toEqualDescr: null$separator" +
-                                    "$indentRootBulletPoint$indentListBulletPoint\\Q$warningBulletPoint$mismatches:\\E $separator" +
-                                    "${mismatch(1, "null")}.*$separator" +
-                                    "${mismatch(5, "null")}.*"
-                            )
-                        }
-                    }
+                    }.toThrow<AssertionError>().message.toMatch(
+                        Regex(
+                            "$expectationVerb :.+$lineSeparator"+
+                                "\\Q$g\\E$notToHaveElementsOrNoneDescr : $lineSeparator" +
+                                "$indentG$explanatoryBulletPoint$toEqualDescr : null$lineSeparator" +
+                                "$indentG$bb$mismatches : $lineSeparator" +
+                                "${indentAndMismatch(1, "null")}$lineSeparator" +
+                                indentAndMismatch(5, "null")
+                        )
+                    )
                 }
 
                 it("1.0 throws AssertionError") {
                     expect {
                         expect(oneToSevenNullable()).notToHaveElementsOrNoneFun { toEqual(1.0) }
-                    }.toThrow<AssertionError> {
-                        message {
-                            toContainRegex(
-                                "\\Q$rootBulletPoint\\E$notToHaveElementsOrNoneDescr: $separator" +
-                                    "$indentRootBulletPoint$indentListBulletPoint\\Q$explanatoryBulletPoint\\E$toEqualDescr: 1.0.*$separator" +
-                                    "$indentRootBulletPoint$indentListBulletPoint\\Q$warningBulletPoint$mismatches:\\E $separator" +
-                                    "${mismatch(0, "1.0")}.*"
-                            )
-                        }
-                    }
+                    }.toThrow<AssertionError>().message.toMatch(
+                        Regex(
+                            "$expectationVerb :.+$lineSeparator"+
+                                "\\Q$g\\E$notToHaveElementsOrNoneDescr : $lineSeparator" +
+                                "$indentG$explanatoryBulletPoint$toEqualDescr : 1.0$lineSeparator" +
+                                "$indentG$bb$mismatches : $lineSeparator" +
+                                indentAndMismatch(0, "1.0")
+                        )
+                    )
                 }
             }
         }

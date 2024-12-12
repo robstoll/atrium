@@ -26,7 +26,7 @@ object ArrayAsListExpectationsSpec : ch.tutteli.atrium.specs.integration.ArrayAs
     Expect<BooleanArray>::asList
 ) {
 
-    @Suppress("unused", "UNUSED_VALUE")
+    @Suppress("unused")
     private fun ambiguityTest() {
         var a1: Expect<Array<Int>> = notImplemented()
         var a2: Expect<Array<out Int>> = notImplemented()

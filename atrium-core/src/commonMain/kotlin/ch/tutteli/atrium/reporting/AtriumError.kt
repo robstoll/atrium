@@ -3,6 +3,11 @@ package ch.tutteli.atrium.reporting
 import ch.tutteli.atrium.creating.proofs.Proof
 import ch.tutteli.atrium.reporting.AtriumError.Companion
 
+
+expect open class AssertionErrorLikeIntermediate : Error
+expect open class AssertionErrorLike : AssertionErrorLikeIntermediate
+
+
 /**
  * Indicates that an expectation stated via Atrium was not.
  *
@@ -12,7 +17,7 @@ import ch.tutteli.atrium.reporting.AtriumError.Companion
  *
  * To create such an error you need to use the [Companion.create] function.
  */
-expect class AtriumError internal constructor(message: String, causingProof: Proof) : AssertionError {
+expect class AtriumError internal constructor(message: String, causingProof: Proof) : AssertionErrorLike {
 
     /**
      * Represents the [Proof] which lead to this AtriumError.

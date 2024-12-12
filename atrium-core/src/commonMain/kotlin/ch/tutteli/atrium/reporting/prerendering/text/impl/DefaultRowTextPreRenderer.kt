@@ -17,13 +17,17 @@ internal class DefaultRowTextPreRenderer(
             when (columns.size) {
                 1 -> listOf(first)
                 else -> {
-                    columns.asSequence().drop(1)
-                        .fold(ArrayList<StyledString>(columns.size * 2 - 1).also { it.add(first) }) { acc, column ->
-                            acc.also {
-                                it.add(StyledString.COLON_SEPARATOR)
-                                it.add(controlObject.transformAndGetSingleColumnOfSingleNode(column))
+                    if(reportable.includingBorder) {
+                        columns.asSequence().drop(1)
+                            .fold(ArrayList<StyledString>(columns.size * 2 - 1).also { it.add(first) }) { acc, column ->
+                                acc.also {
+                                    it.add(StyledString.COLON_SEPARATOR)
+                                    it.add(controlObject.transformAndGetSingleColumnOfSingleNode(column))
+                                }
                             }
-                        }
+                    } else {
+                      columns.map { controlObject.transformAndGetSingleColumnOfSingleNode(it) }
+                    }
                 }
             }
         }

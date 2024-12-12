@@ -36,8 +36,8 @@ abstract class GroupingTest(
             message {
                 toContainRegex(
                     "${groupingBulletPoint}my group name: 123.*$lineSeparator" +
-                        "${indentGroupingBulletPointIndent}$rootBulletPoint$toEqualDescr: 2.*$lineSeparator" +
-                        "${indentGroupingBulletPointIndent}$rootBulletPoint$toBeGreaterThanDescr: 4"
+                        "${indentGrouping}$rootBulletPoint$toEqualDescr: 2.*$lineSeparator" +
+                        "${indentGrouping}$rootBulletPoint$toBeGreaterThanDescr: 4"
                 )
                 notToContain("$rootBulletPoint$toBeLessThanDescr: 10")
             }
@@ -72,9 +72,9 @@ abstract class GroupingTest(
             message {
                 toContainRegex(
                     "${groupingBulletPoint}my group name: 123.*$lineSeparator" +
-                        "${indentGroupingBulletPointIndent}$rootBulletPoint$toEqualDescr: 2.*$lineSeparator" +
-                        "${indentGroupingBulletPointIndent}${groupingBulletPoint}other name: \"hello\".*$lineSeparator" +
-                        "${indentGroupingBulletPointIndent}${indentGroupingBulletPointIndent}$rootBulletPoint$toBeGreaterThanDescr: 4"
+                        "${indentGrouping}$rootBulletPoint$toEqualDescr: 2.*$lineSeparator" +
+                        "${indentGrouping}${groupingBulletPoint}other name: \"hello\".*$lineSeparator" +
+                        "${indentGrouping}${indentGrouping}$rootBulletPoint$toBeGreaterThanDescr: 4"
                 )
                 notToContain("$rootBulletPoint$toBeLessThanDescr: 10")
             }

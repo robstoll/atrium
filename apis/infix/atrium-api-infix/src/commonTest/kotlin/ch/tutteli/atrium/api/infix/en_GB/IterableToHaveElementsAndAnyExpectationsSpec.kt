@@ -87,7 +87,7 @@ class IterableToHaveElementsAndAnyExpectationsSpec : Spek({
         ) = expect._logic.changeSubject.unreported { it.asSequence() } asIterable { it toContain a } asIterable o
     }
 
-    @Suppress("unused", "UNUSED_VALUE")
+    @Suppress("unused")
     private fun ambiguityTest() {
         var list: Expect<List<Number>> = notImplemented()
         var nList: Expect<Set<Number?>> = notImplemented()

@@ -7,6 +7,8 @@ import ch.tutteli.atrium.reporting.reportables.impl.SuffixedDescription
  * Contains [Description]s that are related to expectation functions which are applicable to [CharSequence].
  */
 enum class DescriptionCharSequenceProof(override val string: String) : Description {
+    //TOD 1.3.0 consider to change to `to be at least/most`, `to be exactly` etc.
+
     /** @since 1.3.0 (but was since 0.18.0 in atrium-translations DescriptionCharSequenceExpectation) */
     AT_LEAST("is at least"),
 

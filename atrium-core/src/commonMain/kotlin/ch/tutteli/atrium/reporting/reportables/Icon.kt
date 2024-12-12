@@ -7,6 +7,7 @@ enum class Icon : InlineElement {
     DEBUG_INFO,
     EMPTY_STRING,
     FAILURE,
+    FAILING_GROUP,
     FEATURE,
     FEATURE_BULLET_POINT,
     GROUPING_BULLET_POINT,

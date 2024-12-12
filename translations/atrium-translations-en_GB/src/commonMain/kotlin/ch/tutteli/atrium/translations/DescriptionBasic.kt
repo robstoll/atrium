@@ -15,7 +15,16 @@ import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
     ReplaceWith("ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionBasic")
 )
 enum class DescriptionBasic(override val value: String) : StringBasedTranslatable {
+    @Deprecated(
+        "will be removed with 2.0.0 at the latest",
+        ReplaceWith("ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionBasic.TO")
+    )
     TO("to"),
+
+    @Deprecated(
+        "will be removed with 2.0.0 at the latest",
+        ReplaceWith("ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionBasic.NOT_TO")
+    )
     NOT_TO("not to"),
 
     @Deprecated(

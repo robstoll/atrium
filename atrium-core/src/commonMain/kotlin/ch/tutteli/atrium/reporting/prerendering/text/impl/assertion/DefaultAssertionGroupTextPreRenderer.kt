@@ -38,17 +38,12 @@ class DefaultAssertionGroupTextPreRenderer(private val iconStyler: TextIconStyle
                 }
 
                 is InvisibleAssertionGroupType ->
-                    controlObject.transformChild(
-                        Proof.invisibleGroup(assertionGroup.assertions),
-                        controlObject
-                    )
+                    controlObject.transformChild(Proof.invisibleGroup(assertionGroup.assertions), controlObject)
 
                 is FeatureAssertionGroupType -> controlObject.transformSubProofGroup(
                     reportable,
                     controlObject,
-                    // we use an empty string as additional colum because we want to indent the children by 2 and still
-                    // span the description over the indent + prefix
-                    prefixDescriptionColumns = listOf(iconStyler.style(Icon.FEATURE), StyledString.EMPTY_STRING),
+                    prefixDescriptionColumns = listOf(iconStyler.style(Icon.FEATURE)),
                     suffixDescriptionColumns = listOf(),
                     startMergeAtColumn = 1 // because we have a prefix from the parent group
                 ) { child ->
@@ -66,8 +61,7 @@ class DefaultAssertionGroupTextPreRenderer(private val iconStyler: TextIconStyle
                 is ListAssertionGroupType ->
                     if (controlObject.explainsProof && assertionGroup.representation != Text.EMPTY) {
                         // if we are in an ExplanatoryAssertionGroup, and the listGroup has a representation,
-                        // then we want to show it in reporting (with proofs, a debugGroup never consists of proofs
-                        // and hence this
+                        // then we want to show it in reporting
                         controlObject.transformSubProofGroup(reportable, controlObject.copy(explainsProof = false)) { child ->
                             val newControlObject = determineChildControlObject(
                                 controlObject,
