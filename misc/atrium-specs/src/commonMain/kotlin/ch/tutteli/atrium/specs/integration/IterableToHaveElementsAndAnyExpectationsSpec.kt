@@ -4,6 +4,7 @@ import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
+import ch.tutteli.atrium.specs.lineSeparator
 import ch.tutteli.atrium.translations.DescriptionComparableExpectation
 
 abstract class IterableToHaveElementsAndAnyExpectationsSpec(
@@ -24,11 +25,11 @@ abstract class IterableToHaveElementsAndAnyExpectationsSpec(
 
     include(object : AssertionCreatorSpec<Iterable<Double>>(
         describePrefix, oneToSeven().toList().asIterable(),
-        toHaveElementsAndAny.forAssertionCreatorSpec("$toBeGreaterThanDescr: 1.0") { toBeGreaterThan(1.0) }
+        toHaveElementsAndAny.forAssertionCreatorSpec("$toBeGreaterThanDescr\\s+: 1.0") { toBeGreaterThan(1.0) }
     ) {})
     include(object : AssertionCreatorSpec<Iterable<Double?>>(
         "$describePrefix[nullable Element] ", oneToSeven().toList().asIterable(),
-        toHaveElementsAndAnyNullable.forAssertionCreatorSpec("$toBeGreaterThanDescr: 1.0") { toBeGreaterThan(1.0) }
+        toHaveElementsAndAnyNullable.forAssertionCreatorSpec("$toBeGreaterThanDescr\\s+: 1.0") { toBeGreaterThan(1.0) }
     ) {})
 
     nonNullableCases(
@@ -43,8 +44,8 @@ abstract class IterableToHaveElementsAndAnyExpectationsSpec(
                     expect(fluentEmpty()).toHaveElementsAndAnyFun { toBeLessThan(1.0) }
                 }.toThrow<AssertionError> {
                     messageToContain(
-                        "$rootBulletPoint$toContainInAnyOrder: $separator",
-                        "$anElementWhichNeedsDescr: $separator",
+                        "$rootBulletPoint$toContainInAnyOrder: $lineSeparator",
+                        "$anElementWhichNeedsDescr: $lineSeparator",
                         "$toBeLessThanDescr: 1.0",
                         noSuchElementDescr
                     )
@@ -60,8 +61,8 @@ abstract class IterableToHaveElementsAndAnyExpectationsSpec(
                         expect(oneToSeven()).toHaveElementsAndAnyFun { toBeGreaterThan(1.0); toBeLessThan(2.0) }
                     }.toThrow<AssertionError> {
                         messageToContain(
-                            "$rootBulletPoint$toContainInAnyOrder: $separator",
-                            "$anElementWhichNeedsDescr: $separator",
+                            "$rootBulletPoint$toContainInAnyOrder: $lineSeparator",
+                            "$anElementWhichNeedsDescr: $lineSeparator",
                             "$toBeGreaterThanDescr: 1.0",
                             "$toBeLessThanDescr: 2.0",
                             noSuchElementDescr
@@ -100,8 +101,8 @@ abstract class IterableToHaveElementsAndAnyExpectationsSpec(
                         }.toThrow<AssertionError> {
                             message {
                                 toContain.exactly(1).values(
-                                    "$rootBulletPoint$toContainInAnyOrder: $separator",
-                                    "$anElementWhichNeedsDescr: $separator",
+                                    "$rootBulletPoint$toContainInAnyOrder: $lineSeparator",
+                                    "$anElementWhichNeedsDescr: $lineSeparator",
                                     "$toEqualDescr: 2.0",
                                     noSuchElementDescr
                                 )
@@ -118,8 +119,8 @@ abstract class IterableToHaveElementsAndAnyExpectationsSpec(
                     }.toThrow<AssertionError> {
                         message {
                             toContain.exactly(1).values(
-                                "$rootBulletPoint$toContainInAnyOrder: $separator",
-                                "$anElementWhichNeedsDescr: $separator",
+                                "$rootBulletPoint$toContainInAnyOrder: $lineSeparator",
+                                "$anElementWhichNeedsDescr: $lineSeparator",
                                 "$toEqualDescr: null",
                                 noSuchElementDescr
                             )

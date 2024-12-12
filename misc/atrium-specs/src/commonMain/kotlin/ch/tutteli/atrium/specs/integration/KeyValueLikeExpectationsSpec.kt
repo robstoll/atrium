@@ -44,13 +44,13 @@ abstract class KeyValueLikeExpectationsSpec<T : Any, TNullable : Any>(
 
     include(object : AssertionCreatorSpec<T>(
         describePrefix, mapEntry,
-        key.forAssertionCreatorSpec("$toEqualDescr: hello") { toEqual("hello") },
-        value.forAssertionCreatorSpec("$toEqualDescr: 1") { toEqual(1) }
+        key.forAssertionCreatorSpec("$toEqualDescr\\s+: hello") { toEqual("hello") },
+        value.forAssertionCreatorSpec("$toEqualDescr\\s+: 1") { toEqual(1) }
     ) {})
     include(object : AssertionCreatorSpec<TNullable>(
         "$describePrefix[nullable]", nullMapEntry,
-        keyNullable.forAssertionCreatorSpec("$toEqualDescr: null") { toEqual(null) },
-        valueNullable.forAssertionCreatorSpec("$toEqualDescr: null") { toEqual(null) }
+        keyNullable.forAssertionCreatorSpec("$toEqualDescr\\s+: null") { toEqual(null) },
+        valueNullable.forAssertionCreatorSpec("$toEqualDescr\\s+: null") { toEqual(null) }
     ) {})
 
     fun describeFun(vararg pairs: SpecPair<*>, body: Suite.() -> Unit) =

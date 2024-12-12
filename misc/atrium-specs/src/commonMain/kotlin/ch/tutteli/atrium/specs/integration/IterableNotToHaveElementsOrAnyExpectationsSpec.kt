@@ -3,9 +3,9 @@ package ch.tutteli.atrium.specs.integration
 import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionIterableLikeProof
 import ch.tutteli.atrium.specs.*
-import ch.tutteli.atrium.translations.DescriptionComparableExpectation
-import ch.tutteli.atrium.translations.DescriptionIterableLikeExpectation
+import ch.tutteli.atrium.specs.lineSeparator
 
 abstract class IterableNotToHaveElementsOrAnyExpectationsSpec(
     notToHaveElementsOrAny: Fun1<Iterable<Double>, Expect<Double>.() -> Unit>,
@@ -13,7 +13,8 @@ abstract class IterableNotToHaveElementsOrAnyExpectationsSpec(
     describePrefix: String = "[Atrium] "
 ) : IterableToContainEntriesSpecBase({
 
-    include(object : SubjectLessSpec<Iterable<Double>>(describePrefix,
+    include(object : SubjectLessSpec<Iterable<Double>>(
+        describePrefix,
         notToHaveElementsOrAny.forSubjectLess { toEqual(2.5) }
     ) {})
     include(object : SubjectLessSpec<Iterable<Double?>>(
@@ -23,15 +24,15 @@ abstract class IterableNotToHaveElementsOrAnyExpectationsSpec(
 
     include(object : AssertionCreatorSpec<Iterable<Double>>(
         describePrefix, oneToSeven().toList().asIterable(),
-        notToHaveElementsOrAny.forAssertionCreatorSpec("$toBeGreaterThanDescr: 1.0") { toBeGreaterThan(1.0) }
+        notToHaveElementsOrAny.forAssertionCreatorSpec("$toBeGreaterThanDescr\\s+: 1.0") { toBeGreaterThan(1.0) }
     ) {})
     include(object : AssertionCreatorSpec<Iterable<Double?>>(
         "$describePrefix[nullable Element] ", oneToSeven().toList().asIterable(),
-        notToHaveElementsOrAnyNullable.forAssertionCreatorSpec("$toBeGreaterThanDescr: 1.0") { toBeGreaterThan(1.0) }
+        notToHaveElementsOrAnyNullable.forAssertionCreatorSpec("$toBeGreaterThanDescr\\s+: 1.0") { toBeGreaterThan(1.0) }
     ) {})
 
-    val notToHaveElementsOrAnyDescr = DescriptionIterableLikeExpectation.NOT_TO_HAVE_ELEMENTS_OR_ANY.getDefault()
-    val noSuchElementDescr = DescriptionIterableLikeExpectation.NEITHER_EMPTY_NOR_ELEMENT_FOUND.getDefault()
+    val notToHaveElementsOrAnyDescr = DescriptionIterableLikeProof.NOT_TO_HAVE_ELEMENTS_OR_ANY.string
+    val noSuchElementDescr = DescriptionIterableLikeProof.NEITHER_EMPTY_NOR_ELEMENT_FOUND.string
 
     nonNullableCases(
         describePrefix,
@@ -50,14 +51,18 @@ abstract class IterableNotToHaveElementsOrAnyExpectationsSpec(
                 it("throws AssertionError containing both assumptions in one expectation") {
                     expect {
                         expect(oneToSeven()).notToHaveElementsOrAnyFun { toBeGreaterThan(1.0); toBeLessThan(2.0) }
-                    }.toThrow<AssertionError> {
-                        messageToContain(
-                            "$rootBulletPoint$notToHaveElementsOrAnyDescr: $separator",
-                            "$toBeGreaterThanDescr: 1.0",
-                            "$toBeLessThanDescr: 2.0",
-                            noSuchElementDescr
+                    }.toThrow<AssertionError>().message.toMatch(
+                        Regex(
+                            //TODO 1.4.0 would be nice to see the elements of a sequence
+                            "${expectationVerb}\\s+:.*$lineSeparator" +
+                                "\\Q$g\\E${notToHaveElementsOrAnyDescr} : $lineSeparator" +
+                                "$indentG$explanatoryBulletPoint$toBeGreaterThanDescr\\s+: 1.0$lineSeparator" +
+                                "$indentG$explanatoryBulletPoint$toBeLessThanDescr\\s+: 2.0$lineSeparator" +
+                                //TODO use !! it had next elements
+                                //TODO 1.4.0 how about we include how many next elements were found?
+                                "\\Q$indentG$explanatoryBulletPoint$noSuchElementDescr\\E"
                         )
-                    }
+                    )
                 }
             }
 
@@ -91,8 +96,8 @@ abstract class IterableNotToHaveElementsOrAnyExpectationsSpec(
                         }.toThrow<AssertionError> {
                             message {
                                 toContain.exactly(1).values(
-                                    "$rootBulletPoint$notToHaveElementsOrAnyDescr: $separator",
-                                    "$toEqualDescr: 2.0",
+                                    "$notToHaveElementsOrAnyDescr : $lineSeparator",
+                                    "$toEqualDescr : 2.0",
                                     noSuchElementDescr
                                 )
                             }
@@ -108,8 +113,8 @@ abstract class IterableNotToHaveElementsOrAnyExpectationsSpec(
                     }.toThrow<AssertionError> {
                         message {
                             toContain.exactly(1).values(
-                                "$rootBulletPoint$notToHaveElementsOrAnyDescr: $separator",
-                                "$toEqualDescr: null",
+                                "$notToHaveElementsOrAnyDescr : $lineSeparator",
+                                "$toEqualDescr : null",
                                 noSuchElementDescr
                             )
                         }

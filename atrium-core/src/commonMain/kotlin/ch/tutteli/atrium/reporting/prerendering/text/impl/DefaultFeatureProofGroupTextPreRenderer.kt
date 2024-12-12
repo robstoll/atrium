@@ -18,18 +18,15 @@ internal class DefaultFeatureProofGroupTextPreRenderer(
         controlObject.transformSubProofGroup(
             reportable,
             controlObject,
-            // we use an empty string as additional colum because we want to indent the children by 2 and still
-            // span the description over the indent + prefix
-            prefixDescriptionColumns = listOf(iconStyler.style(Icon.FEATURE), StyledString.EMPTY_STRING),
+            prefixDescriptionColumns = listOf(iconStyler.style(Icon.FEATURE)),
             suffixDescriptionColumns = listOf(),
-            startMergeAtColumn = 1 // because we have a prefix from the parent group
         ) { child ->
             val newControlObject = determineChildControlObject(
                 controlObject,
                 child,
                 Icon.LIST_BULLET_POINT,
-                // indent by two because we want that the children are after Icon.FEATURE
-                // (1 additional indent for the x prefix of the feature group
+                // indent by two, one for the Icon.FAILING_GROUP Icon (at the time of writing  🚩) and one for the
+                // Icon.FEATURE (we want that the children are after Icon.FEATURE)
                 additionalIndent = 2
             )
             controlObject.transformChildIncludingIndentationAndPrefix(child, newControlObject)

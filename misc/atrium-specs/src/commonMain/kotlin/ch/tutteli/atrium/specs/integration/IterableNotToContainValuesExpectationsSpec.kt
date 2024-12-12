@@ -4,8 +4,9 @@ import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.core.polyfills.format
 import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionIterableLikeProof
 import ch.tutteli.atrium.specs.*
-import ch.tutteli.atrium.translations.DescriptionIterableLikeExpectation
+import ch.tutteli.atrium.specs.lineSeparator
 
 abstract class IterableNotToContainValuesExpectationsSpec(
     notToContainValues: Fun2<Iterable<Double>, Double, Array<out Double>>,
@@ -26,7 +27,7 @@ abstract class IterableNotToContainValuesExpectationsSpec(
     fun Expect<Iterable<Double?>>.notToContainNullableFun(a: Double?, vararg aX: Double?) =
         notToContainNullableValues(this, a, aX)
 
-    val anElementWhichIsWithIndent = "$indentRootBulletPoint$listBulletPoint$anElementWhichEquals"
+    val anElementWhichIsWithIndent = "$indentRoot$listBulletPoint$anElementWhichEquals"
 
     nonNullableCases(
         describePrefix,
@@ -45,11 +46,11 @@ abstract class IterableNotToContainValuesExpectationsSpec(
                 }.toThrow<AssertionError> {
                     message {
                         toContainRegex(
-                            "$hasANextElement$separator" +
-                                "$indentRootBulletPoint\\Q$explanatoryBulletPoint\\E$notToContainDescr: $separator" +
-                                "$indentListBulletPoint$anElementWhichIsWithIndent: 4.0.*",
-                            "$hintBulletPoint${
-                                DescriptionIterableLikeExpectation.USE_NOT_TO_HAVE_ELEMENTS_OR_NONE.getDefault()
+                            "${toHaveDescr}\\s+: ${aNextElement}$lineSeparator" +
+                                "$indentRoot\\Q$explanatoryBulletPoint\\E$notToContainDescr: $lineSeparator" +
+                                "$indentList$anElementWhichIsWithIndent: 4.0.*",
+                            "$u${
+                                DescriptionIterableLikeProof.USE_NOT_TO_HAVE_ELEMENTS_OR_NONE.getDefault()
                                     .format(notToHaveElementsOrNoneFunName)
                             }"
                         )
@@ -79,11 +80,11 @@ abstract class IterableNotToContainValuesExpectationsSpec(
                     }.toThrow<AssertionError> {
                         message {
                             toContainRegex(
-                                "\\Q$rootBulletPoint\\E$notToContainDescr: $separator" +
-                                    "$anElementWhichIsWithIndent: 4.0.*$separator" +
-                                    "$afterExplanatoryIndent\\Q$warningBulletPoint$mismatches:\\E $separator" +
-                                    "$afterMismatchedWarning${mismatchedIndex(2, "4.0")}.*$separator" +
-                                    "$afterMismatchedWarning${mismatchedIndex(3, "4.0")}.*$separator" +
+                                "\\Q$rootBulletPoint\\E$notToContainDescr: $lineSeparator" +
+                                        "$anElementWhichIsWithIndent: 4.0.*$lineSeparator" +
+                                        "$afterExplanatoryIndent\\Q$bb$mismatches:\\E $lineSeparator" +
+                                        "$afterMismatchedWarning${mismatchedIndex(2, "4.0")}.*$lineSeparator" +
+                                        "$afterMismatchedWarning${mismatchedIndex(3, "4.0")}.*$lineSeparator" +
                                     "$afterMismatchedWarning${mismatchedIndex(8, "4.0")}.*"
                             )
                         }
@@ -95,14 +96,14 @@ abstract class IterableNotToContainValuesExpectationsSpec(
                     }.toThrow<AssertionError> {
                         message {
                             toContainRegex(
-                                "\\Q$rootBulletPoint\\E$notToContainDescr: $separator" +
-                                    "$anElementWhichIsWithIndent: 1.0.*$separator" +
-                                    "$afterExplanatoryIndent\\Q$warningBulletPoint$mismatches:\\E $separator" +
-                                    "$afterMismatchedWarning${mismatchedIndex(0, "1.0")}.*$separator" +
-                                    "$anElementWhichIsWithIndent: 4.0.*$separator" +
-                                    "$afterExplanatoryIndent\\Q$warningBulletPoint$mismatches:\\E $separator" +
-                                    "$afterMismatchedWarning${mismatchedIndex(2, "4.0")}.*$separator" +
-                                    "$afterMismatchedWarning${mismatchedIndex(3, "4.0")}.*$separator" +
+                                "\\Q$rootBulletPoint\\E$notToContainDescr: $lineSeparator" +
+                                        "$anElementWhichIsWithIndent: 1.0.*$lineSeparator" +
+                                        "$afterExplanatoryIndent\\Q$bb$mismatches:\\E $lineSeparator" +
+                                        "$afterMismatchedWarning${mismatchedIndex(0, "1.0")}.*$lineSeparator" +
+                                        "$anElementWhichIsWithIndent: 4.0.*$lineSeparator" +
+                                        "$afterExplanatoryIndent\\Q$bb$mismatches:\\E $lineSeparator" +
+                                        "$afterMismatchedWarning${mismatchedIndex(2, "4.0")}.*$lineSeparator" +
+                                        "$afterMismatchedWarning${mismatchedIndex(3, "4.0")}.*$lineSeparator" +
                                     "$afterMismatchedWarning${mismatchedIndex(8, "4.0")}.*"
                             )
                         }
@@ -114,14 +115,14 @@ abstract class IterableNotToContainValuesExpectationsSpec(
                     }.toThrow<AssertionError> {
                         message {
                             toContainRegex(
-                                "\\Q$rootBulletPoint\\E$notToContainDescr: $separator" +
-                                    "$anElementWhichIsWithIndent: 4.0.*$separator" +
-                                    "$afterExplanatoryIndent\\Q$warningBulletPoint$mismatches:\\E $separator" +
-                                    "$afterMismatchedWarning${mismatchedIndex(2, "4.0")}.*$separator" +
-                                    "$afterMismatchedWarning${mismatchedIndex(3, "4.0")}.*$separator" +
-                                    "$afterMismatchedWarning${mismatchedIndex(8, "4.0")}.*$separator" +
-                                    "$anElementWhichIsWithIndent: 1.0.*$separator" +
-                                    "$afterExplanatoryIndent\\Q$warningBulletPoint$mismatches:\\E $separator" +
+                                "\\Q$rootBulletPoint\\E$notToContainDescr: $lineSeparator" +
+                                        "$anElementWhichIsWithIndent: 4.0.*$lineSeparator" +
+                                        "$afterExplanatoryIndent\\Q$bb$mismatches:\\E $lineSeparator" +
+                                        "$afterMismatchedWarning${mismatchedIndex(2, "4.0")}.*$lineSeparator" +
+                                        "$afterMismatchedWarning${mismatchedIndex(3, "4.0")}.*$lineSeparator" +
+                                        "$afterMismatchedWarning${mismatchedIndex(8, "4.0")}.*$lineSeparator" +
+                                        "$anElementWhichIsWithIndent: 1.0.*$lineSeparator" +
+                                        "$afterExplanatoryIndent\\Q$bb$mismatches:\\E $lineSeparator" +
                                     "$afterMismatchedWarning${mismatchedIndex(0, "1.0")}.*"
                             )
                         }
@@ -146,10 +147,10 @@ abstract class IterableNotToContainValuesExpectationsSpec(
                     }.toThrow<AssertionError> {
                         message {
                             toContainRegex(
-                                "\\Q$rootBulletPoint\\E$notToContainDescr: $separator" +
-                                    "$anElementWhichIsWithIndent: null$separator" +
-                                    "$afterExplanatoryIndent\\Q$warningBulletPoint$mismatches:\\E $separator" +
-                                    "$afterMismatchedWarning${mismatchedIndex(1, "null")}.*$separator" +
+                                "\\Q$rootBulletPoint\\E$notToContainDescr: $lineSeparator" +
+                                        "$anElementWhichIsWithIndent: null$lineSeparator" +
+                                        "$afterExplanatoryIndent\\Q$bb$mismatches:\\E $lineSeparator" +
+                                        "$afterMismatchedWarning${mismatchedIndex(1, "null")}.*$lineSeparator" +
                                     "$afterMismatchedWarning${mismatchedIndex(5, "null")}.*"
                             )
                         }
@@ -162,10 +163,10 @@ abstract class IterableNotToContainValuesExpectationsSpec(
                     }.toThrow<AssertionError> {
                         message {
                             toContainRegex(
-                                "\\Q$rootBulletPoint\\E$notToContainDescr: $separator" +
-                                    "$anElementWhichIsWithIndent: null$separator" +
-                                    "$afterExplanatoryIndent\\Q$warningBulletPoint$mismatches:\\E $separator" +
-                                    "$afterMismatchedWarning${mismatchedIndex(1, "null")}.*$separator" +
+                                "\\Q$rootBulletPoint\\E$notToContainDescr: $lineSeparator" +
+                                        "$anElementWhichIsWithIndent: null$lineSeparator" +
+                                        "$afterExplanatoryIndent\\Q$bb$mismatches:\\E $lineSeparator" +
+                                        "$afterMismatchedWarning${mismatchedIndex(1, "null")}.*$lineSeparator" +
                                     "$afterMismatchedWarning${mismatchedIndex(5, "null")}.*"
                             )
                             notToContain("$notToContainDescr: 1.1")

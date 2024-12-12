@@ -10,8 +10,8 @@ import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
  * Contains the [DescriptiveAssertion.description]s of the expectation functions which are applicable to [Collection].
  */
 @Deprecated(
-    "Switch to DescriptionCollectionLikeProof from core, will be removed with 2.0.0 at the latest",
-    ReplaceWith("ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionCollectionLikeProof")
+    "Switch to DescriptionCollectionProof from core, will be removed with 2.0.0 at the latest",
+    ReplaceWith("ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionCollectionProof")
 )
 enum class DescriptionCollectionExpectation(override val value: String) : StringBasedTranslatable {
     @Deprecated(

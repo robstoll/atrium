@@ -4,6 +4,7 @@ import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.core.polyfills.fullName
 import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionThrowableProof
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.translations.DescriptionThrowableExpectation
 import org.spekframework.spek2.Spek
@@ -21,17 +22,17 @@ abstract class Fun0ExpectationsJvmSpec(
     fun describeFun(vararg pairs: SpecPair<*>, body: Suite.() -> Unit) =
         describeFunTemplate(describePrefix, pairs.map { it.name }.toTypedArray(), body = body)
 
-    val messageDescr = DescriptionThrowableExpectation.OCCURRED_EXCEPTION_MESSAGE.getDefault()
-    val stackTraceDescr = DescriptionThrowableExpectation.OCCURRED_EXCEPTION_STACKTRACE.getDefault()
-    val causeDescr = DescriptionThrowableExpectation.OCCURRED_EXCEPTION_CAUSE.getDefault()
-    val supressedDescr = DescriptionThrowableExpectation.OCCURRED_EXCEPTION_SUPPRESSED.getDefault()
+    val messageDescr = DescriptionThrowableProof.OCCURRED_EXCEPTION_MESSAGE.string
+    val stackTraceDescr = DescriptionThrowableProof.OCCURRED_EXCEPTION_STACKTRACE.string
+    val causeDescr = DescriptionThrowableProof.OCCURRED_EXCEPTION_CAUSE.string
+    val supressedDescr = DescriptionThrowableProof.OCCURRED_EXCEPTION_SUPPRESSED.string
     val separator = lineSeparator
 
     val errMessage = "oho... error occurred"
 
     fun messageAndStackTrace(message: String) =
-        "\\s+\\Q$explanatoryBulletPoint\\E$messageDescr: \"$message\".*$separator" +
-            "\\s+\\Q$explanatoryBulletPoint\\E$stackTraceDescr: $separator" +
+        "\\s+\\Q$explanatoryBulletPoint\\E$messageDescr : \"$message\".*$separator" +
+            "\\s+\\Q$explanatoryBulletPoint\\E$stackTraceDescr : $separator" +
             "\\s+\\Q$listBulletPoint\\E${Fun0ExpectationsJvmSpec::class.fullName}"
 
     describeFun(toThrowFeature, toThrow, notToThrowFeature, notToThrow) {
@@ -47,9 +48,9 @@ abstract class Fun0ExpectationsJvmSpec(
                 message {
                     toContainRegex(
                         UnsupportedOperationException::class.simpleName + separator + messageAndStackTrace("not supported"),
-                        "\\s+\\Q$explanatoryBulletPoint\\E$supressedDescr: ${IllegalStateException::class.fullName}" +
+                        "\\s+\\Q$explanatoryBulletPoint\\E$supressedDescr : ${IllegalStateException::class.fullName}" +
                                 messageAndStackTrace("not good"),
-                        "\\s+\\Q$explanatoryBulletPoint\\E$supressedDescr: ${IllegalArgumentException::class.fullName}" +
+                        "\\s+\\Q$explanatoryBulletPoint\\E$supressedDescr : ${IllegalArgumentException::class.fullName}" +
                                 messageAndStackTrace(errMessage)
                     )
                 }
@@ -63,7 +64,7 @@ abstract class Fun0ExpectationsJvmSpec(
                         }.toThrowFun { message.toEqual("hello") }
                     }.toThrow<AssertionError> {
                         expectSuppressedInReporting()
-                        if (hasExtraHint) messageToContain("$toEqualDescr: \"hello\"")
+                        if (hasExtraHint) message { toContainToEqualDescr("\"hello\"") }
                     }
                 }
             }
@@ -76,7 +77,7 @@ abstract class Fun0ExpectationsJvmSpec(
                         }.notToThrowFun { toEqual(2) }
                     }.toThrow<AssertionError> {
                         expectSuppressedInReporting()
-                        if (hasExtraHint) messageToContain("$toEqualDescr: 2")
+                        if (hasExtraHint) message { toContainToEqualDescr(2) }
                     }
                 }
             }
@@ -90,16 +91,16 @@ abstract class Fun0ExpectationsJvmSpec(
                     message {
                         toContainRegex(
                             UnsupportedOperationException::class.simpleName + separator + messageAndStackTrace("not supported"),
-                            "\\s+\\Q$explanatoryBulletPoint\\E$supressedDescr: ${IOException::class.fullName}" +
+                            "\\s+\\Q$explanatoryBulletPoint\\E$supressedDescr : ${IOException::class.fullName}" +
                                     messageAndStackTrace("io"),
-                            "\\s+\\Q$explanatoryBulletPoint\\E$causeDescr: ${IllegalStateException::class.fullName}" +
+                            "\\s+\\Q$explanatoryBulletPoint\\E$causeDescr : ${IllegalStateException::class.fullName}" +
                                     messageAndStackTrace(errMessage)
                         )
 
                     }
 
                 toThrowFunctions.forEach { (name, toThrowFun, hasExtraHint) ->
-                    it("$name -shows suppressed including cause as extra hint" + showsSubAssertionIf(hasExtraHint)) {
+                    it("$name - shows suppressed including cause as extra hint" + showsSubAssertionIf(hasExtraHint)) {
 
                         expect {
                             expect<() -> Any?> {
@@ -107,7 +108,7 @@ abstract class Fun0ExpectationsJvmSpec(
                             }.toThrowFun { message.toEqual("hello") }
                         }.toThrow<AssertionError> {
                             expectSuppressedAndCauseInReporting()
-                            if (hasExtraHint) messageToContain("$toEqualDescr: \"hello\"")
+                            if (hasExtraHint) message { toContainToEqualDescr("\"hello\"") }
                         }
                     }
                 }
@@ -120,7 +121,7 @@ abstract class Fun0ExpectationsJvmSpec(
                             }.notToThrowFun { toEqual(2) }
                         }.toThrow<AssertionError> {
                             expectSuppressedAndCauseInReporting()
-                            if (hasExtraHint) messageToContain("$toEqualDescr: 2")
+                            if (hasExtraHint) message { toContainToEqualDescr(2) }
                         }
                     }
                 }

@@ -1,14 +1,15 @@
 package ch.tutteli.atrium.specs.integration
 
+import ch.tutteli.atrium.api.fluent.en_GB.message
 import ch.tutteli.atrium.api.fluent.en_GB.messageToContain
 import ch.tutteli.atrium.api.fluent.en_GB.toThrow
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionDateTimeLikeProof.*
 import ch.tutteli.atrium.specs.Fun1
 import ch.tutteli.atrium.specs.fun1
 import ch.tutteli.atrium.specs.lambda
 import ch.tutteli.atrium.specs.name
-import ch.tutteli.atrium.translations.DescriptionDateTimeLikeExpectation
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.describe
 import java.time.Duration
@@ -71,12 +72,6 @@ abstract class ChronoZonedDateTimeAsStringExpectationsSpec(
     val toBeAfterFun = toBeAfter.lambda
     val toBeAfterOrTheSamePointInTimeAsFun = toBeAfterOrTheSamePointInTimeAs.lambda
     val toBeTheSamePointInTimeAsFun = toBeTheSamePointInTimeAs.lambda
-
-    val toBeBeforeDescr = DescriptionDateTimeLikeExpectation.TO_BE_BEFORE.getDefault()
-    val toBeBeforeOrTheSamePointInTimeAsDescr = DescriptionDateTimeLikeExpectation.TO_BE_BEFORE_OR_THE_SAME_POINT_IN_TIME_AS.getDefault()
-    val toBeAfterDescr = DescriptionDateTimeLikeExpectation.TO_BE_AFTER.getDefault()
-    val toBeAfterOrTheSamePointInTimeAsDescr = DescriptionDateTimeLikeExpectation.TO_BE_AFTER_OR_THE_SAME_POINT_IN_TIME_AS.getDefault()
-    val toBeTheSamePointInTimeAsDescr = DescriptionDateTimeLikeExpectation.TO_BE_THE_SAME_POINT_IN_TIME_AS.getDefault()
 
     val subject = ZonedDateTime.now() as ChronoZonedDateTime<*>
     val now = expect(subject)
@@ -161,12 +156,16 @@ abstract class ChronoZonedDateTimeAsStringExpectationsSpec(
                 it("$chronoZonedDateTime ${toBeBefore.name} $zonedDateTimeReferenceValue throws an AssertionError") {
                     expect {
                         expect(chronoZonedDateTime).toBeBeforeFun(zonedDateTimeAsString)
-                    }.toThrow<AssertionError> { messageToContain("$toBeBeforeDescr: $zonedDateTimeReferenceValue") }
+                    }.toThrow<AssertionError> {
+                        message { toContainDescr(TO_BE_BEFORE, zonedDateTimeReferenceValue) }
+                    }
                 }
                 it("$after ${toBeBefore.name} $zonedDateTimeReferenceValue throws an AssertionError") {
                     expect {
                         expect(after).toBeBeforeFun(zonedDateTimeAsString)
-                    }.toThrow<AssertionError> { messageToContain("$toBeBeforeDescr: $zonedDateTimeReferenceValue") }
+                    }.toThrow<AssertionError> {
+                        message { toContainDescr(TO_BE_BEFORE, zonedDateTimeReferenceValue) }
+                    }
                 }
 
                 it("$before ${toBeBeforeOrTheSamePointInTimeAs.name} $zonedDateTimeReferenceValue does not throw") {
@@ -179,19 +178,23 @@ abstract class ChronoZonedDateTimeAsStringExpectationsSpec(
                     expect {
                         expect(after).toBeBeforeOrTheSamePointInTimeAsFun(zonedDateTimeAsString)
                     }.toThrow<AssertionError> {
-                        messageToContain("$toBeBeforeOrTheSamePointInTimeAsDescr: $zonedDateTimeReferenceValue")
+                        message { toContainDescr(TO_BE_BEFORE_OR_THE_SAME_POINT_IN_TIME_AS, zonedDateTimeReferenceValue) }
                     }
                 }
 
                 it("$before ${toBeAfter.name} $zonedDateTimeReferenceValue throws an AssertionError") {
                     expect {
                         expect(before).toBeAfterFun(zonedDateTimeAsString)
-                    }.toThrow<AssertionError> { messageToContain("$toBeAfterDescr: $zonedDateTimeReferenceValue") }
+                    }.toThrow<AssertionError> {
+                        message { toContainDescr(TO_BE_AFTER, zonedDateTimeReferenceValue) }
+                    }
                 }
                 it("$chronoZonedDateTime ${toBeAfter.name} $zonedDateTimeReferenceValue throws an AssertionError") {
                     expect {
                         expect(chronoZonedDateTime).toBeAfterFun(zonedDateTimeAsString)
-                    }.toThrow<AssertionError> { messageToContain("$toBeAfterDescr: $zonedDateTimeReferenceValue") }
+                    }.toThrow<AssertionError> {
+                        message { toContainDescr(TO_BE_AFTER, zonedDateTimeReferenceValue) }
+                    }
                 }
                 it("$after ${toBeAfter.name} $zonedDateTimeAsString does not throw") {
                     expect(after).toBeAfterFun(zonedDateTimeAsString)
@@ -200,7 +203,9 @@ abstract class ChronoZonedDateTimeAsStringExpectationsSpec(
                 it("$before ${toBeAfterOrTheSamePointInTimeAs.name} $zonedDateTimeReferenceValue throws an AssertionError") {
                     expect {
                         expect(before).toBeAfterOrTheSamePointInTimeAsFun(zonedDateTimeAsString)
-                    }.toThrow<AssertionError> { messageToContain("$toBeAfterOrTheSamePointInTimeAsDescr: $zonedDateTimeReferenceValue") }
+                    }.toThrow<AssertionError> {
+                        message { toContainDescr(TO_BE_AFTER_OR_THE_SAME_POINT_IN_TIME_AS, zonedDateTimeReferenceValue) }
+                    }
                 }
                 it("$chronoZonedDateTime ${toBeAfterOrTheSamePointInTimeAs.name} $zonedDateTimeReferenceValue does not throw") {
                     expect(chronoZonedDateTime).toBeAfterOrTheSamePointInTimeAsFun(zonedDateTimeAsString)
@@ -212,7 +217,9 @@ abstract class ChronoZonedDateTimeAsStringExpectationsSpec(
                 it("$before ${toBeTheSamePointInTimeAs.name} $zonedDateTimeReferenceValue throws an AssertionError") {
                     expect {
                         expect(before).toBeTheSamePointInTimeAsFun(zonedDateTimeAsString)
-                    }.toThrow<AssertionError> { messageToContain("$toBeTheSamePointInTimeAsDescr: $zonedDateTimeReferenceValue") }
+                    }.toThrow<AssertionError> {
+                        message { toContainDescr(TO_BE_THE_SAME_POINT_IN_TIME_AS, zonedDateTimeReferenceValue) }
+                    }
                 }
                 it("$chronoZonedDateTime ${toBeTheSamePointInTimeAs.name} $zonedDateTimeReferenceValue does not throw") {
                     expect(chronoZonedDateTime).toBeTheSamePointInTimeAsFun(zonedDateTimeAsString)
@@ -220,7 +227,9 @@ abstract class ChronoZonedDateTimeAsStringExpectationsSpec(
                 it("$after ${toBeTheSamePointInTimeAs.name} $zonedDateTimeReferenceValue throws an AssertionError") {
                     expect {
                         expect(after).toBeTheSamePointInTimeAsFun(zonedDateTimeAsString)
-                    }.toThrow<AssertionError> { messageToContain("$toBeTheSamePointInTimeAsDescr: $zonedDateTimeReferenceValue") }
+                    }.toThrow<AssertionError> {
+                        message { toContainDescr(TO_BE_THE_SAME_POINT_IN_TIME_AS, zonedDateTimeReferenceValue) }
+                    }
                 }
             }
         }

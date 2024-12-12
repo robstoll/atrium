@@ -21,10 +21,8 @@ import ch.tutteli.atrium.reporting.prerendering.text.impl.*
 import ch.tutteli.atrium.reporting.prerendering.text.impl.assertion.*
 import ch.tutteli.atrium.reporting.text.*
 import ch.tutteli.atrium.reporting.text.impl.*
-import ch.tutteli.atrium.reporting.theming.text.TextIconStyler
-import ch.tutteli.atrium.reporting.theming.text.TextStyler
-import ch.tutteli.atrium.reporting.theming.text.TextThemeProvider
-import ch.tutteli.atrium.reporting.theming.text.Utf8SupportDeterminer
+import ch.tutteli.atrium.reporting.theming.text.*
+import ch.tutteli.atrium.reporting.theming.text.impl.*
 import ch.tutteli.atrium.reporting.theming.text.impl.DefaultTextIconStyler
 import ch.tutteli.atrium.reporting.theming.text.impl.DefaultTextStyler
 import ch.tutteli.atrium.reporting.theming.text.impl.DefaultThemeProvider
@@ -142,7 +140,7 @@ internal object DefaultComponentFactoryContainer : ComponentFactoryContainer by 
             ReportableFilter.failingProofsAndNonProof()
         },
         TextIconStyler::class createSingletonVia { c ->
-            DefaultTextIconStyler(c.build(), c.build())
+            DefaultTextIconStyler(c.build(),c.build())
         },
         TextStyler::class createSingletonVia { c ->
             DefaultTextStyler(c.build())
@@ -152,13 +150,16 @@ internal object DefaultComponentFactoryContainer : ComponentFactoryContainer by 
             DefaultThemeProvider(c.build())
         },
         TextObjFormatter::class createVia { c ->
-            DefaultTextObjFormatter(c.build())
+            DefaultTextObjFormatter(c.build(), c.build())
         },
         Utf8SupportDeterminer::class createVia { c ->
             MordantBasedUtf8SupportDeterminer(c.build())
         },
         Terminal::class createVia { _ ->
             Terminal(ansiLevel = AnsiLevel.TRUECOLOR)
+        },
+        MonospaceLengthCalculator::class createVia { _ ->
+            StringLengthMonospaceLengthCalculator
         },
 
         //TODO 2.0.0 remove
@@ -270,7 +271,7 @@ internal object DefaultComponentFactoryContainer : ComponentFactoryContainer by 
             { c -> DefaultRowTextPreRenderer(c.build()) },
             { _ -> DefaultColumnTextPreRenderer() },
             { c -> DefaultRepresentationTextPreRenderer(c.build()) },
-            { _ -> DefaultTextElementTextPreRenderer() },
+            { c -> DefaultTextElementTextPreRenderer(c.build()) },
         ),
         TextDesignationPreRenderer::class createChainVia sequenceOf(
             { c -> DefaultInlineDesignatorPreRenderer(c.build()) }

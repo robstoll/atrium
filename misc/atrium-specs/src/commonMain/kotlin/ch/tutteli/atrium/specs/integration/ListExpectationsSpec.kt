@@ -32,11 +32,11 @@ abstract class ListExpectationsSpec(
 
     include(object : AssertionCreatorSpec<List<Int>>(
         describePrefix, list,
-        get.forAssertionCreatorSpec("$toEqualDescr: 2", 1) { toEqual(2) }
+        get.forAssertionCreatorSpec("$toEqualDescr\\s+: 2", 1) { toEqual(2) }
     ) {})
     include(object : AssertionCreatorSpec<List<Int?>>(
         "$describePrefix[nullable Element] ", list,
-        getNullable.forAssertionCreatorSpec("$toEqualDescr: 2", 1) { toEqual(2) }
+        getNullable.forAssertionCreatorSpec("$toEqualDescr\\s+: 2", 1) { toEqual(2) }
     ) {})
 
     fun describeFun(vararg pairs: SpecPair<*>, body: Suite.() -> Unit) =

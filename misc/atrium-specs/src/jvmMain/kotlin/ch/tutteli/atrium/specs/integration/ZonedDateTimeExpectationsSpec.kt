@@ -3,6 +3,8 @@ package ch.tutteli.atrium.specs.integration
 import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionDateTimeLikeProof
+import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionDateTimeLikeProof.*
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.translations.DescriptionDateTimeLikeExpectation
 import org.spekframework.spek2.Spek
@@ -45,10 +47,6 @@ abstract class ZonedDateTimeExpectationsSpec(
         describeFunTemplate(describePrefix, pairs.map { it.name }.toTypedArray(), body = body)
 
     val subject = ZonedDateTime.now().withMonth(5).withYear(2009).withDayOfMonth(15)
-    val monthDescr = DescriptionDateTimeLikeExpectation.MONTH.getDefault()
-    val yearDescr = DescriptionDateTimeLikeExpectation.YEAR.getDefault()
-    val dayDescr = DescriptionDateTimeLikeExpectation.DAY.getDefault()
-    val dayOfWeekDescr = DescriptionDateTimeLikeExpectation.DAY_OF_WEEK.getDefault()
 
     describeFun(yearFeature, year) {
         val yearFunctions = unifySignatures(yearFeature, year)
@@ -62,7 +60,7 @@ abstract class ZonedDateTimeExpectationsSpec(
                     expect {
                         expect(subject).yearFun { toBeLessThan(2009) }
                     }.toThrow<AssertionError> {
-                        messageToContain("$yearDescr: 2009")
+                        message { toContainDescr(YEAR, 2009) }
                     }
                 }
             }
@@ -81,7 +79,7 @@ abstract class ZonedDateTimeExpectationsSpec(
                     expect {
                         expect(subject).monthFun { toBeLessThan(5) }
                     }.toThrow<AssertionError> {
-                        messageToContain("$monthDescr: 5")
+                        message { toContainDescr(MONTH, 5) }
                     }
                 }
             }
@@ -101,7 +99,7 @@ abstract class ZonedDateTimeExpectationsSpec(
                     expect {
                         expect(subject).dayFun { toBeLessThan(5) }
                     }.toThrow<AssertionError> {
-                        messageToContain("$dayDescr: 15")
+                        message { toContainDescr(DAY, 15) }
                     }
                 }
             }
@@ -120,7 +118,7 @@ abstract class ZonedDateTimeExpectationsSpec(
                     expect {
                         expect(subject).dayOfWeekFun { toBeLessThan(DayOfWeek.FRIDAY) }
                     }.toThrow<AssertionError> {
-                        messageToContain("$dayOfWeekDescr: ${DayOfWeek.FRIDAY}")
+                        message { toContainDescr(DAY_OF_WEEK, DayOfWeek.FRIDAY) }
                     }
                 }
             }

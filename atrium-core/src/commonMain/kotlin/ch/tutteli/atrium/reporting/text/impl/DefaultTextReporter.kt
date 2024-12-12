@@ -9,7 +9,6 @@ import ch.tutteli.atrium.reporting.prerendering.text.TextPreRenderController
 import ch.tutteli.atrium.reporting.reportables.Reportable
 import ch.tutteli.atrium.reporting.theming.text.StyledString
 import ch.tutteli.atrium.reporting.theming.text.checkIsNoLineBreakDueToMergeColumns
-import ch.tutteli.atrium.reporting.theming.text.pad
 import ch.tutteli.kbox.ifWithinBound
 
 class DefaultTextReporter(
@@ -25,30 +24,35 @@ class DefaultTextReporter(
         )
         val rootNode = rootNodes[0]
         val sb = StringBuilder()
-        format(rootNode, emptyList(), sb, calculateMaxLengths(rootNode, mutableListOf()))
+        format(rootNode, emptyList(), sb, calculateMaxMonospaceLengths(rootNode, mutableListOf()))
         return sb
     }
 
-    private fun format(outputNode: OutputNode, indentLevels: List<Int>, sb: StringBuilder, maxLengths: List<Int>) {
+    private fun format(
+        outputNode: OutputNode,
+        indentLevels: List<Int>,
+        sb: StringBuilder,
+        maxMonospaceLengths: List<Int>
+    ) {
 
         fun indentWithSpaces(indentLevel: Int, untilColumn: Int) {
             (0 until minOf(indentLevel, untilColumn)).forEach {
                 sb.appendSpaces(indentLevels[it])
             }
             (indentLevel until untilColumn).forEach { i ->
-                sb.appendSpaces(maxLengths[i])
+                sb.appendSpaces(maxMonospaceLengths[i])
             }
         }
 
         fun appendColumn(columns: List<StyledString>, index: Int) {
             val styledString = columns[index]
             if (styledString.noLineBreak) {
-                sb.append(styledString.pad(maxLengths[index]))
+                sb.append(styledString.padString(maxMonospaceLengths[index]))
             } else {
                 val lines = styledString.unstyled.split(Regex("\r\n|\n"))
                 if (lines.size == 1) {
                     // no newline, we can just pad the styledString
-                    sb.append(styledString.pad(maxLengths[index]))
+                    sb.append(styledString.padString(maxMonospaceLengths[index]))
                 } else {
                     throw UnsupportedOperationException("wrapping (i.e. noLineBreak=false) is only supported for the last column")
                 }
@@ -66,7 +70,7 @@ class DefaultTextReporter(
                     val styledString = columns[i]
                     //TODO 1.3.0 what about wrapping throw an error as well?
                     val indent = indentLevels[i]
-                    sb.append(styledString.pad(if (indent > 0) indent else 0))
+                    sb.append(styledString.padString(if (indent > 0) indent else 0))
                 }
 
                 val startIndex = if (mergeColumns == 0) {
@@ -85,15 +89,15 @@ class DefaultTextReporter(
                     repeat(mergeColumns) {
                         val styledString = columns[index]
                         checkIsNoLineBreakDueToMergeColumns(styledString)
-                        sb.append(styledString.result())
-                        additionalPadding += maxLengths[index] - styledString.unstyled.length
+                        sb.append(styledString.getString())
+                        additionalPadding += maxMonospaceLengths[index] - styledString.monospaceLength
                         ++index
                     }
 
                     val styledString = columns[index]
                     checkIsNoLineBreakDueToMergeColumns(styledString)
                     sb.append(
-                        styledString.pad(additionalPadding + maxLengths[index])
+                        styledString.padString(additionalPadding + maxMonospaceLengths[index])
                     )
                     ++index
                 }
@@ -104,9 +108,9 @@ class DefaultTextReporter(
                 }
                 val lastColumn = columns[lastIndex]
                 if (lastColumn.noLineBreak) {
-                    sb.append(lastColumn.result())
+                    sb.append(lastColumn.getString())
                 } else {
-                    val lines = lastColumn.result().split(Regex("\r\n|\n"))
+                    val lines = lastColumn.getString().split(Regex("\r\n|\n"))
                     sb.append(lines.first())
                     lines.drop(1).forEach { line ->
                         sb.appendln()
@@ -120,7 +124,7 @@ class DefaultTextReporter(
         appendColumns(outputNode)
 
         val indentLevelsForChildrenWhichDoNotDefineOwnLevel =
-            indentLevels + maxLengths.asSequence().drop(indentLevels.size)
+            indentLevels + maxMonospaceLengths.asSequence().drop(indentLevels.size)
 
         outputNode.children.forEachIndexed { index, child ->
             if (outputNode.columns.isNotEmpty() || index > 0) {
@@ -128,12 +132,12 @@ class DefaultTextReporter(
             }
 
             if (child.definesOwnLevel) {
-                val (newIndentLevels, newMaxLengths) = calculateIndentLevelsAndMaxLengths(
-                    child, outputNode, indentLevels, maxLengths
+                val (newIndentLevels, newMaxMonospaceLengths) = calculateIndentLevelsAndMaxLengths(
+                    child, outputNode, indentLevels, maxMonospaceLengths
                 )
-                format(child, newIndentLevels, sb, newMaxLengths)
+                format(child, newIndentLevels, sb, newMaxMonospaceLengths)
             } else {
-                format(child, indentLevelsForChildrenWhichDoNotDefineOwnLevel, sb, maxLengths)
+                format(child, indentLevelsForChildrenWhichDoNotDefineOwnLevel, sb, maxMonospaceLengths)
             }
         }
     }
@@ -142,9 +146,21 @@ class DefaultTextReporter(
         child: OutputNode,
         parent: OutputNode,
         parentIndentLevels: List<Int>,
-        parentMaxLengths: List<Int>
+        parentMaxMonospaceLengths: List<Int>
     ): Pair<List<Int>, List<Int>> {
-        val newMaxLengths = calculateMaxLengths(child, parentMaxLengths.take(parent.indentLevel + 1))
+        val newMaxMonospaceLengths = calculateMaxMonospaceLengths(
+            child,
+            parentMaxMonospaceLengths.take(
+                //TODO 1.3.0 take final decision, change and execute CreateReportTest
+//                run {
+//                    parent.children.filter { it.definesOwnLevel.not() }
+//                        .minOfOrNull { it.indentLevel }
+//                        ?:
+//                        parent.indentLevel
+//                } + 1
+                child.indentLevel
+            )
+        )
 
         val indentLevelsInheritedFromParent = run {
             // the child defines an own level and hence also own indent levels. It only "inherits" the
@@ -157,12 +173,13 @@ class DefaultTextReporter(
             // above the debug group `(d)` defines an own level. Since it is not indented at all, it doesn't
             // "inherit" any identLevel from the root group. On the other hand, the usage hint group `(u)` which
             // defines an own level as well, inherits one indent level from the debug group (indentLevel[0] = 4)
-            parentIndentLevels.asSequence().take(child.indentLevel)
+            if (child.indentLevel == 0) emptySequence()
+            else parentIndentLevels.asSequence().take(child.indentLevel)
         }
 
-        val indentLevelsDeducedFromMaxLengthOfParent = run {
+        val indentLevelsDeducedFromMaxMonospaceLengthOfParent = run {
 
-            val maxLengthsFromParentToConvertToIndent = run {
+            val maxMonospaceLengthsFromParentToConvertToIndent = run {
                 // TODO 1.4.0 consider the following, once we drop ExplanatoryAssertionGroup then we don't have any
                 // pre-renderer left which defines an outputNode without columns but with definesOwnLevel=true
                 // in such a case the if branch is always taken and we could simplify this code (we should then
@@ -181,54 +198,58 @@ class DefaultTextReporter(
                     // `(i)` is an ExplanatoryAssertionGroup and the `stacktrace` is a proof group wrapped into another
                     // ExplanatoryAssertionGroup. The indentLevel of `(i)` is 0 here, same same for the hidden
                     // ExplanatoryGroup (i.e. child.indentLevel - parent.indentLevel would be 0). However, `stacktrace`
-                    // has indentLevel=1 which only works if we take the maxLength[0] from the parent (because the
-                    // nextMaxLength[0] = 0)
-                    val numberOfZeroIndents = newMaxLengths.asSequence()
+                    // has indentLevel=1 which only works if we take the maxMonospaceLength[0] from the parent (because
+                    // the newMaxMonospaceLength[0] = 0)
+                    val numberOfZeroIndents = newMaxMonospaceLengths.asSequence()
                         .drop(child.indentLevel)
                         .takeWhile { it == 0 }.count()
                     maxOf(child.indentLevel - parent.indentLevel, numberOfZeroIndents)
                 }
             }
 
-            parentMaxLengths.asSequence()
+            if(maxMonospaceLengthsFromParentToConvertToIndent == 0) emptySequence()
+            else parentMaxMonospaceLengths.asSequence()
                 .drop(minOf(parentIndentLevels.size, child.indentLevel))
-                .take(maxLengthsFromParentToConvertToIndent)
+                .take(maxMonospaceLengthsFromParentToConvertToIndent)
         }
 
         val newIndentLevels = run {
-            indentLevelsInheritedFromParent + indentLevelsDeducedFromMaxLengthOfParent
+            indentLevelsInheritedFromParent + indentLevelsDeducedFromMaxMonospaceLengthOfParent
         }.toList()
-        return newIndentLevels to newMaxLengths
+        return newIndentLevels to newMaxMonospaceLengths
     }
 
-    private fun calculateMaxLengths(node: OutputNode, parentMaxLengthsToConsider: List<Int>): List<Int> {
-        val maxLengths = mutableListOf<Int>()
-        maxLengths.addAll(parentMaxLengthsToConsider)
+    private fun calculateMaxMonospaceLengths(
+        node: OutputNode,
+        parentMaxMonospaceLengthsToConsider: List<Int>
+    ): List<Int> {
+        val maxMonospaceLengths = mutableListOf<Int>()
+        maxMonospaceLengths.addAll(parentMaxMonospaceLengthsToConsider)
 
-        fun updateMaxLengthsIfNecessary(index: Int, length: Int) {
-            maxLengths.ifWithinBound(
+        fun updateMaxMonospaceLengthsIfNecessary(index: Int, length: Int) {
+            maxMonospaceLengths.ifWithinBound(
                 index,
                 thenBlock = {
-                    if (maxLengths[index] < length) {
-                        maxLengths[index] = length
+                    if (maxMonospaceLengths[index] < length) {
+                        maxMonospaceLengths[index] = length
                     }
                 },
-                elseBlock = { maxLengths.add(index, length) }
+                elseBlock = { maxMonospaceLengths.add(index, length) }
             )
         }
 
-        fun updateMaxLengthsIfNecessary(index: Int, styledString: StyledString) {
-            updateMaxLengthsIfNecessary(index, styledString.getMaxUnstyledLineLength())
+        fun updateMaxMonospaceLengthsIfNecessary(index: Int, styledString: StyledString) {
+            updateMaxMonospaceLengthsIfNecessary(index, styledString.maxLineMonospaceLength)
         }
 
-        fun updateMaxLengths(columns: Iterable<IndexedValue<StyledString>>) {
+        fun updateMaxMonospaceLengths(columns: Iterable<IndexedValue<StyledString>>) {
             columns.forEach { (index, styledString) ->
-                updateMaxLengthsIfNecessary(index, styledString)
+                updateMaxMonospaceLengthsIfNecessary(index, styledString)
             }
         }
 
-        fun updateMaxLengths(child: OutputNode) =
-            updateMaxLengths(child.columns.withIndex())
+        fun updateMaxMonospaceLengths(child: OutputNode) =
+            updateMaxMonospaceLengths(child.columns.withIndex())
 
         // if we have children without own columns (i.e. invisible groups) then we need to take their children
         // into account as well.
@@ -240,19 +261,19 @@ class DefaultTextReporter(
 
         childrenToTakeIntoAccount
             .filterNot { it.definesOwnLevel }
-            .forEach(::updateMaxLengths)
+            .forEach(::updateMaxMonospaceLengths)
 
-        // we are still interested in the first column of children which define an own level as the prefix (which is
-        // the first column after indent of this node) still counts towards the alignment of this node. Now, if the child
-        // should be further indented (i.e. prefix is after node.indentLevel + 1) then it doesn't count towards the
-        // lengths of this node
+        // we are still interested in the first column of children which define an own level, as the prefix (which is
+        // the first column after indent of this node) still counts towards the alignment of this node. Now, if the
+        // child should be further indented (i.e. prefix is after node.indentLevel + 1) then it doesn't count towards
+        // the lengths of this node
         childrenToTakeIntoAccount
             .filter { it.definesOwnLevel }
             .flatMap {
                 it.columns.asSequence().withIndex().take(node.indentLevel + 1)
             }
             .forEach { (index, styledString) ->
-                updateMaxLengthsIfNecessary(index, styledString)
+                updateMaxMonospaceLengthsIfNecessary(index, styledString)
             }
 
         val columns = node.columns
@@ -263,36 +284,31 @@ class DefaultTextReporter(
             val (lastIndex, lastStyledString) = mergedColumns.last()
 
             // If all children definesOnwLevel=true and itself indent more than the node + 1 then the columns between
-            // indent and startMergeAtColumn were not calculated yet, i.e. are not defined yet in maxLengths, we
-            // initialise them here with 0 in such as case
-            (maxLengths.size until node.startMergeAtColumn).forEach { index ->
-                maxLengths.add(index, 0)
+            // indent and startMergeAtColumn were not calculated yet, i.e. are not defined yet in maxMonospaceLengths,
+            // we initialise them here with 0 in such as case
+            (maxMonospaceLengths.size until node.startMergeAtColumn).forEach { index ->
+                maxMonospaceLengths.add(index, 0)
             }
 
             // if we merge columns and the children's indent is in the range of the merged columns then those columns
-            // would have a length of 0 if we don't calculate the length of those columns as well.
+            // would have a monospaceLength of 0 if we don't calculate the monospaceLength of those columns as well.
             (node.startMergeAtColumn until lastIndex).forEach { index ->
-                updateMaxLengthsIfNecessary(index, columns[index])
+                updateMaxMonospaceLengthsIfNecessary(index, columns[index])
             }
 
-            val mergedLength = mergedColumns
+            val mergedMonospaceLength = mergedColumns
                 .take(mergedColumns.size - 1)
                 .sumOf { (index, value) ->
-                    value.unstyled.length - maxLengths[index]
-                } + lastStyledString.unstyled.length
+                    value.monospaceLength - maxMonospaceLengths[index]
+                } + lastStyledString.monospaceLength
 
 
-            updateMaxLengthsIfNecessary(lastIndex, mergedLength)
-            updateMaxLengths(rest)
+            updateMaxMonospaceLengthsIfNecessary(lastIndex, mergedMonospaceLength)
+            updateMaxMonospaceLengths(rest)
         } else {
-            updateMaxLengths(columns.withIndex())
+            updateMaxMonospaceLengths(columns.withIndex())
         }
 
-        return maxLengths
+        return maxMonospaceLengths
     }
-
-    private fun StyledString.getMaxUnstyledLineLength() =
-        if (noLineBreak) unstyled.length
-        else unstyled.split("\n").maxOf { it.length }
-
 }

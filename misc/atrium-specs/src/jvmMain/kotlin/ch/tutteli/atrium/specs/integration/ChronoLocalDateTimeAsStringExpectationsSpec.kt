@@ -1,9 +1,12 @@
 package ch.tutteli.atrium.specs.integration
 
+import ch.tutteli.atrium.api.fluent.en_GB.message
 import ch.tutteli.atrium.api.fluent.en_GB.messageToContain
 import ch.tutteli.atrium.api.fluent.en_GB.toThrow
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionDateTimeLikeProof
+import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionDateTimeLikeProof.*
 import ch.tutteli.atrium.specs.Fun1
 import ch.tutteli.atrium.specs.fun1
 import ch.tutteli.atrium.specs.lambda
@@ -71,12 +74,6 @@ abstract class ChronoLocalDateTimeAsStringExpectationsSpec(
     val toBeAfterOrTheSamePointInTimeAsFun = toBeAfterOrTheSamePointInTimeAs.lambda
     val toBeTheSamePointInTimeAsFun = toBeTheSamePointInTimeAs.lambda
 
-    val toBeBeforeDescr = DescriptionDateTimeLikeExpectation.TO_BE_BEFORE.getDefault()
-    val toBeBeforeOrTheSamePointInTimeAsDescr = DescriptionDateTimeLikeExpectation.TO_BE_BEFORE_OR_THE_SAME_POINT_IN_TIME_AS.getDefault()
-    val toBeAfterDescr = DescriptionDateTimeLikeExpectation.TO_BE_AFTER.getDefault()
-    val toBeAfterOrTheSamePointInTimeAsDescr = DescriptionDateTimeLikeExpectation.TO_BE_AFTER_OR_THE_SAME_POINT_IN_TIME_AS.getDefault()
-    val toBeTheSamePointInTimeAsDescr = DescriptionDateTimeLikeExpectation.TO_BE_THE_SAME_POINT_IN_TIME_AS.getDefault()
-
     val subject = LocalDateTime.now() as ChronoLocalDateTime<*>
     val now = expect(subject)
 
@@ -141,12 +138,16 @@ abstract class ChronoLocalDateTimeAsStringExpectationsSpec(
                 it("$chronoLocalDateTime ${toBeBefore.name} $localDateTimeAsString throws an AssertionError") {
                     expect {
                         expect(chronoLocalDateTime).toBeBeforeFun(localDateTimeAsString)
-                    }.toThrow<AssertionError> { messageToContain("$toBeBeforeDescr: $localDateTimeAsString") }
+                    }.toThrow<AssertionError> {
+                        message { toContainDescr(TO_BE_BEFORE, localDateTimeAsString) }
+                    }
                 }
                 it("$after ${toBeBefore.name} $localDateTimeAsString throws an AssertionError") {
                     expect {
                         expect(after).toBeBeforeFun(localDateTimeAsString)
-                    }.toThrow<AssertionError> { messageToContain("$toBeBeforeDescr: $localDateTimeAsString") }
+                    }.toThrow<AssertionError> {
+                        message { toContainDescr(TO_BE_BEFORE, localDateTimeAsString) }
+                    }
                 }
 
                 it("$before ${toBeBeforeOrTheSamePointInTimeAs.name} $localDateTimeAsString does not throw") {
@@ -159,19 +160,23 @@ abstract class ChronoLocalDateTimeAsStringExpectationsSpec(
                     expect {
                         expect(after).toBeBeforeOrTheSamePointInTimeAsFun(localDateTimeAsString)
                     }.toThrow<AssertionError> {
-                        messageToContain("$toBeBeforeOrTheSamePointInTimeAsDescr: $localDateTimeAsString")
+                        message { toContainDescr(TO_BE_BEFORE_OR_THE_SAME_POINT_IN_TIME_AS, localDateTimeAsString) }
                     }
                 }
 
                 it("$before ${toBeAfter.name} $localDateTimeAsString throws an AssertionError") {
                     expect {
                         expect(before).toBeAfterFun(localDateTimeAsString)
-                    }.toThrow<AssertionError> { messageToContain("$toBeAfterDescr: $localDateTimeAsString") }
+                    }.toThrow<AssertionError> {
+                        message { toContainDescr(TO_BE_AFTER, localDateTimeAsString) }
+                    }
                 }
                 it("$chronoLocalDateTime ${toBeAfter.name} $localDateTimeAsString throws an AssertionError") {
                     expect {
                         expect(chronoLocalDateTime).toBeAfterFun(localDateTimeAsString)
-                    }.toThrow<AssertionError> { messageToContain("$toBeAfterDescr: $localDateTimeAsString") }
+                    }.toThrow<AssertionError> {
+                        message { toContainDescr(TO_BE_AFTER, localDateTimeAsString) }
+                    }
                 }
                 it("$after ${toBeAfter.name} $localDateTimeAsString does not throw") {
                     expect(after).toBeAfterFun(localDateTimeAsString)
@@ -180,7 +185,9 @@ abstract class ChronoLocalDateTimeAsStringExpectationsSpec(
                 it("$before ${toBeAfterOrTheSamePointInTimeAs.name} $localDateTimeAsString throws an AssertionError") {
                     expect {
                         expect(before).toBeAfterOrTheSamePointInTimeAsFun(localDateTimeAsString)
-                    }.toThrow<AssertionError> { messageToContain("$toBeAfterOrTheSamePointInTimeAsDescr: $localDateTimeAsString") }
+                    }.toThrow<AssertionError> {
+                        message { toContainDescr(TO_BE_AFTER_OR_THE_SAME_POINT_IN_TIME_AS, localDateTimeAsString) }
+                    }
                 }
                 it("$chronoLocalDateTime ${toBeAfterOrTheSamePointInTimeAs.name} $localDateTimeAsString does not throw") {
                     expect(chronoLocalDateTime).toBeAfterOrTheSamePointInTimeAsFun(localDateTimeAsString)
@@ -192,7 +199,9 @@ abstract class ChronoLocalDateTimeAsStringExpectationsSpec(
                 it("$before ${toBeTheSamePointInTimeAs.name} $localDateTimeAsString throws an AssertionError") {
                     expect {
                         expect(before).toBeTheSamePointInTimeAsFun(localDateTimeAsString)
-                    }.toThrow<AssertionError> { messageToContain("$toBeTheSamePointInTimeAsDescr: $localDateTimeAsString") }
+                    }.toThrow<AssertionError> {
+                        message { toContainDescr(TO_BE_THE_SAME_POINT_IN_TIME_AS, localDateTimeAsString) }
+                    }
                 }
                 it("$chronoLocalDateTime ${toBeTheSamePointInTimeAs.name} $localDateTimeAsString does not throw") {
                     expect(chronoLocalDateTime).toBeTheSamePointInTimeAsFun(localDateTimeAsString)
@@ -200,7 +209,9 @@ abstract class ChronoLocalDateTimeAsStringExpectationsSpec(
                 it("$after ${toBeTheSamePointInTimeAs.name} $localDateTimeAsString throws an AssertionError") {
                     expect {
                         expect(after).toBeTheSamePointInTimeAsFun(localDateTimeAsString)
-                    }.toThrow<AssertionError> { messageToContain("$toBeTheSamePointInTimeAsDescr: $localDateTimeAsString") }
+                    }.toThrow<AssertionError> {
+                        message { toContainDescr(TO_BE_THE_SAME_POINT_IN_TIME_AS, localDateTimeAsString) }
+                    }
                 }
             }
         }

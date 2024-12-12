@@ -1091,7 +1091,7 @@ public final class ch/tutteli/atrium/creating/proofs/builders/ReportableGroupBui
 }
 
 public final class ch/tutteli/atrium/creating/proofs/builders/RowBuilder : ch/tutteli/atrium/creating/proofs/builders/impl/BaseBuilder {
-	public fun <init> (Lch/tutteli/atrium/creating/ProofContainer;Lch/tutteli/atrium/reporting/reportables/Icon;)V
+	public fun <init> (Lch/tutteli/atrium/creating/ProofContainer;Lch/tutteli/atrium/reporting/reportables/Icon;Z)V
 	public synthetic fun build (Ljava/util/List;)Lch/tutteli/atrium/reporting/reportables/Reportable;
 	public final fun column (Lch/tutteli/atrium/reporting/reportables/InlineElement;Lch/tutteli/atrium/reporting/HorizontalAlignment;)Lch/tutteli/atrium/reporting/reportables/Column;
 	public static synthetic fun column$default (Lch/tutteli/atrium/creating/proofs/builders/RowBuilder;Lch/tutteli/atrium/reporting/reportables/InlineElement;Lch/tutteli/atrium/reporting/HorizontalAlignment;ILjava/lang/Object;)Lch/tutteli/atrium/reporting/reportables/Column;
@@ -1127,8 +1127,8 @@ public abstract class ch/tutteli/atrium/creating/proofs/builders/impl/BaseGroupB
 	public final fun proofExplanation (Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/reporting/reportables/Reportable;
 	public final fun reportableGroup (Lch/tutteli/atrium/reporting/reportables/InlineElement;Ljava/lang/Object;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/reporting/reportables/Reportable;
 	public final fun representationOnlyProof (Ljava/lang/Object;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/creating/proofs/Proof;
-	public final fun row (Lch/tutteli/atrium/reporting/reportables/Icon;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/reporting/reportables/Reportable;
-	public static synthetic fun row$default (Lch/tutteli/atrium/creating/proofs/builders/impl/BaseGroupBuilder;Lch/tutteli/atrium/reporting/reportables/Icon;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lch/tutteli/atrium/reporting/reportables/Reportable;
+	public final fun row (Lch/tutteli/atrium/reporting/reportables/Icon;ZLkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/reporting/reportables/Reportable;
+	public static synthetic fun row$default (Lch/tutteli/atrium/creating/proofs/builders/impl/BaseGroupBuilder;Lch/tutteli/atrium/reporting/reportables/Icon;ZLkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lch/tutteli/atrium/reporting/reportables/Reportable;
 	public final fun simpleProof (Lch/tutteli/atrium/reporting/reportables/InlineElement;Ljava/lang/Object;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/creating/proofs/Proof;
 	public final fun text (Ljava/lang/String;)Lch/tutteli/atrium/reporting/reportables/Reportable;
 	public final fun usageHintGroup (Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/reporting/reportables/Reportable;
@@ -1539,7 +1539,7 @@ public final class ch/tutteli/atrium/reporting/AssertionPairFormatter$DefaultImp
 	public static fun format (Lch/tutteli/atrium/reporting/AssertionPairFormatter;Lch/tutteli/atrium/reporting/AssertionFormatterParameterObject;Lch/tutteli/atrium/reporting/translating/Translatable;Ljava/lang/Object;)V
 }
 
-public final class ch/tutteli/atrium/reporting/AtriumError : java/lang/AssertionError {
+public final class ch/tutteli/atrium/reporting/AtriumError : org/opentest4j/AssertionFailedError {
 	public static final field Companion Lch/tutteli/atrium/reporting/AtriumError$Companion;
 	public final fun getCausingProof ()Lch/tutteli/atrium/creating/proofs/Proof;
 	public fun getLocalizedMessage ()Ljava/lang/String;
@@ -1558,6 +1558,11 @@ public abstract interface class ch/tutteli/atrium/reporting/AtriumErrorAdjuster 
 public abstract interface class ch/tutteli/atrium/reporting/AtriumErrorAdjusterCommon {
 	public abstract fun adjust (Ljava/lang/Throwable;)V
 	public abstract fun adjustOtherThanStacks (Ljava/lang/Throwable;)V
+}
+
+public final class ch/tutteli/atrium/reporting/AtriumErrorJvmKt {
+	public static final fun extractActual (Lch/tutteli/atrium/creating/proofs/Proof;)Ljava/lang/Object;
+	public static final fun extractExpected (Lch/tutteli/atrium/creating/proofs/Proof;)Ljava/lang/Object;
 }
 
 public final class ch/tutteli/atrium/reporting/ConstantsKt {
@@ -1770,6 +1775,7 @@ public final class ch/tutteli/atrium/reporting/prerendering/text/TextPreRenderCo
 public final class ch/tutteli/atrium/reporting/prerendering/text/TextPreRenderControllerKt {
 	public static final fun determineChildControlObject (Lch/tutteli/atrium/reporting/prerendering/text/TextPreRenderControlObject;Lch/tutteli/atrium/reporting/reportables/Reportable;Lch/tutteli/atrium/reporting/reportables/Icon;I)Lch/tutteli/atrium/reporting/prerendering/text/TextPreRenderControlObject;
 	public static synthetic fun determineChildControlObject$default (Lch/tutteli/atrium/reporting/prerendering/text/TextPreRenderControlObject;Lch/tutteli/atrium/reporting/reportables/Reportable;Lch/tutteli/atrium/reporting/reportables/Icon;IILjava/lang/Object;)Lch/tutteli/atrium/reporting/prerendering/text/TextPreRenderControlObject;
+	public static final fun hasAtLeastOneLeaveProof (Lch/tutteli/atrium/reporting/reportables/ReportableGroup;)Z
 	public static final fun transformGroup (Lch/tutteli/atrium/reporting/prerendering/text/TextPreRenderController;Lch/tutteli/atrium/reporting/reportables/ReportableGroup;Lch/tutteli/atrium/reporting/prerendering/text/TextPreRenderControlObject;Ljava/util/List;Ljava/util/List;ILkotlin/jvm/functions/Function1;)Ljava/util/List;
 	public static final fun transformGroup (Lch/tutteli/atrium/reporting/prerendering/text/TextPreRenderController;Lch/tutteli/atrium/reporting/reportables/ReportableGroupWithDescription;Lch/tutteli/atrium/reporting/prerendering/text/TextPreRenderControlObject;Ljava/util/List;Ljava/util/List;ILkotlin/jvm/functions/Function1;)Ljava/util/List;
 	public static final fun transformGroup (Lch/tutteli/atrium/reporting/prerendering/text/TextPreRenderController;Lch/tutteli/atrium/reporting/reportables/ReportableWithDesignation;Lch/tutteli/atrium/reporting/prerendering/text/TextPreRenderControlObject;Ljava/util/List;Ljava/util/List;I)Ljava/util/List;
@@ -1856,6 +1862,7 @@ public final class ch/tutteli/atrium/reporting/reportables/Icon : java/lang/Enum
 	public static final field BULB Lch/tutteli/atrium/reporting/reportables/Icon;
 	public static final field DEBUG_INFO Lch/tutteli/atrium/reporting/reportables/Icon;
 	public static final field EMPTY_STRING Lch/tutteli/atrium/reporting/reportables/Icon;
+	public static final field FAILING_GROUP Lch/tutteli/atrium/reporting/reportables/Icon;
 	public static final field FAILURE Lch/tutteli/atrium/reporting/reportables/Icon;
 	public static final field FEATURE Lch/tutteli/atrium/reporting/reportables/Icon;
 	public static final field FEATURE_BULLET_POINT Lch/tutteli/atrium/reporting/reportables/Icon;
@@ -1906,7 +1913,7 @@ public final class ch/tutteli/atrium/reporting/reportables/Reportable$Companion 
 	public final fun inlineGroupOrSingleElement (Ljava/util/List;)Lch/tutteli/atrium/reporting/reportables/InlineElement;
 	public final fun proofExplanation (Lch/tutteli/atrium/creating/proofs/Proof;)Lch/tutteli/atrium/reporting/reportables/ProofExplanation;
 	public final fun representation (Ljava/lang/Object;)Lch/tutteli/atrium/reporting/reportables/Representation;
-	public final fun row (Lch/tutteli/atrium/reporting/reportables/Icon;Ljava/util/List;)Lch/tutteli/atrium/reporting/reportables/Row;
+	public final fun row (Lch/tutteli/atrium/reporting/reportables/Icon;ZLjava/util/List;)Lch/tutteli/atrium/reporting/reportables/Row;
 	public final fun usageHintGroup (Ljava/util/List;)Lch/tutteli/atrium/reporting/reportables/UsageHintGroup;
 }
 
@@ -1937,6 +1944,7 @@ public abstract interface class ch/tutteli/atrium/reporting/reportables/Represen
 public abstract interface class ch/tutteli/atrium/reporting/reportables/Row : ch/tutteli/atrium/reporting/reportables/Reportable {
 	public abstract fun getColumns ()Ljava/util/List;
 	public abstract fun getIcon ()Lch/tutteli/atrium/reporting/reportables/Icon;
+	public abstract fun getIncludingBorder ()Z
 }
 
 public abstract interface class ch/tutteli/atrium/reporting/reportables/TextElement : ch/tutteli/atrium/reporting/reportables/InlineElement {
@@ -1963,7 +1971,9 @@ public final class ch/tutteli/atrium/reporting/reportables/descriptions/Descript
 
 public final class ch/tutteli/atrium/reporting/reportables/descriptions/DescriptionBasic : java/lang/Enum, ch/tutteli/atrium/reporting/reportables/Description {
 	public static final field NOT_TO_BE Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionBasic;
+	public static final field NOT_TO_HAVE Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionBasic;
 	public static final field TO_BE Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionBasic;
+	public static final field TO_HAVE Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionBasic;
 	public fun getDefault ()Ljava/lang/String;
 	public static fun getEntries ()Lkotlin/enums/EnumEntries;
 	public fun getString ()Ljava/lang/String;
@@ -1988,9 +1998,9 @@ public final class ch/tutteli/atrium/reporting/reportables/descriptions/Descript
 	public static final field AT_LEAST Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionCharSequenceProof;
 	public static final field AT_MOST Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionCharSequenceProof;
 	public static final field BLANK Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionCharSequenceProof;
+	public static final field Companion Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionCharSequenceProof$Companion;
 	public static final field EMPTY Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionCharSequenceProof;
 	public static final field EXACTLY Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionCharSequenceProof;
-	public static final field IGNORING_CASE Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionCharSequenceProof;
 	public static final field NOT_FOUND Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionCharSequenceProof;
 	public static final field NOT_TO_CONTAIN Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionCharSequenceProof;
 	public static final field NOT_TO_END_WITH Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionCharSequenceProof;
@@ -2010,6 +2020,20 @@ public final class ch/tutteli/atrium/reporting/reportables/descriptions/Descript
 	public static fun values ()[Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionCharSequenceProof;
 }
 
+public final class ch/tutteli/atrium/reporting/reportables/descriptions/DescriptionCharSequenceProof$Companion {
+	public final fun getIGNORING_CASE (Lch/tutteli/atrium/reporting/reportables/Description;)Lch/tutteli/atrium/reporting/reportables/Description;
+}
+
+public final class ch/tutteli/atrium/reporting/reportables/descriptions/DescriptionCollectionProof : java/lang/Enum, ch/tutteli/atrium/reporting/reportables/Description {
+	public static final field EMPTY Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionCollectionProof;
+	public static final field SIZE Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionCollectionProof;
+	public fun getDefault ()Ljava/lang/String;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public fun getString ()Ljava/lang/String;
+	public static fun valueOf (Ljava/lang/String;)Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionCollectionProof;
+	public static fun values ()[Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionCollectionProof;
+}
+
 public final class ch/tutteli/atrium/reporting/reportables/descriptions/DescriptionComparableProof : java/lang/Enum, ch/tutteli/atrium/reporting/reportables/Description {
 	public static final field NOT_TO_BE_GREATER_THAN Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionComparableProof;
 	public static final field NOT_TO_BE_LESS_THAN Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionComparableProof;
@@ -2023,6 +2047,24 @@ public final class ch/tutteli/atrium/reporting/reportables/descriptions/Descript
 	public fun getString ()Ljava/lang/String;
 	public static fun valueOf (Ljava/lang/String;)Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionComparableProof;
 	public static fun values ()[Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionComparableProof;
+}
+
+public final class ch/tutteli/atrium/reporting/reportables/descriptions/DescriptionDateTimeLikeProof : java/lang/Enum, ch/tutteli/atrium/reporting/reportables/Description {
+	public static final field DAY Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionDateTimeLikeProof;
+	public static final field DAY_OF_WEEK Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionDateTimeLikeProof;
+	public static final field MONTH Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionDateTimeLikeProof;
+	public static final field TO_BE_AFTER Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionDateTimeLikeProof;
+	public static final field TO_BE_AFTER_OR_THE_SAME_POINT_IN_TIME_AS Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionDateTimeLikeProof;
+	public static final field TO_BE_BEFORE Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionDateTimeLikeProof;
+	public static final field TO_BE_BEFORE_OR_THE_SAME_POINT_IN_TIME_AS Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionDateTimeLikeProof;
+	public static final field TO_BE_THE_SAME_DAY_AS Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionDateTimeLikeProof;
+	public static final field TO_BE_THE_SAME_POINT_IN_TIME_AS Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionDateTimeLikeProof;
+	public static final field YEAR Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionDateTimeLikeProof;
+	public fun getDefault ()Ljava/lang/String;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public fun getString ()Ljava/lang/String;
+	public static fun valueOf (Ljava/lang/String;)Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionDateTimeLikeProof;
+	public static fun values ()[Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionDateTimeLikeProof;
 }
 
 public final class ch/tutteli/atrium/reporting/reportables/descriptions/DescriptionDocumentationUtil : java/lang/Enum, ch/tutteli/atrium/reporting/reportables/Description {
@@ -2074,6 +2116,12 @@ public final class ch/tutteli/atrium/reporting/reportables/descriptions/ErrorMes
 public final class ch/tutteli/atrium/reporting/reportables/impl/DefaultRepresentation : ch/tutteli/atrium/reporting/reportables/Representation {
 	public fun <init> (Ljava/lang/Object;)V
 	public fun getRepresentation ()Ljava/lang/Object;
+}
+
+public final class ch/tutteli/atrium/reporting/reportables/impl/SuffixedDescription : ch/tutteli/atrium/reporting/reportables/Description {
+	public fun <init> (Lch/tutteli/atrium/reporting/reportables/Description;Ljava/lang/String;)V
+	public fun getDefault ()Ljava/lang/String;
+	public fun getString ()Ljava/lang/String;
 }
 
 public abstract interface class ch/tutteli/atrium/reporting/text/BulletPointProvider {
@@ -2143,7 +2191,7 @@ public final class ch/tutteli/atrium/reporting/text/impl/DefaultTextMethodCallFo
 public final class ch/tutteli/atrium/reporting/text/impl/DefaultTextObjFormatter : ch/tutteli/atrium/reporting/text/TextObjFormatter {
 	public static final field Companion Lch/tutteli/atrium/reporting/text/impl/DefaultTextObjFormatter$Companion;
 	public static final field LIMIT I
-	public fun <init> (Lch/tutteli/atrium/reporting/ObjectFormatter;)V
+	public fun <init> (Lch/tutteli/atrium/reporting/ObjectFormatter;Lch/tutteli/atrium/reporting/theming/text/MonospaceLengthCalculator;)V
 	public fun format (Ljava/lang/Object;)Lch/tutteli/atrium/reporting/theming/text/StyledString;
 }
 
@@ -2254,6 +2302,21 @@ public final class ch/tutteli/atrium/reporting/text/impl/TextSummaryAssertionGro
 	public fun <init> (Ljava/util/Map;Lch/tutteli/atrium/reporting/AssertionFormatterController;Lch/tutteli/atrium/reporting/AssertionPairFormatter;)V
 }
 
+public abstract interface class ch/tutteli/atrium/reporting/theming/text/MonospaceLengthCalculator {
+	public abstract fun calculate (Ljava/lang/String;)I
+}
+
+public abstract interface class ch/tutteli/atrium/reporting/theming/text/NotYetStyledString {
+	public static final field Companion Lch/tutteli/atrium/reporting/theming/text/NotYetStyledString$Companion;
+	public abstract fun getMonospaceLength ()I
+	public abstract fun getUnstyled ()Ljava/lang/String;
+}
+
+public final class ch/tutteli/atrium/reporting/theming/text/NotYetStyledString$Companion {
+	public final fun create (Ljava/lang/String;I)Lch/tutteli/atrium/reporting/theming/text/NotYetStyledString;
+	public static synthetic fun create$default (Lch/tutteli/atrium/reporting/theming/text/NotYetStyledString$Companion;Ljava/lang/String;IILjava/lang/Object;)Lch/tutteli/atrium/reporting/theming/text/NotYetStyledString;
+}
+
 public final class ch/tutteli/atrium/reporting/theming/text/Style : java/lang/Enum {
 	public static final field DEBUG_INFO Lch/tutteli/atrium/reporting/theming/text/Style;
 	public static final field FAILURE Lch/tutteli/atrium/reporting/theming/text/Style;
@@ -2269,27 +2332,37 @@ public final class ch/tutteli/atrium/reporting/theming/text/Style : java/lang/En
 
 public abstract interface class ch/tutteli/atrium/reporting/theming/text/StyledString {
 	public static final field Companion Lch/tutteli/atrium/reporting/theming/text/StyledString$Companion;
-	public abstract fun appendUnstyled (Ljava/lang/String;)Lch/tutteli/atrium/reporting/theming/text/StyledString;
 	public abstract fun getHorizontalAlignment ()Lch/tutteli/atrium/reporting/HorizontalAlignment;
+	public abstract fun getMaxLineMonospaceLength ()I
 	public abstract fun getMaybeStyled ()Lch/tutteli/atrium/core/Option;
+	public abstract fun getMonospaceLength ()I
 	public abstract fun getNoLineBreak ()Z
+	public abstract fun getString ()Ljava/lang/String;
 	public abstract fun getUnstyled ()Ljava/lang/String;
-	public abstract fun result ()Ljava/lang/String;
+	public abstract fun padString (I)Ljava/lang/String;
 	public abstract fun withHorizontalAlignment (Lch/tutteli/atrium/reporting/HorizontalAlignment;)Lch/tutteli/atrium/reporting/theming/text/StyledString;
 	public abstract fun withoutLineBreaks ()Lch/tutteli/atrium/reporting/theming/text/StyledString;
 }
 
 public final class ch/tutteli/atrium/reporting/theming/text/StyledString$Companion {
+	public final fun create (Lch/tutteli/atrium/reporting/theming/text/MonospaceLengthCalculator;Ljava/lang/String;Lch/tutteli/atrium/core/Option;ZLch/tutteli/atrium/reporting/HorizontalAlignment;)Lch/tutteli/atrium/reporting/theming/text/StyledString;
+	public static synthetic fun create$default (Lch/tutteli/atrium/reporting/theming/text/StyledString$Companion;Lch/tutteli/atrium/reporting/theming/text/MonospaceLengthCalculator;Ljava/lang/String;Lch/tutteli/atrium/core/Option;ZLch/tutteli/atrium/reporting/HorizontalAlignment;ILjava/lang/Object;)Lch/tutteli/atrium/reporting/theming/text/StyledString;
+	public final fun createWithPredefinedMonospaceLength (Ljava/lang/String;Lch/tutteli/atrium/core/Option;IIZLch/tutteli/atrium/reporting/HorizontalAlignment;)Lch/tutteli/atrium/reporting/theming/text/StyledString;
+	public static synthetic fun createWithPredefinedMonospaceLength$default (Lch/tutteli/atrium/reporting/theming/text/StyledString$Companion;Ljava/lang/String;Lch/tutteli/atrium/core/Option;IIZLch/tutteli/atrium/reporting/HorizontalAlignment;ILjava/lang/Object;)Lch/tutteli/atrium/reporting/theming/text/StyledString;
 	public final fun getCOLON_SEPARATOR ()Lch/tutteli/atrium/reporting/theming/text/StyledString;
 	public final fun getEMPTY_STRING ()Lch/tutteli/atrium/reporting/theming/text/StyledString;
-	public final fun invoke (Ljava/lang/String;Lch/tutteli/atrium/core/Option;ZLch/tutteli/atrium/reporting/HorizontalAlignment;)Lch/tutteli/atrium/reporting/theming/text/StyledString;
-	public static synthetic fun invoke$default (Lch/tutteli/atrium/reporting/theming/text/StyledString$Companion;Ljava/lang/String;Lch/tutteli/atrium/core/Option;ZLch/tutteli/atrium/reporting/HorizontalAlignment;ILjava/lang/Object;)Lch/tutteli/atrium/reporting/theming/text/StyledString;
+}
+
+public final class ch/tutteli/atrium/reporting/theming/text/StyledString$DefaultImpls {
+	public static fun padString (Lch/tutteli/atrium/reporting/theming/text/StyledString;I)Ljava/lang/String;
 }
 
 public final class ch/tutteli/atrium/reporting/theming/text/StyledStringKt {
-	public static final fun noStyle (Ljava/lang/String;ZLch/tutteli/atrium/reporting/HorizontalAlignment;)Lch/tutteli/atrium/reporting/theming/text/StyledString;
-	public static synthetic fun noStyle$default (Ljava/lang/String;ZLch/tutteli/atrium/reporting/HorizontalAlignment;ILjava/lang/Object;)Lch/tutteli/atrium/reporting/theming/text/StyledString;
-	public static final fun pad (Lch/tutteli/atrium/reporting/theming/text/StyledString;I)Ljava/lang/String;
+	public static final fun noStyle (Ljava/lang/String;IIZLch/tutteli/atrium/reporting/HorizontalAlignment;)Lch/tutteli/atrium/reporting/theming/text/StyledString;
+	public static final fun noStyle (Ljava/lang/String;Lch/tutteli/atrium/reporting/theming/text/MonospaceLengthCalculator;ZLch/tutteli/atrium/reporting/HorizontalAlignment;)Lch/tutteli/atrium/reporting/theming/text/StyledString;
+	public static synthetic fun noStyle$default (Ljava/lang/String;IIZLch/tutteli/atrium/reporting/HorizontalAlignment;ILjava/lang/Object;)Lch/tutteli/atrium/reporting/theming/text/StyledString;
+	public static synthetic fun noStyle$default (Ljava/lang/String;Lch/tutteli/atrium/reporting/theming/text/MonospaceLengthCalculator;ZLch/tutteli/atrium/reporting/HorizontalAlignment;ILjava/lang/Object;)Lch/tutteli/atrium/reporting/theming/text/StyledString;
+	public static final fun padMonospace (Lch/tutteli/atrium/reporting/theming/text/StyledString;I)Ljava/lang/String;
 	public static final fun replaceWrap (Lch/tutteli/atrium/reporting/theming/text/StyledString;Ljava/lang/String;)Ljava/lang/String;
 }
 
@@ -2298,22 +2371,24 @@ public abstract interface class ch/tutteli/atrium/reporting/theming/text/TextIco
 }
 
 public abstract interface class ch/tutteli/atrium/reporting/theming/text/TextStyler {
-	public abstract fun style (Ljava/lang/String;Ljava/lang/String;ZLch/tutteli/atrium/reporting/HorizontalAlignment;)Lch/tutteli/atrium/reporting/theming/text/StyledString;
+	public abstract fun style (Lch/tutteli/atrium/reporting/theming/text/MonospaceLengthCalculator;Ljava/lang/String;Ljava/lang/String;ZLch/tutteli/atrium/reporting/HorizontalAlignment;)Lch/tutteli/atrium/reporting/theming/text/StyledString;
+	public abstract fun styleWithPredefinedMonospaceLength (Ljava/lang/String;Ljava/lang/String;IILjava/lang/String;ZLch/tutteli/atrium/reporting/HorizontalAlignment;)Lch/tutteli/atrium/reporting/theming/text/StyledString;
 }
 
 public final class ch/tutteli/atrium/reporting/theming/text/TextStyler$DefaultImpls {
-	public static synthetic fun style$default (Lch/tutteli/atrium/reporting/theming/text/TextStyler;Ljava/lang/String;Ljava/lang/String;ZLch/tutteli/atrium/reporting/HorizontalAlignment;ILjava/lang/Object;)Lch/tutteli/atrium/reporting/theming/text/StyledString;
+	public static synthetic fun style$default (Lch/tutteli/atrium/reporting/theming/text/TextStyler;Lch/tutteli/atrium/reporting/theming/text/MonospaceLengthCalculator;Ljava/lang/String;Ljava/lang/String;ZLch/tutteli/atrium/reporting/HorizontalAlignment;ILjava/lang/Object;)Lch/tutteli/atrium/reporting/theming/text/StyledString;
+	public static synthetic fun styleWithPredefinedMonospaceLength$default (Lch/tutteli/atrium/reporting/theming/text/TextStyler;Ljava/lang/String;Ljava/lang/String;IILjava/lang/String;ZLch/tutteli/atrium/reporting/HorizontalAlignment;ILjava/lang/Object;)Lch/tutteli/atrium/reporting/theming/text/StyledString;
 }
 
 public final class ch/tutteli/atrium/reporting/theming/text/TextStylerKt {
-	public static final fun style (Lch/tutteli/atrium/reporting/theming/text/TextStyler;Ljava/lang/String;Lch/tutteli/atrium/core/Option;Z)Lch/tutteli/atrium/reporting/theming/text/StyledString;
-	public static final fun style (Lch/tutteli/atrium/reporting/theming/text/TextStyler;Ljava/lang/String;Lch/tutteli/atrium/reporting/theming/text/Style;ZLch/tutteli/atrium/reporting/HorizontalAlignment;)Lch/tutteli/atrium/reporting/theming/text/StyledString;
-	public static synthetic fun style$default (Lch/tutteli/atrium/reporting/theming/text/TextStyler;Ljava/lang/String;Lch/tutteli/atrium/core/Option;ZILjava/lang/Object;)Lch/tutteli/atrium/reporting/theming/text/StyledString;
-	public static synthetic fun style$default (Lch/tutteli/atrium/reporting/theming/text/TextStyler;Ljava/lang/String;Lch/tutteli/atrium/reporting/theming/text/Style;ZLch/tutteli/atrium/reporting/HorizontalAlignment;ILjava/lang/Object;)Lch/tutteli/atrium/reporting/theming/text/StyledString;
+	public static final fun style (Lch/tutteli/atrium/reporting/theming/text/TextStyler;Lch/tutteli/atrium/reporting/theming/text/MonospaceLengthCalculator;Ljava/lang/String;Lch/tutteli/atrium/core/Option;ZLch/tutteli/atrium/reporting/HorizontalAlignment;)Lch/tutteli/atrium/reporting/theming/text/StyledString;
+	public static final fun style (Lch/tutteli/atrium/reporting/theming/text/TextStyler;Lch/tutteli/atrium/reporting/theming/text/MonospaceLengthCalculator;Ljava/lang/String;Lch/tutteli/atrium/reporting/theming/text/Style;ZLch/tutteli/atrium/reporting/HorizontalAlignment;)Lch/tutteli/atrium/reporting/theming/text/StyledString;
+	public static synthetic fun style$default (Lch/tutteli/atrium/reporting/theming/text/TextStyler;Lch/tutteli/atrium/reporting/theming/text/MonospaceLengthCalculator;Ljava/lang/String;Lch/tutteli/atrium/core/Option;ZLch/tutteli/atrium/reporting/HorizontalAlignment;ILjava/lang/Object;)Lch/tutteli/atrium/reporting/theming/text/StyledString;
+	public static synthetic fun style$default (Lch/tutteli/atrium/reporting/theming/text/TextStyler;Lch/tutteli/atrium/reporting/theming/text/MonospaceLengthCalculator;Ljava/lang/String;Lch/tutteli/atrium/reporting/theming/text/Style;ZLch/tutteli/atrium/reporting/HorizontalAlignment;ILjava/lang/Object;)Lch/tutteli/atrium/reporting/theming/text/StyledString;
 }
 
 public abstract interface class ch/tutteli/atrium/reporting/theming/text/TextThemeProvider {
-	public abstract fun getSupportsAnsi ()Z
+	public abstract fun getSupportsAnsiColours ()Z
 	public abstract fun render (Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
 }
 
@@ -2324,6 +2399,29 @@ public abstract interface class ch/tutteli/atrium/reporting/theming/text/Utf8Sup
 public final class ch/tutteli/atrium/reporting/theming/text/impl/MarkdownTextIconStyler : ch/tutteli/atrium/reporting/theming/text/TextIconStyler {
 	public fun <init> ()V
 	public fun style (Lch/tutteli/atrium/reporting/reportables/Icon;)Lch/tutteli/atrium/reporting/theming/text/StyledString;
+}
+
+public abstract class ch/tutteli/atrium/reporting/theming/text/impl/MonospaceCalculatorBasedStyledString : ch/tutteli/atrium/reporting/theming/text/StyledString {
+	public fun <init> (Ljava/lang/String;Lch/tutteli/atrium/core/Option;ZLch/tutteli/atrium/reporting/HorizontalAlignment;)V
+	public fun getHorizontalAlignment ()Lch/tutteli/atrium/reporting/HorizontalAlignment;
+	public fun getMaybeStyled ()Lch/tutteli/atrium/core/Option;
+	public fun getNoLineBreak ()Z
+	public final fun getString ()Ljava/lang/String;
+	public fun getUnstyled ()Ljava/lang/String;
+	public fun padString (I)Ljava/lang/String;
+	public fun toString ()Ljava/lang/String;
+	public final fun withHorizontalAlignment (Lch/tutteli/atrium/reporting/HorizontalAlignment;)Lch/tutteli/atrium/reporting/theming/text/StyledString;
+	public final fun withoutLineBreaks ()Lch/tutteli/atrium/reporting/theming/text/StyledString;
+}
+
+public final class ch/tutteli/atrium/reporting/theming/text/impl/MonospaceLengthPrecalculated : ch/tutteli/atrium/reporting/theming/text/MonospaceLengthCalculator {
+	public fun <init> ()V
+	public fun calculate (Ljava/lang/String;)I
+}
+
+public final class ch/tutteli/atrium/reporting/theming/text/impl/StringLengthMonospaceLengthCalculator : ch/tutteli/atrium/reporting/theming/text/MonospaceLengthCalculator {
+	public static final field INSTANCE Lch/tutteli/atrium/reporting/theming/text/impl/StringLengthMonospaceLengthCalculator;
+	public fun calculate (Ljava/lang/String;)I
 }
 
 public abstract class ch/tutteli/atrium/reporting/translating/ArgumentsSupportingTranslator : ch/tutteli/atrium/reporting/translating/Translator {

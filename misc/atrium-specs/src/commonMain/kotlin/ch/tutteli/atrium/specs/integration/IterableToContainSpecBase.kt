@@ -8,13 +8,17 @@ import ch.tutteli.atrium.core.polyfills.format
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic.creating.iterablelike.contains.reporting.InAnyOrderOnlyReportingOptions
 import ch.tutteli.atrium.logic.creating.iterablelike.contains.reporting.InOrderOnlyReportingOptions
+import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionAnyProof
 import ch.tutteli.atrium.specs.SpecPair
 import ch.tutteli.atrium.specs.lineSeparator
 import ch.tutteli.atrium.specs.name
 import ch.tutteli.atrium.specs.uncheckedToNonNullable
 import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionBasic
-import ch.tutteli.atrium.translations.DescriptionCollectionExpectation
-import ch.tutteli.atrium.translations.DescriptionIterableLikeExpectation
+import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionCollectionProof
+import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionIterableLikeProof
+import ch.tutteli.atrium.specs.f
+import ch.tutteli.atrium.specs.g
+import ch.tutteli.atrium.specs.x
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.dsl.Root
 import org.spekframework.spek2.style.specification.Suite
@@ -29,46 +33,45 @@ abstract class IterableToContainSpecBase(spec: Root.() -> Unit) : Spek(spec) {
         val oneToSevenNullable =
             { sequenceOf(1.0, null, 4.0, 4.0, 5.0, null, 5.0, 6.0, 4.0, 7.0).constrainOnce().asIterable() }
 
-        val toContainInAnyOrder = DescriptionIterableLikeExpectation.IN_ANY_ORDER.getDefault().format(
-            DescriptionIterableLikeExpectation.TO_CONTAIN.getDefault()
+        val toContainInAnyOrder = DescriptionIterableLikeProof.IN_ANY_ORDER.string.format(
+            DescriptionIterableLikeProof.TO_CONTAIN.string
         )
-        val toContainInAnyOrderOnly = DescriptionIterableLikeExpectation.IN_ANY_ORDER_ONLY.getDefault().format(
-            DescriptionIterableLikeExpectation.TO_CONTAIN.getDefault()
+        val toContainInAnyOrderOnly = DescriptionIterableLikeProof.IN_ANY_ORDER_ONLY.string.format(
+            DescriptionIterableLikeProof.TO_CONTAIN.string
         )
-        val toContainInOrderOnly = DescriptionIterableLikeExpectation.IN_ORDER_ONLY.getDefault().format(
-            DescriptionIterableLikeExpectation.TO_CONTAIN.getDefault()
+        val toContainInOrderOnly = DescriptionIterableLikeProof.IN_ORDER_ONLY.string.format(
+            DescriptionIterableLikeProof.TO_CONTAIN.string
         )
-        val toContainInOrderOnlyGrouped = DescriptionIterableLikeExpectation.IN_ORDER_ONLY_GROUPED.getDefault().format(
-            DescriptionIterableLikeExpectation.TO_CONTAIN.getDefault()
+        val toContainInOrderOnlyGrouped = DescriptionIterableLikeProof.IN_ORDER_ONLY_GROUPED.string.format(
+            DescriptionIterableLikeProof.TO_CONTAIN.string
         )
-        val numberOfSuchElements = DescriptionIterableLikeExpectation.NUMBER_OF_SUCH_ELEMENTS.getDefault()
-        val additionalElements = DescriptionIterableLikeExpectation.WARNING_ADDITIONAL_ELEMENTS.getDefault()
-        val mismatches = DescriptionIterableLikeExpectation.WARNING_MISMATCHES.getDefault()
+        val numberOfSuchElements = DescriptionIterableLikeProof.NUMBER_OF_SUCH_ELEMENTS.string
+        val additionalElements = DescriptionIterableLikeProof.WARNING_ADDITIONAL_ELEMENTS.string
+        val mismatches = DescriptionIterableLikeProof.WARNING_MISMATCHES.string
         val mismatchesAdditionalElements =
-            DescriptionIterableLikeExpectation.WARNING_MISMATCHES_ADDITIONAL_ELEMENTS.getDefault()
-        val sizeExceeded = DescriptionIterableLikeExpectation.SIZE_EXCEEDED.getDefault()
-        val anElementWhichEquals = DescriptionIterableLikeExpectation.AN_ELEMENT_WHICH_EQUALS.getDefault()
+            DescriptionIterableLikeProof.WARNING_MISMATCHES_ADDITIONAL_ELEMENTS.string
+        val sizeExceeded = DescriptionIterableLikeProof.SIZE_EXCEEDED.string
+        val anElementWhichEquals = DescriptionIterableLikeProof.AN_ELEMENT_WHICH_EQUALS.string
         val toHaveDescr = DescriptionBasic.TO_HAVE.string
-        val aNextElement = DescriptionIterableLikeExpectation.A_NEXT_ELEMENT.getDefault()
-        val notToContainDescr = DescriptionIterableLikeExpectation.NOT_TO_CONTAIN.getDefault()
-        val noSuchValueDescr = DescriptionIterableLikeExpectation.ELEMENT_NOT_FOUND.getDefault()
+        val aNextElement = DescriptionIterableLikeProof.A_NEXT_ELEMENT.string
+        val notToContainDescr = DescriptionIterableLikeProof.NOT_TO_CONTAIN.string
+        val noSuchValueDescr = DescriptionIterableLikeProof.ELEMENT_NOT_FOUND.string
 
-        val sizeDescr = DescriptionCollectionExpectation.SIZE.getDefault()
-        val atLeastDescr = DescriptionIterableLikeExpectation.AT_LEAST.getDefault()
-        val atMostDescr = DescriptionIterableLikeExpectation.AT_MOST.getDefault()
+        val sizeDescr = DescriptionCollectionProof.SIZE.string
+        val atLeastDescr = DescriptionIterableLikeProof.AT_LEAST.string
+        val atMostDescr = DescriptionIterableLikeProof.AT_MOST.string
 
         val fluentEmpty = { sequenceOf<Double>().constrainOnce().asIterable() }
         val illegalArgumentException = IllegalArgumentException::class.simpleName
-        val separator = lineSeparator
 
         val emptyInOrderOnlyReportOptions: InOrderOnlyReportingOptions.() -> Unit = {}
         val emptyInAnyOrderOnlyReportOptions: InAnyOrderOnlyReportingOptions.() -> Unit = {}
 
         fun Expect<String>.toContainSize(actual: Int, expected: Int) =
-            toContain.exactly(1).regex("${DescriptionCollectionExpectation.SIZE.getDefault()}: $actual[^:]+: $expected")
+            toContain.exactly(1).regex("$g$f${DescriptionCollectionProof.SIZE.string}\\s+: $actual$lineSeparator\\s+$x${DescriptionAnyProof.TO_EQUAL.string}\\s+: $expected")
 
         fun Expect<String>.notToContainElement(index: Int, expected: Double): Expect<String> =
-            notToContain.regex("\\Q${elementWithIndex(index)}: ${expected}\\E.*$separator")
+            notToContain.regex("\\Q${elementWithIndex(index)} : ${expected}\\E.*$lineSeparator")
 
         fun Suite.describeFun(spec: SpecPair<*>, body: Suite.() -> Unit) = describeFun(spec.name, body)
         private fun Suite.describeFun(funName: String, body: Suite.() -> Unit) = context("fun `$funName`", body = body)
@@ -78,11 +81,11 @@ abstract class IterableToContainSpecBase(spec: Root.() -> Unit) : Spek(spec) {
         }
 
         fun elementWithIndex(index: Int) =
-            DescriptionIterableLikeExpectation.ELEMENT_WITH_INDEX.getDefault().format(index)
+            DescriptionIterableLikeProof.ELEMENT_WITH_INDEX.string.format(index)
 
-        fun index(index: Int) = DescriptionIterableLikeExpectation.INDEX.getDefault().format(index)
+        fun index(index: Int) = DescriptionIterableLikeProof.INDEX.string.format(index)
         fun index(fromIndex: Int, toIndex: Int) =
-            DescriptionIterableLikeExpectation.INDEX_FROM_TO.getDefault().format(fromIndex, toIndex)
+            DescriptionIterableLikeProof.INDEX_FROM_TO.string.format(fromIndex, toIndex)
 
         fun <F> Root.nonNullableCases(
             describePrefix: String,

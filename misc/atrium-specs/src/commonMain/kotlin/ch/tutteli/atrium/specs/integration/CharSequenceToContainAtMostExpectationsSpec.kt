@@ -84,14 +84,15 @@ abstract class CharSequenceToContainAtMostExpectationsSpec(
                     expect {
                         expect(helloWorld).toContainAtMostFun(2, 'l')
                     }.toThrow<AssertionError> {
-                        message {
-                            toContainSubject("\"$helloWorld\"")
-                            toContainDescr(TO_CONTAIN, "")
-                            toContainValue("'l'")
-                            toContainNumberOfMatches(3)
-                            notToContain(AT_LEAST.string)
-                            toContainDescr(AT_MOST, 2)
-                        }
+                        message.toMatch(
+                            Regex(
+                                "$expectationVerb : \"$helloWorld\"$lineSeparator" +
+                                    "$g${TO_CONTAIN.string} : $lineSeparator" +
+                                    "${indentG}${g}${VALUE.string} : 'l'$lineSeparator" +
+                                    "${indentG}${indentG}${g}${f}${NUMBER_OF_MATCHES.string} : 3$lineSeparator" +
+                                    "${indentG}${indentG}${indentG}${indentF}${x}${AT_MOST.string}\\s+: 2"
+                            )
+                        )
                     }
                 }
                 it("${toContainAtMostPair.first("'H', 'l'", "twice")} throws AssertionError mentioning only 'l'") {

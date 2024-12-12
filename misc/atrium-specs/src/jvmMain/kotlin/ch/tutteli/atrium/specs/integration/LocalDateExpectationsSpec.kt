@@ -3,6 +3,7 @@ package ch.tutteli.atrium.specs.integration
 import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionDateTimeLikeProof
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.translations.DescriptionDateTimeLikeExpectation
 import org.spekframework.spek2.Spek
@@ -10,6 +11,7 @@ import org.spekframework.spek2.style.specification.Suite
 import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.Month
+import java.time.Year
 
 abstract class LocalDateExpectationsSpec(
     yearFeature: Feature0<LocalDate, Int>,
@@ -23,7 +25,8 @@ abstract class LocalDateExpectationsSpec(
     describePrefix: String = "[Atrium] "
 ) : Spek({
 
-    include(object : SubjectLessSpec<LocalDate>(describePrefix,
+    include(object : SubjectLessSpec<LocalDate>(
+        describePrefix,
         yearFeature.forSubjectLess(),
         year.forSubjectLess { toBeGreaterThan(2000) },
         monthFeature.forSubjectLess(),
@@ -46,11 +49,6 @@ abstract class LocalDateExpectationsSpec(
         describeFunTemplate(describePrefix, pairs.map { it.name }.toTypedArray(), body = body)
 
     val subject = LocalDate.of(2009, Month.MARCH, 13)
-    val monthDescr = DescriptionDateTimeLikeExpectation.MONTH.getDefault()
-    val yearDescr = DescriptionDateTimeLikeExpectation.YEAR.getDefault()
-    val dayDescr = DescriptionDateTimeLikeExpectation.DAY.getDefault()
-    val dayOfWeekDescr = DescriptionDateTimeLikeExpectation.DAY_OF_WEEK.getDefault()
-
 
     describeFun(yearFeature, year) {
         val yearFunctions = unifySignatures(yearFeature, year)
@@ -64,7 +62,7 @@ abstract class LocalDateExpectationsSpec(
                     expect {
                         expect(subject).yearFun { toBeLessThan(2009) }
                     }.toThrow<AssertionError> {
-                        messageToContain("$yearDescr: 2009")
+                        message { toContainDescr(DescriptionDateTimeLikeProof.YEAR, 2009) }
                     }
                 }
             }
@@ -83,7 +81,7 @@ abstract class LocalDateExpectationsSpec(
                     expect {
                         expect(subject).monthFun { toBeLessThan(3) }
                     }.toThrow<AssertionError> {
-                        messageToContain("$monthDescr: 3")
+                        message { toContainDescr(DescriptionDateTimeLikeProof.MONTH, 3) }
                     }
                 }
             }
@@ -102,7 +100,7 @@ abstract class LocalDateExpectationsSpec(
                     expect {
                         expect(subject).dayFun { toBeLessThan(5) }
                     }.toThrow<AssertionError> {
-                        messageToContain("$dayDescr: 13")
+                        message { toContainDescr(DescriptionDateTimeLikeProof.DAY, 13) }
                     }
                 }
             }
@@ -121,7 +119,7 @@ abstract class LocalDateExpectationsSpec(
                     expect {
                         expect(subject).dayOfWeekFun { toBeLessThan(DayOfWeek.FRIDAY) }
                     }.toThrow<AssertionError> {
-                        messageToContain("$dayOfWeekDescr: ${DayOfWeek.FRIDAY}")
+                        message { toContainDescr(DescriptionDateTimeLikeProof.DAY_OF_WEEK, DayOfWeek.FRIDAY) }
                     }
                 }
             }

@@ -199,7 +199,7 @@ abstract class BigDecimalExpectationsSpec(
                         message{
                             toContainSubject(BigDecimal.TEN)
                             toContainDescr(DescriptionBigDecimalProof.IS_EQUAL_INCLUDING_SCALE, expected)
-                            toContain( "${hintBulletPoint}$failureHintNumerically")
+                            toContain( "${u}$failureHintNumerically")
                         }
                     }
                 }

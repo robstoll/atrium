@@ -58,9 +58,9 @@ abstract class MapExpectationsSpec(
 
     include(object : AssertionCreatorSpec<Map<out String, Int>>(
         describePrefix, map,
-        keys.forAssertionCreatorSpec("$toEqualDescr: a") { toContainExactly({ toEqual("a") }, { toEqual("b") }) },
-        values.forAssertionCreatorSpec("$toEqualDescr: 1") { toContainExactly({ toEqual(1) }, { toEqual(2) }) },
-        getExisting.forAssertionCreatorSpec("$toEqualDescr: 2", "b") { toEqual(2) }
+        keys.forAssertionCreatorSpec("$toEqualDescr\\s+: a") { toContainExactly({ toEqual("a") }, { toEqual("b") }) },
+        values.forAssertionCreatorSpec("$toEqualDescr\\s+: 1") { toContainExactly({ toEqual(1) }, { toEqual(2) }) },
+        getExisting.forAssertionCreatorSpec("$toEqualDescr\\s+: 2", "b") { toEqual(2) }
     ) {})
 
     val nullableMap: Map<out String?, Int?> = mapOf("a" to null, null to 1, "b" to 2)
