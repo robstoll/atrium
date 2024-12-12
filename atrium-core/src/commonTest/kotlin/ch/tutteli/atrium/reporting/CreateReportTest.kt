@@ -17,7 +17,6 @@ import ch.tutteli.atrium.reporting.prerendering.text.TypedTextPreRenderer
 import ch.tutteli.atrium.reporting.reportables.Icon
 import ch.tutteli.atrium.reporting.reportables.InlineElement
 import ch.tutteli.atrium.reporting.reportables.Reportable
-import ch.tutteli.atrium.reporting.reportables.Representation
 import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionAnyProof
 import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionCharSequenceProof
 import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionThrowableProof
@@ -25,6 +24,7 @@ import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionThrowable
 import ch.tutteli.atrium.reporting.reportables.descriptions.ErrorMessages
 import ch.tutteli.atrium.reporting.text.TextReporter
 import ch.tutteli.atrium.reporting.theming.text.StyledString
+import ch.tutteli.atrium.reporting.theming.text.impl.StringLengthMonospaceLengthCalculator
 import ch.tutteli.atrium.reporting.theming.text.noStyle
 import ch.tutteli.atrium.translations.DescriptionThrowableExpectation
 import com.github.ajalt.mordant.rendering.AnsiLevel
@@ -35,9 +35,10 @@ import kotlin.test.Test
 
 @OptIn(ExperimentalComponentFactoryContainer::class)
 class CreateReportTest {
-    private val x = TextColors.red("✘")
+    private val g = TextColors.red("\uD83D\uDEA9\uFE0F")
+    private val x = TextColors.red("🚫\uFE0F")
     private val f = TextColors.cyan("▶")
-    private val i = TextStyle(TextColors.brightBlue, bold = true).invoke("ℹ\uFE0F") + " "
+    private val i = TextStyle(TextColors.brightBlue, bold = true).invoke("i")
     private val d = TextColors.blue("🔎")
     private val u = TextStyle(TextColors.yellow, bold = true).invoke("💡\uFE0F")
     private val bb = TextColors.red("❗❗")
@@ -49,6 +50,8 @@ class CreateReportTest {
 
         expectForReporterWithoutAnsi(reportable, expectedResult)
         expectForReporterWithAnsi(reportable, expectedResult)
+
+        //TODO 1.3 also check how it looks like if utf8 is not supported but colour is?
     }
 
     @Test
@@ -77,9 +80,9 @@ class CreateReportTest {
         expectForReporterWithAnsi(
             builder,
             """
-            |a verb     : "representation"
-           |$x to equal : 1
-            |◆ some text
+            |a verb      : "representation"
+            |$x to equal : 1
+            |◆  some text
             """.trimMargin()
         )
     }
@@ -100,8 +103,8 @@ class CreateReportTest {
         expectForReporterWithAnsi(
             builder,
             """
-            |a verb     : "representation"
-           |$x to equal : 1
+            |a verb      : "representation"
+            |$x to equal : 1
             """.trimMargin()
         )
     }
@@ -128,9 +131,9 @@ class CreateReportTest {
             builder,
             """
             |my expectations :${" "}
-           |$x $f verb : 2
-           |    $x $f name       : "Robert"
-            |        $x to equal : "Peter"
+            |$g $f verb : 2
+             |     $g $f name        : "Robert"
+              |          $x to equal : "Peter"
             """.trimMargin()
         )
     }
@@ -165,11 +168,11 @@ class CreateReportTest {
             builder,
             """
             |I expected subject : Person(firstName=Robert, lastName=Stoll, isStudent=false)        (readme.examples.Person <1234789>)
-           |$x $f its.definedIn(FeatureExtractorSpec.kt:54) : "Robert"
-            |    $x to start with                           : "Pe"
-            |    $x to end with                             : "er"
-           |$x $f its.definedIn(FeatureExtractorSpec.kt:60) : "Stoll"
-            |    $x to equal                                : "Dummy"
+            |$g $f its.definedIn(FeatureExtractorSpec.kt:54) : "Robert"
+             |     $x to start with                          : "Pe"
+             |     $x to end with                            : "er"
+            |$g $f its.definedIn(FeatureExtractorSpec.kt:60) : "Stoll"
+             |     $x to equal                               : "Dummy"
             """.trimMargin()
         )
     }
@@ -196,10 +199,10 @@ class CreateReportTest {
         expectForReporterWithAnsi(
             builder,
             """
-            |a verb    : "representation"
-           |$x simple  : 1
-            |◆ text
-           |$x another : 2
+            |a verb     : "representation"
+            |$x simple  : 1
+            |◆  text
+            |$x another : 2
             """.trimMargin()
         )
     }
@@ -237,10 +240,10 @@ class CreateReportTest {
             builder,
             """
             |a verb : "representation"
-           |$x at least one expectation defined : false
-           |  $x to equal                       : true
-            |    $u You forgot to create expectations in the expectationCreator-lambda
-            |    $u Sometimes you can use an alternative to `{ }` For instance, instead of `toThrow<..> { }` you should use `toThrow<..>()`
+            |$g at least one expectation defined : false
+            |   $x to equal                      : true
+            |      $u You forgot to create expectations in the expectationCreator-lambda
+            |      $u Sometimes you can use an alternative to `{ }` For instance, instead of `toThrow<..> { }` you should use `toThrow<..>()`
             """.trimMargin()
         )
     }
@@ -252,7 +255,7 @@ class CreateReportTest {
             debugGroup(Text("properties of unexpected exception")) {
                 row {
                     column(Text("message"))
-                    column(Text("oho..."))
+                    column(Reportable.representation("oho..."))
                 }
             }
         }
@@ -269,7 +272,7 @@ class CreateReportTest {
             builder,
             """
             |a verb : /usr/bin/noprogram
-           |$x  to  : exist
+            |$x to  : exist
             |$d properties of unexpected exception :${" "}
             |   • message : "oho..."
             """.trimMargin()
@@ -284,7 +287,7 @@ class CreateReportTest {
                 reportableGroup(OCCURRED_EXCEPTION_STACKTRACE, Text.EMPTY) {
                     text("com.example.MyClass:32:8")
                 }
-                reportableGroup(DescriptionThrowableProof.OCCURRED_EXCEPTION_CAUSE, IllegalStateException("oho..")){
+                reportableGroup(DescriptionThrowableProof.OCCURRED_EXCEPTION_CAUSE, IllegalStateException("oho..")) {
                     row {
                         column(Text("message"))
                         column(Reportable.representation("oho..."))
@@ -308,7 +311,7 @@ class CreateReportTest {
             builder,
             """
             |a verb : /usr/bin/noprogram
-           |$x  to  : exist
+            |$x to  : exist
             |$d properties of unexpected exception :${" "}
             |   • stacktrace :${" "}
             |     • com.example.MyClass:32:8
@@ -340,9 +343,9 @@ class CreateReportTest {
             builder,
             """
             |a verb : /usr/bin/noprogram
-           |$x to   : exist
-            |  $u You forgot to create expectations in the expectationCreator-lambda
-            |  $u Sometimes you can use an alternative to `{ }` For instance, instead of `toThrow<..> { }` you should use `toThrow<..>()`
+            |$x to  : exist
+            |   $u You forgot to create expectations in the expectationCreator-lambda
+            |   $u Sometimes you can use an alternative to `{ }` For instance, instead of `toThrow<..> { }` you should use `toThrow<..>()`
             """.trimMargin()
         )
     }
@@ -370,8 +373,8 @@ class CreateReportTest {
             builder,
             """
             |a verb : "representation"
-           |$x $f get(10)         : ❗❗ Index out of bounds
-             |    » to start with : "Ro"
+            |$x $f get(10)         : ❗❗ Index out of bounds
+             |     » to start with : "Ro"
             """.trimMargin()
         )
     }
@@ -403,9 +406,9 @@ class CreateReportTest {
             builder,
             """
             |a verb : "representation"
-           |$x $f get(10) : ❗❗ Index out of bounds
-             |    » $f firstName       :${' '}
-              |        • to start with : "Ro"
+            |$x $f get(10) : ❗❗ Index out of bounds
+             |     » $f firstName       :${' '}
+              |         • to start with : "Ro"
             """.trimMargin()
         )
     }
@@ -478,19 +481,19 @@ class CreateReportTest {
             builder,
             """
             |a verb : "representation"
-           |$x not to contain :${' '}
-           |  $x an element which needs :${' '}
-            |    » to be greater than   : 2
-            |    $bb following elements were found :${' '}
-            |       • index 0 : 4
-            |       • index 2 : 3
-            |       • index 6 : 10
-           |  $x an element which needs :${' '}
-            |    » to be less than      : 1
-            |    » to be greater than   : -5
-            |    $bb following elements were found :${' '}
-            |       • index 3 : 0
-            |       • index 4 : -4
+            |$g not to contain :${' '}
+            |   $x an element which needs :${' '}
+            |      » to be greater than   : 2
+            |      $bb following elements were found :${' '}
+            |          • index 0 : 4
+            |          • index 2 : 3
+            |          • index 6 : 10
+            |   $x an element which needs :${' '}
+            |      » to be less than      : 1
+            |      » to be greater than   : -5
+            |      $bb following elements were found :${' '}
+            |          • index 3 : 0
+            |          • index 4 : -4
             """.trimMargin()
         )
     }
@@ -573,24 +576,30 @@ class CreateReportTest {
             builder,
             """
             |a verb : "representation"
-           |$x elements need all :${' '}
-            |  » $f login :${' '}
-           |      • $f length               :${' '}
-            |          • to be greater than : 1
-           |  » $f password       :${' '}
-            |      • not to equal : "qwerty"
-            |      ${i}because : password should be secure
-            |  $bb following elements were mismatched :${' '}
-            |     • index 0 : User(login=joe, password=qwerty)
-            |       $x $f password       : "qwerty"
-            |           $x not to equal : "qwerty"
-            |           ${i}because : password should be secure
-            |     • index 1 : User(login=q, password=qwerty1)
-            |       $x $f login : "q"
-           |           $x $f length               : should not be shown
-            |               $x to be greater than : 1
+            |$g elements need all :${' '}
+            |   » $f login :${' '}
+             |       • $f length               :${' '}
+             |           • to be greater than : 1
+            |   » $f password       :${' '}
+             |       • not to equal : "qwerty"
+             |       $i because : password should be secure
+            |   $bb following elements were mismatched :${' '}
+            |       • index 0 : User(login=joe, password=qwerty)
+            |         $g $f password        : "qwerty"
+             |              $x not to equal : "qwerty"
+             |              $i because : password should be secure
+            |       • index 1 : User(login=q, password=qwerty1)
+            |         $g $f login : "q"
+             |              $g $f length                : should not be shown
+              |                   $x to be greater than : 1
             """.trimMargin()
         )
+    }
+
+    @Test
+    fun informationGroup(){
+        TODO rebuild explanatoryAssertionGroupAsSecondChild
+        make sure we don't have the extra space after $i
     }
 
     @Test
@@ -620,10 +629,10 @@ class CreateReportTest {
             builder,
             """
             |a : 2
-           |$x $f firstname  : "Robert"
-            |    $x to equal : 1
-           |$x $f lastname             : "Stoll"
-            |    $x to be greater than : 2
+            |$g $f firstname   : "Robert"
+             |     $x to equal : 1
+            |$g $f lastname              : "Stoll"
+             |     $x to be greater than : 2
             """.trimMargin()
         )
     }
@@ -656,9 +665,9 @@ class CreateReportTest {
             builder,
             """
             |I expected that the subject which was : 2
-           |$x to equal                            : 3
-           |$x to be less than                     : 3
-           |$x to be greater than                  : 10
+            |$x to equal                           : 3
+            |$x to be less than                    : 3
+            |$x to be greater than                 : 10
             """.trimMargin()
         )
 
@@ -668,7 +677,7 @@ class CreateReportTest {
     fun representationWithNewLine_isWrappedAndIndentedCorrectly() {
         val builder = buildRootGroup(
             verb =
-            Text("verb always\nwithout line break"),
+                Text("verb always\nwithout line break"),
             representation = "a string with new line\nas representation is wrapped\nmaxLength calculated correctly",
         ) {
             simpleProof(Text("test"), 1) { false }
@@ -709,7 +718,7 @@ class CreateReportTest {
             |                                 as representation is wrapped
             |                                 maxLength calculated correctly
             |                                 ""${"\""}
-           | $x  test                       : 1
+            |$x  test                       : 1
             |(i) first column               : second longer than longest line of representation : 1
             """.trimMargin()
         )
@@ -719,10 +728,10 @@ class CreateReportTest {
     fun representationWithNewLineAndAnsiColours_isWrappedAndIndentedCorrectly() {
         val representation = """
         I expected subject : 1
-        [31m✘[39m at least one expectation defined : false
-          [31m✘[39m to equal                       : true
-          [33;1m💡️[39;22m You forgot to create expectations in the expectationCreator-lambda
-          [33;1m💡️[39;22m Sometimes you can use an alternative to `{ }` For instance, instead of `toThrow<..> { }` you should use `toThrow<..>()`
+        [31m🚫️[39m at least one expectation defined : false
+           [31m🚫️[39m to equal                       : true
+           [33;1m💡️[39;22m You forgot to create expectations in the expectationCreator-lambda
+           [33;1m💡️[39;22m Sometimes you can use an alternative to `{ }` For instance, instead of `toThrow<..> { }` you should use `toThrow<..>()`
         """.trimIndent()
         val builder = buildRootGroup {
             feature(Text("to throw"), representation = representation) {
@@ -737,9 +746,9 @@ class CreateReportTest {
             |(f) > to throw     : ""${'"'}
             |                     I expected subject : 1
             |                     $x at least one expectation defined : false
-            |                       $x to equal                       : true
-            |                       $u You forgot to create expectations in the expectationCreator-lambda
-            |                       $u Sometimes you can use an alternative to `{ }` For instance, instead of `toThrow<..> { }` you should use `toThrow<..>()`
+            |                        $x to equal                       : true
+            |                        $u You forgot to create expectations in the expectationCreator-lambda
+            |                        $u Sometimes you can use an alternative to `{ }` For instance, instead of `toThrow<..> { }` you should use `toThrow<..>()`
             |                     ""${'"'}
             |      (f) to equal : "a"
             """.trimMargin()
@@ -749,14 +758,14 @@ class CreateReportTest {
             builder,
             """
             |a verb : "representation"
-           |$x $f to throw   : ""${'"'}
-            |                 I expected subject : 1
-            |                 $x at least one expectation defined : false
-            |                   $x to equal                       : true
-            |                   $u You forgot to create expectations in the expectationCreator-lambda
-            |                   $u Sometimes you can use an alternative to `{ }` For instance, instead of `toThrow<..> { }` you should use `toThrow<..>()`
-            |                 ""${'"'}
-            |    $x to equal : "a"
+            |$g $f to throw    : ""${'"'}
+             |                   I expected subject : 1
+             |                   $x at least one expectation defined : false
+             |                      $x to equal                       : true
+             |                      $u You forgot to create expectations in the expectationCreator-lambda
+             |                      $u Sometimes you can use an alternative to `{ }` For instance, instead of `toThrow<..> { }` you should use `toThrow<..>()`
+             |                   ""${'"'}
+             |     $x to equal : "a"
             """.trimMargin()
         )
     }
@@ -787,12 +796,12 @@ class CreateReportTest {
             builder,
             """
             |a verb : "representation"
-           |$x $f to throw : 1
-            |    $x $f message    : ""${'"'}
-            |                     line
-            |                     another line
-            |                     ""${'"'}
-            |        $x to equal : "a"
+            |$g $f to throw : 1
+             |     $g $f message     : ""${'"'}
+             |                        line
+             |                        another line
+             |                        ""${'"'}
+              |          $x to equal : "a"
             """.trimMargin()
         )
     }
@@ -895,15 +904,15 @@ class CreateReportTest {
             reportable,
             """
             |verb : 1
-            |${i}properties of the unknown Exception
-            |   » message : "bla"
-            |   » stacktrace :${" "}
-            |     • test
-            |     • lines
-            |   » cause : java.lang.IllegalStateException
-            |     » message : "oho.. error occurred"
-            |     » stacktrace :${" "}
-            |       • some other line
+           |$i properties of the unknown Exception
+            |  » message : "bla"
+            |  » stacktrace :${" "}
+            |    • test
+            |    • lines
+            |  » cause : java.lang.IllegalStateException
+            |    » message : "oho.. error occurred"
+            |    » stacktrace :${" "}
+            |      • some other line
             """.trimMargin()
         )
     }
@@ -934,12 +943,15 @@ class CreateReportTest {
             |(i) because : ? is not allowed in file names on Windows
             """.trimMargin()
         )
+
+        // Note the extra space after $i, we align slightly different when using the deprecated
+        // ExplanatoryAssertionGroup, not worth to adjust this
         expectForReporterWithAnsi(
             builder,
             """
-            |a verb     : "representation"
-           |$x to equal : 0
-            |${i}because : ? is not allowed in file names on Windows
+            |a verb      : "representation"
+            |$x to equal : 0
+            |$i  because : ? is not allowed in file names on Windows
             """.trimMargin()
         )
     }
@@ -1016,7 +1028,7 @@ class Columns(
         usesOwnPrefix: Boolean = false,
         additionalIndent: Int = 0,
     ) : this(
-        strings.map { it.noStyle(noLineBreak = false) },
+        strings.map { it.noStyle(StringLengthMonospaceLengthCalculator, noLineBreak = false) },
         mergeColumns = mergeColumns,
         definesOwnLevel = definesOwnLevel,
         usesOwnPrefix = usesOwnPrefix,

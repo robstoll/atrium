@@ -1,8 +1,43 @@
 package ch.tutteli.atrium.reporting
 
+import ch.tutteli.atrium.assertions.BasicDescriptiveAssertion
 import ch.tutteli.atrium.core.polyfills.fullName
 import ch.tutteli.atrium.creating.proofs.Proof
+import ch.tutteli.atrium.creating.proofs.RootProofGroup
+import ch.tutteli.atrium.creating.proofs.SimpleProof
 import ch.tutteli.atrium.reporting.AtriumError.Companion
+import ch.tutteli.kbox.takeIf
+import org.opentest4j.AssertionFailedError
+import org.opentest4j.MultipleFailuresError
+
+
+fun extractExpected(causingProof: Proof): Any? =
+    when (causingProof) {
+        is RootProofGroup -> takeIf(causingProof.proofs.size == 1){
+            when(val first = causingProof.proofs.first()){
+                is SimpleProof, -> first.representation
+                is BasicDescriptiveAssertion -> first.representation
+                else -> null
+            }
+        }
+        else -> null
+    }
+
+
+fun extractActual(causingProof: Proof): Any? =
+    when (causingProof) {
+    is RootProofGroup -> takeIf(causingProof.proofs.size == 1) {
+        when (causingProof.proofs.first()) {
+            is SimpleProof,
+            is BasicDescriptiveAssertion -> causingProof.representation
+            else -> null
+        }
+    }
+    else -> null
+}
+
+actual typealias AssertionErrorLikeIntermediate = java.lang.AssertionError
+actual typealias AssertionErrorLike = AssertionFailedError
 
 /**
  * Indicates that an expectation stated via Atrium was not.
@@ -16,7 +51,7 @@ import ch.tutteli.atrium.reporting.AtriumError.Companion
 actual class AtriumError internal actual constructor(
     message: String,
     actual val causingProof: Proof
-) : AssertionError(message, null) {
+) : AssertionFailedError(message, extractExpected(causingProof), extractActual(causingProof), null) {
 
     /**
      * Usually the error message but an empty string in case of certain test-runners.

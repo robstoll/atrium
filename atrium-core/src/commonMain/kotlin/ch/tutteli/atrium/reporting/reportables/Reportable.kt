@@ -51,6 +51,7 @@ interface Reportable {
         fun debugGroup(description: InlineElement, reportables: List<Reportable>): DebugGroup =
             DefaultDebugGroup(description, reportables)
 
+        //TODO 1.3.0 remove?
         fun inlineGroupOrSingleElement(inlineElements: List<InlineElement>): InlineElement =
             takeIf(inlineElements.size == 1) {
                 inlineElements[0]

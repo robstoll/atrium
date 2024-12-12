@@ -20,6 +20,11 @@ kotlin {
                 implementation(prefixedProject("specs"))
             }
         }
+        jvmMain {
+            dependencies {
+                implementation("org.opentest4j:opentest4j:1.3.0")
+            }
+        }
     }
 }
 
@@ -43,7 +48,8 @@ ifIsPublishing {
 
 createGenerateCoreTask(
     includingTarget("jvm"),
-    includingTarget("common",
+    includingTarget(
+        "common",
         //TODO 1.3.0 enable once transitioned to proofs
 //        "/creating/charsequence/contains/creators" to { _ ->
 //            "<T : CharSequence, S : CharSequenceContains.SearchBehaviour> CharSequenceContains.CheckerStepLogic<T, S>" to
