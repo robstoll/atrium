@@ -60,7 +60,8 @@ abstract class ThirdPartyExpectationsSpec(
                     expect {
                     expect(1).withOptions {
                         withComponent(Reporter::class) { c ->
-                            val assertionFormatterFacade = c.build<AssertionFormatterFacade>()
+                            //TODO 1.3.0 switch to new reporter
+                            @Suppress("DEPRECATION") val assertionFormatterFacade = c.build<AssertionFormatterFacade>()
                             object : Reporter {
                                 override fun format(assertion: Assertion, sb: StringBuilder): Unit =
                                     assertionFormatterFacade.format(assertion, sb, this::assertionFilter)

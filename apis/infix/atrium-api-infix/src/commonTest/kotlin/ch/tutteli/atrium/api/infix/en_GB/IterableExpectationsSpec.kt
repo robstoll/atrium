@@ -44,7 +44,7 @@ class IterableExpectationsSpec : ch.tutteli.atrium.specs.integration.IterableExp
         private fun lastFeature(expect: Expect<Iterable<Int>>) = expect last o
     }
 
-    @Suppress("unused", "UNUSED_VALUE")
+    @Suppress("unused")
     private fun ambiguityTest() {
         var a1: Expect<List<Int>> = notImplemented()
         var a1b: Expect<Set<Double?>> = notImplemented()

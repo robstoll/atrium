@@ -1,10 +1,10 @@
 package ch.tutteli.atrium.specs.integration
 
-import ch.tutteli.atrium.api.fluent.en_GB.messageToContain
+import ch.tutteli.atrium.api.fluent.en_GB.message
 import ch.tutteli.atrium.api.fluent.en_GB.toThrow
 import ch.tutteli.atrium.api.verbs.internal.expect
+import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionDateTimeLikeProof.*
 import ch.tutteli.atrium.specs.*
-import ch.tutteli.atrium.translations.DescriptionDateTimeLikeExpectation
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.describe
 import java.time.LocalDate
@@ -33,13 +33,6 @@ abstract class ChronoLocalDateExpectationsSpec(
         toBeTheSamePointInTimeAs.forSubjectLessTest(december23)
     ) {})
 
-    val toBeBeforeDescr = DescriptionDateTimeLikeExpectation.TO_BE_BEFORE.getDefault()
-    val toBeBeforeOrTheSamePointInTimeAsDescr = DescriptionDateTimeLikeExpectation.TO_BE_BEFORE_OR_THE_SAME_POINT_IN_TIME_AS.getDefault()
-    val toBeAfterDescr = DescriptionDateTimeLikeExpectation.TO_BE_AFTER.getDefault()
-    val toBeAfterOrTheSamePointInTimeAsDescr = DescriptionDateTimeLikeExpectation.TO_BE_AFTER_OR_THE_SAME_POINT_IN_TIME_AS.getDefault()
-    val toBeTheSamePointInTimeAsDescr = DescriptionDateTimeLikeExpectation.TO_BE_THE_SAME_DAY_AS.getDefault()
-
-
     listOf<ChronoLocalDate>(
         december23,
         JapaneseDate.of(2019, 12, 23)
@@ -52,12 +45,16 @@ abstract class ChronoLocalDateExpectationsSpec(
                 it("... $december22 throws an AssertionError") {
                     expect {
                         expect(subject).toBeBeforeFun(december22)
-                    }.toThrow<AssertionError> { messageToContain("$toBeBeforeDescr: $december22") }
+                    }.toThrow<AssertionError> {
+                        message { toContainDescr(TO_BE_BEFORE, december22) }
+                    }
                 }
                 it("... $december23 throws an AssertionError") {
                     expect {
                         expect(subject).toBeBeforeFun(december23)
-                    }.toThrow<AssertionError> { messageToContain("$toBeBeforeDescr: $december23") }
+                    }.toThrow<AssertionError> {
+                        message { toContainDescr(TO_BE_BEFORE, december23) }
+                    }
                 }
                 it("... $december24 does not throw") {
                     expect(subject).toBeBeforeFun(december24)
@@ -69,7 +66,9 @@ abstract class ChronoLocalDateExpectationsSpec(
                 it("... $december22 throws an AssertionError") {
                     expect {
                         expect(subject).toBeBeforeOrTheSamePointInTimeAsFun(december22)
-                    }.toThrow<AssertionError> { messageToContain("$toBeBeforeOrTheSamePointInTimeAsDescr: $december22") }
+                    }.toThrow<AssertionError> {
+                        message { toContainDescr(TO_BE_BEFORE_OR_THE_SAME_POINT_IN_TIME_AS, december22) }
+                    }
                 }
                 it("... $december23 does not throw") {
                     expect(subject).toBeBeforeOrTheSamePointInTimeAsFun(december23)
@@ -87,12 +86,16 @@ abstract class ChronoLocalDateExpectationsSpec(
                 it("... $december23 throws an AssertionError") {
                     expect {
                         expect(subject).toBeAfterFun(december23)
-                    }.toThrow<AssertionError> { messageToContain("$toBeAfterDescr: $december23") }
+                    }.toThrow<AssertionError> {
+                        message { toContainDescr(TO_BE_AFTER, december23) }
+                    }
                 }
                 it("... $december24 throws an AssertionError") {
                     expect {
                         expect(subject).toBeAfterFun(december24)
-                    }.toThrow<AssertionError> { messageToContain("$toBeAfterDescr: $december24") }
+                    }.toThrow<AssertionError> {
+                        message { toContainDescr(TO_BE_AFTER, december24) }
+                    }
                 }
             }
             describe("${toBeAfterOrTheSamePointInTimeAs.name} ...") {
@@ -107,7 +110,9 @@ abstract class ChronoLocalDateExpectationsSpec(
                 it("... $december24 throws an AssertionError") {
                     expect {
                         expect(subject).toBeAfterOrTheSamePointInTimeAsFun(december24)
-                    }.toThrow<AssertionError> { messageToContain("$toBeAfterOrTheSamePointInTimeAsDescr: $december24") }
+                    }.toThrow<AssertionError> {
+                        message { toContainDescr(TO_BE_AFTER_OR_THE_SAME_POINT_IN_TIME_AS, december24) }
+                    }
                 }
             }
             describe("${toBeTheSamePointInTimeAs.name} ...") {
@@ -116,7 +121,9 @@ abstract class ChronoLocalDateExpectationsSpec(
                 it("... $december22 throws an AssertionError") {
                     expect {
                         expect(subject).toBeTheSamePointInTimeAsFun(december22)
-                    }.toThrow<AssertionError> { messageToContain("$toBeTheSamePointInTimeAsDescr: $december22") }
+                    }.toThrow<AssertionError> {
+                        message { toContainDescr(TO_BE_THE_SAME_DAY_AS, december22) }
+                    }
                 }
                 it("... $december23 does not throw") {
                     expect(subject).toBeTheSamePointInTimeAsFun(december23)
@@ -124,7 +131,9 @@ abstract class ChronoLocalDateExpectationsSpec(
                 it("... $december24 throws an AssertionError") {
                     expect {
                         expect(subject).toBeTheSamePointInTimeAsFun(december24)
-                    }.toThrow<AssertionError> { messageToContain("$toBeTheSamePointInTimeAsDescr: $december24") }
+                    }.toThrow<AssertionError> {
+                        message { toContainDescr(TO_BE_THE_SAME_DAY_AS, december24) }
+                    }
                 }
             }
         }

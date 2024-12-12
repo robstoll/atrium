@@ -59,6 +59,7 @@ internal class DefaultInlineGroup(
 
 internal class DefaultRow(
     override val icon: Icon?,
+    override val includingBorder: Boolean,
     override val columns: List<Column>
 ) : Row {
     init {

@@ -10,7 +10,7 @@ import ch.tutteli.atrium.creating.proofs.impl.DefaultInvisibleProofGroup
 import ch.tutteli.atrium.reporting.Text
 import ch.tutteli.atrium.reporting.reportables.*
 import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionAnyProof
-import ch.tutteli.atrium.reporting.reportables.descriptions.ErrorMessages
+import ch.tutteli.atrium.reporting.reportables.ErrorMessages
 import ch.tutteli.kbox.ifNotEmpty
 
 @ExperimentalNewExpectTypes
@@ -146,7 +146,7 @@ internal class CollectingExpectImpl<T>(
         replaceWith = ReplaceWith(
             "this.appendAsGroupIndicateIfOneCollected(ExpectationCreatorWithUsageHints<T>(assertionCreator, listOf(/* .. add a custom usage hint in case you have an overload which does not expect an expectationCreator or use the generic */ ErrorMessages.DEFAULT_HINT_AT_LEAST_ONE_EXPECTATION_DEFINED))).first",
             "ch.tutteli.atrium.creating.ExpectationCreatorWithUsageHints",
-            "ch.tutteli.atrium.reporting.reportables.descriptions.ErrorMessages"
+            "ch.tutteli.atrium.reporting.reportables.ErrorMessages"
         )
     )
     override fun appendAsGroup(assertionCreator: Expect<T>.() -> Unit): CollectingExpect<T> {

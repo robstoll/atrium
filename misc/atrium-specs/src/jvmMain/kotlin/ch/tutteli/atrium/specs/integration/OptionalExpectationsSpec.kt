@@ -1,12 +1,12 @@
 package ch.tutteli.atrium.specs.integration
 
-import ch.tutteli.atrium.api.fluent.en_GB.messageToContain
+import ch.tutteli.atrium.api.fluent.en_GB.message
 import ch.tutteli.atrium.api.fluent.en_GB.toEqual
 import ch.tutteli.atrium.api.fluent.en_GB.toThrow
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionOptionalProof
 import ch.tutteli.atrium.specs.*
-import ch.tutteli.atrium.translations.DescriptionOptionalAssertion
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.Suite
 import java.util.*
@@ -46,8 +46,10 @@ abstract class OptionalExpectationsSpec(
                     expect {
                         expect(emptyValue).toBePresentFun { toEqual(2) }
                     }.toThrow<AssertionError> {
-                        messageToContain(DescriptionOptionalAssertion.IS_NOT_PRESENT.getDefault())
-                        if (hasExtraHint) messageToContain("$toEqualDescr: 2")
+                        message {
+                            toContainDescr("get()", DescriptionOptionalProof.IS_NOT_PRESENT.string)
+                            if (hasExtraHint) toContainToEqualDescr(2)
+                        }
                     }
                 }
             }
@@ -59,7 +61,9 @@ abstract class OptionalExpectationsSpec(
                 expect {
                     expect(presentValue).toBeEmptyFun()
                 }.toThrow<AssertionError> {
-                    messageToContain("$toBeDescr: ${DescriptionOptionalAssertion.EMPTY.getDefault()}")
+                    message {
+                        toContainToBeDescr(DescriptionOptionalProof.EMPTY)
+                    }
                 }
             }
 

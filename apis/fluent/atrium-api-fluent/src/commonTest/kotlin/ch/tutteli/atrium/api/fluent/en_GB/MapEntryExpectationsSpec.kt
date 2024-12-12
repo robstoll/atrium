@@ -15,7 +15,7 @@ object MapEntryExpectationsSpec : ch.tutteli.atrium.specs.integration.MapEntryEx
     property<Map.Entry<String?, Int?>, Int?>(Expect<Map.Entry<String?, Int?>>::value).withNullableSuffix(),
     fun1<Map.Entry<String?, Int?>, Expect<Int?>.() -> Unit>(Expect<Map.Entry<String?, Int?>>::value).withNullableSuffix()
 ) {
-    @Suppress("unused", "UNUSED_VALUE")
+    @Suppress("unused")
     private fun ambiguityTest() {
         var a1: Expect<Map.Entry<String, Int>> = notImplemented()
         var a2: Expect<Map.Entry<String?, Int>> = notImplemented()

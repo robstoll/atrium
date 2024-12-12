@@ -56,7 +56,7 @@ object ListExpectationsSpec : Spek({
         }
     })
 
-    @Suppress("unused", "UNUSED_VALUE")
+    @Suppress("unused")
     private fun ambiguityTest() {
         var a1: Expect<AbstractList<Int>> = notImplemented()
         var a1b: Expect<MutableList<Int?>> = notImplemented()

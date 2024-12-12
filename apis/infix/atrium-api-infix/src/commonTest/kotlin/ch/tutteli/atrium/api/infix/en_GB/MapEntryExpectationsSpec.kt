@@ -24,7 +24,7 @@ class MapEntryExpectationsSpec : ch.tutteli.atrium.specs.integration.MapEntryExp
             expect toEqualKeyValue (key to value)
     }
 
-    @Suppress("unused", "UNUSED_VALUE")
+    @Suppress("unused")
     private fun ambiguityTest() {
         var a1: Expect<Map.Entry<String, Int>> = notImplemented()
         var a2: Expect<Map.Entry<String?, Int>> = notImplemented()

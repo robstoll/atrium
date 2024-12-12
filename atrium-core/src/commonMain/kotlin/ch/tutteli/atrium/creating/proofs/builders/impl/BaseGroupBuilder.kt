@@ -88,8 +88,8 @@ abstract class BaseGroupBuilder<
     fun inlineGroup(vararg inlineElements: InlineElement): InlineElement =
         Reportable.inlineGroup(inlineElements.toList())
 
-    fun row(icon: Icon? = null, init: RowBuilder<SubjectT>.() -> Unit): Reportable =
-        add(RowBuilder(proofContainer, icon).build(init))
+    fun row(icon: Icon? = null, includingBorder: Boolean = true, init: RowBuilder<SubjectT>.() -> Unit): Reportable =
+        add(RowBuilder(proofContainer, icon, includingBorder).build(init))
 
     fun text(string: String): Reportable = add(Text(string))
 

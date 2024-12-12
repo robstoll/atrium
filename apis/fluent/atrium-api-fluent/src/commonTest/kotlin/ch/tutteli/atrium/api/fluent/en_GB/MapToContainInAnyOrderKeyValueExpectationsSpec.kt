@@ -66,7 +66,7 @@ class MapToContainInAnyOrderKeyValueExpectationsSpec : Spek({
         }
     }
 
-    @Suppress("unused", "UNUSED_VALUE")
+    @Suppress("unused")
     private fun ambiguityTest() {
         var map: Expect<Map<Number, CharSequence>> = notImplemented()
         var subMap: Expect<LinkedHashMap<out Number, String>> = notImplemented()

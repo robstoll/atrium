@@ -10,7 +10,7 @@ class IterableNotToHaveElementsOrAnyExpectationsSpec : ch.tutteli.atrium.specs.i
     fun1(Expect<Iterable<Double?>>::notToHaveElementsOrAny).withNullableSuffix()
 ) {
 
-    @Suppress("unused", "UNUSED_VALUE")
+    @Suppress("unused")
     private fun ambiguityTest() {
         var list: Expect<List<Number>> = notImplemented()
         var nList: Expect<Set<Number?>> = notImplemented()

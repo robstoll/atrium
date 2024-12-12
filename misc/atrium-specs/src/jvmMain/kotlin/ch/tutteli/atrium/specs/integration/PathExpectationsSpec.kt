@@ -3,9 +3,10 @@ package ch.tutteli.atrium.specs.integration
 import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.reporting.reportables.Description
+import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionBasic
+import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionPathProof.*
 import ch.tutteli.atrium.specs.*
-import ch.tutteli.atrium.translations.DescriptionBasic.*
-import ch.tutteli.atrium.translations.DescriptionPathAssertion.*
 import ch.tutteli.niok.*
 import ch.tutteli.spek.extensions.MemoizedTempFolder
 import ch.tutteli.spek.extensions.memoizedTempFolder
@@ -25,6 +26,8 @@ import java.nio.file.attribute.AclEntryType.DENY
 import java.nio.file.attribute.PosixFilePermission.*
 import java.util.regex.Pattern.quote
 
+
+//TODO 1.3.0 replace String.format (also check other Description for %s)
 abstract class PathExpectationsSpec(
     toExist: Fun0<Path>,
     notToExist: Fun0<Path>,
@@ -116,8 +119,6 @@ abstract class PathExpectationsSpec(
     fun describeFun(vararg pairs: SpecPair<*>, body: Suite.() -> Unit) =
         describeFunTemplate(describePrefix, pairs.map { it.name }.toTypedArray(), body = body)
 
-    val fileNameDescr = FILE_NAME.getDefault()
-    val fileNameWithoutExtensionDescr = FILE_NAME_WITHOUT_EXTENSION.getDefault()
 
     fun Suite.it(
         description: String,
@@ -151,10 +152,10 @@ abstract class PathExpectationsSpec(
                 expect {
                     block(doesNotExist)
                 }.toThrow<AssertionError>().message {
+                    toContainDescr(FAILURE_DUE_TO_PARENT, start)
                     toContain(
-                        String.format(FAILURE_DUE_TO_PARENT.getDefault(), start),
-                        FAILURE_DUE_TO_ACCESS_DENIED.getDefault(),
-                        String.format(HINT_ACTUAL_POSIX_PERMISSIONS.getDefault(), "u=rw g=r o="),
+                        FAILURE_DUE_TO_ACCESS_DENIED.string,
+                        String.format(HINT_ACTUAL_POSIX_PERMISSIONS.string, "u=rw g=r o="),
                         expectedPosixOwnerAndGroupHintFor(start)
                     )
                     containsExplanationFor(maybeLink)
@@ -178,7 +179,12 @@ abstract class PathExpectationsSpec(
             expect {
                 block(throwingPath())
             }.toThrow<AssertionError>().message {
-                toContain(String.format(FAILURE_DUE_TO_ACCESS_EXCEPTION.getDefault(), IOException::class.simpleName))
+                toContain(
+                    String.format(
+                        FAILURE_DUE_TO_ACCESS_EXCEPTION.string,
+                        IOException::class.simpleName
+                    )
+                )
                 toContain(TEST_IO_EXCEPTION_MESSAGE)
             }
         }
@@ -196,7 +202,7 @@ abstract class PathExpectationsSpec(
             val start = tempFolder.newDirectory("startDir").toRealPath()
             val doesNotExist = maybeLink.create(start.resolve("i").resolve("dont").resolve("exist"))
             val existingParentHintMessage =
-                String.format(HINT_CLOSEST_EXISTING_PARENT_DIRECTORY.getDefault(), start)
+                String.format(HINT_CLOSEST_EXISTING_PARENT_DIRECTORY.string, start)
             expect {
                 block(doesNotExist)
             }.toThrow<AssertionError>().message {
@@ -208,12 +214,12 @@ abstract class PathExpectationsSpec(
         it("explains if a parent is a file", forceNoLink = forceNoLinks) withAndWithoutSymlink { maybeLink ->
             val start = tempFolder.newFile("startFile")
             val doesNotExist = maybeLink.create(start.resolve("i").resolve("dont").resolve("exist"))
-            val parentErrorMessage = String.format(FAILURE_DUE_TO_PARENT.getDefault(), start)
+            val parentErrorMessage = String.format(FAILURE_DUE_TO_PARENT.string, start)
             val parentErrorDescription =
                 String.format(
-                    FAILURE_DUE_TO_WRONG_FILE_TYPE.getDefault(),
-                    A_FILE.getDefault(),
-                    A_DIRECTORY.getDefault()
+                    FAILURE_DUE_TO_WRONG_FILE_TYPE.string,
+                    A_FILE.string,
+                    A_DIRECTORY.string
                 )
             expect {
                 block(doesNotExist)
@@ -235,7 +241,7 @@ abstract class PathExpectationsSpec(
             expect {
                 block(a)
             }.toThrow<AssertionError> {
-                messageToContain(String.format(FAILURE_DUE_TO_LINK_LOOP.getDefault(), "$a -> $b -> $a"))
+                messageToContain(String.format(FAILURE_DUE_TO_LINK_LOOP.string, "$a -> $b -> $a"))
             }
         }
 
@@ -255,9 +261,11 @@ abstract class PathExpectationsSpec(
                     val notExisting = maybeLink.create(tempFolder.tmpDir.resolve("nonExistingFile"))
                     expect {
                         expect(notExisting).toExistFun()
-                    }.toThrow<AssertionError>().message {
-                        toContain("${TO.getDefault()}: ${EXIST.getDefault()}")
-                        containsExplanationFor(maybeLink)
+                    }.toThrow<AssertionError> {
+                        message {
+                            toContainDescr(DescriptionBasic.TO, EXIST.string)
+                            containsExplanationFor(maybeLink)
+                        }
                     }
                 }
                 it("${notToExist.name} - does not throw") withAndWithoutSymlink { maybeLink ->
@@ -294,10 +302,10 @@ abstract class PathExpectationsSpec(
                     expect {
                         expect(file).notToExistFun()
                     }.toThrow<AssertionError>().message {
-                        toContain(
-                            "${NOT_TO.getDefault()}: ${EXIST.getDefault()}",
-                            "${WAS.getDefault()}: ${A_FILE.getDefault()}"
-                        )
+                        toContainDescr(DescriptionBasic.NOT_TO, EXIST.string)
+                        //TODO 1.3.0 fix reporting, should use debugGroup
+                        // 🔎 was a file
+                        toContainDescr(DescriptionBasic.WAS, A_FILE.string)
                         containsExplanationFor(maybeLink)
                     }
                 }
@@ -313,10 +321,10 @@ abstract class PathExpectationsSpec(
                     expect {
                         expect(folder).notToExistFun()
                     }.toThrow<AssertionError>().message {
-                        toContain(
-                            "${NOT_TO.getDefault()}: ${EXIST.getDefault()}",
-                            "${WAS.getDefault()}: ${A_DIRECTORY.getDefault()}"
-                        )
+                        toContainDescr(DescriptionBasic.NOT_TO, EXIST.string)
+                        //TODO 1.3.0 fix reporting, should use debugGroup
+                        // 🔎 was a file
+                        toContainDescr(DescriptionBasic.WAS, A_DIRECTORY.string)
                         containsExplanationFor(maybeLink)
                     }
                 }
@@ -328,9 +336,8 @@ abstract class PathExpectationsSpec(
         val toStartWithFun = toStartWith.lambda
         val notToStartWithFun = notToStartWith.lambda
 
-        val path = "/some/path/for/test"
-        val expectPath = expect(Paths.get(path))
-        context("path '$path'") {
+        val subject = "/some/path/for/test"
+        context("path '$subject'") {
             mapOf(
                 "/some/pa" to false,
                 "/some/path" to true,
@@ -342,28 +349,33 @@ abstract class PathExpectationsSpec(
                 "/some/other" to false,
                 "/some/path/other" to false
             ).forEach { (path, toStartWithHolds) ->
+                val pathWithoutEndingSlash = if (path.endsWith("/")) path.substring(0, path.length - 2) else path
                 context("compare against $path") {
                     if (toStartWithHolds) {
                         it("${toStartWith.name} - does not throw") {
-                            expectPath.toStartWithFun(Paths.get(path))
+                            expect(Paths.get(path)).toStartWithFun(Paths.get(path))
                         }
                         it("${notToStartWith.name} - throws an AssertionError") {
                             expect {
-                                expectPath.notToStartWithFun(Paths.get(path))
+                                expect(Paths.get(subject)).notToStartWithFun(Paths.get(path))
                             }.toThrow<AssertionError> {
-                                messageToContain("${STARTS_NOT_WITH.getDefault()}:")
+                                message {
+                                    toContainDescr(STARTS_NOT_WITH, pathWithoutEndingSlash)
+                                }
                             }
                         }
                     } else {
                         it("${toStartWith.name} - throws an AssertionError") {
                             expect {
-                                expectPath.toStartWithFun(Paths.get(path))
+                                expect(Paths.get(subject)).toStartWithFun(Paths.get(path))
                             }.toThrow<AssertionError> {
-                                messageToContain("${STARTS_WITH.getDefault()}:")
+                                message {
+                                    toContainDescr(STARTS_WITH, pathWithoutEndingSlash)
+                                }
                             }
                         }
                         it("${notToStartWith.name} - does not throw") {
-                            expectPath.notToStartWithFun(Paths.get(path))
+                            expect(Paths.get(subject)).notToStartWithFun(Paths.get(path))
                         }
                     }
                 }
@@ -375,9 +387,8 @@ abstract class PathExpectationsSpec(
         val toEndWithFun = toEndWith.lambda
         val notToEndWithFun = notToEndWith.lambda
 
-        val path = "/some/path/for/test"
-        val expectPath = expect(Paths.get(path))
-        context("path '$path'") {
+        val subject = "/some/path/for/test"
+        context("path '$subject'") {
             mapOf(
                 "/some/path/for/test" to true,
                 "some/path/for/test" to true,
@@ -393,28 +404,33 @@ abstract class PathExpectationsSpec(
                 "other/test" to false,
                 "other/for/test" to false
             ).forEach { (path, toEndWithHolds) ->
+                val pathWithoutEndingSlash = if (path.endsWith("/")) path.substring(0, path.length - 2) else path
                 context("compare against $path") {
                     if (toEndWithHolds) {
                         it("${toEndWith.name} - does not throw") {
-                            expectPath.toEndWithFun(Paths.get(path))
+                            expect(Paths.get(subject)).toEndWithFun(Paths.get(path))
                         }
                         it("${notToEndWith.name} - throws an AssertionError") {
                             expect {
-                                expectPath.notToEndWithFun(Paths.get(path))
+                                expect(Paths.get(subject)).notToEndWithFun(Paths.get(path))
                             }.toThrow<AssertionError> {
-                                messageToContain("${ENDS_NOT_WITH.getDefault()}:")
+                                message {
+                                    toContainDescr(ENDS_NOT_WITH, pathWithoutEndingSlash)
+                                }
                             }
                         }
                     } else {
                         it("${toEndWith.name} - throws an AssertionError") {
                             expect {
-                                expectPath.toEndWithFun(Paths.get(path))
+                                expect(Paths.get(subject)).toEndWithFun(Paths.get(path))
                             }.toThrow<AssertionError> {
-                                messageToContain("${ENDS_WITH.getDefault()}:")
+                                message {
+                                    toContainDescr(ENDS_WITH, pathWithoutEndingSlash)
+                                }
                             }
                         }
                         it("${notToEndWith.name} - does not throw") {
-                            expectPath.notToEndWithFun(Paths.get(path))
+                            expect(Paths.get(subject)).notToEndWithFun(Paths.get(path))
                         }
                     }
                 }
@@ -424,7 +440,6 @@ abstract class PathExpectationsSpec(
 
     describeFun(toBeReadable) {
         val toBeReadableFun = toBeReadable.lambda
-        val expectedMessage = "$toBeDescr: ${READABLE.getDefault()}"
 
         context("not accessible") {
             it("throws an AssertionError for non-existent path") withAndWithoutSymlink { maybeLink ->
@@ -432,7 +447,10 @@ abstract class PathExpectationsSpec(
                 expect {
                     expect(file).toBeReadableFun()
                 }.toThrow<AssertionError>().message {
-                    toContain(expectedMessage, FAILURE_DUE_TO_NO_SUCH_FILE.getDefault())
+                    toContainToBeDescr(READABLE)
+                    //TODO 1.3.0 expect debug icon
+                    toContain(FAILURE_DUE_TO_NO_SUCH_FILE.string)
+                    String.format(HINT_CLOSEST_EXISTING_PARENT_DIRECTORY.string, tempFolder.tmpDir)
                     containsExplanationFor(maybeLink)
                 }
             }
@@ -455,7 +473,7 @@ abstract class PathExpectationsSpec(
         }
 
         context("POSIX: not readable", skip = ifPosixNotSupported) {
-            val expectedPermissionHint = String.format(HINT_ACTUAL_POSIX_PERMISSIONS.getDefault(), "u=wx g=x o=")
+            val expectedPermissionHint = String.format(HINT_ACTUAL_POSIX_PERMISSIONS.string, "u=wx g=x o=")
 
             it("throws an AssertionError for a file") withAndWithoutSymlink { maybeLink ->
                 val file = maybeLink.create(tempFolder.newFile("not-readable"))
@@ -463,8 +481,8 @@ abstract class PathExpectationsSpec(
                     expect {
                         expect(file).toBeReadableFun()
                     }.toThrow<AssertionError>().message {
+                        toContainToBeDescr(READABLE)
                         toContain(
-                            expectedMessage,
                             expectedPermissionTypeHintFor(A_FILE, being = READABLE),
                             expectedPermissionHint,
                             expectedPosixOwnerAndGroupHintFor(file)
@@ -480,8 +498,8 @@ abstract class PathExpectationsSpec(
                     expect {
                         expect(folder).toBeReadableFun()
                     }.toThrow<AssertionError>().message {
+                        toContainToBeDescr(READABLE)
                         toContain(
-                            expectedMessage,
                             expectedPermissionTypeHintFor(A_DIRECTORY, being = READABLE),
                             expectedPermissionHint,
                             expectedPosixOwnerAndGroupHintFor(folder)
@@ -499,11 +517,11 @@ abstract class PathExpectationsSpec(
                     expect {
                         expect(file).toBeReadableFun()
                     }.toThrow<AssertionError>().message {
+                        toContainToBeDescr(READABLE)
                         toContain(
-                            expectedMessage,
                             expectedPermissionTypeHintFor(A_FILE, being = READABLE),
                             expectedAclOwnerHintFor(file),
-                            HINT_ACTUAL_ACL_PERMISSIONS.getDefault()
+                            HINT_ACTUAL_ACL_PERMISSIONS.string
                         )
                         toContainRegex(
                             file.expectedAclEntryPartFor("DENY", "READ_DATA"),
@@ -522,11 +540,11 @@ abstract class PathExpectationsSpec(
                     expect {
                         expect(folder).toBeReadableFun()
                     }.toThrow<AssertionError>().message {
+                        toContainToBeDescr(READABLE)
                         toContain(
-                            expectedMessage,
                             expectedPermissionTypeHintFor(A_DIRECTORY, being = READABLE),
                             expectedAclOwnerHintFor(folder),
-                            HINT_ACTUAL_ACL_PERMISSIONS.getDefault()
+                            HINT_ACTUAL_ACL_PERMISSIONS.string
                         )
                         toContainRegex(
                             folder.expectedAclEntryPartFor("DENY", "READ_DATA"),
@@ -543,7 +561,6 @@ abstract class PathExpectationsSpec(
 
     describeFun(notToBeReadable) {
         val notToBeReadableFun = notToBeReadable.lambda
-        val expectedMessage = "$notToBeDescr: ${READABLE.getDefault()}"
 
         context("not accessible") {
             it("throws an AssertionError for a non-existent path") withAndWithoutSymlink { maybeLink ->
@@ -551,10 +568,8 @@ abstract class PathExpectationsSpec(
                 expect {
                     expect(file).notToBeReadableFun()
                 }.toThrow<AssertionError>().message {
-                    toContain(
-                        expectedMessage,
-                        FAILURE_DUE_TO_NO_SUCH_FILE.getDefault()
-                    )
+                    toContainNotToBeDescr(READABLE.string)
+                    toContain(FAILURE_DUE_TO_NO_SUCH_FILE.string)
                     containsExplanationFor(maybeLink)
                 }
             }
@@ -575,7 +590,7 @@ abstract class PathExpectationsSpec(
                     expect {
                         expect(file).notToBeReadableFun()
                     }.toThrow<AssertionError>().message {
-                        toContain(expectedMessage)
+                        toContainNotToBeDescr(READABLE.string)
                     }
                 }
             }
@@ -587,7 +602,7 @@ abstract class PathExpectationsSpec(
                     expect {
                         expect(folder).notToBeReadableFun()
                     }.toThrow<AssertionError>().message {
-                        toContain(expectedMessage)
+                        toContainNotToBeDescr(READABLE.string)
                     }
                 }
             }
@@ -632,7 +647,7 @@ abstract class PathExpectationsSpec(
                     expect {
                         expect(file).notToBeReadableFun()
                     }.toThrow<AssertionError>().message {
-                        toContain(expectedMessage)
+                        toContainNotToBeDescr(READABLE.string)
                     }
                 }
             }
@@ -643,7 +658,7 @@ abstract class PathExpectationsSpec(
                     expect {
                         expect(folder).notToBeReadableFun()
                     }.toThrow<AssertionError>().message {
-                        toContain(expectedMessage)
+                        toContainNotToBeDescr(READABLE.string)
                     }
                 }
             }
@@ -652,7 +667,6 @@ abstract class PathExpectationsSpec(
 
     describeFun(toBeWritable) {
         val toBeWritableFun = toBeWritable.lambda
-        val expectedMessage = "$toBeDescr: ${WRITABLE.getDefault()}"
 
         context("not accessible") {
             it("throws an AssertionError for a non-existent path") withAndWithoutSymlink { maybeLink ->
@@ -660,10 +674,8 @@ abstract class PathExpectationsSpec(
                 expect {
                     expect(file).toBeWritableFun()
                 }.toThrow<AssertionError>().message {
-                    toContain(
-                        expectedMessage,
-                        FAILURE_DUE_TO_NO_SUCH_FILE.getDefault()
-                    )
+                    toContainToBeDescr(WRITABLE)
+                    toContain(FAILURE_DUE_TO_NO_SUCH_FILE.string)
                     containsExplanationFor(maybeLink)
                 }
             }
@@ -686,7 +698,7 @@ abstract class PathExpectationsSpec(
         }
 
         context("POSIX: not writable", skip = ifPosixNotSupported) {
-            val expectedPermissionHint = String.format(HINT_ACTUAL_POSIX_PERMISSIONS.getDefault(), "u=rx g= o=x")
+            val expectedPermissionHint = String.format(HINT_ACTUAL_POSIX_PERMISSIONS.string, "u=rx g= o=x")
 
             it("throws an AssertionError for a file") withAndWithoutSymlink { maybeLink ->
                 val file = maybeLink.create(tempFolder.newFile("not-writable"))
@@ -694,8 +706,8 @@ abstract class PathExpectationsSpec(
                     expect {
                         expect(file).toBeWritableFun()
                     }.toThrow<AssertionError>().message {
+                        toContainToBeDescr(WRITABLE)
                         toContain(
-                            expectedMessage,
                             expectedPermissionTypeHintFor(A_FILE, being = WRITABLE),
                             expectedPermissionHint,
                             expectedPosixOwnerAndGroupHintFor(file)
@@ -711,8 +723,8 @@ abstract class PathExpectationsSpec(
                     expect {
                         expect(folder).toBeWritableFun()
                     }.toThrow<AssertionError>().message {
+                        toContainToBeDescr(WRITABLE)
                         toContain(
-                            expectedMessage,
                             expectedPermissionTypeHintFor(A_DIRECTORY, being = WRITABLE),
                             expectedPermissionHint,
                             expectedPosixOwnerAndGroupHintFor(folder)
@@ -730,11 +742,11 @@ abstract class PathExpectationsSpec(
                     expect {
                         expect(file).toBeWritableFun()
                     }.toThrow<AssertionError>().message {
+                        toContainToBeDescr(WRITABLE)
                         toContain(
-                            expectedMessage,
                             expectedPermissionTypeHintFor(A_FILE, being = WRITABLE),
                             expectedAclOwnerHintFor(file),
-                            HINT_ACTUAL_ACL_PERMISSIONS.getDefault()
+                            HINT_ACTUAL_ACL_PERMISSIONS.string
                         )
                         toContainRegex(
                             file.expectedAclEntryPartFor("ALLOW", "READ_DATA"),
@@ -751,11 +763,11 @@ abstract class PathExpectationsSpec(
                     expect {
                         expect(folder).toBeWritableFun()
                     }.toThrow<AssertionError>().message {
+                        toContainToBeDescr(WRITABLE)
                         toContain(
-                            expectedMessage,
                             expectedPermissionTypeHintFor(A_DIRECTORY, being = WRITABLE),
                             expectedAclOwnerHintFor(folder),
-                            HINT_ACTUAL_ACL_PERMISSIONS.getDefault()
+                            HINT_ACTUAL_ACL_PERMISSIONS.string
                         )
                         toContainRegex(
                             folder.expectedAclEntryPartFor("ALLOW", "READ_DATA"),
@@ -770,7 +782,6 @@ abstract class PathExpectationsSpec(
 
     describeFun(notToBeWritable) {
         val notToBeWritableFun = notToBeWritable.lambda
-        val expectedMessage = "$notToBeDescr: ${WRITABLE.getDefault()}"
 
         context("not accessible") {
             it("throws an AssertionError for a non-existent path") withAndWithoutSymlink { maybeLink ->
@@ -778,9 +789,9 @@ abstract class PathExpectationsSpec(
                 expect {
                     expect(file).notToBeWritableFun()
                 }.toThrow<AssertionError>().message {
+                    toContainNotToBeDescr(WRITABLE.string)
                     toContain(
-                        expectedMessage,
-                        FAILURE_DUE_TO_NO_SUCH_FILE.getDefault()
+                        FAILURE_DUE_TO_NO_SUCH_FILE.string
                     )
                     containsExplanationFor(maybeLink)
                 }
@@ -802,7 +813,7 @@ abstract class PathExpectationsSpec(
                     expect {
                         expect(file).notToBeWritableFun()
                     }.toThrow<AssertionError>().message {
-                        toContain(expectedMessage)
+                        toContainNotToBeDescr(WRITABLE.string)
                     }
                 }
             }
@@ -814,7 +825,7 @@ abstract class PathExpectationsSpec(
                     expect {
                         expect(folder).notToBeWritableFun()
                     }.toThrow<AssertionError>().message {
-                        toContain(expectedMessage)
+                        toContainNotToBeDescr(WRITABLE.string)
                     }
                 }
             }
@@ -859,7 +870,7 @@ abstract class PathExpectationsSpec(
                     expect {
                         expect(file).notToBeWritable()
                     }.toThrow<AssertionError>().message {
-                        toContain(expectedMessage)
+                        toContainNotToBeDescr(WRITABLE.string)
                     }
                 }
             }
@@ -870,7 +881,7 @@ abstract class PathExpectationsSpec(
                     expect {
                         expect(folder).notToBeWritableFun()
                     }.toThrow<AssertionError>().message {
-                        toContain(expectedMessage)
+                        toContainNotToBeDescr(WRITABLE.string)
                     }
                 }
             }
@@ -879,7 +890,6 @@ abstract class PathExpectationsSpec(
 
     describeFun(toBeExecutable) {
         val toBeExecutableFun = toBeExecutable.lambda
-        val expectedMessage = "$toBeDescr: ${EXECUTABLE.getDefault()}"
 
         context("not accessible") {
             it("throws an AssertionError for non-existent path") withAndWithoutSymlink { maybeLink ->
@@ -887,7 +897,8 @@ abstract class PathExpectationsSpec(
                 expect {
                     expect(file).toBeExecutableFun()
                 }.toThrow<AssertionError>().message {
-                    toContain(expectedMessage, FAILURE_DUE_TO_NO_SUCH_FILE.getDefault())
+                    toContainToBeDescr(EXECUTABLE)
+                    toContain(FAILURE_DUE_TO_NO_SUCH_FILE.string)
                     containsExplanationFor(maybeLink)
                 }
             }
@@ -930,7 +941,7 @@ abstract class PathExpectationsSpec(
         }
 
         context("POSIX: not executable", skip = ifPosixNotSupported) {
-            val expectedPermissionHint = String.format(HINT_ACTUAL_POSIX_PERMISSIONS.getDefault(), "u=rw g=r o=")
+            val expectedPermissionHint = String.format(HINT_ACTUAL_POSIX_PERMISSIONS.string, "u=rw g=r o=")
 
             it("throws an AssertionError for a file") withAndWithoutSymlink { maybeLink ->
                 val file = maybeLink.create(tempFolder.newFile("not-executable"))
@@ -938,8 +949,8 @@ abstract class PathExpectationsSpec(
                     expect {
                         expect(file).toBeExecutableFun()
                     }.toThrow<AssertionError>().message {
+                        toContainToBeDescr(EXECUTABLE)
                         toContain(
-                            expectedMessage,
                             expectedPermissionTypeHintFor(A_FILE, being = EXECUTABLE),
                             expectedPermissionHint,
                             expectedPosixOwnerAndGroupHintFor(file)
@@ -955,8 +966,8 @@ abstract class PathExpectationsSpec(
                     expect {
                         expect(folder).toBeExecutableFun()
                     }.toThrow<AssertionError>().message {
+                        toContainToBeDescr(EXECUTABLE)
                         toContain(
-                            expectedMessage,
                             expectedPermissionTypeHintFor(A_DIRECTORY, being = EXECUTABLE),
                             expectedPermissionHint,
                             expectedPosixOwnerAndGroupHintFor(folder)
@@ -974,11 +985,11 @@ abstract class PathExpectationsSpec(
                     expect {
                         expect(file).toBeExecutableFun()
                     }.toThrow<AssertionError>().message {
+                        toContainToBeDescr(EXECUTABLE)
                         toContain(
-                            expectedMessage,
                             expectedPermissionTypeHintFor(A_FILE, being = EXECUTABLE),
                             expectedAclOwnerHintFor(file),
-                            HINT_ACTUAL_ACL_PERMISSIONS.getDefault()
+                            HINT_ACTUAL_ACL_PERMISSIONS.string
                         )
                         toContainRegex(
                             file.expectedAclEntryPartFor("DENY", "EXECUTE"),
@@ -997,11 +1008,11 @@ abstract class PathExpectationsSpec(
                     expect {
                         expect(folder).toBeExecutableFun()
                     }.toThrow<AssertionError>().message {
+                        toContainToBeDescr(EXECUTABLE)
                         toContain(
-                            expectedMessage,
                             expectedPermissionTypeHintFor(A_DIRECTORY, being = EXECUTABLE),
                             expectedAclOwnerHintFor(folder),
-                            HINT_ACTUAL_ACL_PERMISSIONS.getDefault()
+                            HINT_ACTUAL_ACL_PERMISSIONS.string
                         )
                         toContainRegex(
                             folder.expectedAclEntryPartFor("DENY", "EXECUTE"),
@@ -1018,7 +1029,6 @@ abstract class PathExpectationsSpec(
 
     describeFun(notToBeExecutable) {
         val notToBeExecutableFun = notToBeExecutable.lambda
-        val expectedMessage = "$notToBeDescr: ${EXECUTABLE.getDefault()}"
 
         context("not accessible") {
             it("throws an AssertionError for a non-existent path") withAndWithoutSymlink { maybeLink ->
@@ -1026,10 +1036,8 @@ abstract class PathExpectationsSpec(
                 expect {
                     expect(file).notToBeExecutableFun()
                 }.toThrow<AssertionError>().message {
-                    toContain(
-                        expectedMessage,
-                        FAILURE_DUE_TO_NO_SUCH_FILE.getDefault()
-                    )
+                    toContainNotToBeDescr(EXECUTABLE)
+                    toContain(FAILURE_DUE_TO_NO_SUCH_FILE.string)
                     containsExplanationFor(maybeLink)
                 }
             }
@@ -1050,7 +1058,7 @@ abstract class PathExpectationsSpec(
                     expect {
                         expect(file).notToBeExecutableFun()
                     }.toThrow<AssertionError>().message {
-                        toContain(expectedMessage)
+                        toContainNotToBeDescr(EXECUTABLE)
                     }
                 }
             }
@@ -1062,7 +1070,7 @@ abstract class PathExpectationsSpec(
                     expect {
                         expect(folder).notToBeExecutableFun()
                     }.toThrow<AssertionError>().message {
-                        toContain(expectedMessage)
+                        toContainNotToBeDescr(EXECUTABLE)
                     }
                 }
             }
@@ -1107,7 +1115,7 @@ abstract class PathExpectationsSpec(
                     expect {
                         expect(file).notToBeExecutable()
                     }.toThrow<AssertionError>().message {
-                        toContain(expectedMessage)
+                        toContainNotToBeDescr(EXECUTABLE)
                     }
                 }
             }
@@ -1118,7 +1126,7 @@ abstract class PathExpectationsSpec(
                     expect {
                         expect(folder).notToBeExecutable()
                     }.toThrow<AssertionError>().message {
-                        toContain(expectedMessage)
+                        toContainNotToBeDescr(EXECUTABLE)
                     }
                 }
             }
@@ -1127,7 +1135,6 @@ abstract class PathExpectationsSpec(
 
     describeFun(toBeRegularFile) {
         val toBeRegularFileFun = toBeRegularFile.lambda
-        val expectedMessage = "$toBeDescr: ${A_FILE.getDefault()}"
 
         context("not accessible") {
             it("throws an AssertionError for a non-existent path") withAndWithoutSymlink { maybeLink ->
@@ -1135,10 +1142,8 @@ abstract class PathExpectationsSpec(
                 expect {
                     expect(file).toBeRegularFileFun()
                 }.toThrow<AssertionError>().message {
-                    toContain(
-                        expectedMessage,
-                        FAILURE_DUE_TO_NO_SUCH_FILE.getDefault()
-                    )
+                    toContainToBeDescr(A_FILE)
+                    toContain(FAILURE_DUE_TO_NO_SUCH_FILE.string)
                     containsExplanationFor(maybeLink)
                 }
             }
@@ -1158,10 +1163,8 @@ abstract class PathExpectationsSpec(
             expect {
                 expect(folder).toBeRegularFileFun()
             }.toThrow<AssertionError>().message {
-                toContain(
-                    expectedMessage,
-                    "${WAS.getDefault()}: ${A_DIRECTORY.getDefault()}"
-                )
+                toContainToBeDescr(A_FILE)
+                toContainDescr(DescriptionBasic.WAS, A_DIRECTORY.string)
                 containsExplanationFor(maybeLink)
             }
         }
@@ -1169,7 +1172,6 @@ abstract class PathExpectationsSpec(
 
     describeFun(toBeASymbolicLink) {
         val toBeASymbolicLinkFun = toBeASymbolicLink.lambda
-        val expectedMessage = "$toBeDescr: ${A_SYMBOLIC_LINK.getDefault()}"
 
         context("not accessible") {
             it("throws an AssertionError for a non-existent path") {
@@ -1177,10 +1179,8 @@ abstract class PathExpectationsSpec(
                 expect {
                     expect(path).toBeASymbolicLinkFun()
                 }.toThrow<AssertionError>().message {
-                    toContain(
-                        expectedMessage,
-                        FAILURE_DUE_TO_NO_SUCH_FILE.getDefault()
-                    )
+                    toContainToBeDescr(A_SYMBOLIC_LINK)
+                    toContain(FAILURE_DUE_TO_NO_SUCH_FILE.string)
                 }
             }
 
@@ -1194,10 +1194,8 @@ abstract class PathExpectationsSpec(
             expect {
                 expect(file).toBeASymbolicLinkFun()
             }.toThrow<AssertionError>().message {
-                toContain(
-                    expectedMessage,
-                    "${WAS.getDefault()}: ${A_FILE.getDefault()}"
-                )
+                toContainToBeDescr(A_SYMBOLIC_LINK)
+                toContainDescr(DescriptionBasic.WAS, A_FILE.string)
             }
         }
 
@@ -1206,10 +1204,8 @@ abstract class PathExpectationsSpec(
             expect {
                 expect(folder).toBeASymbolicLinkFun()
             }.toThrow<AssertionError>().message {
-                toContain(
-                    expectedMessage,
-                    "${WAS.getDefault()}: ${A_DIRECTORY.getDefault()}"
-                )
+                toContainToBeDescr(A_SYMBOLIC_LINK)
+                toContainDescr(DescriptionBasic.WAS, A_DIRECTORY.string)
             }
         }
 
@@ -1222,7 +1218,6 @@ abstract class PathExpectationsSpec(
 
     describeFun(toBeADirectory) {
         val toBeADirectoryFun = toBeADirectory.lambda
-        val expectedMessage = "$toBeDescr: ${A_DIRECTORY.getDefault()}"
 
         context("not accessible") {
             it("throws an AssertionError for a non-existent path") withAndWithoutSymlink { maybeLink ->
@@ -1230,7 +1225,8 @@ abstract class PathExpectationsSpec(
                 expect {
                     expect(file).toBeADirectoryFun()
                 }.toThrow<AssertionError>().message {
-                    toContain(expectedMessage, FAILURE_DUE_TO_NO_SUCH_FILE.getDefault())
+                    toContainToBeDescr(A_DIRECTORY)
+                    toContain(FAILURE_DUE_TO_NO_SUCH_FILE.string)
                     containsExplanationFor(maybeLink)
                 }
             }
@@ -1245,7 +1241,8 @@ abstract class PathExpectationsSpec(
             expect {
                 expect(file).toBeADirectoryFun()
             }.toThrow<AssertionError>().message {
-                toContain(expectedMessage, "${WAS.getDefault()}: ${A_FILE.getDefault()}")
+                toContainToBeDescr(A_DIRECTORY)
+                toContainDescr(DescriptionBasic.WAS, A_FILE.string)
                 containsExplanationFor(maybeLink)
             }
         }
@@ -1264,7 +1261,7 @@ abstract class PathExpectationsSpec(
             expect {
                 expect(path).toBeAbsoluteFun()
             }.toThrow<AssertionError> {
-                messageToContain("$toBeDescr: ${ABSOLUTE_PATH.getDefault()}")
+                message { toContainToBeDescr(ABSOLUTE_PATH) }
             }
         }
 
@@ -1282,7 +1279,7 @@ abstract class PathExpectationsSpec(
             expect {
                 expect(path).toBeRelativeFun()
             }.toThrow<AssertionError> {
-                messageToContain("$toBeDescr: ${RELATIVE_PATH.getDefault()}")
+                message { toContainToBeDescr(RELATIVE_PATH) }
             }
         }
 
@@ -1294,8 +1291,6 @@ abstract class PathExpectationsSpec(
 
     describeFun(toBeAnEmptyDirectory) {
         val toBeAnEmptyDirectoryFun = toBeAnEmptyDirectory.lambda
-        val expectedMessage = "$toBeDescr: ${A_DIRECTORY.getDefault()}"
-        val expectedEmptyMessage = "$toBeDescr: ${AN_EMPTY_DIRECTORY.getDefault()}"
 
         context("not accessible") {
             it("throws an AssertionError for a non-existent path") withAndWithoutSymlink { maybeLink ->
@@ -1303,7 +1298,8 @@ abstract class PathExpectationsSpec(
                 expect {
                     expect(file).toBeAnEmptyDirectoryFun()
                 }.toThrow<AssertionError>().message {
-                    toContain(expectedMessage, FAILURE_DUE_TO_NO_SUCH_FILE.getDefault())
+                    toContainToBeDescr(A_DIRECTORY)
+                    toContain(FAILURE_DUE_TO_NO_SUCH_FILE.string)
                     containsExplanationFor(maybeLink)
                 }
             }
@@ -1318,7 +1314,8 @@ abstract class PathExpectationsSpec(
             expect {
                 expect(file).toBeAnEmptyDirectoryFun()
             }.toThrow<AssertionError>().message {
-                toContain(expectedMessage, "${WAS.getDefault()}: ${A_FILE.getDefault()}")
+                toContainToBeDescr(A_DIRECTORY)
+                toContainDescr(DescriptionBasic.WAS, A_FILE.string)
                 containsExplanationFor(maybeLink)
             }
         }
@@ -1333,7 +1330,7 @@ abstract class PathExpectationsSpec(
             expect {
                 expect(folder).toBeAnEmptyDirectoryFun()
             }.toThrow<AssertionError>().message {
-                toContain(expectedEmptyMessage)
+                toContainToBeDescr(AN_EMPTY_DIRECTORY)
                 containsExplanationFor(maybeLink)
                 val sb = StringBuilder()
                 // entries should be sorted but not naturally, i.e. f10 comes before f2
@@ -1355,7 +1352,7 @@ abstract class PathExpectationsSpec(
                 expect {
                     expect(folder).toBeAnEmptyDirectoryFun()
                 }.toThrow<AssertionError>().message {
-                    toContain(expectedEmptyMessage)
+                    toContainToBeDescr(AN_EMPTY_DIRECTORY)
                     containsExplanationFor(maybeLink)
                     toContain("a")
                     notToContain("$listBulletPoint...")
@@ -1395,7 +1392,7 @@ abstract class PathExpectationsSpec(
             expect {
                 expect(folder).hasDirectoryEntryFun("fileA")
             }.toThrow<AssertionError>().message {
-                toContain("${TO.getDefault()}: ${EXIST.getDefault()}")
+                toContainDescr(DescriptionBasic.TO, EXIST.string)
                 toContain("fileA")
             }
         }
@@ -1433,8 +1430,8 @@ abstract class PathExpectationsSpec(
                 expect {
                     expect(folder).hasDirectoryEntryFun("file1", arrayOf("file2", "file3"))
                 }.toThrow<AssertionError>().message {
-                    toContain("${TO.getDefault()}: ${EXIST.getDefault()}")
                     toContain("file1")
+                    toContainDescr(DescriptionBasic.TO, EXIST.string)
                     notToContain("file2")
                     notToContain("file3")
                 }
@@ -1447,9 +1444,9 @@ abstract class PathExpectationsSpec(
                 expect {
                     expect(folder).hasDirectoryEntryFun("file1", arrayOf("file2", "file3"))
                 }.toThrow<AssertionError>().message {
-                    toContain("${TO.getDefault()}: ${EXIST.getDefault()}")
-                    toContain("file2")
                     notToContain("file1")
+                    toContain("file2")
+                    toContainDescr(DescriptionBasic.TO, EXIST.string)
                     notToContain("file3")
                 }
             }
@@ -1461,10 +1458,11 @@ abstract class PathExpectationsSpec(
                 expect {
                     expect(folder).hasDirectoryEntryFun("file1", arrayOf("file2", "file3"))
                 }.toThrow<AssertionError>().message {
-                    toContain("${TO.getDefault()}: ${EXIST.getDefault()}")
-                    notToContain("file2")
                     notToContain("file1")
+                    notToContain("file2")
                     toContain("file3")
+                    toContainDescr(DescriptionBasic.TO, EXIST.string)
+                    containsExplanationFor(maybeLink)
                 }
             }
 
@@ -1474,9 +1472,11 @@ abstract class PathExpectationsSpec(
                 expect {
                     expect(folder).hasDirectoryEntryFun("file1", arrayOf("file2", "file3"))
                 }.toThrow<AssertionError>().message {
-                    toContain("${TO.getDefault()}: ${EXIST.getDefault()}")
-                    notToContain("file2")
                     toContain("file1")
+                    toContainDescr(DescriptionBasic.TO, EXIST.string, numOfMatches = 2)
+                    toContain.exactly(2).value(String.format(HINT_CLOSEST_EXISTING_PARENT_DIRECTORY.string, tempFolder.tmpDir.resolve("startDir")))
+                    containsExplanationFor(maybeLink)
+                    notToContain("file2")
                     toContain("file3")
                 }
             }
@@ -1494,12 +1494,12 @@ abstract class PathExpectationsSpec(
 
         it("it throws if the directory does not exist") withAndWithoutSymlink { maybeLink ->
             val folder = maybeLink.create(tempFolder.tmpDir.resolve("nonExistent"))
-            val expectedMessage = "$toBeDescr: ${A_DIRECTORY.getDefault()}"
 
             expect {
                 expect(folder).hasDirectoryEntryFun("file1", arrayOf("file2", "file3"))
             }.toThrow<AssertionError>().message {
-                toContain(expectedMessage, FAILURE_DUE_TO_NO_SUCH_FILE.getDefault())
+                toContainToBeDescr(A_DIRECTORY)
+                toContain(FAILURE_DUE_TO_NO_SUCH_FILE.string)
                 containsExplanationFor(maybeLink)
             }
         }
@@ -1510,10 +1510,8 @@ abstract class PathExpectationsSpec(
         val toHaveTheSameTextualContentAsFun = toHaveTheSameTextualContentAs.lambda
         val toHaveTheSameTextualContentAsDefaultArgsAsFun = toHaveTheSameTextualContentAsDefaultArgs.lambda
 
-        //TODO 1.3.0 replace with Representable and remove suppression
-        @Suppress("DEPRECATION")
         fun errorToHaveTheSameTextualContentAs(sourceEncoding: Charset, targetEncoding: Charset) =
-            ch.tutteli.atrium.reporting.translating.TranslatableWithArgs(HAS_SAME_TEXTUAL_CONTENT, sourceEncoding, targetEncoding).getDefault()
+            String.format(HAS_SAME_TEXTUAL_CONTENT.string, sourceEncoding, targetEncoding)
 
         context("empty content") {
             fun createFiles(maybeLink: MaybeLink): Pair<Path, Path> {
@@ -1623,7 +1621,7 @@ abstract class PathExpectationsSpec(
                 expect {
                     expect(sourcePath).toHaveTheSameBinaryContentAsFun(targetPath)
                 }.toThrow<AssertionError>().message {
-                    toContain(HAS_SAME_BINARY_CONTENT.getDefault())
+                    toContain(HAS_SAME_BINARY_CONTENT.string)
                 }
             }
 
@@ -1674,7 +1672,7 @@ abstract class PathExpectationsSpec(
                 expect {
                     expect(sourcePath).toHaveTheSameBinaryContentAsFun(targetPath)
                 }.toThrow<AssertionError>().message {
-                    toContain(HAS_SAME_BINARY_CONTENT.getDefault())
+                    toContain(HAS_SAME_BINARY_CONTENT.string)
                 }
             }
 
@@ -1722,7 +1720,7 @@ abstract class PathExpectationsSpec(
                         val childFolder = tempFolder.newDirectory("child")
                         expect(childFolder).parentFun { toEqual(childFolder) }
                     }.toThrow<AssertionError> {
-                        message { toContainRegex("$toEqualDescr: .*(/|\\\\)child") }
+                        message { toContainRegex("$toEqualDescr\\s+: .*(/|\\\\)child") }
                     }
                 }
             }
@@ -1735,7 +1733,7 @@ abstract class PathExpectationsSpec(
                         val rootFolder = tempFolder.tmpDir.root
                         expect(rootFolder).parentFun { toEqual(Paths.get("non-existing")) }
                     }.toThrow<AssertionError> {
-                        messageToContain(DOES_NOT_HAVE_PARENT.getDefault())
+                        messageToContain(DOES_NOT_HAVE_PARENT.string)
                         if (hasExtraHint) messageToContain("non-existing")
                     }
                 }
@@ -1784,7 +1782,24 @@ abstract class PathExpectationsSpec(
                     expect {
                         expect(Paths.get("a/my")).fileNameFun { toEqual("my.txt") }
                     }.toThrow<AssertionError> {
-                        messageToContain("$fileNameDescr: \"my\"")
+                        message {
+                            toContainDescr(FILE_NAME, "\"my\"")
+                            toContainToEqualDescr("\"my.txt\"")
+                        }
+                    }
+                }
+            }
+        }
+        context("path a/my.doc") {
+            fileNameFunctions.forEach { (name, fileNameFun, _) ->
+                it("$name - toEqual(my.txt) fails") {
+                    expect {
+                        expect(Paths.get("a/my.doc")).fileNameFun { toEqual("my.txt") }
+                    }.toThrow<AssertionError> {
+                        message {
+                            toContainDescr(FILE_NAME, "\"my.doc\"")
+                            toContainToEqualDescr("\"my.txt\"")
+                        }
                     }
                 }
             }
@@ -1795,7 +1810,7 @@ abstract class PathExpectationsSpec(
         val fileNameWithoutExtensionFunctions =
             unifySignatures(fileNameWithoutExtensionFeature, fileNameWithoutExtension)
 
-        context("File with extension") {
+        context("path a/my.txt") {
             fileNameWithoutExtensionFunctions.forEach { (name, fileNameWithoutExtensionFun, _) ->
                 it("$name - toEqual(my) holds") {
                     expect(Paths.get("a/my.txt")).fileNameWithoutExtensionFun { toEqual("my") }
@@ -1804,8 +1819,27 @@ abstract class PathExpectationsSpec(
                     expect {
                         expect(Paths.get("a/my.txt")).fileNameWithoutExtensionFun { toEqual("my.txt") }
                     }.toThrow<AssertionError> {
-                        messageToContain("$fileNameWithoutExtensionDescr: \"my\"")
+                        message {
+                            toContainDescr(FILE_NAME_WITHOUT_EXTENSION, "\"my\"")
+                            toContainToEqualDescr("\"my.txt\"")
+                        }
                     }
+                }
+            }
+        }
+
+        context("path a/my") {
+            fileNameWithoutExtensionFunctions.forEach { (name, fileNameWithoutExtensionFun, _) ->
+                it("$name - toEqual(my) holds") {
+                    expect(Paths.get("a/my")).fileNameWithoutExtensionFun { toEqual("my") }
+                }
+            }
+        }
+
+        context("path a/my-txt") {
+            fileNameWithoutExtensionFunctions.forEach { (name, fileNameWithoutExtensionFun, _) ->
+                it("$name - toEqual(my-txt) holds") {
+                    expect(Paths.get("a/my-txt")).fileNameWithoutExtensionFun { toEqual("my-txt") }
                 }
             }
         }
@@ -1820,13 +1854,16 @@ abstract class PathExpectationsSpec(
                     expect {
                         expect(Paths.get("a/my/")).fileNameWithoutExtensionFun { toEqual("my.txt") }
                     }.toThrow<AssertionError> {
-                        messageToContain("$fileNameWithoutExtensionDescr: \"my\"")
+                        message {
+                            toContainDescr(FILE_NAME_WITHOUT_EXTENSION, "\"my\"")
+                            toContainToEqualDescr("\"my.txt\"")
+                        }
                     }
                 }
             }
         }
 
-        context("path with double extension") {
+        context("path a/my.tar.gz ") {
             fileNameWithoutExtensionFunctions.forEach { (name, fileNameWithoutExtensionFun, _) ->
                 it("$name - toEqual(my.tar) holds") {
                     expect(Paths.get("a/my.tar.gz")).fileNameWithoutExtensionFun { toEqual("my.tar") }
@@ -1835,7 +1872,10 @@ abstract class PathExpectationsSpec(
                     expect {
                         expect(Paths.get("a/my.tar.gz")).fileNameWithoutExtensionFun { toEqual("my") }
                     }.toThrow<AssertionError> {
-                        messageToContain("$fileNameWithoutExtensionDescr: \"my.tar\"")
+                        message {
+                            toContainDescr(FILE_NAME_WITHOUT_EXTENSION, "\"my.tar\"")
+                            toContainToEqualDescr("\"my\"")
+                        }
                     }
                 }
             }
@@ -1958,7 +1998,7 @@ class SymlinkTestBuilder(
         skip: Skip,
         crossinline body: TestBody.(MaybeLink) -> Unit
     ) {
-        val prefix = maybeLink.description.run { if (length > 0) "$this: " else "" }
+        val prefix = maybeLink.description.run { if (isNotEmpty()) "$this: " else "" }
         testBodyConsumer(prefix, skip) {
             body(maybeLink)
             maybeLink.confirmCreateWasCalled()
@@ -1979,7 +2019,7 @@ internal val Path.aclOwner: UserPrincipal
     get() = this.getFileAttributeView<AclFileAttributeView>()?.owner
         ?: throw IllegalStateException("failed to read access control list of $this")
 
-internal fun expectedAclOwnerHintFor(path: Path): String = String.format(HINT_OWNER.getDefault(), path.aclOwner.name)
+internal fun expectedAclOwnerHintFor(path: Path): String = String.format(HINT_OWNER.string, path.aclOwner.name)
 internal fun Path.expectedAclEntryPartFor(type: String, permission: String) =
     "$type ${quote(this.aclOwner.name)}: .*$permission.*"
 
@@ -2028,10 +2068,8 @@ internal class SimpleLink(private val tempFolderProvider: () -> MemoizedTempFold
         return link
     }
 
-    //TODO 1.3.0 replace with Representable and remove suppression
-    @Suppress("DEPRECATION")
     override fun <T : CharSequence> callCheckedCheckAssertionErrorMessage(expect: Expect<T>) {
-        expect.toContain(ch.tutteli.atrium.reporting.translating.TranslatableWithArgs(HINT_FOLLOWED_SYMBOLIC_LINK, link!!, path!!).getDefault())
+        expect.toContain(String.format(HINT_FOLLOWED_SYMBOLIC_LINK.string, link!!, path!!))
     }
 }
 
@@ -2040,7 +2078,10 @@ internal fun <T : CharSequence> Expect<T>.containsExplanationFor(maybeLink: Mayb
 
 //TODO 1.3.0 replace with Representable and remove suppression
 @Suppress("DEPRECATION")
-private fun expectedPermissionTypeHintFor(type: ch.tutteli.atrium.reporting.translating.Translatable, being: ch.tutteli.atrium.reporting.translating.Translatable) = String.format(
+private fun expectedPermissionTypeHintFor(
+    type: Description,
+    being: Description
+) = String.format(
     FAILURE_DUE_TO_PERMISSION_FILE_TYPE_HINT.getDefault(),
     type.getDefault(),
     being.getDefault()

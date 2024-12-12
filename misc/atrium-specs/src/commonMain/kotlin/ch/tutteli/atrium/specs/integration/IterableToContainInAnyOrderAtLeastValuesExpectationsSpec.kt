@@ -4,6 +4,7 @@ import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
+import ch.tutteli.atrium.specs.lineSeparator
 import org.spekframework.spek2.style.specification.Suite
 
 abstract class IterableToContainInAnyOrderAtLeastValuesExpectationsSpec(
@@ -90,15 +91,15 @@ abstract class IterableToContainInAnyOrderAtLeastValuesExpectationsSpec(
                 it("${toContainAtLeastPair.first("1.1", "once")} throws AssertionError") {
                     expect {
                         expect(oneToSeven()).toContainAtLeastFun(1, 1.1)
-                    }.toThrow<AssertionError> { messageToContain(noSuchValueDescr, "$anElementWhichEquals: 1.1") }
+                    }.toThrow<AssertionError> { messageToContain(noSuchValueDescr, "$anElementWhichEquals : 1.1") }
                 }
                 it("${toContainAtLeastPair.first("1.0, 2.3", "once")} throws AssertionError mentioning only 2.3") {
                     expect {
                         expect(oneToSeven()).toContainAtLeastFun(1, 1.0, 2.3)
                     }.toThrow<AssertionError> {
                         message {
-                            toContain(noSuchValueDescr, "$anElementWhichEquals: 2.3")
-                            notToContain("$anElementWhichEquals: 1.0")
+                            toContain(noSuchValueDescr, "$anElementWhichEquals : 2.3")
+                            notToContain("$anElementWhichEquals : 1.0")
                         }
                     }
                 }
@@ -107,8 +108,8 @@ abstract class IterableToContainInAnyOrderAtLeastValuesExpectationsSpec(
                         expect(oneToSeven()).toContainAtLeastFun(1, 2.3, 1.0)
                     }.toThrow<AssertionError> {
                         message {
-                            toContain(noSuchValueDescr, "$anElementWhichEquals: 2.3")
-                            notToContain("$anElementWhichEquals: 1.0")
+                            toContain(noSuchValueDescr, "$anElementWhichEquals : 2.3")
+                            notToContain("$anElementWhichEquals : 1.0")
                         }
                     }
                 }
@@ -121,9 +122,9 @@ abstract class IterableToContainInAnyOrderAtLeastValuesExpectationsSpec(
                                 noSuchValueDescr
                             )
                             toContain.exactly(1).values(
-                                "$rootBulletPoint$toContainInAnyOrder: $separator",
-                                "$anElementWhichEquals: 2.3",
-                                "$anElementWhichEquals: 3.1"
+                                "$g$toContainInAnyOrder : $lineSeparator",
+                                "$anElementWhichEquals : 2.3",
+                                "$anElementWhichEquals : 3.1"
                             )
                         }
                     }
@@ -149,11 +150,11 @@ abstract class IterableToContainInAnyOrderAtLeastValuesExpectationsSpec(
                     }.toThrow<AssertionError> {
                         message {
                             toContain(
-                                "$rootBulletPoint$toContainInAnyOrder: $separator",
-                                "$anElementWhichEquals: 5.0",
-                                "$numberOfSuchElements: 2$separator"
+                                "$g$toContainInAnyOrder : $lineSeparator",
+                                "$anElementWhichEquals : 5.0",
+                                "$numberOfSuchElements : 2$lineSeparator"
                             )
-                            toEndWith("$atLeastDescr: 3")
+                            toContainRegex("$x$atLeastDescr\\s+: 3")
                         }
                     }
                 }
@@ -176,12 +177,12 @@ abstract class IterableToContainInAnyOrderAtLeastValuesExpectationsSpec(
                     }.toThrow<AssertionError> {
                         message {
                             toContain(
-                                "$rootBulletPoint$toContainInAnyOrder: $separator",
-                                "$anElementWhichEquals: 5.0",
-                                "$numberOfSuchElements: 2$separator"
+                                "$g$toContainInAnyOrder : $lineSeparator",
+                                "$anElementWhichEquals : 5.0",
+                                "$numberOfSuchElements : 2$lineSeparator"
                             )
-                            toEndWith("$atLeastDescr: 3")
-                            notToContain("$anElementWhichEquals: 4.0")
+                            toContainRegex("$x$atLeastDescr\\s+: 3")
+                            notToContain("$anElementWhichEquals : 4.0")
                         }
                     }
                 }
@@ -203,12 +204,12 @@ abstract class IterableToContainInAnyOrderAtLeastValuesExpectationsSpec(
                     }.toThrow<AssertionError> {
                         message {
                             toContain(
-                                "$rootBulletPoint$toContainInAnyOrder: $separator",
-                                "$anElementWhichEquals: 4.0",
-                                "$numberOfSuchElements: 3$separator"
+                                "$g$toContainInAnyOrder : $lineSeparator",
+                                "$anElementWhichEquals : 4.0",
+                                "$numberOfSuchElements : 3$lineSeparator"
                             )
-                            toEndWith("$atMostDescr: 2")
-                            notToContain(atLeastDescr, "$anElementWhichEquals: 5.0")
+                            toContainRegex("$atMostDescr\\s+: 2")
+                            notToContain(atLeastDescr, "$anElementWhichEquals : 5.0")
                         }
                     }
                 }
@@ -229,12 +230,12 @@ abstract class IterableToContainInAnyOrderAtLeastValuesExpectationsSpec(
                     }.toThrow<AssertionError> {
                         message {
                             toContain(
-                                "$rootBulletPoint$toContainInAnyOrder: $separator",
-                                "$anElementWhichEquals: 5.0",
-                                "$numberOfSuchElements: 2$separator"
+                                "$g$toContainInAnyOrder : $lineSeparator",
+                                "$anElementWhichEquals : 5.0",
+                                "$numberOfSuchElements : 2$lineSeparator"
                             )
-                            toEndWith("$atLeastDescr: 3")
-                            notToContain(atMostDescr, "$anElementWhichEquals: 4.0")
+                            toContainRegex("$atLeastDescr\\s+: 3")
+                            notToContain(atMostDescr, "$anElementWhichEquals : 4.0")
                         }
                     }
                 }

@@ -3,8 +3,9 @@ package ch.tutteli.atrium.specs.integration
 import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionIterableLikeProof
 import ch.tutteli.atrium.specs.*
-import ch.tutteli.atrium.translations.DescriptionIterableLikeExpectation.TO_CONTAIN
+import ch.tutteli.atrium.specs.lineSeparator
 
 abstract class IterableToContainInAnyOrderAtLeast1ValuesExpectationsSpec(
     toContainInAnyOrderValues: Fun2<Iterable<Double>, Double, Array<out Double>>,
@@ -37,13 +38,15 @@ abstract class IterableToContainInAnyOrderAtLeast1ValuesExpectationsSpec(
             it("1.0 throws AssertionError") {
                 expect {
                     expect(fluentEmpty()).toContainFun(1.0)
-                }.toThrow<AssertionError> {
-                    messageToContain(
-                        "$rootBulletPoint$toContainInAnyOrder: $separator",
-                        "$anElementWhichEquals: 1.0",
-                        noSuchValueDescr
+                }.toThrow<AssertionError>().message.toMatch(
+                    Regex(
+                        "$expectationVerb : .+$lineSeparator" +
+                            "$g$toContainInAnyOrder : $lineSeparator" +
+                            //TODO 1.3.0 should be $x instead of $g and noSuchValueDescr isn't needed
+                            "$indentG$g$anElementWhichEquals : 1.0$lineSeparator" +
+                            "$indentGg$explanatoryBulletPoint$noSuchValueDescr"
                     )
-                }
+                )
             }
         }
 
@@ -70,8 +73,8 @@ abstract class IterableToContainInAnyOrderAtLeast1ValuesExpectationsSpec(
                         expect(oneToSeven()).toContainFun(9.5)
                     }.toThrow<AssertionError> {
                         messageToContain(
-                            "$rootBulletPoint$toContainInAnyOrder: $separator",
-                            "$anElementWhichEquals: 9.5",
+                            "$g$toContainInAnyOrder : $lineSeparator",
+                            "$anElementWhichEquals : 9.5",
                             noSuchValueDescr
                         )
                     }
@@ -81,13 +84,11 @@ abstract class IterableToContainInAnyOrderAtLeast1ValuesExpectationsSpec(
                         expect(oneToSeven()).toContainFun(9.5, 7.1)
                     }.toThrow<AssertionError> {
                         message {
-                            toContain.exactly(2).values(
-                                noSuchValueDescr
-                            )
+                            toContain.exactly(2).values(noSuchValueDescr)
                             toContain.exactly(1).values(
-                                "$rootBulletPoint$toContainInAnyOrder: $separator",
-                                "$anElementWhichEquals: 9.5",
-                                "$anElementWhichEquals: 7.1"
+                                "$g$toContainInAnyOrder : $lineSeparator",
+                                "$anElementWhichEquals : 9.5",
+                                "$anElementWhichEquals : 7.1"
                             )
                         }
                     }
@@ -97,8 +98,8 @@ abstract class IterableToContainInAnyOrderAtLeast1ValuesExpectationsSpec(
                         expect(oneToSeven()).toContainFun(1.0, 9.5)
                     }.toThrow<AssertionError> {
                         message {
-                            toContainRegex("$toContainInAnyOrder: $separator.*$anElementWhichEquals: 9.5")
-                            notToContain.regex("$toContainInAnyOrder: $separator.*$anElementWhichEquals: 1.0")
+                            toContainRegex("$toContainInAnyOrder : $lineSeparator.*$anElementWhichEquals : 9.5")
+                            notToContain.regex("$toContainInAnyOrder : $lineSeparator.*$anElementWhichEquals : 1.0")
                         }
                     }
                 }
@@ -134,7 +135,9 @@ abstract class IterableToContainInAnyOrderAtLeast1ValuesExpectationsSpec(
                     it("2.5 throws AssertionError") {
                         expect {
                             expect(oneToSevenNullable()).toContainInAnyOrderNullableValuesFun(2.5)
-                        }.toThrow<AssertionError> { messageToContain(TO_CONTAIN.getDefault()) }
+                        }.toThrow<AssertionError> {
+                            messageToContain("$anElementWhichEquals : 2.5")
+                        }
                     }
                 }
             }

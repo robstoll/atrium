@@ -18,7 +18,7 @@ data class OutputNode(
             require(children.isNotEmpty()) { "a node without columns need to define children" }
             val childWithoutColumnsNotOwnLevel = children.filter { it.definesOwnLevel.not() && it.columns.isEmpty() }
             require(childWithoutColumnsNotOwnLevel.isEmpty()) {
-                "a node without columns cannot define children with definesOwnLevel=false which don't have columns (they should be flattened instead). Following children don't define own columns:\n${
+                "a node without columns cannot define children with definesOwnLevel=false which don't have columns (they should be flattened/merged into it instead, for instance, a ProofExplanation explaining an invisibleProofGroup should flatten the invisibleGroup and thus treat the children as its own). Following children don't define own columns:\n${
                     childWithoutColumnsNotOwnLevel.joinToString(
                         ", "
                     )

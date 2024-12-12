@@ -1,14 +1,12 @@
 package ch.tutteli.atrium.reporting.prerendering.text
 
 import ch.tutteli.atrium.assertions.ExplanatoryAssertion
+import ch.tutteli.atrium.creating.proofs.InvisibleFixedClaimGroup
 import ch.tutteli.atrium.creating.proofs.InvisibleProofGroup
 import ch.tutteli.atrium.creating.proofs.Proof
-import ch.tutteli.atrium.reporting.reportables.Icon
+import ch.tutteli.atrium.creating.proofs.ProofGroup
 import ch.tutteli.atrium.reporting.Text
-import ch.tutteli.atrium.reporting.reportables.Reportable
-import ch.tutteli.atrium.reporting.reportables.ReportableGroup
-import ch.tutteli.atrium.reporting.reportables.ReportableGroupWithDescription
-import ch.tutteli.atrium.reporting.reportables.ReportableWithDesignation
+import ch.tutteli.atrium.reporting.reportables.*
 import ch.tutteli.atrium.reporting.theming.text.StyledString
 import ch.tutteli.kbox.takeIf
 
@@ -68,7 +66,7 @@ fun <T> TextPreRenderController.transformSubProofGroup(
 fun <T> TextPreRenderController.transformSubProofGroup(
     reportableGroupWithDesignation: T,
     controlObject: TextPreRenderControlObject,
-    prefixDescriptionColumns: List<StyledString> = listOf(StyledString.EMPTY_STRING),
+    prefixDescriptionColumns: List<StyledString> = listOf(),
     suffixDescriptionColumns: List<StyledString> = emptyList(),
     startMergeAtColumn: Int = 1,
     childTransformer: (child: Reportable) -> List<OutputNode>,
@@ -76,7 +74,10 @@ fun <T> TextPreRenderController.transformSubProofGroup(
     transformGroup(
         reportableGroupWithDesignation,
         controlObject,
-        prefixDescriptionColumns,
+        // we add an empty string as additional colum because we want that description of the group spans over
+        // two columns, this way children's prefix icon will be in the first column and their description in the second
+        // allowing that they are aligned again (otherwise the icon is in the same column as the description)
+        prefixDescriptionColumns + listOf(StyledString.EMPTY_STRING),
         suffixDescriptionColumns,
         startMergeAtColumn,
         childTransformer
@@ -144,6 +145,8 @@ fun determineChildControlObject(
                 } else
                     if (child.holds()) {
                         controlObject.copy(prefix = Icon.SUCCESS, indentLevel = indentLevel)
+                    } else if (child is ProofGroup && child.hasAtLeastOneLeaveProof()) {
+                        controlObject.copy(prefix = Icon.FAILING_GROUP, indentLevel = indentLevel)
                     } else {
                         controlObject.copy(prefix = Icon.FAILURE, indentLevel = indentLevel)
                     }
@@ -154,3 +157,23 @@ fun determineChildControlObject(
     }
     return newControlObject ?: controlObject.copy(prefix = childPrefix, indentLevel = indentLevel)
 }
+
+fun ReportableGroup.hasAtLeastOneLeaveProof(): Boolean =
+    this.children.any { child ->
+        run {
+            child is Proof &&
+                (child !is ProofGroup || (child !is InvisibleProofGroup && child !is InvisibleFixedClaimGroup || child.hasAtLeastOneLeaveProof()))
+        } || run {
+            child is FailureExplanationGroup && child.hasAtLeastOneLeaveProof()
+        } || run {
+            // if a child is a proof explanation, then we only want to show the flag in case the proof explanation
+            // contains a failure explanation, because the failure explanation might have a leave proof as well
+            // see CreateReportTest -> proofExplanation_withFailureExplanation for a case where a ProofExplanation
+            // contains a FailureExplanation but the FailureExplanation does not contain Proofs => i.e. don't use the
+            // flag
+            // see CreateReportTest -> proofExplanation_withFailureExplanationAndSubProofs_showsOnlyFailingProofs for
+            // a case where a ProofExplanation contains a FailureExplanation and it in turn contains a Proof
+            child is ProofExplanation && child.children.any { it is FailureExplanationGroup && it.hasAtLeastOneLeaveProof() }
+        }
+    }
+

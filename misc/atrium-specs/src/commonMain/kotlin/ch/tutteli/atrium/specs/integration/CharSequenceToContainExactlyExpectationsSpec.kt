@@ -3,9 +3,8 @@ package ch.tutteli.atrium.specs.integration
 import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionCharSequenceProof.*
 import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionCharSequenceProof.Companion.IGNORING_CASE
-import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionCharSequenceProof.EXACTLY
-import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionCharSequenceProof.TO_CONTAIN
 import ch.tutteli.atrium.specs.*
 import org.spekframework.spek2.style.specification.Suite
 
@@ -86,13 +85,15 @@ abstract class CharSequenceToContainExactlyExpectationsSpec(
                     expect {
                         expect(helloWorld).toContainExactlyFun(1, 'h')
                     }.toThrow<AssertionError> {
-                        message {
-                            toContainSubject("\"$helloWorld\"")
-                            toContainDescr(TO_CONTAIN, "")
-                            toContainValue("'h'")
-                            toContainNumberOfMatches(0)
-                            toContainDescr(EXACTLY, 1)
-                        }
+                        message.toMatch(
+                            Regex(
+                                "$expectationVerb : \"$helloWorld\"$lineSeparator" +
+                                    "$g${TO_CONTAIN.string} : $lineSeparator" +
+                                    "${indentG}${g}${VALUE.string} : 'h'$lineSeparator" +
+                                    "${indentG}${indentG}${g}${f}${NUMBER_OF_MATCHES.string} : 0$lineSeparator" +
+                                    "${indentG}${indentG}${indentG}${indentF}${x}${EXACTLY.string}\\s+: 1"
+                            )
+                        )
                     }
                 }
                 it("${toContainExactlyIgnoringCasePair.first("'h'", "once")} throws AssertionError") {

@@ -84,7 +84,7 @@ class PathExpectationsSpec : ch.tutteli.atrium.specs.integration.PathExpectation
         ): Expect<Path> = expect resolve path(other) { assertionCreator() }
     }
 
-    @Suppress("unused", "UNUSED_VALUE")
+    @Suppress("unused")
     private fun ambiguityTest() {
         val a1: Expect<DummyPath> = notImplemented()
 

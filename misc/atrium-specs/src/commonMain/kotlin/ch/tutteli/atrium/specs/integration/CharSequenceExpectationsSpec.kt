@@ -57,10 +57,10 @@ abstract class CharSequenceExpectationsSpec(
             it("${notToBeEmpty.name} throws an AssertionError") {
                 expect {
                     expect(emptyString).notToBeEmptyFun()
-                }.toThrow<AssertionError> { message { toContainNotToBeDescr("empty") } }
+                }.toThrow<AssertionError> { message { toContainNotToBeDescr(EMPTY) } }
                 expect {
                     expect(emptyStringBuilder).notToBeEmptyFun()
-                }.toThrow<AssertionError> { message { toContainNotToBeDescr("empty") } }
+                }.toThrow<AssertionError> { message { toContainNotToBeDescr(EMPTY) } }
             }
         }
         context("string is not empty") {
@@ -68,10 +68,10 @@ abstract class CharSequenceExpectationsSpec(
             it("${toBeEmpty.name} throws an AssertionError") {
                 expect {
                     expect(blankString).toBeEmptyFun()
-                }.toThrow<AssertionError> { message { toContainToBeDescr("empty") } }
+                }.toThrow<AssertionError> { message { toContainToBeDescr(EMPTY) } }
                 expect {
                     expect(blankStringBuilder).toBeEmptyFun()
-                }.toThrow<AssertionError> { message { toContainToBeDescr("empty") } }
+                }.toThrow<AssertionError> { message { toContainToBeDescr(EMPTY) } }
             }
             it("${notToBeEmpty.name} does not throw") {
                 expect(blankString).notToBeEmptyFun()
@@ -88,10 +88,10 @@ abstract class CharSequenceExpectationsSpec(
 
                 expect {
                     expect(blankString).notToBeBlankFun()
-                }.toThrow<AssertionError> { message { toContainNotToBeDescr("blank") } }
+                }.toThrow<AssertionError> { message { toContainNotToBeDescr(BLANK) } }
                 expect {
                     expect(blankStringBuilder).notToBeBlankFun()
-                }.toThrow<AssertionError> { message { toContainNotToBeDescr("blank") } }
+                }.toThrow<AssertionError> { message { toContainNotToBeDescr(BLANK) } }
             }
         }
         context("string is not blank") {

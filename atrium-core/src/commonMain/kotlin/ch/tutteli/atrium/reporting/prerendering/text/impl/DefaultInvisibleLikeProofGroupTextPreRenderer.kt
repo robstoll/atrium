@@ -8,9 +8,14 @@ import ch.tutteli.atrium.reporting.reportables.Reportable
 
 internal class DefaultInvisibleLikeProofGroupTextPreRenderer : TextPreRenderer {
 
+
     override fun canTransform(reportable: Reportable): Boolean =
         reportable is InvisibleProofGroup ||
-            reportable is InvisibleFixedClaimGroup
+            reportable is InvisibleFixedClaimGroup ||
+            @Suppress("DEPRECATION")
+            run {
+                reportable is ch.tutteli.atrium.assertions.InvisibleAssertionGroup
+            }
 
     override fun transform(
         reportable: Reportable,

@@ -22,7 +22,7 @@ class OptionalExpectationsSpec : OptionalExpectationsSpec(
         private fun toBePresentFeature(expect: Expect<Optional<Int>>) = expect toBe present
     }
 
-    @Suppress("unused", "UNUSED_VALUE")
+    @Suppress("unused")
     private fun ambiguityTest() {
         var o1: Expect<Optional<Any>> = notImplemented()
         var o1b: Expect<Optional<Any?>> = notImplemented()
