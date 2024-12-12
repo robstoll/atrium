@@ -42,40 +42,40 @@ abstract class MapLikeToContainFormatSpecBase(spec: Root.() -> Unit) : MapLikeTo
 
         fun Expect<String>.entrySuccess(key: String, actual: Any?, expected: String): Expect<String> {
             return this.toContain.exactly(1).regex(
-                "$indentRootBulletPoint\\Q$successfulBulletPoint$featureArrow${entry(key)}: $actual\\E.*${separator}" +
-                    "$indentRootBulletPoint$indentSuccessfulBulletPoint$indentFeatureArrow$featureBulletPoint$expected"
+                "$indentRootBulletPoint\\Q$successfulBulletPoint$featureArrow${entry(key)}: $actual\\E.*$lineSeparator" +
+                        "$indentRootBulletPoint$indentSuccessfulBulletPoint$indentFeatureArrow$featureBulletPoint$expected"
             )
         }
 
         fun Expect<String>.entryFailing(key: String?, actual: Any?, expected: String): Expect<String> {
             return this.toContain.exactly(1).regex(
-                "\\Q$failingBulletPoint$featureArrow${entry(key)}: $actual\\E.*${separator}" +
-                    "$indentRootBulletPoint$indentSuccessfulBulletPoint$indentFeatureArrow$featureBulletPoint$expected"
+                "\\Q$x$featureArrow${entry(key)}: $actual\\E.*$lineSeparator" +
+                        "$indentRootBulletPoint$indentSuccessfulBulletPoint$indentFeatureArrow$featureBulletPoint$expected"
             )
         }
 
         fun Expect<String>.entryFailingExplaining(key: String?, actual: Any?, expected: String): Expect<String> {
             return this.toContain.exactly(1).regex(
-                "\\Q$failingBulletPoint$featureArrow${entry(key)}: $actual\\E.*${separator}" +
-                    "$indentRootBulletPoint$indentSuccessfulBulletPoint$indentFeatureArrow$indentFeatureBulletPoint$explanatoryBulletPoint$expected"
+                "\\Q$x$featureArrow${entry(key)}: $actual\\E.*$lineSeparator" +
+                        "$indentRootBulletPoint$indentSuccessfulBulletPoint$indentFeatureArrow$indentFeatureBulletPoint$explanatoryBulletPoint$expected"
             )
         }
 
         fun Expect<String>.entryNonExisting(key: String, expected: String): Expect<String> {
             return this.toContain.exactly(1).regex(
-                "\\Q$failingBulletPoint$featureArrow${entry(key)}: $keyDoesNotExist\\E.*${separator}" +
-                    "$indentRootBulletPoint$indentSuccessfulBulletPoint$indentFeatureArrow$indentFeatureBulletPoint$explanatoryBulletPoint$expected"
+                "\\Q$x$featureArrow${entry(key)}: $keyDoesNotExist\\E.*$lineSeparator" +
+                        "$indentRootBulletPoint$indentSuccessfulBulletPoint$indentFeatureArrow$indentFeatureBulletPoint$explanatoryBulletPoint$expected"
             )
         }
 
         fun Expect<String>.additionalEntries(vararg pairs: Pair<String?, Any>): Expect<String> =
             and {
                 val additionalEntries =
-                    "\\Q$warningBulletPoint${DescriptionMapLikeExpectation.WARNING_ADDITIONAL_ENTRIES.getDefault()}\\E: $separator"
+                    "\\Q$warningBulletPoint${DescriptionMapLikeExpectation.WARNING_ADDITIONAL_ENTRIES.getDefault()}\\E: $lineSeparator"
                 toContain.exactly(1).regex(additionalEntries)
                 pairs.forEach { (key, value) ->
                     toContain.exactly(1)
-                        .regex(additionalEntries + "(.|$separator)+$listBulletPoint${entry(key, value)}")
+                        .regex(additionalEntries + "(.|$lineSeparator)+$listBulletPoint${entry(key, value)}")
                 }
             }
 
@@ -102,12 +102,16 @@ abstract class MapLikeToContainFormatSpecBase(spec: Root.() -> Unit) : MapLikeTo
                 "$indentRootBulletPoint$indent$indentFeatureArrow" + (if (explaining) indentFeatureBulletPoint else "")
 
             return this.toContain.exactly(1).regex(
-                "\\Q${if (withBulletPoint) successFailureBulletPoint else ""}$featureArrow${ IterableToContainSpecBase.elementWithIndex(index)}: $actual\\E.*$separator" +
-                    (if (withKey) "$indentToKeyValue$keyValueBulletPoint${featureArrow}key:.*$separator" +
-                        "$indentToKeyValue$indentKeyValueBulletPoint$indentFeatureArrow$featureBulletPoint$toEqualDescr: ${if (expectedKey == null) "null" else "\"$expectedKey\""}.*$separator"
-                    else "") +
-                    (if (withValue) "$indentToKeyValue$keyValueBulletPoint${featureArrow}value:.*$separator" +
-                        "$indentToKeyValue$indentKeyValueBulletPoint$indentFeatureArrow${if (explainingValue) "$indentFeatureBulletPoint$explanatoryBulletPoint" else featureBulletPoint}$expectedValue"
+                "\\Q${if (withBulletPoint) successFailureBulletPoint else ""}$featureArrow${
+                    IterableToContainSpecBase.elementWithIndex(
+                        index
+                    )
+                }: $actual\\E.*$lineSeparator" +
+                        (if (withKey) "$indentToKeyValue$keyValueBulletPoint${featureArrow}key:.*$lineSeparator" +
+                                "$indentToKeyValue$indentKeyValueBulletPoint$indentFeatureArrow$featureBulletPoint$toEqualDescr: ${if (expectedKey == null) "null" else "\"$expectedKey\""}.*$lineSeparator"
+                        else "") +
+                    (if (withValue) "$indentToKeyValue$keyValueBulletPoint${featureArrow}value:.*$lineSeparator" +
+                            "$indentToKeyValue$indentKeyValueBulletPoint$indentFeatureArrow${if (explainingValue) "$indentFeatureBulletPoint$explanatoryBulletPoint" else featureBulletPoint}$expectedValue"
                     else "")
             )
         }

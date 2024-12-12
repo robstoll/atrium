@@ -24,7 +24,7 @@ abstract class IterableToContainInOrderOnlyValuesExpectationsSpec(
 
     val toBeWithFeature = "$indentFeatureArrow$featureBulletPoint$toEqualDescr"
     val toBeAfterSuccess = "$indentRootBulletPoint$indentSuccessfulBulletPoint$toBeWithFeature"
-    val toBeAfterFailing = "$indentRootBulletPoint$indentFailingBulletPoint$toBeWithFeature"
+    val toBeAfterFailing = "$indentRootBulletPoint$indentX$toBeWithFeature"
 
 
     fun Expect<String>.elementSuccess(index: Int, expected: String, withBulletPoint: Boolean = true): Expect<String> =
@@ -42,7 +42,7 @@ abstract class IterableToContainInOrderOnlyValuesExpectationsSpec(
         withBulletPoint: Boolean = true
     ): Expect<String> {
         return this.toContain.exactly(1).regex(
-            "\\Q${if (withBulletPoint) failingBulletPoint else ""}$featureArrow${elementWithIndex(index)}: $actual\\E.*$separator" +
+            "\\Q${if (withBulletPoint) x else ""}$featureArrow${elementWithIndex(index)}: $actual\\E.*$separator" +
                 "$toBeAfterFailing: $expected"
         )
     }
@@ -53,8 +53,8 @@ abstract class IterableToContainInOrderOnlyValuesExpectationsSpec(
         withBulletPoint: Boolean = true
     ): Expect<String> {
         return this.toContain.exactly(1).regex(
-            "\\Q${if (withBulletPoint) failingBulletPoint else ""}$featureArrow${elementWithIndex(index)}: $sizeExceeded\\E.*$separator" +
-                "$indentRootBulletPoint$indentFailingBulletPoint$indentFeatureArrow$indentFeatureBulletPoint$explanatoryBulletPoint$toEqualDescr: $expected"
+            "\\Q${if (withBulletPoint) x else ""}$featureArrow${elementWithIndex(index)}: $sizeExceeded\\E.*$separator" +
+                "$indentRootBulletPoint$indentX$indentFeatureArrow$indentFeatureBulletPoint$explanatoryBulletPoint$toEqualDescr: $expected"
         )
     }
 

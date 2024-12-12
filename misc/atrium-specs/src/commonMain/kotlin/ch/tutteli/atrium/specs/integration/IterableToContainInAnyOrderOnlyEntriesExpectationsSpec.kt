@@ -39,7 +39,7 @@ abstract class IterableToContainInAnyOrderOnlyEntriesExpectationsSpec(
 
     //@formatter:off
     val anEntryAfterSuccess = "$anElementWhichNeedsDescr: $separator$indentRootBulletPoint$indentSuccessfulBulletPoint$indentListBulletPoint$explanatoryBulletPoint"
-    val anEntryAfterFailing = "$anElementWhichNeedsDescr: $separator$indentRootBulletPoint$indentFailingBulletPoint$indentListBulletPoint$explanatoryBulletPoint"
+    val anEntryAfterFailing = "$anElementWhichNeedsDescr: $separator$indentRootBulletPoint$indentX$indentListBulletPoint$explanatoryBulletPoint"
     //@formatter:on
 
     nonNullableCases(
@@ -61,7 +61,7 @@ abstract class IterableToContainInAnyOrderOnlyEntriesExpectationsSpec(
                     message {
                         toContain(
                             "$rootBulletPoint$toContainInAnyOrderOnly:",
-                            "$failingBulletPoint$anEntryAfterFailing$toBeLessThanDescr: 1.0"
+                            "$x$anEntryAfterFailing$toBeLessThanDescr: 1.0"
                         )
                         notToContain(additionalElements)
                         toContainSize(0, 1)
@@ -75,8 +75,8 @@ abstract class IterableToContainInAnyOrderOnlyEntriesExpectationsSpec(
                     message {
                         toContain.exactly(1).values(
                             "$rootBulletPoint$toContainInAnyOrderOnly:",
-                            "$failingBulletPoint$anEntryAfterFailing$toBeLessThanDescr: 1.0",
-                            "$failingBulletPoint$anEntryAfterFailing$toBeGreaterThanDescr: 4.0"
+                            "$x$anEntryAfterFailing$toBeLessThanDescr: 1.0",
+                            "$x$anEntryAfterFailing$toBeGreaterThanDescr: 4.0"
                         )
                         notToContain(additionalElements)
                         toContainSize(0, 2)
@@ -191,7 +191,7 @@ abstract class IterableToContainInAnyOrderOnlyEntriesExpectationsSpec(
                                 toContain.exactly(1).values(
                                     "$rootBulletPoint$toContainInAnyOrderOnly:",
                                     "$successfulBulletPoint$anEntryAfterSuccess$toBeLessThanDescr: 5.0",
-                                    "$failingBulletPoint$anEntryAfterFailing$toEqualDescr: 1.0",
+                                    "$x$anEntryAfterFailing$toEqualDescr: 1.0",
                                     "$successfulBulletPoint$anEntryAfterSuccess$toEqualDescr: 2.0",
                                     "$successfulBulletPoint$anEntryAfterSuccess$toEqualDescr: 3.0",
                                     "$successfulBulletPoint$anEntryAfterSuccess$toEqualDescr: 4.0",
@@ -217,7 +217,7 @@ abstract class IterableToContainInAnyOrderOnlyEntriesExpectationsSpec(
                                     "$rootBulletPoint$toContainInAnyOrderOnly:",
                                     "$successfulBulletPoint$anEntryAfterSuccess$toEqualDescr: 1.0",
                                     "$successfulBulletPoint$anEntryAfterSuccess$toBeGreaterThanDescr: 3.0",
-                                    "$failingBulletPoint$anEntryAfterFailing$toBeGreaterThanDescr: 4.0",
+                                    "$x$anEntryAfterFailing$toBeGreaterThanDescr: 4.0",
                                     "$warningBulletPoint$mismatchesAdditionalElements:",
                                     "${listBulletPoint}2.0",
                                     "${listBulletPoint}3.0",
@@ -246,7 +246,7 @@ abstract class IterableToContainInAnyOrderOnlyEntriesExpectationsSpec(
                                     "$successfulBulletPoint$anEntryAfterSuccess$toEqualDescr: 1.0",
                                     "$successfulBulletPoint$anEntryAfterSuccess$toEqualDescr: 2.0",
                                     "$successfulBulletPoint$anEntryAfterSuccess$toEqualDescr: 3.0",
-                                    "$failingBulletPoint$anEntryAfterSuccess$toEqualDescr: 5.0"
+                                    "$x$anEntryAfterSuccess$toEqualDescr: 5.0"
                                 )
                                 toContain.exactly(2)
                                     .value("$successfulBulletPoint$anEntryAfterSuccess$toEqualDescr: 4.0")
@@ -370,10 +370,10 @@ abstract class IterableToContainInAnyOrderOnlyEntriesExpectationsSpec(
                                 "$successfulBulletPoint$anEntryAfterSuccess$toEqualDescr: 2.0",
                                 "$successfulBulletPoint$anEntryAfterSuccess$toEqualDescr: 3.0",
                                 "$successfulBulletPoint$anEntryAfterSuccess$toEqualDescr: 4.0",
-                                "$failingBulletPoint$anEntryAfterFailing$toEqualDescr: -1.0",
+                                "$x$anEntryAfterFailing$toEqualDescr: -1.0",
                                 "$successfulBulletPoint$anEntryAfterSuccess$toEqualDescr: 6.0",
                                 "$successfulBulletPoint$anEntryAfterSuccess$toEqualDescr: 7.0",
-                                "$failingBulletPoint$anEntryAfterFailing$toEqualDescr: -2.0",
+                                "$x$anEntryAfterFailing$toEqualDescr: -2.0",
                                 "$successfulBulletPoint$anEntryAfterSuccess$toEqualDescr: 9.0",
                                 "$successfulBulletPoint$anEntryAfterSuccess$toEqualDescr: 10.0",
                                 "$successfulBulletPoint$anEntryAfterSuccess$toEqualDescr: 11.0",
@@ -461,7 +461,7 @@ abstract class IterableToContainInAnyOrderOnlyEntriesExpectationsSpec(
                                 toContain.exactly(1).values(
                                     "$rootBulletPoint$toContainInAnyOrderOnly:",
                                     "$successfulBulletPoint$anEntryAfterSuccess$toBeLessThanDescr: 4.0",
-                                    "$failingBulletPoint$anEntryAfterFailing$toEqualDescr: 1.0",
+                                    "$x$anEntryAfterFailing$toEqualDescr: 1.0",
                                     "$warningBulletPoint$mismatches:",
                                     "${listBulletPoint}3.0"
                                 )

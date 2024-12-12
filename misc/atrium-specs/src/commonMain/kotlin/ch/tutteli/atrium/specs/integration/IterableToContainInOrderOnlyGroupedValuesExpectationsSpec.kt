@@ -58,7 +58,7 @@ abstract class IterableToContainInOrderOnlyGroupedValuesExpectationsSpec(
 
     val toEqualWithFeature = "$indentFeatureArrow$featureBulletPoint$toEqualDescr"
     val toEqualAfterSuccess = "$indentRootBulletPoint$indentSuccessfulBulletPoint$toEqualWithFeature"
-    val toEqualAfterFailing = "$indentRootBulletPoint$indentFailingBulletPoint$toEqualWithFeature"
+    val toEqualAfterFailing = "$indentRootBulletPoint$indentX$toEqualWithFeature"
 
 
     fun element(prefix: String, bulletPoint: String, expected: Array<out Double?>) =
@@ -67,15 +67,15 @@ abstract class IterableToContainInOrderOnlyGroupedValuesExpectationsSpec(
     fun size(prefix: String, bulletPoint: String, actual: Int?, expected: Int) =
         "$prefix\\Q$bulletPoint\\E${featureArrow}${DescriptionCollectionExpectation.SIZE.getDefault()}:${actual?.let { " $it" } ?: ""}[^:]+: $expected"
 
-    val afterFail = "$indentRootBulletPoint$indentFailingBulletPoint$indentFeatureArrow$indentFeatureBulletPoint"
-    val additionalElementsFail = "$indentRootBulletPoint$indentFailingBulletPoint"
+    val afterFail = "$indentRootBulletPoint$indentX$indentFeatureArrow$indentFeatureBulletPoint"
+    val additionalElementsFail = "$indentRootBulletPoint$indentX"
     fun failAfterFail(vararg expected: Double?, withBulletPoint: Boolean = true) =
-        element(afterFail, if (withBulletPoint) failingBulletPoint else listBulletPoint, expected)
+        element(afterFail, if (withBulletPoint) x else listBulletPoint, expected)
 
     fun successAfterFail(vararg expected: Double?) = element(afterFail, successfulBulletPoint, expected)
 
     fun sizeCheck(actual: Int?, expected: Int, bulletPoint: String = featureBulletPoint) = size(
-        "$indentRootBulletPoint$indentFailingBulletPoint$indentFeatureArrow", bulletPoint, actual, expected
+        "$indentRootBulletPoint$indentX$indentFeatureArrow", bulletPoint, actual, expected
     )
 
     fun Expect<String>.notToContainIndex(from: Int, to: Int) =
@@ -100,7 +100,7 @@ abstract class IterableToContainInOrderOnlyGroupedValuesExpectationsSpec(
 
     val afterSuccess = "$indentRootBulletPoint$indentSuccessfulBulletPoint$indentFeatureArrow$indentFeatureBulletPoint"
     fun successAfterSuccess(vararg expected: Double?) = element(afterSuccess, successfulBulletPoint, expected)
-    fun failAfterSuccess(vararg expected: Double?) = element(afterSuccess, failingBulletPoint, expected)
+    fun failAfterSuccess(vararg expected: Double?) = element(afterSuccess, x, expected)
 
 
     fun Expect<String>.indexSuccess(index: Int, expected: Double): Expect<String> {
@@ -120,7 +120,7 @@ abstract class IterableToContainInOrderOnlyGroupedValuesExpectationsSpec(
         return this.toContain.exactly(1).regex(
             "\\Q$successfulBulletPoint$featureArrow${index(fromIndex, toIndex)}: $actual\\E.*$separator" +
                 "$sizeCheck.*$separator" +
-                "$indentRootBulletPoint$indentFailingBulletPoint$indentFeatureArrow$featureBulletPoint$toContainInAnyOrderOnly: $separator" +
+                "$indentRootBulletPoint$indentX$indentFeatureArrow$featureBulletPoint$toContainInAnyOrderOnly: $separator" +
                 expected.joinToString(".*$separator")
 
         )
@@ -133,7 +133,7 @@ abstract class IterableToContainInOrderOnlyGroupedValuesExpectationsSpec(
         withBulletPoint: Boolean = true
     ): Expect<String> {
         return this.toContain.exactly(1).regex(
-            "\\Q${if (withBulletPoint) failingBulletPoint else ""}$featureArrow${index(index)}: $actual\\E.*$separator" +
+            "\\Q${if (withBulletPoint) x else ""}$featureArrow${index(index)}: $actual\\E.*$separator" +
                 "$toEqualAfterFailing: $expected"
         )
     }
@@ -147,18 +147,18 @@ abstract class IterableToContainInOrderOnlyGroupedValuesExpectationsSpec(
         withBulletPoint: Boolean = true
     ): Expect<String> {
         return this.toContain.exactly(1).regex(
-            "\\Q${if (withBulletPoint) failingBulletPoint else ""}$featureArrow${
+            "\\Q${if (withBulletPoint) x else ""}$featureArrow${
                 index(fromIndex, toIndex)
             }: $actual\\E.*$separator" +
                 (sizeCheck?.let { "$sizeCheck.*$separator" } ?: "") +
-                "$indentRootBulletPoint${if (withBulletPoint) indentFailingBulletPoint else indentListBulletPoint}$indentFeatureArrow$featureBulletPoint$toContainInAnyOrderOnly: $separator" +
+                "$indentRootBulletPoint${if (withBulletPoint) indentX else indentListBulletPoint}$indentFeatureArrow$featureBulletPoint$toContainInAnyOrderOnly: $separator" +
                 expected.joinToString(".*$separator")
         )
     }
 
     fun Expect<String>.indexNonExisting(index: Int, expected: Double, withBulletPoint: Boolean = true): Expect<String> {
         return this.toContain.exactly(1).regex(
-            "\\Q${if (withBulletPoint) failingBulletPoint else ""}$featureArrow${index(index)}: $sizeExceeded\\E.*$separator" +
+            "\\Q${if (withBulletPoint) x else ""}$featureArrow${index(index)}: $sizeExceeded\\E.*$separator" +
                 "$afterFail$explanatoryBulletPoint$toEqualDescr: $expected"
         )
     }
@@ -170,11 +170,11 @@ abstract class IterableToContainInOrderOnlyGroupedValuesExpectationsSpec(
         withBulletPoint: Boolean = true
     ): Expect<String> {
         return this.toContain.exactly(1).regex(
-            "\\Q${if (withBulletPoint) failingBulletPoint else ""}$featureArrow${
+            "\\Q${if (withBulletPoint) x else ""}$featureArrow${
                 index(fromIndex, toIndex)
             }: $sizeExceeded\\E.*$separator" +
                 "$afterFail$sizeCheck.*$separator" +
-                "$indentRootBulletPoint${if (withBulletPoint) indentFailingBulletPoint else indentListBulletPoint}$indentFeatureArrow$indentFeatureBulletPoint$explanatoryBulletPoint$toContainInAnyOrderOnly: $separator" +
+                "$indentRootBulletPoint${if (withBulletPoint) indentX else indentListBulletPoint}$indentFeatureArrow$indentFeatureBulletPoint$explanatoryBulletPoint$toContainInAnyOrderOnly: $separator" +
                 expected.joinToString(".*$separator") { ".*$anElementWhichEquals: $it" }
         )
     }

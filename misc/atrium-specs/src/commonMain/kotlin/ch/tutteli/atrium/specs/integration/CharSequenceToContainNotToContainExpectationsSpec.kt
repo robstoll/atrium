@@ -32,13 +32,21 @@ abstract class CharSequenceToContainNotToContainExpectationsSpec(
                 expect {
                     expect("" as CharSequence).toContainFun("Hello")
                 }.toThrow<AssertionError> {
-                    message {
-                        toContainSubject("\"\"")
-                        toContainDescr(TO_CONTAIN, "")
-                        toContainValue("\"Hello\"")
-                        //TODO 1.3.0 expect that it starts with ❗❗ (right now it starts with »)
-                        toContain(NOT_FOUND.string)
-                    }
+                    message.toMatch(
+                        //TODO 1.3.0/1.4.0 expect (note the $x instead of $g), the
+                        // » but no match was found is unnecessary now IMO
+//                            Regex(
+//                                "$expectationVerb : \"$helloWorld\"$lineSeparator" +
+//                                    "$g${TO_CONTAIN.string} : $lineSeparator" +
+//                                    "${indentG}${x}${VALUE.string} : "Hello"$lineSeparator"
+//                            )
+                        Regex(
+                            "$expectationVerb : \"\"$lineSeparator" +
+                                "$g${TO_CONTAIN.string} : $lineSeparator" +
+                                "${indentG}${g}${VALUE.string} : \"Hello\"$lineSeparator" +
+                                "${indentG}${indentG}${explanatoryBulletPoint}${NOT_FOUND.string}"
+                        )
+                    )
                 }
             }
             it("${notToContain.name} 'Hello' does not throw") {
@@ -56,6 +64,19 @@ abstract class CharSequenceToContainNotToContainExpectationsSpec(
                     expect {
                         expect(text).notToContainFun("Hello")
                     }.toThrow<AssertionError> {
+                        message.toMatch(
+                            //TODO 1.4.0 once migrated to proof, I would like to see
+                            // 🚩️ not to contain :
+                            //    🚫️ value : "Hello"
+                            //       🔎 number of matches : 1
+                            Regex(
+                                "$expectationVerb : \"$text\"$lineSeparator" +
+                                    "$g${NOT_TO_CONTAIN.string} : $lineSeparator" +
+                                    "${indentG}${g}${VALUE.string} : \"Hello\"$lineSeparator" +
+                                    "${indentG}${indentG}${g}${featureArrow}${NUMBER_OF_MATCHES.string} : 1$lineSeparator" +
+                                    "${indentG}${indentG}${indentG}${indentFeatureArrow}${x}${toEqualDescr}\\s+: 0"
+                            )
+                        )
                         message {
                             toContainSubject("\"$text\"")
                             toContainDescr(NOT_TO_CONTAIN, "")

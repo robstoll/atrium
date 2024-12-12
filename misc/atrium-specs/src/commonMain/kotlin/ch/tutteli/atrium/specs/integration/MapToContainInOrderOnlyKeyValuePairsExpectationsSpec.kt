@@ -71,7 +71,7 @@ abstract class MapToContainInOrderOnlyKeyValuePairsExpectationsSpec(
         withValue: Boolean = true
     ): Expect<String> =
         element(
-            failingBulletPoint,
+            x,
             index,
             actual,
             expectedKey,
@@ -88,7 +88,7 @@ abstract class MapToContainInOrderOnlyKeyValuePairsExpectationsSpec(
         expectedValue: Int,
         withBulletPoint: Boolean = true
     ): Expect<String> = element(
-        failingBulletPoint,
+        x,
         index,
         IterableToContainSpecBase.sizeExceeded,
         expectedKey,
@@ -100,11 +100,11 @@ abstract class MapToContainInOrderOnlyKeyValuePairsExpectationsSpec(
     fun Expect<String>.additionalEntries(vararg pairs: Pair<Int, String>): Expect<String> =
         and {
             val additionalEntries =
-                "\\Q${warningBulletPoint}${IterableToContainSpecBase.additionalElements}\\E: $separator"
+                "\\Q${warningBulletPoint}${IterableToContainSpecBase.additionalElements}\\E: $lineSeparator"
             toContain.exactly(1).regex(additionalEntries)
             pairs.forEach { (index, entry) ->
                 toContain.exactly(1).regex(
-                    additionalEntries + "(.|$separator)+${listBulletPoint}${
+                    additionalEntries + "(.|$lineSeparator)+${listBulletPoint}${
                         IterableToContainSpecBase.elementWithIndex(index) + ": " + entry
                     }"
                 )

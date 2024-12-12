@@ -42,7 +42,7 @@ abstract class IterableToContainInAnyOrderOnlyValuesExpectationsSpec(
                     message {
                         toContain(
                             "$rootBulletPoint$toContainInAnyOrderOnly:",
-                            "$failingBulletPoint$anElementWhichEquals: 1.0"
+                            "$x$anElementWhichEquals: 1.0"
                         )
                         notToContain(additionalElements)
                         toContainSize(0, 1)
@@ -56,8 +56,8 @@ abstract class IterableToContainInAnyOrderOnlyValuesExpectationsSpec(
                     message {
                         toContain.exactly(1).values(
                             "$rootBulletPoint$toContainInAnyOrderOnly:",
-                            "$failingBulletPoint$anElementWhichEquals: 1.0",
-                            "$failingBulletPoint$anElementWhichEquals: 4.0"
+                            "$x$anElementWhichEquals: 1.0",
+                            "$x$anElementWhichEquals: 4.0"
                         )
                         notToContain(additionalElements)
                         toContainSize(0, 2)
@@ -136,7 +136,7 @@ abstract class IterableToContainInAnyOrderOnlyValuesExpectationsSpec(
                                     "$successfulBulletPoint$anElementWhichEquals: 1.0",
                                     "$successfulBulletPoint$anElementWhichEquals: 2.0",
                                     "$successfulBulletPoint$anElementWhichEquals: 3.0",
-                                    "$failingBulletPoint$anElementWhichEquals: 5.0",
+                                    "$x$anElementWhichEquals: 5.0",
                                     "$warningBulletPoint$mismatches:",
                                     "${listBulletPoint}4.0"
                                 )
@@ -156,7 +156,7 @@ abstract class IterableToContainInAnyOrderOnlyValuesExpectationsSpec(
                                     "$rootBulletPoint$toContainInAnyOrderOnly:",
                                     "$successfulBulletPoint$anElementWhichEquals: 1.0",
                                     "$successfulBulletPoint$anElementWhichEquals: 3.0",
-                                    "$failingBulletPoint$anElementWhichEquals: 5.0",
+                                    "$x$anElementWhichEquals: 5.0",
                                     "$warningBulletPoint$mismatchesAdditionalElements:",
                                     "${listBulletPoint}2.0"
                                 )
@@ -178,7 +178,7 @@ abstract class IterableToContainInAnyOrderOnlyValuesExpectationsSpec(
                                     "$successfulBulletPoint$anElementWhichEquals: 1.0",
                                     "$successfulBulletPoint$anElementWhichEquals: 2.0",
                                     "$successfulBulletPoint$anElementWhichEquals: 3.0",
-                                    "$failingBulletPoint$anElementWhichEquals: 5.0"
+                                    "$x$anElementWhichEquals: 5.0"
                                 )
                                 toContain.exactly(2).value("$successfulBulletPoint$anElementWhichEquals: 4.0")
                                 toContainSize(5, 6)
@@ -301,10 +301,10 @@ abstract class IterableToContainInAnyOrderOnlyValuesExpectationsSpec(
                                 "$successfulBulletPoint$anElementWhichEquals: 2.0",
                                 "$successfulBulletPoint$anElementWhichEquals: 3.0",
                                 "$successfulBulletPoint$anElementWhichEquals: 4.0",
-                                "$failingBulletPoint$anElementWhichEquals: -1.0",
+                                "$x$anElementWhichEquals: -1.0",
                                 "$successfulBulletPoint$anElementWhichEquals: 6.0",
                                 "$successfulBulletPoint$anElementWhichEquals: 7.0",
-                                "$failingBulletPoint$anElementWhichEquals: -2.0",
+                                "$x$anElementWhichEquals: -2.0",
                                 "$successfulBulletPoint$anElementWhichEquals: 9.0",
                                 "$successfulBulletPoint$anElementWhichEquals: 10.0",
                                 "$successfulBulletPoint$anElementWhichEquals: 11.0",
