@@ -1,6 +1,6 @@
 [versions]
 bc-validator="0.17.0"
-dokka = "1.9.20"
+dokka = "2.0.0"
 jacocoTool = "0.8.9"
 kotlin = "2.0.21"
 task-tree = "4.0.0"
