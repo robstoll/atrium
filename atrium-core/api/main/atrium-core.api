@@ -1118,12 +1118,12 @@ public abstract class ch/tutteli/atrium/creating/proofs/builders/impl/BaseGroupB
 	public final fun failureExplanationGroup (Lch/tutteli/atrium/reporting/reportables/InlineElement;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/reporting/reportables/Reportable;
 	public final fun feature (Lch/tutteli/atrium/reporting/reportables/Reportable;Ljava/lang/Object;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/creating/proofs/Proof;
 	public final fun fixedClaimGroup (Lch/tutteli/atrium/reporting/reportables/InlineElement;Ljava/lang/Object;ZLkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/creating/proofs/Proof;
-	public final fun group (Lch/tutteli/atrium/reporting/reportables/Reportable;Ljava/lang/Object;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/creating/proofs/Proof;
 	public final fun informationGroup (Lch/tutteli/atrium/reporting/reportables/InlineElement;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/reporting/reportables/Reportable;
 	public final fun inlineGroup ([Lch/tutteli/atrium/reporting/reportables/InlineElement;)Lch/tutteli/atrium/reporting/reportables/InlineElement;
 	public final fun invisibleFixedClaimGroup (ZLkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/creating/proofs/Proof;
 	public final fun invisibleGroup (Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/creating/proofs/Proof;
 	public final fun proofExplanation (Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/reporting/reportables/Reportable;
+	public final fun proofGroup (Lch/tutteli/atrium/reporting/reportables/Reportable;Ljava/lang/Object;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/creating/proofs/Proof;
 	public final fun reportableGroup (Lch/tutteli/atrium/reporting/reportables/InlineElement;Ljava/lang/Object;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/reporting/reportables/Reportable;
 	public final fun representationOnlyProof (Ljava/lang/Object;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/creating/proofs/Proof;
 	public final fun row (Lch/tutteli/atrium/reporting/reportables/Icon;ZLkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/reporting/reportables/Reportable;
@@ -1559,11 +1559,6 @@ public abstract interface class ch/tutteli/atrium/reporting/AtriumErrorAdjusterC
 	public abstract fun adjustOtherThanStacks (Ljava/lang/Throwable;)V
 }
 
-public final class ch/tutteli/atrium/reporting/AtriumErrorJvmKt {
-	public static final fun extractActual (Lch/tutteli/atrium/creating/proofs/Proof;)Ljava/lang/Object;
-	public static final fun extractExpected (Lch/tutteli/atrium/creating/proofs/Proof;)Ljava/lang/Object;
-}
-
 public final class ch/tutteli/atrium/reporting/ConstantsKt {
 	public static final field BUG_REPORT_URL Ljava/lang/String;
 	public static final field SHOULD_NOT_BE_SHOWN_TO_THE_USER_BUG Ljava/lang/String;
@@ -1852,6 +1847,17 @@ public final class ch/tutteli/atrium/reporting/reportables/Description$DefaultIm
 	public static fun getDefault (Lch/tutteli/atrium/reporting/reportables/Description;)Ljava/lang/String;
 }
 
+public final class ch/tutteli/atrium/reporting/reportables/ErrorMessages : java/lang/Enum, ch/tutteli/atrium/reporting/reportables/TextElement {
+	public static final field AT_LEAST_ONE_EXPECTATION_DEFINED Lch/tutteli/atrium/reporting/reportables/ErrorMessages;
+	public static final field DEFAULT_HINT_AT_LEAST_ONE_EXPECTATION_DEFINED Lch/tutteli/atrium/reporting/reportables/ErrorMessages;
+	public static final field DESCRIPTION_BASED_ON_SUBJECT Lch/tutteli/atrium/reporting/reportables/ErrorMessages;
+	public static final field FORGOT_DO_DEFINE_EXPECTATION Lch/tutteli/atrium/reporting/reportables/ErrorMessages;
+	public static final field REPRESENTATION_BASED_ON_SUBJECT_NOT_DEFINED Lch/tutteli/atrium/reporting/reportables/ErrorMessages;
+	public fun getString ()Ljava/lang/String;
+	public static fun valueOf (Ljava/lang/String;)Lch/tutteli/atrium/reporting/reportables/ErrorMessages;
+	public static fun values ()[Lch/tutteli/atrium/reporting/reportables/ErrorMessages;
+}
+
 public abstract interface class ch/tutteli/atrium/reporting/reportables/FailureExplanationGroup : ch/tutteli/atrium/reporting/reportables/ReportableGroupWithDescription {
 }
 
@@ -1966,10 +1972,13 @@ public final class ch/tutteli/atrium/reporting/reportables/descriptions/Descript
 }
 
 public final class ch/tutteli/atrium/reporting/reportables/descriptions/DescriptionBasic : java/lang/Enum, ch/tutteli/atrium/reporting/reportables/Description {
+	public static final field NOT_TO Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionBasic;
 	public static final field NOT_TO_BE Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionBasic;
 	public static final field NOT_TO_HAVE Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionBasic;
+	public static final field TO Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionBasic;
 	public static final field TO_BE Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionBasic;
 	public static final field TO_HAVE Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionBasic;
+	public static final field WAS Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionBasic;
 	public fun getDefault ()Ljava/lang/String;
 	public fun getString ()Ljava/lang/String;
 	public static fun valueOf (Ljava/lang/String;)Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionBasic;
@@ -2065,6 +2074,16 @@ public final class ch/tutteli/atrium/reporting/reportables/descriptions/Descript
 	public static fun values ()[Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionDocumentationUtil;
 }
 
+public final class ch/tutteli/atrium/reporting/reportables/descriptions/DescriptionFloatingPointProof : java/lang/Enum, ch/tutteli/atrium/reporting/reportables/Description {
+	public static final field FAILURE_DUE_TO_FLOATING_POINT_NUMBER Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionFloatingPointProof;
+	public static final field TO_EQUAL_WITH_ERROR_TOLERANCE Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionFloatingPointProof;
+	public static final field TO_EQUAL_WITH_ERROR_TOLERANCE_EXPLAINED Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionFloatingPointProof;
+	public fun getDefault ()Ljava/lang/String;
+	public fun getString ()Ljava/lang/String;
+	public static fun valueOf (Ljava/lang/String;)Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionFloatingPointProof;
+	public static fun values ()[Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionFloatingPointProof;
+}
+
 public final class ch/tutteli/atrium/reporting/reportables/descriptions/DescriptionFunLikeProof : java/lang/Enum, ch/tutteli/atrium/reporting/reportables/Description {
 	public static final field NO_EXCEPTION_OCCURRED Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionFunLikeProof;
 	public static final field THREW Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionFunLikeProof;
@@ -2073,6 +2092,136 @@ public final class ch/tutteli/atrium/reporting/reportables/descriptions/Descript
 	public fun getString ()Ljava/lang/String;
 	public static fun valueOf (Ljava/lang/String;)Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionFunLikeProof;
 	public static fun values ()[Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionFunLikeProof;
+}
+
+public final class ch/tutteli/atrium/reporting/reportables/descriptions/DescriptionIterableLikeProof : java/lang/Enum, ch/tutteli/atrium/reporting/reportables/Description {
+	public static final field ALL_ELEMENTS Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionIterableLikeProof;
+	public static final field AN_ELEMENT_WHICH_EQUALS Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionIterableLikeProof;
+	public static final field AN_ELEMENT_WHICH_NEEDS Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionIterableLikeProof;
+	public static final field AT_LEAST Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionIterableLikeProof;
+	public static final field AT_MOST Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionIterableLikeProof;
+	public static final field A_NEXT_ELEMENT Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionIterableLikeProof;
+	public static final field DUPLICATED_BY Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionIterableLikeProof;
+	public static final field DUPLICATE_ELEMENTS Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionIterableLikeProof;
+	public static final field ELEMENT_NOT_FOUND Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionIterableLikeProof;
+	public static final field ELEMENT_WITH_INDEX Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionIterableLikeProof;
+	public static final field EXACTLY Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionIterableLikeProof;
+	public static final field INDEX Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionIterableLikeProof;
+	public static final field INDEX_FROM_TO Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionIterableLikeProof;
+	public static final field IN_ANY_ORDER Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionIterableLikeProof;
+	public static final field IN_ANY_ORDER_ONLY Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionIterableLikeProof;
+	public static final field IN_ORDER Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionIterableLikeProof;
+	public static final field IN_ORDER_ONLY Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionIterableLikeProof;
+	public static final field IN_ORDER_ONLY_GROUPED Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionIterableLikeProof;
+	public static final field NEITHER_EMPTY_NOR_ELEMENT_FOUND Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionIterableLikeProof;
+	public static final field NOT_TO_CONTAIN Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionIterableLikeProof;
+	public static final field NOT_TO_HAVE_ELEMENTS_OR_ALL Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionIterableLikeProof;
+	public static final field NOT_TO_HAVE_ELEMENTS_OR_ANY Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionIterableLikeProof;
+	public static final field NOT_TO_HAVE_ELEMENTS_OR_NONE Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionIterableLikeProof;
+	public static final field NO_ELEMENTS Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionIterableLikeProof;
+	public static final field NUMBER_OF_ELEMENTS_FOUND Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionIterableLikeProof;
+	public static final field NUMBER_OF_SUCH_ELEMENTS Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionIterableLikeProof;
+	public static final field SIZE_EXCEEDED Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionIterableLikeProof;
+	public static final field TO_CONTAIN Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionIterableLikeProof;
+	public static final field USE_NOT_TO_HAVE_ELEMENTS_OR_NONE Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionIterableLikeProof;
+	public static final field WARNING_ADDITIONAL_ELEMENTS Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionIterableLikeProof;
+	public static final field WARNING_MISMATCHES Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionIterableLikeProof;
+	public static final field WARNING_MISMATCHES_ADDITIONAL_ELEMENTS Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionIterableLikeProof;
+	public fun getDefault ()Ljava/lang/String;
+	public fun getString ()Ljava/lang/String;
+	public static fun valueOf (Ljava/lang/String;)Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionIterableLikeProof;
+	public static fun values ()[Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionIterableLikeProof;
+}
+
+public final class ch/tutteli/atrium/reporting/reportables/descriptions/DescriptionListLikeProof : java/lang/Enum, ch/tutteli/atrium/reporting/reportables/Description {
+	public static final field INDEX_OUT_OF_BOUNDS Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionListLikeProof;
+	public fun getDefault ()Ljava/lang/String;
+	public fun getString ()Ljava/lang/String;
+	public static fun valueOf (Ljava/lang/String;)Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionListLikeProof;
+	public static fun values ()[Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionListLikeProof;
+}
+
+public final class ch/tutteli/atrium/reporting/reportables/descriptions/DescriptionMapLikeProof : java/lang/Enum, ch/tutteli/atrium/reporting/translating/StringBasedTranslatable {
+	public static final field ENTRY_WITH_KEY Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionMapLikeProof;
+	public static final field IN_ANY_ORDER Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionMapLikeProof;
+	public static final field IN_ANY_ORDER_ONLY Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionMapLikeProof;
+	public static final field IN_ORDER Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionMapLikeProof;
+	public static final field IN_ORDER_ONLY Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionMapLikeProof;
+	public static final field KEY_DOES_NOT_EXIST Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionMapLikeProof;
+	public static final field NOT_TO_CONTAIN_KEY Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionMapLikeProof;
+	public static final field TO_CONTAIN Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionMapLikeProof;
+	public static final field TO_CONTAIN_KEY Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionMapLikeProof;
+	public static final field WARNING_ADDITIONAL_ENTRIES Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionMapLikeProof;
+	public fun getDefault ()Ljava/lang/String;
+	public fun getId ()Ljava/lang/String;
+	public synthetic fun getName ()Ljava/lang/String;
+	public fun getString ()Ljava/lang/String;
+	public fun getValue ()Ljava/lang/String;
+	public static fun valueOf (Ljava/lang/String;)Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionMapLikeProof;
+	public static fun values ()[Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionMapLikeProof;
+}
+
+public final class ch/tutteli/atrium/reporting/reportables/descriptions/DescriptionOptionalProof : java/lang/Enum, ch/tutteli/atrium/reporting/reportables/Description {
+	public static final field EMPTY Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionOptionalProof;
+	public static final field IS_NOT_PRESENT Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionOptionalProof;
+	public fun getDefault ()Ljava/lang/String;
+	public fun getString ()Ljava/lang/String;
+	public static fun valueOf (Ljava/lang/String;)Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionOptionalProof;
+	public static fun values ()[Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionOptionalProof;
+}
+
+public final class ch/tutteli/atrium/reporting/reportables/descriptions/DescriptionPathProof : java/lang/Enum, ch/tutteli/atrium/reporting/reportables/Description {
+	public static final field ABSOLUTE_PATH Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionPathProof;
+	public static final field AN_EMPTY_DIRECTORY Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionPathProof;
+	public static final field A_DIRECTORY Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionPathProof;
+	public static final field A_FILE Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionPathProof;
+	public static final field A_SYMBOLIC_LINK Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionPathProof;
+	public static final field A_UNKNOWN_FILE_TYPE Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionPathProof;
+	public static final field DIRECTORY_CONTAINS Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionPathProof;
+	public static final field DOES_NOT_HAVE_PARENT Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionPathProof;
+	public static final field ENDS_NOT_WITH Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionPathProof;
+	public static final field ENDS_WITH Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionPathProof;
+	public static final field EXECUTABLE Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionPathProof;
+	public static final field EXIST Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionPathProof;
+	public static final field EXTENSION Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionPathProof;
+	public static final field FAILURE_DUE_TO_ACCESS_DENIED Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionPathProof;
+	public static final field FAILURE_DUE_TO_ACCESS_EXCEPTION Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionPathProof;
+	public static final field FAILURE_DUE_TO_LINK_LOOP Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionPathProof;
+	public static final field FAILURE_DUE_TO_NO_SUCH_FILE Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionPathProof;
+	public static final field FAILURE_DUE_TO_PARENT Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionPathProof;
+	public static final field FAILURE_DUE_TO_PERMISSION_FILE_TYPE_HINT Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionPathProof;
+	public static final field FAILURE_DUE_TO_WRONG_FILE_TYPE Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionPathProof;
+	public static final field FILE_NAME Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionPathProof;
+	public static final field FILE_NAME_WITHOUT_EXTENSION Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionPathProof;
+	public static final field HAS_SAME_BINARY_CONTENT Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionPathProof;
+	public static final field HAS_SAME_TEXTUAL_CONTENT Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionPathProof;
+	public static final field HINT_ACTUAL_ACL_PERMISSIONS Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionPathProof;
+	public static final field HINT_ACTUAL_POSIX_PERMISSIONS Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionPathProof;
+	public static final field HINT_CLOSEST_EXISTING_PARENT_DIRECTORY Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionPathProof;
+	public static final field HINT_FOLLOWED_SYMBOLIC_LINK Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionPathProof;
+	public static final field HINT_OWNER Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionPathProof;
+	public static final field HINT_OWNER_AND_GROUP Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionPathProof;
+	public static final field PARENT Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionPathProof;
+	public static final field READABLE Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionPathProof;
+	public static final field RELATIVE_PATH Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionPathProof;
+	public static final field STARTS_NOT_WITH Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionPathProof;
+	public static final field STARTS_WITH Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionPathProof;
+	public static final field WRITABLE Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionPathProof;
+	public fun getDefault ()Ljava/lang/String;
+	public fun getString ()Ljava/lang/String;
+	public static fun valueOf (Ljava/lang/String;)Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionPathProof;
+	public static fun values ()[Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionPathProof;
+}
+
+public final class ch/tutteli/atrium/reporting/reportables/descriptions/DescriptionResultProof : java/lang/Enum, ch/tutteli/atrium/reporting/reportables/Description {
+	public static final field EXCEPTION Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionResultProof;
+	public static final field IS_NOT_FAILURE Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionResultProof;
+	public static final field IS_NOT_SUCCESS Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionResultProof;
+	public static final field VALUE Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionResultProof;
+	public fun getDefault ()Ljava/lang/String;
+	public fun getString ()Ljava/lang/String;
+	public static fun valueOf (Ljava/lang/String;)Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionResultProof;
+	public static fun values ()[Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionResultProof;
 }
 
 public final class ch/tutteli/atrium/reporting/reportables/descriptions/DescriptionThrowableProof : java/lang/Enum, ch/tutteli/atrium/reporting/reportables/Description {
@@ -2087,16 +2236,6 @@ public final class ch/tutteli/atrium/reporting/reportables/descriptions/Descript
 	public fun getString ()Ljava/lang/String;
 	public static fun valueOf (Ljava/lang/String;)Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionThrowableProof;
 	public static fun values ()[Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionThrowableProof;
-}
-
-public final class ch/tutteli/atrium/reporting/reportables/descriptions/ErrorMessages : java/lang/Enum, ch/tutteli/atrium/reporting/reportables/TextElement {
-	public static final field AT_LEAST_ONE_EXPECTATION_DEFINED Lch/tutteli/atrium/reporting/reportables/descriptions/ErrorMessages;
-	public static final field DEFAULT_HINT_AT_LEAST_ONE_EXPECTATION_DEFINED Lch/tutteli/atrium/reporting/reportables/descriptions/ErrorMessages;
-	public static final field FORGOT_DO_DEFINE_EXPECTATION Lch/tutteli/atrium/reporting/reportables/descriptions/ErrorMessages;
-	public static final field NO_PROF_ADDED_IN_PROOF_GROUP Lch/tutteli/atrium/reporting/reportables/descriptions/ErrorMessages;
-	public fun getString ()Ljava/lang/String;
-	public static fun valueOf (Ljava/lang/String;)Lch/tutteli/atrium/reporting/reportables/descriptions/ErrorMessages;
-	public static fun values ()[Lch/tutteli/atrium/reporting/reportables/descriptions/ErrorMessages;
 }
 
 public final class ch/tutteli/atrium/reporting/reportables/impl/DefaultRepresentation : ch/tutteli/atrium/reporting/reportables/Representation {

@@ -16,7 +16,7 @@ class CharSequenceExpectationsSpec : ch.tutteli.atrium.specs.integration.CharSeq
     fun1<CharSequence, Regex>(Expect<CharSequence>::toMatch),
     fun1<CharSequence, Regex>(Expect<CharSequence>::notToMatch)
 ) {
-    @Suppress("unused")
+    @Suppress("unused", "UNUSED_VALUE")
     private fun ambiguityTest() {
         val a1: Expect<String> = notImplemented()
 

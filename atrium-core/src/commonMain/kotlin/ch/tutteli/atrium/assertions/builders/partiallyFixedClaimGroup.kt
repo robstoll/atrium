@@ -20,7 +20,7 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  * If it fails, then the assertions cannot be carried out (only be used for explanation) and in such a case
  * [AssertionGroup.holds] has to be false. Otherwise [AssertionGroup.holds] depend on [AssertionGroup.assertions].
  */
-@Suppress("unused")
+@Suppress("unused", "UNUSED_VALUE")
 val AssertionBuilder.partiallyFixedClaimGroup: PartiallyFixedClaimGroup.GroupTypeOption
     get() = PartiallyFixedClaimGroup.GroupTypeOption.create()
 

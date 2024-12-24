@@ -42,7 +42,7 @@ class IterableToContainInAnyOrderOnlyEntriesExpectationsSpec :
             } else expect toContain o inAny order but only the entries(a, *aX, reportOptionsInAnyOrderOnly = report)
     }
 
-    @Suppress("unused")
+    @Suppress("unused", "UNUSED_VALUE")
     private fun ambiguityTest() {
         var list: Expect<List<Number>> = notImplemented()
         var nList: Expect<Set<Number?>> = notImplemented()

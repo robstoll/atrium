@@ -81,7 +81,7 @@ abstract class Fun0ExpectationsSpec(
                         }
                     }.toThrow<AssertionError> {
                         message {
-                            toContainSubject("() -> kotlin.Int")
+                            toContain("$expectationVerb : ")
                             toContainDescr(
                                 DescriptionFunLikeProof.THROWN_EXCEPTION_WHEN_CALLED,
                                 DescriptionFunLikeProof.NO_EXCEPTION_OCCURRED.string

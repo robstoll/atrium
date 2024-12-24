@@ -19,6 +19,7 @@ class DefaultDocumentationUtils : DocumentationUtils {
     ): Proof = container.buildProof {
         collect(
             ExpectationCreatorWithUsageHints(
+                // there is no alternative for `because` which does not take an expectationCreator
                 usageHintsOverloadWithoutExpectationCreator = emptyList(),
                 expectationCreator
             )

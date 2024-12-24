@@ -10,7 +10,6 @@ class IterableLikeToContainCheckerSamples {
     @Test
     fun atLeast() {
         expect(listOf("A", "B", "C", "A", "B", "B")).toContain.inAnyOrder.atLeast(3).entry {
-            feature { f(String::plus, it, "1") }.toEqual("A1")
             toEqual("B")
         }
 

@@ -6,6 +6,7 @@ import ch.tutteli.atrium.core.polyfills.format
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic.utils.expectLambda
 import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionIterableLikeProof
+import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionIterableLikeProof.USE_NOT_TO_HAVE_ELEMENTS_OR_NONE
 import ch.tutteli.atrium.specs.*
 
 abstract class IterableNotToContainEntriesExpectationsSpec(
@@ -71,11 +72,7 @@ abstract class IterableNotToContainEntriesExpectationsSpec(
                                 "$indentX$explanatoryBulletPoint$notToContainDescr : $lineSeparator" +
                                 "$indentX$indentExplanatory$listBulletPoint$anElementWhichNeedsDescr : $lineSeparator" +
                                 "$indentX$indentExplanatory$indentList$explanatoryBulletPoint$toEqualDescr : 4.0$lineSeparator" +
-                                "$indentX$u${
-                                    DescriptionIterableLikeProof.USE_NOT_TO_HAVE_ELEMENTS_OR_NONE.string.format(
-                                        notToHaveElementsOrNoneFunName
-                                    )
-                                }"
+                                "$indentX$u${USE_NOT_TO_HAVE_ELEMENTS_OR_NONE.string.format(notToHaveElementsOrNoneFunName)}"
                         )
                     }
                 }
@@ -105,8 +102,8 @@ abstract class IterableNotToContainEntriesExpectationsSpec(
                             "$expectationVerb :.*$lineSeparator" +
                                 "\\Q$g\\E$notToContainDescr : $lineSeparator" +
                                 "$indentG$g$anElementWhichNeedsDescr : $lineSeparator" +
-                                "$indentGg$explanatoryBulletPoint$toBeGreaterThanDescr : 1.0$lineSeparator" +
-                                "$indentGg$explanatoryBulletPoint$toBeLessThanDescr : 4.0$lineSeparator" +
+                                "$indentGg$explanatoryBulletPoint$toBeGreaterThanDescr\\s+: 1.0$lineSeparator" +
+                                "$indentGg$explanatoryBulletPoint$toBeLessThanDescr\\s+: 4.0$lineSeparator" +
                                 "$indentGg$bb$mismatches : $lineSeparator" +
                                 "$indentGg${indentBb}$listBulletPoint${mismatchedIndex(1, "2.0")}$lineSeparator" +
                                 "$indentGg${indentBb}$listBulletPoint${mismatchedIndex(5, "3.0")}"

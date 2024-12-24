@@ -4,7 +4,12 @@ import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.logic.Test
 import ch.tutteli.atrium.specs.describeFunTemplate
+import ch.tutteli.atrium.specs.f
+import ch.tutteli.atrium.specs.g
+import ch.tutteli.atrium.specs.indentF
+import ch.tutteli.atrium.specs.indentG
 import ch.tutteli.atrium.specs.toEqualDescr
+import ch.tutteli.atrium.specs.x
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.Suite
 import kotlin.reflect.KFunction1
@@ -103,7 +108,14 @@ object NullableSpec : Spek({
         it("throws if the value was actually null") {
             expect {
                 expect(nullableKeyMap(testee.numbersWithString)).getExisting(1).toEqual("a")
-            }.toThrow<AssertionError> { messageToContain("get(1): null", "$toEqualDescr: \"a\"") }
+            }.toThrow<AssertionError> {
+                message {
+                    toContainRegex(
+                        "\\Q$g${f}get(1)\\E\\s+: null",
+                        "$indentG$indentF$x$toEqualDescr\\s+: \"a\""
+                    )
+                }
+            }
         }
         it("can pass `null` as key") {
             expect(nullableKeyMap(testee.numbersWithString)[null]).toEqual("tada")
@@ -122,10 +134,12 @@ object NullableSpec : Spek({
             expect {
                 expect(nullableValueMap(testee.numbersWithString)).getExisting(1).toEqual("test")
             }.toThrow<AssertionError> {
-                messageToContain(
-                    "get(1): null",
-                    "$toEqualDescr: \"test\""
-                )
+                message {
+                    toContainRegex(
+                        "\\Q$g${f}get(1)\\E\\s+: null",
+                        "$indentG$indentF$x$toEqualDescr\\s+: \"test\""
+                    )
+                }
             }
 
         }
@@ -142,10 +156,12 @@ object NullableSpec : Spek({
             expect {
                 expect(nullableKeyValueMap(testee.numbersWithString)).getExisting(1).toEqual("hello")
             }.toThrow<AssertionError> {
-                messageToContain(
-                    "get(1): null",
-                    "$toEqualDescr: \"hello\""
-                )
+                message {
+                    toContainRegex(
+                        "\\Q$g${f}get(1)\\E\\s+: null",
+                        "$indentG$indentF$x$toEqualDescr\\s+: \"hello\""
+                    )
+                }
             }
         }
 

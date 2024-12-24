@@ -10,7 +10,7 @@ object MapAsEntriesExpectationsSpec : ch.tutteli.atrium.specs.integration.MapAsE
     fun1<Map<String, Int>, Expect<Set<Map.Entry<String, Int>>>.() -> Unit>(Expect<Map<String, Int>>::asEntries)
 ) {
 
-    @Suppress("unused")
+    @Suppress("unused", "UNUSED_VALUE")
     private fun ambiguityTest() {
         var map: Expect<Map<Number, CharSequence>> = notImplemented()
         var subMap: Expect<LinkedHashMap<out Number, String>> = notImplemented()

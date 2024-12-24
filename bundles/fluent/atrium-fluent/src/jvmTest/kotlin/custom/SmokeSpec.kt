@@ -11,7 +11,7 @@ import ch.tutteli.atrium.creating.proofs.Proof
 import ch.tutteli.atrium.creating.proofs.builders.buildSimpleProof
 import ch.tutteli.atrium.reporting.Text
 import ch.tutteli.atrium.reporting.reportables.Description
-import ch.tutteli.atrium.translations.DescriptionBasic.TO_BE
+import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionBasic
 import org.spekframework.spek2.Spek
 import java.nio.file.Paths
 
@@ -38,7 +38,7 @@ fun Expect<Int>.toBeEven() =
     _core.createAndAppend("is", Text("an even number")) { it % 2 == 0 }
 
 fun Expect<Int>.toBeOdd() =
-    _coreAppend { buildSimpleProof(TO_BE, Text("an odd number")) { it % 2 == 1 } }
+    _coreAppend { buildSimpleProof(DescriptionBasic.TO_BE, Text("an odd number")) { it % 2 == 1 } }
 
 fun Expect<Int>.toBeAMultipleOf(base: Int): Expect<Int> = _coreAppend { toBeAMultipleOf(base) }
 

@@ -21,7 +21,7 @@ fun <T> ProofContainer<T>.buildProof(init: EntryPointProofBuilder<T>.() -> Unit)
     EntryPointProofBuilder(this).build(init)
 
 /**
- * Used to prevent that one can use e.g. [ProofExplanationGroupBuilder.collectWithoutSubject] in a nested [ProofExplanationGroupBuilder.group].
+ * Used to prevent that one can use e.g. [ProofExplanationGroupBuilder.collectWithoutSubject] in a nested [ProofExplanationGroupBuilder.proofGroup].
  *
  * @since 1.3.0
  */

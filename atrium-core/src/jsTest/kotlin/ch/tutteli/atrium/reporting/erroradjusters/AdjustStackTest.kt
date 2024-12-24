@@ -97,7 +97,7 @@ class AdjustStackTest {
     @ExperimentalComponentFactoryContainer
     @Test
     fun removeAtrium_containsMochaButNotAtriumInCause() {
-        val adjuster = assertRemoveAtrium(1)._logic.components.build<AtriumErrorAdjuster>()
+        val adjuster = assertRemoveAtrium(1)._core.components.build<AtriumErrorAdjuster>()
         expectWithNoOpErrorAdjuster(adjuster).toBeAnInstanceOf<RemoveAtriumFromAtriumError>()
         val throwable = IllegalArgumentException("hello", UnsupportedOperationException("world"))
         adjuster.adjust(throwable)

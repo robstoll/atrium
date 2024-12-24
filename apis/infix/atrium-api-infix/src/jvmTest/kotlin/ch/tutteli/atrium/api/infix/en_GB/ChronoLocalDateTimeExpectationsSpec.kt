@@ -30,7 +30,7 @@ class ChronoLocalDateTimeExpectationsSpec : Spek({
             fun1<ChronoLocalDateTime<*>, String>(Expect<ChronoLocalDateTime<*>>::toBeTheSamePointInTimeAs)
         )
 
-    @Suppress("unused")
+    @Suppress("unused", "UNUSED_VALUE")
     private fun ambiguityTest() {
         val chronoLocalDateTime: ChronoLocalDateTime<*> = notImplemented()
         var a1: Expect<ChronoLocalDateTime<ChronoLocalDate>> = notImplemented()

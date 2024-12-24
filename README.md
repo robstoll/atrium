@@ -350,15 +350,15 @@ I expected subject : () -> kotlin.Nothing        (readme.examples.ToThrowExample
 🚩️ ▶ thrown exception when called : java.lang.IllegalArgumentException
      🚫️ to be an instance of type : IllegalStateException (java.lang.IllegalStateException)
      ℹ️ Properties of the unexpected IllegalArgumentException
-       » message : "name is empty"
-       » stacktrace : 
-         • readme.examples.ToThrowExamples$ex-toThrow1$1.invoke(ToThrowExamples.kt:18)
-         • readme.examples.ToThrowExamples$ex-toThrow1$1.invoke(ToThrowExamples.kt:16)
-         • readme.examples.ToThrowExamples.ex-toThrow1(ToThrowExamples.kt:47)
-         • java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-         • java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-         • java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-         • java.base/java.lang.reflect.Method.invoke(Method.java:566)
+        » message : "name is empty"
+        » stacktrace : 
+          • readme.examples.ToThrowExamples$ex-toThrow1$1.invoke(ToThrowExamples.kt:18)
+          • readme.examples.ToThrowExamples$ex-toThrow1$1.invoke(ToThrowExamples.kt:16)
+          • readme.examples.ToThrowExamples.ex-toThrow1(ToThrowExamples.kt:47)
+          • java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+          • java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+          • java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+          • java.base/java.lang.reflect.Method.invoke(Method.java:566)
 ```
 </ex-toThrow1>
 
@@ -435,19 +435,19 @@ expect {
 I expected subject : () -> kotlin.Nothing        (readme.examples.ToThrowExamples$ex-notToThrow$1 <1234789>)
 🚩️ ▶ invoke() : ❗❗ threw java.lang.IllegalArgumentException
      ℹ️ Properties of the unexpected IllegalArgumentException
-       » message : "name is empty"
-       » stacktrace : 
-         • readme.examples.ToThrowExamples$ex-notToThrow$1.invoke(ToThrowExamples.kt:42)
-         • readme.examples.ToThrowExamples$ex-notToThrow$1.invoke(ToThrowExamples.kt:40)
-         • readme.examples.ToThrowExamples.ex-notToThrow(ToThrowExamples.kt:43)
-         • java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-         • java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-         • java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-         • java.base/java.lang.reflect.Method.invoke(Method.java:566)
-       » cause : java.lang.RuntimeException
-         » message : "a cause"
-         » stacktrace : 
-           • readme.examples.ToThrowExamples$ex-notToThrow$1.invoke(ToThrowExamples.kt:42)
+        » message : "name is empty"
+        » stacktrace : 
+          • readme.examples.ToThrowExamples$ex-notToThrow$1.invoke(ToThrowExamples.kt:42)
+          • readme.examples.ToThrowExamples$ex-notToThrow$1.invoke(ToThrowExamples.kt:40)
+          • readme.examples.ToThrowExamples.ex-notToThrow(ToThrowExamples.kt:43)
+          • java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+          • java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+          • java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+          • java.base/java.lang.reflect.Method.invoke(Method.java:566)
+        » cause : java.lang.RuntimeException
+          » message : "a cause"
+          » stacktrace : 
+            • readme.examples.ToThrowExamples$ex-notToThrow$1.invoke(ToThrowExamples.kt:42)
 ```
 </ex-notToThrow>
 
@@ -1763,23 +1763,23 @@ expect(-10).notToBeNegative()
 I expected subject : -10
 🚩️ not to be : negative
    ℹ️ Properties of the unexpected AssertionError
-     » message : """
-                 
-                 Expecting actual:
-                   -10
-                 to be greater than or equal to:
-                   0
-                 
-                 """
-     » stacktrace : 
-       • readme.examples.ThirdPartyExamples$ex-third-party-2$notToBeNegative$1.invoke(ThirdPartyExamples.kt:39)
-       • readme.examples.ThirdPartyExamples$ex-third-party-2$notToBeNegative$1.invoke(ThirdPartyExamples.kt:37)
-       • readme.examples.ThirdPartyExamples.ex_third_party_2$notToBeNegative(ThirdPartyExamples.kt:37)
-       • readme.examples.ThirdPartyExamples.ex-third-party-2(ThirdPartyExamples.kt:49)
-       • java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-       • java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-       • java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-       • java.base/java.lang.reflect.Method.invoke(Method.java:566)
+      » message : """
+                  
+                  Expecting actual:
+                    -10
+                  to be greater than or equal to:
+                    0
+                  
+                  """
+      » stacktrace : 
+        • readme.examples.ThirdPartyExamples$ex-third-party-2$notToBeNegative$1.invoke(ThirdPartyExamples.kt:39)
+        • readme.examples.ThirdPartyExamples$ex-third-party-2$notToBeNegative$1.invoke(ThirdPartyExamples.kt:37)
+        • readme.examples.ThirdPartyExamples.ex_third_party_2$notToBeNegative(ThirdPartyExamples.kt:37)
+        • readme.examples.ThirdPartyExamples.ex-third-party-2(ThirdPartyExamples.kt:49)
+        • java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+        • java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+        • java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+        • java.base/java.lang.reflect.Method.invoke(Method.java:566)
 ```
 </ex-third-party-2>
 
@@ -2113,19 +2113,19 @@ I expected subject : () -> kotlin.Nothing        (readme.examples.MostExamples$e
            • value : "no no no"
              » but no match was found
      ℹ️ Properties of the unexpected IllegalArgumentException
-       » message : "no no no..."
-       » stacktrace : 
-         • readme.examples.MostExamples$ex-add-info-3$1.invoke(MostExamples.kt:117)
-         • readme.examples.MostExamples$ex-add-info-3$1.invoke(MostExamples.kt:113)
-         • readme.examples.MostExamples.ex-add-info-3(MostExamples.kt:148)
-         • java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-         • java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-         • java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-         • java.base/java.lang.reflect.Method.invoke(Method.java:566)
-       » cause : java.lang.UnsupportedOperationException
-         » message : "not supported"
-         » stacktrace : 
-           • readme.examples.MostExamples$ex-add-info-3$1.invoke(MostExamples.kt:115)
+        » message : "no no no..."
+        » stacktrace : 
+          • readme.examples.MostExamples$ex-add-info-3$1.invoke(MostExamples.kt:117)
+          • readme.examples.MostExamples$ex-add-info-3$1.invoke(MostExamples.kt:113)
+          • readme.examples.MostExamples.ex-add-info-3(MostExamples.kt:148)
+          • java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+          • java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+          • java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+          • java.base/java.lang.reflect.Method.invoke(Method.java:566)
+        » cause : java.lang.UnsupportedOperationException
+          » message : "not supported"
+          » stacktrace : 
+            • readme.examples.MostExamples$ex-add-info-3$1.invoke(MostExamples.kt:115)
 ```
 </ex-add-info-3>
 
@@ -2311,17 +2311,17 @@ expect(MyDomainModel(alpha1 = 1204)).toComplyValidation()
 I expected subject : MyDomainModel(alpha1=1204)        (readme.examples.ThirdPartyExamples.MyDomainModel <1234789>)
 🚩️ to comply : validation
    ℹ️ Properties of the unexpected IllegalStateException
-     » message : "threshold value for alpha1 exceeded, expected <= 1000, was 1204"
-     » stacktrace : 
-       • readme.examples.ThirdPartyExamples.validateMaxThreshold(ThirdPartyExamples.kt:76)
-       • readme.examples.ThirdPartyExamples$ex-third-party-10$toComplyValidation$1.invoke(ThirdPartyExamples.kt:84)
-       • readme.examples.ThirdPartyExamples$ex-third-party-10$toComplyValidation$1.invoke(ThirdPartyExamples.kt:82)
-       • readme.examples.ThirdPartyExamples.ex_third_party_10$toComplyValidation(ThirdPartyExamples.kt:82)
-       • readme.examples.ThirdPartyExamples.ex-third-party-10(ThirdPartyExamples.kt:88)
-       • java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-       • java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-       • java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-       • java.base/java.lang.reflect.Method.invoke(Method.java:566)
+      » message : "threshold value for alpha1 exceeded, expected <= 1000, was 1204"
+      » stacktrace : 
+        • readme.examples.ThirdPartyExamples.validateMaxThreshold(ThirdPartyExamples.kt:76)
+        • readme.examples.ThirdPartyExamples$ex-third-party-10$toComplyValidation$1.invoke(ThirdPartyExamples.kt:84)
+        • readme.examples.ThirdPartyExamples$ex-third-party-10$toComplyValidation$1.invoke(ThirdPartyExamples.kt:82)
+        • readme.examples.ThirdPartyExamples.ex_third_party_10$toComplyValidation(ThirdPartyExamples.kt:82)
+        • readme.examples.ThirdPartyExamples.ex-third-party-10(ThirdPartyExamples.kt:88)
+        • java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+        • java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+        • java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+        • java.base/java.lang.reflect.Method.invoke(Method.java:566)
 ```
 </ex-third-party-10>
 

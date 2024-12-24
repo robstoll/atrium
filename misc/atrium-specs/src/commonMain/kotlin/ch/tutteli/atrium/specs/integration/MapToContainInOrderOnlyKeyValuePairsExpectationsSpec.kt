@@ -4,10 +4,10 @@ import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic.creating.iterablelike.contains.reporting.InOrderOnlyReportingOptions
+import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionIterableLikeProof
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.specs.integration.IterableToContainSpecBase.Companion.nonNullableCases
 import ch.tutteli.atrium.specs.integration.MapLikeToContainFormatSpecBase.Companion.element as elementInFormatSpecBase
-import ch.tutteli.atrium.translations.DescriptionIterableLikeExpectation
 import org.spekframework.spek2.style.specification.Suite
 
 abstract class MapToContainInOrderOnlyKeyValuePairsExpectationsSpec(
@@ -30,27 +30,35 @@ abstract class MapToContainInOrderOnlyKeyValuePairsExpectationsSpec(
         describeFunTemplate(describePrefix, pairs.map { it.name }.toTypedArray(), body = body)
 
     fun Expect<String>.element(
-        successFailureBulletPoint: String,
+        indexBulletPoint: String,
+        indentIndex: String,
+        keyBulletPoint: String,
+        indentKey: String,
+        keySubBulletPoint: String,
+        valueBulletPoint: String,
+        indentValue: String,
+        valueSubBulletPoint: String,
         index: Int,
         actual: Any,
         expectedKey: String?,
         expectedValue: Int?,
-        explaining: Boolean = false,
-        explainingValue: Boolean = false,
-        withBulletPoint: Boolean = true,
         withKey: Boolean = true,
         withValue: Boolean = true
     ): Expect<String> = this.elementInFormatSpecBase(
-        successFailureBulletPoint,
-        index,
-        actual,
-        expectedKey,
-        "$toEqualDescr: $expectedValue",
-        explaining,
-        explainingValue,
-        withBulletPoint,
-        withKey,
-        withValue,
+        indexBulletPoint = indexBulletPoint,
+        indentIndex = indentIndex,
+        keyBulletPoint = keyBulletPoint,
+        indentKey = indentKey,
+        keySubBulletPoint = keySubBulletPoint,
+        valueBulletPoint = valueBulletPoint,
+        indentValue = indentValue,
+        valueSubBulletPoint = valueSubBulletPoint,
+        index = index,
+        actual = actual,
+        expectedKey = expectedKey,
+        expectedValue = "$toEqualDescr : $expectedValue",
+        withKey = withKey,
+        withValue = withValue,
     )
 
     fun Expect<String>.elementSuccess(
@@ -58,26 +66,35 @@ abstract class MapToContainInOrderOnlyKeyValuePairsExpectationsSpec(
         actual: Any,
         expectedKey: String,
         expectedValue: Int?
-    ): Expect<String> = element(s, index, actual, expectedKey, expectedValue)
+    ): Expect<String> = element(s, indentS, s, indentS, s, s, indentS, s, index, actual, expectedKey, expectedValue)
 
     fun Expect<String>.elementFailing(
         index: Int,
         actual: Any,
         expectedKey: String?,
         expectedValue: Int?,
-        explainingValue: Boolean = false,
-        withBulletPoint: Boolean = true,
+        keyBulletPoint: String = g,
+        indentKey: String = indentG,
+        keySubBulletPoint: String = x,
+        valueBulletPoint: String = g,
+        indentValue: String = indentG,
+        valueSubBulletPoint: String = x,
         withKey: Boolean = true,
         withValue: Boolean = true
     ): Expect<String> =
         element(
-            x,
-            index,
-            actual,
-            expectedKey,
-            expectedValue,
-            explainingValue = explainingValue,
-            withBulletPoint = withBulletPoint,
+            indexBulletPoint = g,
+            indentIndex = indentG,
+            keyBulletPoint = keyBulletPoint,
+            indentKey = indentKey,
+            keySubBulletPoint = keySubBulletPoint,
+            valueBulletPoint = valueBulletPoint,
+            indentValue = indentValue,
+            valueSubBulletPoint = valueSubBulletPoint,
+            index = index,
+            actual = actual,
+            expectedKey = expectedKey,
+            expectedValue = expectedValue,
             withKey = withKey,
             withValue = withValue,
         )
@@ -86,30 +103,28 @@ abstract class MapToContainInOrderOnlyKeyValuePairsExpectationsSpec(
         index: Int,
         expectedKey: String,
         expectedValue: Int,
-        withBulletPoint: Boolean = true
     ): Expect<String> = element(
-        x,
-        index,
-        IterableToContainSpecBase.sizeExceeded,
-        expectedKey,
-        expectedValue,
-        explaining = true,
-        withBulletPoint = withBulletPoint
+        indexBulletPoint = g,
+        indentIndex = indentG,
+        keyBulletPoint = explanatoryBulletPoint,
+        indentKey = indentExplanatory,
+        keySubBulletPoint = listBulletPoint,
+        valueBulletPoint = explanatoryBulletPoint,
+        indentValue = indentExplanatory,
+        valueSubBulletPoint = listBulletPoint,
+        index = index,
+        actual = IterableToContainSpecBase.sizeExceeded,
+        expectedKey = expectedKey,
+        expectedValue = expectedValue,
     )
 
     fun Expect<String>.additionalEntries(vararg pairs: Pair<Int, String>): Expect<String> =
-        and {
-            val additionalEntries =
-                "\\Q${bb}${IterableToContainSpecBase.additionalElements}\\E: $lineSeparator"
-            toContain.exactly(1).regex(additionalEntries)
-            pairs.forEach { (index, entry) ->
-                toContain.exactly(1).regex(
-                    additionalEntries + "(.|$lineSeparator)+${listBulletPoint}${
-                        IterableToContainSpecBase.elementWithIndex(index) + ": " + entry
-                    }"
-                )
-            }
-        }
+        toContain.exactly(1).regex(
+            "$indentG\\Q${bb}${IterableToContainSpecBase.additionalElements}\\E : $lineSeparator" +
+                pairs.joinToString(lineSeparator) { (index, entry) ->
+                    "$indentG$indentBb$listBulletPoint${IterableToContainSpecBase.elementWithIndex(index)}\\s+: $entry.*"
+                }
+        )
 
     nonNullableCases(
         describePrefix,
@@ -192,7 +207,7 @@ abstract class MapToContainInOrderOnlyKeyValuePairsExpectationsSpec(
                 }.toThrow<AssertionError> {
                     message {
                         elementSuccess(0, "a=1", "a", 1)
-                        elementFailing(1, "b=2", "b", 1)
+                        elementFailing(1, "b=2", "b", 1, keyBulletPoint = s, indentKey = indentS, keySubBulletPoint = s)
                         elementOutOfBound(2, "c", 4)
                         notToContain(additionalEntriesDescr)
                     }
@@ -200,12 +215,13 @@ abstract class MapToContainInOrderOnlyKeyValuePairsExpectationsSpec(
             }
 
             fun Expect<String>.notToContainEntry(key: String): Expect<String> =
-                notToContain.regex("\\Q${DescriptionIterableLikeExpectation.ELEMENT_WITH_INDEX.getDefault()}.*$key=\\E")
+                notToContain.regex("\\Q${DescriptionIterableLikeProof.ELEMENT_WITH_INDEX.string}.*$key=\\E")
 
             context("report options") {
                 it("shows only failing with report option `showOnlyFailing`") {
                     expect {
-                        expect(map).toContainFun("a" to 1, "b" to 1, "c" to 3,
+                        expect(map).toContainFun(
+                            "a" to 1, "b" to 1, "c" to 3,
                             report = { showOnlyFailing() }
                         )
                     }.toThrow<AssertionError> {
@@ -213,7 +229,7 @@ abstract class MapToContainInOrderOnlyKeyValuePairsExpectationsSpec(
                             toContainSize(2, 3)
                             notToContainEntry("a")
                             notToContainEntry("b")
-                            elementOutOfBound(2, "c", 3, withBulletPoint = false)
+                            elementOutOfBound(2, "c", 3)
                         }
                     }
                 }
@@ -230,7 +246,7 @@ abstract class MapToContainInOrderOnlyKeyValuePairsExpectationsSpec(
                             toContainSize(2, 3)
                             notToContainEntry("a")
                             notToContainEntry("b")
-                            elementOutOfBound(2, "c", 3, withBulletPoint = false)
+                            elementOutOfBound(2, "c", 3)
                         }
                     }
                 }
@@ -245,7 +261,7 @@ abstract class MapToContainInOrderOnlyKeyValuePairsExpectationsSpec(
                         message {
                             notToContain(sizeDescr)
                             elementSuccess(0, "a=1", "a", 1)
-                            elementFailing(1, "b=2", "b", 1)
+                            elementFailing(1, "b=2", "b", 1, keyBulletPoint = s, indentKey = indentS, keySubBulletPoint = s)
                         }
                     }
                 }
@@ -267,7 +283,7 @@ abstract class MapToContainInOrderOnlyKeyValuePairsExpectationsSpec(
                         message {
                             toContainSize(2, 10)
                             elementSuccess(0, "a=1", "a", 1)
-                            elementFailing(1, "b=2", "b", 1)
+                            elementFailing(1, "b=2", "b", 1, keyBulletPoint = s, indentKey = indentS, keySubBulletPoint = s)
                             elementOutOfBound(2, "c", 3)
                             elementOutOfBound(3, "d", 4)
                             elementOutOfBound(4, "e", 5)
@@ -298,23 +314,16 @@ abstract class MapToContainInOrderOnlyKeyValuePairsExpectationsSpec(
                         message {
                             toContainSize(2, 11)
                             notToContainEntry("a")
-                            elementFailing(
-                                1,
-                                "b=2",
-                                "b",
-                                1,
-                                withBulletPoint = false,
-                                withKey = false,
-                            )
-                            elementOutOfBound(2, "c", 3, withBulletPoint = false)
-                            elementOutOfBound(3, "d", 4, withBulletPoint = false)
-                            elementOutOfBound(4, "e", 5, withBulletPoint = false)
-                            elementOutOfBound(5, "f", 6, withBulletPoint = false)
-                            elementOutOfBound(6, "g", 7, withBulletPoint = false)
-                            elementOutOfBound(7, "h", 8, withBulletPoint = false)
-                            elementOutOfBound(8, "i", 9, withBulletPoint = false)
-                            elementOutOfBound(9, "j", 10, withBulletPoint = false)
-                            elementOutOfBound(10, "k", 11, withBulletPoint = false)
+                            elementFailing(1, "b=2", "b", 1, withKey = false)
+                            elementOutOfBound(2, "c", 3)
+                            elementOutOfBound(3, "d", 4)
+                            elementOutOfBound(4, "e", 5)
+                            elementOutOfBound(5, "f", 6)
+                            elementOutOfBound(6, "g", 7)
+                            elementOutOfBound(7, "h", 8)
+                            elementOutOfBound(8, "i", 9)
+                            elementOutOfBound(9, "j", 10)
+                            elementOutOfBound(10, "k", 11)
                         }
                     }
                 }
@@ -373,7 +382,7 @@ abstract class MapToContainInOrderOnlyKeyValuePairsExpectationsSpec(
                     message {
                         elementSuccess(0, "a=null", "a", null)
                         elementFailing(1, "null=1", "c", 3)
-                        elementFailing(2, "b=2", "b", 3)
+                        elementFailing(2, "b=2", "b", 3, keyBulletPoint = s, indentKey = indentS, keySubBulletPoint = s)
 
                         notToContain(additionalEntriesDescr, sizeDescr)
                     }

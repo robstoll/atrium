@@ -8,7 +8,6 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionCharSequenceProof
 import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionThrowableProof
 import ch.tutteli.atrium.specs.*
-import ch.tutteli.atrium.translations.DescriptionCharSequenceExpectation
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.Suite
 
@@ -32,7 +31,7 @@ abstract class ThrowableExpectationsSpec(
 
     include(object : AssertionCreatorSpec<Throwable>(
         describePrefix, RuntimeException("hello"),
-        message.forAssertionCreatorSpec("$toEqualDescr: hello") { toEqual("hello") }
+        message.forAssertionCreatorSpec("$toEqualDescr\\s+: hello") { toEqual("hello") }
     ) {})
 
     fun describeFun(vararg pairs: SpecPair<*>, body: Suite.() -> Unit) =
@@ -56,7 +55,7 @@ abstract class ThrowableExpectationsSpec(
                             notToEqualNullButToBeInstanceOfDescr,
                             String::class.fullName
                         )
-                        if (hasExtraHint) messageToContain("$toEqualDescr: \"hello\"")
+                        if (hasExtraHint) messageToContain("$toEqualDescr : \"hello\"")
                     }
                 }
             }
@@ -69,10 +68,10 @@ abstract class ThrowableExpectationsSpec(
                     messageToContain(
                         notToEqualNullButToBeInstanceOfDescr, String::class.fullName,
                         DescriptionCharSequenceProof.TO_CONTAIN.string,
-                        "$valueDescr: 1",
-                        "$valueDescr: 2.3",
-                        "$valueDescr: 'z'",
-                        "$valueDescr: \"hello\""
+                        "$valueDescr : 1",
+                        "$valueDescr : 2.3",
+                        "$valueDescr : 'z'",
+                        "$valueDescr : \"hello\""
                     )
                 }
             }
@@ -84,7 +83,7 @@ abstract class ThrowableExpectationsSpec(
                 it("$name - throws an AssertionError if the assertion does not hold") {
                     expect {
                         expect(throwable).messageFun { toEqual("hello") }
-                    }.toThrow<AssertionError> { messageToContain("$toEqualDescr: \"hello\"") }
+                    }.toThrow<AssertionError> { messageToContain("$toEqualDescr : \"hello\"") }
                 }
 
                 it("$name - does not throw if the assertion holds") {
@@ -94,7 +93,7 @@ abstract class ThrowableExpectationsSpec(
             it("${messageToContain.name} - throws an AssertionError if the assertion does not hold") {
                 expect {
                     expect(throwable).messageContainsFun("nada", arrayOf())
-                }.toThrow<AssertionError> { messageToContain("$valueDescr: \"nada\"") }
+                }.toThrow<AssertionError> { messageToContain("$valueDescr : \"nada\"") }
             }
             it("${messageToContain.name} - throws IllegalArgumentException if empty string is passed") {
                 expect {
@@ -109,7 +108,7 @@ abstract class ThrowableExpectationsSpec(
                 it("$name - throws an AssertionError if the assertion does not hold") {
                     expect {
                         expect(throwable).messageFun { toEqual("hello") }
-                    }.toThrow<AssertionError> { messageToContain("$toEqualDescr: \"hello\"") }
+                    }.toThrow<AssertionError> { messageToContain("$toEqualDescr : \"hello\"") }
                 }
 
                 it("$name - does not throw if the assertion holds") {
@@ -119,7 +118,7 @@ abstract class ThrowableExpectationsSpec(
             it("${messageToContain.name} - throws an AssertionError if the assertion does not hold") {
                 expect {
                     expect(throwable).messageContainsFun("nada", arrayOf())
-                }.toThrow<AssertionError> { messageToContain("$valueDescr: \"nada\"") }
+                }.toThrow<AssertionError> { messageToContain("$valueDescr : \"nada\"") }
             }
             it("${messageToContain.name} - does not throw if the assertion holds") {
                 expect(throwable).messageContainsFun(" ", arrayOf())
@@ -133,7 +132,7 @@ abstract class ThrowableExpectationsSpec(
                 it("$name - throws an AssertionError if the assertion does not hold") {
                     expect {
                         expect(throwable).messageFun { toEqual("hello") }
-                    }.toThrow<AssertionError> { messageToContain("$toEqualDescr: \"hello\"") }
+                    }.toThrow<AssertionError> { messageToContain("$toEqualDescr : \"hello\"") }
                 }
 
                 it("$name - does not throw if the assertion holds") {
@@ -144,7 +143,7 @@ abstract class ThrowableExpectationsSpec(
             it("${messageToContain.name} - throws an AssertionError if the assertion does not hold") {
                 expect {
                     expect(throwable).messageContainsFun("nada", arrayOf())
-                }.toThrow<AssertionError> { messageToContain("$valueDescr: \"nada\"") }
+                }.toThrow<AssertionError> { messageToContain("$valueDescr : \"nada\"") }
             }
             it("${messageToContain.name} - does not throw if the assertion holds") {
                 expect(throwable).messageContainsFun(1, arrayOf(2.3, 'z', "hello"))
@@ -177,8 +176,8 @@ abstract class ThrowableExpectationsSpec(
                         expect(throwable).causeFun { messageToContain("WRONG message") }
                     }.toThrow<AssertionError> {
                         messageToContain(
-                            DescriptionThrowableProof.OCCURRED_EXCEPTION_CAUSE.string + ": java.lang.IllegalArgumentException",
-                            "$valueDescr: \"WRONG message\""
+                            DescriptionThrowableProof.OCCURRED_EXCEPTION_CAUSE.string + " : java.lang.IllegalArgumentException",
+                            "$valueDescr : \"WRONG message\""
                         )
                     }
                 }

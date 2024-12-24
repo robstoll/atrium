@@ -69,7 +69,10 @@ class DefaultTextReporter(
                 (0 until indentLevel).forEach { i ->
                     val styledString = columns[i]
                     //TODO 1.3.0 what about wrapping throw an error as well?
-                    val indent = indentLevels[i]
+                    val indent = indentLevels.ifWithinBound(
+                        i,
+                        { indentLevels[i] },
+                        elseBlock = { throw IndexOutOfBoundsException("there is no identLevel $i (there are levels 0 to ${indentLevels.size - 1}) to ident node:\n$node\nwhile formatting\n$outputNode\nThe reporter constructed the following output so far\n$sb") })
                     sb.append(styledString.padString(if (indent > 0) indent else 0))
                 }
 
@@ -173,12 +176,12 @@ class DefaultTextReporter(
             // above the debug group `(d)` defines an own level. Since it is not indented at all, it doesn't
             // "inherit" any identLevel from the root group. On the other hand, the usage hint group `(u)` which
             // defines an own level as well, inherits one indent level from the debug group (indentLevel[0] = 4)
-            if (child.indentLevel == 0) emptySequence()
-            else parentIndentLevels.asSequence().take(child.indentLevel)
+            minOf(parentIndentLevels.size, child.indentLevel)
+//            if (child.indentLevel == 0 || parentIndentLevels.isEmpty()) emptySequence()
+//            else parentIndentLevels.asSequence().take(child.indentLevel)
         }
 
         val indentLevelsDeducedFromMaxMonospaceLengthOfParent = run {
-
             val maxMonospaceLengthsFromParentToConvertToIndent = run {
                 // TODO 1.4.0 consider the following, once we drop ExplanatoryAssertionGroup then we don't have any
                 // pre-renderer left which defines an outputNode without columns but with definesOwnLevel=true
@@ -206,15 +209,31 @@ class DefaultTextReporter(
                     maxOf(child.indentLevel - parent.indentLevel, numberOfZeroIndents)
                 }
             }
-
-            if(maxMonospaceLengthsFromParentToConvertToIndent == 0) emptySequence()
-            else parentMaxMonospaceLengths.asSequence()
-                .drop(minOf(parentIndentLevels.size, child.indentLevel))
-                .take(maxMonospaceLengthsFromParentToConvertToIndent)
+            minOf(
+                parentMaxMonospaceLengths.size - indentLevelsInheritedFromParent,
+                maxMonospaceLengthsFromParentToConvertToIndent
+            )
         }
 
+        val totalFromParent = indentLevelsInheritedFromParent + indentLevelsDeducedFromMaxMonospaceLengthOfParent
+
+        // in case of directly nested nodes without columns which define an own level it can happen that there are not
+        // enough indent levels from the parent to cover the identLevel of the child (i.e. some zero indents are missing).
+        // In such a case we can fill it up with zero indents.
+        val additionalZeroIndents = child.indentLevel - totalFromParent
+
         val newIndentLevels = run {
-            indentLevelsInheritedFromParent + indentLevelsDeducedFromMaxMonospaceLengthOfParent
+            parentIndentLevels.asSequence().take(indentLevelsInheritedFromParent) +
+                run {
+                    if (indentLevelsDeducedFromMaxMonospaceLengthOfParent == 0) emptySequence()
+                    else parentMaxMonospaceLengths.asSequence()
+                        .drop(indentLevelsInheritedFromParent)
+                        .take(indentLevelsDeducedFromMaxMonospaceLengthOfParent)
+                } +
+                run {
+                    if (additionalZeroIndents <= 0) emptySequence()
+                    else generateSequence { 0 }.take(additionalZeroIndents)
+                }
         }.toList()
         return newIndentLevels to newMaxMonospaceLengths
     }

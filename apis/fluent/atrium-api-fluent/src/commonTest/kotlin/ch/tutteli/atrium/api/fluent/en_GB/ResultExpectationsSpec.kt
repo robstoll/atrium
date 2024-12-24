@@ -8,8 +8,8 @@ class ResultExpectationsSpec : ch.tutteli.atrium.specs.integration.ResultExpecta
     fun1<Result<Int>, Expect<Int>.() -> Unit>(Expect<Result<Int>>::toBeASuccess),
     feature0<Result<Int?>, Int?>(Expect<Result<Int?>>::toBeASuccess).withNullableSuffix(),
     fun1<Result<Int?>, Expect<Int?>.() -> Unit>(Expect<Result<Int?>>::toBeASuccess).withNullableSuffix(),
-    ("isFailure" to Companion::toBeAFailureFeature).withFeatureSuffix(),
-    "isFailure" to Companion::toBeAFailure
+    ("toBeAFailure" to Companion::toBeAFailureFeature).withFeatureSuffix(),
+    "toBeAFailure" to Companion::toBeAFailure
 ) {
     companion object {
         private fun toBeAFailureFeature(expect: Expect<Result<Int>>) = expect.toBeAFailure<IllegalArgumentException>()

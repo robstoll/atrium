@@ -16,7 +16,7 @@ class PairExpectationsSpec : ch.tutteli.atrium.specs.integration.PairExpectation
     fun1<Pair<String?, Int?>, Expect<Int?>.() -> Unit>(Expect<Pair<String?, Int?>>::second)
 ) {
 
-    @Suppress("unused")
+    @Suppress("unused", "UNUSED_VALUE")
     private fun ambiguityTest() {
         var a1: Expect<Pair<String, Int>> = notImplemented()
         var a2: Expect<Pair<String?, Int>> = notImplemented()

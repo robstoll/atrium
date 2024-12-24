@@ -14,6 +14,7 @@ class IterableToHaveElementsAndNoneExpectationsSpec : Spek({
     object PredicateSpec : ch.tutteli.atrium.specs.integration.IterableToHaveElementsAndNoneExpectationsSpec(
         fun1(Expect<Iterable<Double>>::toHaveElementsAndNone),
         fun1(Expect<Iterable<Double?>>::toHaveElementsAndNone).withNullableSuffix(),
+        Expect<List<Int>>::notToHaveElementsOrNone.name,
         "[Atrium][Predicate] "
     )
 
@@ -22,6 +23,7 @@ class IterableToHaveElementsAndNoneExpectationsSpec : Spek({
     object BuilderSpec : ch.tutteli.atrium.specs.integration.IterableToHaveElementsAndNoneExpectationsSpec(
         functionDescription to C::notToContainFun,
         (functionDescription to C::notToContainNullableFun).withNullableSuffix(),
+        Expect<List<Int>>::notToHaveElementsOrNone.name,
         "[Atrium][Builder] "
     )
 
@@ -35,7 +37,7 @@ class IterableToHaveElementsAndNoneExpectationsSpec : Spek({
             expect.notToContain.entry(a)
     }
 
-    @Suppress("unused")
+    @Suppress("unused", "UNUSED_VALUE")
     private fun ambiguityTest() {
         var list: Expect<List<Number>> = notImplemented()
         var nList: Expect<Set<Number?>> = notImplemented()

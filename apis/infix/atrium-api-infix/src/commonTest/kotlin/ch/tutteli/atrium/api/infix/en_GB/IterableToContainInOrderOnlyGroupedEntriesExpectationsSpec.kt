@@ -55,7 +55,7 @@ class IterableToContainInOrderOnlyGroupedEntriesExpectationsSpec :
     }
 
 
-    @Suppress("unused")
+    @Suppress("unused", "UNUSED_VARIABLE", "UNUSED_VALUE")
     private fun ambiguityTest() {
         var list: Expect<List<Number>> = notImplemented()
         var nList: Expect<Set<Number?>> = notImplemented()

@@ -9,7 +9,7 @@ object CollectionExpectationsSpec : ch.tutteli.atrium.specs.integration.Collecti
     property<Collection<Int>, Int>(Expect<Collection<Int>>::size),
     fun1<Collection<Int>, Expect<Int>.() -> Unit>(Expect<Collection<Int>>::size)
 ) {
-    @Suppress("unused")
+    @Suppress("unused", "UNUSED_VARIABLE", "UNUSED_VALUE")
     private fun ambiguityTest() {
         var a1: Expect<List<Int>> = notImplemented()
         var a1b: Expect<Set<Int?>> = notImplemented()

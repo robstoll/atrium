@@ -143,7 +143,7 @@ class AnyExpectationsSpec : ch.tutteli.atrium.specs.integration.AnyExpectationsS
             expect because of(reason) { assertionCreator() }
     }
 
-    @Suppress("unused")
+    @Suppress("unused", "UNUSED_VALUE")
     fun ambiguityTest() {
         val a1: Expect<Number> = notImplemented()
         val a1b: Expect<Number?> = notImplemented()
@@ -190,6 +190,6 @@ class AnyExpectationsSpec : ch.tutteli.atrium.specs.integration.AnyExpectationsS
     }
 
     //regression for #298, should compile without the need for E : Any or List<E?>
-    @Suppress("unused")
+    @Suppress("unused", "UNUSED_VALUE")
     fun <E> Expect<List<E>>.firstIs(value: E) = it get index(0) { it toEqual value }
 }

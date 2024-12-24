@@ -36,8 +36,8 @@ object EitherSpec : Spek({
                 expect(either).toBeRight { toBeLessThan(2) }
             }.toThrow<AssertionError> {
                 messageToContain(
-                    "value of Right: ❗❗ is not a Right",
-                    "${DescriptionComparableExpectation.TO_BE_LESS_THAN.getDefault()}: 2"
+                    "value of Right : ❗❗ is not a Right",
+                    "${DescriptionComparableExpectation.TO_BE_LESS_THAN.getDefault()} : 2"
                 )
             }
         }
@@ -51,8 +51,8 @@ object EitherSpec : Spek({
                 expect(either).toBeLeft { toStartWith("h") }
             }.toThrow<AssertionError> {
                 messageToContain(
-                    "value of Left: ❗❗ is not a Left",
-                    "${DescriptionCharSequenceExpectation.TO_START_WITH.getDefault()}: \"h\""
+                    "value of Left : ❗❗ is not a Left",
+                    "${DescriptionCharSequenceExpectation.TO_START_WITH.getDefault()} : \"h\""
                 )
             }
         }

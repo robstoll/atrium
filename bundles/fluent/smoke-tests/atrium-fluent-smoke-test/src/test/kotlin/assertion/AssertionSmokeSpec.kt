@@ -1,7 +1,7 @@
 //TODO remove with 2.0.0
 @file:Suppress("DEPRECATION")
 
-package custom
+package assertion
 
 import ch.tutteli.atrium.api.fluent.en_GB.notToExist
 import ch.tutteli.atrium.api.fluent.en_GB.toEqual
@@ -17,7 +17,7 @@ import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
 import ch.tutteli.atrium.translations.DescriptionBasic.TO_BE
 import org.spekframework.spek2.Spek
 import java.nio.file.Paths
-//TODO 1.3.0 SmokeTest with Proof
+//TODO 1.3.0 also add SmokeTest with Proof
 object AssertionSmokeSpec : Spek({
     test("see if `toEqual` can be used") {
         expect(1).toEqual(1)

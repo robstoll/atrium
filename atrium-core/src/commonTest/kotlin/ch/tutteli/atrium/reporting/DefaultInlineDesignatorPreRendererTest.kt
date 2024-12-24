@@ -46,12 +46,12 @@ class DefaultInlineDesignatorPreRendererTest {
         val nonInlineElements = listOf(
             simpleProof,
             Proof.group(Text("bla"), "rep", children = listOf(simpleProof)),
-            Reportable.debugGroup(Text("bla"), emptyList()),
-            Reportable.failureExplanationGroup(Text("bli"), emptyList()),
-            Reportable.group(Text("bla"), "rep", children = emptyList()),
-            Reportable.informationGroup(Text("info"), emptyList()),
+            Reportable.debugGroup(Text("bla"), listOf(simpleProof)),
+            Reportable.failureExplanationGroup(Text("bli"), listOf(simpleProof)),
+            Reportable.group(Text("bla"), "rep", children = listOf(simpleProof)),
+            Reportable.informationGroup(Text("info"), listOf(simpleProof)),
             Reportable.proofExplanation(simpleProof),
-            Reportable.usageHintGroup(emptyList()),
+            Reportable.usageHintGroup(listOf(simpleProof)),
         )
         //TODO 1.3.0 switch to testFactory
         expectGrouped {

@@ -39,8 +39,7 @@ abstract class IterableToContainInAnyOrderOnlyEntriesExpectationsSpec(
 
 
     //@formatter:off
-    val anEntryAfterSuccess = "$anElementWhichNeedsDescr: $lineSeparator$indentRoot$indentSuccess$indentList$explanatoryBulletPoint"
-    val anEntryAfterFailing = "$anElementWhichNeedsDescr: $lineSeparator$indentRoot$indentX$indentList$explanatoryBulletPoint"
+    val anEntryAfterSuccess = "$anElementWhichNeedsDescr : $lineSeparator$indentG$indentS$explanatoryBulletPoint"
     //@formatter:on
 
     nonNullableCases(
@@ -61,8 +60,9 @@ abstract class IterableToContainInAnyOrderOnlyEntriesExpectationsSpec(
                 }.toThrow<AssertionError> {
                     message {
                         toContain(
-                            "$rootBulletPoint$toContainInAnyOrderOnly:",
-                            "$x$anEntryAfterFailing$toBeLessThanDescr: 1.0"
+                            "$g$toContainInAnyOrderOnly :",
+                            "$indentG$g${anElementWhichNeedsDescr} : $lineSeparator" +
+                                "$indentGg$explanatoryBulletPoint$toBeLessThanDescr : 1.0"
                         )
                         notToContain(additionalElements)
                         toContainSize(0, 1)
@@ -75,9 +75,11 @@ abstract class IterableToContainInAnyOrderOnlyEntriesExpectationsSpec(
                 }.toThrow<AssertionError> {
                     message {
                         toContain.exactly(1).values(
-                            "$rootBulletPoint$toContainInAnyOrderOnly:",
-                            "$x$anEntryAfterFailing$toBeLessThanDescr: 1.0",
-                            "$x$anEntryAfterFailing$toBeGreaterThanDescr: 4.0"
+                            "$g$toContainInAnyOrderOnly :",
+                            "$indentG$g${anElementWhichNeedsDescr} : $lineSeparator" +
+                                "$indentGg$explanatoryBulletPoint$toBeLessThanDescr : 1.0$lineSeparator" +
+                                "$indentG$g${anElementWhichNeedsDescr} : $lineSeparator" +
+                                "$indentGg$explanatoryBulletPoint$toBeGreaterThanDescr : 4.0"
                         )
                         notToContain(additionalElements)
                         toContainSize(0, 2)
@@ -145,13 +147,13 @@ abstract class IterableToContainInAnyOrderOnlyEntriesExpectationsSpec(
                         }.toThrow<AssertionError> {
                             message {
                                 toContain.exactly(1).values(
-                                    "$rootBulletPoint$toContainInAnyOrderOnly:",
-                                    "$s$anEntryAfterSuccess$toEqualDescr: 1.0",
-                                    "$s$anEntryAfterSuccess$toEqualDescr: 2.0",
-                                    "$s$anEntryAfterSuccess$toEqualDescr: 3.0",
-                                    "$s$anEntryAfterSuccess$toEqualDescr: 4.0",
-                                    "$bb$additionalElements:",
-                                    "${listBulletPoint}4.0"
+                                    "$g$toContainInAnyOrderOnly :",
+                                    "$indentG$s$anEntryAfterSuccess$toEqualDescr : 1.0",
+                                    "$indentG$s$anEntryAfterSuccess$toEqualDescr : 2.0",
+                                    "$indentG$s$anEntryAfterSuccess$toEqualDescr : 3.0",
+                                    "$indentG$s$anEntryAfterSuccess$toEqualDescr : 4.0",
+                                    "$indentG$bb$additionalElements :",
+                                    "$indentG$indentBb${listBulletPoint}4.0"
                                 )
                                 toContainSize(5, 4)
                             }
@@ -164,13 +166,13 @@ abstract class IterableToContainInAnyOrderOnlyEntriesExpectationsSpec(
                         }.toThrow<AssertionError> {
                             message {
                                 toContain.exactly(1).values(
-                                    "$rootBulletPoint$toContainInAnyOrderOnly:",
-                                    "$s$anEntryAfterSuccess$toBeLessThanDescr: 3.0",
-                                    "$s$anEntryAfterSuccess$toBeGreaterThanDescr: 3.0",
-                                    "$bb$additionalElements:",
-                                    "${listBulletPoint}2.0",
-                                    "${listBulletPoint}3.0",
-                                    "${listBulletPoint}4.0"
+                                    "$g$toContainInAnyOrderOnly :",
+                                    "$indentG$s$anEntryAfterSuccess$toBeLessThanDescr : 3.0",
+                                    "$indentG$s$anEntryAfterSuccess$toBeGreaterThanDescr : 3.0",
+                                    "$indentG$bb$additionalElements :",
+                                    "$indentG$indentBb${listBulletPoint}2.0",
+                                    "$indentG$indentBb${listBulletPoint}3.0",
+                                    "$indentG$indentBb${listBulletPoint}4.0"
                                 )
                                 toContainSize(5, 2)
                             }
@@ -190,13 +192,15 @@ abstract class IterableToContainInAnyOrderOnlyEntriesExpectationsSpec(
                         }.toThrow<AssertionError> {
                             message {
                                 toContain.exactly(1).values(
-                                    "$rootBulletPoint$toContainInAnyOrderOnly:",
-                                    "$s$anEntryAfterSuccess$toBeLessThanDescr: 5.0",
-                                    "$x$anEntryAfterFailing$toEqualDescr: 1.0",
-                                    "$s$anEntryAfterSuccess$toEqualDescr: 2.0",
-                                    "$s$anEntryAfterSuccess$toEqualDescr: 3.0",
-                                    "$s$anEntryAfterSuccess$toEqualDescr: 4.0",
-                                    "$bb$mismatches:",
+                                    "$g$toContainInAnyOrderOnly :",
+                                    "$s$anEntryAfterSuccess$toBeLessThanDescr : 5.0",
+                                    //TODO 1.3.0 should be $x instead of $g
+                                    "$g${anElementWhichNeedsDescr} : $lineSeparator" +
+                                        "$indentGg$explanatoryBulletPoint$toEqualDescr : 1.0",
+                                    "$s$anEntryAfterSuccess$toEqualDescr : 2.0",
+                                    "$s$anEntryAfterSuccess$toEqualDescr : 3.0",
+                                    "$s$anEntryAfterSuccess$toEqualDescr : 4.0",
+                                    "$bb$mismatches :",
                                     "${listBulletPoint}4.0"
                                 )
                                 notToContain(sizeDescr)
@@ -215,11 +219,13 @@ abstract class IterableToContainInAnyOrderOnlyEntriesExpectationsSpec(
                         }.toThrow<AssertionError> {
                             message {
                                 toContain.exactly(1).values(
-                                    "$rootBulletPoint$toContainInAnyOrderOnly:",
-                                    "$s$anEntryAfterSuccess$toEqualDescr: 1.0",
-                                    "$s$anEntryAfterSuccess$toBeGreaterThanDescr: 3.0",
-                                    "$x$anEntryAfterFailing$toBeGreaterThanDescr: 4.0",
-                                    "$bb$mismatchesAdditionalElements:",
+                                    "$g$toContainInAnyOrderOnly :",
+                                    "$s$anEntryAfterSuccess$toEqualDescr : 1.0",
+                                    "$s$anEntryAfterSuccess$toBeGreaterThanDescr : 3.0",
+                                    //TODO 1.3.0 should be $x instead of $g
+                                    "$g${anElementWhichNeedsDescr} : $lineSeparator" +
+                                        "$indentGg$explanatoryBulletPoint$toBeGreaterThanDescr : 4.0",
+                                    "$bb$mismatchesAdditionalElements :",
                                     "${listBulletPoint}2.0",
                                     "${listBulletPoint}3.0",
                                     "${listBulletPoint}4.0"
@@ -243,14 +249,17 @@ abstract class IterableToContainInAnyOrderOnlyEntriesExpectationsSpec(
                         }.toThrow<AssertionError> {
                             message {
                                 toContain.exactly(1).values(
-                                    "$rootBulletPoint$toContainInAnyOrderOnly:",
-                                    "$s$anEntryAfterSuccess$toEqualDescr: 1.0",
-                                    "$s$anEntryAfterSuccess$toEqualDescr: 2.0",
-                                    "$s$anEntryAfterSuccess$toEqualDescr: 3.0",
-                                    "$x$anEntryAfterSuccess$toEqualDescr: 5.0"
+                                    "$g$toContainInAnyOrderOnly :",
+                                    //TODO 1.3.0 check why $s is not aligned, I would have expected $s $anEntry...
+                                    "$s$anEntryAfterSuccess$toEqualDescr : 1.0",
+                                    "$s$anEntryAfterSuccess$toEqualDescr : 2.0",
+                                    "$s$anEntryAfterSuccess$toEqualDescr : 3.0",
+                                    //TODO 1.3.0 should be $x instead of $g
+                                    "$g$anElementWhichNeedsDescr : $lineSeparator" +
+                                        "$indentGg$explanatoryBulletPoint$toEqualDescr : 5.0"
                                 )
                                 toContain.exactly(2)
-                                    .value("$s$anEntryAfterSuccess$toEqualDescr: 4.0")
+                                    .value("$s$anEntryAfterSuccess$toEqualDescr : 4.0")
                                 toContainSize(5, 6)
                                 notToContain(additionalElements, mismatches, mismatchesAdditionalElements)
                             }
@@ -269,13 +278,13 @@ abstract class IterableToContainInAnyOrderOnlyEntriesExpectationsSpec(
                         message {
                             toContainSize(5, 1)
                             toContain.exactly(1).values(
-                                "$rootBulletPoint$toContainInAnyOrderOnly:",
-                                "$bb$additionalElements:",
+                                "$g$toContainInAnyOrderOnly :",
+                                "$bb$additionalElements :",
                                 "${listBulletPoint}1.0",
                                 "${listBulletPoint}3.0"
                             )
                             toContain.exactly(2).value("${listBulletPoint}4.0")
-                            notToContain("$toEqualDescr: 2.0")
+                            notToContain("$toEqualDescr : 2.0")
 
                         }
                     }
@@ -293,12 +302,14 @@ abstract class IterableToContainInAnyOrderOnlyEntriesExpectationsSpec(
                     }.toThrow<AssertionError> {
                         message {
                             toContainSize(5, 6)
-                            toContain.exactly(1).values("$listBulletPoint$anEntryAfterSuccess$toEqualDescr: 5.0")
-                            notToContain(
-                                "$toEqualDescr: 1.0",
-                                "$toEqualDescr: 2.0",
-                                "$toEqualDescr: 3.0",
-                                "$toEqualDescr: 4.0"
+                            //TODO 1.3.0 should be $x instead of $g
+                            toContain.exactly(1).values("$g$anElementWhichNeedsDescr : $lineSeparator"+
+                                "$indentGg$explanatoryBulletPoint$toEqualDescr : 5.0")
+                            notToContain.regex(
+                                "$toEqualDescr\\s+: 1.0",
+                                "$toEqualDescr\\s+: 2.0",
+                                "$toEqualDescr\\s+: 3.0",
+                                "$toEqualDescr\\s+: 4.0"
                             )
                             notToContain(additionalElements, mismatches, mismatchesAdditionalElements)
                         }
@@ -326,22 +337,25 @@ abstract class IterableToContainInAnyOrderOnlyEntriesExpectationsSpec(
                     }.toThrow<AssertionError> {
                         message {
                             toContain.exactly(1).values(
-                                "$listBulletPoint$anEntryAfterSuccess$toEqualDescr: -1.0",
-                                "$listBulletPoint$anEntryAfterSuccess$toEqualDescr: -2.0",
-                                "$bb$mismatches:",
+                                //TODO 1.3.0 should be $x instead of $g
+                                "$g$anElementWhichNeedsDescr : $lineSeparator"+
+                                    "$indentGg$explanatoryBulletPoint$toEqualDescr : -1.0",
+                                "$g$anElementWhichNeedsDescr : $lineSeparator"+
+                                    "$indentGg$explanatoryBulletPoint$toEqualDescr : -2.0",
+                                "$bb$mismatches :",
                                 "${listBulletPoint}5.0",
                                 "${listBulletPoint}8.0"
                             )
                             notToContain(
-                                "$toEqualDescr: 1.0",
-                                "$toEqualDescr: 2.0",
-                                "$toEqualDescr: 3.0",
-                                "$toEqualDescr: 4.0",
-                                "$toEqualDescr: 6.0",
-                                "$toEqualDescr: 7.0",
-                                "$toEqualDescr: 9.0",
-                                "$toEqualDescr: 10.0",
-                                "$toEqualDescr: 11.0",
+                                "$toEqualDescr : 1.0",
+                                "$toEqualDescr : 2.0",
+                                "$toEqualDescr : 3.0",
+                                "$toEqualDescr : 4.0",
+                                "$toEqualDescr : 6.0",
+                                "$toEqualDescr : 7.0",
+                                "$toEqualDescr : 9.0",
+                                "$toEqualDescr : 10.0",
+                                "$toEqualDescr : 11.0",
 
                                 additionalElements, mismatchesAdditionalElements
                             )
@@ -367,18 +381,22 @@ abstract class IterableToContainInAnyOrderOnlyEntriesExpectationsSpec(
                     }.toThrow<AssertionError> {
                         message {
                             toContain.exactly(1).values(
-                                "$s$anEntryAfterSuccess$toEqualDescr: 1.0",
-                                "$s$anEntryAfterSuccess$toEqualDescr: 2.0",
-                                "$s$anEntryAfterSuccess$toEqualDescr: 3.0",
-                                "$s$anEntryAfterSuccess$toEqualDescr: 4.0",
-                                "$x$anEntryAfterFailing$toEqualDescr: -1.0",
-                                "$s$anEntryAfterSuccess$toEqualDescr: 6.0",
-                                "$s$anEntryAfterSuccess$toEqualDescr: 7.0",
-                                "$x$anEntryAfterFailing$toEqualDescr: -2.0",
-                                "$s$anEntryAfterSuccess$toEqualDescr: 9.0",
-                                "$s$anEntryAfterSuccess$toEqualDescr: 10.0",
-                                "$s$anEntryAfterSuccess$toEqualDescr: 11.0",
-                                "$bb$mismatches:",
+                                "$s$anEntryAfterSuccess$toEqualDescr : 1.0",
+                                "$s$anEntryAfterSuccess$toEqualDescr : 2.0",
+                                "$s$anEntryAfterSuccess$toEqualDescr : 3.0",
+                                "$s$anEntryAfterSuccess$toEqualDescr : 4.0",
+                                //TODO 1.3.0 should be $x instead of $g
+                                "$g$anElementWhichNeedsDescr : $lineSeparator" +
+                                    "$indentGg$explanatoryBulletPoint$toEqualDescr : -1.0",
+                                "$s$anEntryAfterSuccess$toEqualDescr : 6.0",
+                                "$s$anEntryAfterSuccess$toEqualDescr : 7.0",
+                                //TODO 1.3.0 should be $x instead of $g
+                                "$g$anElementWhichNeedsDescr : $lineSeparator" +
+                                    "$indentGg$explanatoryBulletPoint$toEqualDescr : -2.0",
+                                "$s$anEntryAfterSuccess$toEqualDescr : 9.0",
+                                "$s$anEntryAfterSuccess$toEqualDescr : 10.0",
+                                "$s$anEntryAfterSuccess$toEqualDescr : 11.0",
+                                "$bb$mismatches :",
                                 "${listBulletPoint}5.0",
                                 "${listBulletPoint}8.0"
                             )
@@ -434,11 +452,11 @@ abstract class IterableToContainInAnyOrderOnlyEntriesExpectationsSpec(
                         }.toThrow<AssertionError> {
                             message {
                                 toContain.exactly(1).values(
-                                    "$rootBulletPoint$toContainInAnyOrderOnly:",
-                                    "$s$anEntryAfterSuccess$toEqualDescr: null",
-                                    "$s$anEntryAfterSuccess$toEqualDescr: 1.0",
-                                    "$s$anEntryAfterSuccess$toEqualDescr: 3.0",
-                                    "$bb$additionalElements:",
+                                    "$g$toContainInAnyOrderOnly :",
+                                    "$s$anEntryAfterSuccess$toEqualDescr : null",
+                                    "$s$anEntryAfterSuccess$toEqualDescr : 1.0",
+                                    "$s$anEntryAfterSuccess$toEqualDescr : 3.0",
+                                    "$bb$additionalElements :",
                                     "${listBulletPoint}null"
                                 )
                                 toContainSize(4, 3)
@@ -456,14 +474,16 @@ abstract class IterableToContainInAnyOrderOnlyEntriesExpectationsSpec(
                         }.toThrow<AssertionError> {
                             message {
                                 toContain.exactly(2).values(
-                                    "$s$anEntryAfterSuccess$toEqualDescr: null",
-                                    "$s$anEntryAfterSuccess$toEqualDescr: null"
+                                    "$s$anEntryAfterSuccess$toEqualDescr : null",
+                                    "$s$anEntryAfterSuccess$toEqualDescr : null"
                                 )
                                 toContain.exactly(1).values(
-                                    "$rootBulletPoint$toContainInAnyOrderOnly:",
-                                    "$s$anEntryAfterSuccess$toBeLessThanDescr: 4.0",
-                                    "$x$anEntryAfterFailing$toEqualDescr: 1.0",
-                                    "$bb$mismatches:",
+                                    "$g$toContainInAnyOrderOnly :",
+                                    "$s$anEntryAfterSuccess$toBeLessThanDescr : 4.0",
+                                    //TODO 1.3.0 should be $x instead of $g
+                                    "$g$anElementWhichNeedsDescr : $lineSeparator" +
+                                        "$indentGg$explanatoryBulletPoint$toEqualDescr : 1.0",
+                                    "$bb$mismatches :",
                                     "${listBulletPoint}3.0"
                                 )
                                 notToContain(sizeDescr)

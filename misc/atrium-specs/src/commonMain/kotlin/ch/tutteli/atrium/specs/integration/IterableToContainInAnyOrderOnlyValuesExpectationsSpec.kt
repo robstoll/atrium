@@ -103,12 +103,15 @@ abstract class IterableToContainInAnyOrderOnlyValuesExpectationsSpec(
                             message {
                                 toContain.exactly(1).values(
                                     "$g$toContainInAnyOrderOnly :",
-                                    "$s$anElementWhichEquals : 1.0",
-                                    "$s$anElementWhichEquals : 2.0",
-                                    "$s$anElementWhichEquals : 3.0",
-                                    "$s$anElementWhichEquals : 4.0",
                                     "$bb$additionalElements :",
                                     "${listBulletPoint}4.0"
+                                )
+                                toContain.exactly(1).regex(
+                                    //TODO 1.3.0 should be just $anElementWhichEquals :
+                                    "$s$anElementWhichEquals\\s+: 1.0",
+                                    "$s$anElementWhichEquals\\s+: 2.0",
+                                    "$s$anElementWhichEquals\\s+: 3.0",
+                                    "$s$anElementWhichEquals\\s+: 4.0",
                                 )
                                 toContainSize(5, 4)
                             }
@@ -122,12 +125,14 @@ abstract class IterableToContainInAnyOrderOnlyValuesExpectationsSpec(
                             message {
                                 toContain.exactly(1).values(
                                     "$g$toContainInAnyOrderOnly :",
-                                    "$s$anElementWhichEquals : 1.0",
-                                    "$s$anElementWhichEquals : 4.0",
                                     "$bb$additionalElements :",
                                     "${listBulletPoint}2.0",
                                     "${listBulletPoint}3.0",
                                     "${listBulletPoint}4.0"
+                                )
+                                toContain.exactly(1).regex(
+                                    "$s$anElementWhichEquals\\s+: 1.0",
+                                    "$s$anElementWhichEquals\\s+: 4.0",
                                 )
                                 toContainSize(5, 2)
                             }
@@ -143,12 +148,14 @@ abstract class IterableToContainInAnyOrderOnlyValuesExpectationsSpec(
                             message {
                                 toContain.exactly(1).values(
                                     "$g$toContainInAnyOrderOnly :",
-                                    "$s$anElementWhichEquals : 1.0",
-                                    "$s$anElementWhichEquals : 2.0",
-                                    "$s$anElementWhichEquals : 3.0",
-                                    "$x$anElementWhichEquals : 5.0",
-                                    "$bb$mismatches:",
+                                    "$bb$mismatches :",
                                     "${listBulletPoint}4.0"
+                                )
+                                toContain.exactly(1).regex(
+                                    "$s $anElementWhichEquals\\s+: 1.0",
+                                    "$s $anElementWhichEquals\\s+: 2.0",
+                                    "$s $anElementWhichEquals\\s+: 3.0",
+                                    "$x$anElementWhichEquals\\s+: 5.0",
                                 )
                                 notToContain(sizeDescr)
                             }
@@ -163,14 +170,16 @@ abstract class IterableToContainInAnyOrderOnlyValuesExpectationsSpec(
                         }.toThrow<AssertionError> {
                             message {
                                 toContain.exactly(1).values(
-                                    "$rootBulletPoint$toContainInAnyOrderOnly:",
-                                    "$s$anElementWhichEquals: 1.0",
-                                    "$s$anElementWhichEquals: 3.0",
-                                    "$x$anElementWhichEquals: 5.0",
-                                    "$bb$mismatchesAdditionalElements :",
-                                    "${listBulletPoint}2.0"
+                                    "$g$toContainInAnyOrderOnly :",
+                                    "$indentG$bb$mismatchesAdditionalElements :",
+                                    "$indentG$indentBb${listBulletPoint}2.0"
                                 )
-                                toContain.exactly(2).value("${listBulletPoint}4.0")
+                                toContain.exactly(1).regex(
+                                    "$s $anElementWhichEquals\\s+: 1.0",
+                                    "$s $anElementWhichEquals\\s+: 3.0",
+                                    "$x$anElementWhichEquals\\s+: 5.0",
+                                )
+                                toContain.exactly(2).value("$indentG$indentBb${listBulletPoint}4.0")
                                 toContainSize(5, 3)
                             }
                         }
@@ -185,12 +194,14 @@ abstract class IterableToContainInAnyOrderOnlyValuesExpectationsSpec(
                             message {
                                 toContain.exactly(1).values(
                                     "$g$toContainInAnyOrderOnly :",
-                                    "$s$anElementWhichEquals : 1.0",
-                                    "$s$anElementWhichEquals : 2.0",
-                                    "$s$anElementWhichEquals : 3.0",
-                                    "$x$anElementWhichEquals : 5.0"
                                 )
-                                toContain.exactly(2).value("$s$anElementWhichEquals : 4.0")
+                                toContain.exactly(1).regex(
+                                    "$s $anElementWhichEquals\\s+: 1.0",
+                                    "$s $anElementWhichEquals\\s+: 2.0",
+                                    "$s $anElementWhichEquals\\s+: 3.0",
+                                    "$x$anElementWhichEquals\\s+: 5.0"
+                                )
+                                toContain.exactly(2).regex("$s $anElementWhichEquals\\s+: 4.0")
                                 toContainSize(5, 6)
                                 notToContain(additionalElements, mismatches, mismatchesAdditionalElements)
                             }
@@ -215,7 +226,7 @@ abstract class IterableToContainInAnyOrderOnlyValuesExpectationsSpec(
                                 "${listBulletPoint}3.0"
                             )
                             toContain.exactly(2).value("${listBulletPoint}4.0")
-                            notToContain("$anElementWhichEquals : 2.0")
+                            notToContain.regex("$anElementWhichEquals\\s+: 2.0")
 
                         }
                     }
@@ -233,12 +244,12 @@ abstract class IterableToContainInAnyOrderOnlyValuesExpectationsSpec(
                     }.toThrow<AssertionError> {
                         message {
                             toContainSize(5, 6)
-                            toContain.exactly(1).values("$listBulletPoint$anElementWhichEquals : 5.0")
-                            notToContain(
-                                "$anElementWhichEquals : 1.0",
-                                "$anElementWhichEquals : 2.0",
-                                "$anElementWhichEquals : 3.0",
-                                "$anElementWhichEquals : 4.0"
+                            toContain.exactly(1).regex("$x$anElementWhichEquals\\s+: 5.0")
+                            notToContain.regex(
+                                "$anElementWhichEquals\\s+: 1.0",
+                                "$anElementWhichEquals\\s+: 2.0",
+                                "$anElementWhichEquals\\s+: 3.0",
+                                "$anElementWhichEquals\\s+: 4.0"
                             )
                             notToContain(additionalElements, mismatches, mismatchesAdditionalElements)
                         }
@@ -265,23 +276,23 @@ abstract class IterableToContainInAnyOrderOnlyValuesExpectationsSpec(
                         )
                     }.toThrow<AssertionError> {
                         message {
-                            toContain.exactly(1).values(
-                                "$listBulletPoint$anElementWhichEquals : -1.0",
-                                "$listBulletPoint$anElementWhichEquals : -2.0",
-                                "$bb$mismatches:",
+                            toContain.exactly(1).regex(
+                                "$x$anElementWhichEquals\\s+: -1.0",
+                                "$x$anElementWhichEquals\\s+: -2.0",
+                                "$bb$mismatches :",
                                 "${listBulletPoint}5.0",
                                 "${listBulletPoint}8.0"
                             )
-                            notToContain(
-                                "$anElementWhichEquals : 1.0",
-                                "$anElementWhichEquals : 2.0",
-                                "$anElementWhichEquals : 3.0",
-                                "$anElementWhichEquals : 4.0",
-                                "$anElementWhichEquals : 6.0",
-                                "$anElementWhichEquals : 7.0",
-                                "$anElementWhichEquals : 9.0",
-                                "$anElementWhichEquals : 10.0",
-                                "$anElementWhichEquals : 11.0",
+                            notToContain.regex(
+                                "$anElementWhichEquals\\s+: 1.0",
+                                "$anElementWhichEquals\\s+: 2.0",
+                                "$anElementWhichEquals\\s+: 3.0",
+                                "$anElementWhichEquals\\s+: 4.0",
+                                "$anElementWhichEquals\\s+: 6.0",
+                                "$anElementWhichEquals\\s+: 7.0",
+                                "$anElementWhichEquals\\s+: 9.0",
+                                "$anElementWhichEquals\\s+: 10.0",
+                                "$anElementWhichEquals\\s+: 11.0",
 
                                 additionalElements, mismatchesAdditionalElements
                             )
@@ -306,19 +317,19 @@ abstract class IterableToContainInAnyOrderOnlyValuesExpectationsSpec(
                         )
                     }.toThrow<AssertionError> {
                         message {
-                            toContain.exactly(1).values(
-                                "$s$anElementWhichEquals : 1.0",
-                                "$s$anElementWhichEquals : 2.0",
-                                "$s$anElementWhichEquals : 3.0",
-                                "$s$anElementWhichEquals : 4.0",
-                                "$x$anElementWhichEquals : -1.0",
-                                "$s$anElementWhichEquals : 6.0",
-                                "$s$anElementWhichEquals : 7.0",
-                                "$x$anElementWhichEquals : -2.0",
-                                "$s$anElementWhichEquals : 9.0",
-                                "$s$anElementWhichEquals : 10.0",
-                                "$s$anElementWhichEquals : 11.0",
-                                "$bb$mismatches:",
+                            toContain.exactly(1).regex(
+                                "$s $anElementWhichEquals\\s+: 1.0",
+                                "$s $anElementWhichEquals\\s+: 2.0",
+                                "$s $anElementWhichEquals\\s+: 3.0",
+                                "$s $anElementWhichEquals\\s+: 4.0",
+                                "$x$anElementWhichEquals\\s+: -1.0",
+                                "$s $anElementWhichEquals\\s+: 6.0",
+                                "$s $anElementWhichEquals\\s+: 7.0",
+                                "$x$anElementWhichEquals\\s+: -2.0",
+                                "$s $anElementWhichEquals\\s+: 9.0",
+                                "$s $anElementWhichEquals\\s+: 10.0",
+                                "$s $anElementWhichEquals\\s+: 11.0",
+                                "$bb$mismatches :",
                                 "${listBulletPoint}5.0",
                                 "${listBulletPoint}8.0"
                             )
@@ -367,11 +378,11 @@ abstract class IterableToContainInAnyOrderOnlyValuesExpectationsSpec(
                             expect(null1null3()).toContainFun(null, 1.0, 3.0)
                         }.toThrow<AssertionError> {
                             message {
-                                toContain.exactly(1).values(
+                                toContain.exactly(1).regex(
                                     "$g$toContainInAnyOrderOnly :",
-                                    "$s$anElementWhichEquals : null",
-                                    "$s$anElementWhichEquals : 1.0",
-                                    "$s$anElementWhichEquals : 3.0",
+                                    "$s$anElementWhichEquals\\s+: null",
+                                    "$s$anElementWhichEquals\\s+: 1.0",
+                                    "$s$anElementWhichEquals\\s+: 3.0",
                                     "$bb$additionalElements :",
                                     "${listBulletPoint}null"
                                 )

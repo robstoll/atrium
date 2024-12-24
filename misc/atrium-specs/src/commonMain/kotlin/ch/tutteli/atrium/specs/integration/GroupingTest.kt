@@ -34,12 +34,13 @@ abstract class GroupingTest(
             }
         }.toThrow<AssertionError> {
             message {
+                //TODO 1.3.0 should use groupingIcon
                 toContainRegex(
-                    "${groupingBulletPoint}my group name: 123.*$lineSeparator" +
-                        "${indentGrouping}$rootBulletPoint$toEqualDescr: 2.*$lineSeparator" +
-                        "${indentGrouping}$rootBulletPoint$toBeGreaterThanDescr: 4"
+                    "${g}my group name\\s+: 123.*$lineSeparator" +
+                        "$indentG$x$toEqualDescr\\s+: 2$lineSeparator" +
+                        "$indentG$x$toBeGreaterThanDescr : 4"
                 )
-                notToContain("$rootBulletPoint$toBeLessThanDescr: 10")
+                notToContain.regex("$x$toBeLessThanDescr\\s+: 10")
             }
         }
     }
@@ -71,12 +72,12 @@ abstract class GroupingTest(
         }.toThrow<AssertionError> {
             message {
                 toContainRegex(
-                    "${groupingBulletPoint}my group name: 123.*$lineSeparator" +
-                        "${indentGrouping}$rootBulletPoint$toEqualDescr: 2.*$lineSeparator" +
-                        "${indentGrouping}${groupingBulletPoint}other name: \"hello\".*$lineSeparator" +
-                        "${indentGrouping}${indentGrouping}$rootBulletPoint$toBeGreaterThanDescr: 4"
+                    "${g}my group name\\s+: 123.*$lineSeparator" +
+                        "$indentG$x$toEqualDescr\\s+: 2$lineSeparator" +
+                        "$indentG${g}other name\\s+: \"hello\".*$lineSeparator" +
+                        "$indentG$indentG$x$toBeGreaterThanDescr : 4"
                 )
-                notToContain("$rootBulletPoint$toBeLessThanDescr: 10")
+                notToContain.regex("$rootBulletPoint$toBeLessThanDescr\\s+: 10")
             }
         }
     }

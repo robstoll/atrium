@@ -21,6 +21,7 @@ class SmokeTest {
         expect(1) toEqual 1
     }
 
+    //TODO 1.3.0 naming (also in other SmokeTetss)
     @Test
     fun expectationFunctionWithoutI18nCanBeUsed() {
         expect(2) toBe even
@@ -78,7 +79,7 @@ object even
 object odd
 
 infix fun Expect<Int>.toBe(@Suppress("UNUSED_PARAMETER") even: even) =
-    _core.createAndAppend("is", Text("an even number")) { it % 2 == 0 }
+    _core.createAndAppend("to be", Text("an even number")) { it % 2 == 0 }
 
 infix fun Expect<Int>.toBe(@Suppress("UNUSED_PARAMETER") odd: odd) =
     _coreAppend { buildSimpleProof(DescriptionBasic.TO_BE, Text("an odd number")) { it % 2 == 1 } }

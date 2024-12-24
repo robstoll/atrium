@@ -8,10 +8,8 @@ import org.spekframework.spek2.Spek
 import ch.tutteli.atrium.api.fluent.en_GB.IterableToContainNotValuesExpectationsSpec.Companion as C
 
 class IterableToContainNotValuesExpectationsSpec : Spek({
-
     include(BuilderSpec)
     include(ShortcutSpec)
-
 }) {
 
     object BuilderSpec : ch.tutteli.atrium.specs.integration.IterableNotToContainValuesExpectationsSpec(
@@ -49,7 +47,7 @@ class IterableToContainNotValuesExpectationsSpec : Spek({
     }
 
 
-    @Suppress("unused")
+    @Suppress("unused", "UNUSED_VALUE")
     private fun ambiguityTest() {
         var list: Expect<List<Number>> = notImplemented()
         var nList: Expect<Set<Number?>> = notImplemented()

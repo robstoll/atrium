@@ -1,13 +1,14 @@
 package ch.tutteli.atrium.specs.integration
 
+import ch.tutteli.atrium.api.fluent.en_GB.message
 import ch.tutteli.atrium.api.fluent.en_GB.messageToContain
 import ch.tutteli.atrium.api.fluent.en_GB.notToThrow
 import ch.tutteli.atrium.api.fluent.en_GB.toEqual
 import ch.tutteli.atrium.api.fluent.en_GB.toThrow
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionListLikeProof
 import ch.tutteli.atrium.specs.*
-import ch.tutteli.atrium.translations.DescriptionListLikeExpectation
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.Suite
 
@@ -44,7 +45,7 @@ abstract class ListExpectationsSpec(
 
     val listNullable = listOf(1, null, 3, 4)
 
-    val indexOutOfBounds = DescriptionListLikeExpectation.INDEX_OUT_OF_BOUNDS.getDefault()
+    val indexOutOfBounds = DescriptionListLikeProof.INDEX_OUT_OF_BOUNDS.string
 
     describeFun(getFeature, get, getFeatureNullable, getNullable) {
         val getFunctions = uncheckedToNonNullable(
@@ -61,13 +62,13 @@ abstract class ListExpectationsSpec(
                     expect {
                         expect(list).getFun(4) { toEqual(3) }
                     }.toThrow<AssertionError> {
-                        messageToContain("get(4): $indexOutOfBounds")
-                        if (hasExtraHint) messageToContain("$toEqualDescr: 3")
+                        message {
+                            toContainDescr("get(4)", indexOutOfBounds)
+                            if (hasExtraHint) toContainToEqualDescr(3)
+                        }
                     }
                 }
             }
-
-
         }
     }
 

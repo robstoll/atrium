@@ -70,7 +70,7 @@ abstract class IterableToContainSpecBase {
     protected val notToContain = "${notToContainProp.name} $Values"
 
     //TODO move to specific specs
-    @Suppress("unused")
+    @Suppress("unused", "UNUSED_VALUE")
     private fun ambiguityTest() {
         val list: Expect<List<Number>> = notImplemented()
         val nullableList: Expect<Set<Number?>> = notImplemented()

@@ -3,17 +3,15 @@ package ch.tutteli.atrium.specs.integration
 import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionComparableProof
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.specs.lineSeparator
-import ch.tutteli.atrium.translations.DescriptionComparableExpectation
 
 abstract class IterableToHaveElementsAndAnyExpectationsSpec(
     toHaveElementsAndAny: Fun1<Iterable<Double>, Expect<Double>.() -> Unit>,
     toHaveElementsAndAnyNullable: Fun1<Iterable<Double?>, (Expect<Double>.() -> Unit)?>,
     describePrefix: String = "[Atrium] "
 ) : IterableToContainEntriesSpecBase({
-
-    val toBeGreaterThanDescr = DescriptionComparableExpectation.TO_BE_GREATER_THAN.getDefault()
 
     include(object : SubjectLessSpec<Iterable<Double>>(describePrefix,
         toHaveElementsAndAny.forSubjectLess { toEqual(2.5) }
@@ -38,15 +36,17 @@ abstract class IterableToHaveElementsAndAnyExpectationsSpec(
         toHaveElementsAndAnyNullable
     ) { toHaveElementsAndAnyFun ->
 
-        context("empty collection") {
+        context("empty iterable") {
             it("throws AssertionError as there needs to be at least one element") {
                 expect {
                     expect(fluentEmpty()).toHaveElementsAndAnyFun { toBeLessThan(1.0) }
                 }.toThrow<AssertionError> {
                     messageToContain(
-                        "$rootBulletPoint$toContainInAnyOrder: $lineSeparator",
-                        "$anElementWhichNeedsDescr: $lineSeparator",
-                        "$toBeLessThanDescr: 1.0",
+                        //TODO 1.3.0 should be x and not g
+                        "$g$toContainInAnyOrder : $lineSeparator",
+                        "$anElementWhichNeedsDescr : $lineSeparator",
+                        "$toBeLessThanDescr : 1.0",
+                        //TODO 1.3.0 should not be necessary
                         noSuchElementDescr
                     )
 
@@ -60,13 +60,17 @@ abstract class IterableToHaveElementsAndAnyExpectationsSpec(
                     expect {
                         expect(oneToSeven()).toHaveElementsAndAnyFun { toBeGreaterThan(1.0); toBeLessThan(2.0) }
                     }.toThrow<AssertionError> {
-                        messageToContain(
-                            "$rootBulletPoint$toContainInAnyOrder: $lineSeparator",
-                            "$anElementWhichNeedsDescr: $lineSeparator",
-                            "$toBeGreaterThanDescr: 1.0",
-                            "$toBeLessThanDescr: 2.0",
-                            noSuchElementDescr
-                        )
+                        message {
+                            toContain.exactly(1).values(
+                                "$g$toContainInAnyOrder : $lineSeparator",
+                                "$anElementWhichNeedsDescr : $lineSeparator"
+                            )
+                            toContain.exactly(1).regex(
+                                "$toBeGreaterThanDescr\\s+: 1.0",
+                                "$toBeLessThanDescr\\s+: 2.0",
+                                noSuchElementDescr
+                            )
+                        }
                     }
                 }
             }
@@ -101,9 +105,9 @@ abstract class IterableToHaveElementsAndAnyExpectationsSpec(
                         }.toThrow<AssertionError> {
                             message {
                                 toContain.exactly(1).values(
-                                    "$rootBulletPoint$toContainInAnyOrder: $lineSeparator",
-                                    "$anElementWhichNeedsDescr: $lineSeparator",
-                                    "$toEqualDescr: 2.0",
+                                    "$g$toContainInAnyOrder : $lineSeparator",
+                                    "$anElementWhichNeedsDescr : $lineSeparator",
+                                    "$toEqualDescr : 2.0",
                                     noSuchElementDescr
                                 )
                             }
@@ -119,9 +123,9 @@ abstract class IterableToHaveElementsAndAnyExpectationsSpec(
                     }.toThrow<AssertionError> {
                         message {
                             toContain.exactly(1).values(
-                                "$rootBulletPoint$toContainInAnyOrder: $lineSeparator",
-                                "$anElementWhichNeedsDescr: $lineSeparator",
-                                "$toEqualDescr: null",
+                                "$g$toContainInAnyOrder : $lineSeparator",
+                                "$anElementWhichNeedsDescr : $lineSeparator",
+                                "$toEqualDescr : null",
                                 noSuchElementDescr
                             )
                         }

@@ -4,6 +4,8 @@ import ch.tutteli.atrium._core
 import ch.tutteli.atrium.api.infix.en_GB.toEqual
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.assertions.*
+import ch.tutteli.atrium.assertions.builders.impl.fixedClaimGroup.FixedClaimAssertionGroup
+import ch.tutteli.atrium.core.polyfills.fullName
 import ch.tutteli.atrium.creating.ComponentFactory
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.creating.ExperimentalComponentFactoryContainer
@@ -13,7 +15,6 @@ import ch.tutteli.atrium.creating.impl.DefaultComponentFactoryContainer
 import ch.tutteli.atrium.creating.proofs.Proof
 import ch.tutteli.atrium.creating.proofs.builders.EntryPointProofBuilder
 import ch.tutteli.atrium.creating.proofs.builders.buildProof
-import ch.tutteli.atrium.logic.assertions.impl.LazyThreadUnsafeAssertionGroup
 import ch.tutteli.atrium.reporting.prerendering.text.OutputNode
 import ch.tutteli.atrium.reporting.prerendering.text.TextPreRenderControlObject
 import ch.tutteli.atrium.reporting.prerendering.text.TextPreRenderer
@@ -22,15 +23,20 @@ import ch.tutteli.atrium.reporting.reportables.ErrorMessages
 import ch.tutteli.atrium.reporting.reportables.Icon
 import ch.tutteli.atrium.reporting.reportables.InlineElement
 import ch.tutteli.atrium.reporting.reportables.Reportable
-import ch.tutteli.atrium.reporting.reportables.descriptions.*
+import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionAnyProof
+import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionCharSequenceProof
+import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionDocumentationUtil
+import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionThrowableProof
 import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionThrowableProof.OCCURRED_EXCEPTION_STACKTRACE
 import ch.tutteli.atrium.reporting.text.TextReporter
 import ch.tutteli.atrium.reporting.theming.text.StyledString
 import ch.tutteli.atrium.reporting.theming.text.impl.StringLengthMonospaceLengthCalculator
 import ch.tutteli.atrium.reporting.theming.text.noStyle
-import ch.tutteli.atrium.translations.DescriptionAnyExpectation
-import ch.tutteli.atrium.translations.DescriptionCharSequenceExpectation
-import ch.tutteli.atrium.translations.DescriptionThrowableExpectation
+import ch.tutteli.atrium.reporting.translating.StringBasedTranslatable
+import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
+import ch.tutteli.atrium.reporting.translating.Untranslatable
+import ch.tutteli.atrium.specs.lineSeparator
+import ch.tutteli.atrium.translations.DescriptionBasic
 import com.github.ajalt.mordant.rendering.AnsiLevel
 import com.github.ajalt.mordant.rendering.TextColors
 import com.github.ajalt.mordant.rendering.TextStyle
@@ -42,8 +48,8 @@ class CreateReportTest {
     private val g = TextColors.red("🚩\uFE0F")
     private val x = TextColors.red("🚫\uFE0F")
     private val f = TextColors.cyan("▶")
-    private val i = TextStyle(TextColors.brightBlue, bold = true).invoke("i")
-    private val d = TextColors.blue("🔎")
+    private val i = TextStyle(TextColors.brightBlue, bold = true).invoke("ℹ\uFE0F")
+    private val d = TextColors.blue("🔎\uFE0F")
     private val u = TextStyle(TextColors.yellow, bold = true).invoke("💡\uFE0F")
     private val bb = TextColors.red("❗❗")
 
@@ -324,9 +330,9 @@ class CreateReportTest {
             builder,
             """
             |a verb                : 9
-           |$i following elements were found :${" "}
-            |  • bla : 1
-            |  $x bli                        : 2
+            |$i following elements were found :${" "}
+            |   • bla : 1
+            |   $x bli                        : 2
             |$x to be greater than : 10
             """.trimMargin()
         )
@@ -424,7 +430,7 @@ class CreateReportTest {
             |(d) properties of unexpected exception :${" "}
             |    • stacktrace :${" "}
             |      • com.example.MyClass:32:8
-            |    • cause : java.lang.IllegalStateException
+            |    • cause : ${IllegalStateException::class.fullName}
             |      • message : "oho..."
             """.trimMargin()
         )
@@ -436,7 +442,7 @@ class CreateReportTest {
             |$d properties of unexpected exception :${" "}
             |   • stacktrace :${" "}
             |     • com.example.MyClass:32:8
-            |   • cause : java.lang.IllegalStateException
+            |   • cause : ${IllegalStateException::class.fullName}
             |     • message : "oho..."
             """.trimMargin()
         )
@@ -500,7 +506,6 @@ class CreateReportTest {
         )
     }
 
-
     @Test
     fun proofExplanation_feature_doesNotShowRepresentation() {
         val builder = buildRootGroup {
@@ -537,8 +542,8 @@ class CreateReportTest {
     @Test
     fun proofExplanation_withFailureExplanation() {
         val builder = buildRootGroup {
-            group(Text("not to contain"), Text.EMPTY) {
-                group(Text("an element which needs"), Text.EMPTY) {
+            proofGroup(Text("not to contain"), Text.EMPTY) {
+                proofGroup(Text("an element which needs"), Text.EMPTY) {
                     invisibleFixedClaimGroup(holds = false) {
                         proofExplanation {
                             simpleProof(Text("to be greater than"), 2) { false }
@@ -559,7 +564,7 @@ class CreateReportTest {
                         }
                     }
                 }
-                group(Text("an element which needs"), Text.EMPTY) {
+                proofGroup(Text("an element which needs"), Text.EMPTY) {
                     invisibleFixedClaimGroup(holds = false) {
                         proofExplanation {
                             simpleProof(Text("to be less than"), 1) { false }
@@ -622,7 +627,7 @@ class CreateReportTest {
     @Test
     fun proofExplanation_withFailureExplanationAndSubProofs_showsOnlyFailingProofs() {
         val builder = buildRootGroup {
-            group(Text("elements need all"), Text.EMPTY) {
+            proofGroup(Text("elements need all"), Text.EMPTY) {
                 invisibleFixedClaimGroup(holds = false) {
                     proofExplanation {
                         feature(Text("login"), Text("should not be shown")) {
@@ -639,7 +644,7 @@ class CreateReportTest {
                             }
                         }
                         failureExplanationGroup(Text("following elements were mismatched")) {
-                            group(Text("index 0"), Text("User(login=joe, password=qwerty)")) {
+                            proofGroup(Text("index 0"), Text("User(login=joe, password=qwerty)")) {
                                 feature(Text("password"), "qwerty") {
                                     simpleProof(Text("not to equal"), "qwerty") { false }
                                     row(icon = Icon.INFORMATION_SOURCE, includingBorder = false) {
@@ -654,7 +659,7 @@ class CreateReportTest {
                                     }
                                 }
                             }
-                            group(Text("index 1"), Text("User(login=q, password=qwerty1)")) {
+                            proofGroup(Text("index 1"), Text("User(login=q, password=qwerty1)")) {
                                 feature(Text("password"), "qwerty") {
                                     simpleProof(Text("not to equal"), "qwerty") { true }
                                     row(icon = Icon.INFORMATION_SOURCE, includingBorder = false) {
@@ -985,7 +990,7 @@ class CreateReportTest {
 
     @Test
     fun mergingColumnsWithAlignment() {
-        val reportable = Reportable.group(
+        Reportable.group(
             Text("description always\n without line break"),
             "a string with new line\nas representation is broken\nmaxLength calculated correctly",
             listOf(
@@ -1021,12 +1026,12 @@ class CreateReportTest {
                         ExplanatoryAssertionGroup(
                             DefaultExplanatoryAssertionGroupType, listOf(
                                 BasicDescriptiveAssertion(
-                                    DescriptionThrowableExpectation.OCCURRED_EXCEPTION_MESSAGE,
+                                    ch.tutteli.atrium.translations.DescriptionThrowableExpectation.OCCURRED_EXCEPTION_MESSAGE,
                                     "bla"
                                 ) { true },
                                 BasicAssertionGroup(
                                     DefaultListAssertionGroupType,
-                                    DescriptionThrowableExpectation.OCCURRED_EXCEPTION_STACKTRACE,
+                                    ch.tutteli.atrium.translations.DescriptionThrowableExpectation.OCCURRED_EXCEPTION_STACKTRACE,
                                     Text.EMPTY,
                                     listOf(
                                         BasicExplanatoryAssertion(Text("test")),
@@ -1035,18 +1040,18 @@ class CreateReportTest {
                                 ),
                                 BasicAssertionGroup(
                                     DefaultListAssertionGroupType,
-                                    DescriptionThrowableExpectation.OCCURRED_EXCEPTION_CAUSE,
+                                    ch.tutteli.atrium.translations.DescriptionThrowableExpectation.OCCURRED_EXCEPTION_CAUSE,
                                     IllegalStateException("oho.. error occurred"),
                                     listOf(
                                         ExplanatoryAssertionGroup(
                                             DefaultExplanatoryAssertionGroupType, listOf(
                                                 BasicDescriptiveAssertion(
-                                                    DescriptionThrowableExpectation.OCCURRED_EXCEPTION_MESSAGE,
+                                                    ch.tutteli.atrium.translations.DescriptionThrowableExpectation.OCCURRED_EXCEPTION_MESSAGE,
                                                     "oho.. error occurred"
                                                 ) { true },
                                                 BasicAssertionGroup(
                                                     DefaultListAssertionGroupType,
-                                                    DescriptionThrowableExpectation.OCCURRED_EXCEPTION_STACKTRACE,
+                                                    ch.tutteli.atrium.translations.DescriptionThrowableExpectation.OCCURRED_EXCEPTION_STACKTRACE,
                                                     Text.EMPTY,
                                                     listOf(
                                                         BasicExplanatoryAssertion(Text("some other line"))
@@ -1071,7 +1076,7 @@ class CreateReportTest {
             |    » stacktrace :${" "}
             |      • test
             |      • lines
-            |    » cause : java.lang.IllegalStateException
+            |    » cause : ${IllegalStateException::class.fullName}
             |      » message : "oho.. error occurred"
             |      » stacktrace :${" "}
             |        • some other line
@@ -1081,15 +1086,15 @@ class CreateReportTest {
             reportable,
             """
             |verb : 1
-           |$i properties of the unknown Exception
-            |  » message : "bla"
-            |  » stacktrace :${" "}
-            |    • test
-            |    • lines
-            |  » cause : java.lang.IllegalStateException
-            |    » message : "oho.. error occurred"
-            |    » stacktrace :${" "}
-            |      • some other line
+            |$i properties of the unknown Exception
+            |   » message : "bla"
+            |   » stacktrace :${" "}
+            |     • test
+            |     • lines
+            |   » cause : ${IllegalStateException::class.fullName}
+            |     » message : "oho.. error occurred"
+            |     » stacktrace :${" "}
+            |       • some other line
             """.trimMargin()
         )
     }
@@ -1138,10 +1143,13 @@ class CreateReportTest {
             add(
                 BasicAssertionGroup(
                     DefaultFeatureAssertionGroupType,
-                    DescriptionCharSequenceExpectation.NUMBER_OF_MATCHES,
+                    ch.tutteli.atrium.translations.DescriptionCharSequenceExpectation.NUMBER_OF_MATCHES,
                     Text("3"),
                     listOf(
-                        BasicDescriptiveAssertion(DescriptionAnyExpectation.TO_EQUAL, 0) { false }
+                        BasicDescriptiveAssertion(
+                            ch.tutteli.atrium.translations.DescriptionAnyExpectation.TO_EQUAL,
+                            0
+                        ) { false }
                     ))
             )
         }
@@ -1165,6 +1173,77 @@ class CreateReportTest {
         )
     }
 
+    @Suppress("DEPRECATION")
+    @Test
+    fun explanatoryGroupDirectlyNested() {
+
+        val builder = buildRootGroup {
+            add(
+                FixedClaimAssertionGroup(
+                    DefaultListAssertionGroupType,
+                    DescriptionBasic.TO,
+                    object : StringBasedTranslatable {
+                        override val value: String = "exist"
+                        override val name: String = "EXIST"
+                    },
+                    listOf(
+                        ExplanatoryAssertionGroup(
+                            DefaultExplanatoryAssertionGroupType,
+                            listOf(
+                                ExplanatoryAssertionGroup(
+                                    DefaultExplanatoryAssertionGroupType,
+                                    listOf(
+                                        BasicDescriptiveAssertion(
+                                            Untranslatable("failure at parent path"),
+                                            "C:\\Users\\RUNNER~1\\AppData\\Local\\Temp\\spek5297204625390679776\\startFile"
+                                        ) {
+                                            false
+                                        },
+                                        ExplanatoryAssertionGroup(
+                                            DefaultExplanatoryAssertionGroupType,
+                                            listOf(
+                                                BasicExplanatoryAssertion(
+                                                    TranslatableWithArgs(
+                                                        Untranslatable("was %s instead of %s"),
+                                                        Untranslatable("a file"),
+                                                        Untranslatable("a directory")
+                                                    )
+                                                )
+                                            ),
+                                            true
+                                        )
+                                    ),
+                                    true
+                                )
+                            ),
+                            true
+                        )
+                    ),
+                    false
+                )
+            )
+        }
+        expectForReporterWithoutAnsi(
+            builder,
+            """
+            |a verb : "representation"
+            |(f) to : exist
+            |    » failure at parent path : "C:\Users\RUNNER~1\AppData\Local\Temp\spek5297204625390679776\startFile"
+            |    » was a file instead of a directory
+            """.trimMargin()
+        )
+        //TODO 1.3.0 should be $x and not $g
+        expectForReporterWithAnsi(
+            builder,
+            """
+            |a verb : "representation"
+            |$g to : exist
+            |   » failure at parent path : "C:\Users\RUNNER~1\AppData\Local\Temp\spek5297204625390679776\startFile"
+            |   » was a file instead of a directory
+            """.trimMargin()
+        )
+    }
+
     private fun buildRootGroup(
         verb: InlineElement = Text("a verb"),
         representation: Any = "representation",
@@ -1178,7 +1257,7 @@ class CreateReportTest {
 
     private fun expectForReporterWithoutAnsi(reportable: Reportable, expectedResult: String) {
         val reporter = reporterWithoutAnsi()
-        expect(reporter.createReport(reportable).toString()).toEqual(expectedResult)
+        expect(reporter.createReport(reportable).toString()).toEqual(modifyLineEnding(expectedResult))
     }
 
     private fun reporterWithoutAnsi(): TextReporter {
@@ -1201,8 +1280,11 @@ class CreateReportTest {
     private fun expectForReporterWithAnsi(reportable: Reportable, expectedResult: String) {
         val reporter = componentFactoryContainer().build<TextReporter>()
         val subject = reporter.createReport(reportable).toString()
-        expect(subject).toEqual(expectedResult)
+        expect(subject).toEqual(modifyLineEnding(expectedResult))
     }
+
+    private fun modifyLineEnding(expectedResult: String) =
+        if (lineSeparator == "\n") expectedResult else Regex("\n").replace(expectedResult, lineSeparator)
 
     private fun componentFactoryContainer() = DefaultComponentFactoryContainer.merge(
         ComponentFactoryContainerImpl(
