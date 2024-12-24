@@ -22,7 +22,7 @@ class MarkdownTextIconStyler : TextIconStyler {
             Icon.FAILING_GROUP to styleIcon("🚩\uFE0F", 2),
             Icon.FAILURE to styleIcon("🚫\uFE0F", 2),
             Icon.FEATURE to styleIcon("▶", 1),
-            Icon.INFORMATION_SOURCE to styleIcon("ℹ\uFE0F", 1),
+            Icon.INFORMATION_SOURCE to styleIcon("ℹ\uFE0F", 2),
             Icon.SUCCESS to styleIcon("✔", 1),
 
             // bullet points

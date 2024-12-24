@@ -36,7 +36,7 @@ abstract class BaseGroupBuilder<
     fun representationOnlyProof(representation: Any?, test: (SubjectT) -> Boolean): Proof =
         add(Proof.representationOnlyProof(representation, proofContainer.toTestFunction(test)))
 
-    fun group(description: Reportable, representation: Any?, init: ProofGroupBuilder<SubjectT>.() -> Unit): Proof =
+    fun proofGroup(description: Reportable, representation: Any?, init: ProofGroupBuilder<SubjectT>.() -> Unit): Proof =
         add(ProofGroupBuilder(proofContainer, description, representation).build(init))
 
     fun feature(
@@ -48,7 +48,7 @@ abstract class BaseGroupBuilder<
     fun invisibleGroup(init: InvisibleProofGroupBuilder<SubjectT>.() -> Unit): Proof =
         add(InvisibleProofGroupBuilder(proofContainer).build(init))
 
-    //TODO 1.3.0 this is smelly again, looks a bit like the same hack as we hade with ExplanatoryAssertionGroup which should not have been an Assertion which can fail
+    //TODO 1.3.0 this is smelly again, looks a bit like the same hack as we had with ExplanatoryAssertionGroup which should not have been an Assertion which can fail
     fun invisibleFixedClaimGroup(holds: Boolean, init: InvisibleFixedClaimGroupBuilder<SubjectT>.() -> Unit): Proof =
         add(InvisibleFixedClaimGroupBuilder(proofContainer, holds).build(init))
 

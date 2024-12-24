@@ -7,10 +7,10 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic.creating.iterablelike.contains.reporting.InAnyOrderOnlyReportingOptions
 import ch.tutteli.atrium.logic.creating.iterablelike.contains.reporting.InOrderOnlyReportingOptions
 import ch.tutteli.atrium.logic.utils.Group
+import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionCollectionProof
+import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionIterableLikeProof
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.specs.lineSeparator
-import ch.tutteli.atrium.translations.DescriptionCollectionExpectation
-import ch.tutteli.atrium.translations.DescriptionIterableLikeExpectation
 
 abstract class IterableToContainInOrderOnlyGroupedValuesExpectationsSpec(
     toContainInOrderOnlyGroupedValues: Fun5<
@@ -57,57 +57,49 @@ abstract class IterableToContainInOrderOnlyGroupedValuesExpectationsSpec(
         )
     ) {})
 
-    val toEqualWithFeature = "$indentF$featureBulletPoint$toEqualDescr"
-    val toEqualAfterSuccess = "$indentRoot$indentSuccess$toEqualWithFeature"
-    val toEqualAfterFailing = "$indentRoot$indentX$toEqualWithFeature"
-
 
     fun element(prefix: String, bulletPoint: String, expected: Array<out Double?>) =
-        expected.joinToString(".*$lineSeparator") { "$prefix\\Q$bulletPoint$anElementWhichEquals: $it\\E" }
+        expected.joinToString(lineSeparator) { "$prefix\\Q$bulletPoint\\E$anElementWhichEquals\\s+: \\Q$it\\E" }
 
     fun size(prefix: String, bulletPoint: String, actual: Int?, expected: Int) =
-        "$prefix\\Q$bulletPoint\\E${f}${DescriptionCollectionExpectation.SIZE.getDefault()}:${actual?.let { " $it" } ?: ""}[^:]+: $expected"
+        "$prefix\\Q$bulletPoint\\E${f}${DescriptionCollectionProof.SIZE.string}\\s+:${actual?.let { " $it" } ?: ""}[^:]+: $expected"
 
-    val afterFail = "$indentRoot$indentX$indentF$indentFeature"
-    val additionalElementsFail = "$indentRoot$indentX"
-    fun failAfterFail(vararg expected: Double?, withBulletPoint: Boolean = true) =
-        element(afterFail, if (withBulletPoint) x else listBulletPoint, expected)
+    val inFail = "$indentGg$indentF"
+    fun failInFail(vararg expected: Double?) =
+        element("$inFail$indentG", x, expected)
 
-    fun successAfterFail(vararg expected: Double?) = element(afterFail, s, expected)
+    fun successInFail(vararg expected: Double?) = element("$inFail$indentG", "$s ", expected)
 
-    fun sizeCheck(actual: Int?, expected: Int, bulletPoint: String = featureBulletPoint) = size(
-        "$indentRoot$indentX$indentF", bulletPoint, actual, expected
-    )
+    fun sizeFail(actual: Int, expected: Int) = size("$indentG$indentF", g, actual, expected)
+    fun sizeSuccessInFail(actual: Int, expected: Int) = size("$indentG$indentF", s, actual, expected)
+    fun sizeSuccessInSuccess(actual: Int, expected: Int) = size("$indentS$indentF", s, actual, expected)
 
     fun Expect<String>.notToContainIndex(from: Int, to: Int) =
-        notToContain.regex("\\Q${DescriptionIterableLikeExpectation.INDEX.getDefault().format("$from..$to")}")
+        notToContain.regex("\\Q${DescriptionIterableLikeProof.INDEX.string.format("$from..$to")}")
 
-    fun <T> mismatchesWarning(msg: String, values: Array<out T>, act: (T) -> String) =
-        "$afterFail\\Q$bb$msg\\E: $lineSeparator" +
-                values.joinToString(".*$lineSeparator") { "$afterFail$indentBb$listBulletPoint${act(it)}" }
+    fun mismatches(vararg mismatched: Double) =
+        "$inFail\\Q$bb$mismatches\\E : $lineSeparator" +
+            mismatched.toTypedArray().joinToString(lineSeparator) { "$inFail$indentBb$listBulletPoint$it" }
 
-    fun <T> additionalElementsWarning(msg: String, values: Array<out T>, act: (T) -> String) =
-        "$additionalElementsFail\\Q$bb$msg\\E: $lineSeparator" +
-                values.joinToString(".*$lineSeparator") {
-                    "$additionalElementsFail$indentBb$listBulletPoint${act(it)}"
-                }
-
-    fun mismatchesAfterFail(vararg mismatched: Double) =
-        mismatchesWarning(mismatches, mismatched.toTypedArray()) { "$it" }
-
-    fun additional(vararg entryWithValue: Pair<Int, Double>) =
-        additionalElementsWarning(additionalElements, entryWithValue) { "${elementWithIndex(it.first)}: ${it.second}" }
+    fun Expect<String>.additional(vararg entryWithValue: Pair<Int, Double>) =
+        toContainRegex(
+            "$indentG$bb$additionalElements : $lineSeparator" +
+                entryWithValue
+                    .joinToString(lineSeparator) {
+                        "$indentG$indentBb$listBulletPoint${elementWithIndex(it.first)}\\s+: ${it.second}"
+                    }
+        )
 
 
-    val afterSuccess = "$indentRoot$indentSuccess$indentF$indentFeature"
-    fun successAfterSuccess(vararg expected: Double?) = element(afterSuccess, s, expected)
-    fun failAfterSuccess(vararg expected: Double?) = element(afterSuccess, x, expected)
+    val inSuccess = "$indentG$indentS$indentF$indentS"
+    fun successInSuccess(vararg expected: Double?) = element(inSuccess, s, expected)
+    fun failInSuccess(vararg expected: Double?) = element(inSuccess, x, expected)
 
 
     fun Expect<String>.indexSuccess(index: Int, expected: Double): Expect<String> {
         return this.toContain.exactly(1).regex(
-            "\\Q$s$f${index(index)}: $expected\\E.*$lineSeparator" +
-                    "$toEqualAfterSuccess: $expected"
+            "$indentG\\Q$s$f\\E${index(index)}\\s+: \\Q$expected\\E$lineSeparator" +
+                "$indentG$indentS$indentF$s$toEqualDescr : $expected"
         )
     }
 
@@ -119,11 +111,10 @@ abstract class IterableToContainInOrderOnlyGroupedValuesExpectationsSpec(
         vararg expected: String
     ): Expect<String> {
         return this.toContain.exactly(1).regex(
-            "\\Q$s$f${index(fromIndex, toIndex)}: $actual\\E.*$lineSeparator" +
-                    "$sizeCheck.*$lineSeparator" +
-                    "$indentRoot$indentX$indentF$featureBulletPoint$toContainInAnyOrderOnly: $lineSeparator" +
-                expected.joinToString(".*$lineSeparator")
-
+            "$indentG\\Q$s$f${index(fromIndex, toIndex)} : $actual\\E.*$lineSeparator" +
+                "$indentG$sizeCheck$lineSeparator" +
+                "$indentG$indentS$indentF\\Q$s\\E$toContainInAnyOrderOnly : $lineSeparator" +
+                expected.joinToString(lineSeparator)
         )
     }
 
@@ -131,11 +122,10 @@ abstract class IterableToContainInOrderOnlyGroupedValuesExpectationsSpec(
         index: Int,
         actual: Any,
         expected: Double,
-        withBulletPoint: Boolean = true
     ): Expect<String> {
         return this.toContain.exactly(1).regex(
-            "\\Q${if (withBulletPoint) x else ""}$f${index(index)}: $actual\\E.*$lineSeparator" +
-                    "$toEqualAfterFailing: $expected"
+            "$indentG\\Q$g\\E$f${IterableToContainEntriesSpecBase.Companion.index(index)}\\s+: \\Q$actual\\E$lineSeparator" +
+                "$indentGg$indentF$x$toEqualDescr : $expected"
         )
     }
 
@@ -145,22 +135,20 @@ abstract class IterableToContainInOrderOnlyGroupedValuesExpectationsSpec(
         actual: List<Double?>,
         sizeCheck: String?,
         vararg expected: String,
-        withBulletPoint: Boolean = true
     ): Expect<String> {
         return this.toContain.exactly(1).regex(
-            "\\Q${if (withBulletPoint) x else ""}$f${
-                index(fromIndex, toIndex)
-            }: $actual\\E.*$lineSeparator" +
-                    (sizeCheck?.let { "$sizeCheck.*$lineSeparator" } ?: "") +
-                    "$indentRoot${if (withBulletPoint) indentX else indentList}$indentF$featureBulletPoint$toContainInAnyOrderOnly: $lineSeparator" +
-                expected.joinToString(".*$lineSeparator")
+            "$indentG\\Q$g$f\\E${index(fromIndex, toIndex)} : \\Q$actual\\E.*$lineSeparator" +
+                (sizeCheck?.let { "$indentG$sizeCheck$lineSeparator" } ?: "") +
+                "$indentGg$indentF\\Q$g\\E$toContainInAnyOrderOnly : $lineSeparator" +
+                expected.joinToString(lineSeparator)
         )
     }
 
-    fun Expect<String>.indexNonExisting(index: Int, expected: Double, withBulletPoint: Boolean = true): Expect<String> {
+    fun Expect<String>.indexNonExisting(index: Int, expected: Double): Expect<String> {
         return this.toContain.exactly(1).regex(
-            "\\Q${if (withBulletPoint) x else ""}$f${index(index)}: $sizeExceeded\\E.*$lineSeparator" +
-                    "$afterFail$explanatoryBulletPoint$toEqualDescr: $expected"
+            //TODO 1.3.0 should be x and not g
+            "\\Q$g$f${index(index)} : $sizeExceeded\\E$lineSeparator" +
+                "$inFail$explanatoryBulletPoint$toEqualDescr : $expected"
         )
     }
 
@@ -168,15 +156,15 @@ abstract class IterableToContainInOrderOnlyGroupedValuesExpectationsSpec(
         fromIndex: Int, toIndex: Int,
         sizeCheck: String,
         vararg expected: Double,
-        withBulletPoint: Boolean = true
     ): Expect<String> {
         return this.toContain.exactly(1).regex(
-            "\\Q${if (withBulletPoint) x else ""}$f${
-                index(fromIndex, toIndex)
-            }: $sizeExceeded\\E.*$lineSeparator" +
-                    "$afterFail$sizeCheck.*$lineSeparator" +
-                    "$indentRoot${if (withBulletPoint) indentX else indentList}$indentF$indentFeature$explanatoryBulletPoint$toContainInAnyOrderOnly: $lineSeparator" +
-                expected.joinToString(".*$lineSeparator") { ".*$anElementWhichEquals: $it" }
+            //TODO 1.3.0 should be $x instead of $g
+            "\\Q$g$f${index(fromIndex, toIndex)} : $sizeExceeded\\E$lineSeparator" +
+                "$inFail$sizeCheck$lineSeparator" +
+                "$inFail$explanatoryBulletPoint$toContainInAnyOrderOnly : $lineSeparator" +
+                expected.joinToString(lineSeparator) {
+                    "$inFail$indentExplanatory$listBulletPoint$anElementWhichEquals\\s+: $it"
+                }
         )
     }
 
@@ -218,14 +206,14 @@ abstract class IterableToContainInOrderOnlyGroupedValuesExpectationsSpec(
             }
         }
 
-        context("empty collection") {
+        context("empty iterable") {
             it("(1.0), (1.2) throws AssertionError") {
                 expect {
                     expect(fluentEmpty()).toContainFun(context(1.0), context(1.2))
                 }.toThrow<AssertionError> {
                     message {
                         toContainSize(0, 2)
-                        toContain.exactly(1).value("$rootBulletPoint$toContainInOrderOnlyGrouped:")
+                        toContain.exactly(1).value("$g$toContainInOrderOnlyGrouped :")
                         indexNonExisting(0, 1.0)
                         indexNonExisting(1, 1.2)
                         notToContain(additionalElements)
@@ -258,21 +246,21 @@ abstract class IterableToContainInOrderOnlyGroupedValuesExpectationsSpec(
                         expect(oneToFour()).toContainFun(context(4.0, 1.0), context(2.0, 3.0, 4.0))
                     }.toThrow<AssertionError> {
                         message {
-                            toContain.exactly(1).value("$rootBulletPoint$toContainInOrderOnlyGrouped:")
+                            toContain.exactly(1).value("$g$toContainInOrderOnlyGrouped :")
                             indexFail(
                                 0, 1, listOf(1.0, 2.0),
-                                sizeCheck(2, 2),
-                                failAfterFail(4.0),
-                                successAfterFail(1.0),
-                                mismatchesAfterFail(2.0)
+                                sizeSuccessInFail(2, 2),
+                                failInFail(4.0),
+                                successInFail(1.0),
+                                mismatches(2.0)
                             )
                             indexFail(
                                 2, 4, listOf(3.0, 4.0, 4.0),
-                                sizeCheck(3, 3),
-                                failAfterFail(2.0),
-                                successAfterFail(3.0),
-                                successAfterFail(4.0),
-                                mismatchesAfterFail(4.0)
+                                sizeSuccessInFail(3, 3),
+                                failInFail(2.0),
+                                successInFail(3.0),
+                                successInFail(4.0),
+                                mismatches(4.0)
                             )
                             notToContain(size(indentRoot, s, 5, 5))
                         }
@@ -284,15 +272,15 @@ abstract class IterableToContainInOrderOnlyGroupedValuesExpectationsSpec(
                         expect(oneToFour()).toContainFun(context(1.0), context(4.0, 2.0, 3.0))
                     }.toThrow<AssertionError> {
                         message {
-                            toContain.exactly(1).value("$rootBulletPoint$toContainInOrderOnlyGrouped:")
+                            toContainSize(5, 4)
+                            toContain.exactly(1).value("$g$toContainInOrderOnlyGrouped :")
                             indexSuccess(0, 1.0)
                             indexSuccess(
                                 1, 3, listOf(2.0, 3.0, 4.0),
-                                sizeCheck(3, 3),
-                                successAfterSuccess(4.0, 2.0, 3.0)
+                                sizeSuccessInSuccess(3, 3),
+                                successInSuccess(4.0, 2.0, 3.0)
                             )
-                            sizeCheck(5, 4)
-                            toContainRegex(additional(4 to 4.0))
+                            additional(4 to 4.0)
                         }
                     }
                 }
@@ -302,11 +290,11 @@ abstract class IterableToContainInOrderOnlyGroupedValuesExpectationsSpec(
                         expect(oneToFour()).toContainFun(context(1.0), context(4.0))
                     }.toThrow<AssertionError> {
                         message {
-                            toContain.exactly(1).value("$rootBulletPoint$toContainInOrderOnlyGrouped:")
+                            toContainSize(5, 2)
+                            toContain.exactly(1).value("$g$toContainInOrderOnlyGrouped :")
                             indexSuccess(0, 1.0)
                             indexFail(1, 2.0, 4.0)
-                            sizeCheck(5, 2)
-                            toContainRegex(additional(2 to 3.0, 3 to 4.0, 4 to 4.0))
+                            additional(2 to 3.0, 3 to 4.0, 4 to 4.0)
                         }
                     }
                 }
@@ -315,17 +303,17 @@ abstract class IterableToContainInOrderOnlyGroupedValuesExpectationsSpec(
                         expect(oneToFour()).toContainFun(context(1.0, 3.0), context(5.0))
                     }.toThrow<AssertionError> {
                         message {
-                            toContain.exactly(1).value("$rootBulletPoint$toContainInOrderOnlyGrouped:")
+                            toContainSize(5, 3)
+                            toContain.exactly(1).value("$g$toContainInOrderOnlyGrouped :")
                             indexFail(
                                 0, 1, listOf(1.0, 2.0),
-                                sizeCheck(2, 2),
-                                successAfterFail(1.0),
-                                failAfterFail(3.0),
-                                mismatchesAfterFail(2.0)
+                                sizeSuccessInFail(2, 2),
+                                successInFail(1.0),
+                                failInFail(3.0),
+                                mismatches(2.0)
                             )
                             indexFail(2, 3.0, 5.0)
-                            sizeCheck(5, 3)
-                            toContainRegex(additional(3 to 4.0, 4 to 4.0))
+                            additional(3 to 4.0, 4 to 4.0)
                         }
                     }
                 }
@@ -334,19 +322,19 @@ abstract class IterableToContainInOrderOnlyGroupedValuesExpectationsSpec(
                         expect(oneToFour()).toContainFun(context(4.0, 1.0, 3.0, 2.0), context(5.0, 4.0))
                     }.toThrow<AssertionError> {
                         message {
-                            toContain.exactly(1).value("$rootBulletPoint$toContainInOrderOnlyGrouped:")
+                            toContainSize(5, 6)
+                            toContain.exactly(1).value("$g$toContainInOrderOnlyGrouped :")
                             indexSuccess(
                                 0, 3, listOf(1.0, 2.0, 3.0, 4.0),
-                                sizeCheck(4, 4),
-                                successAfterSuccess(4.0, 1.0, 3.0, 2.0)
+                                sizeSuccessInSuccess(4, 4),
+                                successInSuccess(4.0, 1.0, 3.0, 2.0)
                             )
                             indexFail(
                                 4, 5, listOf(4.0),
-                                sizeCheck(1, 2),
-                                failAfterFail(5.0),
-                                successAfterFail(4.0)
+                                sizeFail(1, 2),
+                                failInFail(5.0),
+                                successInFail(4.0)
                             )
-                            sizeCheck(5, 7) // TODO change back to 5,6
                         }
                     }
                 }
@@ -365,33 +353,32 @@ abstract class IterableToContainInOrderOnlyGroupedValuesExpectationsSpec(
                     }.toThrow<AssertionError> {
                         message {
                             toContainSize(5, 14)
-                            toContain.exactly(1).value("$rootBulletPoint$toContainInOrderOnlyGrouped:")
+                            toContain.exactly(1).value("$g$toContainInOrderOnlyGrouped :")
                             notToContainIndex(0, 0)
                             indexFail(
                                 1, 2, listOf(2.0, 3.0),
                                 null,
-                                successAfterSuccess(2.0),
-                                failAfterSuccess(4.0),
-                                withBulletPoint = false
+                                successInFail(2.0),
+                                failInFail(4.0)
                             )
                             indexFail(
                                 3,
                                 13,
                                 listOf(4.0, 4.0),
-                                sizeCheck(2, 11),
-                                failAfterFail(1.0, withBulletPoint = false),
-                                failAfterFail(2.0, withBulletPoint = false),
-                                failAfterFail(3.0, withBulletPoint = false),
-                                failAfterFail(5.0, withBulletPoint = false),
-                                failAfterFail(6.0, withBulletPoint = false),
-                                failAfterFail(7.0, withBulletPoint = false),
-                                failAfterFail(8.0, withBulletPoint = false),
-                                failAfterFail(9.0, withBulletPoint = false),
-                                failAfterFail(10.0, withBulletPoint = false),
-                                failAfterFail(11.0, withBulletPoint = false),
-                                withBulletPoint = false
+                                sizeFail(2, 11),
+                                failInFail(1.0),
+                                failInFail(2.0),
+                                failInFail(3.0),
+                                failInFail(5.0),
+                                failInFail(6.0),
+                                failInFail(7.0),
+                                failInFail(8.0),
+                                failInFail(9.0),
+                                failInFail(10.0),
+                                failInFail(11.0),
+                                mismatches(4.0)
                             )
-                            mismatchesAfterFail(4.0)
+
                         }
                     }
                 }
@@ -407,36 +394,34 @@ abstract class IterableToContainInOrderOnlyGroupedValuesExpectationsSpec(
                     }.toThrow<AssertionError> {
                         message {
                             toContainSize(5, 6)
-                            toContain.exactly(1).value("$rootBulletPoint$toContainInOrderOnlyGrouped:")
-                            notToContainIndex(1, 2)
+                            toContain.exactly(1).value("$g$toContainInOrderOnlyGrouped :")
+                            notToContainIndex(0, 2)
                             indexFail(
                                 3, 5, listOf(4.0, 4.0),
-                                sizeCheck(2, 3),
-                                failAfterFail(5.0, withBulletPoint = false),
-                                withBulletPoint = false
+                                sizeFail(2, 3),
+                                failInFail(5.0)
                             )
-                            notToContain("$anElementWhichEquals: 4.0")
+                            notToContain.regex("$anElementWhichEquals\\s+: 4.0")
                         }
                     }
                 }
 
-                it("shows only failing indices with report option `showOnlyFailingIfMoreExpectedElementsThan(3)` because there are 5 but still all elements in group") {
+                it("shows only failing indices with report option `showOnlyFailingIfMoreExpectedElementsThan(1)` because we have 2 groups but still all elements in group (as no has more than 10 expected elements)") {
                     expect {
                         expect(oneToFour()).toContainFun(
                             context(1.0, 2.0, 3.0),
                             context(4.0, 4.0, 5.0),
-                            report = { showOnlyFailingIfMoreExpectedElementsThan(3) })
+                            report = { showOnlyFailingIfMoreExpectedElementsThan(1) })
                     }.toThrow<AssertionError> {
                         message {
                             toContainSize(5, 6)
-                            toContain.exactly(1).value("$rootBulletPoint$toContainInOrderOnlyGrouped:")
-                            notToContainIndex(1, 2)
+                            toContain.exactly(1).value("$g$toContainInOrderOnlyGrouped :")
+                            notToContainIndex(0, 2)
                             indexFail(
                                 3, 5, listOf(4.0, 4.0),
-                                sizeCheck(2, 3),
-                                successAfterSuccess(4.0, 4.0),
-                                failAfterFail(5.0),
-                                withBulletPoint = false
+                                sizeFail(2, 3),
+                                successInFail(4.0, 4.0),
+                                failInFail(5.0)
                             )
                         }
                     }
@@ -463,62 +448,55 @@ abstract class IterableToContainInOrderOnlyGroupedValuesExpectationsSpec(
 
                         message {
                             toContainSize(11, 20)
-                            toContain.exactly(1).value("$rootBulletPoint$toContainInOrderOnlyGrouped:")
+                            toContain.exactly(1).value("$g$toContainInOrderOnlyGrouped :")
                             indexFail(
                                 0, 1, listOf(1.0, 2.0),
                                 null, //i.e no size check is shown as 2=2 and summary is only for inReportGroup
-                                successAfterFail(1.0),
-                                failAfterSuccess(1.0),
-                                withBulletPoint = false
+                                successInFail(1.0),
+                                failInFail(1.0),
+                                mismatches(2.0)
                             )
-                            mismatchesAfterFail(2.0)
-                            indexFail(2, 3.0, 2.0, withBulletPoint = false)
+                            indexFail(2, 3.0, 2.0)
                             indexFail(
                                 3, 4, listOf(4.0, 5.0),
                                 null, //i.e no size check is shown as 2=2 and summary is only for inReportGroup
-                                failAfterSuccess(3.0),
-                                failAfterFail(-3.0),
-                                withBulletPoint = false
+                                failInFail(3.0),
+                                failInFail(-3.0),
+                                mismatches(4.0, 5.0)
                             )
-                            mismatchesAfterFail(4.0, 5.0)
                             indexFail(
                                 5, 6, listOf(6.0, 7.0),
                                 null, //i.e no size check is shown as 2=2 and summary is only for inReportGroup
-                                failAfterSuccess(1.0),
-                                failAfterFail(4.0),
-                                withBulletPoint = false
+                                failInFail(1.0),
+                                failInFail(4.0),
+                                mismatches(6.0, 7.0)
                             )
-                            mismatchesAfterFail(6.0, 7.0)
                             notToContainIndex(7, 7)
                             notToContainIndex(8, 9)
                             indexFail(
                                 10, 12, listOf(11.0),
-                                sizeCheck(1, 3),
-                                failAfterSuccess(-1.0),
-                                failAfterFail(-2.0),
-                                failAfterFail(9.0),
-                                withBulletPoint = false
+                                sizeFail(1, 3),
+                                failInFail(-1.0),
+                                failInFail(-2.0),
+                                failInFail(9.0),
+                                mismatches(11.0)
                             )
-                            mismatchesAfterFail(11.0)
                             indexNonExisting(
                                 13, 14,
                                 size("", explanatoryBulletPoint, null, 2),
-                                7.0, 8.0,
-                                withBulletPoint = false
+                                7.0, 8.0
                             )
                             indexNonExisting(
                                 15, 16,
                                 size("", explanatoryBulletPoint, null, 2),
-                                9.0, -8.0,
-                                withBulletPoint = false
+                                9.0, -8.0
                             )
                             indexNonExisting(
                                 17, 18,
                                 size("", explanatoryBulletPoint, null, 2),
-                                10.0, 11.0,
-                                withBulletPoint = false
+                                10.0, 11.0
                             )
-                            indexNonExisting(19, 12.0, withBulletPoint = false)
+                            indexNonExisting(19, 12.0)
                         }
                     }
                 }
@@ -543,42 +521,42 @@ abstract class IterableToContainInOrderOnlyGroupedValuesExpectationsSpec(
                             toContainSize(11, 20)
                             indexFail(
                                 0, 1, listOf(1.0, 2.0),
-                                sizeCheck(2, 2),
-                                successAfterFail(1.0),
-                                failAfterSuccess(1.0)
+                                sizeSuccessInFail(2, 2),
+                                successInFail(1.0),
+                                failInFail(1.0),
+                                mismatches(2.0)
                             )
-                            mismatchesAfterFail(2.0)
                             indexFail(2, 3.0, 2.0)
                             indexFail(
                                 3, 4, listOf(4.0, 5.0),
-                                sizeCheck(2, 2),
-                                failAfterSuccess(3.0),
-                                failAfterFail(-3.0)
+                                sizeSuccessInFail(2, 2),
+                                failInFail(3.0),
+                                failInFail(-3.0),
+                                mismatches(4.0, 5.0)
                             )
-                            mismatchesAfterFail(4.0, 5.0)
                             indexFail(
                                 5, 6, listOf(6.0, 7.0),
-                                sizeCheck(2, 2),
-                                failAfterSuccess(1.0),
-                                failAfterFail(4.0)
+                                sizeSuccessInFail(2, 2),
+                                failInFail(1.0),
+                                failInFail(4.0),
+                                mismatches(6.0, 7.0)
                             )
-                            mismatchesAfterFail(6.0, 7.0)
                             indexSuccess(7, 8.0)
                             indexSuccess(
                                 8, 9, listOf(9.0, 10.0),
                                 //TODO 1.3.0: https://github.com/robstoll/atrium/issues/724 should not be shown, is enough to show the indices
-                                sizeCheck(2, 2),
-                                successAfterSuccess(10.0),
-                                successAfterSuccess(9.0)
+                                sizeSuccessInSuccess(2, 2),
+                                successInSuccess(10.0),
+                                successInSuccess(9.0)
                             )
                             indexFail(
                                 10, 12, listOf(11.0),
-                                sizeCheck(1, 3),
-                                failAfterFail(-1.0),
-                                failAfterFail(-2.0),
-                                failAfterFail(9.0)
+                                sizeFail(1, 3),
+                                failInFail(-1.0),
+                                failInFail(-2.0),
+                                failInFail(9.0),
+                                mismatches(11.0)
                             )
-                            mismatchesAfterFail(11.0)
                             indexNonExisting(
                                 13, 14,
                                 size("", explanatoryBulletPoint, null, 2),
@@ -618,61 +596,54 @@ abstract class IterableToContainInOrderOnlyGroupedValuesExpectationsSpec(
                     }.toThrow<AssertionError> {
                         message {
                             toContainSize(11, 20)
-                            toContain.exactly(1).value("$rootBulletPoint$toContainInOrderOnlyGrouped:")
+                            toContain.exactly(1).value("$g$toContainInOrderOnlyGrouped :")
                             indexFail(
                                 0, 1, listOf(1.0, 2.0),
                                 null, //i.e no size check is shown as 2=2 and summary is only for inReportGroup
-                                failAfterFail(1.0, withBulletPoint = false),
-                                withBulletPoint = false
+                                failInFail(1.0),
+                                mismatches(2.0)
                             )
-                            mismatchesAfterFail(2.0)
-                            indexFail(2, 3.0, 2.0, withBulletPoint = false)
+                            indexFail(2, 3.0, 2.0)
                             indexFail(
                                 3, 4, listOf(4.0, 5.0),
                                 null, //i.e no size check is shown as 2=2 and summary is only for inReportGroup
-                                failAfterFail(3.0, withBulletPoint = false),
-                                failAfterFail(-3.0, withBulletPoint = false),
-                                withBulletPoint = false
+                                failInFail(3.0),
+                                failInFail(-3.0),
+                                mismatches(4.0, 5.0)
                             )
-                            mismatchesAfterFail(4.0, 5.0)
                             indexFail(
                                 5, 6, listOf(6.0, 7.0),
                                 null, //i.e no size check is shown as 2=2 and summary is only for inReportGroup
-                                failAfterFail(1.0, withBulletPoint = false),
-                                failAfterFail(4.0, withBulletPoint = false),
-                                withBulletPoint = false
+                                failInFail(1.0),
+                                failInFail(4.0),
+                                mismatches(6.0, 7.0)
                             )
-                            mismatchesAfterFail(6.0, 7.0)
                             notToContainIndex(7, 7)
                             notToContainIndex(8, 9)
                             indexFail(
                                 10, 12, listOf(11.0),
-                                sizeCheck(1, 3),
-                                failAfterFail(-1.0, withBulletPoint = false),
-                                failAfterFail(-2.0, withBulletPoint = false),
-                                failAfterFail(9.0, withBulletPoint = false),
-                                withBulletPoint = false
+                                sizeFail(1, 3),
+                                failInFail(-1.0),
+                                failInFail(-2.0),
+                                failInFail(9.0),
+                                mismatches(11.0)
                             )
-                            mismatchesAfterFail(11.0)
                             indexNonExisting(
                                 13, 14,
                                 size("", explanatoryBulletPoint, null, 2),
-                                7.0, 8.0,
-                                withBulletPoint = false
+                                7.0, 8.0
                             )
                             indexNonExisting(
                                 15, 16,
                                 size("", explanatoryBulletPoint, null, 2),
-                                9.0, -8.0,
-                                withBulletPoint = false
+                                9.0, -8.0
                             )
                             indexNonExisting(
                                 17, 18,
                                 size("", explanatoryBulletPoint, null, 2),
-                                10.0, 11.0,
-                                withBulletPoint = false
+                                10.0, 11.0
                             )
-                            indexNonExisting(19, 12.0, withBulletPoint = false)
+                            indexNonExisting(19, 12.0)
                         }
                     }
                 }
@@ -720,18 +691,18 @@ abstract class IterableToContainInOrderOnlyGroupedValuesExpectationsSpec(
                             )
                         }.toThrow<AssertionError> {
                             message {
-                                toContain.exactly(1).value("$rootBulletPoint$toContainInOrderOnlyGrouped:")
+                                toContain.exactly(1).value("$g$toContainInOrderOnlyGrouped :")
                                 indexFail(
                                     0, 1, listOf(null, 1.0),
-                                    sizeCheck(2, 2),
-                                    successAfterFail(null),
-                                    failAfterFail(null)
+                                    sizeSuccessInFail(2, 2),
+                                    successInFail(null),
+                                    failInFail(null)
                                 )
                                 indexFail(
                                     2, 3, listOf(null, 3.0),
-                                    sizeCheck(2, 2),
-                                    successAfterFail(3.0),
-                                    failAfterFail(1.0)
+                                    sizeSuccessInFail(2, 2),
+                                    successInFail(3.0),
+                                    failInFail(1.0)
                                 )
                                 notToContain(size(indentRoot, s, 4, 4))
                             }
@@ -746,19 +717,19 @@ abstract class IterableToContainInOrderOnlyGroupedValuesExpectationsSpec(
                             )
                         }.toThrow<AssertionError> {
                             message {
-                                toContain.exactly(1).value("$rootBulletPoint$toContainInOrderOnlyGrouped:")
+                                toContain.exactly(1).value("$g$toContainInOrderOnlyGrouped :")
                                 indexSuccess(
                                     0, 1, listOf(null, 1.0),
-                                    sizeCheck(2, 2),
-                                    successAfterSuccess(null),
-                                    successAfterSuccess(1.0)
+                                    sizeSuccessInSuccess(2, 2),
+                                    successInSuccess(null),
+                                    successInSuccess(1.0)
                                 )
                                 indexFail(
                                     2, 4, listOf(null, 3.0),
-                                    sizeCheck(2, 3),
-                                    successAfterFail(3.0),
-                                    successAfterFail(null),
-                                    failAfterFail(null)
+                                    sizeFail(2, 3),
+                                    successInFail(3.0),
+                                    successInFail(null),
+                                    failInFail(null)
                                 )
                                 toContainSize(4, 5)
                             }

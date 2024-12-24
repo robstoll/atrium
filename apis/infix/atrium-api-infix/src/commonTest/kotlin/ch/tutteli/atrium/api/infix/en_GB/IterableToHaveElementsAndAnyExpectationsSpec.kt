@@ -1,5 +1,6 @@
 package ch.tutteli.atrium.api.infix.en_GB
 
+import ch.tutteli.atrium._core
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic._logic
 import ch.tutteli.atrium.logic.changeSubject
@@ -76,7 +77,7 @@ class IterableToHaveElementsAndAnyExpectationsSpec : Spek({
             "asSequence().${Sequence<*>::asIterable.name}() ${toContainShortcutFun.name}" to Companion::toContainInAnyOrderEntrySequence
 
         private fun toContainInAnyOrderEntrySequence(expect: Expect<Iterable<Double>>, a: Expect<Double>.() -> Unit) =
-            expect._logic.changeSubject.unreported { it.asSequence() } asIterable o toContain a
+            expect._core.changeSubject.unreported { it.asSequence() } asIterable o toContain a
 
         fun getToContainNullableSequencePair() =
             "asSequence().${Sequence<*>::asIterable.name}() ${toContainShortcutNullableFun.name}" to Companion::toContainNullableEntrySequence
@@ -84,10 +85,10 @@ class IterableToHaveElementsAndAnyExpectationsSpec : Spek({
         private fun toContainNullableEntrySequence(
             expect: Expect<Iterable<Double?>>,
             a: (Expect<Double>.() -> Unit)?
-        ) = expect._logic.changeSubject.unreported { it.asSequence() } asIterable { it toContain a } asIterable o
+        ) = expect._core.changeSubject.unreported { it.asSequence() } asIterable { it toContain a } asIterable o
     }
 
-    @Suppress("unused")
+    @Suppress("unused", "UNUSED_VALUE")
     private fun ambiguityTest() {
         var list: Expect<List<Number>> = notImplemented()
         var nList: Expect<Set<Number?>> = notImplemented()

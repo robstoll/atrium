@@ -20,7 +20,7 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  * [ExplanatoryAssertionGroupType]. Such groups always return `true` for [AssertionGroup.holds] but you might want to
  * explain a complex failing assertion with those groups. In such a use case this builder is your choice.
  */
-@Suppress("unused")
+@Suppress("unused", "UNUSED_VALUE")
 val AssertionBuilder.fixedClaimGroup: FixedClaimGroup.GroupTypeOption
     get() = FixedClaimGroup.GroupTypeOption.create()
 

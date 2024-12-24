@@ -15,7 +15,7 @@ class CollectionExpectationsSpec : ch.tutteli.atrium.specs.integration.Collectio
 
     }
 
-    @Suppress("unused")
+    @Suppress("unused", "UNUSED_VALUE")
     private fun ambiguityTest() {
         var a1: Expect<List<Int>> = notImplemented()
         var a1b: Expect<Set<Int?>> = notImplemented()

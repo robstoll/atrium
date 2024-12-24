@@ -7,7 +7,6 @@ import ch.tutteli.atrium.creating.PleaseUseReplacementException
 import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionAnyProof
 import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionBigDecimalProof
 import ch.tutteli.atrium.specs.*
-import ch.tutteli.atrium.translations.DescriptionBigDecimalAssertion
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.Suite
 import java.math.BigDecimal
@@ -107,7 +106,7 @@ abstract class BigDecimalExpectationsSpec(
 
         //TODO 1.3.0 check this most likely changed and hence is not found (i.e. false positive)
         val failureHintNotNumerically = String.format(
-            DescriptionBigDecimalAssertion.FAILURE_IS_EQUAL_INCLUDING_SCALE_BUT_NUMERICALLY_EQUAL.getDefault(),
+            DescriptionBigDecimalProof.FAILURE_IS_EQUAL_INCLUDING_SCALE_BUT_NUMERICALLY_EQUAL.string,
             notToEqualNumerically.name
         )
         context("subject is 10 and expected is 10") {
@@ -162,7 +161,7 @@ abstract class BigDecimalExpectationsSpec(
         }
 
         val failureHintNumerically = String.format(
-            DescriptionBigDecimalAssertion.FAILURE_IS_EQUAL_INCLUDING_SCALE_BUT_NUMERICALLY_EQUAL.getDefault(),
+            DescriptionBigDecimalProof.FAILURE_IS_EQUAL_INCLUDING_SCALE_BUT_NUMERICALLY_EQUAL.string,
             toEqualNumerically.name
         )
         listOf(

@@ -1,13 +1,18 @@
 package ch.tutteli.atrium.specs.integration
 
+import ch.tutteli.atrium.api.fluent.en_GB.message
 import ch.tutteli.atrium.api.fluent.en_GB.messageToContain
+import ch.tutteli.atrium.api.fluent.en_GB.toContain
 import ch.tutteli.atrium.api.fluent.en_GB.toEqual
+import ch.tutteli.atrium.api.fluent.en_GB.toMatch
 import ch.tutteli.atrium.api.fluent.en_GB.toThrow
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.core.polyfills.fullName
 import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionAnyProof
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionCharSequenceProof
+import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionResultProof
 import ch.tutteli.atrium.specs.integration.utils.ExpectationCreatorTriple
 import ch.tutteli.atrium.translations.DescriptionCharSequenceExpectation
 import ch.tutteli.atrium.translations.DescriptionResultExpectation
@@ -50,7 +55,7 @@ abstract class ResultExpectationsSpec(
         "$describePrefix[failure] ", Result.failure(IllegalArgumentException("oh no...")),
         ExpectationCreatorTriple(
             toBeAFailure.name,
-            "${DescriptionCharSequenceProof.VALUE.string}: \"oh no...\"",
+            "${DescriptionCharSequenceProof.VALUE.string}\\s+: \"oh no...\"",
             { apply { toBeAFailure.invoke(this) { messageToContain("oh no...") } } },
             { apply { toBeAFailure.invoke(this) {} } }
         )
@@ -64,12 +69,17 @@ abstract class ResultExpectationsSpec(
     val resultNullSuccess = Result.success(null as Int?)
     val resultNullableFailure = Result.failure<Int?>(IllegalArgumentException("oh no nullable..."))
 
-    val valueDescr = DescriptionResultExpectation.VALUE.getDefault()
-    val isNotSuccessDescr = DescriptionResultExpectation.IS_NOT_SUCCESS.getDefault()
-    val isNotFailureDescr = DescriptionResultExpectation.IS_NOT_FAILURE.getDefault()
-    val exceptionDescr = DescriptionResultExpectation.EXCEPTION.getDefault()
+    val isNotSuccessDescr = DescriptionResultProof.IS_NOT_SUCCESS.string
+    val isNotFailureDescr = DescriptionResultProof.IS_NOT_FAILURE.string
 
-    describeFun(toBeASuccessFeature, toBeASuccess, toBeASuccessFeatureNullable, toBeASuccessNullable, toBeAFailureFeature, toBeAFailure) {
+    describeFun(
+        toBeASuccessFeature,
+        toBeASuccess,
+        toBeASuccessFeatureNullable,
+        toBeASuccessNullable,
+        toBeAFailureFeature,
+        toBeAFailure
+    ) {
         val successFunctions = uncheckedToNonNullable(
             unifySignatures(toBeASuccessFeature, toBeASuccess),
             unifySignatures(toBeASuccessFeatureNullable, toBeASuccessNullable)
@@ -84,9 +94,13 @@ abstract class ResultExpectationsSpec(
                 it("$name - can perform sub-assertion which fails, throws AssertionError") {
                     expect {
                         expect(resultSuccess).toBeASuccessFun { toEqual(2) }
-                    }.toThrow<AssertionError> {
-                        messageToContain("$valueDescr: 1", "$toEqualDescr: 2")
-                    }
+                    }.toThrow<AssertionError>().message.toMatch(
+                        Regex(
+                            "$expectationVerb : .*$lineSeparator" +
+                                "$g$f${DescriptionResultProof.VALUE.string}\\s+: 1$lineSeparator" +
+                                "$indentG$indentF$x$toEqualDescr : 2"
+                        )
+                    )
                 }
             }
 
@@ -95,15 +109,16 @@ abstract class ResultExpectationsSpec(
                     expect {
                         expect(resultSuccess).toBeAFailureFun { messageToContain("oh yes...") }
                     }.toThrow<AssertionError> {
-                        messageToContain(
-                            "$exceptionDescr: $isNotFailureDescr",
-                            "$toBeAnInstanceOfDescr: ${IllegalArgumentException::class.simpleName}"
-                        )
-                        if (hasExtraHint) {
-                            messageToContain(
-                                DescriptionCharSequenceProof.TO_CONTAIN.string,
-                                "${DescriptionCharSequenceProof.VALUE.string}: \"oh yes...\""
+                        message {
+                            toContainDescr(DescriptionResultProof.EXCEPTION, isNotFailureDescr)
+                            toContainDescr(
+                                DescriptionAnyProof.TO_BE_AN_INSTANCE_OF,
+                                IllegalArgumentException::class.simpleName
                             )
+                            if (hasExtraHint) {
+                                toContain(DescriptionCharSequenceProof.TO_CONTAIN.string)
+                                toContainDescr(DescriptionCharSequenceProof.VALUE, "\"oh yes...\"")
+                            }
                         }
                     }
                 }
@@ -116,8 +131,12 @@ abstract class ResultExpectationsSpec(
                     expect {
                         expect(resultFailure).toBeASuccessFun { toEqual(1) }
                     }.toThrow<AssertionError> {
-                        messageToContain("$valueDescr: $isNotSuccessDescr")
-                        if (hasExtraHint) messageToContain("$toEqualDescr: 1")
+                        message {
+                            toContainDescr(DescriptionResultProof.VALUE, isNotSuccessDescr)
+                            if (hasExtraHint) {
+                                toContainToEqualDescr(1)
+                            }
+                        }
                     }
                 }
             }
@@ -130,10 +149,11 @@ abstract class ResultExpectationsSpec(
                     expect {
                         expect(resultFailure).toBeAFailureFun { messageToContain("oh yes...") }
                     }.toThrow<AssertionError> {
-                        messageToContain(
-                            "$exceptionDescr: ${IllegalArgumentException::class.fullName}",
-                            DescriptionCharSequenceProof.TO_CONTAIN.string, "${DescriptionCharSequenceProof.VALUE.string}: \"oh yes...\""
-                        )
+                        message {
+                            toContainDescr(DescriptionResultProof.EXCEPTION, IllegalArgumentException::class.fullName)
+                            toContain(DescriptionCharSequenceProof.TO_CONTAIN.string)
+                            toContainDescr(DescriptionCharSequenceProof.VALUE, "\"oh yes...\"")
+                        }
                     }
                 }
             }
@@ -152,7 +172,10 @@ abstract class ResultExpectationsSpec(
                     expect {
                         expect(resultNullSuccess).toBeASuccessFun { toEqual(2) }
                     }.toThrow<AssertionError> {
-                        messageToContain("$valueDescr: null", "$toEqualDescr: 2")
+                        message {
+                            toContainDescr(DescriptionResultProof.VALUE, "null")
+                            toContainToEqualDescr(2)
+                        }
                     }
                 }
             }
@@ -162,8 +185,10 @@ abstract class ResultExpectationsSpec(
                     expect {
                         expect(resultNullableFailure).toBeASuccessFun { toEqual(1) }
                     }.toThrow<AssertionError> {
-                        messageToContain("$valueDescr: $isNotSuccessDescr")
-                        if (hasExtraHint) messageToContain("$toEqualDescr: 1")
+                        message {
+                            toContainDescr(DescriptionResultProof.VALUE, isNotSuccessDescr)
+                            if (hasExtraHint) toContainToEqualDescr(1)
+                        }
                     }
                 }
             }

@@ -1,5 +1,6 @@
 package ch.tutteli.atrium.creating.impl
 
+import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
 import ch.tutteli.atrium.core.Option
 import ch.tutteli.atrium.creating.*
@@ -7,7 +8,10 @@ import ch.tutteli.atrium.creating.proofs.Proof
 import ch.tutteli.atrium.reporting.AtriumError
 import ch.tutteli.atrium.reporting.AtriumErrorAdjuster
 import ch.tutteli.atrium.reporting.Reporter
+import ch.tutteli.atrium.reporting.prerendering.text.TextPreRenderController
 import ch.tutteli.atrium.reporting.reportables.InlineElement
+import ch.tutteli.atrium.reporting.reportables.Reportable
+import ch.tutteli.atrium.reporting.reportables.ReportableGroup
 
 @ExperimentalNewExpectTypes
 @OptIn(ExperimentalComponentFactoryContainer::class)
@@ -58,6 +62,30 @@ internal class RootExpectImpl<T>(
         proofs.add(proof)
         if (!proof.holds()) {
             val rootProofGroup = Proof.rootGroup(expectationVerb, representation, proofs)
+
+//            val a = components.buildOrNull(TextPreRenderController::class)!!.transformRoot(rootProofGroup)
+//            println(a)
+//
+//            fun printProof(r: Reportable, level: Int) {
+//                when (r) {
+//                    is AssertionGroup -> {
+//                        println("  ".repeat(level) + "$level." + r::class.simpleName + " type=${r.type}, description=${r.description}, representation=${r.representation}, holds=${r.holds()} children:")
+//                        r.children.forEach {
+//                            printProof(it, level + 1)
+//                        }
+//                    }
+//
+//                    is ReportableGroup -> {
+//                        println("  ".repeat(level) + "$level." + r::class.simpleName + " children:")
+//                        r.children.forEach {
+//                            printProof(it, level + 1)
+//                        }
+//                    }
+//
+//                    else -> println("  ".repeat(level) + "$level." + r::class.simpleName +" "+ r)
+//                }
+//            }
+//            printProof(rootProofGroup, 0)
 
             val sb = components.build<Reporter>().createReport(rootProofGroup)
 

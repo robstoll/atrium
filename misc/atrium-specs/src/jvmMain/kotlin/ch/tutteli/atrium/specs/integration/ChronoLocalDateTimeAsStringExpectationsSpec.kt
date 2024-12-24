@@ -5,13 +5,11 @@ import ch.tutteli.atrium.api.fluent.en_GB.messageToContain
 import ch.tutteli.atrium.api.fluent.en_GB.toThrow
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionDateTimeLikeProof
 import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionDateTimeLikeProof.*
 import ch.tutteli.atrium.specs.Fun1
 import ch.tutteli.atrium.specs.fun1
 import ch.tutteli.atrium.specs.lambda
 import ch.tutteli.atrium.specs.name
-import ch.tutteli.atrium.translations.DescriptionDateTimeLikeExpectation
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.describe
 import java.time.Duration

@@ -10,6 +10,8 @@ import ch.tutteli.atrium.core.polyfills.formatFloatingPointNumber
 import ch.tutteli.atrium.core.polyfills.fullName
 import ch.tutteli.atrium.specs.Fun2
 import ch.tutteli.atrium.specs.SubjectLessSpec
+import ch.tutteli.atrium.specs.forSubjectLess
+import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionFloatingPointProof.*
 import ch.tutteli.atrium.specs.forSubjectLessTest
 import ch.tutteli.atrium.translations.DescriptionFloatingPointException.*
 import org.spekframework.spek2.Spek
@@ -81,15 +83,15 @@ fun <T : Number> Root.checkFloatingPoint(
                     }
                 }
 
-                val toEqualInclErrorToleranceDescr = TO_EQUAL_WITH_ERROR_TOLERANCE.getDefault().format(tolerance)
-                val failureNotice = FAILURE_DUE_TO_FLOATING_POINT_NUMBER.getDefault().format(subject::class.fullName)
+                val toEqualInclErrorToleranceDescr = TO_EQUAL_WITH_ERROR_TOLERANCE.string.format(tolerance)
+                val failureNotice = FAILURE_DUE_TO_FLOATING_POINT_NUMBER.string.format(subject::class.fullName)
                 failing.forEach { num ->
                     it("... compare to $num throws AssertionError") {
                         expect {
                             expect(subject).toEqualWithErrorTolerance(num, tolerance)
                         }.toThrow<AssertionError> {
                             message {
-                                val exactCheck = TO_EQUAL_WITH_ERROR_TOLERANCE_EXPLAINED.getDefault().format(
+                                val exactCheck = TO_EQUAL_WITH_ERROR_TOLERANCE_EXPLAINED.string.format(
                                     @Suppress("DEPRECATION")
                                     formatFloatingPointNumber(subject),
                                     @Suppress("DEPRECATION")

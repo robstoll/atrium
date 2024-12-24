@@ -20,6 +20,7 @@ import ch.tutteli.atrium.logic.utils.toVarArg
 import ch.tutteli.kbox.glue
 import kotlin.jvm.JvmName
 
+//TODO 2.0.0 switch to disjoint search, no idea why I used non-disjoint back then
 /**
  * Finishes the specification of the sophisticated `to contain` expectation where the [expected] object shall be searched,
  * using a non-disjoint search.

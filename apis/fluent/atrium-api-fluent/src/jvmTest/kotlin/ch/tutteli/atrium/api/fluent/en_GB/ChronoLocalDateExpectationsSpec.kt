@@ -28,7 +28,7 @@ class ChronoLocalDateExpectationsSpec : Spek({
         fun1<ChronoLocalDate, String>(Expect<ChronoLocalDate>::toBeTheSamePointInTimeAs)
     )
 
-    @Suppress("unused")
+    @Suppress("unused", "UNUSED_VALUE")
     private fun ambiguityTest() {
         val chronoLocalDate: ChronoLocalDate = notImplemented()
         var a1: Expect<ChronoLocalDate> = notImplemented()

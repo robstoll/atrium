@@ -5,7 +5,6 @@ package ch.tutteli.atrium.specs
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic.utils.expectLambda
 import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionAnyProof
-import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionBasic
 import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionComparableProof
 import ch.tutteli.atrium.specs.integration.utils.ExpectationCreatorTriple
 import ch.tutteli.atrium.translations.DescriptionAnyExpectation
@@ -270,12 +269,13 @@ inline fun <T, A1, A2, A3, A4, A5> fun5(f: KFunction6<Expect<T>, A1, A2, A3, A4,
 fun <T> notImplemented(): T = throw NotImplementedError()
 
 val toEqualDescr = DescriptionAnyProof.TO_EQUAL.string
-val toBeDescr = DescriptionBasic.TO_BE.string
-val notToBeDescr = DescriptionBasic.NOT_TO_BE.string
 val toBeAnInstanceOfDescr = DescriptionAnyProof.TO_BE_AN_INSTANCE_OF.string
 val toBeLessThanDescr = DescriptionComparableProof.TO_BE_LESS_THAN.string
 val toBeGreaterThanDescr = DescriptionComparableProof.TO_BE_GREATER_THAN.string
-val notToEqualNullButToBeInstanceOfDescr = NOT_TO_EQUAL_NULL_TO_BE_AN_INSTANCE_OF.string
+
+//TODO 1.3.0 replace
+@Suppress("DEPRECATION")
+val notToEqualNullButToBeInstanceOfDescr = ch.tutteli.atrium.translations.DescriptionAnyExpectation.NOT_TO_EQUAL_NULL_TO_BE_AN_INSTANCE_OF.string
 
 expect val lineSeparator: String
 val expectationVerb = "I expected subject"

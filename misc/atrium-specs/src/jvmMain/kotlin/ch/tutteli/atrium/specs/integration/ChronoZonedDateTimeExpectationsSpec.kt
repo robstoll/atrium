@@ -1,14 +1,10 @@
 package ch.tutteli.atrium.specs.integration
 
 import ch.tutteli.atrium.api.fluent.en_GB.message
-import ch.tutteli.atrium.api.fluent.en_GB.messageToContain
 import ch.tutteli.atrium.api.fluent.en_GB.toThrow
 import ch.tutteli.atrium.api.verbs.internal.expect
-import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionAnyProof
-import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionDateTimeLikeProof
 import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionDateTimeLikeProof.*
 import ch.tutteli.atrium.specs.*
-import ch.tutteli.atrium.translations.DescriptionDateTimeLikeExpectation
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.describe
 import java.time.ZoneOffset

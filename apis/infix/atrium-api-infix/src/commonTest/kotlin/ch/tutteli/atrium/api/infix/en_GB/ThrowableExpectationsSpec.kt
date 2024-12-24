@@ -35,7 +35,7 @@ class ThrowableExpectationsSpec : ch.tutteli.atrium.specs.integration.ThrowableE
         ) = expect.cause<IllegalArgumentException>(assertionCreator)
     }
 
-    @Suppress("unused")
+    @Suppress("unused", "UNUSED_VALUE")
     private fun ambiguityTest() {
         var a1: Expect<ClassCastException> = notImplemented()
 

@@ -106,7 +106,7 @@ class FeatureExpectationsBoundedReferenceSpec : ch.tutteli.atrium.specs.integrat
         val f5EmptyAssertionCreator: F = { feature({ f(it::return5, "a", 1, true, 1.2, 'b') }) {} }
     }
 
-    @Suppress("unused")
+    @Suppress("unused", "UNUSED_VALUE")
     private fun ambiguityTest() {
         val a1: Expect<Collection<Int>> = notImplemented()
         val a1b: Expect<Collection<Int?>> = notImplemented()

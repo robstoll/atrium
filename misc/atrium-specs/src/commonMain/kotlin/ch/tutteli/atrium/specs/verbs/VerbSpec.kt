@@ -7,12 +7,13 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.creating.ExpectGrouping
 import ch.tutteli.atrium.logic.changeSubject
 import ch.tutteli.atrium.logic.creating.RootExpectBuilder
-import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionAnyProof
 import ch.tutteli.atrium.reporting.reportables.ErrorMessages.*
+import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionAnyProof
+import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionComparableProof
 import ch.tutteli.atrium.specs.*
-import ch.tutteli.atrium.translations.DescriptionComparableExpectation
-import ch.tutteli.atrium.translations.DescriptionComparableExpectation.TO_BE_GREATER_THAN
-import ch.tutteli.atrium.translations.DescriptionComparableExpectation.TO_BE_LESS_THAN
+import ch.tutteli.atrium.specs.integration.toContainToBeGreaterDescr
+import ch.tutteli.atrium.specs.integration.toContainToBeLessThanDescr
+import ch.tutteli.atrium.specs.integration.toContainToEqualDescr
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.Suite
 
@@ -60,7 +61,7 @@ abstract class VerbSpec(
                         assertionVerb(1) { toEqual(1) }.toBeLessThan(1)
                     }.toThrow<AssertionError> {
                         message {
-                            toContain("${TO_BE_LESS_THAN.getDefault()}: 1")
+                            toContainToBeLessThanDescr(1)
                             notToContain(toEqualDescr)
                         }
                     }
@@ -73,11 +74,9 @@ abstract class VerbSpec(
                         assertionVerb(1) { toEqual(1) }.and { toBeLessThan(0); toEqual(1); toBeGreaterThan(2) }
                     }.toThrow<AssertionError> {
                         message {
-                            toContain(
-                                ": 1",
-                                "${TO_BE_LESS_THAN.getDefault()}: 0",
-                                "${TO_BE_GREATER_THAN.getDefault()}: 2"
-                            )
+                            toContain(": 1")
+                            toContainToBeLessThanDescr(0)
+                            toContainToBeGreaterDescr(2)
                             notToContain(toEqualDescr)
                         }
                     }
@@ -95,8 +94,8 @@ abstract class VerbSpec(
                 }.toThrow<AssertionError> {
                     message {
                         toContain(": 1")
-                        toContain("${TO_BE_LESS_THAN.getDefault()}: 0")
-                        toContain("${TO_BE_GREATER_THAN.getDefault()}: 2")
+                        toContainToBeLessThanDescr(0)
+                        toContainToBeGreaterDescr(2)
                     }
                 }
             }
@@ -114,10 +113,13 @@ abstract class VerbSpec(
                 assert {
                     assertionVerb(null).notToEqualNull { toEqual(1) }
                 }.toThrow<AssertionError> {
-                    messageToContain(
-                        notToEqualNullButToBeInstanceOfDescr,
-                        "Int", "$toEqualDescr: 1"
-                    )
+                    message {
+                        toContain(
+                            ": null",
+                            "$notToEqualNullButToBeInstanceOfDescr : Int",
+                            "$indentX$explanatoryBulletPoint$toEqualDescr : 1"
+                        )
+                    }
                 }
             }
         }
@@ -141,7 +143,7 @@ abstract class VerbSpec(
                 assert {
                     assertionVerb {
                         throw IllegalArgumentException()
-                    }.toThrow<UnsupportedOperationException> {}
+                    }.toThrow<UnsupportedOperationException>()
                 }.toThrow<AssertionError> {
                     messageToContain(
                         DescriptionAnyProof.TO_BE_AN_INSTANCE_OF.string,
@@ -163,11 +165,11 @@ abstract class VerbSpec(
                 }.toThrow<AssertionError> {
                     message {
                         toContain(
-                            "group description:",
-                            AT_LEAST_ONE_EXPECTATION_DEFINED.string + ": false",
+                            "group description :",
+                            AT_LEAST_ONE_EXPECTATION_DEFINED.string + " : false",
                             FORGOT_DO_DEFINE_EXPECTATION.string,
-                            DEFAULT_HINT_AT_LEAST_ONE_EXPECTATION_DEFINED.string
                         )
+                        notToContain(DEFAULT_HINT_AT_LEAST_ONE_EXPECTATION_DEFINED.string)
                     }
                 }
 
@@ -190,7 +192,7 @@ abstract class VerbSpec(
                             "another without"
                         )
                         toContain.exactly(2).values(
-                            AT_LEAST_ONE_EXPECTATION_DEFINED.string + ": false",
+                            AT_LEAST_ONE_EXPECTATION_DEFINED.string + " : false",
                             FORGOT_DO_DEFINE_EXPECTATION.string,
                             DEFAULT_HINT_AT_LEAST_ONE_EXPECTATION_DEFINED.string
                         )
@@ -233,7 +235,7 @@ abstract class VerbSpec(
                         }
                     }.toThrow<AssertionError> {
                         message {
-                            toContain("${TO_BE_LESS_THAN.getDefault()}: 1")
+                            toContainToBeLessThanDescr(1)
                             notToContain(toEqualDescr)
                         }
                     }
@@ -255,23 +257,21 @@ abstract class VerbSpec(
                         }
                     }.toThrow<AssertionError> {
                         message {
-                            toContain(
-                                ": 2",
-                                "$toEqualDescr: 3",
-                                "# verifying Xy",
-                                ": 4",
-                                "${TO_BE_LESS_THAN.getDefault()}: 0",
-                                ": 5",
-                                "$toEqualDescr: 6",
-
-                                ": 8",
-                                "$toEqualDescr: 9",
-                            )
-                            notToContain(
+                            toContain(": 2")
+                            toContainToEqualDescr(3)
+                            //TODO 1.3.0 should contain the grouping icon
+                            toContain("verifying Xy : ")
+                            toContain(": 4")
+                            toContainToBeLessThanDescr(0)
+                            toContain(": 5")
+                            toContainToEqualDescr(6)
+                            toContain(": 8")
+                            toContainToEqualDescr(9)
+                            notToContain.regex(
                                 ": 1",
-                                "$toEqualDescr: 1",
+                                "$toEqualDescr\\s+: 1",
                                 ": 7",
-                                "${TO_BE_GREATER_THAN.getDefault()}: 1",
+                                "${DescriptionComparableProof.TO_BE_GREATER_THAN.string}\\s+: 1",
                             )
                         }
                     }
@@ -287,14 +287,15 @@ private fun Suite.testNonNullableSubject(assertionVerb: (Int) -> Expect<Int>) {
     it("does not throw an exception in case the assertion holds") {
         assertionVerb(1).toEqual(1)
     }
-    it("throws an AssertionError as soon as one assertion fails") {
+    it("throws an AssertionError as soon as one expectation fails") {
         assert {
             assertionVerb(1).toBeLessThanOrEqualTo(10).and.toBeLessThanOrEqualTo(0).and.toBeGreaterThanOrEqualTo(2)
         }.toThrow<AssertionError> {
-            message {
+            message{
                 toContain(": 1")
-                toContain("${DescriptionComparableExpectation.TO_BE_LESS_THAN_OR_EQUAL_TO.getDefault()}: 0")
-                notToContain("${DescriptionComparableExpectation.TO_BE_GREATER_THAN_OR_EQUAL_TO.getDefault()}: 2")
+                toContainRegex(DescriptionComparableProof.TO_BE_LESS_THAN_OR_EQUAL_TO.string+"\\s+: 0")
+                notToContain.regex(DescriptionComparableProof.TO_BE_GREATER_THAN_OR_EQUAL_TO.string+"\\s+: 2")
+
             }
         }
     }
