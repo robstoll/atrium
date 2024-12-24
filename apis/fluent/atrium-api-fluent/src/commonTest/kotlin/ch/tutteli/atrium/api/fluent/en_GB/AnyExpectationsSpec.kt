@@ -111,6 +111,6 @@ class AnyExpectationsSpec : ch.tutteli.atrium.specs.integration.AnyExpectationsS
     }
 
     //regression for #298, should compile without the need for E : Any or List<E?>
-    @Suppress("unused")
+    @Suppress("unused", "UNUSED_VALUE")
     fun <E> Expect<List<E>>.firstIs(value: E) = get(0) { toEqual(value) }
 }

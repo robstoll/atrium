@@ -5,7 +5,7 @@ import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionCharSequenceProof
-import ch.tutteli.atrium.translations.DescriptionComparableExpectation
+import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionComparableProof
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.Suite
 
@@ -28,7 +28,8 @@ abstract class KeyValueLikeExpectationsSpec<T : Any, TNullable : Any>(
     val mapEntry = creator("hello", 1)
     val nullMapEntry = creatorNullable(null, null)
 
-    include(object : SubjectLessSpec<T>(describePrefix,
+    include(object : SubjectLessSpec<T>(
+        describePrefix,
         keyFeature.forSubjectLessTest(),
         key.forSubjectLessTest { toEndWith("a") },
         valueFeature.forSubjectLessTest(),
@@ -74,10 +75,10 @@ abstract class KeyValueLikeExpectationsSpec<T : Any, TNullable : Any>(
                     expect {
                         expect(mapEntry).keyFun { toEndWith("h") }
                     }.toThrow<AssertionError> {
-                        messageToContain(
-                            "$keyName: \"hello\"",
-                            DescriptionCharSequenceProof.TO_END_WITH.string + ": \"h\""
-                        )
+                        message {
+                            toContainDescr(keyName, "\"hello\"")
+                            toContainDescr(DescriptionCharSequenceProof.TO_END_WITH, "\"h\"")
+                        }
                     }
                 }
             }
@@ -90,10 +91,10 @@ abstract class KeyValueLikeExpectationsSpec<T : Any, TNullable : Any>(
                     expect {
                         expect(mapEntry).valueFun { toBeGreaterThan(1) }
                     }.toThrow<AssertionError> {
-                        messageToContain(
-                            "$valueName: 1",
-                            DescriptionComparableExpectation.TO_BE_GREATER_THAN.getDefault() + ": 1"
-                        )
+                        message {
+                            toContainDescr(valueName, 1)
+                            toContainDescr(DescriptionComparableProof.TO_BE_GREATER_THAN, 1)
+                        }
                     }
                 }
             }
@@ -114,7 +115,10 @@ abstract class KeyValueLikeExpectationsSpec<T : Any, TNullable : Any>(
                     expect {
                         expect(nullableMapEntry).nullableKeyFun { toEqual(null) }
                     }.toThrow<AssertionError> {
-                        messageToContain("$keyName: \"hello\"")
+                        message {
+                            toContainDescr(keyName, "\"hello\"")
+                            toContainToEqualDescr("null")
+                        }
                     }
                 }
             }
@@ -126,7 +130,10 @@ abstract class KeyValueLikeExpectationsSpec<T : Any, TNullable : Any>(
                     expect {
                         expect(nullableMapEntry).nullableValueFun { toEqual(null) }
                     }.toThrow<AssertionError> {
-                        messageToContain("$valueName: 1")
+                        message {
+                            toContainDescr(valueName, 1)
+                            toContainToEqualDescr("null")
+                        }
                     }
                 }
             }
@@ -140,7 +147,10 @@ abstract class KeyValueLikeExpectationsSpec<T : Any, TNullable : Any>(
                     expect {
                         expect(nullMapEntry).nullableKeyFun { toEqual("hello") }
                     }.toThrow<AssertionError> {
-                        messageToContain("$keyName: null", "$toEqualDescr: \"hello\"")
+                        message {
+                            toContainDescr(keyName, "null")
+                            toContainToEqualDescr("\"hello\"")
+                        }
                     }
                 }
             }
@@ -152,7 +162,10 @@ abstract class KeyValueLikeExpectationsSpec<T : Any, TNullable : Any>(
                     expect {
                         expect(nullMapEntry).nullableValueFun { toEqual(1) }
                     }.toThrow<AssertionError> {
-                        messageToContain("$valueName: null")
+                        message {
+                            toContainDescr(valueName, "null")
+                            toContainToEqualDescr(1)
+                        }
                     }
                 }
             }

@@ -68,7 +68,8 @@ abstract class IterableToContainSpecBase(spec: Root.() -> Unit) : Spek(spec) {
         val emptyInAnyOrderOnlyReportOptions: InAnyOrderOnlyReportingOptions.() -> Unit = {}
 
         fun Expect<String>.toContainSize(actual: Int, expected: Int) =
-            toContain.exactly(1).regex("$g$f${DescriptionCollectionProof.SIZE.string}\\s+: $actual$lineSeparator\\s+$x${DescriptionAnyProof.TO_EQUAL.string}\\s+: $expected")
+            toContain.exactly(1).regex("$g$f${DescriptionCollectionProof.SIZE.string}\\s+: $actual$lineSeparator"+
+                "\\s+$x${DescriptionAnyProof.TO_EQUAL.string}\\s+: $expected")
 
         fun Expect<String>.notToContainElement(index: Int, expected: Double): Expect<String> =
             notToContain.regex("\\Q${elementWithIndex(index)} : ${expected}\\E.*$lineSeparator")

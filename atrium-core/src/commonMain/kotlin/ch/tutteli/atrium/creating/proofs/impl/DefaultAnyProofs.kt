@@ -1,9 +1,7 @@
 package ch.tutteli.atrium.creating.proofs.impl
 
 import ch.tutteli.atrium._core
-import ch.tutteli.atrium.core.None
 import ch.tutteli.atrium.core.Option
-import ch.tutteli.atrium.core.Some
 import ch.tutteli.atrium.core.polyfills.cast
 import ch.tutteli.atrium.creating.*
 import ch.tutteli.atrium.creating.proofs.*
@@ -11,10 +9,8 @@ import ch.tutteli.atrium.creating.proofs.builders.buildProof
 import ch.tutteli.atrium.creating.proofs.builders.buildSimpleProof
 import ch.tutteli.atrium.creating.transformers.SubjectChanger
 import ch.tutteli.atrium.creating.transformers.SubjectChangerBuilder
-import ch.tutteli.atrium.creating.transformers.subjectChanger
 import ch.tutteli.atrium.reporting.Text
 import ch.tutteli.atrium.reporting.forgotToAppendProofPseudoUsageHint
-import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionAnyProof
 import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionAnyProof.*
 import kotlin.reflect.KClass
 
@@ -53,7 +49,7 @@ class DefaultAnyProofs : AnyProofs {
 
     override fun <T> notToEqualOneIn(container: ProofContainer<T>, expected: Iterable<T>): Proof =
         container.buildProof {
-            group(NOT_TO_EQUAL_ONE_OF, Text.EMPTY) {
+            proofGroup(NOT_TO_EQUAL_ONE_OF, Text.EMPTY) {
                 expected.forEach { value ->
                     representationOnlyProof(value) { it != value }
                 }

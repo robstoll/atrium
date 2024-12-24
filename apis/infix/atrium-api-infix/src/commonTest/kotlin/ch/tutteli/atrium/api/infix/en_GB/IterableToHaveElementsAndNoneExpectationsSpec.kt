@@ -13,12 +13,14 @@ class IterableToHaveElementsAndNoneExpectationsSpec : Spek({
     object PredicateSpec : ch.tutteli.atrium.specs.integration.IterableToHaveElementsAndNoneExpectationsSpec(
         fun1(Expect<Iterable<Double>>::toHaveElementsAndNone),
         fun1(Expect<Iterable<Double?>>::toHaveElementsAndNone).withNullableSuffix(),
+        Expect<List<Int>>::notToHaveElementsOrNone.name,
         "[Atrium][Predicate] "
     )
 
     object BuilderSpec : ch.tutteli.atrium.specs.integration.IterableToHaveElementsAndNoneExpectationsSpec(
         getNotToContainPair(),
         getNotToContainNullablePair().withNullableSuffix(),
+        Expect<List<Int>>::notToHaveElementsOrNone.name,
         "[Atrium][Builder] "
     )
 
@@ -35,7 +37,7 @@ class IterableToHaveElementsAndNoneExpectationsSpec : Spek({
             expect notToContain o entry a
     }
 
-    @Suppress("unused")
+    @Suppress("unused", "UNUSED_VALUE")
     private fun ambiguityTest() {
         var list: Expect<List<Number>> = notImplemented()
         var nList: Expect<Set<Number?>> = notImplemented()

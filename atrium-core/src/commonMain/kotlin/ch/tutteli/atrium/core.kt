@@ -39,9 +39,7 @@ inline fun ExpectGrouping._coreAppend(crossinline proofCreator: ProofContainer<*
     // inside we use proofCreator which is still based on ProofContainer<*> so we are still type safe
     @Suppress("UNCHECKED_CAST")
     return (_core as ProofContainer<Any>).appendAsGroupIndicateIfOneCollected(ExpectationCreatorWithUsageHints(
-        listOf(
-            Text("bug detected, looks like we forgot to append a proof, please open a bug at $BUG_REPORT_URL")
-        )
+        forgotToAppendProofPseudoUsageHint
     ) {
         _core.run<ProofContainer<Any>, Unit> { append(proofCreator()) }
     }).first.toExpectGrouping()

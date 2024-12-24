@@ -214,7 +214,7 @@ abstract class TextSummaryAssertionGroupFormatterSpec(
                             + "$failingBulletPoint ${DummyTranslatables.EXPECT.getDefault()}: 22$lineSeparator"
                             + "$indentFailingBulletPoint$successBulletPoint ${DummyTranslatables.EXPECT.getDefault()}: 1$lineSeparator"
                             + "$indentFailingBulletPoint$failingBulletPoint ${DummyTranslatables.EXPECT_THROWN.getDefault()}: 2$lineSeparator"
-                            + "$successBulletPoint ${DummyTranslatables.EXPECT_THROWN.getDefault()}:  (Text)$lineSeparator"
+                            + "$successBulletPoint ${DummyTranslatables.EXPECT_THROWN.getDefault()}: Text()$lineSeparator"
                             + "$indentSuccessBulletPoint$successBulletPoint ${DummyTranslatables.EXPECT.getDefault()}: 30$lineSeparator"
                             + "$indentSuccessBulletPoint$successBulletPoint ${DummyTranslatables.EXPECT.getDefault()}: 31"
                     )

@@ -36,7 +36,7 @@ abstract class IterableToContainEntriesSpecBase(
         fun index(index: Int) = DescriptionIterableLikeProof.INDEX.string.format(index)
 
         //@formatter:off
-        val afterExplanatoryIndent = "$indentRoot$indentList$indentSuccess"
+        val afterExplanatoryIndent = "$indentRoot$indentList$indentS"
         val afterExplanatory = "$afterExplanatoryIndent\\Q$explanatoryBulletPoint\\E"
         val afterMismatchedWarning = "$afterExplanatoryIndent$indentBb\\Q$listBulletPoint\\E"
         //@formatter:on

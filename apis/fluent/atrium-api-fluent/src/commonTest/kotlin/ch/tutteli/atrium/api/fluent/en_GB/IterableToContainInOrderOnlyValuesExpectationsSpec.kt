@@ -12,10 +12,8 @@ import org.spekframework.spek2.Spek
 import ch.tutteli.atrium.api.fluent.en_GB.IterableToContainInOrderOnlyValuesExpectationsSpec.Companion as C
 
 class IterableToContainInOrderOnlyValuesExpectationsSpec : Spek({
-
     include(BuilderSpec)
     include(ShortcutSpec)
-
 }) {
     object BuilderSpec : ch.tutteli.atrium.specs.integration.IterableToContainInOrderOnlyValuesExpectationsSpec(
         functionDescription to C::toContainInOrderOnlyValues,
@@ -55,7 +53,7 @@ class IterableToContainInOrderOnlyValuesExpectationsSpec : Spek({
             } else expect.toContain.inOrder.only.values(a, *aX, report = report)
     }
 
-    @Suppress("unused")
+    @Suppress("unused", "UNUSED_VALUE")
     private fun ambiguityTest() {
         var list: Expect<List<Number>> = notImplemented()
         var nList: Expect<Set<Number?>> = notImplemented()

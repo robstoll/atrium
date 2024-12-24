@@ -90,12 +90,12 @@ internal class CollectingExpectImpl<T>(
                 is ReportableWithDesignation -> BasicDescriptiveAssertion(
                     descriptionToUntranslatable(reportable.description),
                     reportable.representation
-                ) { false }
+                ) { true }
 
                 else -> BasicDescriptiveAssertion(
                     ch.tutteli.atrium.reporting.translating.Untranslatable("❗❗ Assertion is deprecated, move to Proof, cannot show description"),
                     reportable
-                ) { false }
+                ) { true }
             }
         }
 
@@ -179,13 +179,10 @@ internal class CollectingExpectImpl<T>(
                     ) {
                         simpleProof(DescriptionAnyProof.TO_EQUAL, true) { false }
 
-                        addAll(
-                            expectationCreatorWithUsageHints.usageHintsOverloadWithoutExpectationCreator.ifNotEmpty { hints ->
-                                listOf(
-                                    Reportable.usageHintGroup(listOf(ErrorMessages.FORGOT_DO_DEFINE_EXPECTATION) + hints)
-                                )
-                            }
-                        )
+                        usageHintGroup {
+                            add(ErrorMessages.FORGOT_DO_DEFINE_EXPECTATION)
+                            addAll(expectationCreatorWithUsageHints.usageHintsOverloadWithoutExpectationCreator)
+                        }
                     }
                 }
             )

@@ -169,7 +169,7 @@ fun AssertionContainer<*>.findHintForProblemWithParent(path: Path): Assertion? {
                         explanation = hintForNotDirectory(attributes.fileType)
                     )
                 }
-            } catch (e: AccessDeniedException) {
+            } catch (_: AccessDeniedException) {
                 return hintForParentFailure(
                     currentParentPart.parent,
                     explanation = hintForAccessDenied(currentParentPart.parent)
@@ -221,7 +221,7 @@ fun hintForAccessDenied(path: Path): Assertion {
         assertionBuilder.explanatoryGroup.withDefaultType
             .withAssertions(hints)
             .build()
-    } catch (e: IOException) {
+    } catch (_: IOException) {
         failureDueToAccessDeniedHint
     }
 }
@@ -381,7 +381,7 @@ fun hintForClosestExistingParent(path: Path): Assertion {
                     explanation = hintForNotDirectory(testPathAttributes.fileType)
                 )
             }
-        } catch (e: NoSuchFileException) {
+        } catch (_: NoSuchFileException) {
             /* continue searching. Any other IOException should not occur because [path] does not exist */
         }
         testPath = testPath.parent
@@ -391,7 +391,7 @@ fun hintForClosestExistingParent(path: Path): Assertion {
 
 private fun hintForExistingParentDirectory(parent: Path?) =
     assertionBuilder.explanatory
-        .withExplanation(HINT_CLOSEST_EXISTING_PARENT_DIRECTORY, parent ?: DescriptionBasic.NONE)
+        .withExplanation(HINT_CLOSEST_EXISTING_PARENT_DIRECTORY, parent?.toRealPath() ?: DescriptionBasic.NONE)
         .build()
 
 //TODO 1.3.0 remove suppress again, use InlineElement instead

@@ -33,7 +33,7 @@ class ExtractSubjectTest : AbstractExtractSubjectTest(
             }
     }
 
-    @Suppress("unused")
+    @Suppress("unused", "UNUSED_VALUE")
     private fun ambiguityTest() {
         val int: Expect<Int> = expect(1)
         val nullableInt: Expect<Int?> = expect(1)

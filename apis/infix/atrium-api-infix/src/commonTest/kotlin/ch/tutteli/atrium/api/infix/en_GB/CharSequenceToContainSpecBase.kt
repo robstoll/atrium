@@ -40,7 +40,7 @@ abstract class CharSequenceToContainSpecBase {
     protected val values = "the values"
     protected val elementsOf = CharSequenceContains.EntryPointStep<String, IgnoringCaseSearchBehaviour>::elementsOf.name
 
-    @Suppress("unused")
+    @Suppress("unused", "UNUSED_VALUE")
     private fun ambiguityTest() {
         val a1: Expect<String> = notImplemented()
 

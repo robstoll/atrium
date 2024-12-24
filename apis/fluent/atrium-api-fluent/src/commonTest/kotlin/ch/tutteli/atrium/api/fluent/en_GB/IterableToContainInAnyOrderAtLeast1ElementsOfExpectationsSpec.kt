@@ -65,7 +65,7 @@ class IterableToContainInAnyOrderAtLeast1ElementsOfExpectationsSpec : Spek({
         ): Expect<Iterable<Double?>> = expect.toContainElementsOf(sequenceOf(a, *aX).asIterable())
     }
 
-    @Suppress("unused")
+    @Suppress("unused", "UNUSED_VALUE")
     private fun ambiguityTest() {
         var list: Expect<List<Number>> = notImplemented()
         var nList: Expect<Set<Number?>> = notImplemented()
