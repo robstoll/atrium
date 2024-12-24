@@ -39,7 +39,7 @@ class ComparableExpectationsSpec: Spek({
     ){})
 })  {
 
-    @Suppress("unused")
+    @Suppress("unused", "UNUSED_VALUE")
     fun ambiguityTest() {
         val a1: Expect<Int> = notImplemented()
         a1 toBeLessThan 1

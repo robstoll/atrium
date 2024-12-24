@@ -2,18 +2,19 @@ package ch.tutteli.atrium.api.verbs
 
 import ch.tutteli.atrium._core
 import ch.tutteli.atrium._coreAppend
-import ch.tutteli.atrium.api.verbs.factory.DefaultExpectationVerbs
 import ch.tutteli.atrium.api.verbs.ExpectationVerb.EXPECT
+import ch.tutteli.atrium.api.verbs.factory.DefaultExpectationVerbs
 import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
 import ch.tutteli.atrium.creating.*
-import ch.tutteli.atrium.creating.toExpectGrouping
-import ch.tutteli.atrium.logic.*
+import ch.tutteli.atrium.logic._logic
 import ch.tutteli.atrium.logic.creating.RootExpectBuilder
+import ch.tutteli.atrium.logic.grouping
+import ch.tutteli.atrium.logic.manualFeature
+import ch.tutteli.atrium.logic.toAssertionCreator
 import ch.tutteli.atrium.reporting.Text
 import ch.tutteli.atrium.testfactories.TestFactory
 import ch.tutteli.atrium.testfactories.TestFactoryBuilder
 import ch.tutteli.atrium.testfactories.testFactoryTemplate
-
 import ch.tutteli.atrium.api.verbs.expect as atriumVerb
 
 /**

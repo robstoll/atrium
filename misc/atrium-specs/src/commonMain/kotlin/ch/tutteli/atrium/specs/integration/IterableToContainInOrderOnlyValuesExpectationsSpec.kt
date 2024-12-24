@@ -23,15 +23,14 @@ abstract class IterableToContainInOrderOnlyValuesExpectationsSpec(
         toContainInOrderOnlyNullableValues.forSubjectLess(2.5, arrayOf(), emptyInOrderOnlyReportOptions)
     ) {})
 
-    val toBeWithFeature = "$indentF$featureBulletPoint$toEqualDescr"
-    val toBeAfterSuccess = "$indentRoot$indentSuccess$toBeWithFeature"
-    val toBeAfterFailing = "$indentRoot$indentX$toBeWithFeature"
+    val toEqualAfterSuccess = "$indentG$indentS$indentF$s$toEqualDescr"
+    val toEqualAfterFailing = "$indentGg$indentF$x$toEqualDescr"
 
 
     fun Expect<String>.elementSuccess(index: Int, expected: String, withBulletPoint: Boolean = true): Expect<String> =
         this.toContain.exactly(1).regex(
-            "\\Q${if (withBulletPoint) s else ""}$f${elementWithIndex(index)}: $expected\\E.*$lineSeparator" +
-                    "$toBeAfterSuccess: $expected"
+            "${if (withBulletPoint) "\\Q$s\\E" else ""}$f${elementWithIndex(index)}\\s+: $expected$lineSeparator" +
+                "$toEqualAfterSuccess\\s+: $expected"
         )
 
     fun Expect<String>.elementSuccess(index: Int, expected: Double) = elementSuccess(index, expected.toString())
@@ -43,8 +42,8 @@ abstract class IterableToContainInOrderOnlyValuesExpectationsSpec(
         withBulletPoint: Boolean = true
     ): Expect<String> {
         return this.toContain.exactly(1).regex(
-            "\\Q${if (withBulletPoint) x else ""}$f${elementWithIndex(index)}: $actual\\E.*$lineSeparator" +
-                    "$toBeAfterFailing: $expected"
+            "${if (withBulletPoint) "\\Q$g\\E" else ""}$f${elementWithIndex(index)}\\s+: $actual$lineSeparator" +
+                "$toEqualAfterFailing\\s+: $expected"
         )
     }
 
@@ -54,8 +53,8 @@ abstract class IterableToContainInOrderOnlyValuesExpectationsSpec(
         withBulletPoint: Boolean = true
     ): Expect<String> {
         return this.toContain.exactly(1).regex(
-            "\\Q${if (withBulletPoint) x else ""}$f${elementWithIndex(index)}: $sizeExceeded\\E.*$lineSeparator" +
-                    "$indentRoot$indentX$indentF$indentFeature$explanatoryBulletPoint$toEqualDescr: $expected"
+            "\\Q${if (withBulletPoint) g else ""}$f${elementWithIndex(index)} : $sizeExceeded\\E.*$lineSeparator" +
+                "$indentGg$indentF$explanatoryBulletPoint$toEqualDescr : $expected"
         )
     }
 
@@ -78,7 +77,7 @@ abstract class IterableToContainInOrderOnlyValuesExpectationsSpec(
                     expect(fluentEmpty()).toContainFun(1.0)
                 }.toThrow<AssertionError> {
                     message {
-                        toContain("$rootBulletPoint$toContainInOrderOnly:")
+                        toContain("$g$toContainInOrderOnly :")
                         elementNonExisting(0, 1.0)
                         notToContain(additionalElements)
                         toContainSize(0, 1)
@@ -90,7 +89,7 @@ abstract class IterableToContainInOrderOnlyValuesExpectationsSpec(
                     expect(fluentEmpty()).toContainFun(1.0, 4.0)
                 }.toThrow<AssertionError> {
                     message {
-                        toContain("$rootBulletPoint$toContainInOrderOnly:")
+                        toContain("$g$toContainInOrderOnly :")
                         elementNonExisting(0, 1.0)
                         elementNonExisting(1, 4.0)
                         notToContain(additionalElements)
@@ -115,7 +114,7 @@ abstract class IterableToContainInOrderOnlyValuesExpectationsSpec(
                         expect(oneToFour()).toContainFun(4.0, 1.0, 2.0, 3.0, 4.0)
                     }.toThrow<AssertionError> {
                         message {
-                            toContain.exactly(1).value("$rootBulletPoint$toContainInOrderOnly:")
+                            toContain.exactly(1).value("$g$toContainInOrderOnly :")
                             elementFailing(0, 1.0, 4.0)
                             elementFailing(1, 2.0, 1.0)
                             elementFailing(2, 3.0, 2.0)
@@ -131,15 +130,13 @@ abstract class IterableToContainInOrderOnlyValuesExpectationsSpec(
                         expect(oneToFour()).toContainFun(1.0, 2.0, 3.0, 4.0)
                     }.toThrow<AssertionError> {
                         message {
-                            toContain.exactly(1).value("$rootBulletPoint$toContainInOrderOnly:")
+                            toContain.exactly(1).value("$g$toContainInOrderOnly :")
                             elementSuccess(0, 1.0)
                             elementSuccess(1, 2.0)
                             elementSuccess(2, 3.0)
                             elementSuccess(3, 4.0)
-                            toContain(
-                                "$bb$additionalElements:",
-                                "$listBulletPoint${elementWithIndex(4)}: 4.0"
-                            )
+                            toContain("$bb$additionalElements :")
+                            toContainRegex("$listBulletPoint${elementWithIndex(4)}\\s+: 4.0")
                             toContainSize(5, 4)
                         }
                     }
@@ -150,14 +147,15 @@ abstract class IterableToContainInOrderOnlyValuesExpectationsSpec(
                         expect(oneToFour()).toContainFun(1.0, 4.0)
                     }.toThrow<AssertionError> {
                         message {
-                            toContain.exactly(1).value("$rootBulletPoint$toContainInOrderOnly:")
+                            toContain.exactly(1).value("$g$toContainInOrderOnly :")
                             elementSuccess(0, 1.0)
                             elementFailing(1, 2.0, 4.0)
-                            toContain(
-                                "$bb$additionalElements:",
-                                "$listBulletPoint${elementWithIndex(2)}: 3.0",
-                                "$listBulletPoint${elementWithIndex(3)}: 4.0",
-                                "$listBulletPoint${elementWithIndex(4)}: 4.0"
+                            toContain("$bb$additionalElements :")
+                            toContainRegex(
+                                //TODO 1.3.0 would expect that the elements define an own level
+                                "$listBulletPoint${elementWithIndex(2)}\\s+: 3.0",
+                                "$listBulletPoint${elementWithIndex(3)}\\s+: 4.0",
+                                "$listBulletPoint${elementWithIndex(4)}\\s+: 4.0"
                             )
                             toContainSize(5, 2)
                         }
@@ -168,14 +166,14 @@ abstract class IterableToContainInOrderOnlyValuesExpectationsSpec(
                         expect(oneToFour()).toContainFun(1.0, 3.0, 5.0)
                     }.toThrow<AssertionError> {
                         message {
-                            toContain.exactly(1).value("$rootBulletPoint$toContainInOrderOnly:")
+                            toContain.exactly(1).value("$g$toContainInOrderOnly :")
                             elementSuccess(0, 1.0)
                             elementFailing(1, 2.0, 3.0)
                             elementFailing(2, 3.0, 5.0)
-                            toContain(
-                                "$bb$additionalElements:",
-                                "$listBulletPoint${elementWithIndex(3)}: 4.0",
-                                "$listBulletPoint${elementWithIndex(4)}: 4.0"
+                            toContain("$bb$additionalElements :")
+                            toContainRegex(
+                                "$listBulletPoint${elementWithIndex(3)}\\s+: 4.0",
+                                "$listBulletPoint${elementWithIndex(4)}\\s+: 4.0"
                             )
                             toContainSize(5, 3)
                         }
@@ -186,7 +184,7 @@ abstract class IterableToContainInOrderOnlyValuesExpectationsSpec(
                         expect(oneToFour()).toContainFun(1.0, 2.0, 3.0, 4.0, 4.0, 5.0)
                     }.toThrow<AssertionError> {
                         message {
-                            toContain.exactly(1).value("$rootBulletPoint$toContainInOrderOnly:")
+                            toContain.exactly(1).value("$g$toContainInOrderOnly :")
                             elementSuccess(0, 1.0)
                             elementSuccess(1, 2.0)
                             elementSuccess(2, 3.0)
@@ -252,11 +250,11 @@ abstract class IterableToContainInOrderOnlyValuesExpectationsSpec(
                             toContainSize(5, 2)
                             elementSuccess(0, 1.0)
                             elementSuccess(1, 2.0)
-                            toContain(
-                                "$bb$additionalElements:",
-                                "$listBulletPoint${elementWithIndex(2)}: 3.0",
-                                "$listBulletPoint${elementWithIndex(3)}: 4.0",
-                                "$listBulletPoint${elementWithIndex(4)}: 4.0"
+                            toContain("$bb$additionalElements :")
+                            toContainRegex(
+                                "$listBulletPoint${elementWithIndex(2)}\\s+: 3.0",
+                                "$listBulletPoint${elementWithIndex(3)}\\s+: 4.0",
+                                "$listBulletPoint${elementWithIndex(4)}\\s+: 4.0"
                             )
 
                         }
@@ -326,14 +324,12 @@ abstract class IterableToContainInOrderOnlyValuesExpectationsSpec(
                             expect(null1null3()).toContainFun(null, 1.0, 3.0)
                         }.toThrow<AssertionError> {
                             message {
-                                toContain.exactly(1).value("$rootBulletPoint$toContainInOrderOnly:")
+                                toContain.exactly(1).value("$g$toContainInOrderOnly :")
                                 elementSuccess(0, Text.NULL.string)
                                 elementSuccess(1, 1.0)
                                 elementFailing(2, Text.NULL.string, 3.0)
-                                toContain(
-                                    "$bb$additionalElements:",
-                                    "$listBulletPoint${elementWithIndex(3)}: 3.0"
-                                )
+                                toContain("$bb$additionalElements :")
+                                toContainRegex("$listBulletPoint${elementWithIndex(3)}\\s+: 3.0")
                                 toContainSize(4, 3)
                             }
                         }

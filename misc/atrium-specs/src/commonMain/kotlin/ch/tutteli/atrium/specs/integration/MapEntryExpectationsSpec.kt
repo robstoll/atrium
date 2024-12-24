@@ -66,7 +66,8 @@ abstract class MapEntryExpectationsSpec(
                         expect(mapEntry).toEqualKeyValueFun("hello", 2)
                     }.toThrow<AssertionError> {
                         message {
-                            toContain("value: 1", "$toEqualDescr: 2")
+                            toContainDescr("value", 1)
+                            toContainToEqualDescr(2)
                             notToContain("key")
                         }
                     }
@@ -76,7 +77,8 @@ abstract class MapEntryExpectationsSpec(
                         expect(mapEntry).toEqualKeyValueFun("b", 1)
                     }.toThrow<AssertionError> {
                         message {
-                            toContain("key: \"hello\"", "$toEqualDescr: \"b\"")
+                            toContainDescr("key", "\"hello\"")
+                            toContainToEqualDescr("\"b\"")
                             notToContain("value")
                         }
                     }
@@ -99,7 +101,8 @@ abstract class MapEntryExpectationsSpec(
                     expect(mapEntryNullable2).toEqualKeyValueFun(null, 2)
                 }.toThrow<AssertionError> {
                     message {
-                        toContain("value: null", "$toEqualDescr: 2")
+                        toContainDescr("value", "null")
+                        toContainToEqualDescr(2)
                         notToContain("key")
                     }
                 }
@@ -109,12 +112,12 @@ abstract class MapEntryExpectationsSpec(
                     expect(mapEntryNullable2).toEqualKeyValueFun("b", null)
                 }.toThrow<AssertionError> {
                     message {
-                        toContain("key: null", "$toEqualDescr: \"b\"")
+                        toContainDescr("key", "null")
+                        toContainToEqualDescr("\"b\"")
                         notToContain("value")
                     }
                 }
             }
         }
     }
-
 })

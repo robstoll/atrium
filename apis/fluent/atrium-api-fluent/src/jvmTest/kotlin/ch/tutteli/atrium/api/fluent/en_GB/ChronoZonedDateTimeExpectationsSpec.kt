@@ -30,7 +30,7 @@ class ChronoZonedDateTimeExpectationsSpec : Spek({
             fun1<ChronoZonedDateTime<*>, String>(Expect<ChronoZonedDateTime<*>>::toBeTheSamePointInTimeAs)
         )
 
-    @Suppress("unused")
+    @Suppress("unused", "UNUSED_VALUE")
     private fun ambiguityTest() {
         val chronoZonedDateTime: ChronoZonedDateTime<*> = notImplemented()
         var a1: Expect<ChronoZonedDateTime<ChronoLocalDate>> = notImplemented()

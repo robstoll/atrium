@@ -1,13 +1,15 @@
 package ch.tutteli.atrium.specs.integration
 
+import ch.tutteli.atrium.api.fluent.en_GB.message
 import ch.tutteli.atrium.api.fluent.en_GB.messageToContain
+import ch.tutteli.atrium.api.fluent.en_GB.toContain
 import ch.tutteli.atrium.api.fluent.en_GB.toEqual
 import ch.tutteli.atrium.api.fluent.en_GB.toThrow
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionBasic
+import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionIterableLikeProof
 import ch.tutteli.atrium.specs.*
-import ch.tutteli.atrium.translations.DescriptionIterableLikeExpectation
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.Suite
 
@@ -40,10 +42,8 @@ abstract class IteratorExpectationsSpec(
     fun describeFun(vararg pairs: SpecPair<*>, body: Suite.() -> Unit) =
         describeFunTemplate(describePrefix, pairs.map { it.name }.toTypedArray(), body = body)
 
-    val toHaveDescr = DescriptionBasic.TO_HAVE.string
-    val notToHaveDescr = DescriptionBasic.NOT_TO_HAVE.string
-    val aNextElement = DescriptionIterableLikeExpectation.A_NEXT_ELEMENT.getDefault()
-    val sizeExceededDescr = DescriptionIterableLikeExpectation.SIZE_EXCEEDED.getDefault()
+    val aNextElement = DescriptionIterableLikeProof.A_NEXT_ELEMENT.string
+    val sizeExceededDescr = DescriptionIterableLikeProof.SIZE_EXCEEDED.string
 
     describeFun(toHaveNext) {
         val toHaveNextFun = toHaveNext.lambda
@@ -55,7 +55,9 @@ abstract class IteratorExpectationsSpec(
         it("throws an AssertionError if an iterator does not have next") {
             expect {
                 expect(emptyList<Int>().iterator()).toHaveNextFun()
-            }.toThrow<AssertionError> { messageToContain("$toHaveDescr: $aNextElement") }
+            }.toThrow<AssertionError> {
+                message { toContainDescr(DescriptionBasic.TO_HAVE, aNextElement) }
+            }
         }
     }
 
@@ -71,7 +73,9 @@ abstract class IteratorExpectationsSpec(
         it("throws an AssertionError if an iterator has next") {
             expect {
                 expect(listOf(1, 2).iterator()).notToHaveNextFun()
-            }.toThrow<AssertionError> { messageToContain("$notToHaveDescr: $aNextElement") }
+            }.toThrow<AssertionError> {
+                message { toContainDescr(DescriptionBasic.NOT_TO_HAVE, aNextElement) }
+            }
         }
     }
 
@@ -92,8 +96,10 @@ abstract class IteratorExpectationsSpec(
                 expect {
                     expect(emptyList<Int>().iterator()).nextFun { toEqual(1) }
                 }.toThrow<AssertionError> {
-                    messageToContain(sizeExceededDescr)
-                    if(hasExtraHint) messageToContain("$toEqualDescr: 1")
+                    message {
+                        toContain(sizeExceededDescr)
+                        if (hasExtraHint) toContainToEqualDescr(1)
+                    }
                 }
             }
         }

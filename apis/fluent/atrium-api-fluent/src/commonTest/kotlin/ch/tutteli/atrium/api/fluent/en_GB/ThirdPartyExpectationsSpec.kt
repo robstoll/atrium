@@ -10,7 +10,7 @@ class ThirdPartyExpectationsSpec : ch.tutteli.atrium.specs.integration.ThirdPart
     fun3(Expect<Int?>::toHoldThirdPartyExpectation).withNullableSuffix(),
 ) {
 
-    @Suppress("unused")
+    @Suppress("unused", "UNUSED_VALUE")
     private fun ambiguityTest() {
         val int: Expect<Int> = notImplemented()
         val nullableInt: Expect<Int?> = notImplemented()

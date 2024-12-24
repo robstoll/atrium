@@ -156,6 +156,7 @@ internal object DefaultComponentFactoryContainer : ComponentFactoryContainer by 
             MordantBasedUtf8SupportDeterminer(c.build())
         },
         Terminal::class createVia { _ ->
+            //TODO 1.3.0 should not be fixed
             Terminal(ansiLevel = AnsiLevel.TRUECOLOR)
         },
         MonospaceLengthCalculator::class createVia { _ ->

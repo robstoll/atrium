@@ -21,7 +21,7 @@ class CharSequenceExpectationsSpec : ch.tutteli.atrium.specs.integration.CharSeq
         private fun notToBeBlank(expect: Expect<CharSequence>) = expect notToBe blank
     }
 
-    @Suppress("unused")
+    @Suppress("unused", "UNUSED_VALUE")
     private fun ambiguityTest() {
         val a1: Expect<String> = notImplemented()
 

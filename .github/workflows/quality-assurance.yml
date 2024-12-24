@@ -18,6 +18,7 @@ jobs:
         run: node .github/workflows/matrix.js
 
   build-and-test:
+    name: b&t ${{ matrix.name }}
     needs: generate-matrix
     runs-on: ${{ matrix.os }}
     strategy:

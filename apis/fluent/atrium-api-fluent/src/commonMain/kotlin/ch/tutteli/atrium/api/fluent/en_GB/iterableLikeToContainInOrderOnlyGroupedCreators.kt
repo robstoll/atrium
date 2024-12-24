@@ -41,6 +41,8 @@ fun <E, T : IterableLike> EntryPointStep<E, T, InOrderOnlyGroupedWithinSearchBeh
     firstGroup: Group<E>,
     secondGroup: Group<E>,
     vararg otherExpectedGroups: Group<E>,
+    //TODO 2.0.0 consider to introduce an own Option class as showOnlyFailingIfMoreExpectedElementsThan is a bit misleading in the context of groups
+    //i.e. OnlyReportingOptions
     report: InOrderOnlyReportingOptions.() -> Unit = {},
     reportInGroup: InAnyOrderOnlyReportingOptions.() -> Unit = {}
 ): Expect<T> = _logicAppend {

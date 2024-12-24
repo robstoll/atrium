@@ -8,7 +8,7 @@ class FileAsPathExpectationsSpec : ch.tutteli.atrium.specs.integration.FileAsPat
     Expect<File>::asPath
 ) {
 
-    @Suppress("unused")
+    @Suppress("unused", "UNUSED_VALUE")
     private fun ambiguityTest() {
         var a1: Expect<File> = notImplemented()
 

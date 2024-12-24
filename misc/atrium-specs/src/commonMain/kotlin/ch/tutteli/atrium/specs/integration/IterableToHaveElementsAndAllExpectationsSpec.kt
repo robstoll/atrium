@@ -5,9 +5,9 @@ import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.core.polyfills.format
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic.utils.expectLambda
+import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionIterableLikeProof
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.specs.lineSeparator
-import ch.tutteli.atrium.translations.DescriptionIterableLikeExpectation
 
 abstract class IterableToHaveElementsAndAllExpectationsSpec(
     toHaveElementsAndAll: Fun1<Iterable<Double>, Expect<Double>.() -> Unit>,
@@ -15,11 +15,18 @@ abstract class IterableToHaveElementsAndAllExpectationsSpec(
     describePrefix: String = "[Atrium] "
 ) : IterableToContainEntriesSpecBase({
 
-    include(object : SubjectLessSpec<Iterable<Double>>(describePrefix,
+    include(object : SubjectLessSpec<Iterable<Double>>(
+        describePrefix,
         toHaveElementsAndAll.first to expectLambda { toHaveElementsAndAll.second(this) { toEqual(2.5) } }
     ) {})
-    include(object : SubjectLessSpec<Iterable<Double?>>(describePrefix,
-        "${toHaveElementsAndAllNullable.first} for nullable" to expectLambda { toHaveElementsAndAllNullable.second(this, null) }
+    include(object : SubjectLessSpec<Iterable<Double?>>(
+        describePrefix,
+        "${toHaveElementsAndAllNullable.first} for nullable" to expectLambda {
+            toHaveElementsAndAllNullable.second(
+                this,
+                null
+            )
+        }
     ) {})
 
     include(object : AssertionCreatorSpec<Iterable<Double>>(
@@ -31,11 +38,11 @@ abstract class IterableToHaveElementsAndAllExpectationsSpec(
         toHaveElementsAndAllNullable.forAssertionCreatorSpec("$toBeGreaterThanDescr\\s+: 0.0") { toBeGreaterThan(0.0) }
     ) {})
 
-    val allElementsDescr = DescriptionIterableLikeExpectation.ALL_ELEMENTS.getDefault()
+    val allElementsDescr = DescriptionIterableLikeProof.ALL_ELEMENTS.string
 
-    val explanatoryPointWithIndent = "$indentRoot$indentList$explanatoryBulletPoint"
+    val explanatoryPointWithIndent = "$indentG$explanatoryBulletPoint"
 
-    fun index(index: Int) = listBulletPoint + DescriptionIterableLikeExpectation.INDEX.getDefault().format(index)
+    fun index(index: Int) = listBulletPoint + DescriptionIterableLikeProof.INDEX.string.format(index)
 
     nonNullableCases(
         describePrefix,
@@ -43,15 +50,15 @@ abstract class IterableToHaveElementsAndAllExpectationsSpec(
         toHaveElementsAndAllNullable
     ) { toHaveElementsAndAllFun ->
 
-        context("empty collection") {
+        context("empty iterable") {
             it("throws AssertionError as there needs to be at least one element") {
                 expect {
                     expect(fluentEmpty()).toHaveElementsAndAllFun { toBeLessThan(1.0) }
                 }.toThrow<AssertionError> {
                     message.toContainRegex(
-                        "${toHaveDescr}\\s+: ${aNextElement}",
-                        "$explanatoryBulletPoint$allElementsDescr: ",
-                        "$explanatoryPointWithIndent$toBeLessThanDescr: 1.0"
+                        "${toHaveDescr}\\s+: $aNextElement",
+                        "$explanatoryBulletPoint$allElementsDescr : ",
+                        "$explanatoryPointWithIndent$toBeLessThanDescr : 1.0"
                     )
                 }
             }
@@ -64,14 +71,17 @@ abstract class IterableToHaveElementsAndAllExpectationsSpec(
                         expect(oneToSeven()).toHaveElementsAndAllFun { toBeGreaterThan(2.5); toBeLessThan(7.0) }
                     }.toThrow<AssertionError> {
                         message {
-                            toContain.exactly(1).values(
-                                "$rootBulletPoint$allElementsDescr: $lineSeparator",
-                                "$explanatoryPointWithIndent$toBeGreaterThanDescr: 2.5",
-                                "$explanatoryPointWithIndent$toBeLessThanDescr: 7.0",
-                                "$bb$mismatches:",
-                                "${index(0)}: 1.0",
-                                "${index(1)}: 2.0",
-                                "${index(9)}: 7.0"
+                            toContain.exactly(1).values("$g$allElementsDescr : $lineSeparator")
+                            toContain.exactly(1).regex(
+                                "$explanatoryPointWithIndent$toBeGreaterThanDescr\\s+: 2.5",
+                                "$explanatoryPointWithIndent$toBeLessThanDescr\\s+: 7.0",
+                            )
+                            toContain.exactly(1).regex(
+                                "$bb$mismatches :",
+                                //TODO 1.3.0 we should see why they failed and they should be on an own level
+                                "${index(0)}\\s+: 1.0",
+                                "${index(1)}\\s+: 2.0",
+                                "${index(9)}\\s+: 7.0"
                             )
                         }
                     }
@@ -105,11 +115,13 @@ abstract class IterableToHaveElementsAndAllExpectationsSpec(
                     }.toThrow<AssertionError> {
                         message {
                             toContain.exactly(1).values(
-                                "$rootBulletPoint$allElementsDescr: $lineSeparator",
-                                "$explanatoryPointWithIndent$toBeGreaterThanDescr: 0.5",
-                                "$bb$mismatches:",
-                                "${index(1)}: null",
-                                "${index(5)}: null"
+                                "$g$allElementsDescr : $lineSeparator",
+                                "$explanatoryPointWithIndent$toBeGreaterThanDescr : 0.5",
+                                "$bb$mismatches :"
+                            )
+                            toContain.exactly(1).regex(
+                                "${index(1)}\\s+: null",
+                                "${index(5)}\\s+: null"
                             )
                         }
                     }

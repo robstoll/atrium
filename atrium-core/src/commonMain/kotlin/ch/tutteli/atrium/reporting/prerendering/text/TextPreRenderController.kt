@@ -134,24 +134,31 @@ fun determineChildControlObject(
             is ExplanatoryAssertion -> null
 
             is Proof -> {
-                @Suppress("DEPRECATION")
-                // TODO 1.3.0 what about InvisibleFixedClaimGroup? In case we keep it we need to address it here as well
-                // I guess. create a test in CreateReportTest (similar to invisibleGroup_...)
-                if (child is InvisibleProofGroup ||
-                    //TODO remove with 2.0.0 latest and with it the above @Suppress
-                    child is ch.tutteli.atrium.assertions.AssertionGroup && child.type is ch.tutteli.atrium.assertions.InvisibleAssertionGroupType
+                // we don't override the icon for invisible groups
+                // TODO 1.3.0 note sure the logic for InvisibleFixedClaimGroup, is correct. In case we keep it we
+                // should create a test in CreateReportTest
+                takeIf(
+                    child !is InvisibleProofGroup && //child !is InvisibleFixedClaimGroup &&
+                        @Suppress("DEPRECATION")
+                        run {
+                            child !is ch.tutteli.atrium.assertions.AssertionGroup || child.type !is ch.tutteli.atrium.assertions.InvisibleAssertionGroupType
+                        }
                 ) {
-                    null
-                } else
                     if (child.holds()) {
                         controlObject.copy(prefix = Icon.SUCCESS, indentLevel = indentLevel)
-                    } else if (child is ProofGroup && child.hasAtLeastOneLeaveProof()) {
+                    } else if (
+                        // a ProofGroup contains always at least one Proof but it could also be an
+                        // InvisibleFixedClaimGroup which is a bit a pseudo proof, in such a case we need to check
+                        // if there
+                        child is ProofGroup && child.hasAtLeastOneLeaveProof()) {
                         controlObject.copy(prefix = Icon.FAILING_GROUP, indentLevel = indentLevel)
                     } else {
                         controlObject.copy(prefix = Icon.FAILURE, indentLevel = indentLevel)
                     }
+                }
             }
 
+            // we don't override the icon for non-proofs
             else -> null
         }
     }
@@ -159,7 +166,7 @@ fun determineChildControlObject(
 }
 
 fun ReportableGroup.hasAtLeastOneLeaveProof(): Boolean =
-    this.children.any { child ->
+    children.any { child ->
         run {
             child is Proof &&
                 (child !is ProofGroup || (child !is InvisibleProofGroup && child !is InvisibleFixedClaimGroup || child.hasAtLeastOneLeaveProof()))

@@ -11,7 +11,7 @@ class WorstCase {
     fun propAndFun(): Int = 1
 
     fun overloaded(): Int = 1
-    fun overloaded(b: Boolean): Int = 1
+    fun overloaded(@Suppress("unused", "UNUSED_PARAMETER") b: Boolean): Int = 1
 }
 
 // we don't run any tests in here but check that the compiler does not report any ambiguities

@@ -32,7 +32,7 @@ class ExtractSubjectSpec : ch.tutteli.atrium.specs.integration.ExtractSubjectSpe
             }
     }
 
-    @Suppress("unused")
+    @Suppress("unused", "UNUSED_VALUE")
     private fun ambiguityTest() {
         val int: Expect<Int> = notImplemented()
         val nullableInt: Expect<Int?> = notImplemented()

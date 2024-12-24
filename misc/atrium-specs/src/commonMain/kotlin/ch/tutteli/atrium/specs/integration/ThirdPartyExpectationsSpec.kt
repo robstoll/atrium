@@ -2,11 +2,10 @@ package ch.tutteli.atrium.specs.integration
 
 import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.internal.expect
-import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.ExperimentalComponentFactoryContainer
-import ch.tutteli.atrium.creating.build
-import ch.tutteli.atrium.reporting.AssertionFormatterFacade
-import ch.tutteli.atrium.reporting.Reporter
+import ch.tutteli.atrium.reporting.filters.ReportableFilter
+import ch.tutteli.atrium.reporting.reportables.Reportable
+import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionThrowableProof
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.specs.integration.IterableToContainSpecBase.Companion.nonNullableCases
 import org.spekframework.spek2.Spek
@@ -44,9 +43,9 @@ abstract class ThirdPartyExpectationsSpec(
                             throw IllegalArgumentException("expect x was y")
                         }
                     }
-                }.toThrow<AssertionError>() {
+                }.toThrow<AssertionError> {
                     message {
-                        toContain("(assertJ) is old enough: true")
+                        toContain("(assertJ) is old enough : true")
                         notToContain("expect x was y")
                     }
                 }
@@ -58,27 +57,23 @@ abstract class ThirdPartyExpectationsSpec(
             context("expectation holds") {
                 it("shows the description and representation of the third party expectation in reporting") {
                     expect {
-                    expect(1).withOptions {
-                        withComponent(Reporter::class) { c ->
-                            //TODO 1.3.0 switch to new reporter
-                            @Suppress("DEPRECATION") val assertionFormatterFacade = c.build<AssertionFormatterFacade>()
-                            object : Reporter {
-                                override fun format(assertion: Assertion, sb: StringBuilder): Unit =
-                                    assertionFormatterFacade.format(assertion, sb, this::assertionFilter)
-
-                                private fun assertionFilter(@Suppress("UNUSED_PARAMETER") assertion: Assertion) = true
+                        expect(1).withOptions {
+                            withComponent(ReportableFilter::class) { _ ->
+                                object : ReportableFilter {
+                                    override fun includeInReporting(reportable: Reportable): Boolean = true
+                                }
                             }
-                        }
-                    }.toHoldThirdPartyExpectationFun("(assertJ) is equal to", 10) { subject ->
+                        }.toHoldThirdPartyExpectationFun("(assertJ) is equal to", 10) { subject ->
                             assertThat(subject + 9).toEqual(10)
-                        } //fails, due to customer Reporter we should also see holding third party expectation from above
+                        } //fails, due to custom ReportableFilter we should also see holding third party expectation from above
                             .toEqual(2)
                     }.toThrow<AssertionError> {
                         message {
-                            toContain("(assertJ) is equal to: 10")
-                            notToContain(
-                                "I expected subject: 10",
-                                "$toEqualDescr: 10"
+                            toContain("(assertJ) is equal to : 10")
+                            toContainToEqualDescr(2)
+                            notToContain.regex(
+                                "$expectationVerb\\s+: 10",
+                                "$toEqualDescr\\s+: 10"
                             )
                         }
                     }
@@ -94,11 +89,17 @@ abstract class ThirdPartyExpectationsSpec(
                     }.toThrow<AssertionError> {
                         message {
                             toContain(
-                                "(assertJ) is equal to: 9",
-                                "I expected subject: 10",
-                                "$toEqualDescr: 9",
+                                "(assertJ) is equal to : 9",
+                                "$i${DescriptionThrowableProof.OCCURRED_EXCEPTION_PROPERTIES.string} AtriumError",
+                                "$expectationVerb : 10",
                             )
-                            toContainRegex(Regex("""stacktrace:\s*\n.*ThirdPartyExpectationsSpec"""))
+                            toContainToEqualDescr(9)
+                            toContainRegex(
+                                Regex(
+                                    "stacktrace : $lineSeparator" +
+                                        "$indentG$indentI$indentExplanatory$listBulletPoint.*ThirdPartyExpectationsSpec"
+                                )
+                            )
                         }
                     }
                 }

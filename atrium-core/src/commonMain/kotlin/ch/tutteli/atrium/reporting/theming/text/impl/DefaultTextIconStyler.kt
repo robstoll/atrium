@@ -48,7 +48,7 @@ internal class DefaultTextIconStyler(
             Icon.FAILING_GROUP to styleIcon("🚩\uFE0F",utf8Space = " ",  uft8MonospaceLength = 3, "(f)", Style.FAILURE),
             Icon.FAILURE to styleIcon("🚫\uFE0F", utf8Space = " ", uft8MonospaceLength = 3, "(f)", Style.FAILURE),
             Icon.FEATURE to styleIcon("▶", utf8Space = " ", uft8MonospaceLength = 2, ">", Style.FEATURE),
-            Icon.INFORMATION_SOURCE to styleIcon("i", utf8Space = " ", uft8MonospaceLength = 2, "(i)", Style.INFORMATION_SOURCE),
+            Icon.INFORMATION_SOURCE to styleIcon("ℹ\uFE0F", utf8Space = " ", uft8MonospaceLength = 3, "(i)", Style.INFORMATION_SOURCE),
             Icon.SUCCESS to styleIcon("✔", utf8Space = " ", uft8MonospaceLength = 2, "(s)", Style.SUCCESS),
 
             // bullet points

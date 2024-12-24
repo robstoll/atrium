@@ -40,8 +40,8 @@ abstract class IterableToContainInOrderOnlyEntriesExpectationsSpec(
 
     fun Expect<String>.elementSuccess(index: Int, actual: Any, expected: String): Expect<String> {
         return this.toContain.exactly(1).regex(
-            "\\Q$s$f${elementWithIndex(index)}: $actual\\E.*$lineSeparator" +
-                    "$indentRoot$indentSuccess$indentF$featureBulletPoint$expected"
+            "$indentG\\Q$s\\E$f${elementWithIndex(index)}\\s+: $actual$lineSeparator" +
+                "$indentG$indentS$indentF$s$expected"
         )
     }
 
@@ -50,20 +50,19 @@ abstract class IterableToContainInOrderOnlyEntriesExpectationsSpec(
         actual: Any,
         expected: String,
         explaining: Boolean = false,
-        withBulletPoint: Boolean = true
     ): Expect<String> {
         return this.toContain.exactly(1).regex(
-            "\\Q${if (withBulletPoint) x else ""}$f${elementWithIndex(index)}: $actual\\E.*$lineSeparator" +
-                    "$indentRoot$indentX$indentF${if (explaining) "$indentFeature$explanatoryBulletPoint" else featureBulletPoint}$expected"
+            //TODO 1.3.0 should be $x and not $g
+            "$indentG\\Q$g\\E$f${elementWithIndex(index)}\\s+: \\Q$actual\\E$lineSeparator" +
+                "$indentGg$indentF${if (explaining) explanatoryBulletPoint else x}$expected"
         )
     }
 
     fun Expect<String>.elementNonExisting(
         index: Int,
         expected: String,
-        withBulletPoint: Boolean = true
     ): Expect<String> =
-        elementFailing(index, sizeExceeded, expected, explaining = true, withBulletPoint = withBulletPoint)
+        elementFailing(index, sizeExceeded, expected, explaining = true)
 
     nonNullableCases(
         describePrefix,
@@ -83,8 +82,8 @@ abstract class IterableToContainInOrderOnlyEntriesExpectationsSpec(
                     expect(fluentEmpty()).toContainEntriesFun({ toBeLessThan(1.0) })
                 }.toThrow<AssertionError> {
                     message {
-                        toContain("$rootBulletPoint$toContainInOrderOnly:")
-                        elementNonExisting(0, "$toBeLessThanDescr: 1.0")
+                        toContain("$g$toContainInOrderOnly :")
+                        elementNonExisting(0, "$toBeLessThanDescr")
                         notToContain(additionalElements)
                         toContainSize(0, 1)
                     }
@@ -95,9 +94,9 @@ abstract class IterableToContainInOrderOnlyEntriesExpectationsSpec(
                     expect(fluentEmpty()).toContainEntriesFun({ toBeLessThan(1.0) }, { toBeGreaterThan(4.0) })
                 }.toThrow<AssertionError> {
                     message {
-                        toContain.exactly(1).value("$rootBulletPoint$toContainInOrderOnly:")
-                        elementNonExisting(0, "$toBeLessThanDescr: 1.0")
-                        elementNonExisting(1, "$toBeGreaterThanDescr: 4.0")
+                        toContain.exactly(1).value("$g$toContainInOrderOnly :")
+                        elementNonExisting(0, "$toBeLessThanDescr : 1.0")
+                        elementNonExisting(1, "$toBeGreaterThanDescr : 4.0")
                         notToContain(additionalElements)
                         toContainSize(0, 2)
                     }
@@ -138,12 +137,12 @@ abstract class IterableToContainInOrderOnlyEntriesExpectationsSpec(
                             { toEqual(4.0) })
                     }.toThrow<AssertionError> {
                         message {
-                            toContain.exactly(1).value("$rootBulletPoint$toContainInOrderOnly:")
-                            elementSuccess(0, 1.0, "$toBeLessThanDescr: 5.0")
-                            elementFailing(1, 2.0, "$toEqualDescr: 1.0")
-                            elementFailing(2, 3.0, "$toEqualDescr: 2.0")
-                            elementSuccess(3, 4.0, "$toBeGreaterThanDescr: 2.0")
-                            elementSuccess(4, 4.0, "$toEqualDescr: 4.0")
+                            toContain.exactly(1).value("$g$toContainInOrderOnly :")
+                            elementSuccess(0, 1.0, "$toBeLessThanDescr : 5.0")
+                            elementFailing(1, 2.0, "$toEqualDescr : 1.0")
+                            elementFailing(2, 3.0, "$toEqualDescr : 2.0")
+                            elementSuccess(3, 4.0, "$toBeGreaterThanDescr : 2.0")
+                            elementSuccess(4, 4.0, "$toEqualDescr : 4.0")
                             notToContain(sizeDescr)
                         }
                     }
@@ -158,15 +157,13 @@ abstract class IterableToContainInOrderOnlyEntriesExpectationsSpec(
                             { toEqual(4.0) })
                     }.toThrow<AssertionError> {
                         message {
-                            toContain.exactly(1).value("$rootBulletPoint$toContainInOrderOnly:")
-                            elementSuccess(0, 1.0, "$toEqualDescr: 1.0")
-                            elementSuccess(1, 2.0, "$toEqualDescr: 2.0")
-                            elementSuccess(2, 3.0, "$toEqualDescr: 3.0")
-                            elementSuccess(3, 4.0, "$toEqualDescr: 4.0")
-                            toContain(
-                                "$bb$additionalElements:",
-                                "$listBulletPoint${elementWithIndex(4)}: 4.0"
-                            )
+                            toContain.exactly(1).value("$g$toContainInOrderOnly :")
+                            elementSuccess(0, 1.0, "$toEqualDescr : 1.0")
+                            elementSuccess(1, 2.0, "$toEqualDescr : 2.0")
+                            elementSuccess(2, 3.0, "$toEqualDescr : 3.0")
+                            elementSuccess(3, 4.0, "$toEqualDescr : 4.0")
+                            toContain("$bb$additionalElements :")
+                            toContainRegex("$listBulletPoint${elementWithIndex(4)}\\s+: 4.0")
                             toContainSize(5, 4)
                         }
                     }
@@ -177,14 +174,14 @@ abstract class IterableToContainInOrderOnlyEntriesExpectationsSpec(
                         expect(oneToFour()).toContainEntriesFun({ toEqual(1.0) }, { toEqual(4.0) })
                     }.toThrow<AssertionError> {
                         message {
-                            toContain.exactly(1).value("$rootBulletPoint$toContainInOrderOnly:")
-                            elementSuccess(0, 1.0, "$toEqualDescr: 1.0")
-                            elementFailing(1, 2.0, "$toEqualDescr: 4.0")
-                            toContain(
-                                "$bb$additionalElements:",
-                                "$listBulletPoint${elementWithIndex(2)}: 3.0",
-                                "$listBulletPoint${elementWithIndex(3)}: 4.0",
-                                "$listBulletPoint${elementWithIndex(4)}: 4.0"
+                            toContain.exactly(1).value("$g$toContainInOrderOnly :")
+                            elementSuccess(0, 1.0, "$toEqualDescr : 1.0")
+                            elementFailing(1, 2.0, "$toEqualDescr : 4.0")
+                            toContain("$bb$additionalElements :")
+                            toContainRegex(
+                                "$listBulletPoint${elementWithIndex(2)}\\s+: 3.0",
+                                "$listBulletPoint${elementWithIndex(3)}\\s+: 4.0",
+                                "$listBulletPoint${elementWithIndex(4)}\\s+: 4.0"
                             )
                             toContainSize(5, 2)
                         }
@@ -192,18 +189,19 @@ abstract class IterableToContainInOrderOnlyEntriesExpectationsSpec(
                 }
                 it("1.0, 3.0, $toBeGreaterThanFun(4.0) -- $toBeGreaterThanFun(4.0) is wrong and 4.0 and 4.0 are missing") {
                     expect {
-                        expect(oneToFour()).toContainEntriesFun({ toEqual(1.0) },
+                        expect(oneToFour()).toContainEntriesFun(
+                            { toEqual(1.0) },
                             { toEqual(3.0) }, { toBeGreaterThan(4.0) })
                     }.toThrow<AssertionError> {
                         message {
-                            toContain.exactly(1).value("$rootBulletPoint$toContainInOrderOnly:")
-                            elementSuccess(0, 1.0, "$toEqualDescr: 1.0")
-                            elementFailing(1, 2.0, "$toEqualDescr: 3.0")
-                            elementFailing(2, 3.0, "$toBeGreaterThanDescr: 4.0")
-                            toContain(
-                                "$bb$additionalElements:",
-                                "$listBulletPoint${elementWithIndex(3)}: 4.0",
-                                "$listBulletPoint${elementWithIndex(4)}: 4.0"
+                            toContain.exactly(1).value("$g$toContainInOrderOnly :")
+                            elementSuccess(0, 1.0, "$toEqualDescr : 1.0")
+                            elementFailing(1, 2.0, "$toEqualDescr : 3.0")
+                            elementFailing(2, 3.0, "$toBeGreaterThanDescr : 4.0")
+                            toContain("$bb$additionalElements :")
+                            toContainRegex(
+                                "$listBulletPoint${elementWithIndex(3)}\\s+: 4.0",
+                                "$listBulletPoint${elementWithIndex(4)}\\s+: 4.0"
                             )
                             toContainSize(5, 3)
                         }
@@ -220,13 +218,13 @@ abstract class IterableToContainInOrderOnlyEntriesExpectationsSpec(
                             { toEqual(5.0) })
                     }.toThrow<AssertionError> {
                         message {
-                            toContain.exactly(1).value("$rootBulletPoint$toContainInOrderOnly:")
-                            elementSuccess(0, 1.0, "$toEqualDescr: 1.0")
-                            elementSuccess(1, 2.0, "$toEqualDescr: 2.0")
-                            elementSuccess(2, 3.0, "$toEqualDescr: 3.0")
-                            elementSuccess(3, 4.0, "$toEqualDescr: 4.0")
-                            elementSuccess(4, 4.0, "$toEqualDescr: 4.0")
-                            elementNonExisting(5, "$toEqualDescr: 5.0")
+                            toContain.exactly(1).value("$g$toContainInOrderOnly :")
+                            elementSuccess(0, 1.0, "$toEqualDescr : 1.0")
+                            elementSuccess(1, 2.0, "$toEqualDescr : 2.0")
+                            elementSuccess(2, 3.0, "$toEqualDescr : 3.0")
+                            elementSuccess(3, 4.0, "$toEqualDescr : 4.0")
+                            elementSuccess(4, 4.0, "$toEqualDescr : 4.0")
+                            elementNonExisting(5, "$toEqualDescr : 5.0")
                             toContainSize(5, 6)
                         }
                     }
@@ -253,7 +251,7 @@ abstract class IterableToContainInOrderOnlyEntriesExpectationsSpec(
                             notToContainElement(2, 3.0)
                             notToContainElement(3, 4.0)
                             notToContainElement(4, 4.0)
-                            elementNonExisting(5, "$toEqualDescr: 5.0", withBulletPoint = false)
+                            elementNonExisting(5, "$toEqualDescr : 5.0")
                         }
                     }
                 }
@@ -274,7 +272,7 @@ abstract class IterableToContainInOrderOnlyEntriesExpectationsSpec(
                             notToContainElement(2, 3.0)
                             notToContainElement(3, 4.0)
                             notToContainElement(4, 4.0)
-                            elementNonExisting(5, "$toEqualDescr: 5.0", withBulletPoint = false)
+                            elementNonExisting(5, "$toEqualDescr : 5.0")
                         }
                     }
                 }
@@ -303,10 +301,10 @@ abstract class IterableToContainInOrderOnlyEntriesExpectationsSpec(
                             notToContainElement(1, 2.0)
                             notToContainElement(2, 3.0)
                             notToContainElement(3, 4.0)
-                            elementFailing(4, 5.0, "$toEqualDescr: -1.0", withBulletPoint = false)
+                            elementFailing(4, 5.0, "$toEqualDescr : -1.0")
                             notToContainElement(5, 6.0)
                             notToContainElement(6, 7.0)
-                            elementFailing(7, 8.0, "$toEqualDescr: -2.0", withBulletPoint = false)
+                            elementFailing(7, 8.0, "$toEqualDescr : -2.0")
                             notToContainElement(8, 9.0)
                             notToContainElement(9, 10.0)
                             notToContainElement(10, 11.0)
@@ -331,17 +329,17 @@ abstract class IterableToContainInOrderOnlyEntriesExpectationsSpec(
                         )
                     }.toThrow<AssertionError> {
                         message {
-                            elementSuccess(0, 1.0, "$toEqualDescr: 1.0")
-                            elementSuccess(1, 2.0, "$toEqualDescr: 2.0")
-                            elementSuccess(2, 3.0, "$toEqualDescr: 3.0")
-                            elementSuccess(3, 4.0, "$toEqualDescr: 4.0")
-                            elementFailing(4, 5.0, "$toEqualDescr: -1.0", withBulletPoint = false)
-                            elementSuccess(5, 6.0, "$toEqualDescr: 6.0")
-                            elementSuccess(6, 7.0, "$toEqualDescr: 7.0")
-                            elementFailing(7, 8.0, "$toEqualDescr: -2.0", withBulletPoint = false)
-                            elementSuccess(8, 9.0, "$toEqualDescr: 9.0")
-                            elementSuccess(9, 10.0, "$toEqualDescr: 10.0")
-                            elementSuccess(10, 11.0, "$toEqualDescr: 11.0")
+                            elementSuccess(0, 1.0, "$toEqualDescr : 1.0")
+                            elementSuccess(1, 2.0, "$toEqualDescr : 2.0")
+                            elementSuccess(2, 3.0, "$toEqualDescr : 3.0")
+                            elementSuccess(3, 4.0, "$toEqualDescr : 4.0")
+                            elementFailing(4, 5.0, "$toEqualDescr : -1.0")
+                            elementSuccess(5, 6.0, "$toEqualDescr : 6.0")
+                            elementSuccess(6, 7.0, "$toEqualDescr : 7.0")
+                            elementFailing(7, 8.0, "$toEqualDescr : -2.0")
+                            elementSuccess(8, 9.0, "$toEqualDescr : 9.0")
+                            elementSuccess(9, 10.0, "$toEqualDescr : 10.0")
+                            elementSuccess(10, 11.0, "$toEqualDescr : 11.0")
                         }
                     }
                 }
@@ -393,11 +391,11 @@ abstract class IterableToContainInOrderOnlyEntriesExpectationsSpec(
                             )
                         }.toThrow<AssertionError> {
                             message {
-                                toContain.exactly(1).value("$rootBulletPoint$toContainInOrderOnly:")
-                                elementSuccess(0, "null", "$toEqualDescr: null")
-                                elementFailing(1, 1.0, "$toEqualDescr: null")
-                                elementFailing(2, "null", "$toBeLessThanDescr: 5.0", explaining = true)
-                                elementSuccess(3, 3.0, "$toBeGreaterThanDescr: 2.0")
+                                toContain.exactly(1).value("$g$toContainInOrderOnly :")
+                                elementSuccess(0, "null", "$toEqualDescr : null")
+                                elementFailing(1, 1.0, "$toEqualDescr : null")
+                                elementFailing(2, "null", "$toBeLessThanDescr : 5.0", explaining = true)
+                                elementSuccess(3, 3.0, "$toBeGreaterThanDescr : 2.0")
                                 notToContain(sizeDescr)
                             }
                         }
@@ -414,12 +412,12 @@ abstract class IterableToContainInOrderOnlyEntriesExpectationsSpec(
                             )
                         }.toThrow<AssertionError> {
                             message {
-                                toContain.exactly(1).value("$rootBulletPoint$toContainInOrderOnly:")
-                                elementSuccess(0, "null", "$toEqualDescr: null")
-                                elementSuccess(1, 1.0, "$toEqualDescr: 1.0")
-                                elementSuccess(2, "null", "$toEqualDescr: null")
-                                elementSuccess(3, 3.0, "$toEqualDescr: 3.0")
-                                elementNonExisting(4, "$toEqualDescr: null")
+                                toContain.exactly(1).value("$g$toContainInOrderOnly :")
+                                elementSuccess(0, "null", "$toEqualDescr : null")
+                                elementSuccess(1, 1.0, "$toEqualDescr : 1.0")
+                                elementSuccess(2, "null", "$toEqualDescr : null")
+                                elementSuccess(3, 3.0, "$toEqualDescr : 3.0")
+                                elementNonExisting(4, "$toEqualDescr : null")
                                 toContainSize(4, 5)
                             }
                         }

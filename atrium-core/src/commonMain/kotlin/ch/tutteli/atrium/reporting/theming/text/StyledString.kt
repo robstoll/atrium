@@ -103,7 +103,7 @@ interface StyledString {
 
 // TODO 1.3.0 KDOC
 fun StyledString.replaceWrap(s: String): String =
-    if (noLineBreak) s.replace('\n', ' ') else s
+    if (noLineBreak) Regex("\r\n|\n").replace(s, " ") else s
 
 // TODO 1.3.0 KDOC
 fun StyledString.padMonospace(monospaceLength: Int): String {

@@ -8,7 +8,7 @@ import java.util.Date
 class DateAsLocalDateTimeExpectationsSpec : DateAsLocalDateTimeExpectationsSpec(
     Expect<Date>::asLocalDateTime
 ) {
-    @Suppress("unused")
+    @Suppress("unused", "UNUSED_VALUE")
     private fun ambiguityTest() {
         var date: Expect<Date> = notImplemented()
 

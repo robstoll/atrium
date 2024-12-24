@@ -1,67 +1,59 @@
 package ch.tutteli.atrium.reporting
 
 import ch.tutteli.atrium.core.polyfills.fullName
+import ch.tutteli.atrium.creating.proofs.FeatureProofGroup
 import ch.tutteli.atrium.creating.proofs.Proof
+import ch.tutteli.atrium.creating.proofs.ProofGroup
+import ch.tutteli.atrium.creating.proofs.ProofGroupWithDesignation
 import ch.tutteli.atrium.creating.proofs.RootProofGroup
 import ch.tutteli.atrium.creating.proofs.SimpleProof
+import ch.tutteli.atrium.reporting.reportables.ReportableWithDesignation
 import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionAnyProof
 import ch.tutteli.kbox.takeIf
 import org.opentest4j.AssertionFailedError
 
 private const val poweredByAtrium = "\n\n===================== powered by Atrium"
 
-fun extractExpected(causingProof: Proof): Any? =
+private fun extractExpected(causingProof: Proof): Any? =
     when (causingProof) {
-        is RootProofGroup -> takeIf(causingProof.proofs.size == 1) {
-            @Suppress("DEPRECATION")
-            when (val first = causingProof.proofs.first()) {
-                is SimpleProof ->
-                    takeIf(first.description == DescriptionAnyProof.TO_EQUAL) {
-                        first.representation.toString()
-                    }
-
-                is ch.tutteli.atrium.assertions.BasicDescriptiveAssertion ->
-                    takeIf(first.description.getDefault() == "to equal") {
-                        first.representation.toString()
-                    }
-
-                else -> null
-            }?.let {
-                if (it.contains("\n").not()) {
-                    it + poweredByAtrium
-                } else it
-            }
-        }
-
+        is RootProofGroup -> isSingleToEqualExpectation(causingProof) { _, proof -> proof.representation.toString() }
         else -> null
     }
 
 
-fun extractActual(causingProof: Proof): Any? =
+private fun extractActual(causingProof: Proof): Any? =
     when (causingProof) {
-        is RootProofGroup -> takeIf(causingProof.proofs.size == 1) {
-            @Suppress("DEPRECATION")
-            when (val first = causingProof.proofs.first()) {
-                is SimpleProof ->
-                    takeIf(first.description == DescriptionAnyProof.TO_EQUAL) {
-                        causingProof.representation.toString()
-                    }
-
-                is ch.tutteli.atrium.assertions.BasicDescriptiveAssertion ->
-                    takeIf(first.description.getDefault() == "to equal") {
-                        causingProof.representation.toString()
-                    }
-
-                else -> null
-            }?.let {
-                if (it.contains("\n").not()) {
-                    it + poweredByAtrium
-                } else it
-            }
-        }
-
+        is RootProofGroup -> isSingleToEqualExpectation(causingProof) { group, _ -> group.representation.toString() }
         else -> null
     }
+
+
+@Suppress("DEPRECATION")
+private fun isSingleToEqualExpectation(
+    causingProof: ProofGroupWithDesignation,
+    extractor: (causingProof: ProofGroupWithDesignation, proof: ReportableWithDesignation) -> String
+): String? =
+    causingProof.proofs.singleOrNull { it.holds().not() }?.let { first ->
+        when (first) {
+            is SimpleProof ->
+                takeIf(first.description == DescriptionAnyProof.TO_EQUAL) {
+                    extractor(causingProof, first)
+                }
+
+            is ch.tutteli.atrium.assertions.BasicDescriptiveAssertion ->
+                takeIf(first.description.getDefault() == "to equal") {
+                    extractor(causingProof, first)
+                }
+
+            is FeatureProofGroup -> isSingleToEqualExpectation(first, extractor)
+            else -> null
+        }?.let {
+            if (it.contains("\n").not()) {
+                it + poweredByAtrium
+            } else it
+        }
+    }
+
 
 actual typealias AssertionErrorLikeIntermediate = java.lang.AssertionError
 actual typealias AssertionErrorLike = AssertionFailedError

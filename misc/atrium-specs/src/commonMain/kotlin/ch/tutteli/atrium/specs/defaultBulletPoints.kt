@@ -10,7 +10,7 @@ const val s = "✔ "
 const val g = "🚩\uFE0F "
 const val x = "🚫\uFE0F "
 const val f = "▶ "
-const val i = "i\uFE0F "
+const val i = "ℹ\uFE0F "
 const val d = "🔎\uFE0F"
 const val u = "💡\uFE0F "
 const val bb = "❗❗ "
@@ -24,11 +24,12 @@ val indentExplanatory = " ".repeat(explanatoryBulletPoint.length)
 
 val indentFeature = " ".repeat(featureBulletPoint.length)
 
-val indentSuccess = " ".repeat(s.length)
+val indentS = " ".repeat(s.length)
 val indentG = " ".repeat(3)
 val indentGg = "$indentG$indentG"
 val indentX = " ".repeat(3)
 val indentF = " ".repeat(f.length)
+val indentI = " ".repeat(3)
 val indentBb = " ".repeat(4)
 val indentGrouping = " ".repeat(4)
 

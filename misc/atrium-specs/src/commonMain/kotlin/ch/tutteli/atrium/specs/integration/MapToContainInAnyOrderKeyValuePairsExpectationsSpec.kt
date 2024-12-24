@@ -2,7 +2,10 @@ package ch.tutteli.atrium.specs.integration
 
 import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.internal.expect
+import ch.tutteli.atrium.core.polyfills.format
+import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionMapLikeProof
 import ch.tutteli.atrium.specs.*
+import ch.tutteli.atrium.specs.integration.MapLikeToContainFormatSpecBase.Companion.toContainInAnyOrderDescr
 import org.spekframework.spek2.style.specification.Suite
 
 
@@ -50,11 +53,12 @@ abstract class MapToContainInAnyOrderKeyValuePairsExpectationsSpec(
                         expect(map).toContainFun("a" to 1, arrayOf("b" to 3, "c" to 4))
                     }.toThrow<AssertionError> {
                         message {
-                            toContain(
-                                entry("b", 2),
-                                "$toEqualDescr: 3",
-                                entry("c", keyDoesNotExist),
-                                "$toEqualDescr: 4"
+                            toContainRegex(
+                                "$g${toContainInAnyOrderDescr} : $lineSeparator" +
+                                    "$indentG$g$f${entry("b", 2)}$lineSeparator" +
+                                    "$indentGg$indentF$x$toEqualDescr : 3$lineSeparator" +
+                                    "$indentG$g$f${entry("c", keyDoesNotExist)}$lineSeparator" +
+                                    "$indentGg$indentF$explanatoryBulletPoint$toEqualDescr : 4"
                             )
                             notToContain(entry("a"))
                         }
@@ -91,11 +95,14 @@ abstract class MapToContainInAnyOrderKeyValuePairsExpectationsSpec(
                     expect(nullableMap).toContainNullableFun("a" to null, arrayOf(null to 2, "b" to 3, "c" to 4))
                 }.toThrow<AssertionError> {
                     message {
-                        toContain(
-                            entry("b", 2),
-                            "$toEqualDescr: 3",
-                            entry("c", keyDoesNotExist),
-                            "$toEqualDescr: 4"
+                        toContainRegex(
+                            "$g${toContainInAnyOrderDescr} : $lineSeparator" +
+                                "$indentG$g$f${entry(null, 1)}$lineSeparator" +
+                                "$indentGg$indentF$x$toEqualDescr : 2$lineSeparator" +
+                                "$indentG$g$f${entry("b", 2)}$lineSeparator" +
+                                "$indentGg$indentF$x$toEqualDescr : 3$lineSeparator" +
+                                "$indentG$g$f${entry("c", keyDoesNotExist)}$lineSeparator" +
+                                "$indentGg$indentF$explanatoryBulletPoint$toEqualDescr : 4"
                         )
                         notToContain(entry("a"))
                     }

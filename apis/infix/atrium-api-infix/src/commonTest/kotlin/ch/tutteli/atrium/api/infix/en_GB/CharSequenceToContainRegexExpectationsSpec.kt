@@ -2,6 +2,7 @@ package ch.tutteli.atrium.api.infix.en_GB
 
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.specs.g
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.describe
 
@@ -17,8 +18,7 @@ class CharSequenceToContainRegexExpectationsSpec : Spek({
             expect("aaaa") toContain o exactly 4 regex "aa?"
         }
     }
-    describe("context ''") {
-        val g = "🚩\uFE0F"
+    describe("context ''"){
         it("search for '$g$g' finds 3 hits since we want non-disjoint matches") {
             expect("$g$g$g$g") toContain o exactly 3 regex "$g$g"
         }

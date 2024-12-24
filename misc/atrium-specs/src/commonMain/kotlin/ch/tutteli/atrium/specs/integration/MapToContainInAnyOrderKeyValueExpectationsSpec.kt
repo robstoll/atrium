@@ -92,11 +92,11 @@ abstract class MapToContainInAnyOrderKeyValueExpectationsSpec(
                         )
                     }.toThrow<AssertionError> {
                         message {
-                            toContain(
+                            toContainRegex(
                                 entry("b", 2),
-                                "$toBeLessThanDescr: 2",
+                                "$x$toBeLessThanDescr : 2",
                                 entry("c", keyDoesNotExist),
-                                "$toBeLessThanDescr: 1"
+                                "$explanatoryBulletPoint$toBeLessThanDescr : 1"
                             )
                             notToContain(entry("a"))
                         }
@@ -150,11 +150,11 @@ abstract class MapToContainInAnyOrderKeyValueExpectationsSpec(
                     )
                 }.toThrow<AssertionError> {
                     message {
-                        toContain(
+                        toContainRegex(
                             entry("b", 2),
-                            "$toBeLessThanDescr: 2",
+                            "$x$toBeLessThanDescr : 2",
                             entry("c", keyDoesNotExist),
-                            "$toBeLessThanDescr: 1"
+                            "$explanatoryBulletPoint$toBeLessThanDescr : 1"
                         )
                         notToContain(entry("a"))
                     }

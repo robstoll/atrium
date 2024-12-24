@@ -81,7 +81,7 @@ interface AssertionContainer<T> {
         "Use appendAsGroupIndicateIfOneCollected and define the alternative or pass an empty list if you don't have any",
         ReplaceWith(
             "this.appendAsGroupIndicateIfOneCollected(ExpectationCreatorWithUsageHints(usageHintsOverloadWithoutExpectationCreator = listOf(/* ... add a usage hint in case you have an overload which does not expect an expectationCreator */), expectationCreator = assertionCreator)).first",
-            "ch.tutteli.atrium.creating.ExpectationCreatorWithUsageHints"
+            "ch.tutteli.atrium.creating.ExpectationCreatorWithUsageHints",
         )
     )
     fun appendAsGroup(assertionCreator: Expect<T>.() -> Unit): Expect<T>

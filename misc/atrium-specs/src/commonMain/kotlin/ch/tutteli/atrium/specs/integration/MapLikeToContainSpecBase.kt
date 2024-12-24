@@ -8,8 +8,6 @@ import ch.tutteli.atrium.specs.Fun2
 import ch.tutteli.atrium.specs.Fun3
 import ch.tutteli.atrium.specs.fun2
 import ch.tutteli.atrium.specs.fun3
-import ch.tutteli.atrium.specs.lineSeparator
-import ch.tutteli.atrium.translations.DescriptionComparableExpectation
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.dsl.Root
 import kotlin.reflect.KFunction3
@@ -38,6 +36,6 @@ abstract class MapLikeToContainSpecBase(spec: Root.() -> Unit) : Spek(spec) {
         val emptyMap: Map<out String, Int> = mapOf()
 
         fun entry(key: String?) = DescriptionMapLikeProof.ENTRY_WITH_KEY.string.format(if(key == null) "null" else "\"$key\"")
-        fun entry(key: String?, value: Any): String = entry(key) + ": " + value
+        fun entry(key: String?, value: Any): String = entry(key) + "\\s+: " + value
     }
 }
