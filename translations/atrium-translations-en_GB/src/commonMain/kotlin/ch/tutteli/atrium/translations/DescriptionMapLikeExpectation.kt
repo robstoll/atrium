@@ -14,7 +14,7 @@ enum class DescriptionMapLikeExpectation(override val value: String) : StringBas
     TO_CONTAIN_KEY("to contain key"),
 
     /** @since 0.18.0 */
-    NOT_TO_CONTAIN_KEY("not to ontain key"),
+    NOT_TO_CONTAIN_KEY("not to contain key"),
 
     /** @since 0.18.0 */
     ENTRY_WITH_KEY("entry %s"),
