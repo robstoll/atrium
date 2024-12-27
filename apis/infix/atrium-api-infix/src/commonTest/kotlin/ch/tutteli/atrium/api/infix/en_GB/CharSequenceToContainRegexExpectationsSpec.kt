@@ -9,13 +9,21 @@ class CharSequenceToContainRegexExpectationsSpec : Spek({
     include(StringSpec)
     include(RegexSpec)
 
-
     describe("context 'aaaa'") {
         it("search for 'aa' finds 3 hits since we want non-disjoint matches") {
             expect("aaaa") toContain o exactly 3 regex "aa"
         }
         it("search for 'aa?' finds 4 hits since we want non-disjoint matches") {
             expect("aaaa") toContain o exactly 4 regex "aa?"
+        }
+    }
+    describe("context ''") {
+        val g = "🚩\uFE0F"
+        it("search for '$g$g' finds 3 hits since we want non-disjoint matches") {
+            expect("$g$g$g$g") toContain o exactly 3 regex "$g$g"
+        }
+        it("search for '$g($g)?' finds 4 hits since we want non-disjoint matches") {
+            expect("$g$g$g$g") toContain o exactly 4 regex "$g($g)?"
         }
     }
 }) {
@@ -60,7 +68,12 @@ class CharSequenceToContainRegexExpectationsSpec : Spek({
             if (aX.isEmpty()) expect toContain o atLeast atLeast regex a
             else expect toContain o atLeast atLeast the regexPatterns(a, *aX)
 
-        private fun toContainAtLeastRegex(expect: Expect<CharSequence>, atLeast: Int, a: String, aX: Array<out String>) =
+        private fun toContainAtLeastRegex(
+            expect: Expect<CharSequence>,
+            atLeast: Int,
+            a: String,
+            aX: Array<out String>
+        ) =
             if (aX.isEmpty()) expect toContain o atLeast atLeast matchFor Regex(a)
             else expect toContain o atLeast atLeast matchFor all(Regex(a), *aX.map { it.toRegex() }.toTypedArray())
 

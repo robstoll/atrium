@@ -11,10 +11,14 @@ import ch.tutteli.atrium.logic.creating.charsequence.contains.searchbehaviours.N
 class RegexSearcher : Searcher<NoOpSearchBehaviour, Regex> {
     override fun search(searchIn: CharSequence, searchFor: Regex): Int {
         var counter = 0
-        var matchResult = searchFor.find(searchIn)
+        val searchInString = searchIn.toString()
+        var matchResult = searchFor.find(searchInString)
         while (matchResult != null) {
-            matchResult = searchFor.find(searchIn, matchResult.range.first + 1)
             ++counter
+            val startIndex = matchResult.range.first.let { startIndex ->
+                startIndex + if (searchInString[startIndex].isHighSurrogate()) 2 else 1
+            }
+            matchResult = searchFor.find(searchIn, startIndex)
         }
         return counter
     }

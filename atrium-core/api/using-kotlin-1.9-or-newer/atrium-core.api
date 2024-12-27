@@ -647,6 +647,10 @@ public final class ch/tutteli/atrium/core/Some : ch/tutteli/atrium/core/Option {
 	public fun toString ()Ljava/lang/String;
 }
 
+public final class ch/tutteli/atrium/core/polyfills/CharExtensionsKt {
+	public static final fun isHighSurrogate (C)Z
+}
+
 public final class ch/tutteli/atrium/core/polyfills/FormatFloatingPointNumberKt {
 	public static final fun formatFloatingPointNumber (Ljava/lang/Number;)Ljava/lang/String;
 }
