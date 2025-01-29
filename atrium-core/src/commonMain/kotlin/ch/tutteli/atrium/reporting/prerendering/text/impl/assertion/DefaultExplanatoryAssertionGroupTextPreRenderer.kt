@@ -3,12 +3,11 @@
 package ch.tutteli.atrium.reporting.prerendering.text.impl.assertion
 
 import ch.tutteli.atrium.assertions.*
-import ch.tutteli.atrium.assertions.ExplanatoryAssertionGroup
 import ch.tutteli.atrium.reporting.filters.ReportableFilter
-import ch.tutteli.atrium.reporting.reportables.Icon
-import ch.tutteli.atrium.reporting.prerendering.text.TextPreRenderControlObject
 import ch.tutteli.atrium.reporting.prerendering.text.OutputNode
+import ch.tutteli.atrium.reporting.prerendering.text.TextPreRenderControlObject
 import ch.tutteli.atrium.reporting.prerendering.text.TextPreRenderer
+import ch.tutteli.atrium.reporting.reportables.Icon
 import ch.tutteli.atrium.reporting.reportables.Reportable
 
 @Deprecated("Switch from Assertion to Proof, was introduced to ease the migration to Proof, will be removed with 2.0.0 at the latest")

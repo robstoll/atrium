@@ -1,9 +1,9 @@
 package ch.tutteli.atrium.reporting.prerendering.text
 
-import ch.tutteli.atrium.reporting.reportables.Icon
 import ch.tutteli.atrium.reporting.errorDueToBug
 import ch.tutteli.atrium.reporting.failWithBugErrorIf
 import ch.tutteli.atrium.reporting.filters.ReportableFilter
+import ch.tutteli.atrium.reporting.reportables.Icon
 import ch.tutteli.atrium.reporting.reportables.Reportable
 import ch.tutteli.atrium.reporting.theming.text.StyledString
 

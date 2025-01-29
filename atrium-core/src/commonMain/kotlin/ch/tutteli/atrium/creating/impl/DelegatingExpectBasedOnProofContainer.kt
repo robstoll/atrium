@@ -4,7 +4,6 @@ import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
 import ch.tutteli.atrium.core.Option
 import ch.tutteli.atrium.creating.*
 import ch.tutteli.atrium.creating.proofs.Proof
-import ch.tutteli.atrium.reporting.reportables.Reportable
 
 @ExperimentalComponentFactoryContainer
 @ExperimentalNewExpectTypes

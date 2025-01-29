@@ -7,8 +7,8 @@ import ch.tutteli.atrium.creating.proofs.builders.buildProof
 import ch.tutteli.atrium.creating.transformers.FeatureExtractor
 import ch.tutteli.atrium.creating.transformers.propertiesOfThrowable
 import ch.tutteli.atrium.reporting.Text
+import ch.tutteli.atrium.reporting.reportables.Diagnostic
 import ch.tutteli.atrium.reporting.reportables.InlineElement
-import ch.tutteli.atrium.reporting.reportables.Reportable
 import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionFunLikeProof
 
 class DefaultFeatureExtractor : FeatureExtractor {
@@ -77,7 +77,7 @@ class DefaultFeatureExtractor : FeatureExtractor {
                 // there was an error during extraction
                 Pair(
                     listOf(container.propertiesOfThrowable(throwable)),
-                    Reportable.inlineGroup(
+                    Diagnostic.inlineGroup(
                         listOf(DescriptionFunLikeProof.THREW, Text(throwable::class.fullName))
                     )
                 )

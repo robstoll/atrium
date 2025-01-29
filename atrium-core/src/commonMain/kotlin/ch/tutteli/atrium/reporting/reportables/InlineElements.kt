@@ -2,13 +2,16 @@ package ch.tutteli.atrium.reporting.reportables
 
 import ch.tutteli.atrium.reporting.text.TextObjFormatter
 
+//TODO 1.3.0 somewhat a bit odd that diagnostics are under reporting but proof are under creating
+
+
 //TODO 1.3.0 check KDOC (including since of all types in this file)
 /**
- * A [Reportable] which does not build itself a block but can be combined with other [InlineElement] seamlessly.
+ * A [Diagnostic] which does not build itself a block but can be combined with other [InlineElement] seamlessly.
  *
  * @since 1.3.0
  */
-interface InlineElement : Reportable
+interface InlineElement : Diagnostic
 
 /**
  *
@@ -32,6 +35,6 @@ interface Description : TextElement {
  *
  * @since 1.3.0
  */
-interface Representation: InlineElement{
+interface Representation: InlineElement {
     val representation: Any?
 }

@@ -3,8 +3,8 @@
 
 package ch.tutteli.atrium.assertions
 
-import ch.tutteli.atrium.reporting.reportables.Reportable
 import ch.tutteli.atrium.reporting.Text
+import ch.tutteli.atrium.reporting.reportables.Reportable
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.reporting.translating.Untranslatable
 

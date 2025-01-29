@@ -6,14 +6,14 @@ import ch.tutteli.atrium.creating.ProofContainer
 import ch.tutteli.atrium.creating.collectForCompositionBasedOnGivenSubject
 import ch.tutteli.atrium.creating.proofs.Proof
 import ch.tutteli.atrium.creating.proofs.builders.impl.BaseSubGroupBuilder
+import ch.tutteli.atrium.reporting.reportables.Diagnostic
 import ch.tutteli.atrium.reporting.reportables.ProofExplanation
-import ch.tutteli.atrium.reporting.reportables.Reportable
 
 class ProofExplanationGroupBuilder<SubjectT>(
     proofContainer: ProofContainer<SubjectT>,
 ) : BaseSubGroupBuilder<SubjectT, ProofExplanation, ProofExplanationGroupBuilder<SubjectT>>(
     proofContainer,
-    { children -> Reportable.proofExplanation(Proof.invisibleGroup(children)) }
+    { children -> Diagnostic.proofExplanation(Proof.invisibleGroup(children)) }
 ) {
 
     //TODO 1.3.0 add KDoc
