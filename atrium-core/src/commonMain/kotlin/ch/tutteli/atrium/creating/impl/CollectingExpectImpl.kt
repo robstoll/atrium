@@ -4,14 +4,16 @@ import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
 import ch.tutteli.atrium.core.Option
 import ch.tutteli.atrium.creating.*
-import ch.tutteli.atrium.creating.proofs.*
+import ch.tutteli.atrium.creating.proofs.FeatureProofGroup
+import ch.tutteli.atrium.creating.proofs.Proof
+import ch.tutteli.atrium.creating.proofs.ProofGroup
+import ch.tutteli.atrium.creating.proofs.ProofGroupWithDesignation
 import ch.tutteli.atrium.creating.proofs.builders.buildProof
 import ch.tutteli.atrium.creating.proofs.impl.DefaultInvisibleProofGroup
 import ch.tutteli.atrium.reporting.Text
 import ch.tutteli.atrium.reporting.reportables.*
-import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionAnyProof
 import ch.tutteli.atrium.reporting.reportables.ErrorMessages
-import ch.tutteli.kbox.ifNotEmpty
+import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionAnyProof
 
 @ExperimentalNewExpectTypes
 @ExperimentalComponentFactoryContainer
@@ -130,7 +132,7 @@ internal class CollectingExpectImpl<T>(
     }
 
     @Suppress("DEPRECATION")
-    private fun descriptionToUntranslatable(description: Reportable) =
+    private fun descriptionToUntranslatable(description: Diagnostic) =
         ch.tutteli.atrium.reporting.translating.Untranslatable(
             (description as? TextElement)?.string ?: description.toString()
         )

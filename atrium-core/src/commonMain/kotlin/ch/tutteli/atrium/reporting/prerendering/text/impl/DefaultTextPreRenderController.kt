@@ -1,8 +1,9 @@
 package ch.tutteli.atrium.reporting.prerendering.text.impl
 
-import ch.tutteli.atrium.reporting.reportables.Icon
 import ch.tutteli.atrium.reporting.filters.ReportableFilter
 import ch.tutteli.atrium.reporting.prerendering.text.*
+import ch.tutteli.atrium.reporting.reportables.Diagnostic
+import ch.tutteli.atrium.reporting.reportables.Icon
 import ch.tutteli.atrium.reporting.reportables.Reportable
 import ch.tutteli.atrium.reporting.theming.text.StyledString
 import ch.tutteli.atrium.reporting.theming.text.TextIconStyler
@@ -40,7 +41,7 @@ internal class DefaultTextPreRenderController(
         }
 
     override fun transformGroup(
-        description: Reportable,
+        description: Diagnostic,
         representation: Any,
         controlObject: TextPreRenderControlObject,
         children: List<OutputNode>,

@@ -12,8 +12,8 @@ class RowBuilder<SubjectT>(
 ) : BaseBuilder<SubjectT, Row, Column, RowBuilder<SubjectT>>(proofContainer) {
 
     fun column(inlineElement: InlineElement, alignment: HorizontalAlignment = HorizontalAlignment.DEFAULT) =
-        add(Reportable.column(inlineElement, alignment))
+        add(Diagnostic.column(inlineElement, alignment))
 
     override fun build(children: List<Column>): Row =
-        Reportable.row(icon, includingBorder, children)
+        Diagnostic.row(icon, includingBorder, children)
 }

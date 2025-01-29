@@ -7,15 +7,9 @@ import ch.tutteli.atrium.assertions.*
 import ch.tutteli.atrium.creating.proofs.Proof
 import ch.tutteli.atrium.reporting.Text
 import ch.tutteli.atrium.reporting.filters.ReportableFilter
+import ch.tutteli.atrium.reporting.prerendering.text.*
 import ch.tutteli.atrium.reporting.reportables.Icon
-import ch.tutteli.atrium.reporting.prerendering.text.TextPreRenderControlObject
-import ch.tutteli.atrium.reporting.prerendering.text.determineChildControlObject
-import ch.tutteli.atrium.reporting.prerendering.text.OutputNode
-import ch.tutteli.atrium.reporting.prerendering.text.TextPreRenderer
-import ch.tutteli.atrium.reporting.prerendering.text.transformGroup
-import ch.tutteli.atrium.reporting.prerendering.text.transformSubProofGroup
 import ch.tutteli.atrium.reporting.reportables.Reportable
-import ch.tutteli.atrium.reporting.theming.text.StyledString
 import ch.tutteli.atrium.reporting.theming.text.TextIconStyler
 
 @Deprecated("Switch from Assertion to Proof, was introduced to ease the migration to Proof, will be removed with 2.0.0 at the latest")

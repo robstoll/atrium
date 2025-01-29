@@ -2,7 +2,7 @@ package ch.tutteli.atrium.creating.proofs
 
 import ch.tutteli.atrium.reporting.reportables.Reportable
 
-//TODO KDOC, move to impl?
+//TODO 1.3.0 KDOC, move to impl?
 
 fun List<Reportable>.unwrapInvisibleGroupIfSingleElement(): List<Reportable> = when (this.size) {
     1 -> getChildrenIfInvisibleElseItAsList(this.first())

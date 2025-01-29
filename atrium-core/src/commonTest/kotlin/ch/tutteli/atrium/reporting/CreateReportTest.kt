@@ -19,10 +19,7 @@ import ch.tutteli.atrium.reporting.prerendering.text.OutputNode
 import ch.tutteli.atrium.reporting.prerendering.text.TextPreRenderControlObject
 import ch.tutteli.atrium.reporting.prerendering.text.TextPreRenderer
 import ch.tutteli.atrium.reporting.prerendering.text.TypedTextPreRenderer
-import ch.tutteli.atrium.reporting.reportables.ErrorMessages
-import ch.tutteli.atrium.reporting.reportables.Icon
-import ch.tutteli.atrium.reporting.reportables.InlineElement
-import ch.tutteli.atrium.reporting.reportables.Reportable
+import ch.tutteli.atrium.reporting.reportables.*
 import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionAnyProof
 import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionCharSequenceProof
 import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionDocumentationUtil
@@ -304,7 +301,7 @@ class CreateReportTest {
     }
 
     @Test
-    fun informationGroup_WithSimpleProofFollowedBySimpleProof() {
+    fun informationGroup_withSimpleProofFollowedBySimpleProof() {
         val builder = buildRootGroup(representation = 9) {
             // searched example, does not exist in reality, but we want to be sure the simple proofs are well aligned
             informationGroup(Text("following elements were found")) {
@@ -382,7 +379,7 @@ class CreateReportTest {
             debugGroup(Text("properties of unexpected exception")) {
                 row {
                     column(Text("message"))
-                    column(Reportable.representation("oho..."))
+                    column(Diagnostic.representation("oho..."))
                 }
             }
         }
@@ -411,13 +408,13 @@ class CreateReportTest {
         val builder = buildRootGroup(representation = Text("/usr/bin/noprogram")) {
             simpleProof(Text("to"), Text("exist")) { false }
             debugGroup(Text("properties of unexpected exception")) {
-                reportableGroup(OCCURRED_EXCEPTION_STACKTRACE, Text.EMPTY) {
+                diagnosticGroup(OCCURRED_EXCEPTION_STACKTRACE, Text.EMPTY) {
                     text("com.example.MyClass:32:8")
                 }
-                reportableGroup(DescriptionThrowableProof.OCCURRED_EXCEPTION_CAUSE, IllegalStateException("oho..")) {
+                diagnosticGroup(DescriptionThrowableProof.OCCURRED_EXCEPTION_CAUSE, IllegalStateException("oho..")) {
                     row {
                         column(Text("message"))
-                        column(Reportable.representation("oho..."))
+                        column(Diagnostic.representation("oho..."))
                     }
                 }
             }
@@ -481,7 +478,7 @@ class CreateReportTest {
     fun proofExplanation_simpleProof_showsRepresentation() {
         val builder = buildRootGroup {
             feature(Text("get(10)"), Text("❗❗ Index out of bounds")) {
-                invisibleFixedClaimGroup(holds = false) {
+                invisibleFailingProofGroup {
                     proofExplanation {
                         simpleProof(Text("to start with"), "Ro") { false }
                     }
@@ -510,7 +507,7 @@ class CreateReportTest {
     fun proofExplanation_feature_doesNotShowRepresentation() {
         val builder = buildRootGroup {
             feature(Text("get(10)"), Text("❗❗ Index out of bounds")) {
-                invisibleFixedClaimGroup(holds = false) {
+                invisibleFailingProofGroup {
                     proofExplanation {
                         feature(Text("firstName"), Text("Cannot show representation")) {
                             simpleProof(Text("to start with"), "Ro") { false }
@@ -544,39 +541,39 @@ class CreateReportTest {
         val builder = buildRootGroup {
             proofGroup(Text("not to contain"), Text.EMPTY) {
                 proofGroup(Text("an element which needs"), Text.EMPTY) {
-                    invisibleFixedClaimGroup(holds = false) {
+                    invisibleFailingProofGroup {
                         proofExplanation {
                             simpleProof(Text("to be greater than"), 2) { false }
                             failureExplanationGroup(Text("following elements were found")) {
                                 row {
                                     column(Text("index 0"))
-                                    column(Reportable.representation(4))
+                                    column(Diagnostic.representation(4))
                                 }
                                 row {
                                     column(Text("index 2"))
-                                    column(Reportable.representation(3))
+                                    column(Diagnostic.representation(3))
                                 }
                                 row {
                                     column(Text("index 6"))
-                                    column(Reportable.representation(10))
+                                    column(Diagnostic.representation(10))
                                 }
                             }
                         }
                     }
                 }
                 proofGroup(Text("an element which needs"), Text.EMPTY) {
-                    invisibleFixedClaimGroup(holds = false) {
+                    invisibleFailingProofGroup {
                         proofExplanation {
                             simpleProof(Text("to be less than"), 1) { false }
                             simpleProof(Text("to be greater than"), -5) { false }
                             failureExplanationGroup(Text("following elements were found")) {
                                 row {
                                     column(Text("index 3"))
-                                    column(Reportable.representation(0))
+                                    column(Diagnostic.representation(0))
                                 }
                                 row {
                                     column(Text("index 4"))
-                                    column(Reportable.representation(-4))
+                                    column(Diagnostic.representation(-4))
                                 }
                             }
                         }
@@ -628,7 +625,7 @@ class CreateReportTest {
     fun proofExplanation_withFailureExplanationAndSubProofs_showsOnlyFailingProofs() {
         val builder = buildRootGroup {
             proofGroup(Text("elements need all"), Text.EMPTY) {
-                invisibleFixedClaimGroup(holds = false) {
+                invisibleFailingProofGroup {
                     proofExplanation {
                         feature(Text("login"), Text("should not be shown")) {
                             feature(Text("length"), Text("should not be shown")) {
@@ -990,7 +987,7 @@ class CreateReportTest {
 
     @Test
     fun mergingColumnsWithAlignment() {
-        Reportable.group(
+        Diagnostic.group(
             Text("description always\n without line break"),
             "a string with new line\nas representation is broken\nmaxLength calculated correctly",
             listOf(

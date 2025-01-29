@@ -974,15 +974,23 @@ public final class ch/tutteli/atrium/creating/proofs/FixedClaimGroup$DefaultImpl
 	public static fun holds (Lch/tutteli/atrium/creating/proofs/FixedClaimGroup;)Z
 }
 
-public abstract interface class ch/tutteli/atrium/creating/proofs/InvisibleFixedClaimGroup : ch/tutteli/atrium/creating/proofs/ProofGroup {
+public abstract interface class ch/tutteli/atrium/creating/proofs/InvisibleFailingProof : ch/tutteli/atrium/creating/proofs/InvisibleLikeProofGroup {
 }
 
-public final class ch/tutteli/atrium/creating/proofs/InvisibleFixedClaimGroup$DefaultImpls {
-	public static fun getProofs (Lch/tutteli/atrium/creating/proofs/InvisibleFixedClaimGroup;)Ljava/util/List;
-	public static fun holds (Lch/tutteli/atrium/creating/proofs/InvisibleFixedClaimGroup;)Z
+public final class ch/tutteli/atrium/creating/proofs/InvisibleFailingProof$DefaultImpls {
+	public static fun getProofs (Lch/tutteli/atrium/creating/proofs/InvisibleFailingProof;)Ljava/util/List;
+	public static fun holds (Lch/tutteli/atrium/creating/proofs/InvisibleFailingProof;)Z
 }
 
-public abstract interface class ch/tutteli/atrium/creating/proofs/InvisibleProofGroup : ch/tutteli/atrium/creating/proofs/ProofGroup {
+public abstract interface class ch/tutteli/atrium/creating/proofs/InvisibleLikeProofGroup : ch/tutteli/atrium/creating/proofs/ProofGroup {
+}
+
+public final class ch/tutteli/atrium/creating/proofs/InvisibleLikeProofGroup$DefaultImpls {
+	public static fun getProofs (Lch/tutteli/atrium/creating/proofs/InvisibleLikeProofGroup;)Ljava/util/List;
+	public static fun holds (Lch/tutteli/atrium/creating/proofs/InvisibleLikeProofGroup;)Z
+}
+
+public abstract interface class ch/tutteli/atrium/creating/proofs/InvisibleProofGroup : ch/tutteli/atrium/creating/proofs/InvisibleLikeProofGroup {
 }
 
 public final class ch/tutteli/atrium/creating/proofs/InvisibleProofGroup$DefaultImpls {
@@ -996,10 +1004,10 @@ public abstract interface class ch/tutteli/atrium/creating/proofs/Proof : ch/tut
 }
 
 public final class ch/tutteli/atrium/creating/proofs/Proof$Companion {
-	public final fun featureGroup (Lch/tutteli/atrium/reporting/reportables/Reportable;Ljava/lang/Object;Ljava/util/List;)Lch/tutteli/atrium/creating/proofs/FeatureProofGroup;
+	public final fun featureGroup (Lch/tutteli/atrium/reporting/reportables/Diagnostic;Ljava/lang/Object;Ljava/util/List;)Lch/tutteli/atrium/creating/proofs/FeatureProofGroup;
 	public final fun fixedClaimGroup (Lch/tutteli/atrium/reporting/reportables/InlineElement;Ljava/lang/Object;Ljava/util/List;Z)Lch/tutteli/atrium/creating/proofs/FixedClaimGroup;
-	public final fun group (Lch/tutteli/atrium/reporting/reportables/Reportable;Ljava/lang/Object;Ljava/util/List;)Lch/tutteli/atrium/creating/proofs/ProofGroup;
-	public final fun invisibleFixedClaimGroup (Ljava/util/List;Z)Lch/tutteli/atrium/creating/proofs/InvisibleFixedClaimGroup;
+	public final fun group (Lch/tutteli/atrium/reporting/reportables/Diagnostic;Ljava/lang/Object;Ljava/util/List;)Lch/tutteli/atrium/creating/proofs/ProofGroup;
+	public final fun invisibleFailingProofGroup (Ljava/util/List;)Lch/tutteli/atrium/creating/proofs/InvisibleFailingProof;
 	public final fun invisibleGroup (Ljava/util/List;)Lch/tutteli/atrium/creating/proofs/InvisibleProofGroup;
 	public final fun invisibleGroupOrSingleChildIfProof (Ljava/util/List;)Lch/tutteli/atrium/creating/proofs/Proof;
 	public final fun representationOnlyProof (Ljava/lang/Object;Lkotlin/jvm/functions/Function0;)Lch/tutteli/atrium/creating/proofs/Proof;
@@ -1045,6 +1053,10 @@ public final class ch/tutteli/atrium/creating/proofs/builders/DebugGroupBuilder 
 	public fun <init> (Lch/tutteli/atrium/creating/ProofContainer;Lch/tutteli/atrium/reporting/reportables/InlineElement;)V
 }
 
+public final class ch/tutteli/atrium/creating/proofs/builders/DiagnosticGroupBuilder : ch/tutteli/atrium/creating/proofs/builders/impl/BaseSubGroupBuilder {
+	public fun <init> (Lch/tutteli/atrium/creating/ProofContainer;Lch/tutteli/atrium/reporting/reportables/InlineElement;Ljava/lang/Object;)V
+}
+
 public final class ch/tutteli/atrium/creating/proofs/builders/EntryPointProofBuilder : ch/tutteli/atrium/creating/proofs/builders/impl/BaseGroupBuilder {
 	public synthetic fun build (Ljava/util/List;)Lch/tutteli/atrium/reporting/reportables/Reportable;
 }
@@ -1060,7 +1072,7 @@ public final class ch/tutteli/atrium/creating/proofs/builders/FailureExplanation
 }
 
 public final class ch/tutteli/atrium/creating/proofs/builders/FeatureProofGroupBuilder : ch/tutteli/atrium/creating/proofs/builders/impl/BaseSubGroupBuilder {
-	public fun <init> (Lch/tutteli/atrium/creating/ProofContainer;Lch/tutteli/atrium/reporting/reportables/Reportable;Ljava/lang/Object;)V
+	public fun <init> (Lch/tutteli/atrium/creating/ProofContainer;Lch/tutteli/atrium/reporting/reportables/Diagnostic;Ljava/lang/Object;)V
 }
 
 public final class ch/tutteli/atrium/creating/proofs/builders/FixedClaimGroupBuilder : ch/tutteli/atrium/creating/proofs/builders/impl/BaseSubGroupBuilder {
@@ -1071,8 +1083,18 @@ public final class ch/tutteli/atrium/creating/proofs/builders/InformationGroupBu
 	public fun <init> (Lch/tutteli/atrium/creating/ProofContainer;Lch/tutteli/atrium/reporting/reportables/InlineElement;)V
 }
 
-public final class ch/tutteli/atrium/creating/proofs/builders/InvisibleFixedClaimGroupBuilder : ch/tutteli/atrium/creating/proofs/builders/impl/BaseSubGroupBuilder {
-	public fun <init> (Lch/tutteli/atrium/creating/ProofContainer;Z)V
+public final class ch/tutteli/atrium/creating/proofs/builders/InvisibleFailingProofGroupBuilder : ch/tutteli/atrium/creating/proofs/builders/impl/BaseBuilder, ch/tutteli/atrium/creating/proofs/builders/impl/DiagnosticBuilder {
+	public fun <init> (Lch/tutteli/atrium/creating/ProofContainer;Lch/tutteli/atrium/creating/proofs/builders/impl/DiagnosticBuilderDelegate;)V
+	public synthetic fun build (Ljava/util/List;)Lch/tutteli/atrium/reporting/reportables/Reportable;
+	public fun debugGroup (Lch/tutteli/atrium/reporting/reportables/InlineElement;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/reporting/reportables/Diagnostic;
+	public fun diagnosticGroup (Lch/tutteli/atrium/reporting/reportables/InlineElement;Ljava/lang/Object;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/reporting/reportables/Diagnostic;
+	public fun failureExplanationGroup (Lch/tutteli/atrium/reporting/reportables/InlineElement;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/reporting/reportables/Diagnostic;
+	public fun informationGroup (Lch/tutteli/atrium/reporting/reportables/InlineElement;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/reporting/reportables/Diagnostic;
+	public fun inlineGroup ([Lch/tutteli/atrium/reporting/reportables/InlineElement;)Lch/tutteli/atrium/reporting/reportables/InlineElement;
+	public fun proofExplanation (Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/reporting/reportables/Diagnostic;
+	public fun row (Lch/tutteli/atrium/reporting/reportables/Icon;ZLkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/reporting/reportables/Diagnostic;
+	public fun text (Ljava/lang/String;)Lch/tutteli/atrium/reporting/reportables/Diagnostic;
+	public fun usageHintGroup (Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/reporting/reportables/Diagnostic;
 }
 
 public final class ch/tutteli/atrium/creating/proofs/builders/InvisibleProofGroupBuilder : ch/tutteli/atrium/creating/proofs/builders/impl/BaseSubGroupBuilder {
@@ -1088,11 +1110,7 @@ public final class ch/tutteli/atrium/creating/proofs/builders/ProofExplanationGr
 }
 
 public final class ch/tutteli/atrium/creating/proofs/builders/ProofGroupBuilder : ch/tutteli/atrium/creating/proofs/builders/impl/BaseSubGroupBuilder {
-	public fun <init> (Lch/tutteli/atrium/creating/ProofContainer;Lch/tutteli/atrium/reporting/reportables/Reportable;Ljava/lang/Object;)V
-}
-
-public final class ch/tutteli/atrium/creating/proofs/builders/ReportableGroupBuilder : ch/tutteli/atrium/creating/proofs/builders/impl/BaseSubGroupBuilder {
-	public fun <init> (Lch/tutteli/atrium/creating/ProofContainer;Lch/tutteli/atrium/reporting/reportables/InlineElement;Ljava/lang/Object;)V
+	public fun <init> (Lch/tutteli/atrium/creating/ProofContainer;Lch/tutteli/atrium/reporting/reportables/Diagnostic;Ljava/lang/Object;)V
 }
 
 public final class ch/tutteli/atrium/creating/proofs/builders/RowBuilder : ch/tutteli/atrium/creating/proofs/builders/impl/BaseBuilder {
@@ -1106,42 +1124,80 @@ public final class ch/tutteli/atrium/creating/proofs/builders/UsageHintGroupBuil
 	public fun <init> (Lch/tutteli/atrium/creating/ProofContainer;)V
 }
 
-public abstract class ch/tutteli/atrium/creating/proofs/builders/impl/BaseBuilder {
+public abstract class ch/tutteli/atrium/creating/proofs/builders/impl/BaseBuilder : ch/tutteli/atrium/creating/proofs/builders/impl/ReportableBuilder {
 	public fun <init> (Lch/tutteli/atrium/creating/ProofContainer;)V
 	public final fun add (Lch/tutteli/atrium/reporting/reportables/Reportable;)Lch/tutteli/atrium/reporting/reportables/Reportable;
 	public final fun addAll (Ljava/util/List;)V
 	public final fun addAll ([Lch/tutteli/atrium/reporting/reportables/Reportable;)V
 	protected abstract fun build (Ljava/util/List;)Lch/tutteli/atrium/reporting/reportables/Reportable;
 	public final fun build (Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/reporting/reportables/Reportable;
-	protected final fun getProofContainer ()Lch/tutteli/atrium/creating/ProofContainer;
+	public fun getProofContainer ()Lch/tutteli/atrium/creating/ProofContainer;
 }
 
-public abstract class ch/tutteli/atrium/creating/proofs/builders/impl/BaseGroupBuilder : ch/tutteli/atrium/creating/proofs/builders/impl/BaseBuilder {
-	public fun <init> (Lch/tutteli/atrium/creating/ProofContainer;)V
+public abstract class ch/tutteli/atrium/creating/proofs/builders/impl/BaseGroupBuilder : ch/tutteli/atrium/creating/proofs/builders/impl/BaseBuilder, ch/tutteli/atrium/creating/proofs/builders/impl/DiagnosticBuilder {
+	public fun <init> (Lch/tutteli/atrium/creating/ProofContainer;Lch/tutteli/atrium/creating/proofs/builders/impl/DiagnosticBuilderDelegate;)V
 	public final fun _core (Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/reporting/reportables/Reportable;
 	public final fun collect (Lch/tutteli/atrium/creating/ExpectationCreatorWithUsageHints;)Z
-	public final fun debugGroup (Lch/tutteli/atrium/reporting/reportables/InlineElement;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/reporting/reportables/Reportable;
-	public final fun failureExplanationGroup (Lch/tutteli/atrium/reporting/reportables/InlineElement;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/reporting/reportables/Reportable;
-	public final fun feature (Lch/tutteli/atrium/reporting/reportables/Reportable;Ljava/lang/Object;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/creating/proofs/Proof;
+	public fun debugGroup (Lch/tutteli/atrium/reporting/reportables/InlineElement;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/reporting/reportables/Diagnostic;
+	public fun diagnosticGroup (Lch/tutteli/atrium/reporting/reportables/InlineElement;Ljava/lang/Object;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/reporting/reportables/Diagnostic;
+	public fun failureExplanationGroup (Lch/tutteli/atrium/reporting/reportables/InlineElement;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/reporting/reportables/Diagnostic;
+	public final fun feature (Lch/tutteli/atrium/reporting/reportables/Diagnostic;Ljava/lang/Object;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/creating/proofs/Proof;
 	public final fun fixedClaimGroup (Lch/tutteli/atrium/reporting/reportables/InlineElement;Ljava/lang/Object;ZLkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/creating/proofs/Proof;
-	public final fun informationGroup (Lch/tutteli/atrium/reporting/reportables/InlineElement;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/reporting/reportables/Reportable;
-	public final fun inlineGroup ([Lch/tutteli/atrium/reporting/reportables/InlineElement;)Lch/tutteli/atrium/reporting/reportables/InlineElement;
-	public final fun invisibleFixedClaimGroup (ZLkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/creating/proofs/Proof;
+	public fun informationGroup (Lch/tutteli/atrium/reporting/reportables/InlineElement;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/reporting/reportables/Diagnostic;
+	public fun inlineGroup ([Lch/tutteli/atrium/reporting/reportables/InlineElement;)Lch/tutteli/atrium/reporting/reportables/InlineElement;
+	public final fun invisibleFailingProofGroup (Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/creating/proofs/Proof;
 	public final fun invisibleGroup (Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/creating/proofs/Proof;
-	public final fun proofExplanation (Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/reporting/reportables/Reportable;
-	public final fun proofGroup (Lch/tutteli/atrium/reporting/reportables/Reportable;Ljava/lang/Object;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/creating/proofs/Proof;
-	public final fun reportableGroup (Lch/tutteli/atrium/reporting/reportables/InlineElement;Ljava/lang/Object;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/reporting/reportables/Reportable;
+	public fun proofExplanation (Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/reporting/reportables/Diagnostic;
+	public final fun proofGroup (Lch/tutteli/atrium/reporting/reportables/Diagnostic;Ljava/lang/Object;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/creating/proofs/Proof;
 	public final fun representationOnlyProof (Ljava/lang/Object;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/creating/proofs/Proof;
-	public final fun row (Lch/tutteli/atrium/reporting/reportables/Icon;ZLkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/reporting/reportables/Reportable;
-	public static synthetic fun row$default (Lch/tutteli/atrium/creating/proofs/builders/impl/BaseGroupBuilder;Lch/tutteli/atrium/reporting/reportables/Icon;ZLkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lch/tutteli/atrium/reporting/reportables/Reportable;
+	public fun row (Lch/tutteli/atrium/reporting/reportables/Icon;ZLkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/reporting/reportables/Diagnostic;
 	public final fun simpleProof (Lch/tutteli/atrium/reporting/reportables/InlineElement;Ljava/lang/Object;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/creating/proofs/Proof;
-	public final fun text (Ljava/lang/String;)Lch/tutteli/atrium/reporting/reportables/Reportable;
-	public final fun usageHintGroup (Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/reporting/reportables/Reportable;
+	public fun text (Ljava/lang/String;)Lch/tutteli/atrium/reporting/reportables/Diagnostic;
+	public fun usageHintGroup (Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/reporting/reportables/Diagnostic;
 }
 
 public abstract class ch/tutteli/atrium/creating/proofs/builders/impl/BaseSubGroupBuilder : ch/tutteli/atrium/creating/proofs/builders/impl/BaseGroupBuilder {
 	public fun <init> (Lch/tutteli/atrium/creating/ProofContainer;Lkotlin/jvm/functions/Function1;)V
 	protected fun build (Ljava/util/List;)Lch/tutteli/atrium/reporting/reportables/Reportable;
+}
+
+public abstract interface class ch/tutteli/atrium/creating/proofs/builders/impl/DiagnosticBuilder {
+	public abstract fun debugGroup (Lch/tutteli/atrium/reporting/reportables/InlineElement;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/reporting/reportables/Diagnostic;
+	public abstract fun diagnosticGroup (Lch/tutteli/atrium/reporting/reportables/InlineElement;Ljava/lang/Object;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/reporting/reportables/Diagnostic;
+	public abstract fun failureExplanationGroup (Lch/tutteli/atrium/reporting/reportables/InlineElement;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/reporting/reportables/Diagnostic;
+	public abstract fun informationGroup (Lch/tutteli/atrium/reporting/reportables/InlineElement;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/reporting/reportables/Diagnostic;
+	public abstract fun inlineGroup ([Lch/tutteli/atrium/reporting/reportables/InlineElement;)Lch/tutteli/atrium/reporting/reportables/InlineElement;
+	public abstract fun proofExplanation (Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/reporting/reportables/Diagnostic;
+	public abstract fun row (Lch/tutteli/atrium/reporting/reportables/Icon;ZLkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/reporting/reportables/Diagnostic;
+	public abstract fun text (Ljava/lang/String;)Lch/tutteli/atrium/reporting/reportables/Diagnostic;
+	public abstract fun usageHintGroup (Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/reporting/reportables/Diagnostic;
+}
+
+public final class ch/tutteli/atrium/creating/proofs/builders/impl/DiagnosticBuilder$DefaultImpls {
+	public static synthetic fun row$default (Lch/tutteli/atrium/creating/proofs/builders/impl/DiagnosticBuilder;Lch/tutteli/atrium/reporting/reportables/Icon;ZLkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lch/tutteli/atrium/reporting/reportables/Diagnostic;
+}
+
+public final class ch/tutteli/atrium/creating/proofs/builders/impl/DiagnosticBuilderDelegate : ch/tutteli/atrium/creating/proofs/builders/impl/DiagnosticBuilder {
+	public field reportableBuilder Lch/tutteli/atrium/creating/proofs/builders/impl/ReportableBuilder;
+	public fun <init> ()V
+	public fun debugGroup (Lch/tutteli/atrium/reporting/reportables/InlineElement;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/reporting/reportables/Diagnostic;
+	public fun diagnosticGroup (Lch/tutteli/atrium/reporting/reportables/InlineElement;Ljava/lang/Object;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/reporting/reportables/Diagnostic;
+	public fun failureExplanationGroup (Lch/tutteli/atrium/reporting/reportables/InlineElement;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/reporting/reportables/Diagnostic;
+	public final fun getReportableBuilder ()Lch/tutteli/atrium/creating/proofs/builders/impl/ReportableBuilder;
+	public fun informationGroup (Lch/tutteli/atrium/reporting/reportables/InlineElement;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/reporting/reportables/Diagnostic;
+	public fun inlineGroup ([Lch/tutteli/atrium/reporting/reportables/InlineElement;)Lch/tutteli/atrium/reporting/reportables/InlineElement;
+	public fun proofExplanation (Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/reporting/reportables/Diagnostic;
+	public fun row (Lch/tutteli/atrium/reporting/reportables/Icon;ZLkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/reporting/reportables/Diagnostic;
+	public final fun setReportableBuilder (Lch/tutteli/atrium/creating/proofs/builders/impl/ReportableBuilder;)V
+	public fun text (Ljava/lang/String;)Lch/tutteli/atrium/reporting/reportables/Diagnostic;
+	public fun usageHintGroup (Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/reporting/reportables/Diagnostic;
+}
+
+public abstract interface class ch/tutteli/atrium/creating/proofs/builders/impl/ReportableBuilder {
+	public abstract fun add (Lch/tutteli/atrium/reporting/reportables/Reportable;)Lch/tutteli/atrium/reporting/reportables/Reportable;
+	public abstract fun addAll (Ljava/util/List;)V
+	public abstract fun addAll ([Lch/tutteli/atrium/reporting/reportables/Reportable;)V
+	public abstract fun getProofContainer ()Lch/tutteli/atrium/creating/ProofContainer;
 }
 
 public final class ch/tutteli/atrium/creating/proofs/impl/DefaultAnyProofs : ch/tutteli/atrium/creating/proofs/AnyProofs {
@@ -1729,8 +1785,8 @@ public final class ch/tutteli/atrium/reporting/prerendering/text/OutputNode$Comp
 }
 
 public abstract interface class ch/tutteli/atrium/reporting/prerendering/text/TextDesignationPreRenderer {
-	public abstract fun canTransform (Lch/tutteli/atrium/reporting/reportables/Reportable;)Z
-	public abstract fun transform (Lch/tutteli/atrium/reporting/reportables/Reportable;Ljava/lang/Object;Ljava/util/List;Ljava/util/List;ILjava/util/List;Lch/tutteli/atrium/reporting/prerendering/text/TextPreRenderControlObject;)Ljava/util/List;
+	public abstract fun canTransform (Lch/tutteli/atrium/reporting/reportables/Diagnostic;)Z
+	public abstract fun transform (Lch/tutteli/atrium/reporting/reportables/Diagnostic;Ljava/lang/Object;Ljava/util/List;Ljava/util/List;ILjava/util/List;Lch/tutteli/atrium/reporting/prerendering/text/TextPreRenderControlObject;)Ljava/util/List;
 }
 
 public final class ch/tutteli/atrium/reporting/prerendering/text/TextPreRenderControlObject : ch/tutteli/atrium/reporting/prerendering/text/TextPreRenderController {
@@ -1751,7 +1807,7 @@ public final class ch/tutteli/atrium/reporting/prerendering/text/TextPreRenderCo
 	public fun toString ()Ljava/lang/String;
 	public fun transformChild (Lch/tutteli/atrium/reporting/reportables/Reportable;Lch/tutteli/atrium/reporting/prerendering/text/TextPreRenderControlObject;)Ljava/util/List;
 	public fun transformChildIncludingIndentationAndPrefix (Lch/tutteli/atrium/reporting/reportables/Reportable;Lch/tutteli/atrium/reporting/prerendering/text/TextPreRenderControlObject;)Ljava/util/List;
-	public fun transformGroup (Lch/tutteli/atrium/reporting/reportables/Reportable;Ljava/lang/Object;Lch/tutteli/atrium/reporting/prerendering/text/TextPreRenderControlObject;Ljava/util/List;Ljava/util/List;Ljava/util/List;I)Ljava/util/List;
+	public fun transformGroup (Lch/tutteli/atrium/reporting/reportables/Diagnostic;Ljava/lang/Object;Lch/tutteli/atrium/reporting/prerendering/text/TextPreRenderControlObject;Ljava/util/List;Ljava/util/List;Ljava/util/List;I)Ljava/util/List;
 	public fun transformRoot (Lch/tutteli/atrium/reporting/reportables/Reportable;Z)Ljava/util/List;
 }
 
@@ -1763,28 +1819,28 @@ public final class ch/tutteli/atrium/reporting/prerendering/text/TextPreRenderCo
 public abstract interface class ch/tutteli/atrium/reporting/prerendering/text/TextPreRenderController {
 	public abstract fun transformChild (Lch/tutteli/atrium/reporting/reportables/Reportable;Lch/tutteli/atrium/reporting/prerendering/text/TextPreRenderControlObject;)Ljava/util/List;
 	public abstract fun transformChildIncludingIndentationAndPrefix (Lch/tutteli/atrium/reporting/reportables/Reportable;Lch/tutteli/atrium/reporting/prerendering/text/TextPreRenderControlObject;)Ljava/util/List;
-	public abstract fun transformGroup (Lch/tutteli/atrium/reporting/reportables/Reportable;Ljava/lang/Object;Lch/tutteli/atrium/reporting/prerendering/text/TextPreRenderControlObject;Ljava/util/List;Ljava/util/List;Ljava/util/List;I)Ljava/util/List;
+	public abstract fun transformGroup (Lch/tutteli/atrium/reporting/reportables/Diagnostic;Ljava/lang/Object;Lch/tutteli/atrium/reporting/prerendering/text/TextPreRenderControlObject;Ljava/util/List;Ljava/util/List;Ljava/util/List;I)Ljava/util/List;
 	public abstract fun transformRoot (Lch/tutteli/atrium/reporting/reportables/Reportable;Z)Ljava/util/List;
 }
 
 public final class ch/tutteli/atrium/reporting/prerendering/text/TextPreRenderController$DefaultImpls {
-	public static synthetic fun transformGroup$default (Lch/tutteli/atrium/reporting/prerendering/text/TextPreRenderController;Lch/tutteli/atrium/reporting/reportables/Reportable;Ljava/lang/Object;Lch/tutteli/atrium/reporting/prerendering/text/TextPreRenderControlObject;Ljava/util/List;Ljava/util/List;Ljava/util/List;IILjava/lang/Object;)Ljava/util/List;
+	public static synthetic fun transformGroup$default (Lch/tutteli/atrium/reporting/prerendering/text/TextPreRenderController;Lch/tutteli/atrium/reporting/reportables/Diagnostic;Ljava/lang/Object;Lch/tutteli/atrium/reporting/prerendering/text/TextPreRenderControlObject;Ljava/util/List;Ljava/util/List;Ljava/util/List;IILjava/lang/Object;)Ljava/util/List;
 	public static synthetic fun transformRoot$default (Lch/tutteli/atrium/reporting/prerendering/text/TextPreRenderController;Lch/tutteli/atrium/reporting/reportables/Reportable;ZILjava/lang/Object;)Ljava/util/List;
 }
 
 public final class ch/tutteli/atrium/reporting/prerendering/text/TextPreRenderControllerKt {
 	public static final fun determineChildControlObject (Lch/tutteli/atrium/reporting/prerendering/text/TextPreRenderControlObject;Lch/tutteli/atrium/reporting/reportables/Reportable;Lch/tutteli/atrium/reporting/reportables/Icon;I)Lch/tutteli/atrium/reporting/prerendering/text/TextPreRenderControlObject;
 	public static synthetic fun determineChildControlObject$default (Lch/tutteli/atrium/reporting/prerendering/text/TextPreRenderControlObject;Lch/tutteli/atrium/reporting/reportables/Reportable;Lch/tutteli/atrium/reporting/reportables/Icon;IILjava/lang/Object;)Lch/tutteli/atrium/reporting/prerendering/text/TextPreRenderControlObject;
-	public static final fun hasAtLeastOneLeaveProof (Lch/tutteli/atrium/reporting/reportables/ReportableGroup;)Z
+	public static final fun transformGroup (Lch/tutteli/atrium/reporting/prerendering/text/TextPreRenderController;Lch/tutteli/atrium/reporting/reportables/DiagnosticGroupWithDescription;Lch/tutteli/atrium/reporting/prerendering/text/TextPreRenderControlObject;Ljava/util/List;Ljava/util/List;ILkotlin/jvm/functions/Function1;)Ljava/util/List;
 	public static final fun transformGroup (Lch/tutteli/atrium/reporting/prerendering/text/TextPreRenderController;Lch/tutteli/atrium/reporting/reportables/ReportableGroup;Lch/tutteli/atrium/reporting/prerendering/text/TextPreRenderControlObject;Ljava/util/List;Ljava/util/List;ILkotlin/jvm/functions/Function1;)Ljava/util/List;
-	public static final fun transformGroup (Lch/tutteli/atrium/reporting/prerendering/text/TextPreRenderController;Lch/tutteli/atrium/reporting/reportables/ReportableGroupWithDescription;Lch/tutteli/atrium/reporting/prerendering/text/TextPreRenderControlObject;Ljava/util/List;Ljava/util/List;ILkotlin/jvm/functions/Function1;)Ljava/util/List;
 	public static final fun transformGroup (Lch/tutteli/atrium/reporting/prerendering/text/TextPreRenderController;Lch/tutteli/atrium/reporting/reportables/ReportableWithDesignation;Lch/tutteli/atrium/reporting/prerendering/text/TextPreRenderControlObject;Ljava/util/List;Ljava/util/List;I)Ljava/util/List;
+	public static synthetic fun transformGroup$default (Lch/tutteli/atrium/reporting/prerendering/text/TextPreRenderController;Lch/tutteli/atrium/reporting/reportables/DiagnosticGroupWithDescription;Lch/tutteli/atrium/reporting/prerendering/text/TextPreRenderControlObject;Ljava/util/List;Ljava/util/List;ILkotlin/jvm/functions/Function1;ILjava/lang/Object;)Ljava/util/List;
 	public static synthetic fun transformGroup$default (Lch/tutteli/atrium/reporting/prerendering/text/TextPreRenderController;Lch/tutteli/atrium/reporting/reportables/ReportableGroup;Lch/tutteli/atrium/reporting/prerendering/text/TextPreRenderControlObject;Ljava/util/List;Ljava/util/List;ILkotlin/jvm/functions/Function1;ILjava/lang/Object;)Ljava/util/List;
-	public static synthetic fun transformGroup$default (Lch/tutteli/atrium/reporting/prerendering/text/TextPreRenderController;Lch/tutteli/atrium/reporting/reportables/ReportableGroupWithDescription;Lch/tutteli/atrium/reporting/prerendering/text/TextPreRenderControlObject;Ljava/util/List;Ljava/util/List;ILkotlin/jvm/functions/Function1;ILjava/lang/Object;)Ljava/util/List;
 	public static synthetic fun transformGroup$default (Lch/tutteli/atrium/reporting/prerendering/text/TextPreRenderController;Lch/tutteli/atrium/reporting/reportables/ReportableWithDesignation;Lch/tutteli/atrium/reporting/prerendering/text/TextPreRenderControlObject;Ljava/util/List;Ljava/util/List;IILjava/lang/Object;)Ljava/util/List;
 	public static final fun transformSubProofGroup (Lch/tutteli/atrium/reporting/prerendering/text/TextPreRenderController;Lch/tutteli/atrium/reporting/reportables/ReportableGroup;Lch/tutteli/atrium/reporting/prerendering/text/TextPreRenderControlObject;Lch/tutteli/atrium/reporting/reportables/Icon;)Ljava/util/List;
 	public static final fun transformSubProofGroup (Lch/tutteli/atrium/reporting/prerendering/text/TextPreRenderController;Lch/tutteli/atrium/reporting/reportables/ReportableGroup;Lch/tutteli/atrium/reporting/prerendering/text/TextPreRenderControlObject;Ljava/util/List;Ljava/util/List;ILkotlin/jvm/functions/Function1;)Ljava/util/List;
 	public static synthetic fun transformSubProofGroup$default (Lch/tutteli/atrium/reporting/prerendering/text/TextPreRenderController;Lch/tutteli/atrium/reporting/reportables/ReportableGroup;Lch/tutteli/atrium/reporting/prerendering/text/TextPreRenderControlObject;Ljava/util/List;Ljava/util/List;ILkotlin/jvm/functions/Function1;ILjava/lang/Object;)Ljava/util/List;
+	public static final fun treeContainsAtLeastOneLeafProof (Lch/tutteli/atrium/reporting/reportables/ReportableGroup;)Z
 }
 
 public abstract interface class ch/tutteli/atrium/reporting/prerendering/text/TextPreRenderer {
@@ -1794,9 +1850,9 @@ public abstract interface class ch/tutteli/atrium/reporting/prerendering/text/Te
 
 public abstract class ch/tutteli/atrium/reporting/prerendering/text/TypedDesignatorPreRenderer : ch/tutteli/atrium/reporting/prerendering/text/TextDesignationPreRenderer {
 	public fun <init> (Lkotlin/reflect/KClass;)V
-	public final fun canTransform (Lch/tutteli/atrium/reporting/reportables/Reportable;)Z
-	public fun transform (Lch/tutteli/atrium/reporting/reportables/Reportable;Ljava/lang/Object;Ljava/util/List;Ljava/util/List;ILjava/util/List;Lch/tutteli/atrium/reporting/prerendering/text/TextPreRenderControlObject;)Ljava/util/List;
-	protected abstract fun transformIt (Lch/tutteli/atrium/reporting/reportables/Reportable;Ljava/lang/Object;Ljava/util/List;Ljava/util/List;ILjava/util/List;Lch/tutteli/atrium/reporting/prerendering/text/TextPreRenderControlObject;)Ljava/util/List;
+	public final fun canTransform (Lch/tutteli/atrium/reporting/reportables/Diagnostic;)Z
+	public fun transform (Lch/tutteli/atrium/reporting/reportables/Diagnostic;Ljava/lang/Object;Ljava/util/List;Ljava/util/List;ILjava/util/List;Lch/tutteli/atrium/reporting/prerendering/text/TextPreRenderControlObject;)Ljava/util/List;
+	protected abstract fun transformIt (Lch/tutteli/atrium/reporting/reportables/Diagnostic;Ljava/lang/Object;Ljava/util/List;Ljava/util/List;ILjava/util/List;Lch/tutteli/atrium/reporting/prerendering/text/TextPreRenderControlObject;)Ljava/util/List;
 }
 
 public abstract class ch/tutteli/atrium/reporting/prerendering/text/TypedTextPreRenderer : ch/tutteli/atrium/reporting/prerendering/text/TextPreRenderer {
@@ -1808,7 +1864,7 @@ public abstract class ch/tutteli/atrium/reporting/prerendering/text/TypedTextPre
 
 public final class ch/tutteli/atrium/reporting/prerendering/text/impl/DefaultInlineDesignatorPreRenderer : ch/tutteli/atrium/reporting/prerendering/text/TypedDesignatorPreRenderer {
 	public fun <init> (Lch/tutteli/atrium/reporting/text/TextObjFormatter;)V
-	public synthetic fun transformIt (Lch/tutteli/atrium/reporting/reportables/Reportable;Ljava/lang/Object;Ljava/util/List;Ljava/util/List;ILjava/util/List;Lch/tutteli/atrium/reporting/prerendering/text/TextPreRenderControlObject;)Ljava/util/List;
+	public synthetic fun transformIt (Lch/tutteli/atrium/reporting/reportables/Diagnostic;Ljava/lang/Object;Ljava/util/List;Ljava/util/List;ILjava/util/List;Lch/tutteli/atrium/reporting/prerendering/text/TextPreRenderControlObject;)Ljava/util/List;
 }
 
 public final class ch/tutteli/atrium/reporting/prerendering/text/impl/assertion/DefaultAssertionGroupTextPreRenderer : ch/tutteli/atrium/reporting/prerendering/text/TextPreRenderer {
@@ -1838,12 +1894,12 @@ public final class ch/tutteli/atrium/reporting/prerendering/text/impl/assertion/
 	public synthetic fun transformIt (Lch/tutteli/atrium/reporting/reportables/Reportable;Lch/tutteli/atrium/reporting/prerendering/text/TextPreRenderControlObject;)Ljava/util/List;
 }
 
-public abstract interface class ch/tutteli/atrium/reporting/reportables/Column : ch/tutteli/atrium/reporting/reportables/Reportable {
+public abstract interface class ch/tutteli/atrium/reporting/reportables/Column : ch/tutteli/atrium/reporting/reportables/Diagnostic {
 	public abstract fun getAlignment ()Lch/tutteli/atrium/reporting/HorizontalAlignment;
 	public abstract fun getInlineElement ()Lch/tutteli/atrium/reporting/reportables/InlineElement;
 }
 
-public abstract interface class ch/tutteli/atrium/reporting/reportables/DebugGroup : ch/tutteli/atrium/reporting/reportables/ReportableGroupWithDescription {
+public abstract interface class ch/tutteli/atrium/reporting/reportables/DebugGroup : ch/tutteli/atrium/reporting/reportables/DiagnosticGroupWithDescription {
 }
 
 public abstract interface class ch/tutteli/atrium/reporting/reportables/Description : ch/tutteli/atrium/reporting/reportables/TextElement {
@@ -1852,6 +1908,34 @@ public abstract interface class ch/tutteli/atrium/reporting/reportables/Descript
 
 public final class ch/tutteli/atrium/reporting/reportables/Description$DefaultImpls {
 	public static fun getDefault (Lch/tutteli/atrium/reporting/reportables/Description;)Ljava/lang/String;
+}
+
+public abstract interface class ch/tutteli/atrium/reporting/reportables/Diagnostic : ch/tutteli/atrium/reporting/reportables/Reportable {
+	public static final field Companion Lch/tutteli/atrium/reporting/reportables/Diagnostic$Companion;
+}
+
+public final class ch/tutteli/atrium/reporting/reportables/Diagnostic$Companion {
+	public final fun column (Lch/tutteli/atrium/reporting/reportables/InlineElement;Lch/tutteli/atrium/reporting/HorizontalAlignment;)Lch/tutteli/atrium/reporting/reportables/Column;
+	public final fun debugGroup (Lch/tutteli/atrium/reporting/reportables/InlineElement;Ljava/util/List;)Lch/tutteli/atrium/reporting/reportables/DebugGroup;
+	public final fun failureExplanationGroup (Lch/tutteli/atrium/reporting/reportables/InlineElement;Ljava/util/List;)Lch/tutteli/atrium/reporting/reportables/FailureExplanationGroup;
+	public final fun group (Lch/tutteli/atrium/reporting/reportables/InlineElement;Ljava/lang/Object;Ljava/util/List;)Lch/tutteli/atrium/reporting/reportables/DiagnosticGroup;
+	public final fun informationGroup (Lch/tutteli/atrium/reporting/reportables/InlineElement;Ljava/util/List;)Lch/tutteli/atrium/reporting/reportables/InformationGroup;
+	public final fun inlineGroup (Ljava/util/List;)Lch/tutteli/atrium/reporting/reportables/InlineGroup;
+	public final fun inlineGroupOrSingleElement (Ljava/util/List;)Lch/tutteli/atrium/reporting/reportables/InlineElement;
+	public final fun proofExplanation (Lch/tutteli/atrium/creating/proofs/Proof;)Lch/tutteli/atrium/reporting/reportables/ProofExplanation;
+	public final fun representation (Ljava/lang/Object;)Lch/tutteli/atrium/reporting/reportables/Representation;
+	public final fun row (Lch/tutteli/atrium/reporting/reportables/Icon;ZLjava/util/List;)Lch/tutteli/atrium/reporting/reportables/Row;
+	public final fun usageHintGroup (Ljava/util/List;)Lch/tutteli/atrium/reporting/reportables/UsageHintGroup;
+}
+
+public abstract interface class ch/tutteli/atrium/reporting/reportables/DiagnosticGroup : ch/tutteli/atrium/reporting/reportables/Diagnostic, ch/tutteli/atrium/reporting/reportables/ReportableGroup {
+}
+
+public abstract interface class ch/tutteli/atrium/reporting/reportables/DiagnosticGroupWithDescription : ch/tutteli/atrium/reporting/reportables/DiagnosticGroup {
+	public abstract fun getDescription ()Lch/tutteli/atrium/reporting/reportables/Diagnostic;
+}
+
+public abstract interface class ch/tutteli/atrium/reporting/reportables/DiagnosticGroupWithDesignation : ch/tutteli/atrium/reporting/reportables/DiagnosticGroup, ch/tutteli/atrium/reporting/reportables/ReportableGroupWithDesignation {
 }
 
 public final class ch/tutteli/atrium/reporting/reportables/ErrorMessages : java/lang/Enum, ch/tutteli/atrium/reporting/reportables/TextElement {
@@ -1866,7 +1950,7 @@ public final class ch/tutteli/atrium/reporting/reportables/ErrorMessages : java/
 	public static fun values ()[Lch/tutteli/atrium/reporting/reportables/ErrorMessages;
 }
 
-public abstract interface class ch/tutteli/atrium/reporting/reportables/FailureExplanationGroup : ch/tutteli/atrium/reporting/reportables/ReportableGroupWithDescription {
+public abstract interface class ch/tutteli/atrium/reporting/reportables/FailureExplanationGroup : ch/tutteli/atrium/reporting/reportables/DiagnosticGroupWithDescription {
 }
 
 public final class ch/tutteli/atrium/reporting/reportables/Icon : java/lang/Enum, ch/tutteli/atrium/reporting/reportables/InlineElement {
@@ -1889,59 +1973,35 @@ public final class ch/tutteli/atrium/reporting/reportables/Icon : java/lang/Enum
 	public static fun values ()[Lch/tutteli/atrium/reporting/reportables/Icon;
 }
 
-public abstract interface class ch/tutteli/atrium/reporting/reportables/InformationGroup : ch/tutteli/atrium/reporting/reportables/ReportableGroupWithDescription {
+public abstract interface class ch/tutteli/atrium/reporting/reportables/InformationGroup : ch/tutteli/atrium/reporting/reportables/DiagnosticGroupWithDescription {
 }
 
-public abstract interface class ch/tutteli/atrium/reporting/reportables/InlineElement : ch/tutteli/atrium/reporting/reportables/Reportable {
+public abstract interface class ch/tutteli/atrium/reporting/reportables/InlineElement : ch/tutteli/atrium/reporting/reportables/Diagnostic {
 }
 
 public abstract interface class ch/tutteli/atrium/reporting/reportables/InlineGroup : ch/tutteli/atrium/reporting/reportables/InlineElement {
 	public abstract fun getInlineElements ()Ljava/util/List;
 }
 
-public abstract interface class ch/tutteli/atrium/reporting/reportables/NonProof : ch/tutteli/atrium/reporting/reportables/Reportable {
-}
-
-public abstract interface class ch/tutteli/atrium/reporting/reportables/NonProofGroup : ch/tutteli/atrium/reporting/reportables/ReportableGroup {
-}
-
-public abstract interface class ch/tutteli/atrium/reporting/reportables/NonProofGroupWithDesignation : ch/tutteli/atrium/reporting/reportables/ReportableGroupWithDesignation {
-}
-
-public abstract interface class ch/tutteli/atrium/reporting/reportables/ProofExplanation : ch/tutteli/atrium/reporting/reportables/ReportableGroup {
+public abstract interface class ch/tutteli/atrium/reporting/reportables/ProofExplanation : ch/tutteli/atrium/reporting/reportables/DiagnosticGroup {
 }
 
 public abstract interface class ch/tutteli/atrium/reporting/reportables/Reportable {
-	public static final field Companion Lch/tutteli/atrium/reporting/reportables/Reportable$Companion;
-}
-
-public final class ch/tutteli/atrium/reporting/reportables/Reportable$Companion {
-	public final fun column (Lch/tutteli/atrium/reporting/reportables/InlineElement;Lch/tutteli/atrium/reporting/HorizontalAlignment;)Lch/tutteli/atrium/reporting/reportables/Column;
-	public final fun debugGroup (Lch/tutteli/atrium/reporting/reportables/InlineElement;Ljava/util/List;)Lch/tutteli/atrium/reporting/reportables/DebugGroup;
-	public final fun failureExplanationGroup (Lch/tutteli/atrium/reporting/reportables/InlineElement;Ljava/util/List;)Lch/tutteli/atrium/reporting/reportables/FailureExplanationGroup;
-	public final fun group (Lch/tutteli/atrium/reporting/reportables/InlineElement;Ljava/lang/Object;Ljava/util/List;)Lch/tutteli/atrium/reporting/reportables/ReportableGroup;
-	public final fun informationGroup (Lch/tutteli/atrium/reporting/reportables/InlineElement;Ljava/util/List;)Lch/tutteli/atrium/reporting/reportables/InformationGroup;
-	public final fun inlineGroup (Ljava/util/List;)Lch/tutteli/atrium/reporting/reportables/InlineGroup;
-	public final fun inlineGroupOrSingleElement (Ljava/util/List;)Lch/tutteli/atrium/reporting/reportables/InlineElement;
-	public final fun proofExplanation (Lch/tutteli/atrium/creating/proofs/Proof;)Lch/tutteli/atrium/reporting/reportables/ProofExplanation;
-	public final fun representation (Ljava/lang/Object;)Lch/tutteli/atrium/reporting/reportables/Representation;
-	public final fun row (Lch/tutteli/atrium/reporting/reportables/Icon;ZLjava/util/List;)Lch/tutteli/atrium/reporting/reportables/Row;
-	public final fun usageHintGroup (Ljava/util/List;)Lch/tutteli/atrium/reporting/reportables/UsageHintGroup;
 }
 
 public abstract interface class ch/tutteli/atrium/reporting/reportables/ReportableGroup : ch/tutteli/atrium/reporting/reportables/Reportable {
 	public abstract fun getChildren ()Ljava/util/List;
 }
 
-public abstract interface class ch/tutteli/atrium/reporting/reportables/ReportableGroupWithDescription : ch/tutteli/atrium/reporting/reportables/ReportableGroup {
-	public abstract fun getDescription ()Lch/tutteli/atrium/reporting/reportables/Reportable;
-}
-
 public abstract interface class ch/tutteli/atrium/reporting/reportables/ReportableGroupWithDesignation : ch/tutteli/atrium/reporting/reportables/ReportableGroup, ch/tutteli/atrium/reporting/reportables/ReportableWithDesignation {
 }
 
+public final class ch/tutteli/atrium/reporting/reportables/ReportableKt {
+	public static final fun requireOneChild (Lch/tutteli/atrium/reporting/reportables/ReportableGroup;)V
+}
+
 public abstract interface class ch/tutteli/atrium/reporting/reportables/ReportableWithDesignation : ch/tutteli/atrium/reporting/reportables/Reportable {
-	public abstract fun getDescription ()Lch/tutteli/atrium/reporting/reportables/Reportable;
+	public abstract fun getDescription ()Lch/tutteli/atrium/reporting/reportables/Diagnostic;
 	public abstract fun getRepresentation ()Ljava/lang/Object;
 }
 
@@ -1953,7 +2013,7 @@ public abstract interface class ch/tutteli/atrium/reporting/reportables/Represen
 	public abstract fun getRepresentation ()Ljava/lang/Object;
 }
 
-public abstract interface class ch/tutteli/atrium/reporting/reportables/Row : ch/tutteli/atrium/reporting/reportables/Reportable {
+public abstract interface class ch/tutteli/atrium/reporting/reportables/Row : ch/tutteli/atrium/reporting/reportables/Diagnostic {
 	public abstract fun getColumns ()Ljava/util/List;
 	public abstract fun getIcon ()Lch/tutteli/atrium/reporting/reportables/Icon;
 	public abstract fun getIncludingBorder ()Z
@@ -1963,7 +2023,7 @@ public abstract interface class ch/tutteli/atrium/reporting/reportables/TextElem
 	public abstract fun getString ()Ljava/lang/String;
 }
 
-public abstract interface class ch/tutteli/atrium/reporting/reportables/UsageHintGroup : ch/tutteli/atrium/reporting/reportables/ReportableGroup {
+public abstract interface class ch/tutteli/atrium/reporting/reportables/UsageHintGroup : ch/tutteli/atrium/reporting/reportables/DiagnosticGroup {
 }
 
 public final class ch/tutteli/atrium/reporting/reportables/descriptions/DescriptionAnyProof : java/lang/Enum, ch/tutteli/atrium/reporting/reportables/Description {

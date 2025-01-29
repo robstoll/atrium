@@ -2,12 +2,12 @@ package ch.tutteli.atrium.reporting.prerendering.text.impl
 
 import ch.tutteli.atrium.reporting.prerendering.text.*
 import ch.tutteli.atrium.reporting.reportables.Icon
-import ch.tutteli.atrium.reporting.reportables.ReportableGroupWithDescription
+import ch.tutteli.atrium.reporting.reportables.DiagnosticGroupWithDescription
 import ch.tutteli.atrium.reporting.theming.text.StyledString
 import ch.tutteli.atrium.reporting.theming.text.TextIconStyler
 import kotlin.reflect.KClass
 
-internal abstract class BaseReportableGroupWithDescriptionTextPreRenderer<R : ReportableGroupWithDescription>(
+internal abstract class BaseReportableGroupWithDescriptionTextPreRenderer<R : DiagnosticGroupWithDescription>(
     kClass: KClass<R>,
     private val iconStyler: TextIconStyler,
     private val groupIcon: Icon,

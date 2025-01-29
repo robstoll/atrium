@@ -4,7 +4,6 @@ package ch.tutteli.atrium
 import ch.tutteli.atrium.creating.*
 import ch.tutteli.atrium.creating.proofs.Proof
 import ch.tutteli.atrium.reporting.BUG_REPORT_URL
-import ch.tutteli.atrium.reporting.Text
 import ch.tutteli.atrium.reporting.forgotToAppendProofPseudoUsageHint
 import ch.tutteli.atrium.reporting.reportables.Reportable
 
