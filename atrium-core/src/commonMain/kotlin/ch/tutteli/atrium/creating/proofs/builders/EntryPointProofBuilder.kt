@@ -4,7 +4,9 @@ import ch.tutteli.atrium.core.falseProvider
 import ch.tutteli.atrium.creating.ProofContainer
 import ch.tutteli.atrium.creating.proofs.Proof
 import ch.tutteli.atrium.creating.proofs.builders.impl.BaseGroupBuilder
-import ch.tutteli.atrium.reporting.reportables.*
+import ch.tutteli.atrium.creating.proofs.builders.impl.DiagnosticBuilderDelegate
+import ch.tutteli.atrium.reporting.reportables.InlineElement
+import ch.tutteli.atrium.reporting.reportables.Reportable
 
 fun <T> ProofContainer<T>.buildSimpleProof(
     description: InlineElement,
@@ -33,7 +35,8 @@ annotation class ProofBuilderMarker
 //   message { message { } }
 // }
 // makes it look like `message` has again a `message` feature where in reality its the same,
-// a DslMarker should prevent this
+// a DslMarker should prevent this (but then suddenly everything is purple,
+// as far as I remember the reason why I didn't do it back then :D
 
 //TODO 1.3.0 remove again?
 typealias AnyBuilder = BaseGroupBuilder<*, *, *>
@@ -42,7 +45,7 @@ typealias AnyReportableBuilder = BaseGroupBuilder<*, Reportable, *>
 
 class EntryPointProofBuilder<T> internal constructor(
     proofContainer: ProofContainer<T>
-) : BaseGroupBuilder<T, Proof, EntryPointProofBuilder<T>>(proofContainer) {
+) : BaseGroupBuilder<T, Proof, EntryPointProofBuilder<T>>(proofContainer, DiagnosticBuilderDelegate()) {
 
     override fun build(children: List<Reportable>): Proof =
         when (children.size) {

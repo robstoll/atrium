@@ -2,16 +2,9 @@ package ch.tutteli.atrium.specs.integration
 
 import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.internal.expect
-import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.creating.ExperimentalComponentFactoryContainer
-import ch.tutteli.atrium.creating.proofs.ProofGroup
-import ch.tutteli.atrium.creating.toProofContainer
-import ch.tutteli.atrium.reporting.AtriumError
-import ch.tutteli.atrium.reporting.prerendering.text.TextPreRenderController
 import ch.tutteli.atrium.reporting.reportables.Description
-import ch.tutteli.atrium.reporting.reportables.Reportable
-import ch.tutteli.atrium.reporting.reportables.ReportableGroup
 import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionBasic
 import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionPathProof.*
 import ch.tutteli.atrium.specs.*
@@ -26,7 +19,9 @@ import org.spekframework.spek2.dsl.TestBody
 import org.spekframework.spek2.style.specification.Suite
 import java.io.IOException
 import java.nio.charset.Charset
-import java.nio.file.*
+import java.nio.file.Files
+import java.nio.file.Path
+import java.nio.file.Paths
 import java.nio.file.attribute.*
 import java.nio.file.attribute.AclEntryPermission.*
 import java.nio.file.attribute.AclEntryType.ALLOW

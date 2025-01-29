@@ -1,8 +1,8 @@
 package ch.tutteli.atrium.reporting.prerendering.text
 
 import ch.tutteli.atrium.assertions.ExplanatoryAssertion
-import ch.tutteli.atrium.creating.proofs.InvisibleFixedClaimGroup
-import ch.tutteli.atrium.creating.proofs.InvisibleProofGroup
+import ch.tutteli.atrium.creating.proofs.InvisibleFailingProof
+import ch.tutteli.atrium.creating.proofs.InvisibleLikeProofGroup
 import ch.tutteli.atrium.creating.proofs.Proof
 import ch.tutteli.atrium.creating.proofs.ProofGroup
 import ch.tutteli.atrium.reporting.Text
@@ -23,7 +23,7 @@ interface TextPreRenderController {
     fun transformChild(child: Reportable, controlObject: TextPreRenderControlObject): List<OutputNode>
 
     fun transformGroup(
-        description: Reportable,
+        description: Diagnostic,
         representation: Any,
         controlObject: TextPreRenderControlObject,
         children: List<OutputNode>,
@@ -35,17 +35,17 @@ interface TextPreRenderController {
 
 // TODO 1.3.0 KDOC
 fun TextPreRenderController.transformGroup(
-    reportableGroupWithDescription: ReportableGroupWithDescription,
+    diagnosticGroupWithDescription: DiagnosticGroupWithDescription,
     controlObject: TextPreRenderControlObject,
     prefixDescriptionColumns: List<StyledString> = emptyList(),
     suffixDescriptionColumns: List<StyledString> = emptyList(),
     startMergeAtColumn: Int = 0,
     childTransformer: (child: Reportable) -> List<OutputNode>,
 ) = transformGroup(
-    reportableGroupWithDescription.description,
+    diagnosticGroupWithDescription.description,
     Text.EMPTY,
     controlObject,
-    reportableGroupWithDescription.children.flatMap(childTransformer),
+    diagnosticGroupWithDescription.children.flatMap(childTransformer),
     prefixDescriptionColumns,
     suffixDescriptionColumns,
     startMergeAtColumn
@@ -134,27 +134,37 @@ fun determineChildControlObject(
             is ExplanatoryAssertion -> null
 
             is Proof -> {
-                // we don't override the icon for invisible groups
-                // TODO 1.3.0 note sure the logic for InvisibleFixedClaimGroup, is correct. In case we keep it we
-                // should create a test in CreateReportTest
                 takeIf(
-                    child !is InvisibleProofGroup && //child !is InvisibleFixedClaimGroup &&
+                    // we don't override the icon for invisible like proof groups
+                    child !is InvisibleLikeProofGroup &&
                         @Suppress("DEPRECATION")
                         run {
-                            child !is ch.tutteli.atrium.assertions.AssertionGroup || child.type !is ch.tutteli.atrium.assertions.InvisibleAssertionGroupType
+                            child !is ch.tutteli.atrium.assertions.AssertionGroup ||
+                                child.type !is ch.tutteli.atrium.assertions.InvisibleAssertionGroupType
                         }
                 ) {
-                    if (child.holds()) {
-                        controlObject.copy(prefix = Icon.SUCCESS, indentLevel = indentLevel)
-                    } else if (
-                        // a ProofGroup contains always at least one Proof but it could also be an
-                        // InvisibleFixedClaimGroup which is a bit a pseudo proof, in such a case we need to check
-                        // if there
-                        child is ProofGroup && child.hasAtLeastOneLeaveProof()) {
-                        controlObject.copy(prefix = Icon.FAILING_GROUP, indentLevel = indentLevel)
-                    } else {
-                        controlObject.copy(prefix = Icon.FAILURE, indentLevel = indentLevel)
+                    val icon = when {
+                        child.holds() -> Icon.SUCCESS
+
+                        // we want to use the FAILING_GROUP icon in case it is a ProofGroup, and it contains at least
+                        // one child (direct or indirect) which we treat as FAILING_GROUP or FAILURE.
+                        // As a general rule, a ProofGroup contains at least one Proof which in turn means we can
+                        // always use FAILING_GROUP if the child is a ProofGroup but there is one exception to the rule:
+                        // InvisibleFailingProofGroup
+                        // It implements a ProofGroup which always fails (holds=false) but:
+                        // a) it only contains diagnostics (no proofs)
+                        // b) it is invisible -> i.e a ProofGroup whose children of type Proof are all
+                        //    InvisibleFailingProofGroup might not contain at least one child which we treat as
+                        //    FAILING_GROUP or FAILURE
+                        // c) There are diagnostics which contain Proofs themselves, and sometimes we want to treat
+                        //    those as FAILURE in reporting, in which case the ProofGroup containing the
+                        //    InvisibleFailingProofGroup has at least one child which we treat as FAILURE and in turn
+                        //    should use the Icon.FAILING_GROUP
+                        child is ProofGroup && child.treeContainsAtLeastOneLeafProof() -> Icon.FAILING_GROUP
+
+                        else -> Icon.FAILURE
                     }
+                    controlObject.copy(prefix = icon, indentLevel = indentLevel)
                 }
             }
 
@@ -165,13 +175,29 @@ fun determineChildControlObject(
     return newControlObject ?: controlObject.copy(prefix = childPrefix, indentLevel = indentLevel)
 }
 
-fun ReportableGroup.hasAtLeastOneLeaveProof(): Boolean =
+/**
+ * Indicates whether this or a nested group contains at least one leaf proof.
+ *
+ * A [ProofGroup] contains at least one [Proof] with the exception of [InvisibleFailingProof]
+ *
+ * @returns true if this group or a nested group contains a leaf proof, otherwise false
+ */
+//TODO 1.4.0 Reportables shouldn't be nested too deeply but we could optimise this and turn it into a tailrec function
+fun ReportableGroup.treeContainsAtLeastOneLeafProof(): Boolean =
     children.any { child ->
         run {
             child is Proof &&
-                (child !is ProofGroup || (child !is InvisibleProofGroup && child !is InvisibleFixedClaimGroup || child.hasAtLeastOneLeaveProof()))
+                // if the child is not a ProofGroup, then it is a leaf proof for sure, we can stop here,
+                // this ReportableGroup has a leaf proof
+                (child !is ProofGroup
+                    // if it is not an invisible like proof group, then we can stop as well, because the child is either
+                    // an intermediate proof group or a leaf proof itself.
+                    || child !is InvisibleLikeProofGroup
+                    // for invisible like proof group we need to check if they contain a proof
+                    || child.treeContainsAtLeastOneLeafProof())
         } || run {
-            child is FailureExplanationGroup && child.hasAtLeastOneLeaveProof()
+            // TODO 1.3.0 this seems buggy, we should not check this on the initial treeContainsAtLeastOneLeafProof call
+            child is FailureExplanationGroup && child.treeContainsAtLeastOneLeafProof()
         } || run {
             // if a child is a proof explanation, then we only want to show the flag in case the proof explanation
             // contains a failure explanation, because the failure explanation might have a leave proof as well
@@ -180,7 +206,7 @@ fun ReportableGroup.hasAtLeastOneLeaveProof(): Boolean =
             // flag
             // see CreateReportTest -> proofExplanation_withFailureExplanationAndSubProofs_showsOnlyFailingProofs for
             // a case where a ProofExplanation contains a FailureExplanation and it in turn contains a Proof
-            child is ProofExplanation && child.children.any { it is FailureExplanationGroup && it.hasAtLeastOneLeaveProof() }
+            child is ProofExplanation && child.children.any { it is FailureExplanationGroup && it.treeContainsAtLeastOneLeafProof() }
         }
     }
 

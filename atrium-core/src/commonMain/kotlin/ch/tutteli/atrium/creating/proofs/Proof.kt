@@ -2,6 +2,7 @@ package ch.tutteli.atrium.creating.proofs
 
 import ch.tutteli.atrium.creating.proofs.impl.*
 import ch.tutteli.atrium.reporting.Text
+import ch.tutteli.atrium.reporting.reportables.Diagnostic
 import ch.tutteli.atrium.reporting.reportables.InlineElement
 import ch.tutteli.atrium.reporting.reportables.Reportable
 import ch.tutteli.atrium.reporting.reportables.ReportableWithInlineDesignation
@@ -41,19 +42,20 @@ interface Proof : Reportable {
         ): RootProofGroup = DefaultRootGroup(
             expectationVerb,
             representation ?: Text.NULL,
-            children//.unwrapInvisibleGroupIfSingleElement()
+            children
+            //TODO 1.3.0 why not the following to children?
+        //children.unwrapInvisibleGroupIfSingleElement()
         )
 
-        fun group(description: Reportable, representation: Any?, children: List<Reportable>): ProofGroup =
+        fun group(description: Diagnostic, representation: Any?, children: List<Reportable>): ProofGroup =
             DefaultProofGroup(description, representation ?: Text.NULL, children.unwrapInvisibleGroupIfSingleElement())
 
-        fun featureGroup(description: Reportable, representation: Any?, children: List<Reportable>): FeatureProofGroup =
+        fun featureGroup(description: Diagnostic, representation: Any?, children: List<Reportable>): FeatureProofGroup =
             DefaultFeatureGroup(
                 description,
                 representation ?: Text.NULL,
                 children.unwrapInvisibleGroupIfSingleElement()
             )
-
 
         /**
          * Creates an [InvisibleProofGroup] if there are more than one [children], otherwise it returns the only child.
@@ -71,8 +73,8 @@ interface Proof : Reportable {
         fun invisibleGroup(children: List<Reportable>): InvisibleProofGroup =
             DefaultInvisibleProofGroup(children.unwrapInvisibleGroup())
 
-        fun invisibleFixedClaimGroup(children: List<Reportable>, holds: Boolean): InvisibleFixedClaimGroup =
-            DefaultInvisibleFixedClaimGroup(children.unwrapInvisibleGroupIfSingleElement(), holds)
+        fun invisibleFailingProofGroup(children: List<Diagnostic>): InvisibleFailingProof =
+            DefaultInvisibleFailingProofGroup(children)
 
         fun fixedClaimGroup(
             description: InlineElement,

@@ -3,10 +3,10 @@ package ch.tutteli.atrium.reporting.text.impl
 import ch.tutteli.atrium.core.polyfills.appendSpaces
 import ch.tutteli.atrium.core.polyfills.appendln
 import ch.tutteli.atrium.core.polyfills.fullName
-import ch.tutteli.atrium.reporting.text.TextReporter
 import ch.tutteli.atrium.reporting.prerendering.text.OutputNode
 import ch.tutteli.atrium.reporting.prerendering.text.TextPreRenderController
 import ch.tutteli.atrium.reporting.reportables.Reportable
+import ch.tutteli.atrium.reporting.text.TextReporter
 import ch.tutteli.atrium.reporting.theming.text.StyledString
 import ch.tutteli.atrium.reporting.theming.text.checkIsNoLineBreakDueToMergeColumns
 import ch.tutteli.kbox.ifWithinBound
@@ -183,10 +183,10 @@ class DefaultTextReporter(
 
         val indentLevelsDeducedFromMaxMonospaceLengthOfParent = run {
             val maxMonospaceLengthsFromParentToConvertToIndent = run {
-                // TODO 1.4.0 consider the following, once we drop ExplanatoryAssertionGroup then we don't have any
-                // pre-renderer left which defines an outputNode without columns but with definesOwnLevel=true
-                // in such a case the if branch is always taken and we could simplify this code (we should then
-                // establish a corresponding invariant in OutputNode)
+                // TODO 1.4.0 consider the following, once we drop ExplanatoryAssertionGroup we might have not any
+                // pre-renderer left which defines an outputNode without columns but with definesOwnLevel=true,
+                // if so, then the if branch is always taken and we could simplify this
+                // code (we should then establish a corresponding invariant in OutputNode)
                 if (child.columns.isNotEmpty()) {
                     child.indentLevel - parent.indentLevel
                 } else {
@@ -218,8 +218,8 @@ class DefaultTextReporter(
         val totalFromParent = indentLevelsInheritedFromParent + indentLevelsDeducedFromMaxMonospaceLengthOfParent
 
         // in case of directly nested nodes without columns which define an own level it can happen that there are not
-        // enough indent levels from the parent to cover the identLevel of the child (i.e. some zero indents are missing).
-        // In such a case we can fill it up with zero indents.
+        // enough indent levels from the parent to cover the indentLevel of the child (i.e. some zero indents are
+        // missing). In such a case we can fill it up with zero indents.
         val additionalZeroIndents = child.indentLevel - totalFromParent
 
         val newIndentLevels = run {

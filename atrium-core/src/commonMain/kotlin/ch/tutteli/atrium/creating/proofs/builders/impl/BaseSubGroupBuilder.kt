@@ -9,6 +9,6 @@ abstract class BaseSubGroupBuilder<SubjectT,
     >(
     proofContainer: ProofContainer<SubjectT>,
     private val factory: (children: List<Reportable>) -> ReportableT,
-) : BaseGroupBuilder<SubjectT, ReportableT, SelfT>(proofContainer) {
+) : BaseGroupBuilder<SubjectT, ReportableT, SelfT>(proofContainer, DiagnosticBuilderDelegate()) {
     override fun build(children: List<Reportable>): ReportableT = factory(children)
 }

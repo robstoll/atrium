@@ -2,22 +2,20 @@ package ch.tutteli.atrium.reporting.reportables.impl
 
 import ch.tutteli.atrium.creating.proofs.InvisibleProofGroup
 import ch.tutteli.atrium.creating.proofs.Proof
-import ch.tutteli.atrium.reporting.reportables.*
 import ch.tutteli.atrium.reporting.HorizontalAlignment
+import ch.tutteli.atrium.reporting.reportables.*
 
-internal abstract class BaseReportableGroup(final override val children: List<Reportable>) : ReportableGroup {
+internal abstract class BaseDiagnosticGroup(final override val children: List<Reportable>) : DiagnosticGroup {
     init {
-        require(children.isNotEmpty()) {
-            "a group requires at least one child"
-        }
+        requireOneChild()
     }
 }
 
-internal class DefaultReportableGroup(
-    override val description: Reportable,
+internal class DefaultDiagnosticGroup(
+    override val description: Diagnostic,
     override val representation: Any,
     children: List<Reportable>
-) : BaseReportableGroup(children), ReportableGroupWithDesignation
+) : BaseDiagnosticGroup(children), ReportableGroupWithDesignation
 
 internal class DefaultProofExplanation(
     proof: Proof
@@ -30,22 +28,22 @@ internal class DefaultProofExplanation(
 
 internal class DefaultUsageHintGroup(
     children: List<Reportable>
-) : BaseReportableGroup(children), UsageHintGroup
+) : BaseDiagnosticGroup(children), UsageHintGroup
 
 internal class DefaultDebugGroup(
     override val description: InlineElement,
     children: List<Reportable>
-) : BaseReportableGroup(children), DebugGroup
+) : BaseDiagnosticGroup(children), DebugGroup
 
 internal class DefaultFailureExplanationGroup(
-    override val description: Reportable,
+    override val description: Diagnostic,
     children: List<Reportable>
-) : BaseReportableGroup(children), FailureExplanationGroup
+) : BaseDiagnosticGroup(children), FailureExplanationGroup
 
 internal class DefaultInformationGroup(
-    override val description: Reportable,
+    override val description: Diagnostic,
     children: List<Reportable>
-) : BaseReportableGroup(children), InformationGroup
+) : BaseDiagnosticGroup(children), InformationGroup
 
 internal class DefaultInlineGroup(
     override val inlineElements: List<InlineElement>

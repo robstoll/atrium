@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.creating
 
-import ch.tutteli.atrium.reporting.reportables.Reportable
 import ch.tutteli.atrium.creating.proofs.Proof
+import ch.tutteli.atrium.reporting.reportables.Reportable
 
 
 /**

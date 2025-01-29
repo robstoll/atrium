@@ -50,7 +50,7 @@ inline fun <SomeSubjectT> ProofContainer<*>.collectForFailureHint(
             collectedProofs
         }, {
             listOf(buildProof {
-                invisibleFixedClaimGroup(holds = false) {
+                invisibleFailingProofGroup {
                     proofExplanation { addAll(collectedProofs) }
                 }
             })
