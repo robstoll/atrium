@@ -3,8 +3,8 @@
 
 package ch.tutteli.atrium.assertions
 
-import ch.tutteli.atrium.reporting.reportables.Reportable
 import ch.tutteli.atrium.reporting.Reporter
+import ch.tutteli.atrium.reporting.reportables.Reportable
 
 /**
  * Represents an [AssertionGroup] with an [ExplanatoryAssertionGroupType], which means a [Reporter] should not

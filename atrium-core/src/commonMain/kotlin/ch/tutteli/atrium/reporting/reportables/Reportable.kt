@@ -1,17 +1,5 @@
 package ch.tutteli.atrium.reporting.reportables
 
-import ch.tutteli.atrium.creating.proofs.InvisibleProofGroup
-import ch.tutteli.atrium.creating.proofs.Proof
-import ch.tutteli.atrium.reporting.HorizontalAlignment
-import ch.tutteli.atrium.reporting.Text
-import ch.tutteli.atrium.reporting.reportables.impl.*
-import ch.tutteli.atrium.reporting.reportables.impl.DefaultDebugGroup
-import ch.tutteli.atrium.reporting.reportables.impl.DefaultInlineGroup
-import ch.tutteli.atrium.reporting.reportables.impl.DefaultProofExplanation
-import ch.tutteli.atrium.reporting.reportables.impl.DefaultReportableGroup
-import ch.tutteli.atrium.reporting.reportables.impl.DefaultUsageHintGroup
-import ch.tutteli.kbox.takeIf
-
 //TODO 1.3.0 check KDOC (including @since) of all types in this file
 
 /**
@@ -19,57 +7,7 @@ import ch.tutteli.kbox.takeIf
  *
  * @since 1.3.0
  */
-interface Reportable {
-    /**
-     * Extension point for [Reportable] factories.
-     *
-     * @since 1.3.0
-     */
-    companion object {
-        //TODO 1.3.0 write kdoc for methods
-
-        fun group(description: InlineElement, representation: Any?, children: List<Reportable>): ReportableGroup =
-            DefaultReportableGroup(description, representation ?: Text.NULL, children)
-
-        fun proofExplanation(proof: Proof): ProofExplanation {
-            val proofToExplain = if (proof is InvisibleProofGroup && proof.children.size == 1) {
-                // a single child in an InvisibleProofGroup has to be a Proof
-                proof.children.first() as Proof
-            } else proof
-            return DefaultProofExplanation(proofToExplain)
-        }
-
-        fun failureExplanationGroup(
-            description: InlineElement,
-            reportables: List<Reportable>
-        ): FailureExplanationGroup = DefaultFailureExplanationGroup(description, reportables)
-
-        //TODO 1.3.0 note sure we need this
-        fun informationGroup(description: InlineElement, reportables: List<Reportable>): InformationGroup =
-            DefaultInformationGroup(description, reportables)
-
-        fun usageHintGroup(reportables: List<Reportable>): UsageHintGroup = DefaultUsageHintGroup(reportables)
-
-        fun debugGroup(description: InlineElement, reportables: List<Reportable>): DebugGroup =
-            DefaultDebugGroup(description, reportables)
-
-        //TODO 1.3.0 remove?
-        fun inlineGroupOrSingleElement(inlineElements: List<InlineElement>): InlineElement =
-            takeIf(inlineElements.size == 1) {
-                inlineElements[0]
-            } ?: inlineGroup(inlineElements)
-
-        fun inlineGroup(inlineElements: List<InlineElement>): InlineGroup = DefaultInlineGroup(inlineElements)
-
-        fun row(icon: Icon?, includingBorder: Boolean, columns: List<Column>): Row =
-            DefaultRow(icon, includingBorder, columns)
-
-        fun column(inlineElement: InlineElement, alignment: HorizontalAlignment): Column =
-            DefaultColumn(inlineElement, alignment)
-
-        fun representation(representation: Any?): Representation = DefaultRepresentation(representation)
-    }
-}
+interface Reportable
 
 
 //TODO 1.3.0 add KDOC and move to own file
@@ -80,7 +18,7 @@ interface ReportableWithDesignation : Reportable {
      *
      * @since 1.3.0
      */
-    val description: Reportable
+    val description: Diagnostic
 
     /**
      * A complementing representation to the [description].
@@ -93,14 +31,29 @@ interface ReportableWithDesignation : Reportable {
     val representation: Any
 }
 
+/**
+ * The base interface for [Reportable] groups.
+ */
+interface ReportableGroup : Reportable {
+    /**
+     * The reportable elements of this group, which are defined for the subject.
+     */
+    //TODO 1.3.0 consider to use a NoneEmptyList instead, in the end there won't be any group without a child
+    // if no child is defined then at list a child proof will be there explaining that the user forgot to define
+    // children
+    val children: List<Reportable>
+}
+
+
 interface ReportableGroupWithDesignation : ReportableGroup, ReportableWithDesignation
 
+//TODO 1.3.0 remove if this is only used by SimpleProof
 interface ReportableWithInlineDesignation : ReportableWithDesignation {
     override val description: InlineElement
 }
 
-//TODO 1.3.0 introduce in order that we can distinguish between Proof and the rest?
-// would be nice to have a different name tough
-interface NonProof : Reportable
-interface NonProofGroup : ReportableGroup
-interface NonProofGroupWithDesignation : ReportableGroupWithDesignation
+fun ReportableGroup.requireOneChild() {
+    require(children.isNotEmpty()) {
+        "a group requires at least one child"
+    }
+}

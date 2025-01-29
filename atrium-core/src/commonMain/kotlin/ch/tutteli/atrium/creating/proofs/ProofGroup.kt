@@ -29,6 +29,11 @@ interface ProofGroupWithDesignation: ProofGroup, ReportableGroupWithDesignation
 interface RootProofGroup: ProofGroupWithDesignation
 interface FeatureProofGroup: ProofGroupWithDesignation
 interface FixedClaimGroup: ProofGroupWithDesignation
-interface InvisibleProofGroup: ProofGroup
-interface InvisibleFixedClaimGroup: ProofGroup
+interface InvisibleLikeProofGroup: ProofGroup
+
+/**
+ * Bare-bone invisible proof group
+ */
+interface InvisibleProofGroup: InvisibleLikeProofGroup
+interface InvisibleFailingProof: InvisibleLikeProofGroup
 

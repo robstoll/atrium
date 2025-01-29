@@ -10,6 +10,7 @@ import ch.tutteli.atrium.creating.proofs.builders.buildProof
 import ch.tutteli.atrium.creating.transformers.impl.addAdditionalHints
 import ch.tutteli.atrium.reporting.AtriumErrorAdjuster
 import ch.tutteli.atrium.reporting.Text
+import ch.tutteli.atrium.reporting.reportables.Diagnostic
 import ch.tutteli.atrium.reporting.reportables.InlineElement
 import ch.tutteli.atrium.reporting.reportables.Reportable
 import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionThrowableProof.*
@@ -50,14 +51,14 @@ private fun AnyBuilder.addHints(
 private fun AnyBuilder.addMessageHint(throwable: Throwable) =
     row {
         column(OCCURRED_EXCEPTION_MESSAGE)
-        column(Reportable.representation(throwable.message))
+        column(Diagnostic.representation(throwable.message))
     }
 
 private fun AnyBuilder.addStackTraceHint(
     throwable: Throwable,
     secondStackFrameOfParent: String?
 ) {
-    reportableGroup(OCCURRED_EXCEPTION_STACKTRACE, Text.EMPTY) {
+    diagnosticGroup(OCCURRED_EXCEPTION_STACKTRACE, Text.EMPTY) {
         val stackTrace = if (secondStackFrameOfParent != null) {
             throwable.stackBacktrace.asSequence().takeWhile { it != secondStackFrameOfParent }
         } else {
@@ -89,7 +90,7 @@ fun AnyBuilder.addChildHint(
 ) {
     val secondStackTrace = takeIf(throwable.stackBacktrace.size > 1) { throwable.stackBacktrace[1] }
 
-    reportableGroup(childDescription, child) {
+    diagnosticGroup(childDescription, child) {
         addHints(child, secondStackTrace)
     }
 }

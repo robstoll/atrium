@@ -2,15 +2,15 @@ package ch.tutteli.atrium.testfactories.impl
 
 import ch.tutteli.atrium._core
 import ch.tutteli.atrium.core.polyfills.fullName
-import ch.tutteli.atrium.creating.transformers.propertiesOfThrowable
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.creating.ExpectGrouping
 import ch.tutteli.atrium.creating.ExpectationVerbs
 import ch.tutteli.atrium.creating.proofs.builders.buildProof
 import ch.tutteli.atrium.creating.proofs.builders.buildSimpleProof
+import ch.tutteli.atrium.creating.transformers.propertiesOfThrowable
 import ch.tutteli.atrium.reporting.AtriumError
 import ch.tutteli.atrium.reporting.Text
-import ch.tutteli.atrium.reporting.reportables.Reportable
+import ch.tutteli.atrium.reporting.reportables.Diagnostic
 import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionFunLikeProof
 import ch.tutteli.atrium.testfactories.TestExecutable
 
@@ -40,7 +40,7 @@ internal fun ExpectGrouping.executeAndAppendExceptionAsProof(executable: () -> U
             _core.buildProof {
                 fixedClaimGroup(
                     Text("executing test group"),
-                    Reportable.inlineGroup(listOf(DescriptionFunLikeProof.THREW, Text(throwable::class.fullName))),
+                    Diagnostic.inlineGroup(listOf(DescriptionFunLikeProof.THREW, Text(throwable::class.fullName))),
                     holds = false
                 ) {
                     _core.propertiesOfThrowable(throwable)

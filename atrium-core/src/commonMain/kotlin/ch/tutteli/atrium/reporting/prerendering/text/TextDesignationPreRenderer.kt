@@ -1,13 +1,13 @@
 package ch.tutteli.atrium.reporting.prerendering.text
 
-import ch.tutteli.atrium.reporting.reportables.Reportable
+import ch.tutteli.atrium.reporting.reportables.Diagnostic
 import ch.tutteli.atrium.reporting.theming.text.StyledString
 
 // TODO 1.3.0 KDOC
 interface TextDesignationPreRenderer {
-    fun canTransform(description: Reportable): Boolean
+    fun canTransform(description: Diagnostic): Boolean
     fun transform(
-        description: Reportable,
+        description: Diagnostic,
         representation: Any,
         prefixDescriptionColumns: List<StyledString>,
         suffixDescriptionColumns: List<StyledString>,
