@@ -1,6 +1,6 @@
 //TODO 1.3.0 remove again and switch to core
 @file:Suppress("DEPRECATION")
-package ch.tutteli.atrium.api.fluent.en_GB
+package ch.tutteli.atrium.api.fluent.logic.based.en_GB
 
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic._logicAppend
