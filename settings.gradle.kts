@@ -42,6 +42,7 @@ include("misc/tools", "readme-examples")
 
 //TODO remove with 2.0.0
 include("logic", "atrium-logic")
+include("logic", "atrium-api-fluent-logic-based")
 listOf("en_GB").forEach { lang ->
     include("translations", "atrium-translations-$lang")
 }
