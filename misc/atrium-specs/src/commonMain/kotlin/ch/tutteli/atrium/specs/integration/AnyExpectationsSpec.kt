@@ -1048,7 +1048,8 @@ abstract class AnyExpectationsSpec(
 
         fun Expect<String>.containsBecause(reason: String) =
             toContain.exactly(1)
-                .matchFor(Regex("$lineSeparator\\Q${i}${DescriptionDocumentationUtil.BECAUSE.string} $reason\\E"))
+                // TODO 2.0.0 remove (: )? once we drop logic
+                .matchFor(Regex("$lineSeparator\\Q${i}${DescriptionDocumentationUtil.BECAUSE.string}\\E (: )?\\Q$reason\\E"))
 
         it("the test on the supplied subject is not throwing an assertion error") {
             expect("filename")
