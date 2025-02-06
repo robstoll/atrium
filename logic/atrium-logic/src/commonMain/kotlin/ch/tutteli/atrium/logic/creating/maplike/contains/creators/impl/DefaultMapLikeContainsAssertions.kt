@@ -3,11 +3,13 @@
 
 package ch.tutteli.atrium.logic.creating.maplike.contains.creators.impl
 
+import ch.tutteli.atrium._coreAppend
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.builders.assertionBuilder
 import ch.tutteli.atrium.assertions.builders.invisibleGroup
 import ch.tutteli.atrium.core.Option
 import ch.tutteli.atrium.core.Some
+import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.creating.ExperimentalComponentFactoryContainer
 import ch.tutteli.atrium.creating.build
@@ -40,7 +42,7 @@ class DefaultMapLikeContainsAssertions : MapLikeContainsAssertions {
 
     private fun <K, V> turnKeyValuePairsToKeyWithValueAssertions(keyValuePairs: List<Pair<K, V>>) =
         keyValuePairs.map { (key, value) ->
-            key to expectLambda<V> { _logicAppend { toBe(value) } }
+            key to expectLambda<V> { _coreAppend { toBe(value) } }
         }
 
 
@@ -55,7 +57,7 @@ class DefaultMapLikeContainsAssertions : MapLikeContainsAssertions {
 
     private fun <K, V : Any> turnKeyWithNullableValueAssertionToKeyWithValueAssertion(keyValues: List<Pair<K, (Expect<V>.() -> Unit)?>>) =
         keyValues.map { (key, assertionCreatorOrNull) ->
-            key to expectLambda<V?> { _logicAppend { toBeNullIfNullGivenElse(assertionCreatorOrNull) } }
+            key to expectLambda<V?> { _coreAppend { toBeNullIfNullGivenElse(assertionCreatorOrNull) } }
         }
 
     private fun <K, V, T : MapLike> containsKeyWithValueAssertionInAnyOrder(
@@ -213,7 +215,7 @@ class DefaultMapLikeContainsAssertions : MapLikeContainsAssertions {
         entryPointStepLogic.container
             .builderContainsInIterableLike { convertToMap(entryPointStepLogic).entries }
             ._logic.inOrder._logic.andOnly._logic.entriesInOrderOnly(keyValuePairs.map { (key, value) ->
-                expectLambda<Map.Entry<K, V>> { _logicAppend { isKeyValue(key, value) } }
+                expectLambda<Map.Entry<K, V>> { _coreAppend { isKeyValue(key, value) } }
             }, reportingOptions)
 
     override fun <K, V : Any, T : MapLike> keyWithValueAssertionsInOrderOnly(

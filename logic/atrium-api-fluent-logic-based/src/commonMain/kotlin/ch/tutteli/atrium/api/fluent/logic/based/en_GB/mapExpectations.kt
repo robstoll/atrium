@@ -3,6 +3,9 @@
 
 package ch.tutteli.atrium.api.fluent.logic.based.en_GB
 
+import ch.tutteli.atrium._coreAppend
+import ch.tutteli.atrium.assertions.Assertion
+import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic.*
 import ch.tutteli.atrium.logic.creating.maplike.contains.MapLikeContains
@@ -148,7 +151,7 @@ fun <K, V : Any, T : Map<out K, V?>> Expect<T>.toContainOnlyEntriesOf(
  * @since 0.17.0
  */
 fun <K, T : Map<out K, *>> Expect<T>.toContainKey(key: K): Expect<T> =
-    _logicAppend { containsKey(::identity, key) }
+    _coreAppend { containsKey(::identity, key) }
 
 /**
  * Expects that the subject of `this` expectation (a [Map]) does not contain the given [key].
@@ -160,7 +163,7 @@ fun <K, T : Map<out K, *>> Expect<T>.toContainKey(key: K): Expect<T> =
  * @since 0.17.0
  */
 fun <K, T : Map<out K, *>> Expect<T>.notToContainKey(key: K): Expect<T> =
-    _logicAppend { containsNotKey(::identity, key) }
+    _coreAppend { containsNotKey(::identity, key) }
 
 /**
  * Expects that the subject of `this` expectation (a [Map]) is an empty [Map].
@@ -172,7 +175,7 @@ fun <K, T : Map<out K, *>> Expect<T>.notToContainKey(key: K): Expect<T> =
  * @since 0.17.0
  */
 fun <T : Map<*, *>> Expect<T>.toBeEmpty(): Expect<T> =
-    _logicAppend { isEmpty(::toEntries) }
+    _coreAppend { isEmpty(::toEntries) }
 
 /**
  * Expects that the subject of `this` expectation (a [Map]) is not an empty [Map].
@@ -184,6 +187,6 @@ fun <T : Map<*, *>> Expect<T>.toBeEmpty(): Expect<T> =
  * @since 0.17.0
  */
 fun <T : Map<*, *>> Expect<T>.notToBeEmpty(): Expect<T> =
-    _logicAppend { isNotEmpty(::toEntries) }
+    _coreAppend { isNotEmpty(::toEntries) }
 
 private fun <T : Map<*, *>> toEntries(t: T): Collection<*> = t.entries

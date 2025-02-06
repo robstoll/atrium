@@ -3,9 +3,12 @@
 
 package ch.tutteli.atrium.api.infix.en_GB
 
+import ch.tutteli.atrium._coreAppend
 import ch.tutteli.atrium.api.infix.en_GB.creating.All
 import ch.tutteli.atrium.api.infix.en_GB.creating.RegexPatterns
 import ch.tutteli.atrium.api.infix.en_GB.creating.Values
+import ch.tutteli.atrium.assertions.Assertion
+import ch.tutteli.atrium.creating.AssertionContainer
 
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic.creating.typeutils.CharSequenceOrNumberOrChar
@@ -242,7 +245,7 @@ infix fun <T : CharSequence> Expect<T>.toContain(patterns: All<Regex>): Expect<T
  * @since 0.17.0
  */
 infix fun <T : CharSequence> Expect<T>.toStartWith(expected: CharSequence): Expect<T> =
-    _logicAppend { startsWith(expected) }
+    _coreAppend { startsWith(expected) }
 
 /**
  * Expects that the subject of `this` expectation (a [CharSequence]) does not start with [expected].
@@ -254,7 +257,7 @@ infix fun <T : CharSequence> Expect<T>.toStartWith(expected: CharSequence): Expe
  * @since 0.17.0
  */
 infix fun <T : CharSequence> Expect<T>.notToStartWith(expected: CharSequence): Expect<T> =
-    _logicAppend { startsNotWith(expected) }
+    _coreAppend { startsNotWith(expected) }
 
 /**
  * Expects that the subject of `this` expectation (a [CharSequence]) ends with [expected].
@@ -266,7 +269,7 @@ infix fun <T : CharSequence> Expect<T>.notToStartWith(expected: CharSequence): E
  * @since 0.17.0
  */
 infix fun <T : CharSequence> Expect<T>.toEndWith(expected: CharSequence): Expect<T> =
-    _logicAppend { endsWith(expected) }
+    _coreAppend { endsWith(expected) }
 
 
 /**
@@ -279,7 +282,7 @@ infix fun <T : CharSequence> Expect<T>.toEndWith(expected: CharSequence): Expect
  * @since 0.17.0
  */
 infix fun <T : CharSequence> Expect<T>.notToEndWith(expected: CharSequence): Expect<T> =
-    _logicAppend { endsNotWith(expected) }
+    _coreAppend { endsNotWith(expected) }
 
 /**
  * Expects that the subject of `this` expectation (a [CharSequence]) matches the given [Regex] [pattern].
@@ -293,7 +296,7 @@ infix fun <T : CharSequence> Expect<T>.notToEndWith(expected: CharSequence): Exp
  * @since 0.17.0
  */
 infix fun <T : CharSequence> Expect<T>.toMatch(pattern: Regex): Expect<T> =
-    _logicAppend { matches(pattern) }
+    _coreAppend { matches(pattern) }
 
 /**
  * Expects that the subject of `this` expectation (a [CharSequence]) mismatches the given [Regex] [pattern].
@@ -307,7 +310,7 @@ infix fun <T : CharSequence> Expect<T>.toMatch(pattern: Regex): Expect<T> =
  * @since 0.17.0
  */
 infix fun <T : CharSequence> Expect<T>.notToMatch(pattern: Regex): Expect<T> =
-    _logicAppend { mismatches(pattern) }
+    _coreAppend { mismatches(pattern) }
 
 
 /**
@@ -320,7 +323,7 @@ infix fun <T : CharSequence> Expect<T>.notToMatch(pattern: Regex): Expect<T> =
  * @sample ch.tutteli.atrium.api.infix.en_GB.samples.CharSequenceExpectationSamples.toBeEmpty
  */
 infix fun <T : CharSequence> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") empty: empty): Expect<T> =
-    _logicAppend { isEmpty() }
+    _coreAppend { isEmpty() }
 
 /**
  * Expects that the subject of `this` expectation (a [CharSequence]) [CharSequence].[kotlin.text.isNotEmpty].
@@ -332,7 +335,7 @@ infix fun <T : CharSequence> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") empty:
  * @sample ch.tutteli.atrium.api.infix.en_GB.samples.CharSequenceExpectationSamples.notToBeEmpty
  */
 infix fun <T : CharSequence> Expect<T>.notToBe(@Suppress("UNUSED_PARAMETER") empty: empty): Expect<T> =
-    _logicAppend { isNotEmpty() }
+    _coreAppend { isNotEmpty() }
 
 /**
  * Expects that the subject of `this` expectation (a [CharSequence]) [CharSequence].[kotlin.text.isNotBlank].
@@ -344,4 +347,4 @@ infix fun <T : CharSequence> Expect<T>.notToBe(@Suppress("UNUSED_PARAMETER") emp
  * @sample ch.tutteli.atrium.api.infix.en_GB.samples.CharSequenceExpectationSamples.notToBeBlank
  */
 infix fun <T : CharSequence> Expect<T>.notToBe(@Suppress("UNUSED_PARAMETER") blank: blank): Expect<T> =
-    _logicAppend { isNotBlank() }
+    _coreAppend { isNotBlank() }

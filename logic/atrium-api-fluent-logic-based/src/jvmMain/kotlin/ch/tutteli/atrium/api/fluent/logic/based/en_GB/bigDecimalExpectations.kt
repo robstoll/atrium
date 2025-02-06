@@ -3,6 +3,9 @@
 
 package ch.tutteli.atrium.api.fluent.logic.based.en_GB
 
+import ch.tutteli.atrium._coreAppend
+import ch.tutteli.atrium.assertions.Assertion
+import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.creating.PleaseUseReplacementException
 import ch.tutteli.atrium.logic.*
@@ -72,7 +75,7 @@ fun <T : BigDecimal?> Expect<T>.toEqual(expected: T): Nothing =
 //TODO rename JvmName to toEqualNul with 2.0.0
 @JvmName("toBeNull")
 fun <T : BigDecimal> Expect<T?>.toEqual(expected: Nothing?): Expect<T?> =
-    _logicAppend { toBe(expected) }
+    _coreAppend { toBe(expected) }
 
 /**
  * Deprecated as it would compare the subject against [expected] including scale
@@ -110,7 +113,7 @@ fun <T : BigDecimal?> Expect<T>.notToEqual(expected: T): Nothing =
  */
 @JvmName("notToEqualNull")
 fun <T : BigDecimal> Expect<T?>.notToEqual(expected: Nothing?): Expect<T> =
-    _logicAppend { notToBe(expected) }._logic.changeSubject.unreported { it!! }
+    _coreAppend { notToBe(expected) }._logic.changeSubject.unreported { it!! }
 
 
 /**
@@ -132,7 +135,7 @@ fun <T : BigDecimal> Expect<T?>.notToEqual(expected: Nothing?): Expect<T> =
  * @since 0.17.0
  */
 fun <T : BigDecimal> Expect<T>.toEqualNumerically(expected: T): Expect<T> =
-    _logicAppend { isNumericallyEqualTo(expected) }
+    _coreAppend { isNumericallyEqualTo(expected) }
 
 /**
  * Expects that the subject of `this` expectation (a [BigDecimal]) is not numerically equal to [expected].
@@ -153,7 +156,7 @@ fun <T : BigDecimal> Expect<T>.toEqualNumerically(expected: T): Expect<T> =
  * @since 0.17.0
  */
 fun <T : BigDecimal> Expect<T>.notToEqualNumerically(expected: T): Expect<T> =
-    _logicAppend { isNotNumericallyEqualTo(expected) }
+    _coreAppend { isNotNumericallyEqualTo(expected) }
 
 /**
  * Expects that the subject of `this` expectation (a [BigDecimal]) is equal to [expected] including [BigDecimal.scale].
@@ -171,7 +174,7 @@ fun <T : BigDecimal> Expect<T>.notToEqualNumerically(expected: T): Expect<T> =
  * @since 0.17.0
  */
 fun <T : BigDecimal> Expect<T>.toEqualIncludingScale(expected: T): Expect<T> =
-    _logicAppend { isEqualIncludingScale(expected, Expect<BigDecimal>::toEqualNumerically.name) }
+    _coreAppend { isEqualIncludingScale(expected, Expect<BigDecimal>::toEqualNumerically.name) }
 
 /**
  * Expects that the subject of `this` expectation (a [BigDecimal]) is not equal to [expected] including [BigDecimal.scale].
@@ -189,4 +192,4 @@ fun <T : BigDecimal> Expect<T>.toEqualIncludingScale(expected: T): Expect<T> =
  * @since 0.17.0
  */
 fun <T : BigDecimal> Expect<T>.notToEqualIncludingScale(expected: T): Expect<T> =
-    _logicAppend { isNotEqualIncludingScale(expected) }
+    _coreAppend { isNotEqualIncludingScale(expected) }

@@ -3,6 +3,9 @@
 
 package ch.tutteli.atrium.api.fluent.logic.based.en_GB
 
+import ch.tutteli.atrium._coreAppend
+import ch.tutteli.atrium.assertions.Assertion
+import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic.*
 
@@ -17,4 +20,4 @@ import ch.tutteli.atrium.logic.*
  * @since 0.17.0
  */
 fun <K, V, T : Map.Entry<K, V>> Expect<T>.toEqualKeyValue(key: K, value: V): Expect<T> =
-    _logicAppend { isKeyValue(key, value) }
+    _coreAppend { isKeyValue(key, value) }

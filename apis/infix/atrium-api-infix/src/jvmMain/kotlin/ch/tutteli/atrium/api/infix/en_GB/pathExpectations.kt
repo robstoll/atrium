@@ -3,8 +3,11 @@
 
 package ch.tutteli.atrium.api.infix.en_GB
 
+import ch.tutteli.atrium._coreAppend
 import ch.tutteli.atrium.api.infix.en_GB.creating.path.DirectoryEntries
 import ch.tutteli.atrium.api.infix.en_GB.creating.path.PathWithEncoding
+import ch.tutteli.atrium.assertions.Assertion
+import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic.*
 import java.nio.charset.Charset
@@ -20,7 +23,7 @@ import java.nio.file.Path
  * @since 0.17.0
  */
 infix fun <T : Path> Expect<T>.toStartWith(expected: Path): Expect<T> =
-    _logicAppend { startsWith(expected) }
+    _coreAppend { startsWith(expected) }
 
 /**
  * Expects that the subject of `this` expectation (a [Path]) does not start with the [expected] [Path].
@@ -32,7 +35,7 @@ infix fun <T : Path> Expect<T>.toStartWith(expected: Path): Expect<T> =
  * @since 0.17.0
  */
 infix fun <T : Path> Expect<T>.notToStartWith(expected: Path): Expect<T> =
-    _logicAppend { startsNotWith(expected) }
+    _coreAppend { startsNotWith(expected) }
 
 /**
  * Expects that the subject of `this` expectation (a [Path]) ends with the expected [Path].
@@ -44,7 +47,7 @@ infix fun <T : Path> Expect<T>.notToStartWith(expected: Path): Expect<T> =
  * @since 0.17.0
  */
 infix fun <T : Path> Expect<T>.toEndWith(expected: Path): Expect<T> =
-    _logicAppend { endsWith(expected) }
+    _coreAppend { endsWith(expected) }
 
 /**
  * Expects that the subject of `this` expectation (a [Path]) does not end with the expected [Path];
@@ -57,7 +60,7 @@ infix fun <T : Path> Expect<T>.toEndWith(expected: Path): Expect<T> =
  * @since 0.17.0
  */
 infix fun <T : Path> Expect<T>.notToEndWith(expected: Path): Expect<T> =
-    _logicAppend { endsNotWith(expected) }
+    _coreAppend { endsNotWith(expected) }
 
 /**
  * Expects that the subject of `this` expectation (a [Path]) is a directory having the provided entries.
@@ -82,7 +85,7 @@ infix fun <T : Path> Expect<T>.notToEndWith(expected: Path): Expect<T> =
  * @since 0.17.0
  */
 infix fun <T : Path> Expect<T>.toHave(directoryEntries: DirectoryEntries) =
-    _logicAppend { hasDirectoryEntry(directoryEntries.toList()) }
+    _coreAppend { hasDirectoryEntry(directoryEntries.toList()) }
 
 /**
  * Helper function for [has] to create [DirectoryEntries] with the provided [entry] and the [otherEntries].
@@ -135,9 +138,11 @@ fun withEncoding(
 @since 0.17.0
  */
 infix fun <T : Path> Expect<T>.toHaveTheSameTextualContentAs(pathWithEncoding: PathWithEncoding): Expect<T> =
-    _logicAppend {
-        hasSameTextualContentAs(pathWithEncoding.path, pathWithEncoding.sourceCharset, pathWithEncoding.targetCharset)
-    }
+    _coreAppend { hasSameTextualContentAs(
+        pathWithEncoding.path,
+        pathWithEncoding.sourceCharset,
+        pathWithEncoding.targetCharset
+    ) }
 
 /**
  * Expects that the subject of `this` expectation (a [Path]) has the same binary content
@@ -150,7 +155,7 @@ infix fun <T : Path> Expect<T>.toHaveTheSameTextualContentAs(pathWithEncoding: P
  * @since 0.17.0
  */
 infix fun <T : Path> Expect<T>.toHaveTheSameBinaryContentAs(targetPath: Path): Expect<T> =
-    _logicAppend { hasSameBinaryContentAs(targetPath) }
+    _coreAppend { hasSameBinaryContentAs(targetPath) }
 
 /**
  * Expects that the subject of `this` expectation (a [Path]) exists;
@@ -166,7 +171,7 @@ infix fun <T : Path> Expect<T>.toHaveTheSameBinaryContentAs(targetPath: Path): E
  * @since 0.12.0
  */
 infix fun <T : Path> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") existing: existing): Expect<T> =
-    _logicAppend { exists() }
+    _coreAppend { exists() }
 
 /**
  * Expects that the subject of `this` expectation (a [Path]) does not exist;
@@ -182,7 +187,7 @@ infix fun <T : Path> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") existing: exis
  * @since 0.12.0
  */
 infix fun <T : Path> Expect<T>.notToBe(@Suppress("UNUSED_PARAMETER") existing: existing): Expect<T> =
-    _logicAppend { existsNot() }
+    _coreAppend { existsNot() }
 
 
 /**
@@ -205,7 +210,7 @@ infix fun <T : Path> Expect<T>.notToBe(@Suppress("UNUSED_PARAMETER") existing: e
  * @since 0.12.0
  */
 infix fun <T : Path> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") readable: readable): Expect<T> =
-    _logicAppend { isReadable() }
+    _coreAppend { isReadable() }
 
 /**
  * Expects that the subject of `this` expectation (a [Path]) is not readable;
@@ -227,7 +232,7 @@ infix fun <T : Path> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") readable: read
  * @since 0.17.0
  */
 infix fun <T : Path> Expect<T>.notToBe(@Suppress("UNUSED_PARAMETER") readable: readable): Expect<T> =
-    _logicAppend { isNotReadable() }
+    _coreAppend { isNotReadable() }
 
 
 /**
@@ -246,7 +251,7 @@ infix fun <T : Path> Expect<T>.notToBe(@Suppress("UNUSED_PARAMETER") readable: r
  * @since 0.12.0
  */
 infix fun <T : Path> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") writable: writable): Expect<T> =
-    _logicAppend { isWritable() }
+    _coreAppend { isWritable() }
 
 /**
  * Expects that the subject of `this` expectation (a [Path]) is not writable;
@@ -268,7 +273,7 @@ infix fun <T : Path> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") writable: writ
  * @since 0.17.0
  */
 infix fun <T : Path> Expect<T>.notToBe(@Suppress("UNUSED_PARAMETER") writable: writable): Expect<T> =
-    _logicAppend { isNotWritable() }
+    _coreAppend { isNotWritable() }
 
 
 /**
@@ -291,7 +296,7 @@ infix fun <T : Path> Expect<T>.notToBe(@Suppress("UNUSED_PARAMETER") writable: w
  * @since 0.14.0
  */
 infix fun <T : Path> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") executable: executable): Expect<T> =
-    _logicAppend { isExecutable() }
+    _coreAppend { isExecutable() }
 
 /**
  * Expects that the subject of `this` expectation (a [Path]) is not executable;
@@ -313,7 +318,7 @@ infix fun <T : Path> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") executable: ex
  * @since 0.17.0
  */
 infix fun <T : Path> Expect<T>.notToBe(@Suppress("UNUSED_PARAMETER") executable: executable): Expect<T> =
-    _logicAppend { isNotExecutable() }
+    _coreAppend { isNotExecutable() }
 
 /**
  * Expects that the subject of `this` expectation (a [Path]) is a file;
@@ -334,7 +339,7 @@ infix fun <T : Path> Expect<T>.notToBe(@Suppress("UNUSED_PARAMETER") executable:
  * @since 0.12.0
  */
 infix fun <T : Path> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") aRegularFile: aRegularFile): Expect<T> =
-    _logicAppend { isRegularFile() }
+    _coreAppend { isRegularFile() }
 
 /**
  * Expects that the subject of `this` expectation (a [Path]) is a directory;
@@ -355,7 +360,7 @@ infix fun <T : Path> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") aRegularFile: 
  * @since 0.12.0
  */
 infix fun <T : Path> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") aDirectory: aDirectory): Expect<T> =
-    _logicAppend { isDirectory() }
+    _coreAppend { isDirectory() }
 
 /**
  * Expects that the subject of `this` expectation (a [Path]) is an empty directory;
@@ -368,7 +373,7 @@ infix fun <T : Path> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") aDirectory: aD
  * @since 0.16.0
  */
 infix fun <T : Path> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") anEmptyDirectory: anEmptyDirectory): Expect<T> =
-    _logicAppend { isEmptyDirectory() }
+    _coreAppend { isEmptyDirectory() }
 
 /**
  * Expects that the subject of `this` expectation (a [Path]) is a symbolic link;
@@ -385,7 +390,7 @@ infix fun <T : Path> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") anEmptyDirecto
  * @since 0.16.0
  */
 infix fun <T : Path> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") aSymbolicLink: aSymbolicLink): Expect<T> =
-    _logicAppend { isSymbolicLink() }
+    _coreAppend { isSymbolicLink() }
 
 /**
  * Expects that the subject of `this` expectation (a [Path]) is an absolute path;
@@ -398,7 +403,7 @@ infix fun <T : Path> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") aSymbolicLink:
  * @since 0.14.0
  */
 infix fun <T : Path> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") absolute: absolute): Expect<T> =
-    _logicAppend { isAbsolute() }
+    _coreAppend { isAbsolute() }
 
 /**
  * Expects that the subject of `this` expectation (a [Path]) is a relative path;
@@ -411,5 +416,5 @@ infix fun <T : Path> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") absolute: abso
  * @since 0.14.0
  */
 infix fun <T : Path> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") relative: relative): Expect<T> =
-    _logicAppend { isRelative() }
+    _coreAppend { isRelative() }
 

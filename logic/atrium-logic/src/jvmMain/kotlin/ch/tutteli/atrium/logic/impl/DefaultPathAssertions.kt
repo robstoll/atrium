@@ -3,6 +3,7 @@
 
 package ch.tutteli.atrium.logic.impl
 
+import ch.tutteli.atrium._coreAppend
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.builders.assertionBuilder
 import ch.tutteli.atrium.assertions.builders.invisibleGroup
@@ -204,7 +205,7 @@ class DefaultPathAssertions : PathAssertions {
         assertionBuilder.invisibleGroup.withAssertions(
             listOf(container.isDirectory()) +
                 entries.map { entry ->
-                    container.resolve(entry).collect { _logicAppend { exists(NOFOLLOW_LINKS) } }
+                    container.resolve(entry).collect { _coreAppend { exists(NOFOLLOW_LINKS) } }
                 }
         ).build()
 

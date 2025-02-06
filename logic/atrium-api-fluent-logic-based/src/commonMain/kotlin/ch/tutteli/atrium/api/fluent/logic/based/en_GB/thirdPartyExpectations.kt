@@ -3,6 +3,9 @@
 
 package ch.tutteli.atrium.api.fluent.logic.based.en_GB
 
+import ch.tutteli.atrium._coreAppend
+import ch.tutteli.atrium.assertions.Assertion
+import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic._logicAppend
 import ch.tutteli.atrium.logic.toHoldThirdPartyExpectation
@@ -25,4 +28,4 @@ fun <T> Expect<T>.toHoldThirdPartyExpectation(
     description: String,
     representation: Any?,
     expectationExecutor: (T) -> Unit
-): Expect<T> = _logicAppend { toHoldThirdPartyExpectation(description, representation, expectationExecutor) }
+): Expect<T> = _coreAppend { toHoldThirdPartyExpectation(description, representation, expectationExecutor) }

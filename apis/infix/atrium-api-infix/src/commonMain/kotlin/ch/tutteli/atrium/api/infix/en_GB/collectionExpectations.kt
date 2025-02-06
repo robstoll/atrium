@@ -3,6 +3,9 @@
 
 package ch.tutteli.atrium.api.infix.en_GB
 
+import ch.tutteli.atrium._coreAppend
+import ch.tutteli.atrium.assertions.Assertion
+import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic._logicAppend
 import ch.tutteli.atrium.logic.isEmpty
@@ -19,7 +22,7 @@ import ch.tutteli.kbox.identity
  * @sample ch.tutteli.atrium.api.infix.en_GB.samples.CollectionExpectationSamples.toBeEmpty
  */
 infix fun <T : Collection<*>> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") empty: empty): Expect<T> =
-    _logicAppend { isEmpty(::identity) }
+    _coreAppend { isEmpty(::identity) }
 
 /**
  * Expects that the subject of `this` expectation (a [Collection]) is not an empty [Collection].
@@ -31,7 +34,7 @@ infix fun <T : Collection<*>> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") empty
  * @sample ch.tutteli.atrium.api.infix.en_GB.samples.CollectionExpectationSamples.notToBeEmpty
  */
 infix fun <T : Collection<*>> Expect<T>.notToBe(@Suppress("UNUSED_PARAMETER") empty: empty): Expect<T> =
-    _logicAppend { isNotEmpty(::identity) }
+    _coreAppend { isNotEmpty(::identity) }
 
 /**
  * Expects that the subject of `this` expectation (a [Collection]) has the given [expected] size.

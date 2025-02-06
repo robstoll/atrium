@@ -3,6 +3,7 @@
 
 package assertion
 
+import ch.tutteli.atrium._coreAppend
 import ch.tutteli.atrium.api.fluent.en_GB.notToExist
 import ch.tutteli.atrium.api.fluent.en_GB.toEqual
 import ch.tutteli.atrium.api.verbs.expect
@@ -43,7 +44,7 @@ fun Expect<Int>.toBeEven() =
 fun Expect<Int>.toBeOdd() =
     _logic.append(_logic.createDescriptiveAssertion(TO_BE, Text("an odd number")) { it % 2 == 1 })
 
-fun Expect<Int>.toBeAMultipleOf(base: Int) = _logicAppend { toBeAMultipleOf(base) }
+fun Expect<Int>.toBeAMultipleOf(base: Int) = _coreAppend { toBeAMultipleOf(base) }
 
 private fun AssertionContainer<Int>.toBeAMultipleOf(base: Int): Assertion =
     createDescriptiveAssertion(DescriptionIntAssertions.TO_BE_MULTIPLE_OF, base) { it % base == 0 }

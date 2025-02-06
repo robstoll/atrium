@@ -2,6 +2,9 @@
 @file:Suppress("DEPRECATION")
 package ch.tutteli.atrium.api.fluent.logic.based.en_GB
 
+import ch.tutteli.atrium._coreAppend
+import ch.tutteli.atrium.assertions.Assertion
+import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic._logicAppend
 import ch.tutteli.atrium.logic.because
@@ -19,4 +22,4 @@ import ch.tutteli.atrium.logic.because
  * @since 0.15.0
  */
 fun <T> Expect<T>.because(reason: String, assertionCreator: Expect<T>.() -> Unit): Expect<T> =
-    _logicAppend { because(reason, assertionCreator) }
+    _coreAppend { because(reason, assertionCreator) }

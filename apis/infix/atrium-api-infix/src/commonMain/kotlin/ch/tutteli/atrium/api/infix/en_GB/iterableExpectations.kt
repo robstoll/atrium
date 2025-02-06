@@ -3,9 +3,12 @@
 
 package ch.tutteli.atrium.api.infix.en_GB
 
+import ch.tutteli.atrium._coreAppend
 import ch.tutteli.atrium.api.infix.en_GB.creating.Entries
 import ch.tutteli.atrium.api.infix.en_GB.creating.Values
 import ch.tutteli.atrium.api.infix.en_GB.creating.iterable.WithInOrderOnlyReportingOptions
+import ch.tutteli.atrium.assertions.Assertion
+import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic.*
 import ch.tutteli.atrium.logic.creating.iterable.contains.IterableLikeContains
@@ -363,7 +366,7 @@ infix fun <E, T : Iterable<E>> Expect<T>.notToContain(values: Values<E>): Expect
  * @since 0.17.0
  */
 infix fun <E, T : Iterable<E>> Expect<T>.toHave(@Suppress("UNUSED_PARAMETER") elements: elements): Expect<T> =
-    _logicAppend { hasNext(::identity) }
+    _coreAppend { hasNext(::identity) }
 
 /**
  * Expects that the subject of `this` expectation (an [Iterable]) does not have next element.
@@ -375,7 +378,7 @@ infix fun <E, T : Iterable<E>> Expect<T>.toHave(@Suppress("UNUSED_PARAMETER") el
  * @since 0.17.0
  */
 infix fun <E, T : Iterable<E>> Expect<T>.notToHave(@Suppress("UNUSED_PARAMETER") elements: elements): Expect<T> =
-    _logicAppend { hasNotNext(::identity) }
+    _coreAppend { hasNotNext(::identity) }
 
 
 /**
@@ -423,7 +426,7 @@ infix fun <E : Any, T : Iterable<E?>> Expect<T>.toHaveElementsAndNone(assertionC
  * @since 0.17.0
  */
 infix fun <E : Any, T : Iterable<E?>> Expect<T>.toHaveElementsAndAll(assertionCreatorOrNull: (Expect<E>.() -> Unit)?): Expect<T> =
-    _logicAppend { all(::identity, assertionCreatorOrNull) }
+    _coreAppend { all(::identity, assertionCreatorOrNull) }
 
 
 /**
@@ -436,7 +439,7 @@ infix fun <E : Any, T : Iterable<E?>> Expect<T>.toHaveElementsAndAll(assertionCr
  * @since 0.17.0
  */
 infix fun <E, T : Iterable<E>> Expect<T>.toHaveElementsAnd(@Suppress("UNUSED_PARAMETER") noDuplicates: noDuplicates): Expect<T> =
-    _logicAppend { containsNoDuplicates(::identity) }
+    _coreAppend { containsNoDuplicates(::identity) }
 
 
 /**
@@ -451,7 +454,7 @@ infix fun <E, T : Iterable<E>> Expect<T>.toHaveElementsAnd(@Suppress("UNUSED_PAR
  * @since 1.0.0
  */
 infix fun <E : Any, T : Iterable<E?>> Expect<T>.notToHaveElementsOrAny(assertionCreatorOrNull: (Expect<E>.() -> Unit)?): Expect<T> =
-    _logicAppend { hasNotNextOrAny(::identity, assertionCreatorOrNull) }
+    _coreAppend { hasNotNextOrAny(::identity, assertionCreatorOrNull) }
 
 /**
  * Expects that the subject of `this` expectation (an [Iterable]) either has no next element or
@@ -465,7 +468,7 @@ infix fun <E : Any, T : Iterable<E?>> Expect<T>.notToHaveElementsOrAny(assertion
  * @since 1.0.0
  */
 infix fun <E : Any, T : Iterable<E?>> Expect<T>.notToHaveElementsOrAll(assertionCreatorOrNull: (Expect<E>.() -> Unit)?): Expect<T> =
-    _logicAppend { hasNotNextOrAll(::identity, assertionCreatorOrNull) }
+    _coreAppend { hasNotNextOrAll(::identity, assertionCreatorOrNull) }
 
 
 /**
@@ -480,4 +483,4 @@ infix fun <E : Any, T : Iterable<E?>> Expect<T>.notToHaveElementsOrAll(assertion
  * @since 1.0.0
  */
 infix fun <E : Any, T : Iterable<E?>> Expect<T>.notToHaveElementsOrNone(assertionCreatorOrNull: (Expect<E>.() -> Unit)?): Expect<T> =
-    _logicAppend { hasNotNextOrNone(::identity, assertionCreatorOrNull) }
+    _coreAppend { hasNotNextOrNone(::identity, assertionCreatorOrNull) }

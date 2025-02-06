@@ -3,7 +3,10 @@
 
 package ch.tutteli.atrium.api.infix.en_GB
 
+import ch.tutteli.atrium._coreAppend
 import ch.tutteli.atrium.api.infix.en_GB.creating.PresentWithCreator
+import ch.tutteli.atrium.assertions.Assertion
+import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.creating.FeatureExpect
 import ch.tutteli.atrium.logic._logic
@@ -23,7 +26,7 @@ import java.util.*
  * @since 0.12.0
  */
 infix fun <T : Optional<*>> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") empty: empty): Expect<T> =
-    _logicAppend { isEmpty() }
+    _coreAppend { isEmpty() }
 
 /**
  * Expects that the subject of `this` expectation (an [Optional]) is present

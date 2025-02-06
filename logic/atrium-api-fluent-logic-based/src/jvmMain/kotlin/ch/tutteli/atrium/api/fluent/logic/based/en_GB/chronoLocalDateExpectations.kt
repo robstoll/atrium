@@ -3,6 +3,9 @@
 
 package ch.tutteli.atrium.api.fluent.logic.based.en_GB
 
+import ch.tutteli.atrium._coreAppend
+import ch.tutteli.atrium.assertions.Assertion
+import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic.*
 import java.time.chrono.ChronoLocalDate
@@ -18,7 +21,7 @@ import java.time.chrono.ChronoLocalDate
  * @since 0.17.0
  */
 fun <T : ChronoLocalDate> Expect<T>.toBeBefore(expected: ChronoLocalDate): Expect<T> =
-    _logicAppend { isBefore(expected) }
+    _coreAppend { isBefore(expected) }
 
 /**
  * Expects that the subject of `this` expectation (a [ChronoLocalDate])
@@ -32,7 +35,7 @@ fun <T : ChronoLocalDate> Expect<T>.toBeBefore(expected: ChronoLocalDate): Expec
  * @since 0.17.0
  */
 fun <T : ChronoLocalDate> Expect<T>.toBeBefore(expected: String): Expect<T> =
-    _logicAppend { isBefore(expected) }
+    _coreAppend { isBefore(expected) }
 
 
 /**
@@ -46,7 +49,7 @@ fun <T : ChronoLocalDate> Expect<T>.toBeBefore(expected: String): Expect<T> =
  * @since 0.17.0
  */
 fun <T : ChronoLocalDate> Expect<T>.toBeBeforeOrTheSamePointInTimeAs(expected: ChronoLocalDate): Expect<T> =
-    _logicAppend { isBeforeOrEqual(expected) }
+    _coreAppend { isBeforeOrEqual(expected) }
 
 /**
  * Expects that the subject of `this` expectation (a [ChronoLocalDate])
@@ -60,7 +63,7 @@ fun <T : ChronoLocalDate> Expect<T>.toBeBeforeOrTheSamePointInTimeAs(expected: C
  * @since 0.17.0
  */
 fun <T : ChronoLocalDate> Expect<T>.toBeBeforeOrTheSamePointInTimeAs(expected: String): Expect<T> =
-    _logicAppend { isBeforeOrEqual(expected) }
+    _coreAppend { isBeforeOrEqual(expected) }
 
 
 /**
@@ -74,7 +77,7 @@ fun <T : ChronoLocalDate> Expect<T>.toBeBeforeOrTheSamePointInTimeAs(expected: S
  * @since 0.17.0
  */
 fun <T : ChronoLocalDate> Expect<T>.toBeTheSamePointInTimeAs(expected: ChronoLocalDate): Expect<T> =
-    _logicAppend { isEqual(expected) }
+    _coreAppend { isEqual(expected) }
 
 /**
  * Expects that the subject of `this` expectation (a [ChronoLocalDate])
@@ -88,7 +91,7 @@ fun <T : ChronoLocalDate> Expect<T>.toBeTheSamePointInTimeAs(expected: ChronoLoc
  * @since 0.17.0
  */
 fun <T : ChronoLocalDate> Expect<T>.toBeTheSamePointInTimeAs(expected: String): Expect<T> =
-    _logicAppend { isEqual(expected) }
+    _coreAppend { isEqual(expected) }
 
 /**
  * Expects that the subject of `this` expectation (a [ChronoLocalDate])
@@ -101,7 +104,7 @@ fun <T : ChronoLocalDate> Expect<T>.toBeTheSamePointInTimeAs(expected: String): 
  * @since 0.17.0
  */
 fun <T : ChronoLocalDate> Expect<T>.toBeAfterOrTheSamePointInTimeAs(expected: ChronoLocalDate): Expect<T> =
-    _logicAppend { isAfterOrEqual(expected) }
+    _coreAppend { isAfterOrEqual(expected) }
 
 /**
  * Expects that the subject of `this` expectation (a [ChronoLocalDate])
@@ -115,7 +118,7 @@ fun <T : ChronoLocalDate> Expect<T>.toBeAfterOrTheSamePointInTimeAs(expected: Ch
  * @since 0.17.0
  */
 fun <T : ChronoLocalDate> Expect<T>.toBeAfterOrTheSamePointInTimeAs(expected: String): Expect<T> =
-    _logicAppend { isAfterOrEqual(expected) }
+    _coreAppend { isAfterOrEqual(expected) }
 
 
 /**
@@ -129,7 +132,7 @@ fun <T : ChronoLocalDate> Expect<T>.toBeAfterOrTheSamePointInTimeAs(expected: St
  * @since 0.17.0
  */
 fun <T : ChronoLocalDate> Expect<T>.toBeAfter(expected: ChronoLocalDate): Expect<T> =
-    _logicAppend { isAfter(expected) }
+    _coreAppend { isAfter(expected) }
 
 /**
  * Expects that the subject of `this` expectation (a [ChronoLocalDate])
@@ -143,4 +146,4 @@ fun <T : ChronoLocalDate> Expect<T>.toBeAfter(expected: ChronoLocalDate): Expect
  * @since 0.17.0
  */
 fun <T : ChronoLocalDate> Expect<T>.toBeAfter(expected: String): Expect<T> =
-    _logicAppend { isAfter(expected) }
+    _coreAppend { isAfter(expected) }

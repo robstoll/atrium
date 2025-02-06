@@ -3,8 +3,11 @@
 
 package ch.tutteli.atrium.api.infix.en_GB
 
+import ch.tutteli.atrium._coreAppend
 import ch.tutteli.atrium.api.infix.en_GB.creating.KeyWithCreator
 import ch.tutteli.atrium.api.infix.en_GB.creating.thirdparty.DescriptionRepresentationWithExecutor
+import ch.tutteli.atrium.assertions.Assertion
+import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic._logicAppend
 import ch.tutteli.atrium.logic.toHoldThirdPartyExpectation
@@ -25,13 +28,11 @@ import ch.tutteli.atrium.logic.toHoldThirdPartyExpectation
  */
 infix fun <T> Expect<T>.toHold(
     thirdPartyExpectation: DescriptionRepresentationWithExecutor<T>
-): Expect<T> = _logicAppend {
-    toHoldThirdPartyExpectation(
+): Expect<T> = _coreAppend { toHoldThirdPartyExpectation(
         thirdPartyExpectation.description,
         thirdPartyExpectation.representation,
         thirdPartyExpectation.expectationExecutor
-    )
-}
+    ) }
 
 /**
  * Helper function to create a [DescriptionRepresentationWithExecutor] based on the given [description] and [representation] and [expectationExecutor].

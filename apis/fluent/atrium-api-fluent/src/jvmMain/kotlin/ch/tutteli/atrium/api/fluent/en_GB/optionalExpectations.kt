@@ -3,6 +3,9 @@
 
 package ch.tutteli.atrium.api.fluent.en_GB
 
+import ch.tutteli.atrium._coreAppend
+import ch.tutteli.atrium.assertions.Assertion
+import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic._logic
 import ch.tutteli.atrium.logic._logicAppend
@@ -23,7 +26,7 @@ import java.util.*
  * @since 0.17.0
  */
 fun <T : Optional<*>> Expect<T>.toBeEmpty(): Expect<T> =
-    _logicAppend { isEmpty() }
+    _coreAppend { isEmpty() }
 
 /**
  * Expects that the subject of `this` expectation (an [Optional]) is present

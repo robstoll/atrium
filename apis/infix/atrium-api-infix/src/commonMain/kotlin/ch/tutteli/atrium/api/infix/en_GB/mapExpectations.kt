@@ -3,9 +3,12 @@
 
 package ch.tutteli.atrium.api.infix.en_GB
 
+import ch.tutteli.atrium._coreAppend
 import ch.tutteli.atrium.api.infix.en_GB.creating.Pairs
 import ch.tutteli.atrium.api.infix.en_GB.creating.map.KeyValues
 import ch.tutteli.atrium.api.infix.en_GB.creating.map.KeyWithValueCreator
+import ch.tutteli.atrium.assertions.Assertion
+import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic.*
 import ch.tutteli.atrium.logic.creating.maplike.contains.MapLikeContains
@@ -216,7 +219,7 @@ infix fun <K, V : Any, T : Map<out K, V?>> Expect<T>.toContainOnlyEntriesOf(
  *
  */
 infix fun <K, T : Map<out K, *>> Expect<T>.toContainKey(key: K): Expect<T> =
-    _logicAppend { containsKey(::identity, key) }
+    _coreAppend { containsKey(::identity, key) }
 
 /**
  * Expects that the subject of `this` expectation (a [Map]) does not contain the given [key].
@@ -226,7 +229,7 @@ infix fun <K, T : Map<out K, *>> Expect<T>.toContainKey(key: K): Expect<T> =
  * @sample ch.tutteli.atrium.api.infix.en_GB.samples.MapExpectationSamples.notToContainKey
  */
 infix fun <K, T : Map<out K, *>> Expect<T>.notToContainKey(key: K): Expect<T> =
-    _logicAppend { containsNotKey(::identity, key) }
+    _coreAppend { containsNotKey(::identity, key) }
 
 /**
  * Expects that the subject of `this` expectation (a [Map]) is an empty [Map].
@@ -239,7 +242,7 @@ infix fun <K, T : Map<out K, *>> Expect<T>.notToContainKey(key: K): Expect<T> =
  *
  */
 infix fun <T : Map<*, *>> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") empty: empty): Expect<T> =
-    _logicAppend { isEmpty(::toEntries) }
+    _coreAppend { isEmpty(::toEntries) }
 
 /**
  * Expects that the subject of `this` expectation (a [Map]) is not an empty [Map].
@@ -252,6 +255,6 @@ infix fun <T : Map<*, *>> Expect<T>.toBe(@Suppress("UNUSED_PARAMETER") empty: em
  *
  */
 infix fun <T : Map<*, *>> Expect<T>.notToBe(@Suppress("UNUSED_PARAMETER") empty: empty): Expect<T> =
-    _logicAppend { isNotEmpty(::toEntries) }
+    _coreAppend { isNotEmpty(::toEntries) }
 
 private fun <T : Map<*, *>> toEntries(t: T): Collection<*> = t.entries

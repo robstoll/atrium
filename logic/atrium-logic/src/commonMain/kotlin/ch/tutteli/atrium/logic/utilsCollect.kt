@@ -3,6 +3,7 @@
 
 package ch.tutteli.atrium.logic
 
+import ch.tutteli.atrium._coreAppend
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.builders.assertionBuilder
@@ -118,4 +119,4 @@ inline fun <T> AssertionContainer<*>.collectForCompositionBasedOnSubject(
  * @return an [Expect] for the subject of this expectation.
  */
 fun <T, R> TransformationExecutionStep<T, R, *>.collectAndLogicAppend(assertionCreator: AssertionContainer<R>.() -> Assertion): Expect<T> =
-    collectAndAppend { _logicAppend(assertionCreator) }
+    collectAndAppend { _coreAppend { assertionCreator() } }

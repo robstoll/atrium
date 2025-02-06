@@ -3,6 +3,7 @@
 
 package ch.tutteli.atrium.logic.creating.iterable.contains.creators.impl
 
+import ch.tutteli.atrium._coreAppend
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.core.Option
 import ch.tutteli.atrium.creating.AssertionContainer
@@ -17,6 +18,6 @@ class InOrderOnlyEntriesMatcher<E : Any> : InOrderOnlyMatcher<E?, (Expect<E>.() 
         maybeElement: Option<E?>,
         searchCriterion: (Expect<E>.() -> Unit)?
     ): Assertion = collectBasedOnSubject(maybeElement) {
-        _logicAppend { toBeNullIfNullGivenElse(searchCriterion) }
+        _coreAppend { toBeNullIfNullGivenElse(searchCriterion) }
     }
 }

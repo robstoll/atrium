@@ -3,6 +3,7 @@
 
 package assertion
 
+import ch.tutteli.atrium._coreAppend
 import ch.tutteli.atrium.api.infix.en_GB.existing
 import ch.tutteli.atrium.api.infix.en_GB.notToBe
 import ch.tutteli.atrium.api.infix.en_GB.toEqual
@@ -52,7 +53,7 @@ infix fun Expect<Int>.toBe(@Suppress("UNUSED_PARAMETER", "unused") even: even) =
 infix fun Expect<Int>.toBe(@Suppress("UNUSED_PARAMETER", "unused") odd: odd) =
     _logic.createAndAppend(DescriptionBasic.TO_BE, Text("an odd number")) { it % 2 == 1 }
 
-infix fun Expect<Int>.toBeAMultipleOf(base: Int): Expect<Int> = _logicAppend { toBeAMultipleOf(base) }
+infix fun Expect<Int>.toBeAMultipleOf(base: Int): Expect<Int> = _coreAppend { toBeAMultipleOf(base) }
 
 private fun AssertionContainer<Int>.toBeAMultipleOf(base: Int): Assertion =
     createDescriptiveAssertion(DescriptionIntProofs.TO_BE_MULTIPLE_OF, base) { it % base == 0 }

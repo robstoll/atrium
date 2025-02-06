@@ -3,8 +3,10 @@
 
 package ch.tutteli.atrium.api.infix.en_GB
 
+import ch.tutteli.atrium._coreAppend
 import ch.tutteli.atrium.api.infix.en_GB.creating.Types
 import ch.tutteli.atrium.api.infix.en_GB.creating.Values
+import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic.*
@@ -26,7 +28,7 @@ import kotlin.reflect.KClass
  *
  * @since 0.17.0
  */
-infix fun <T> Expect<T>.toEqual(expected: T): Expect<T> = _logicAppend { toBe(expected) }
+infix fun <T> Expect<T>.toEqual(expected: T): Expect<T> = _coreAppend { toBe(expected) }
 
 /**
  * Expects that the subject of `this` expectation is not (equal to) [expected].
@@ -37,7 +39,7 @@ infix fun <T> Expect<T>.toEqual(expected: T): Expect<T> = _logicAppend { toBe(ex
  *
  * @since 0.17.0
  */
-infix fun <T> Expect<T>.notToEqual(expected: T): Expect<T> = _logicAppend { notToBe(expected) }
+infix fun <T> Expect<T>.notToEqual(expected: T): Expect<T> = _coreAppend { notToBe(expected) }
 
 /**
  * Expects that the subject of `this` expectation is the same instance as [expected].
@@ -48,7 +50,7 @@ infix fun <T> Expect<T>.notToEqual(expected: T): Expect<T> = _logicAppend { notT
  *
  * @since 0.17.0
  */
-infix fun <T> Expect<T>.toBeTheInstance(expected: T): Expect<T> = _logicAppend { isSameAs(expected) }
+infix fun <T> Expect<T>.toBeTheInstance(expected: T): Expect<T> = _coreAppend { isSameAs(expected) }
 
 /**
  * Expects that the subject of `this` expectation is not the same instance as [expected].
@@ -59,7 +61,7 @@ infix fun <T> Expect<T>.toBeTheInstance(expected: T): Expect<T> = _logicAppend {
  *
  * @since 0.17.0
  */
-infix fun <T> Expect<T>.notToBeTheInstance(expected: T): Expect<T> = _logicAppend { isNotSameAs(expected) }
+infix fun <T> Expect<T>.notToBeTheInstance(expected: T): Expect<T> = _coreAppend { isNotSameAs(expected) }
 
 
 /**
@@ -74,7 +76,7 @@ infix fun <T> Expect<T>.notToBeTheInstance(expected: T): Expect<T> = _logicAppen
  */
 infix fun <T : Any> Expect<T?>.toEqualNullIfNullGivenElse(
     assertionCreatorOrNull: (Expect<T>.() -> Unit)?
-): Expect<T?> = _logicAppend { toBeNullIfNullGivenElse(assertionCreatorOrNull) }
+): Expect<T?> = _coreAppend { toBeNullIfNullGivenElse(assertionCreatorOrNull) }
 
 
 /**
@@ -247,7 +249,7 @@ infix fun <T> Expect<T>.notToBeAnInstanceOf(type: KClass<*>): Expect<T> =
  * @since 1.1.0
  */
 infix fun <T> Expect<T>.notToBeAnInstanceOf(types: Types): Expect<T> =
-    _logicAppend { notToBeAnInstanceOf(types.toList()) }
+    _coreAppend { notToBeAnInstanceOf(types.toList()) }
 
 
 /**
@@ -263,7 +265,7 @@ infix fun <T> Expect<T>.notToBeAnInstanceOf(types: Types): Expect<T> =
  * @since 0.17.0
  */
 infix fun <T> Expect<T>.notToEqualOneOf(values: Values<T>): Expect<T> =
-    _logicAppend { isNotIn(values.toList()) }
+    _coreAppend { isNotIn(values.toList()) }
 
 /**
  * Expects that the subject of `this` expectation is not equal to any value of [expected].
@@ -279,7 +281,7 @@ infix fun <T> Expect<T>.notToEqualOneOf(values: Values<T>): Expect<T> =
  * @since 0.17.0
  */
 infix fun <T> Expect<T>.notToEqualOneIn(expected: IterableLike): Expect<T> =
-    _logicAppend { isNotIn(iterableLikeToIterable(expected)) }
+    _coreAppend { isNotIn(iterableLikeToIterable(expected)) }
 
 /**
  * Can be used to separate single assertions.

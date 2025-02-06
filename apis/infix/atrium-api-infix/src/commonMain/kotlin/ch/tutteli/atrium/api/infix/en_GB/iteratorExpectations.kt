@@ -3,6 +3,9 @@
 
 package ch.tutteli.atrium.api.infix.en_GB
 
+import ch.tutteli.atrium._coreAppend
+import ch.tutteli.atrium.assertions.Assertion
+import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic._logicAppend
 import ch.tutteli.atrium.logic.hasNext
@@ -18,7 +21,7 @@ import ch.tutteli.atrium.logic.hasNotNext
  * @since 0.17.0
  */
 infix fun <T : Iterator<*>> Expect<T>.toHave(@Suppress("UNUSED_PARAMETER") next: next): Expect<T> =
-    _logicAppend { hasNext() }
+    _coreAppend { hasNext() }
 
 /**
  * Expects that the subject of `this` expectation (an [Iterator]) does not have next element.
@@ -30,4 +33,4 @@ infix fun <T : Iterator<*>> Expect<T>.toHave(@Suppress("UNUSED_PARAMETER") next:
  * @since 0.17.0
  */
 infix fun <T : Iterator<*>> Expect<T>.notToHave(@Suppress("UNUSED_PARAMETER") next: next): Expect<T> =
-    _logicAppend { hasNotNext() }
+    _coreAppend { hasNotNext() }

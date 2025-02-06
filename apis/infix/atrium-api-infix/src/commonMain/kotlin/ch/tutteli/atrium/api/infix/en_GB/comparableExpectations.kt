@@ -3,6 +3,9 @@
 
 package ch.tutteli.atrium.api.infix.en_GB
 
+import ch.tutteli.atrium._coreAppend
+import ch.tutteli.atrium.assertions.Assertion
+import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic.*
 
@@ -17,7 +20,7 @@ import ch.tutteli.atrium.logic.*
  * @since 0.17.0
  */
 infix fun <T : Comparable<T>> Expect<T>.toBeLessThan(expected: T): Expect<T> =
-    _logicAppend { isLessThan(expected) }
+    _coreAppend { isLessThan(expected) }
 
 /**
  * Expects that the subject of `this` expectation is less than or equal (`<=`) [expected].
@@ -32,7 +35,7 @@ infix fun <T : Comparable<T>> Expect<T>.toBeLessThan(expected: T): Expect<T> =
  * @since 0.17.0
  */
 infix fun <T : Comparable<T>> Expect<T>.toBeLessThanOrEqualTo(expected: T): Expect<T> =
-    _logicAppend { isLessThanOrEqual(expected) }
+    _coreAppend { isLessThanOrEqual(expected) }
 
 /**
  * Expects that the subject of `this` expectation is less than or equal [expected].
@@ -47,7 +50,7 @@ infix fun <T : Comparable<T>> Expect<T>.toBeLessThanOrEqualTo(expected: T): Expe
  * @since 0.17.0
  */
 infix fun <T : Comparable<T>> Expect<T>.notToBeGreaterThan(expected: T): Expect<T> =
-    _logicAppend { isNotGreaterThan(expected) }
+    _coreAppend { isNotGreaterThan(expected) }
 
 /**
  * Expects that the subject of `this` expectation is equal to [expected]
@@ -62,7 +65,7 @@ infix fun <T : Comparable<T>> Expect<T>.notToBeGreaterThan(expected: T): Expect<
  * @since 0.17.0
  */
 infix fun <T : Comparable<T>> Expect<T>.toBeEqualComparingTo(expected: T): Expect<T> =
-    _logicAppend { isEqualComparingTo(expected) }
+    _coreAppend { isEqualComparingTo(expected) }
 
 
 /**
@@ -78,7 +81,7 @@ infix fun <T : Comparable<T>> Expect<T>.toBeEqualComparingTo(expected: T): Expec
  * @since 0.17.0
  */
 infix fun <T : Comparable<T>> Expect<T>.toBeGreaterThanOrEqualTo(expected: T): Expect<T> =
-    _logicAppend { isGreaterThanOrEqual(expected) }
+    _coreAppend { isGreaterThanOrEqual(expected) }
 
 
 /**
@@ -94,7 +97,7 @@ infix fun <T : Comparable<T>> Expect<T>.toBeGreaterThanOrEqualTo(expected: T): E
  * @since 0.17.0
  */
 infix fun <T : Comparable<T>> Expect<T>.notToBeLessThan(expected: T): Expect<T> =
-    _logicAppend { isNotLessThan(expected) }
+    _coreAppend { isNotLessThan(expected) }
 
 
 /**
@@ -108,4 +111,4 @@ infix fun <T : Comparable<T>> Expect<T>.notToBeLessThan(expected: T): Expect<T> 
  * @since 0.17.0
  */
 infix fun <T : Comparable<T>> Expect<T>.toBeGreaterThan(expected: T): Expect<T> =
-    _logicAppend { isGreaterThan(expected) }
+    _coreAppend { isGreaterThan(expected) }

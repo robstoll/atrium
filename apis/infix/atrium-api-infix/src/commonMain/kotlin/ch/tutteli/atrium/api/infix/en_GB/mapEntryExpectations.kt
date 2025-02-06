@@ -3,6 +3,9 @@
 
 package ch.tutteli.atrium.api.infix.en_GB
 
+import ch.tutteli.atrium._coreAppend
+import ch.tutteli.atrium.assertions.Assertion
+import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic.*
 
@@ -17,4 +20,4 @@ import ch.tutteli.atrium.logic.*
  * @since 0.17.0
  */
 infix fun <K, V, T : Map.Entry<K, V>> Expect<T>.toEqualKeyValue(keyValuePair: Pair<K, V>): Expect<T> =
-    _logicAppend { isKeyValue(keyValuePair.first, keyValuePair.second) }
+    _coreAppend { isKeyValue(keyValuePair.first, keyValuePair.second) }

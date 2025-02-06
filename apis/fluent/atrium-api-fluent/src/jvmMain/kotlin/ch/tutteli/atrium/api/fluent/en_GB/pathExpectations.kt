@@ -3,6 +3,9 @@
 
 package ch.tutteli.atrium.api.fluent.en_GB
 
+import ch.tutteli.atrium._coreAppend
+import ch.tutteli.atrium.assertions.Assertion
+import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic.*
 import ch.tutteli.kbox.glue
@@ -19,7 +22,7 @@ import java.nio.file.Path
  * @since 0.17.0
  */
 fun <T : Path> Expect<T>.toStartWith(expected: Path): Expect<T> =
-    _logicAppend { startsWith(expected) }
+    _coreAppend { startsWith(expected) }
 
 /**
  * Expects that the subject of `this` expectation (a [Path]) does not start with the [expected] [Path].
@@ -31,7 +34,7 @@ fun <T : Path> Expect<T>.toStartWith(expected: Path): Expect<T> =
  * @since 0.17.0
  */
 fun <T : Path> Expect<T>.notToStartWith(expected: Path): Expect<T> =
-    _logicAppend { startsNotWith(expected) }
+    _coreAppend { startsNotWith(expected) }
 
 /**
  * Expects that the subject of `this` expectation (a [Path]) ends with the expected [Path].
@@ -43,7 +46,7 @@ fun <T : Path> Expect<T>.notToStartWith(expected: Path): Expect<T> =
  * @since 0.17.0
  */
 fun <T : Path> Expect<T>.toEndWith(expected: Path): Expect<T> =
-    _logicAppend { endsWith(expected) }
+    _coreAppend { endsWith(expected) }
 
 /**
  * Expects that the subject of `this` expectation (a [Path]) does not end with the expected [Path];
@@ -56,7 +59,7 @@ fun <T : Path> Expect<T>.toEndWith(expected: Path): Expect<T> =
  * @since 0.17.0
  */
 fun <T : Path> Expect<T>.notToEndWith(expected: Path): Expect<T> =
-    _logicAppend { endsNotWith(expected) }
+    _coreAppend { endsNotWith(expected) }
 
 /**
  * Expects that the subject of `this` expectation (a [Path]) exists;
@@ -72,7 +75,7 @@ fun <T : Path> Expect<T>.notToEndWith(expected: Path): Expect<T> =
  * @since 0.17.0
  */
 fun <T : Path> Expect<T>.toExist(): Expect<T> =
-    _logicAppend { exists() }
+    _coreAppend { exists() }
 
 /**
  * Expects that the subject of `this` expectation (a [Path]) does not exist;
@@ -88,7 +91,7 @@ fun <T : Path> Expect<T>.toExist(): Expect<T> =
  * @since 0.17.0
  */
 fun <T : Path> Expect<T>.notToExist(): Expect<T> =
-    _logicAppend { existsNot() }
+    _coreAppend { existsNot() }
 
 
 /**
@@ -111,7 +114,7 @@ fun <T : Path> Expect<T>.notToExist(): Expect<T> =
  * @since 0.17.0
  */
 fun <T : Path> Expect<T>.toBeReadable(): Expect<T> =
-    _logicAppend { isReadable() }
+    _coreAppend { isReadable() }
 
 /**
  * Expects that the subject of `this` expectation (a [Path]) is not readable;
@@ -133,7 +136,7 @@ fun <T : Path> Expect<T>.toBeReadable(): Expect<T> =
  * @since 0.17.0
  */
 fun <T : Path> Expect<T>.notToBeReadable(): Expect<T> =
-    _logicAppend { isNotReadable() }
+    _coreAppend { isNotReadable() }
 
 /**
  * Expects that the subject of `this` expectation (a [Path]) is writable;
@@ -151,7 +154,7 @@ fun <T : Path> Expect<T>.notToBeReadable(): Expect<T> =
  * @since 0.17.0
  */
 fun <T : Path> Expect<T>.toBeWritable(): Expect<T> =
-    _logicAppend { isWritable() }
+    _coreAppend { isWritable() }
 
 /**
  * Expects that the subject of `this` expectation (a [Path]) is not writable;
@@ -169,7 +172,7 @@ fun <T : Path> Expect<T>.toBeWritable(): Expect<T> =
  * @since 0.17.0
  */
 fun <T : Path> Expect<T>.notToBeWritable(): Expect<T> =
-    _logicAppend { isNotWritable() }
+    _coreAppend { isNotWritable() }
 
 /**
  * Expects that the subject of `this` expectation (a [Path]) is executable;
@@ -191,7 +194,7 @@ fun <T : Path> Expect<T>.notToBeWritable(): Expect<T> =
  * @since 0.17.0
  */
 fun <T : Path> Expect<T>.toBeExecutable(): Expect<T> =
-    _logicAppend { isExecutable() }
+    _coreAppend { isExecutable() }
 
 /**
  * Expects that the subject of `this` expectation (a [Path]) is not executable;
@@ -213,7 +216,7 @@ fun <T : Path> Expect<T>.toBeExecutable(): Expect<T> =
  * @since 0.17.0
  */
 fun <T : Path> Expect<T>.notToBeExecutable(): Expect<T> =
-    _logicAppend { isNotExecutable() }
+    _coreAppend { isNotExecutable() }
 
 /**
  * Expects that the subject of `this` expectation (a [Path]) is a file;
@@ -234,7 +237,7 @@ fun <T : Path> Expect<T>.notToBeExecutable(): Expect<T> =
  * @since 0.17.0
  */
 fun <T : Path> Expect<T>.toBeARegularFile(): Expect<T> =
-    _logicAppend { isRegularFile() }
+    _coreAppend { isRegularFile() }
 
 /**
  * Expects that the subject of `this` expectation (a [Path]) is a directory;
@@ -255,7 +258,7 @@ fun <T : Path> Expect<T>.toBeARegularFile(): Expect<T> =
  * @since 0.17.0
  */
 fun <T : Path> Expect<T>.toBeADirectory(): Expect<T> =
-    _logicAppend { isDirectory() }
+    _coreAppend { isDirectory() }
 
 /**
  * Expects that the subject of `this` expectation (a [Path]) is an empty directory;
@@ -268,7 +271,7 @@ fun <T : Path> Expect<T>.toBeADirectory(): Expect<T> =
  * @since 0.17.0
  */
 fun <T : Path> Expect<T>.toBeAnEmptyDirectory(): Expect<T> =
-    _logicAppend { isEmptyDirectory() }
+    _coreAppend { isEmptyDirectory() }
 
 
 /**
@@ -286,7 +289,7 @@ fun <T : Path> Expect<T>.toBeAnEmptyDirectory(): Expect<T> =
  * @since 0.17.0
  */
 fun <T : Path> Expect<T>.toBeASymbolicLink(): Expect<T> =
-    _logicAppend { isSymbolicLink() }
+    _coreAppend { isSymbolicLink() }
 
 /**
  * Expects that the subject of `this` expectation (a [Path]) is an absolute path;
@@ -299,7 +302,7 @@ fun <T : Path> Expect<T>.toBeASymbolicLink(): Expect<T> =
  * @since 0.17.0
  */
 fun <T : Path> Expect<T>.toBeAbsolute(): Expect<T> =
-    _logicAppend { isAbsolute() }
+    _coreAppend { isAbsolute() }
 
 /**
  * Expects that the subject of `this` expectation (a [Path]) is a relative path;
@@ -312,7 +315,7 @@ fun <T : Path> Expect<T>.toBeAbsolute(): Expect<T> =
  * @since 0.17.0
  */
 fun <T : Path> Expect<T>.toBeRelative(): Expect<T> =
-    _logicAppend { isRelative() }
+    _coreAppend { isRelative() }
 
 /**
  * Expects that the subject of `this` expectation (a [Path]) is a directory having the provided entries.
@@ -335,7 +338,7 @@ fun <T : Path> Expect<T>.toBeRelative(): Expect<T> =
  * @since 0.17.0
  */
 fun <T : Path> Expect<T>.toHaveTheDirectoryEntries(entry: String, vararg otherEntries: String): Expect<T> =
-    _logicAppend { hasDirectoryEntry(entry glue otherEntries) }
+    _coreAppend { hasDirectoryEntry(entry glue otherEntries) }
 
 
 /**
@@ -355,7 +358,7 @@ fun <T : Path> Expect<T>.toHaveTheSameTextualContentAs(
     targetPath: Path,
     sourceCharset: Charset = Charsets.UTF_8,
     targetCharset: Charset = Charsets.UTF_8
-): Expect<T> = _logicAppend { hasSameTextualContentAs(targetPath, sourceCharset, targetCharset) }
+): Expect<T> = _coreAppend { hasSameTextualContentAs(targetPath, sourceCharset, targetCharset) }
 
 /**
  * Expects that the subject of `this` expectation (a [Path]) has the same binary content
@@ -369,5 +372,5 @@ fun <T : Path> Expect<T>.toHaveTheSameTextualContentAs(
  *
  */
 fun <T : Path> Expect<T>.toHaveTheSameBinaryContentAs(targetPath: Path): Expect<T> =
-    _logicAppend { hasSameBinaryContentAs(targetPath) }
+    _coreAppend { hasSameBinaryContentAs(targetPath) }
 

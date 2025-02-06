@@ -3,6 +3,9 @@
 
 package ch.tutteli.atrium.api.fluent.logic.based.en_GB
 
+import ch.tutteli.atrium._coreAppend
+import ch.tutteli.atrium.assertions.Assertion
+import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic.*
 import ch.tutteli.atrium.logic.creating.iterable.contains.IterableLikeContains
@@ -251,7 +254,7 @@ fun <E, T : Iterable<E>> Expect<T>.notToContain(expected: E, vararg otherExpecte
  * @since 0.17.0
  */
 fun <E, T : Iterable<E>> Expect<T>.toHaveElements(): Expect<T> =
-    _logicAppend { hasNext(::identity) }
+    _coreAppend { hasNext(::identity) }
 
 /**
  * Expects that the subject of `this` expectation (an [Iterable]) does not have a next element
@@ -264,7 +267,7 @@ fun <E, T : Iterable<E>> Expect<T>.toHaveElements(): Expect<T> =
  * @since 0.17.0
  */
 fun <E, T : Iterable<E>> Expect<T>.notToHaveElements(): Expect<T> =
-    _logicAppend { hasNotNext(::identity) }
+    _coreAppend { hasNotNext(::identity) }
 
 /**
  * Expects that the subject of `this` expectation (an [Iterable]) has next element(s) and
@@ -310,7 +313,7 @@ fun <E : Any, T : Iterable<E?>> Expect<T>.toHaveElementsAndNone(assertionCreator
  * @since 0.17.0
  */
 fun <E : Any, T : Iterable<E?>> Expect<T>.toHaveElementsAndAll(assertionCreatorOrNull: (Expect<E>.() -> Unit)?): Expect<T> =
-    _logicAppend { all(::identity, assertionCreatorOrNull) }
+    _coreAppend { all(::identity, assertionCreatorOrNull) }
 
 
 /**
@@ -324,7 +327,7 @@ fun <E : Any, T : Iterable<E?>> Expect<T>.toHaveElementsAndAll(assertionCreatorO
  * @since 0.17.0
  */
 fun <E, T : Iterable<E>> Expect<T>.toHaveElementsAndNoDuplicates(): Expect<T> =
-    _logicAppend { containsNoDuplicates(::identity) }
+    _coreAppend { containsNoDuplicates(::identity) }
 
 
 /**
@@ -339,7 +342,7 @@ fun <E, T : Iterable<E>> Expect<T>.toHaveElementsAndNoDuplicates(): Expect<T> =
  * @since 1.0.0
  */
 fun <E : Any, T : Iterable<E?>> Expect<T>.notToHaveElementsOrAny(assertionCreatorOrNull: (Expect<E>.() -> Unit)?): Expect<T> =
-    _logicAppend { hasNotNextOrAny(::identity, assertionCreatorOrNull) }
+    _coreAppend { hasNotNextOrAny(::identity, assertionCreatorOrNull) }
 
 /**
  * Expects that the subject of `this` expectation (an [Iterable]) either has no next element or
@@ -353,7 +356,7 @@ fun <E : Any, T : Iterable<E?>> Expect<T>.notToHaveElementsOrAny(assertionCreato
  * @since 1.0.0
  */
 fun <E : Any, T : Iterable<E?>> Expect<T>.notToHaveElementsOrAll(assertionCreatorOrNull: (Expect<E>.() -> Unit)?): Expect<T> =
-    _logicAppend { hasNotNextOrAll(::identity, assertionCreatorOrNull) }
+    _coreAppend { hasNotNextOrAll(::identity, assertionCreatorOrNull) }
 
 /**
  * Expects that the subject of `this` expectation (an [Iterable]) either has no next element or
@@ -367,4 +370,4 @@ fun <E : Any, T : Iterable<E?>> Expect<T>.notToHaveElementsOrAll(assertionCreato
  * @since 1.0.0
  */
 fun <E : Any, T : Iterable<E?>> Expect<T>.notToHaveElementsOrNone(assertionCreatorOrNull: (Expect<E>.() -> Unit)?): Expect<T> =
-    _logicAppend { hasNotNextOrNone(::identity, assertionCreatorOrNull) }
+    _coreAppend { hasNotNextOrNone(::identity, assertionCreatorOrNull) }

@@ -1,6 +1,7 @@
 //TODO remove with 2.0.0 at the latest
 @file:Suppress("DEPRECATION")
 
+import ch.tutteli.atrium._coreAppend
 import ch.tutteli.atrium.api.infix.en_GB.*
 import ch.tutteli.atrium.api.verbs.expect
 import ch.tutteli.atrium.assertions.Assertion
@@ -56,7 +57,7 @@ infix fun Expect<Int>.toBeDeprecated(@Suppress("UNUSED_PARAMETER") even: even) =
 infix fun Expect<Int>.toBeDeprecated(@Suppress("UNUSED_PARAMETER") odd: odd) =
     _logic.append(_logic.createDescriptiveAssertion(TO_BE, Text("an odd number")) { it % 2 == 1})
 
-infix fun Expect<Int>.toBeAMultipleOfDeprecated(base: Int): Expect<Int> = _logicAppend { toBeAMultipleOfDeprecated(base) }
+infix fun Expect<Int>.toBeAMultipleOfDeprecated(base: Int): Expect<Int> = _coreAppend { toBeAMultipleOfDeprecated(base) }
 
 private fun AssertionContainer<Int>.toBeAMultipleOfDeprecated(base: Int): Assertion =
     createDescriptiveAssertion(DescriptionIntAssertions.TO_BE_MULTIPLE_OF, base) { it % base == 0 }

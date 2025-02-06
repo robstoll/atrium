@@ -3,6 +3,9 @@
 
 package ch.tutteli.atrium.api.fluent.logic.based.en_GB
 
+import ch.tutteli.atrium._coreAppend
+import ch.tutteli.atrium.assertions.Assertion
+import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic._logicAppend
 import ch.tutteli.atrium.logic.toBeWithErrorTolerance
@@ -24,7 +27,7 @@ import ch.tutteli.atrium.logic.toBeWithErrorTolerance
  * @since 0.17.0
  */
 fun Expect<Float>.toEqualWithErrorTolerance(expected: Float, tolerance: Float): Expect<Float> =
-    _logicAppend { toBeWithErrorTolerance(expected, tolerance) }
+    _coreAppend { toBeWithErrorTolerance(expected, tolerance) }
 
 /**
  * Expects that the subject of `this` expectation  (a [Double]) is equal to [expected] with an error [tolerance]
@@ -43,4 +46,4 @@ fun Expect<Float>.toEqualWithErrorTolerance(expected: Float, tolerance: Float): 
  * @since 0.17.0
  */
 fun Expect<Double>.toEqualWithErrorTolerance(expected: Double, tolerance: Double): Expect<Double> =
-    _logicAppend { toBeWithErrorTolerance(expected, tolerance) }
+    _coreAppend { toBeWithErrorTolerance(expected, tolerance) }
