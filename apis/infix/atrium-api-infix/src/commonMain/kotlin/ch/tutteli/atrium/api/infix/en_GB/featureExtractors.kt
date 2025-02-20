@@ -16,6 +16,8 @@ import kotlin.reflect.*
  *
  * @return The newly created [Expect] for the extracted feature.
  *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.FeatureExtractorSamples.itsFeature
+ *
  * @since 0.16.0
  */
 
@@ -30,6 +32,8 @@ infix fun <T, R> Expect<T>.its(extractor: T.() -> R): FeatureExpect<T, R> =
  * returns the initial [Expect] with the current subject.
  *
  * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.FeatureExtractorSamples.its
  *
  * @since 0.16.0
  */
@@ -53,6 +57,8 @@ private fun <R, T> Expect<T>.itsInternal(extractor: T.() -> R) =
  *
  * @return The newly created [Expect] for the given [property].
  *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.FeatureExtractorSamples.featureFromPropertyFeature
+ *
  * @since 0.12.0
  */
 infix fun <T, R> Expect<T>.feature(property: KProperty1<in T, R>): FeatureExpect<T, R> =
@@ -68,6 +74,8 @@ infix fun <T, R> Expect<T>.feature(property: KProperty1<in T, R>): FeatureExpect
  *
  * @return The newly created [Expect] for the return value of calling the method [f]
  *   on the current subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.FeatureExtractorSamples.featureFromFunctionFeature
  *
  * @since 0.12.0
  */
@@ -88,6 +96,8 @@ infix fun <T, R> Expect<T>.feature(f: KFunction1<T, R>): FeatureExpect<T, R> =
  *   [KProperty1] or a `KFunctionX` and potentially the required arguments for a `KFunctionX` where `X` > 1.
  *
  * @return The newly created [Expect] for the extracted feature.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.FeatureExtractorSamples.featureFromFunctionWithArgumentFeature
  *
  * @since 0.12.0
  */
@@ -116,6 +126,8 @@ infix fun <T, R> Expect<T>.feature(of: Feature<T, R>): FeatureExpect<T, R> =
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.FeatureExtractorSamples.featureFromFunction
+ *
  * @since 0.12.0
  */
 @OptIn(ExperimentalComponentFactoryContainer::class)
@@ -137,6 +149,8 @@ infix fun <T, R> Expect<T>.feature(of: FeatureWithCreator<T, R>): Expect<T> =
  *   e.g. `feature { f(it::size) }`
  *
  * @return The newly created [Expect] for the extracted feature.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.FeatureExtractorSamples.featureWithMetaFeatureProviderFeature
  *
  * @since 0.12.0
  */
@@ -172,6 +186,8 @@ infix fun <T, R> Expect<T>.feature(provider: MetaFeatureOption<T>.(T) -> MetaFea
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.FeatureExtractorSamples.featureWithMetaFeatureProvider
+ *
  * @since 0.12.0
  */
 infix fun <T, R> Expect<T>.feature(of: MetaFeatureOptionWithCreator<T, R>): Expect<T> =
@@ -205,6 +221,9 @@ fun <T, R> MetaFeatureOption<T>.f(description: String, provider: R): MetaFeature
  * Helper function to create a [Feature] based on a [KFunction2] + arguments.
  *
  * @return The newly created [Feature].
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.FeatureExtractorSamples.featureFromFunctionWithArgumentFeature
+ *
  */
 @OptIn(ExperimentalComponentFactoryContainer::class)
 fun <T, A1, R> of(f: KFunction2<T, A1, R>, a1: A1): Feature<T, R> =
@@ -214,6 +233,9 @@ fun <T, A1, R> of(f: KFunction2<T, A1, R>, a1: A1): Feature<T, R> =
  * Helper function to create a [Feature] based on a [KFunction3] + arguments.
  *
  * @return The newly created [Feature].
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.FeatureExtractorSamples.featureFromFunctionWithTwoArgumentsFeature
+ *
  */
 @OptIn(ExperimentalComponentFactoryContainer::class)
 fun <T, A1, A2, R > of(f: KFunction3<T, A1, A2, R>, a1: A1, a2: A2): Feature<T, R> =
@@ -223,6 +245,9 @@ fun <T, A1, A2, R > of(f: KFunction3<T, A1, A2, R>, a1: A1, a2: A2): Feature<T, 
  * Helper function to create a [Feature] based on a [KFunction4] + arguments.
  *
  * @return The newly created [Feature].
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.FeatureExtractorSamples.featureFromFunctionWithThreeArgumentsFeature
+ *
  */
 @OptIn(ExperimentalComponentFactoryContainer::class)
 fun <T, A1, A2, A3, R> of(f:  KFunction4<T, A1, A2, A3, R>, a1: A1, a2: A2, a3: A3): Feature<T, R> =
@@ -232,6 +257,9 @@ fun <T, A1, A2, A3, R> of(f:  KFunction4<T, A1, A2, A3, R>, a1: A1, a2: A2, a3: 
  * Helper function to create a [Feature] based on a [KFunction5] + arguments.
  *
  * @return The newly created [Feature].
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.FeatureExtractorSamples.featureFromFunctionWithFourArgumentsFeature
+ *
  */
 @OptIn(ExperimentalComponentFactoryContainer::class)
 fun <T, A1, A2, A3, A4, R> of(f: KFunction5<T, A1, A2, A3, A4, R>, a1: A1, a2: A2, a3: A3, a4: A4): Feature<T, R> =
@@ -241,6 +269,9 @@ fun <T, A1, A2, A3, A4, R> of(f: KFunction5<T, A1, A2, A3, A4, R>, a1: A1, a2: A
  * Helper function to create a [Feature] based on a [KFunction6] + arguments.
  *
  * @return The newly created [Feature].
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.FeatureExtractorSamples.featureFromFunctionWithFiveArgumentsFeature
+ *
  */
 @OptIn(ExperimentalComponentFactoryContainer::class)
 fun <T, A1, A2, A3, A4, A5, R> of(f: KFunction6<T, A1, A2, A3, A4, A5, R>, a1: A1, a2: A2, a3: A3, a4: A4, a5: A5): Feature<T, R> =
@@ -250,6 +281,9 @@ fun <T, A1, A2, A3, A4, A5, R> of(f: KFunction6<T, A1, A2, A3, A4, A5, R>, a1: A
  * Helper function to create a [FeatureWithCreator] based on a [KProperty1] + [assertionCreator].
  *
  * @return The newly created [FeatureWithCreator].
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.FeatureExtractorSamples.featureFromProperty
+ *
  */
 fun <T, R> of(property: KProperty1<in T, R>, assertionCreator: Expect<R>.() -> Unit): FeatureWithCreator<T, R> =
     FeatureWithCreator(property.name, { property.invoke(it) }, assertionCreator)
@@ -258,6 +292,9 @@ fun <T, R> of(property: KProperty1<in T, R>, assertionCreator: Expect<R>.() -> U
  * Helper function to create a [FeatureWithCreator] based on a [KFunction1] + [assertionCreator].
  *
  * @return The newly created [FeatureWithCreator].
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.FeatureExtractorSamples.featureFromFunctionWithCreator
+ *
  */
 @OptIn(ExperimentalComponentFactoryContainer::class)
 fun <T, R> of(f: KFunction1<T, R>, assertionCreator: Expect<R>.() -> Unit): FeatureWithCreator<T, R> =
@@ -267,6 +304,9 @@ fun <T, R> of(f: KFunction1<T, R>, assertionCreator: Expect<R>.() -> Unit): Feat
  * Helper function to create a [FeatureWithCreator] based on a [KFunction2] + arguments + [assertionCreator].
  *
  * @return The newly created [FeatureWithCreator].
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.FeatureExtractorSamples.featureFromFunctionWithArgument
+ *
  */
 @OptIn(ExperimentalComponentFactoryContainer::class)
 fun <T, A1, R> of(f: KFunction2<T, A1, R>, a1: A1, assertionCreator: Expect<R>.() -> Unit): FeatureWithCreator<T, R> =
@@ -276,6 +316,8 @@ fun <T, A1, R> of(f: KFunction2<T, A1, R>, a1: A1, assertionCreator: Expect<R>.(
  * Helper function to create a [FeatureWithCreator] based on a [KFunction3] + arguments + [assertionCreator].
  *
  * @return The newly created [FeatureWithCreator].
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.FeatureExtractorSamples.featureFromFunctionWithTwoArguments
  */
 @OptIn(ExperimentalComponentFactoryContainer::class)
 fun <T, A1, A2, R > of(f: KFunction3<T, A1, A2, R>, a1: A1, a2: A2, assertionCreator: Expect<R>.() -> Unit): FeatureWithCreator<T, R> =
@@ -285,6 +327,8 @@ fun <T, A1, A2, R > of(f: KFunction3<T, A1, A2, R>, a1: A1, a2: A2, assertionCre
  * Helper function to create a [FeatureWithCreator] based on a [KFunction4] + arguments + [assertionCreator].
  *
  * @return The newly created [FeatureWithCreator].
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.FeatureExtractorSamples.featureFromFunctionWithThreeArguments
  */
 @OptIn(ExperimentalComponentFactoryContainer::class)
 fun <T, A1, A2, A3, R> of(f: KFunction4<T, A1, A2, A3, R>, a1: A1, a2: A2, a3: A3, assertionCreator: Expect<R>.() -> Unit): FeatureWithCreator<T, R> =
@@ -294,6 +338,9 @@ fun <T, A1, A2, A3, R> of(f: KFunction4<T, A1, A2, A3, R>, a1: A1, a2: A2, a3: A
  * Helper function to create a [FeatureWithCreator] based on a [KFunction5] + arguments + [assertionCreator].
  *
  * @return The newly created [FeatureWithCreator].
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.FeatureExtractorSamples.featureFromFunctionWithFourArguments
+ *
  */
 @OptIn(ExperimentalComponentFactoryContainer::class)
 fun <T, A1, A2, A3, A4, R> of(f: KFunction5<T, A1, A2, A3, A4, R>, a1: A1, a2: A2, a3: A3, a4: A4, assertionCreator: Expect<R>.() -> Unit): FeatureWithCreator<T, R> =
@@ -303,6 +350,9 @@ fun <T, A1, A2, A3, A4, R> of(f: KFunction5<T, A1, A2, A3, A4, R>, a1: A1, a2: A
  * Helper function to create a [FeatureWithCreator] based on a [KFunction6] + arguments + [assertionCreator].
  *
  * @return The newly created [FeatureWithCreator].
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.FeatureExtractorSamples.featureFromFunctionWithFiveArguments
+ *
  */
 @OptIn(ExperimentalComponentFactoryContainer::class)
 fun <T, A1, A2, A3, A4, A5, R> of(f: KFunction6<T, A1, A2, A3, A4, A5, R>, a1: A1, a2: A2, a3: A3, a4: A4, a5: A5, assertionCreator: Expect<R>.() -> Unit): FeatureWithCreator<T, R> =
@@ -316,6 +366,8 @@ private fun formatMethodCall(k: KCallable<*>, vararg args: Any?): (ComponentFact
 /**
  * Helper function to create a [MetaFeatureOptionWithCreator] based on a lambda with
  * [MetaFeatureOption] receiver (has to return a [MetaFeature]) and an [assertionCreator].
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.FeatureExtractorSamples.featureWithMetaFeatureProvider
  */
 fun <T, R> of(
     provider: MetaFeatureOption<T>.(T) -> MetaFeature<R>,
@@ -350,6 +402,9 @@ fun <T, R> of(
  * ```
  *
  * @return The newly created [Feature].
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.FeatureExtractorSamples.featureWithDescription
+ *
  */
 fun <T, R> of(description: String, extractor: T.() -> R): Feature<T, R> =
     Feature(description, extractor)
@@ -379,6 +434,9 @@ fun <T, R> of(description: String, extractor: T.() -> R): Feature<T, R> =
  * ```
  *
  * @return The newly created [Feature].
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.FeatureExtractorSamples.featureWithDescriptionAssertionCreator
+ *
  */
 fun <T, R> of(
     description: String,

@@ -15,3 +15,4 @@ node_modules
 .kotlin
 .gt/**/repo
 .gt/**/gpg
+**/.DS_Store
