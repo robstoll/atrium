@@ -1,5 +1,5 @@
 [versions]
-kbox = "2.1.0"
+kbox = "3.0.0"
 niok = "1.5.0"
 
 # testing
