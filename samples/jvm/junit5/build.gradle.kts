@@ -26,8 +26,8 @@ dependencies {
     testImplementation("ch.tutteli.atrium:atrium-fluent:$atriumVersion")
 
     // setup for junit5
-    testImplementation("org.junit.jupiter:junit-jupiter-api:$junitVersion")
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:$junitVersion")
+    testImplementation("org.junit.jupiter:junit-jupiter:$junitVersion")
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 
 tasks.test {
