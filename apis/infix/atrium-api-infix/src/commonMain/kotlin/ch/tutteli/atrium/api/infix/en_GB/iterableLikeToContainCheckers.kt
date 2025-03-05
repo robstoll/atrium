@@ -18,6 +18,8 @@ import ch.tutteli.atrium.logic.creating.iterable.contains.steps.*
  * @throws IllegalArgumentException In case [times] is smaller than zero.
  * @throws IllegalArgumentException In case [times] is zero; use [notToContain] instead.
  *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.IterableLikeToContainCheckerSamples.atLeast
+ *
  * @since 0.14.0 -- API existed for [Iterable] but not for [IterableLike].
  */
 infix fun <E, T : IterableLike, S : InAnyOrderSearchBehaviour> IterableLikeContains.EntryPointStep<E, T, S>.atLeast(
@@ -39,6 +41,8 @@ infix fun <E, T : IterableLike, S : InAnyOrderSearchBehaviour> IterableLikeConta
  * @throws IllegalArgumentException In case [times] is zero; use [notToContain] instead.
  * @throws IllegalArgumentException In case [times] of this `at most` restriction equals to the number of the
  *   `at least` restriction; use the [exactly] restriction instead.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.IterableLikeToContainCheckerSamples.butAtMost
  *
  * @since 0.14.0 -- API existed for [Iterable] but not for [IterableLike].
  */
@@ -65,6 +69,8 @@ infix fun <E, T : IterableLike, S : InAnyOrderSearchBehaviour> AtLeastCheckerSte
  * @throws IllegalArgumentException In case [times] is smaller than zero.
  * @throws IllegalArgumentException In case [times] is zero; use [notToContain] instead.
  *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.IterableLikeToContainCheckerSamples.exactly
+ *
  * @since 0.14.0 -- API existed for [Iterable] but not for [IterableLike].
  */
 infix fun <E, T : IterableLike, S : InAnyOrderSearchBehaviour> IterableLikeContains.EntryPointStep<E, T, S>.exactly(
@@ -88,6 +94,8 @@ infix fun <E, T : IterableLike, S : InAnyOrderSearchBehaviour> IterableLikeConta
  * @throws IllegalArgumentException In case [times] is zero; use [notToContain] instead.
  * @throws IllegalArgumentException In case [times] equals to one; use [exactly] instead.
  *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.IterableLikeToContainCheckerSamples.atMost
+ *
  * @since 0.14.0 -- API existed for [Iterable] but not for [IterableLike].
  */
 infix fun <E, T : IterableLike, S : InAnyOrderSearchBehaviour> IterableLikeContains.EntryPointStep<E, T, S>.atMost(
@@ -110,6 +118,8 @@ infix fun <E, T : IterableLike, S : InAnyOrderSearchBehaviour> IterableLikeConta
  * @return The newly created builder.
  * @throws IllegalArgumentException In case [times] is smaller than zero.
  * @throws IllegalArgumentException In case [times] is zero; use [notToContain] instead.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.IterableLikeToContainCheckerSamples.notOrAtMost
  *
  * @since 0.14.0 -- API existed for [Iterable] but not for [IterableLike].
  */
