@@ -24,6 +24,8 @@ import ch.tutteli.atrium.logic.utils.toVarArg
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.IterableLikeToContainInAnyOrderCreatorSamples.value
+ *
  * @since 0.14.0 -- API existed for [Iterable] but not for [IterableLike].
  */
 infix fun <E, T : IterableLike> CheckerStep<E, T, InAnyOrderSearchBehaviour>.value(expected: E): Expect<T> =
@@ -49,6 +51,8 @@ infix fun <E, T : IterableLike> CheckerStep<E, T, InAnyOrderSearchBehaviour>.val
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.IterableLikeToContainInAnyOrderCreatorSamples.values
+ *
  * @since 0.14.0 -- API existed for [Iterable] but not for [IterableLike].
  */
 infix fun <E, T : IterableLike> CheckerStep<E, T, InAnyOrderSearchBehaviour>.the(values: Values<E>): Expect<T> =
@@ -66,6 +70,8 @@ infix fun <E, T : IterableLike> CheckerStep<E, T, InAnyOrderSearchBehaviour>.the
  *   or not. In case it is defined as `null`, then an entry is identified if it is `null` as well.
  *
  * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.IterableLikeToContainInAnyOrderCreatorSamples.entry
  *
  * @since 0.14.0 -- API existed for [Iterable] but not for [IterableLike].
  */
@@ -85,6 +91,8 @@ infix fun <E : Any, T : IterableLike> CheckerStep<out E?, T, InAnyOrderSearchBeh
  *   -- use the function `entries(t, ...)` to create an [Entries].
  *
  * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.IterableLikeToContainInAnyOrderCreatorSamples.entries
  *
  * @since 0.14.0 -- API existed for [Iterable] but not for [IterableLike].
  */
@@ -112,7 +120,7 @@ infix fun <E : Any, T : IterableLike> CheckerStep<out E?, T, InAnyOrderSearchBeh
  *
  * @since 0.13.0
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.IterableLikeToContainInAnyOrderCreatorSamples.elementsOf
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.IterableLikeToContainInAnyOrderCreatorSamples.elementsOf
  */
 inline infix fun <reified E, T : IterableLike> CheckerStep<E, T, InAnyOrderSearchBehaviour>.elementsOf(
     expectedIterableLike: IterableLike
