@@ -1,21 +1,26 @@
 {
     "extends": [
-        "config:base",
-        "github>robstoll/renovate-presets-jvm",
-        ":switchToGradleLite"
+        "config:recommended",
+        "github>robstoll/renovate-presets-jvm"
     ],
     "packageRules": [
         {
-            "matchFileNames": ["samples/**"],
-            "schedule": ["every month"],
+            "matchFileNames": [
+                "samples/**"
+            ],
+            "schedule": [
+                "every month"
+            ],
             "additionalBranchPrefix": "samples/"
         }
     ],
     "description": "TODO 3.0 activate again once we support scala",
-    "ignorePaths": ["atrium-scala2/"],
+    "ignorePaths": [
+        "atrium-scala2/"
+    ],
     "ignoreDeps": [
-        "org.spekframework.spek2:spek-dsl-js", 
-        "org.spekframework.spek2:spek-runtime-jvm", 
+        "org.spekframework.spek2:spek-dsl-js",
+        "org.spekframework.spek2:spek-runtime-jvm",
         "org.spekframework.spek2:spek-runner-junit5",
         "org.spekframework.spek2:spek-dsl-jvm",
         "org.spekframework.spek2:spek-dsl-metadata",
