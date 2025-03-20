@@ -1,6 +1,5 @@
 plugins {
-    kotlin("js")
-    id("build-logic.kotlin-conventions")
+    id("build-logic.kotlin-multiplatform-conventions")
 }
 
 kotlin {

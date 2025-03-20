@@ -2,7 +2,7 @@ import org.gradle.kotlin.dsl.kotlin
 
 plugins {
     kotlin("multiplatform")
-    id("build-logic.gradle-conventions")
+    id("build-logic.kotlin-conventions")
 }
 
 kotlin {
