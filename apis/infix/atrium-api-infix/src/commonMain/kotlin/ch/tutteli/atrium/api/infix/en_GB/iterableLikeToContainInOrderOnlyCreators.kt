@@ -27,6 +27,8 @@ import kotlin.jvm.JvmName
  * @return an [Expect] for the subject of `this` expectation.
  *
  * @since 0.14.0 -- API existed for [Iterable] but not for [IterableLike].
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.IterableLikeToContainInOrderOnlyCreatorSamples.value
  */
 infix fun <E, T : IterableLike> EntryPointStep<E, T, InOrderOnlySearchBehaviour>.value(expected: E): Expect<T> =
     this the values(expected)
@@ -41,6 +43,8 @@ infix fun <E, T : IterableLike> EntryPointStep<E, T, InOrderOnlySearchBehaviour>
  * @return an [Expect] for the subject of `this` expectation.
  *
  * @since 0.14.0 -- API existed for [Iterable] but not for [IterableLike].
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.IterableLikeToContainInOrderOnlyCreatorSamples.values
  */
 infix fun <E, T : IterableLike> EntryPointStep<E, T, InOrderOnlySearchBehaviour>.the(values: Values<E>): Expect<T> =
     the(WithInOrderOnlyReportingOptions({}, values))
@@ -78,6 +82,8 @@ infix fun <E, T : IterableLike> EntryPointStep<E, T, InOrderOnlySearchBehaviour>
  * @return an [Expect] for the subject of `this` expectation.
  *
  * @since 0.14.0 -- API existed for [Iterable] but not for [IterableLike].
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.IterableLikeToContainInOrderOnlyCreatorSamples.entry
  */
 infix fun <E : Any, T : IterableLike> EntryPointStep<out E?, T, InOrderOnlySearchBehaviour>.entry(
     assertionCreatorOrNull: (Expect<E>.() -> Unit)?
@@ -96,6 +102,8 @@ infix fun <E : Any, T : IterableLike> EntryPointStep<out E?, T, InOrderOnlySearc
  * @return an [Expect] for the subject of `this` expectation.
  *
  * @since 0.14.0 -- API existed for [Iterable] but not for [IterableLike].
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.IterableLikeToContainInOrderOnlyCreatorSamples.entries
  */
 
 infix fun <E : Any, T : IterableLike> EntryPointStep<out E?, T, InOrderOnlySearchBehaviour>.the(
