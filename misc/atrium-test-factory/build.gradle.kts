@@ -22,8 +22,13 @@ kotlin {
 
         jvmMain {
             dependencies {
+                api(libs.junit.bom)
                 api(libs.junit.jupiter.api)
             }
         }
     }
+}
+
+dependencies {
+    platform(libs.junit.bom)
 }

@@ -8,6 +8,7 @@ kotlin {
     sourceSets {
         main {
             dependencies {
+                implementation(libs.junit.bom)
                 implementation(libs.junit.platform.console)
                 runtimeOnly(kotlin("reflect"))
 
@@ -18,11 +19,15 @@ kotlin {
         }
         configureEach {
             languageSettings.apply {
-                languageVersion = "1.9"
-                apiVersion = "1.9"
+                languageVersion = "2.0"
+                apiVersion = "2.0"
             }
         }
     }
+}
+
+dependencies {
+    platform(libs.junit.bom)
 }
 
 tasks.test.configure {

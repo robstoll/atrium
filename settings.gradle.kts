@@ -24,11 +24,12 @@ plugins {
 
 rootProject.name = "atrium"
 
-listOf("fluent", "infix").forEach { apiName ->
-    include("bundles/$apiName", "atrium-$apiName")
-    include("bundles/$apiName/smoke-tests", "atrium-$apiName-smoke-test")
-    include("apis/$apiName", "atrium-api-$apiName")
+listOf("fluent" to "fluent", "fluent" to "fluent-java",  "infix" to "infix").forEach { (folder, apiName) ->
+    include("bundles/$folder", "atrium-$apiName")
+    include("bundles/$folder/smoke-tests", "atrium-$apiName-smoke-test")
+    include("apis/$folder", "atrium-api-$apiName")
 }
+
 
 include("", "atrium-core")
 include("logic", "atrium-logic")

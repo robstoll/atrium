@@ -5,7 +5,7 @@ plugins {
     id("build-logic.kotlin-conventions")
     // this plugin sets inter alia toolchain and source/targetCompatibility
     // but also applies common plugins such as gradle-convention, build-params
-    id("build-logic.java")
+    id("build-logic.java-conventions")
     id("build-logic.junit-jacoco-conventions")
 }
 
