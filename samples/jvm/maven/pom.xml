@@ -14,7 +14,7 @@
         <atrium.version>1.2.0</atrium.version>
         <java.charset>UTF-8</java.charset>
         <java.version>11</java.version>
-        <junit.version>5.11.4</junit.version>
+        <junit.version>5.12.1</junit.version>
         <kotlin.compiler.jvmTarget>${java.version}</kotlin.compiler.jvmTarget>
         <kotlin.version>2.1.20</kotlin.version>
         <maven-compiler-plugin.version>3.14.0</maven-compiler-plugin.version>
@@ -90,13 +90,6 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-surefire-plugin</artifactId>
                     <version>${maven-surefire-plugin.version}</version>
-                    <dependencies>
-                        <dependency>
-                            <groupId>org.junit.jupiter</groupId>
-                            <artifactId>junit-jupiter-engine</artifactId>
-                            <version>${junit.version}</version>
-                        </dependency>
-                    </dependencies>
                 </plugin>
             </plugins>
         </pluginManagement>
