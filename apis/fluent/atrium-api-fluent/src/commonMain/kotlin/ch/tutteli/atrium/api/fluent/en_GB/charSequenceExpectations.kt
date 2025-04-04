@@ -17,7 +17,7 @@ import ch.tutteli.atrium.logic.creating.typeutils.CharSequenceOrNumberOrChar
  *
  * @since 0.17.0
  */
-val <T : CharSequence> Expect<T>.toContain: CharSequenceContains.EntryPointStep<T, NoOpSearchBehaviour>
+val <SubjectT : CharSequence> Expect<SubjectT>.toContain: CharSequenceContains.EntryPointStep<SubjectT, NoOpSearchBehaviour>
     get() = _logic.containsBuilder()
 
 /**
@@ -30,7 +30,7 @@ val <T : CharSequence> Expect<T>.toContain: CharSequenceContains.EntryPointStep<
  *
  * @since 0.17.0
  */
-val <T : CharSequence> Expect<T>.notToContain: NotCheckerStep<T, NotSearchBehaviour>
+val <SubjectT : CharSequence> Expect<SubjectT>.notToContain: NotCheckerStep<SubjectT, NotSearchBehaviour>
     get() = _logic.containsNotBuilder()
 
 /**
@@ -63,10 +63,10 @@ val <T : CharSequence> Expect<T>.notToContain: NotCheckerStep<T, NotSearchBehavi
  *
  * @since 0.17.0
  */
-fun <T : CharSequence> Expect<T>.toContain(
+fun <SubjectT : CharSequence> Expect<SubjectT>.toContain(
     expected: CharSequenceOrNumberOrChar,
     vararg otherExpected: CharSequenceOrNumberOrChar
-): Expect<T> = toContain.atLeast(1).values(expected, *otherExpected)
+): Expect<SubjectT> = toContain.atLeast(1).values(expected, *otherExpected)
 
 /**
  * Expects that the subject of `this` expectation (a [CharSequence]) does not contain [expected]'s [toString] representation

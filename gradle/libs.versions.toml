@@ -4,7 +4,7 @@ niok = "1.5.0"
 
 # testing
 assertJ = "3.27.3"
-junitJupiter = "5.12.1"
+junit = "5.12.1"
 junitPlatform = "1.12.1"
 spek = "2.0.12"
 spekExtensions = "1.2.1"
@@ -12,12 +12,14 @@ mockk = "1.11.0"
 mockitoKotlin = "2.2.0"
 
 # gradle
-nexus="2.0.0"
+nexus = "2.0.0"
 
 [libraries]
 assertJ = { module = "org.assertj:assertj-core", version.ref = "assertJ" }
-junit-jupiter-api = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "junitJupiter" }
-junit-jupiter-params = { module = "org.junit.jupiter:junit-jupiter-params", version.ref = "junitJupiter" }
+junit-jupiter-api = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "junit" }
+junit-jupiter = { module = "org.junit.jupiter:junit-jupiter", version.ref = "junit" }
+junit-jupiter-params = { module = "org.junit.jupiter:junit-jupiter-params", version.ref = "junit" }
+junit-platform-launcher = { module = "org.junit.platform:junit-platform-launcher", version.ref = "junitPlatform" }
 junit-platform-commons = { module = "org.junit.platform:junit-platform-commons", version.ref = "junitPlatform" }
 junit-platform-console = { module = "org.junit.platform:junit-platform-console-standalone", version.ref = "junitPlatform" }
 kbox = { module = "ch.tutteli.kbox:kbox", version.ref = "kbox" }
@@ -34,4 +36,4 @@ spek-js = { module = "org.spekframework.spek2:spek-dsl-js", version.ref = "spek"
 tutteli-spek = { module = "ch.tutteli.spek:tutteli-spek-extensions", version.ref = "spekExtensions" }
 
 [plugins]
-nexus = { id = "io.github.gradle-nexus.publish-plugin", version.ref="nexus" }
+nexus = { id = "io.github.gradle-nexus.publish-plugin", version.ref = "nexus" }

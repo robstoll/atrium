@@ -21,7 +21,7 @@ buildParameters {
     group("kotlin") {
         string("version") {
             fromEnvironment()
-            @Suppress("DEPRECATION" /* we support kotlin_1_4 on purpose */)
+            @Suppress("DEPRECATION" /* we support kotlin_1_4 on purpose, we want */)
             defaultValue.set(KotlinVersion.KOTLIN_1_4.version)
             description.set("kotlin version used for apiVersion and languageVersion")
         }

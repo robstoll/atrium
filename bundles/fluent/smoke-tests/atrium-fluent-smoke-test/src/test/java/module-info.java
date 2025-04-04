@@ -1,4 +1,4 @@
-module ch.tutteli.atrium.fluent.en_GB.smoke {
-    requires ch.tutteli.atrium.fluent.en_GB;
+module ch.tutteli.atrium.fluent.java.smoke {
+    requires ch.tutteli.atrium.fluent.java;
     requires kotlin.stdlib;
 }

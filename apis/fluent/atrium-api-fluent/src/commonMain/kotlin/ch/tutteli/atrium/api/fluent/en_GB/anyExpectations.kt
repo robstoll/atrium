@@ -22,7 +22,7 @@ import kotlin.reflect.KClass
  *
  * @since 0.17.0
  */
-fun <T> Expect<T>.toEqual(expected: T): Expect<T> = _logicAppend { toBe(expected) }
+fun <SubjectT> Expect<SubjectT>.toEqual(expected: SubjectT): Expect<SubjectT> = _logicAppend { toBe(expected) }
 
 /**
  * Expects that the subject of `this` expectation is **not** equal to [expected].
@@ -33,7 +33,7 @@ fun <T> Expect<T>.toEqual(expected: T): Expect<T> = _logicAppend { toBe(expected
  *
  * @since 0.17.0
  */
-fun <T> Expect<T>.notToEqual(expected: T): Expect<T> = _logicAppend { notToBe(expected) }
+fun <SubjectT> Expect<SubjectT>.notToEqual(expected: SubjectT): Expect<SubjectT> = _logicAppend { notToBe(expected) }
 
 /**
  * Expects that the subject of `this` expectation is the same instance as [expected].
@@ -44,7 +44,7 @@ fun <T> Expect<T>.notToEqual(expected: T): Expect<T> = _logicAppend { notToBe(ex
  *
  * @since 0.17.0
  */
-fun <T> Expect<T>.toBeTheInstance(expected: T): Expect<T> = _logicAppend { isSameAs(expected) }
+fun <SubjectT> Expect<SubjectT>.toBeTheInstance(expected: SubjectT): Expect<SubjectT> = _logicAppend { isSameAs(expected) }
 
 /**
  * Expects that the subject of `this` expectation is **not** the same instance as [expected].
@@ -55,7 +55,7 @@ fun <T> Expect<T>.toBeTheInstance(expected: T): Expect<T> = _logicAppend { isSam
  *
  * @since 0.17.0
  */
-fun <T> Expect<T>.notToBeTheInstance(expected: T): Expect<T> = _logicAppend { isNotSameAs(expected) }
+fun <SubjectT> Expect<SubjectT>.notToBeTheInstance(expected: SubjectT): Expect<SubjectT> = _logicAppend { isNotSameAs(expected) }
 
 /**
  * Expects that the subject of `this` expectation is either `null` in case [assertionCreatorOrNull]
@@ -65,35 +65,35 @@ fun <T> Expect<T>.notToBeTheInstance(expected: T): Expect<T> = _logicAppend { is
  *
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.AnyExpectationSamples.toEqualNullIfNullGivenElse
  */
-fun <T : Any> Expect<T?>.toEqualNullIfNullGivenElse(
-    assertionCreatorOrNull: (Expect<T>.() -> Unit)?
-): Expect<T?> = _logicAppend { toBeNullIfNullGivenElse(assertionCreatorOrNull) }
+fun <SubjectT : Any> Expect<SubjectT?>.toEqualNullIfNullGivenElse(
+    assertionCreatorOrNull: (Expect<SubjectT>.() -> Unit)?
+): Expect<SubjectT?> = _logicAppend { toBeNullIfNullGivenElse(assertionCreatorOrNull) }
 
 /**
  * Expects that the subject of `this` expectation is not null and changes the subject to the non-nullable version.
  *
- * @return An [Expect] with the non-nullable type [T] (was `T?` before).
+ * @return An [Expect] with the non-nullable type [SubjectT] (was `T?` before).
  *
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.AnyExpectationSamples.notToEqualNullFeature
  */
-inline fun <reified T : Any> Expect<T?>.notToEqualNull(): Expect<T> =
-    notToEqualNullButToBeAnInstanceOf(T::class).transform()
+inline fun <reified SubjectT : Any> Expect<SubjectT?>.notToEqualNull(): Expect<SubjectT> =
+    notToEqualNullButToBeAnInstanceOf(SubjectT::class).transform()
 
 
 @PublishedApi // in order that _logic does not become part of the API we have this extra function
-internal fun <T : Any> Expect<T?>.notToEqualNullButToBeAnInstanceOf(kClass: KClass<T>): SubjectChangerBuilder.ExecutionStep<T?, T> =
+internal fun <SubjectT : Any> Expect<SubjectT?>.notToEqualNullButToBeAnInstanceOf(kClass: KClass<SubjectT>): SubjectChangerBuilder.ExecutionStep<SubjectT?, SubjectT> =
     _logic.notToBeNullButOfType(kClass)
 
 /**
  * Expects that the subject of `this` expectation is not null and
  * that it holds all assertions the given [assertionCreator] creates.
  *
- * @return An [Expect] with the non-nullable type [T] (was `T?` before)
+ * @return An [Expect] with the non-nullable type [SubjectT] (was `T?` before)
  *
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.AnyExpectationSamples.notToEqualNull
  */
-inline fun <reified T : Any> Expect<T?>.notToEqualNull(noinline assertionCreator: Expect<T>.() -> Unit): Expect<T> =
-    notToEqualNullButToBeAnInstanceOf(T::class).transformAndAppend(assertionCreator)
+inline fun <reified SubjectT : Any> Expect<SubjectT?>.notToEqualNull(noinline assertionCreator: Expect<SubjectT>.() -> Unit): Expect<SubjectT> =
+    notToEqualNullButToBeAnInstanceOf(SubjectT::class).transformAndAppend(assertionCreator)
 
 /**
  * Expects that the type of the subject of `this` expectation is the defined [SubTypeOfSubjectT] or a subtype thereof
@@ -228,7 +228,7 @@ fun <T> Expect<T>.notToBeAnInstanceOf(type: KClass<*>, vararg otherTypes: KClass
  *
  * @since 0.17.0
  */
-fun <T> Expect<T>.notToEqualOneOf(expected: T, vararg otherValues: T): Expect<T> =
+fun <SubjectT> Expect<SubjectT>.notToEqualOneOf(expected: SubjectT, vararg otherValues: SubjectT): Expect<SubjectT> =
     _logicAppend { isNotIn(expected glue otherValues) }
 
 /**
@@ -244,7 +244,7 @@ fun <T> Expect<T>.notToEqualOneOf(expected: T, vararg otherValues: T): Expect<T>
  *
  * @since 0.17.0
  */
-fun <T> Expect<T>.notToEqualOneIn(expected: IterableLike): Expect<T> =
+fun <SubjectT> Expect<SubjectT>.notToEqualOneIn(expected: IterableLike): Expect<SubjectT> =
     _logicAppend { isNotIn(iterableLikeToIterable(expected)) }
 
 /**
@@ -258,7 +258,7 @@ fun <T> Expect<T>.notToEqualOneIn(expected: IterableLike): Expect<T> =
  *
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.AnyExpectationSamples.andFeature
  */
-inline val <T> Expect<T>.and: Expect<T> get() = this
+inline val <SubjectT> Expect<SubjectT>.and: Expect<SubjectT> get() = this
 
 /**
  * Can be used to create a group of sub assertions when using the fluent API.
@@ -272,5 +272,5 @@ inline val <T> Expect<T>.and: Expect<T> get() = this
  *
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.AnyExpectationSamples.and
  */
-infix fun <T> Expect<T>.and(assertionCreator: Expect<T>.() -> Unit): Expect<T> =
+infix fun <SubjectT> Expect<SubjectT>.and(assertionCreator: Expect<SubjectT>.() -> Unit): Expect<SubjectT> =
     _logic.appendAsGroup(assertionCreator)

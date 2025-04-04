@@ -5,6 +5,7 @@ plugins {
 dependencies {
     api(projects.basics)
     api(projects.dev)
+    api(projects.compiler)
 
     api(buildLibs.bundles.dokka)
     api(buildLibs.tutteli.dokka)

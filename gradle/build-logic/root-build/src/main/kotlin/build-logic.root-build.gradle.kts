@@ -92,6 +92,7 @@ apiValidation {
             //misc not relevant for bc
             "atrium-specs",
             "atrium-verbs-internal",
+            "java-api-generator",
             "readme-examples",
         )
     )

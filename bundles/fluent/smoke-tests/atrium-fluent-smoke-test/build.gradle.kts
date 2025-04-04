@@ -4,5 +4,5 @@ plugins {
 }
 
 dependencies {
-    testImplementation(prefixedProject("fluent"))
+    testImplementation(prefixedProject("fluent-java"))
 }

@@ -15,7 +15,13 @@ tasks.withType<Test>().configureEach {
 }
 
 //TODO switch to buildLibs once gradle supports this in build-logic/src/kotlin files (also jupiter-api above)
-val jacocoToolVersion: String by rootProject.extra
+val jacocoToolVersion: String by lazy {
+    if (rootProject.extra.has("jacocoToolVersion")) {
+        rootProject.extra.get("jacocoToolVersion") as String
+    } else {
+      ""
+    }
+}
 
 plugins.withId("jacoco") {
 

@@ -1,3 +1,5 @@
+rootProject.name = "atrium"
+
 pluginManagement {
     repositories {
 //        mavenLocal()
@@ -22,12 +24,11 @@ plugins {
     }
 }
 
-rootProject.name = "atrium"
 
-listOf("fluent", "infix").forEach { apiName ->
-    include("bundles/$apiName", "atrium-$apiName")
-    include("bundles/$apiName/smoke-tests", "atrium-$apiName-smoke-test")
-    include("apis/$apiName", "atrium-api-$apiName")
+listOf("fluent" to "fluent", "fluent" to "fluent-java", "infix" to "infix").forEach { (folder, apiName) ->
+    include("bundles/$folder", "atrium-$apiName")
+    include("bundles/$folder/smoke-tests", "atrium-$apiName-smoke-test")
+    include("apis/$folder", "atrium-api-$apiName")
 }
 
 include("", "atrium-core")
@@ -42,7 +43,12 @@ include("misc", "atrium-test-factory")
 include("misc", "atrium-verbs")
 include("misc", "atrium-verbs-internal")
 include("misc", "js-stubs")
+include("misc/tools", "java-api-generator")
 include("misc/tools", "readme-examples")
+
+// for the future when we provide a compiler plugin to improve `its`
+//include("misc/tools", "compiler-plugin")
+//includeBuild("misc/tools/compiler-plugin-gradle-plugin")
 
 fun Settings_gradle.include(subPath: String, projectName: String) {
     val dir = file("${rootProject.projectDir}/$subPath/$projectName")
