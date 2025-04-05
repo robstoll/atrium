@@ -2,7 +2,7 @@ plugins {
     id("build-logic.published-kotlin-multiplatform")
 }
 
-description = "An infix API in en_GB with a focus on code completion."
+description = "An infix expectation function API with a focus on code completion."
 
 kotlin {
     sourceSets {
