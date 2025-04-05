@@ -16,10 +16,11 @@ kotlin {
                 implementation(libs.assertJ)
             }
         }
+        val kotlinVersion = org.jetbrains.kotlin.gradle.dsl.KotlinVersion.DEFAULT.version
         configureEach {
             languageSettings.apply {
-                languageVersion = "1.9"
-                apiVersion = "1.9"
+                languageVersion = kotlinVersion
+                apiVersion = kotlinVersion
             }
         }
     }

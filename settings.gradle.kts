@@ -1,3 +1,5 @@
+rootProject.name = "atrium"
+
 pluginManagement {
     repositories {
 //        mavenLocal()
@@ -22,7 +24,6 @@ plugins {
     }
 }
 
-rootProject.name = "atrium"
 
 listOf("fluent", "infix").forEach { apiName ->
     include("bundles/$apiName", "atrium-$apiName")
