@@ -7,14 +7,14 @@ import ch.tutteli.atrium.api.infix.en_GB.*
 class IterableLikeToContainInAnyOrderOnlyCreatorSamples {
     @Test
     fun value() {
-        expect(listOf("A")) toContain o inAny order but only value("A")
+        expect(listOf("A")) toContain o inAny order but only value "A"
 
         fails { // because the List does not contain expected value
-            expect(listOf("B")) toContain o inAny order but only value("A")
+            expect(listOf("B")) toContain o inAny order but only value "A"
         }
 
         fails { // because the List contains multiple elements
-            expect(listOf("A", "A")) toContain o inAny order but only value("A")
+            expect(listOf("A", "A")) toContain o inAny order but only value "A"
         }
     }
 
@@ -117,20 +117,14 @@ class IterableLikeToContainInAnyOrderOnlyCreatorSamples {
 
     @Test
     fun elementsOf() {
-        expect(listOf("A", "B", "C")) toContain o inAny order but only elementsOf(
-            listOf("A", "B", "C")
-        )
+        expect(listOf("A", "B", "C")) toContain o inAny order but only elementsOf listOf("A", "B", "C")
 
         fails { // because not all elements found
-            expect(listOf("A", "B", "C")) toContain o inAny order but only elementsOf(
-                listOf("B", "A")
-            )
+            expect(listOf("A", "B", "C")) toContain o inAny order but only elementsOf listOf("B", "A")
         }
 
         fails { // because more elements expected than found
-            expect(listOf("A", "B", "C")) toContain o inAny order but only elementsOf(
-                listOf("B", "A", "C", "D")
-            )
+            expect(listOf("A", "B", "C")) toContain o inAny order but only elementsOf listOf("B", "A", "C", "D")
         }
     }
 }

@@ -27,6 +27,8 @@ import kotlin.jvm.JvmName
  *
  * @param expected The value which is expected to be contained within the [IterableLike].
  *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.IterableLikeToContainInAnyOrderOnlyCreatorSamples.value
+ *
  * @return an [Expect] for the subject of `this` expectation.
  */
 infix fun <E, T : IterableLike> EntryPointStep<E, T, InAnyOrderOnlySearchBehaviour>.value(expected: E): Expect<T> =
@@ -40,6 +42,8 @@ infix fun <E, T : IterableLike> EntryPointStep<E, T, InAnyOrderOnlySearchBehavio
  * @param values The values which are expected to be contained within the [IterableLike]
  *   -- use the function `values(t, ...)` to create a [Values].
  *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.IterableLikeToContainInAnyOrderOnlyCreatorSamples.values
+ *
  * @return an [Expect] for the subject of `this` expectation.
  */
 infix fun <E, T : IterableLike> EntryPointStep<E, T, InAnyOrderOnlySearchBehaviour>.the(values: Values<E>): Expect<T> =
@@ -52,6 +56,8 @@ infix fun <E, T : IterableLike> EntryPointStep<E, T, InAnyOrderOnlySearchBehavio
  * @param values The values which are expected to be contained within the [IterableLike] plus a lambda configuring
  *   the [InAnyOrderOnlyReportingOptions] -- use the function `values(t, ..., reportOptionsInAnyOrderOnly = { ... })`
  *   to create a [WithInAnyOrderOnlyReportingOptions] with a wrapped [Values].
+ *
+ *  @sample ch.tutteli.atrium.api.infix.en_GB.samples.IterableLikeToContainInAnyOrderOnlyCreatorSamples.values
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
@@ -71,6 +77,8 @@ infix fun <E, T : IterableLike> EntryPointStep<E, T, InAnyOrderOnlySearchBehavio
  * @param assertionCreatorOrNull The identification lambda which creates the assertions which the entry we are looking
  *   for has to hold; or in other words, the function which defines whether an entry is the one we are looking for
  *   or not. In case it is defined as `null`, then an entry is identified if it is `null` as well.
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.IterableLikeToContainInAnyOrderOnlyCreatorSamples.entry
  *
  * @return an [Expect] for the subject of `this` expectation.
  */
@@ -95,6 +103,8 @@ infix fun <E : Any, T : IterableLike> EntryPointStep<out E?, T, InAnyOrderOnlySe
  * @param entries The entries which are expected to be contained within the [IterableLike]
  *   -- use the function `entries(t, ...)` to create an [Entries].
  *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.IterableLikeToContainInAnyOrderOnlyCreatorSamples.entries
+ *
  * @return an [Expect] for the subject of `this` expectation.
  */
 infix fun <E : Any, T : IterableLike> EntryPointStep<out E?, T, InAnyOrderOnlySearchBehaviour>.the(
@@ -118,6 +128,8 @@ infix fun <E : Any, T : IterableLike> EntryPointStep<out E?, T, InAnyOrderOnlySe
  * @param entries The entries which are expected to be contained within the [IterableLike] plus a lambda configuring
  *   the [InAnyOrderOnlyReportingOptions] -- use the function `entries(t, ..., reportOptionsInAnyOrderOnly = { ... })`
  *   to create a [WithInAnyOrderOnlyReportingOptions] with a wrapped [Entries].
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.IterableLikeToContainInAnyOrderOnlyCreatorSamples.entries
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
@@ -145,9 +157,11 @@ infix fun <E : Any, T : IterableLike> EntryPointStep<out E?, T, InAnyOrderOnlySe
  *   [Iterable], [Sequence] or one of the [Array] types
  *   or the given [expectedIterableLike] does not have elements (is empty).
  *
- * @since 0.14.0 -- API existed for [Iterable] since 0.13.0 but not for [IterableLike].
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.IterableLikeToContainInAnyOrderOnlyCreatorSamples.elementsOf
  *
- * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.IterableLikeToContainInAnyOrderOnlyCreatorSamples.elementsOf
+ * @return an [Expect] for the subject of `this` expectation.
+ *
+ * @since 0.14.0 -- API existed for [Iterable] since 0.13.0 but not for [IterableLike].
  */
 inline infix fun <reified E, T : IterableLike> EntryPointStep<E, T, InAnyOrderOnlySearchBehaviour>.elementsOf(
     expectedIterableLike: IterableLike
@@ -172,6 +186,10 @@ inline infix fun <reified E, T : IterableLike> EntryPointStep<E, T, InAnyOrderOn
  * @throws IllegalArgumentException in case the wrapped [IterableLike] is not
  *   an [Iterable], [Sequence] or one of the [Array] types
  *   or the wrapped [IterableLike] does not have elements (is empty).
+ *
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.IterableLikeToContainInOrderOnlyCreatorSamples.elementsOf
+ *
+ * @return an [Expect] for the subject of `this` expectation.
  *
  * @since 0.18.0
  */
