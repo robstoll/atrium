@@ -18,7 +18,7 @@ import kotlin.reflect.KClass
 /**
  * Helps in using [SubjectChanger] by providing a guide to set the different parameters in form of a fluent builder.
  */
-//TODO 1.3.0 move to own module? Most likely we would build own builders for java/scala
+//TODO 1.3.0 move to own module? Most likely we would build own builders for java/scala <---- time to decide I guess
 interface SubjectChangerBuilder {
 
     companion object {

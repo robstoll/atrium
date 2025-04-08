@@ -48,20 +48,37 @@ interface AnyAssertions {
         subType: KClass<SubTypeOfT>
     ): SubjectChangerBuilder.ExecutionStep<T, SubTypeOfT> where SubTypeOfT : Any, SubTypeOfT : T
 
-
     fun <T> notToBeAnInstanceOf(container: AssertionContainer<T>, notExpectedTypes: List<KClass<*>>): Assertion
 
+    @Deprecated(
+        "Migrate from AssertionContainer to ProofContainer and use toEqualNullIfNullGivenElse, will be removed with 2.0.0 at the latest",
+        ReplaceWith(
+            "this.toEqualNullIfNullGivenElse(assertionCreatorOrNull)",
+            "ch.tutteli.atrium.creating.proofs.toEqualNullIfNullGivenElse"
+        )
+    )
     fun <T : Any> toBeNullIfNullGivenElse(
         container: AssertionContainer<T?>,
         assertionCreatorOrNull: (Expect<T>.() -> Unit)?
     ): Assertion
 
+    @Deprecated(
+        "Migrate from AssertionContainer to ProofContainer and use notToEqualNullButToBeAnInstanceOf, will be removed with 2.0.0 at the latest",
+        ReplaceWith(
+            "this.notToEqualNullButToBeAnInstanceOf(subType)",
+            "ch.tutteli.atrium.creating.proofs.notToEqualNullButToBeAnInstanceOf"
+        )
+    )
     fun <T : Any> notToBeNullButOfType(
         container: AssertionContainer<T?>,
         subType: KClass<T>
     ): SubjectChangerBuilder.ExecutionStep<T?, T>
 
 
+    @Deprecated(
+        "Migrate from AssertionContainer to ProofContainer and use notToEqualOneIn, will be removed with 2.0.0 at the latest",
+        ReplaceWith("this.notToEqualOneIn(expected)", "ch.tutteli.atrium.creating.proofs.notToEqualOneIn")
+    )
     fun <T> isNotIn(container: AssertionContainer<T>, expected: Iterable<T>): Assertion
 
     @Deprecated(

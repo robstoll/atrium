@@ -368,10 +368,12 @@ fun <T : CharSequence> EntryPointStep<T, IgnoringCaseSearchBehaviour>.regex(
  */
 fun <T : CharSequence> CheckerStep<T, NoOpSearchBehaviour>.elementsOf(
     expectedIterableLike: IterableLike
-): Expect<T> =
-    _logic.toVarArg<CharSequenceOrNumberOrChar>(expectedIterableLike)
+): Expect<T> = ::values.invokeAsVarArg(_logic.toVarArg<CharSequenceOrNumberOrChar>())
+
         .let { (first, rest) -> values(first, *rest) }
 
+inline fun <reified T, R> Function2<T, Array<out T>, R>.invokeAsVarArg(arr: Array<out T>): R =
+    arr.toFirstAndRest().let { (first, rest) -> this(first, rest) }
 
 /**
  * Finishes the specification of the sophisticated `to contain` expectation where all elements of the [expectedIterableLike]

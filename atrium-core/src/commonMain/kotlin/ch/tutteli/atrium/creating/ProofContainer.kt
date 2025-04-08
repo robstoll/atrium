@@ -18,8 +18,7 @@ import kotlin.reflect.KClass
  * @param SubjectT The type of the subject of `this` expectation.
  */
 //TODO remove AssertionContainer (and the Suppress) with Kotlin 2.0.0 at the latest
-@Suppress("DEPRECATION")
-interface ProofContainer<SubjectT> : AssertionContainer<SubjectT> {
+interface ProofContainer<SubjectT> : @Suppress("DEPRECATION") AssertionContainer<SubjectT> {
     /**
      * Either [Some] wrapping the subject of a [Proof] or [None] in case a previous subject transformation
      * could not be carried out.
@@ -103,3 +102,6 @@ fun <T> Expect<T>.toExpectGrouping(): ExpectGrouping =
         is ExpectInternal<T> -> this
         else -> throw UnsupportedOperationException("Unsupported AssertionContainer: $this -- Please open an issue that a hook shall be implemented: $BUG_REPORT_URL?template=feature_request&title=Hook%20for%Expect.toExpectGrouping")
     }
+
+@Suppress("UNCHECKED_CAST") // safe to cast as long as Expect is the only subtype of ExpectGrouping
+fun (ExpectGrouping.() -> Unit).toExpectationCreator(): Expect<*>.() -> Unit = this as Expect<*>.() -> Unit

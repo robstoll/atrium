@@ -36,6 +36,20 @@ class DefaultAnyProofs : AnyProofs {
             .downCastTo(subType)
             .build()
 
+    override fun <T> notToBeAnInstanceOf(
+        container: ProofContainer<T>,
+        types: List<KClass<*>>
+    ): Proof {
+        TODO("Not yet implemented")
+    }
+
+    override fun <T : Any> toEqualNullIfNullGivenElse(
+        container: ProofContainer<T?>,
+        expectationCreatorOrNull: (Expect<T>.() -> Unit)?
+    ): Proof {
+        TODO("Not yet implemented")
+    }
+
     override fun <T : Any> notToEqualNullButToBeAnInstanceOf(
         container: ProofContainer<T?>,
         subType: KClass<T>
@@ -50,6 +64,7 @@ class DefaultAnyProofs : AnyProofs {
     override fun <T> notToEqualOneIn(container: ProofContainer<T>, expected: Iterable<T>): Proof =
         container.buildProof {
             proofGroup(NOT_TO_EQUAL_ONE_OF, Text.EMPTY) {
+
                 expected.forEach { value ->
                     representationOnlyProof(value) { it != value }
                 }

@@ -1,8 +1,7 @@
-//TODO 1.3.0 remove again and switch to core
-@file:Suppress("DEPRECATION")
-
 package ch.tutteli.atrium.api.fluent.en_GB
 
+import ch.tutteli.atrium._core
+import ch.tutteli.atrium._coreAppend
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic.*
 import ch.tutteli.atrium.logic.creating.charsequence.contains.CharSequenceContains
@@ -21,7 +20,7 @@ import ch.tutteli.atrium.logic.creating.typeutils.CharSequenceOrNumberOrChar
  * @since 0.17.0
  */
 val <T : CharSequence> Expect<T>.toContain: CharSequenceContains.EntryPointStep<T, NoOpSearchBehaviour>
-    get() = _logic.containsBuilder()
+    get() = _core.containsBuilder()
 
 /**
  * Starts a sophisticated `noToContain` assertion building process based on this [Expect] and already chooses a
@@ -34,7 +33,7 @@ val <T : CharSequence> Expect<T>.toContain: CharSequenceContains.EntryPointStep<
  * @since 0.17.0
  */
 val <T : CharSequence> Expect<T>.notToContain: NotCheckerStep<T, NotSearchBehaviour>
-    get() = _logic.containsNotBuilder()
+    get() = _core.containsNotBuilder()
 
 /**
  * Expects that the subject of `this` expectation (a [CharSequence]) contains [expected]'s [toString] representation
@@ -158,7 +157,7 @@ fun <T : CharSequence> Expect<T>.toContainRegex(pattern: Regex, vararg otherPatt
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.CharSequenceExpectationSamples.toStartWith
  */
 fun <T : CharSequence> Expect<T>.toStartWith(expected: CharSequence): Expect<T> =
-    _logicAppend { startsWith(expected) }
+    _coreAppend { startsWith(expected) }
 
 /**
  * Expects that the subject of `this` expectation (a [CharSequence]) does not start with [expected].
@@ -170,7 +169,7 @@ fun <T : CharSequence> Expect<T>.toStartWith(expected: CharSequence): Expect<T> 
  * @since 0.17.0
  */
 fun <T : CharSequence> Expect<T>.notToStartWith(expected: CharSequence): Expect<T> =
-    _logicAppend { startsNotWith(expected) }
+    _coreAppend { startsNotWith(expected) }
 
 /**
  * Expects that the subject of `this` expectation (a [CharSequence]) ends with [expected].
@@ -182,7 +181,7 @@ fun <T : CharSequence> Expect<T>.notToStartWith(expected: CharSequence): Expect<
  * @since 0.17.0
  */
 fun <T : CharSequence> Expect<T>.toEndWith(expected: CharSequence): Expect<T> =
-    _logicAppend { endsWith(expected) }
+    _coreAppend { endsWith(expected) }
 
 /**
  * Expects that the subject of `this` expectation (a [CharSequence]) does not end with [expected].
@@ -194,7 +193,7 @@ fun <T : CharSequence> Expect<T>.toEndWith(expected: CharSequence): Expect<T> =
  * @since 0.17.0
  */
 fun <T : CharSequence> Expect<T>.notToEndWith(expected: CharSequence): Expect<T> =
-    _logicAppend { endsNotWith(expected) }
+    _coreAppend { endsNotWith(expected) }
 
 /**
  * Expects that the subject of `this` expectation (a [CharSequence]) [CharSequence].[kotlin.text.isEmpty].
@@ -206,7 +205,7 @@ fun <T : CharSequence> Expect<T>.notToEndWith(expected: CharSequence): Expect<T>
  * @since 0.17.0
  */
 fun <T : CharSequence> Expect<T>.toBeEmpty(): Expect<T> =
-    _logicAppend { isEmpty() }
+    _coreAppend { isEmpty() }
 
 /**
  * Expects that the subject of `this` expectation (a [CharSequence]) [CharSequence].[kotlin.text.isNotEmpty].
@@ -218,7 +217,7 @@ fun <T : CharSequence> Expect<T>.toBeEmpty(): Expect<T> =
  * @since 0.17.0
  */
 fun <T : CharSequence> Expect<T>.notToBeEmpty(): Expect<T> =
-    _logicAppend { isNotEmpty() }
+    _coreAppend { isNotEmpty() }
 
 /**
  * Expects that the subject of `this` expectation (a [CharSequence]) [CharSequence].[kotlin.text.isNotBlank].
@@ -230,7 +229,7 @@ fun <T : CharSequence> Expect<T>.notToBeEmpty(): Expect<T> =
  * @since 0.17.0
  */
 fun <T : CharSequence> Expect<T>.notToBeBlank(): Expect<T> =
-    _logicAppend { isNotBlank() }
+    _coreAppend { isNotBlank() }
 
 /**
  * Expects that the subject of `this` expectation (a [CharSequence]) matches the given [Regex] [pattern] .
@@ -244,7 +243,7 @@ fun <T : CharSequence> Expect<T>.notToBeBlank(): Expect<T> =
  * @since 0.17.0
  */
 fun <T : CharSequence> Expect<T>.toMatch(pattern: Regex): Expect<T> =
-    _logicAppend { matches(pattern) }
+    _coreAppend { matches(pattern) }
 
 /**
  * Expects that the subject of `this` expectation (a [CharSequence]) mismatches the given [Regex] [pattern].
@@ -258,4 +257,4 @@ fun <T : CharSequence> Expect<T>.toMatch(pattern: Regex): Expect<T> =
  * @since 0.17.0
  */
 fun <T : CharSequence> Expect<T>.notToMatch(pattern: Regex): Expect<T> =
-    _logicAppend { mismatches(pattern) }
+    _coreAppend { mismatches(pattern) }

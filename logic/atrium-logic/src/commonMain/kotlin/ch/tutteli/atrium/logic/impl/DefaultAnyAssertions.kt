@@ -9,6 +9,8 @@ import ch.tutteli.atrium.core.*
 import ch.tutteli.atrium.core.polyfills.cast
 import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.creating.proofs.builders.buildSimpleProof
+import ch.tutteli.atrium.creating.toProofContainer
 import ch.tutteli.atrium.logic.*
 import ch.tutteli.atrium.logic.creating.transformers.SubjectChangerBuilder
 import ch.tutteli.atrium.reporting.Text
@@ -27,7 +29,7 @@ class DefaultAnyAssertions : AnyAssertions {
         container.createDescriptiveAssertion(TO_BE_THE_INSTANCE, expected) { it === expected }
 
     override fun <T> isNotSameAs(container: AssertionContainer<T>, expected: T): Assertion =
-        container.createDescriptiveAssertion(NOT_TO_BE_THE_INSTANCE, expected) { it !== expected }
+        container.toExpect().toProofContainer().buildSimpleProof(NOT_TO_BE_THE_INSTANCE, expected) { it !== expected }
 
     override fun <T : Any> toBeNullIfNullGivenElse(
         container: AssertionContainer<T?>,

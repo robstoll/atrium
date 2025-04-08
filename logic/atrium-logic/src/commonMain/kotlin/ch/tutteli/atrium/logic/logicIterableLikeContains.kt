@@ -11,13 +11,15 @@ import ch.tutteli.atrium.logic.creating.iterable.contains.steps.WithTimesChecker
 import ch.tutteli.atrium.logic.creating.iterable.contains.steps.WithTimesCheckerStepLogic
 import ch.tutteli.atrium.reporting.BUG_REPORT_URL
 
-//TODO 1.3.0 deprecate everything
-
 /**
  * Appends the [Assertion] the given [factory] creates based on this [IterableLikeContains.EntryPointStep].
  *
  * Use [_logic] for more sophisticated scenarios.
  */
+@Deprecated(
+    "Switch from _logic to _core, will be removed with 2.0.0 at the latest",
+    ReplaceWith("_coreAppend", "ch.tutteli.atrium._coreAppend")
+)
 inline fun <E, T : Any, S : IterableLikeContains.SearchBehaviour>
     IterableLikeContains.EntryPointStep<E, T, S>._logicAppend(
     factory: IterableLikeContains.EntryPointStepLogic<E, T, S>.() -> Assertion
@@ -27,6 +29,10 @@ inline fun <E, T : Any, S : IterableLikeContains.SearchBehaviour>
  * Entry point to the logic level of Atrium -- which is one level deeper than the API --
  * within the building process of a sophisticated `contains` assertion for [Iterable].
  */
+@Deprecated(
+    "Switch from _logic to _core, will be removed with 2.0.0 at the latest",
+    ReplaceWith("_core", "ch.tutteli.atrium._core")
+)
 inline val <E, T : Any, S : IterableLikeContains.SearchBehaviour>
     IterableLikeContains.EntryPointStep<E, T, S>._logic: IterableLikeContains.EntryPointStepLogic<E, T, S>
     get() = when (this) {
@@ -40,6 +46,10 @@ inline val <E, T : Any, S : IterableLikeContains.SearchBehaviour>
  *
  * Use [_logicAppend] in case you want to create and append an [Assertion] to the initial [Expect].
  */
+@Deprecated(
+    "Switch from _logic to _core, will be removed with 2.0.0 at the latest",
+    ReplaceWith("_core", "ch.tutteli.atrium._core")
+)
 inline val <E, T : Any, S : IterableLikeContains.SearchBehaviour>
     WithTimesCheckerStep<E, T, S>._logic: WithTimesCheckerStepLogic<E, T, S>
     get() = when (this) {
@@ -52,6 +62,10 @@ inline val <E, T : Any, S : IterableLikeContains.SearchBehaviour>
  *
  * Use [_logic] for more sophisticated scenarios.
  */
+@Deprecated(
+    "Switch from _logic to _core, will be removed with 2.0.0 at the latest",
+    ReplaceWith("_coreAppend", "ch.tutteli.atrium._coreAppend")
+)
 inline fun <E, T : Any, S : IterableLikeContains.SearchBehaviour>
     IterableLikeContains.CheckerStep<E, T, S>._logicAppend(
     factory: IterableLikeContains.CheckerStepLogic<E, T, S>.() -> Assertion
@@ -63,6 +77,10 @@ inline fun <E, T : Any, S : IterableLikeContains.SearchBehaviour>
  *
  * Use [_logicAppend] in case you want to create and append an [Assertion] to the initial [Expect].
  */
+@Deprecated(
+    "Switch from _logic to _core, will be removed with 2.0.0 at the latest",
+    ReplaceWith("_core", "ch.tutteli.atrium._core")
+)
 inline val <E, T : Any, S : IterableLikeContains.SearchBehaviour>
     IterableLikeContains.CheckerStep<E, T, S>._logic: IterableLikeContains.CheckerStepLogic<E, T, S>
     get() = when (this) {

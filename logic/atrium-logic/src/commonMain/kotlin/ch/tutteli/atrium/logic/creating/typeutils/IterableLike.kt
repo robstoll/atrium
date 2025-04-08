@@ -10,4 +10,8 @@ import ch.tutteli.atrium.logic.creating.typeutils.impl.DefaultIterableLikeToIter
  * [IterableLikeToIterableTransformer]. See [DefaultIterableLikeToIterableTransformer] for what is transformed if no custom
  * [IterableLikeToIterableTransformer] is specified.
  */
+@Deprecated(
+    "Use the import from atrium-core, atrium-logic will be removed with 2.0.0 at the latest",
+    ReplaceWith("ch.tutteli.atrium.creating.typeutils.IterableLike")
+)
 typealias IterableLike = Any
