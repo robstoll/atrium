@@ -20,7 +20,7 @@ fun turnTestNodesIntoExpectGrouping(
     testNodes: List<TestNode>,
     expectationVerbs: ExpectationVerbs
 ): ExpectGrouping {
-    // padding null as description means use the default
+    // passing null as description means use the default
     return expectationVerbs.expectGrouped(description = null) {
         processNodes(testNodes, expectationVerbs)
     }

@@ -10,7 +10,7 @@ import com.example.expect
 class TestFactorySample {
 
     fun testFactoryTemplate() {
-        // usually define as object with name instead of anonymous object, only anonymous here because we are in
+        // usually defined as object with a name instead of anonymous object, only anonymous here because we are in
         // a function
         val myVerbs = object : ExpectationVerbs {
             override fun <T> expect(subject: T): Expect<T> = com.example.expect(subject)
@@ -40,7 +40,7 @@ class TestFactorySample {
     }
 
     fun testFactoryTemplateVarag() {
-        // usually define as object with name instead of anonymous object, only anonymous here because we are in
+        // usually defined as object with a name instead of anonymous object, only anonymous here because we are in
         // a function
         val myVerbs = object : ExpectationVerbs {
             override fun <T> expect(subject: T): Expect<T> = com.example.expect(subject)

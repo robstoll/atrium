@@ -1,29 +1,60 @@
 package ch.tutteli.atrium.specs.integration
 
-import ch.tutteli.atrium.api.fluent.en_GB.messageToContain
-import ch.tutteli.atrium.api.fluent.en_GB.toThrow
+import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.specs.*
-import ch.tutteli.atrium.translations.DescriptionComparableExpectation
+import ch.tutteli.atrium.testfactories.TestFactory
 import ch.tutteli.atrium.translations.DescriptionComparableExpectation.*
-import org.spekframework.spek2.Spek
-import org.spekframework.spek2.style.specification.describe
+import kotlin.test.Test
 
-abstract class ComparableExpectationsSpec(
-    toBeLessThan: Fun1<Int, Int>,
-    toBeLessThanOrEqualTo: Fun1<Int, Int>,
-    toBeEqualComparingTo: Fun1<Int, Int>,
-    toBeGreaterThanOrEqualTo: Fun1<Int, Int>,
-    toBeGreaterThan: Fun1<Int, Int>,
+@Suppress("FunctionName")
+abstract class AbstractComparableExpectationsTest(
+    private val toBeLessThanSpec: Fun1<Int, Int>,
+    private val toBeLessThanOrEqualToSpec: Fun1<Int, Int>,
+    private val toBeEqualComparingToSpec: Fun1<Int, Int>,
+    private val toBeGreaterThanOrEqualToSpec: Fun1<Int, Int>,
+    private val toBeGreaterThanSpec: Fun1<Int, Int>,
+    private val describePrefix: String? = null
 
-    toBeLessThan2: Fun1<DiffEqualsCompareTo, DiffEqualsCompareTo>,
-    toBeEqualComparingTo2: Fun1<DiffEqualsCompareTo, DiffEqualsCompareTo>,
-    toBeGreaterThanOrEqualTo2: Fun1<DiffEqualsCompareTo, DiffEqualsCompareTo>,
+//   private val toBeLessThan2: Fun1<DiffEqualsCompareTo, DiffEqualsCompareTo>,
+//   private val toBeEqualComparingTo2: Fun1<DiffEqualsCompareTo, DiffEqualsCompareTo>,
+//   private val toBeGreaterThanOrEqualTo2: Fun1<DiffEqualsCompareTo, DiffEqualsCompareTo>,
+//
+//   private val toBeLessThanOrEqualToDescr: String = TO_BE_LESS_THAN_OR_EQUAL_TO.getDefault(),
+//   private val toBeGreaterThanOrEqualToDescr: String = TO_BE_GREATER_THAN_OR_EQUAL_TO.getDefault(),
+) {//}: BaseTest(describePrefix) {
 
-    toBeLessThanOrEqualToDescr: String = TO_BE_LESS_THAN_OR_EQUAL_TO.getDefault(),
-    toBeGreaterThanOrEqualToDescr: String = TO_BE_GREATER_THAN_OR_EQUAL_TO.getDefault(),
-    describePrefix: String = "[Atrium] "
-) : Spek({
+    @TestFactory
+    fun subjectLessTest() = subjectLessTestFactory<Int>(
+        toBeLessThanSpec.forSubjectLess(1),
+        toBeLessThanOrEqualToSpec.forSubjectLess(1),
+        toBeEqualComparingToSpec.forSubjectLess(1),
+        toBeGreaterThanOrEqualToSpec.forSubjectLess(1),
+        toBeGreaterThanSpec.forSubjectLess(1),
+        groupPrefix = describePrefix
+    )
+
+    val toBeLessThanDescr = TO_BE_LESS_THAN.getDefault()
+    val toBeGreaterThanDescr = TO_BE_GREATER_THAN.getDefault()
+    val toBeEqualComparingToDescr = TO_BE_EQUAL_COMPARING_TO.getDefault()
+
+    val toBeLessThan = toBeLessThanSpec.lambda
+
+    @Test
+    fun subject_is_10__toBeLessThan_11__does_not_throw() {
+        expect(10).toBeLessThan(11)
+    }
+
+    @Test
+    fun subject_is_10__toBeLessThan_10__throws_reports_error() {
+        expect {
+            expect(10).toBeLessThan(10)
+        }.toThrow<AssertionError> { messageToContain("$toBeLessThanDescr: 10") }
+    }
+
+}
+
+/*: Spek({
 
     include(object : SubjectLessSpec<Int>(
         describePrefix,
@@ -33,10 +64,6 @@ abstract class ComparableExpectationsSpec(
         toBeGreaterThanOrEqualTo.forSubjectLess(1),
         toBeGreaterThan.forSubjectLess(1)
     ) {})
-
-    val toBeLessThanDescr = TO_BE_LESS_THAN.getDefault()
-    val toBeGreaterThanDescr = TO_BE_GREATER_THAN.getDefault()
-    val toBeEqualComparingToDescr = TO_BE_EQUAL_COMPARING_TO.getDefault()
 
 
     describe("$describePrefix context subject is 10") {
@@ -187,4 +214,8 @@ abstract class ComparableExpectationsSpec(
         }
     }
 })
+*/
+data class DiffEqualsCompareTo(val s: String) : Comparable<DiffEqualsCompareTo> {
+    override fun compareTo(other: DiffEqualsCompareTo): Int = other.s.compareTo("hello")
+}
 
