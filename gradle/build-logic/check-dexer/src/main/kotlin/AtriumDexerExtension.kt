@@ -3,14 +3,33 @@ import org.gradle.api.provider.ListProperty
 import org.gradle.kotlin.dsl.listProperty
 import javax.inject.Inject
 
-
+/**
+ * Extension for configuring the Android DEX compatibility check plugin.
+ */
 abstract class AtriumDexerExtension @Inject constructor(objects: ObjectFactory) {
-    /**
-     * List of project modules to check for dexing compatibility.
-     * These are the module names without the root project prefix.
-     */
+
     val subprojects: ListProperty<String> = objects.listProperty<String>().convention(
-        listOf(
+        DEFAULT_MODULES
+    )
+
+    /**
+     * Allows configuring the subprojects from the build.gradle.kts file.
+     *
+     * Example usage in build.gradle.kts:
+     * ```
+     * dexer {
+     *     subprojects("core", "logic", "api-fluent")
+     * }
+     * ```
+     *
+     * @param modules The module names to include in the dexer check
+     */
+    fun subprojects(vararg modules: String) {
+        subprojects.set(modules.toList())
+    }
+
+    companion object {
+        private val DEFAULT_MODULES = listOf(
             "core",
             "logic",
             "translations-en_GB",
@@ -21,10 +40,5 @@ abstract class AtriumDexerExtension @Inject constructor(objects: ObjectFactory) 
             "verbs",
             "verbs-internal"
         )
-    )
-
-    // Allows configuring the subprojects from the build.gradle.kts file
-    fun subprojects(vararg modules: String) {
-        subprojects.set(modules.toList())
     }
 }
