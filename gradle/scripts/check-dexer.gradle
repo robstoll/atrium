@@ -103,6 +103,7 @@ tasks.register('checkDexer') {
     description('executes all checkDexer tasks')
     dependsOn('preCheckDexerProjects')
 
+
     dexerProjects.forEach { subproject ->
         def subprojectCheckDexer = subproject.tasks.named("checkDexer")
         self.dependsOn(subprojectCheckDexer)
