@@ -11,15 +11,6 @@ import org.gradle.process.CommandLineArgumentProvider
 import java.io.File
 import java.io.OutputStream
 
-/**
- * Configures the dexer settings for a given project:
- * - Adds required repositories
- * - Sets up r8 and d8 configurations
- * - Registers the checkDexer task that compiles the project's bytecode with D8
- *
- * @param project The project to configure
- * @param dexerPreCheckTask The prerequisite check task
- */
 fun configureDexerForProject(project: Project, dexerPreCheckTask: Provider<Task>) {
 
     project.repositories.apply {
