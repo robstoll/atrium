@@ -43,7 +43,7 @@ val dexerPreCheckTask = tasks.register("dexerPreCheck") {
 // Resolve the list of projects to check for dexing compatibility
 val dexerProjects: List<Project> = extension.subprojects
     .get()
-    .map { moduleName -> getPrefixedProjectName(moduleName, rootProject.name) }
+    .map { moduleName -> prefixedProject(moduleName) }
 
 // Configure dexer for each project
 dexerProjects.forEach { project ->

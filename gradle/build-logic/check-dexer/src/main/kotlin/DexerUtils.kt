@@ -7,6 +7,7 @@ import org.gradle.api.provider.Provider
 import org.gradle.api.tasks.JavaExec
 import org.gradle.kotlin.dsl.named
 import org.gradle.kotlin.dsl.register
+import org.gradle.process.CommandLineArgumentProvider
 import java.io.File
 import java.io.OutputStream
 
@@ -20,32 +21,31 @@ import java.io.OutputStream
  * @param dexerPreCheckTask The prerequisite check task
  */
 fun configureDexerForProject(project: Project, dexerPreCheckTask: Provider<Task>) {
-    // Setup repositories
+
     project.repositories.apply {
         google()
         mavenCentral()
     }
 
-    // Setup r8 configuration
+    configureR8(project)
+
+    configureD8Configuration(project)
+
+    registerCheckDexerTask(project, dexerPreCheckTask)
+}
+
+private fun configureR8(project: Project) {
     if (project.configurations.findByName("r8") == null) {
         project.configurations.create("r8")
         project.dependencies.add("r8", "com.android.tools:r8:8.7.18")
     }
-
-    // Setup d8 configuration
-    configureD8Configuration(project)
-
-    // Register the checkDexer task
-    registerCheckDexerTask(project, dexerPreCheckTask)
 }
 
-/**
- * Configures the D8 configuration with appropriate attributes.
- */
+
 private fun configureD8Configuration(project: Project) {
     if (project.configurations.findByName("d8") == null) {
-        val d8Configuration = project.configurations.create("d8").apply {
-            attributes.apply {
+        val d8Configuration = project.configurations.create("d8") {
+            attributes {
                 attribute(Usage.USAGE_ATTRIBUTE, project.objects.named(Usage.JAVA_RUNTIME))
                 attribute(
                     Attribute.of("org.jetbrains.kotlin.platform.type", String::class.java),
@@ -75,29 +75,28 @@ private fun registerCheckDexerTask(project: Project, dexerPreCheckTask: Provider
         description = "Compiles android class files into dex bytecode"
         inputs.property("ATRIUM_ANDROID_JAR", System.getenv("ATRIUM_ANDROID_JAR"))
 
-        val outputPath = "${project.layout.buildDirectory.get()}/d8"
+        val outputPath = project.layout.buildDirectory.dir("d8")
         outputs.dir(outputPath)
 
-        // Set up dependencies
         val jvmJar = project.tasks.named<org.gradle.jvm.tasks.Jar>("jvmJar").get()
         dependsOn(jvmJar)
         dependsOn(dexerPreCheckTask)
         jvmJar.mustRunAfter(dexerPreCheckTask)
 
-        // Configure execution
         classpath(project.configurations.named("r8").get().asPath)
         mainClass.set("com.android.tools.r8.D8")
 
         // Build the D8 command line arguments
-        val d8Classpath = getD8ClasspathArgs(project)
-        val androidJarArgs = getAndroidJarArgsForD8()
+        argumentProviders.add(CommandLineArgumentProvider {
+            val d8Classpath = getD8ClasspathArgs(project)
+            val androidJarArgs = getAndroidJarArgsForD8()
 
-        args = d8Classpath + androidJarArgs + listOf(
-            "--output", outputPath,
-            jvmJar.archiveFile.get().asFile.absolutePath
-        )
+            d8Classpath + androidJarArgs + listOf(
+                "--output", outputPath.get().asFile.absolutePath,
+                jvmJar.archiveFile.get().asFile.absolutePath
+            )
+        })
 
-        // Setup error handling
         configureErrorOutput(this)
     }
 }
