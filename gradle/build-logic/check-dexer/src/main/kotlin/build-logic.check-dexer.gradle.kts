@@ -15,7 +15,7 @@ val extension = extensions.create<AtriumDexerExtension>("dexer")
  * @throws GradleException if the environment variable is missing or points to a non-existent file
  */
 fun validateAndroidJarPath() {
-    val androidJarPath = System.getenv("ATRIUM_ANDROID_JAR")
+    val androidJarPath = System.getenv(AtriumDexerExtension.ATRIUM_ANDROID_JAR)
 
     if (androidJarPath.isNullOrBlank()) {
         throw GradleException(
@@ -41,20 +41,20 @@ val dexerPreCheckTask = tasks.register("dexerPreCheck") {
 }
 
 // Resolve the list of projects to check for dexing compatibility
-val dexerProjects: List<Project> = extension.subprojects
-    .get()
-    .map { moduleName -> prefixedProject(moduleName) }
+val dexerProjects: Provider<List<Project>> = extension.subprojects
+    .map { moduleNames -> moduleNames.map { moduleName -> prefixedProject(moduleName) } }
+
 
 // Configure dexer for each project
-dexerProjects.forEach { project ->
-    configureDexerForProject(project, dexerPreCheckTask)
-}
+dexerProjects
+    .get()
+    .forEach { project -> configureDexerForProject(project, dexerPreCheckTask) }
 
 // Register prerequisite verification task
 val preCheckDexerProjects = tasks.register("preCheckDexerProjects") {
     dependsOn(dexerPreCheckTask)
     doFirst {
-        if (dexerProjects.isEmpty()) {
+        if (dexerProjects.get().isEmpty()) {
             throw InvalidUserDataException(
                 "No dexerProjects defined. Make sure you have specified env variable CI. " +
                 "Use e.g. `CI=true ./gradlew checkDexer`"
@@ -69,7 +69,7 @@ tasks.register("checkDexer") {
     description = "executes all checkDexer tasks"
     dependsOn("preCheckDexerProjects")
 
-    dexerProjects.forEach { subproject ->
+    dexerProjects.get().forEach { subproject ->
         val subprojectCheckDexer = subproject.tasks.named("checkDexer")
         self.dependsOn(subprojectCheckDexer)
         subprojectCheckDexer.configure {

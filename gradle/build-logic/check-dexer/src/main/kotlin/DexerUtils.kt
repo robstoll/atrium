@@ -59,7 +59,7 @@ private fun configureD8Configuration(project: Project) {
 
 
 private fun getAndroidJarArgsForD8(): List<String> {
-    val androidJarPath = System.getenv("ATRIUM_ANDROID_JAR")
+    val androidJarPath = System.getenv(AtriumDexerExtension.ATRIUM_ANDROID_JAR)
     return androidJarPath?.let {
         listOf("--lib", File(it).absolutePath)
     } ?: emptyList()
@@ -73,7 +73,7 @@ private fun getAndroidJarArgsForD8(): List<String> {
 private fun registerCheckDexerTask(project: Project, dexerPreCheckTask: Provider<Task>) {
     project.tasks.register<JavaExec>("checkDexer") {
         description = "Compiles android class files into dex bytecode"
-        inputs.property("ATRIUM_ANDROID_JAR", System.getenv("ATRIUM_ANDROID_JAR"))
+        inputs.property(AtriumDexerExtension.ATRIUM_ANDROID_JAR, System.getenv(AtriumDexerExtension.ATRIUM_ANDROID_JAR))
 
         val outputPath = project.layout.buildDirectory.dir("d8")
         outputs.dir(outputPath)

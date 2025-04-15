@@ -29,6 +29,8 @@ abstract class AtriumDexerExtension @Inject constructor(objects: ObjectFactory) 
     }
 
     companion object {
+        const val ATRIUM_ANDROID_JAR = "ATRIUM_ANDROID_JAR"
+
         private val DEFAULT_MODULES = listOf(
             "core",
             "logic",
