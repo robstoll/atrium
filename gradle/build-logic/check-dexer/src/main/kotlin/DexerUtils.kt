@@ -20,7 +20,7 @@ fun configureDexerForProject(project: Project, dexerPreCheckTask: Provider<Task>
 
     configureR8(project)
 
-    configureD8Configuration(project)
+    configureD8(project)
 
     registerCheckDexerTask(project, dexerPreCheckTask)
 }
@@ -33,7 +33,7 @@ private fun configureR8(project: Project) {
 }
 
 
-private fun configureD8Configuration(project: Project) {
+private fun configureD8(project: Project) {
     if (project.configurations.findByName("d8") == null) {
         val d8Configuration = project.configurations.create("d8") {
             attributes {
