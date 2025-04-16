@@ -7,6 +7,7 @@ buildscript {
 
 plugins {
     id("build-logic.root-build")
+    id("build-logic.check-dexer") apply (System.getenv("CI").toBoolean())
     alias(libs.plugins.nexus)
 }
 
@@ -19,11 +20,6 @@ val spekVersion by extra("2.0.12")
 subprojects {
     group = rootProject.group
     version = rootProject.version
-}
-
-// takes some time to configure since gradle 6.9 so only if CI
-if (java.lang.Boolean.parseBoolean(System.getenv("CI"))) {
-    apply(from = "gradle/scripts/check-dexer.gradle")
 }
 
 //TODO 1.3.0 add a relocation publication for translations-de_CH which points to translations-en_GB

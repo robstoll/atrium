@@ -26,6 +26,7 @@ enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 include("basics")
 include("build-parameters")
+include("check-dexer")
 include("dev")
 include("publishing")
 include("root-build")
