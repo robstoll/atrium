@@ -8,9 +8,7 @@ import javax.inject.Inject
  */
 abstract class AtriumDexerExtension @Inject constructor(objects: ObjectFactory) {
 
-    val subprojects: ListProperty<String> = objects.listProperty<String>().convention(
-        DEFAULT_MODULES
-    )
+    val subprojects: ListProperty<String> = objects.listProperty<String>().convention(DEFAULT_MODULES)
 
     /**
      * Allows configuring the subprojects from the build.gradle.kts file.
@@ -29,6 +27,7 @@ abstract class AtriumDexerExtension @Inject constructor(objects: ObjectFactory) 
     }
 
     companion object {
+        const val TASK_NAME="checkDexer"
         const val ATRIUM_ANDROID_JAR = "ATRIUM_ANDROID_JAR"
 
         private val DEFAULT_MODULES = listOf(
