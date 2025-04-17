@@ -13,8 +13,7 @@ import ch.tutteli.atrium.reporting.Text
 import ch.tutteli.atrium.reporting.erroradjusters.MultiAtriumErrorAdjuster
 import ch.tutteli.atrium.reporting.erroradjusters.RemoveAtriumFromAtriumError
 import ch.tutteli.atrium.reporting.erroradjusters.RemoveRunnerFromAtriumError
-import ch.tutteli.atrium.testfactories.TestFactoryBuilder
-import ch.tutteli.atrium.testfactories.testFactoryTemplate
+import ch.tutteli.atrium.testfactories.*
 
 
 @OptIn(ExperimentalNewExpectTypes::class, ExperimentalComponentFactoryContainer::class)
@@ -62,13 +61,17 @@ private fun <R> ExpectGrouping.expectWithinExpectGroup(subject: R) =
     _logic.manualFeature("I expected subject") { subject }
 
 
-expect class RemoveAtriumButNotAtriumSpecsFromAtriumErrorImpl() : RemoveAtriumFromAtriumError{
+expect class RemoveAtriumButNotAtriumSpecsFromAtriumErrorImpl() : RemoveAtriumFromAtriumError {
     override fun adjust(throwable: Throwable)
     override fun adjustOtherThanStacks(throwable: Throwable)
 }
 
-fun testFactory(setup: TestFactoryBuilder.() -> Unit) = testFactoryTemplate(setup, InternalExpectationVerbs)
+fun testFactory(setup: TestFactoryBuilder<ExpectTestExecutable>.() -> Unit) =
+    testFactoryTemplate(setup, expectTestExecutableFactory)
+
 fun testFactory(
-    setup: TestFactoryBuilder.() -> Unit,
-    vararg otherSetups: TestFactoryBuilder.() -> Unit
-) = testFactoryTemplate(setup, otherSetups, InternalExpectationVerbs)
+    setup: TestFactoryBuilder<ExpectTestExecutable>.() -> Unit,
+    vararg otherSetups: TestFactoryBuilder<ExpectTestExecutable>.() -> Unit
+) = testFactoryTemplate(setup, otherSetups, expectTestExecutableFactory)
+
+private val expectTestExecutableFactory = expectTestExecutableFactory(InternalExpectationVerbs)

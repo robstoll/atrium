@@ -1,6 +1,7 @@
 package ch.tutteli.atrium.logic.impl
 
 import ch.tutteli.atrium.assertions.Assertion
+import ch.tutteli.atrium.core.getOrElse
 import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.logic.ComparableAssertions
 import ch.tutteli.atrium.logic.createDescriptiveAssertion

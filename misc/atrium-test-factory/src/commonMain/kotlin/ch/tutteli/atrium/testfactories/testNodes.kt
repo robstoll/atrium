@@ -12,7 +12,10 @@ sealed class TestNode
  *
  * @since 1.3.0
  */
-class LeafTestNode(val displayName: String, val executable: TestExecutable.() -> Unit) : TestNode()
+class LeafTestNode<TestExecutableT : TestExecutable>(
+    val displayName: String,
+    val executable: TestExecutableT.() -> Unit
+) : TestNode()
 
 /**
  * A branch test node, i.e. which contains [nodes] itself.

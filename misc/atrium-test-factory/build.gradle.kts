@@ -27,3 +27,16 @@ kotlin {
         }
     }
 }
+//project.afterEvaluate {
+//    kotlin {
+//        sourceSets {
+//            val kotlinVersion = org.jetbrains.kotlin.gradle.dsl.KotlinVersion.DEFAULT.version
+//            configureEach {
+//                languageSettings.apply {
+//                    languageVersion = kotlinVersion
+//                    apiVersion = kotlinVersion
+//                }
+//            }
+//        }
+//    }
+//}

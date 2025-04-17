@@ -13,8 +13,10 @@ import ch.tutteli.kbox.glue
  *
  * @since 1.3.0
  */
-fun testFactoryTemplate(setup: TestFactoryBuilder.() -> Unit, expectationVerbs: ExpectationVerbs): Any =
-    turnTestNodesIntoPlatformSpecificTestFactory(buildTestNodes(setup), expectationVerbs)
+fun <TestExecutableT : TestExecutable> testFactoryTemplate(
+    setup: TestFactoryBuilder<TestExecutableT>.() -> Unit,
+    testExecutableFactory: () -> TestExecutableT
+): Any = turnTestNodesIntoPlatformSpecificTestFactory(buildTestNodes(setup), testExecutableFactory)
 
 /**
  * Template method intended for providers of expectation verbs.
@@ -26,10 +28,10 @@ fun testFactoryTemplate(setup: TestFactoryBuilder.() -> Unit, expectationVerbs: 
  *
  * @since 1.3.0
  */
-fun testFactoryTemplate(
-    setup: TestFactoryBuilder.() -> Unit,
-    otherSetups: Array<out TestFactoryBuilder.() -> Unit>,
-    expectationVerbs: ExpectationVerbs
+fun <TestExecutableT : TestExecutable> testFactoryTemplate(
+    setup: TestFactoryBuilder<TestExecutableT>.() -> Unit,
+    otherSetups: Array<out TestFactoryBuilder<TestExecutableT>.() -> Unit>,
+    testExecutableFactory: () -> TestExecutableT
 ): Any = turnTestNodesIntoPlatformSpecificTestFactory(
-    (setup glue otherSetups).flatMap(::buildTestNodes), expectationVerbs
+    (setup glue otherSetups).flatMap(::buildTestNodes), testExecutableFactory
 )

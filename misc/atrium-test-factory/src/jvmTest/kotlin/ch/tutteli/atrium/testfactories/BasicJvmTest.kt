@@ -4,7 +4,6 @@ import ch.tutteli.atrium.api.fluent.en_GB.toBeGreaterThan
 import ch.tutteli.atrium.api.fluent.en_GB.toBeLessThan
 import ch.tutteli.atrium.api.fluent.en_GB.toEqual
 import ch.tutteli.atrium.api.verbs.internal.testFactory
-import ch.tutteli.atrium.specs.toBeGreaterThanDescr
 
 class BasicJvmTest {
 
