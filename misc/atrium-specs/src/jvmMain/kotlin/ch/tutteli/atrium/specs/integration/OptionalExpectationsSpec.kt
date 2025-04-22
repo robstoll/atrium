@@ -20,13 +20,13 @@ abstract class OptionalExpectationsSpec(
 
     include(object : SubjectLessSpec<Optional<Int>>(
         "$describePrefix[Path] ",
-        toBeEmpty.forSubjectLess(),
-        toBePresentFeature.forSubjectLess(),
-        toBePresent.forSubjectLess { toEqual(1) }
+        toBeEmpty.forSubjectLessTest(),
+        toBePresentFeature.forSubjectLessTest(),
+        toBePresent.forSubjectLessTest { toEqual(1) }
     ) {})
     include(object : AssertionCreatorSpec<Optional<Int>>(
         describePrefix, Optional.of(2),
-        toBePresent.forAssertionCreatorSpec("$toEqualDescr: 2") { toEqual(2) }
+        toBePresent.forExpectationCreatorTest("$toEqualDescr: 2") { toEqual(2) }
     ) {})
 
     fun describeFun(vararg pairs: SpecPair<*>, body: Suite.() -> Unit) =
@@ -42,7 +42,7 @@ abstract class OptionalExpectationsSpec(
                 expect(emptyValue).toBeEmptyFun()
             }
             toBePresentFunctions.forEach { (name, toBePresentFun, hasExtraHint) ->
-                it("$name - throws an AssertionError" + showsSubAssertionIf(hasExtraHint)) {
+                it("$name - throws an AssertionError" + showsSubExpectationIf(hasExtraHint)) {
                     expect {
                         expect(emptyValue).toBePresentFun { toEqual(2) }
                     }.toThrow<AssertionError> {

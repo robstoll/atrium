@@ -18,15 +18,15 @@ abstract class CollectionExpectationsSpec(
 
     include(object : SubjectLessSpec<Collection<Int>>(
         describePrefix,
-        isEmpty.forSubjectLess(),
-        isNotEmpty.forSubjectLess(),
-        sizeFeature.forSubjectLess().withFeatureSuffix(),
-        size.forSubjectLess { toBeGreaterThan(2) }
+        isEmpty.forSubjectLessTest(),
+        isNotEmpty.forSubjectLessTest(),
+        sizeFeature.forSubjectLessTest().withFeatureSuffix(),
+        size.forSubjectLessTest { toBeGreaterThan(2) }
     ) {})
 
     include(object : AssertionCreatorSpec<Collection<Int>>(
         describePrefix, listOf(999),
-        size.forAssertionCreatorSpec("$toEqualDescr: 1") { toEqual(1) }
+        size.forExpectationCreatorTest("$toEqualDescr: 1") { toEqual(1) }
     ) {})
 
     fun describeFun(vararg pairs: SpecPair<*>, body: Suite.() -> Unit) =

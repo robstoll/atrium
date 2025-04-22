@@ -10,6 +10,7 @@ import ch.tutteli.atrium.logic.utils.expectLambda
 import ch.tutteli.atrium.reporting.Text
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.specs.integration.MapLikeToContainSpecBase.Companion.separator
+import ch.tutteli.atrium.specs.integration.utils.ExpectationCreatorTriple
 import ch.tutteli.atrium.translations.DescriptionAnyExpectation.*
 import ch.tutteli.atrium.translations.DescriptionComparableExpectation.TO_BE_GREATER_THAN
 import ch.tutteli.atrium.translations.DescriptionComparableExpectation.TO_BE_LESS_THAN
@@ -70,29 +71,29 @@ abstract class AnyExpectationsSpec(
 
     include(object : SubjectLessSpec<Int>(
         describePrefix,
-        toEqualInt.forSubjectLess(1),
-        notToEqualInt.forSubjectLess(1),
-        toBeTheInstanceInt.forSubjectLess(1),
-        notToBeTheInstanceInt.forSubjectLess(1),
-        notToEqualOneOfInt.forSubjectLess(1, emptyArray()),
-        notToEqualOneInInt.forSubjectLess(listOf(1)),
-        andPair.forSubjectLess(),
-        andLazyPair.forSubjectLess { toEqual(1) }
+        toEqualInt.forSubjectLessTest(1),
+        notToEqualInt.forSubjectLessTest(1),
+        toBeTheInstanceInt.forSubjectLessTest(1),
+        notToBeTheInstanceInt.forSubjectLessTest(1),
+        notToEqualOneOfInt.forSubjectLessTest(1, emptyArray()),
+        notToEqualOneInInt.forSubjectLessTest(listOf(1)),
+        andPair.forSubjectLessTest(),
+        andLazyPair.forSubjectLessTest { toEqual(1) }
     ) {})
 
     include(object : SubjectLessSpec<Int?>(
         "$describePrefix[nullable] ",
-        toEqualNullableInt.forSubjectLess(1),
-        notToEqualNullableInt.forSubjectLess(1),
-        toBeTheInstanceNullableInt.forSubjectLess(1),
-        notToBeTheInstanceNullableInt.forSubjectLess(1),
-        notToEqualOneOfNullableInt.forSubjectLess(1, emptyArray()),
-        notToBeNullableInt.forSubjectLess(listOf(1)),
-        toBeNull.forSubjectLess(),
-        toBeAnInstanceOfIntFeature.forSubjectLess(),
-        toBeAnInstanceOfInt.forSubjectLess { toEqual(1) },
-        notToEqualNullFeature.forSubjectLess(),
-        notToEqualNull.forSubjectLess { toEqual(1) }
+        toEqualNullableInt.forSubjectLessTest(1),
+        notToEqualNullableInt.forSubjectLessTest(1),
+        toBeTheInstanceNullableInt.forSubjectLessTest(1),
+        notToBeTheInstanceNullableInt.forSubjectLessTest(1),
+        notToEqualOneOfNullableInt.forSubjectLessTest(1, emptyArray()),
+        notToBeNullableInt.forSubjectLessTest(listOf(1)),
+        toBeNull.forSubjectLessTest(),
+        toBeAnInstanceOfIntFeature.forSubjectLessTest(),
+        toBeAnInstanceOfInt.forSubjectLessTest { toEqual(1) },
+        notToEqualNullFeature.forSubjectLessTest(),
+        notToEqualNull.forSubjectLessTest { toEqual(1) }
     ) {})
     include(object : SubjectLessSpec<Any>(
         "$describePrefix[Any] ",
@@ -109,17 +110,17 @@ abstract class AnyExpectationsSpec(
 
     include(object : AssertionCreatorSpec<Int>(
         describePrefix, 1,
-        andLazyPair.forAssertionCreatorSpec("$toEqualDescr: 1") { toEqual(1) }
+        andLazyPair.forExpectationCreatorTest("$toEqualDescr: 1") { toEqual(1) }
     ) {})
     include(object : AssertionCreatorSpec<Int?>(
         "$describePrefix[nullable Element] ", 1,
-        toBeNullIfNullGivenElse.forAssertionCreatorSpec("$toEqualDescr: 1") { toEqual(1) },
-        assertionCreatorSpecTriple(
+        toBeNullIfNullGivenElse.forExpectationCreatorTest("$toEqualDescr: 1") { toEqual(1) },
+        ExpectationCreatorTriple(
             toBeAnInstanceOfInt.name,
             "$toEqualDescr: 1",
             { apply { toBeAnInstanceOfInt.invoke(this) { toEqual(1) } } },
             { apply { toBeAnInstanceOfInt.invoke(this) {} } }),
-        assertionCreatorSpecTriple(
+        ExpectationCreatorTriple(
             notToEqualNull.name,
             "$toEqualDescr: 1",
             { apply { notToEqualNull.invoke(this) { toEqual(1) } } },
@@ -603,7 +604,7 @@ abstract class AnyExpectationsSpec(
 
         context("subject is null") {
             notToEqualNullFunctions.forEach { (name, notToEqualNullFun, hasExtraHint) ->
-                it("$name - throws an AssertionError" + showsSubAssertionIf(hasExtraHint)) {
+                it("$name - throws an AssertionError" + showsSubExpectationIf(hasExtraHint)) {
                     expect {
                         expect(null as Int?).notToEqualNullFun { toEqual(1) }
                     }.toThrow<AssertionError> {
@@ -665,7 +666,7 @@ abstract class AnyExpectationsSpec(
 
         context("in a feature assertion and subject is null") {
             notToEqualNullFunctions.forEach { (name, notToBeNullFun, hasExtraHint) ->
-                it("$name - throws an AssertionError" + showsSubAssertionIf(hasExtraHint)) {
+                it("$name - throws an AssertionError" + showsSubExpectationIf(hasExtraHint)) {
                     class A(val i: Int? = null)
                     expect {
                         expect(A()).feature(A::i).notToBeNullFun { toEqual(1) }
@@ -701,7 +702,7 @@ abstract class AnyExpectationsSpec(
 
         context("subject is not in type hierarchy") {
             toBeAnInstanceOfIntFunctions.forEach { (name, toBeAnInstanceOfInt, hasExtraHint) ->
-                it("$name - throws an AssertionError" + showsSubAssertionIf(hasExtraHint)) {
+                it("$name - throws an AssertionError" + showsSubExpectationIf(hasExtraHint)) {
                     expect {
                         expect("hello" as Any?).toBeAnInstanceOfInt { toEqual(1) }
                     }.toThrow<AssertionError> {
@@ -765,7 +766,7 @@ abstract class AnyExpectationsSpec(
             val toBeAnInstanceOfSubTypeFunctions =
                 unifySignatures<Any?, SubType>(toBeAnInstanceOfSubTypeFeature, toBeAnInstanceOfSubType)
             toBeAnInstanceOfSubTypeFunctions.forEach { (name, toBeAnInstanceOfSubType, hasExtraHint) ->
-                it("$name - throws an AssertionError" + showsSubAssertionIf(hasExtraHint)) {
+                it("$name - throws an AssertionError" + showsSubExpectationIf(hasExtraHint)) {
 
                     expect {
                         expect(SuperType() as Any?).toBeAnInstanceOfSubType { toBeTheInstance(SubType()) }

@@ -15,22 +15,22 @@ abstract class IterableToContainInAnyOrderOnlyEntriesExpectationsSpec(
 
     include(object : SubjectLessSpec<Iterable<Double>>(
         describePrefix,
-        toContainInAnyOrderOnlyEntries.forSubjectLess({ toEqual(2.5) }, arrayOf(), emptyInAnyOrderOnlyReportOptions)
+        toContainInAnyOrderOnlyEntries.forSubjectLessTest({ toEqual(2.5) }, arrayOf(), emptyInAnyOrderOnlyReportOptions)
     ) {})
     include(object : SubjectLessSpec<Iterable<Double?>>(
         describePrefix,
-        toContainInAnyOrderOnlyNullableEntries.forSubjectLess(null, arrayOf(), emptyInAnyOrderOnlyReportOptions)
+        toContainInAnyOrderOnlyNullableEntries.forSubjectLessTest(null, arrayOf(), emptyInAnyOrderOnlyReportOptions)
     ) {})
     include(object : AssertionCreatorSpec<Iterable<Double>>(
         describePrefix, listOf(1.2, 2.0),
-        *toContainInAnyOrderOnlyEntries.forAssertionCreatorSpec(
+        *toContainInAnyOrderOnlyEntries.forExpectationCreatorTest(
             "$toEqualDescr: 1.2", "$toEqualDescr: 2.0",
             { toEqual(1.2) }, arrayOf(expectLambda { toEqual(2.0) }), emptyInAnyOrderOnlyReportOptions
         )
     ) {})
     include(object : AssertionCreatorSpec<Iterable<Double?>>(
         "$describePrefix[nullable] ", listOf(1.2, 2.0),
-        *toContainInAnyOrderOnlyNullableEntries.forAssertionCreatorSpec(
+        *toContainInAnyOrderOnlyNullableEntries.forExpectationCreatorTest(
             "$toEqualDescr: 1.2", "$toEqualDescr: 2.0",
             { toEqual(1.2) }, arrayOf(expectLambda { toEqual(2.0) }), emptyInAnyOrderOnlyReportOptions
         )

@@ -15,11 +15,11 @@ abstract class IterableToContainInOrderOnlyValuesExpectationsSpec(
 
     include(object : SubjectLessSpec<Iterable<Double>>(
         describePrefix,
-        toContainInOrderOnlyValues.forSubjectLess(2.5, arrayOf(), emptyInOrderOnlyReportOptions)
+        toContainInOrderOnlyValues.forSubjectLessTest(2.5, arrayOf(), emptyInOrderOnlyReportOptions)
     ) {})
     include(object : SubjectLessSpec<Iterable<Double?>>(
         describePrefix,
-        toContainInOrderOnlyNullableValues.forSubjectLess(2.5, arrayOf(), emptyInOrderOnlyReportOptions)
+        toContainInOrderOnlyNullableValues.forSubjectLessTest(2.5, arrayOf(), emptyInOrderOnlyReportOptions)
     ) {})
 
     val toBeWithFeature = "$indentFeatureArrow$featureBulletPoint$toEqualDescr"

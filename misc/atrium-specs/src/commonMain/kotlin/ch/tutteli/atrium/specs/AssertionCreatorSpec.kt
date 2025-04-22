@@ -38,10 +38,3 @@ abstract class AssertionCreatorSpec<T>(
         }
     }
 })
-
-fun <T> assertionCreatorSpecTriple(
-    name: String,
-    containsNot: String,
-    assertionCreatorOk: Expect<T>.() -> Expect<T>,
-    assertionCreatorFail: Expect<T>.() -> Expect<T>
-) = Triple(name, containsNot, assertionCreatorOk to assertionCreatorFail)

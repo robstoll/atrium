@@ -22,6 +22,13 @@ interface ExpectationVerbs {
     fun <T> expect(subject: T, expectationCreator: Expect<T>.() -> Unit): Expect<T>
 
     /**
+     * Defines the default description which shall be used for [expectGrouped].
+     *
+     * @since 1.3.0
+     */
+    val defaultExpectGroupDescription: String
+
+    /**
      * Delegates to a root [ExpectGrouping] verb.
      *
      * @param description define the description which shall be used in reporting or `null` in case the default of the
@@ -30,9 +37,10 @@ interface ExpectationVerbs {
      * @since 1.3.0
      */
     fun expectGrouped(
-        description: String?,
+        description: String = defaultExpectGroupDescription,
         groupingActions: ExpectGrouping.() -> Unit
     ): ExpectGrouping
+
 
     /**
      * Delegates to an expectation verb within an [ExpectGrouping]-lambda and uses the given [expectGrouping] as receiver.

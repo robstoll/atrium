@@ -20,8 +20,8 @@ abstract class IterableToContainInAnyOrderAtLeastValuesExpectationsSpec(
 
     include(object : SubjectLessSpec<Iterable<Double>>(
         describePrefix,
-        toContainAtLeast.forSubjectLess(1, 2.3, arrayOf()),
-        toContainAtLeastButAtMost.forSubjectLess(1, 2, 2.3, arrayOf())
+        toContainAtLeast.forSubjectLessTest(1, 2.3, arrayOf()),
+        toContainAtLeastButAtMost.forSubjectLessTest(1, 2, 2.3, arrayOf())
     ) {})
 
     fun describeFun(vararg pairs: SpecPair<*>, body: Suite.() -> Unit) =

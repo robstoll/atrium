@@ -33,40 +33,40 @@ abstract class MapExpectationsSpec(
 
     include(object : SubjectLessSpec<Map<out String, Int>>(
         describePrefix,
-        toContainKey.forSubjectLess("a").unchecked1(),
-        notToContainKey.forSubjectLess("a").unchecked1(),
-        toBeEmpty.forSubjectLess().unchecked1(),
-        notToBeEmpty.forSubjectLess().unchecked1(),
-        keysFeature.forSubjectLess(),
-        keys.forSubjectLess { this.toBeEmpty() },
-        valuesFeature.forSubjectLess(),
-        values.forSubjectLess { this.toBeEmpty() },
-        getExistingFeature.forSubjectLess("a"),
-        getExisting.forSubjectLess("a") { toBeGreaterThan(1) }
+        toContainKey.forSubjectLessTest("a").unchecked1(),
+        notToContainKey.forSubjectLessTest("a").unchecked1(),
+        toBeEmpty.forSubjectLessTest().unchecked1(),
+        notToBeEmpty.forSubjectLessTest().unchecked1(),
+        keysFeature.forSubjectLessTest(),
+        keys.forSubjectLessTest { this.toBeEmpty() },
+        valuesFeature.forSubjectLessTest(),
+        values.forSubjectLessTest { this.toBeEmpty() },
+        getExistingFeature.forSubjectLessTest("a"),
+        getExisting.forSubjectLessTest("a") { toBeGreaterThan(1) }
     ) {})
 
     include(object : SubjectLessSpec<Map<out String?, Int?>>(
         "$describePrefix[nullable Key] ",
-        toContainKeyNullable.forSubjectLess(null).unchecked1(),
-        notToContainKeyNullable.forSubjectLess(null).unchecked1(),
-        getExistingNullableFeature.forSubjectLess("a"),
-        getExistingNullable.forSubjectLess("a") { toEqual(null) }
+        toContainKeyNullable.forSubjectLessTest(null).unchecked1(),
+        notToContainKeyNullable.forSubjectLessTest(null).unchecked1(),
+        getExistingNullableFeature.forSubjectLessTest("a"),
+        getExistingNullable.forSubjectLessTest("a") { toEqual(null) }
     ) {})
 
     val map: Map<out String, Int> = mapOf("a" to 1, "b" to 2)
 
     include(object : AssertionCreatorSpec<Map<out String, Int>>(
         describePrefix, map,
-        keys.forAssertionCreatorSpec("$toEqualDescr: a") { toContainExactly({ toEqual("a") }, { toEqual("b") }) },
-        values.forAssertionCreatorSpec("$toEqualDescr: 1") { toContainExactly({ toEqual(1) }, { toEqual(2) }) },
-        getExisting.forAssertionCreatorSpec("$toEqualDescr: 2", "b") { toEqual(2) }
+        keys.forExpectationCreatorTest("$toEqualDescr: a") { toContainExactly({ toEqual("a") }, { toEqual("b") }) },
+        values.forExpectationCreatorTest("$toEqualDescr: 1") { toContainExactly({ toEqual(1) }, { toEqual(2) }) },
+        getExisting.forExpectationCreatorTest("$toEqualDescr: 2", "b") { toEqual(2) }
     ) {})
 
     val nullableMap: Map<out String?, Int?> = mapOf("a" to null, null to 1, "b" to 2)
 
     include(object : AssertionCreatorSpec<Map<out String?, Int?>>(
         "$describePrefix[nullable] ", mapOf("a" to 1, "b" to null),
-        getExistingNullable.forAssertionCreatorSpec("$toEqualDescr: 2", "b") { toEqual(null) }
+        getExistingNullable.forExpectationCreatorTest("$toEqualDescr: 2", "b") { toEqual(null) }
     ) {})
 
     fun describeFun(vararg pairs: SpecPair<*>, body: Suite.() -> Unit) =
@@ -213,7 +213,7 @@ abstract class MapExpectationsSpec(
                 it("$name - can perform sub-assertion on existing key") {
                     expect(map).getExistingFun("a") { toEqual(1) }
                 }
-                it("$name - non-existing key throws" + showsSubAssertionIf(hasExtraHint)) {
+                it("$name - non-existing key throws" + showsSubExpectationIf(hasExtraHint)) {
                     expect {
                         expect(map).getExistingFun("c") { toEqual(3) }
                     }.toThrow<AssertionError> {
@@ -239,7 +239,7 @@ abstract class MapExpectationsSpec(
                 it("$name - can perform sub-assertion on existing key whose value is null") {
                     expect(nullableMap).getExistingFun("b") { toEqual(2) }
                 }
-                it("$name - non-existing key throws" + showsSubAssertionIf(hasExtraHint)) {
+                it("$name - non-existing key throws" + showsSubExpectationIf(hasExtraHint)) {
                     expect {
                         expect(nullableMap).getExistingFun("c") { toEqual(null) }
                     }.toThrow<AssertionError> {

@@ -25,14 +25,14 @@ abstract class ThrowableExpectationsSpec(
 
     include(object : SubjectLessSpec<Throwable>(
         describePrefix,
-        messageFeature.forSubjectLess(),
-        message.forSubjectLess { toEqual("hello") },
-        messageToContain.forSubjectLess("hello", arrayOf())
+        messageFeature.forSubjectLessTest(),
+        message.forSubjectLessTest { toEqual("hello") },
+        messageToContain.forSubjectLessTest("hello", arrayOf())
     ) {})
 
     include(object : AssertionCreatorSpec<Throwable>(
         describePrefix, RuntimeException("hello"),
-        message.forAssertionCreatorSpec("$toEqualDescr: hello") { toEqual("hello") }
+        message.forExpectationCreatorTest("$toEqualDescr: hello") { toEqual("hello") }
     ) {})
 
     fun describeFun(vararg pairs: SpecPair<*>, body: Suite.() -> Unit) =
@@ -48,7 +48,7 @@ abstract class ThrowableExpectationsSpec(
             val throwable: Throwable = IllegalArgumentException()
 
             messageFunctions.forEach { (name, messageFun, hasExtraHint) ->
-                it("$name - throws an AssertionError" + showsSubAssertionIf(hasExtraHint)) {
+                it("$name - throws an AssertionError" + showsSubExpectationIf(hasExtraHint)) {
                     expect {
                         expect(throwable).messageFun { toEqual("hello") }
                     }.toThrow<AssertionError> {

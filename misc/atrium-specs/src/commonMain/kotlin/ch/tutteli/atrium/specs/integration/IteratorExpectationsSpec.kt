@@ -1,12 +1,10 @@
 package ch.tutteli.atrium.specs.integration
 
 import ch.tutteli.atrium.api.fluent.en_GB.messageToContain
-import ch.tutteli.atrium.api.fluent.en_GB.notToThrow
 import ch.tutteli.atrium.api.fluent.en_GB.toEqual
 import ch.tutteli.atrium.api.fluent.en_GB.toThrow
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.reporting.AtriumError
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.translations.DescriptionBasic
 import ch.tutteli.atrium.translations.DescriptionIterableLikeExpectation
@@ -26,17 +24,17 @@ abstract class IteratorExpectationsSpec(
 
     include(object : SubjectLessSpec<Iterator<Int>>(
         describePrefix,
-        toHaveNext.forSubjectLess()
+        toHaveNext.forSubjectLessTest()
     ) {})
 
     include(object : AssertionCreatorSpec<Iterator<Int>>(
         describePrefix, list.iterator(),
-        next.forAssertionCreatorSpec("$toEqualDescr: 1") { toEqual(1) }
+        next.forExpectationCreatorTest("$toEqualDescr: 1") { toEqual(1) }
     ) {})
 
     include(object : AssertionCreatorSpec<Iterator<Int?>>(
         describePrefix, list.iterator(),
-        nextNullable.forAssertionCreatorSpec("$toEqualDescr: 1") { toEqual(1) }
+        nextNullable.forExpectationCreatorTest("$toEqualDescr: 1") { toEqual(1) }
     ) {})
 
     fun describeFun(vararg pairs: SpecPair<*>, body: Suite.() -> Unit) =

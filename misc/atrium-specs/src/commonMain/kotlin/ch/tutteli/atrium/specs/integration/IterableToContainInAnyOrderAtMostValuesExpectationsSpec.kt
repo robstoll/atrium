@@ -17,7 +17,7 @@ abstract class IterableToContainInAnyOrderAtMostValuesExpectationsSpec(
 
     include(object : SubjectLessSpec<Iterable<Double>>(
         describePrefix,
-        toContainAtMost.forSubjectLess(2, 2.3, arrayOf())
+        toContainAtMost.forSubjectLessTest(2, 2.3, arrayOf())
     ) {})
 
     fun describeFun(vararg pairs: SpecPair<*>, body: Suite.() -> Unit) =

@@ -23,11 +23,11 @@ abstract class IterableNotToHaveElementsOrAllExpectationsSpec(
 
     include(object : AssertionCreatorSpec<Iterable<Double>>(
         describePrefix, oneToSeven().toList().asIterable(),
-        notToHaveElementsOrAll.forAssertionCreatorSpec("$toBeGreaterThanDescr: 0.0") { toBeGreaterThan(0.0) }
+        notToHaveElementsOrAll.forExpectationCreatorTest("$toBeGreaterThanDescr: 0.0") { toBeGreaterThan(0.0) }
     ) {})
     include(object : AssertionCreatorSpec<Iterable<Double?>>(
         "$describePrefix[nullable Element] ", oneToSeven().toList().asIterable(),
-        notToHaveElementsOrAllNullable.forAssertionCreatorSpec("$toBeGreaterThanDescr: 0.0") { toBeGreaterThan(0.0) }
+        notToHaveElementsOrAllNullable.forExpectationCreatorTest("$toBeGreaterThanDescr: 0.0") { toBeGreaterThan(0.0) }
     ) {})
 
     val allElementsDescr = DescriptionIterableLikeExpectation.NOT_TO_HAVE_ELEMENTS_OR_ALL.getDefault()

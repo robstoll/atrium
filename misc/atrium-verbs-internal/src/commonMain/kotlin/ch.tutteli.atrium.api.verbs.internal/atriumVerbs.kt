@@ -1,6 +1,8 @@
 package ch.tutteli.atrium.api.verbs.internal
 
-import ch.tutteli.atrium.api.verbs.internal.factory.InternalExpectationVerbs
+import ch.tutteli.atrium.api.verbs.internal.factories.InternalExpectationVerbs
+import ch.tutteli.atrium.api.verbs.internal.testfactories.ExpectTestExecutableForTests
+import ch.tutteli.atrium.api.verbs.internal.testfactories.impl.RootExpectTestExecutableForTestsImpl
 import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
 import ch.tutteli.atrium.creating.*
 import ch.tutteli.atrium.logic._logic
@@ -13,9 +15,7 @@ import ch.tutteli.atrium.reporting.Text
 import ch.tutteli.atrium.reporting.erroradjusters.MultiAtriumErrorAdjuster
 import ch.tutteli.atrium.reporting.erroradjusters.RemoveAtriumFromAtriumError
 import ch.tutteli.atrium.reporting.erroradjusters.RemoveRunnerFromAtriumError
-import ch.tutteli.atrium.testfactories.TestFactoryBuilder
-import ch.tutteli.atrium.testfactories.testFactoryTemplate
-
+import ch.tutteli.atrium.testfactories.*
 
 @OptIn(ExperimentalNewExpectTypes::class, ExperimentalComponentFactoryContainer::class)
 fun <T> expect(subject: T): RootExpect<T> =
@@ -62,13 +62,21 @@ private fun <R> ExpectGrouping.expectWithinExpectGroup(subject: R) =
     _logic.manualFeature("I expected subject") { subject }
 
 
-expect class RemoveAtriumButNotAtriumSpecsFromAtriumErrorImpl() : RemoveAtriumFromAtriumError{
+expect class RemoveAtriumButNotAtriumSpecsFromAtriumErrorImpl() : RemoveAtriumFromAtriumError {
     override fun adjust(throwable: Throwable)
     override fun adjustOtherThanStacks(throwable: Throwable)
 }
 
-fun testFactory(setup: TestFactoryBuilder.() -> Unit) = testFactoryTemplate(setup, InternalExpectationVerbs)
+fun testFactory(setup: TestFactoryBuilder<ExpectTestExecutableForTests>.() -> Unit) =
+    testFactoryTemplate(setup, createExpectTestExecutableForTestsFactory())
+
 fun testFactory(
-    setup: TestFactoryBuilder.() -> Unit,
-    vararg otherSetups: TestFactoryBuilder.() -> Unit
-) = testFactoryTemplate(setup, otherSetups, InternalExpectationVerbs)
+    setup: TestFactoryBuilder<ExpectTestExecutableForTests>.() -> Unit,
+    vararg otherSetups: TestFactoryBuilder<ExpectTestExecutableForTests>.() -> Unit
+) = testFactoryTemplate(setup, otherSetups, createExpectTestExecutableForTestsFactory())
+
+private fun createExpectTestExecutableForTestsFactory(
+    expectationVerbs: ExpectationVerbs = InternalExpectationVerbs
+): () -> ExpectTestExecutableForTests = {
+    RootExpectTestExecutableForTestsImpl(expectationVerbs)
+}

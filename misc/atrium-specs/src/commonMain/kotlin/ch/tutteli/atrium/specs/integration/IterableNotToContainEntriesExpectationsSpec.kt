@@ -17,16 +17,16 @@ abstract class IterableNotToContainEntriesExpectationsSpec(
 
     include(object : SubjectLessSpec<Iterable<Double>>(
         describePrefix,
-        notToContainEntries.forSubjectLess({ toEqual(2.3) }, arrayOf())
+        notToContainEntries.forSubjectLessTest({ toEqual(2.3) }, arrayOf())
     ) {})
     include(object : SubjectLessSpec<Iterable<Double?>>(
         describePrefix,
-        notToContainNullableEntries.forSubjectLess({ toEqual(2.3) }, arrayOf())
+        notToContainNullableEntries.forSubjectLessTest({ toEqual(2.3) }, arrayOf())
     ) {})
 
     include(object : AssertionCreatorSpec<Iterable<Double>>(
         describePrefix, oneToSeven().toList().asIterable(),
-        *notToContainEntries.forAssertionCreatorSpec(
+        *notToContainEntries.forExpectationCreatorTest(
             "$toBeGreaterThanDescr: 8.0",
             "$toBeGreaterThanDescr: 10.0",
             { toBeGreaterThan(8.0) }, arrayOf(expectLambda { toBeGreaterThan(10.0) })
@@ -34,7 +34,7 @@ abstract class IterableNotToContainEntriesExpectationsSpec(
     ) {})
     include(object : AssertionCreatorSpec<Iterable<Double?>>(
         "$describePrefix[nullable Element] ", oneToSeven().toList().asIterable(),
-        *notToContainNullableEntries.forAssertionCreatorSpec(
+        *notToContainNullableEntries.forExpectationCreatorTest(
             "$toBeGreaterThanDescr: 8.0",
             "$toBeGreaterThanDescr: 10.0",
             { toBeGreaterThan(8.0) }, arrayOf(expectLambda { toBeGreaterThan(10.0) })

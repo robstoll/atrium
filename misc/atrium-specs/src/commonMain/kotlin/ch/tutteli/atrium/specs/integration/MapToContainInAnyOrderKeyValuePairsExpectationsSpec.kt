@@ -14,12 +14,12 @@ abstract class MapToContainInAnyOrderKeyValuePairsExpectationsSpec(
 
     include(object : SubjectLessSpec<Map<out String, Int>>(
         describePrefix,
-        keyValuePairs.forSubjectLess("key" to 1, arrayOf())
+        keyValuePairs.forSubjectLessTest("key" to 1, arrayOf())
     ) {})
 
     include(object : SubjectLessSpec<Map<out String?, Int?>>(
         "$describePrefix[nullable Key] ",
-        keyValuePairsNullable.forSubjectLess(null to 1, arrayOf("a" to null))
+        keyValuePairsNullable.forSubjectLessTest(null to 1, arrayOf("a" to null))
     ) {})
 
     fun describeFun(vararg pairs: SpecPair<*>, body: Suite.() -> Unit) =

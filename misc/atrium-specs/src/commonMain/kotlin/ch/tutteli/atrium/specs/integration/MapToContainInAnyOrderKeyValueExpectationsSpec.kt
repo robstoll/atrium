@@ -4,6 +4,7 @@ import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
+import ch.tutteli.atrium.specs.integration.utils.ExpectationCreatorTriple
 import org.spekframework.spek2.style.specification.Suite
 
 fun keyValue(key: String, assertionCreator: Expect<Int>.() -> Unit): Pair<String, Expect<Int>.() -> Unit> =
@@ -22,7 +23,7 @@ abstract class MapToContainInAnyOrderKeyValueExpectationsSpec(
 
     include(object : SubjectLessSpec<Map<out String, Int>>(
         describePrefix,
-        keyWithValueAssertions.forSubjectLess(
+        keyWithValueAssertions.forSubjectLessTest(
             keyValue("a") { toEqual(1) },
             arrayOf(keyValue("a") { toBeLessThanOrEqualTo(2) })
         )
@@ -30,7 +31,7 @@ abstract class MapToContainInAnyOrderKeyValueExpectationsSpec(
 
     include(object : SubjectLessSpec<Map<out String?, Int?>>(
         "$describePrefix[nullable Key] ",
-        keyWithNullableValueAssertions.forSubjectLess(
+        keyWithNullableValueAssertions.forSubjectLessTest(
             keyNullableValue(null) { toEqual(1) },
             arrayOf(keyNullableValue("a", null))
         )
@@ -38,7 +39,7 @@ abstract class MapToContainInAnyOrderKeyValueExpectationsSpec(
 
     include(object : AssertionCreatorSpec<Map<out String, Int>>(
         describePrefix, map,
-        assertionCreatorSpecTriple(keyWithValueAssertions.name, "$toEqualDescr: 1",
+        ExpectationCreatorTriple(keyWithValueAssertions.name, "$toEqualDescr: 1",
             { keyWithValueAssertions(this, keyValue("a") { toEqual(1) }, arrayOf()) },
             { keyWithValueAssertions(this, keyValue("a") { }, arrayOf()) }
         )
@@ -46,7 +47,7 @@ abstract class MapToContainInAnyOrderKeyValueExpectationsSpec(
 
     include(object : AssertionCreatorSpec<Map<out String?, Int?>>(
         "$describePrefix[nullable] ", mapOf("a" to 1, "b" to null),
-        assertionCreatorSpecTriple(keyWithNullableValueAssertions.name, "$toEqualDescr: 1",
+        ExpectationCreatorTriple(keyWithNullableValueAssertions.name, "$toEqualDescr: 1",
             { keyWithNullableValueAssertions(this, keyNullableValue("a") { toEqual(1) }, arrayOf()) },
             { keyWithNullableValueAssertions(this, keyNullableValue("a") { }, arrayOf()) }
         )

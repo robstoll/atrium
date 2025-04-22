@@ -24,10 +24,10 @@ abstract class CharSequenceToContainAtLeastExpectationsSpec(
 
     include(object : SubjectLessSpec<CharSequence>(
         describePrefix,
-        toContainAtLeast.forSubjectLess(1, "2.3", arrayOf()),
-        toContainAtLeastIgnoringCase.forSubjectLess(1, 'a', arrayOf()),
-        toContainAtLeastButAtMost.forSubjectLess(1, 2, "aA", arrayOf()),
-        toContainAtLeastButAtMostIgnoringCase.forSubjectLess(1, 2, 2.3, arrayOf())
+        toContainAtLeast.forSubjectLessTest(1, "2.3", arrayOf()),
+        toContainAtLeastIgnoringCase.forSubjectLessTest(1, 'a', arrayOf()),
+        toContainAtLeastButAtMost.forSubjectLessTest(1, 2, "aA", arrayOf()),
+        toContainAtLeastButAtMostIgnoringCase.forSubjectLessTest(1, 2, 2.3, arrayOf())
     ) {})
 
     fun describeFun(vararg funName: String, body: Suite.() -> Unit) =

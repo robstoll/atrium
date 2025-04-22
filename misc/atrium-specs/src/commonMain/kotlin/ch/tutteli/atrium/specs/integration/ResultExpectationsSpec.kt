@@ -7,6 +7,7 @@ import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.core.polyfills.fullName
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
+import ch.tutteli.atrium.specs.integration.utils.ExpectationCreatorTriple
 import ch.tutteli.atrium.translations.DescriptionCharSequenceExpectation
 import ch.tutteli.atrium.translations.DescriptionResultExpectation
 import org.spekframework.spek2.Spek
@@ -24,29 +25,29 @@ abstract class ResultExpectationsSpec(
 
     include(object : SubjectLessSpec<Result<Int>>(
         describePrefix,
-        toBeASuccessFeature.forSubjectLess(),
-        toBeASuccess.forSubjectLess { toEqual(1) },
-        toBeAFailureFeature.forSubjectLess(),
-        toBeAFailure.forSubjectLess { messageToContain("message") }
+        toBeASuccessFeature.forSubjectLessTest(),
+        toBeASuccess.forSubjectLessTest { toEqual(1) },
+        toBeAFailureFeature.forSubjectLessTest(),
+        toBeAFailure.forSubjectLessTest { messageToContain("message") }
     ) {})
     include(object : SubjectLessSpec<Result<Int?>>(
         "$describePrefix[nullable] ",
-        toBeASuccessFeatureNullable.forSubjectLess(),
-        toBeASuccessNullable.forSubjectLess { toEqual(1) }
+        toBeASuccessFeatureNullable.forSubjectLessTest(),
+        toBeASuccessNullable.forSubjectLessTest { toEqual(1) }
     ) {})
 
     include(object : AssertionCreatorSpec<Result<Int>>(
         describePrefix, Result.success(2),
-        toBeASuccess.forAssertionCreatorSpec("$toEqualDescr: 2") { toEqual(2) }
+        toBeASuccess.forExpectationCreatorTest("$toEqualDescr: 2") { toEqual(2) }
     ) {})
     include(object : AssertionCreatorSpec<Result<Int?>>(
         "$describePrefix[nullable] ", Result.success(2),
-        toBeASuccessNullable.forAssertionCreatorSpec("$toEqualDescr: 2") { toEqual(2) }
+        toBeASuccessNullable.forExpectationCreatorTest("$toEqualDescr: 2") { toEqual(2) }
     ) {})
 
     include(object : AssertionCreatorSpec<Result<Int>>(
         "$describePrefix[failure] ", Result.failure(IllegalArgumentException("oh no...")),
-        assertionCreatorSpecTriple(
+        ExpectationCreatorTriple(
             toBeAFailure.name,
             "${DescriptionCharSequenceExpectation.VALUE.getDefault()}: \"oh no...\"",
             { apply { toBeAFailure.invoke(this) { messageToContain("oh no...") } } },
@@ -110,7 +111,7 @@ abstract class ResultExpectationsSpec(
 
         context("subject is $resultFailure") {
             successFunctions.forEach { (name, toBeASuccessFun, hasExtraHint) ->
-                it("$name throws AssertionError" + showsSubAssertionIf(hasExtraHint)) {
+                it("$name throws AssertionError" + showsSubExpectationIf(hasExtraHint)) {
                     expect {
                         expect(resultFailure).toBeASuccessFun { toEqual(1) }
                     }.toThrow<AssertionError> {
@@ -156,7 +157,7 @@ abstract class ResultExpectationsSpec(
             }
 
             context("subject is $resultNullableFailure") {
-                it("${toBeASuccessFeature.name} throws AssertionError" + showsSubAssertionIf(hasExtraHint)) {
+                it("${toBeASuccessFeature.name} throws AssertionError" + showsSubExpectationIf(hasExtraHint)) {
                     expect {
                         expect(resultNullableFailure).toBeASuccessFun { toEqual(1) }
                     }.toThrow<AssertionError> {

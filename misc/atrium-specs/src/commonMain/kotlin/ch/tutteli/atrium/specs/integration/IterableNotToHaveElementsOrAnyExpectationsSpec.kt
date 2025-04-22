@@ -4,7 +4,6 @@ import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
-import ch.tutteli.atrium.translations.DescriptionComparableExpectation
 import ch.tutteli.atrium.translations.DescriptionIterableLikeExpectation
 
 abstract class IterableNotToHaveElementsOrAnyExpectationsSpec(
@@ -14,20 +13,20 @@ abstract class IterableNotToHaveElementsOrAnyExpectationsSpec(
 ) : IterableToContainEntriesSpecBase({
 
     include(object : SubjectLessSpec<Iterable<Double>>(describePrefix,
-        notToHaveElementsOrAny.forSubjectLess { toEqual(2.5) }
+        notToHaveElementsOrAny.forSubjectLessTest { toEqual(2.5) }
     ) {})
     include(object : SubjectLessSpec<Iterable<Double?>>(
         describePrefix,
-        notToHaveElementsOrAnyNullable.forSubjectLess(null)
+        notToHaveElementsOrAnyNullable.forSubjectLessTest(null)
     ) {})
 
     include(object : AssertionCreatorSpec<Iterable<Double>>(
         describePrefix, oneToSeven().toList().asIterable(),
-        notToHaveElementsOrAny.forAssertionCreatorSpec("$toBeGreaterThanDescr: 1.0") { toBeGreaterThan(1.0) }
+        notToHaveElementsOrAny.forExpectationCreatorTest("$toBeGreaterThanDescr: 1.0") { toBeGreaterThan(1.0) }
     ) {})
     include(object : AssertionCreatorSpec<Iterable<Double?>>(
         "$describePrefix[nullable Element] ", oneToSeven().toList().asIterable(),
-        notToHaveElementsOrAnyNullable.forAssertionCreatorSpec("$toBeGreaterThanDescr: 1.0") { toBeGreaterThan(1.0) }
+        notToHaveElementsOrAnyNullable.forExpectationCreatorTest("$toBeGreaterThanDescr: 1.0") { toBeGreaterThan(1.0) }
     ) {})
 
     val notToHaveElementsOrAnyDescr = DescriptionIterableLikeExpectation.NOT_TO_HAVE_ELEMENTS_OR_ANY.getDefault()

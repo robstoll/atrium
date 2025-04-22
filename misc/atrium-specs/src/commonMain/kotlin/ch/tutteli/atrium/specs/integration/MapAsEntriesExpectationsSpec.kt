@@ -15,8 +15,8 @@ abstract class MapAsEntriesExpectationsSpec(
 
     include(object : SubjectLessSpec<Map<String, Int>>(
         describePrefix,
-        asEntriesFeature.forSubjectLess(),
-        asEntries.forSubjectLess { toContain("a" to 1) }
+        asEntriesFeature.forSubjectLessTest(),
+        asEntries.forSubjectLessTest { toContain("a" to 1) }
     ) {})
 
     fun describeFun(vararg pairs: SpecPair<*>, body: Suite.() -> Unit) =

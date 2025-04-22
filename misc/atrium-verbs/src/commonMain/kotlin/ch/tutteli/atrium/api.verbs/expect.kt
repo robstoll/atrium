@@ -7,9 +7,9 @@ import ch.tutteli.atrium.creating.*
 import ch.tutteli.atrium.logic.*
 import ch.tutteli.atrium.logic.creating.RootExpectBuilder
 import ch.tutteli.atrium.reporting.Text
-import ch.tutteli.atrium.testfactories.TestFactory
-import ch.tutteli.atrium.testfactories.TestFactoryBuilder
-import ch.tutteli.atrium.testfactories.testFactoryTemplate
+import ch.tutteli.atrium.testfactories.*
+import ch.tutteli.atrium.testfactories.expect.ExpectTestExecutable
+import ch.tutteli.atrium.testfactories.expect.createExpectTestExecutableFactory
 
 import ch.tutteli.atrium.api.verbs.expect as atriumVerb
 
@@ -149,7 +149,10 @@ fun ExpectGrouping.expectGrouped(
  * @return The platform specific test factory.
  * @since 1.3.0
  */
-fun testFactory(setup: TestFactoryBuilder.() -> Unit): Any = testFactoryTemplate(setup, DefaultExpectationVerbs)
+fun testFactory(
+    setup: TestFactoryBuilder<ExpectTestExecutable>.() -> Unit,
+    expectationVerbs: ExpectationVerbs = DefaultExpectationVerbs
+): Any = testFactoryTemplate(setup, createExpectTestExecutableFactory(expectationVerbs))
 
 /**
  * Creates a test factory which can be used in conjunction with Atrium's [TestFactory] annotation and uses Atrium's
@@ -159,6 +162,7 @@ fun testFactory(setup: TestFactoryBuilder.() -> Unit): Any = testFactoryTemplate
  * @since 1.3.0
  */
 fun testFactory(
-    setup: TestFactoryBuilder.() -> Unit,
-    vararg otherSetups: TestFactoryBuilder.() -> Unit
-): Any = testFactoryTemplate(setup, otherSetups, DefaultExpectationVerbs)
+    setup: TestFactoryBuilder<ExpectTestExecutable>.() -> Unit,
+    vararg otherSetups: TestFactoryBuilder<ExpectTestExecutable>.() -> Unit,
+    expectationVerbs: ExpectationVerbs = DefaultExpectationVerbs
+): Any = testFactoryTemplate(setup, otherSetups, createExpectTestExecutableFactory(expectationVerbs))

@@ -1,7 +1,6 @@
 package ch.tutteli.atrium.specs.integration
 
 import ch.tutteli.atrium.api.fluent.en_GB.messageToContain
-import ch.tutteli.atrium.api.fluent.en_GB.notToThrow
 import ch.tutteli.atrium.api.fluent.en_GB.toEqual
 import ch.tutteli.atrium.api.fluent.en_GB.toThrow
 import ch.tutteli.atrium.api.verbs.internal.expect
@@ -22,21 +21,21 @@ abstract class ListExpectationsSpec(
     val list = listOf(1, 2, 3, 4)
 
     include(object : SubjectLessSpec<List<Int>>(describePrefix,
-        getFeature.forSubjectLess(1),
-        get.forSubjectLess(1) { toEqual(1) }
+        getFeature.forSubjectLessTest(1),
+        get.forSubjectLessTest(1) { toEqual(1) }
     ) {})
     include(object : SubjectLessSpec<List<Int?>>("$describePrefix[nullable Element] ",
-        getFeatureNullable.forSubjectLess(1),
-        getNullable.forSubjectLess(1) { toEqual(null) }
+        getFeatureNullable.forSubjectLessTest(1),
+        getNullable.forSubjectLessTest(1) { toEqual(null) }
     ) {})
 
     include(object : AssertionCreatorSpec<List<Int>>(
         describePrefix, list,
-        get.forAssertionCreatorSpec("$toEqualDescr: 2", 1) { toEqual(2) }
+        get.forExpectationCreatorTest("$toEqualDescr: 2", 1) { toEqual(2) }
     ) {})
     include(object : AssertionCreatorSpec<List<Int?>>(
         "$describePrefix[nullable Element] ", list,
-        getNullable.forAssertionCreatorSpec("$toEqualDescr: 2", 1) { toEqual(2) }
+        getNullable.forExpectationCreatorTest("$toEqualDescr: 2", 1) { toEqual(2) }
     ) {})
 
     fun describeFun(vararg pairs: SpecPair<*>, body: Suite.() -> Unit) =
@@ -57,7 +56,7 @@ abstract class ListExpectationsSpec(
                 it("$name - can perform sub-assertion on existing index") {
                     expect(list).getFun(0) { toEqual(1) }
                 }
-                it("$name - non-existing index throws" + showsSubAssertionIf(hasExtraHint)) {
+                it("$name - non-existing index throws" + showsSubExpectationIf(hasExtraHint)) {
                     expect {
                         expect(list).getFun(4) { toEqual(3) }
                     }.toThrow<AssertionError> {

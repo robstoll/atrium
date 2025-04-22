@@ -24,15 +24,15 @@ abstract class CharSequenceExpectationsSpec(
 
     include(object : SubjectLessSpec<CharSequence>(
         describePrefix,
-        toBeEmpty.forSubjectLess(),
-        notToBeEmpty.forSubjectLess(),
-        notToBeBlank.forSubjectLess(),
-        toStartWith.forSubjectLess(""),
-        notToStartWith.forSubjectLess(""),
-        toEndWith.forSubjectLess(""),
-        notToEndWith.forSubjectLess(""),
-        toMatch.forSubjectLess(Regex("")),
-        notToMatch.forSubjectLess(Regex(""))
+        toBeEmpty.forSubjectLessTest(),
+        notToBeEmpty.forSubjectLessTest(),
+        notToBeBlank.forSubjectLessTest(),
+        toStartWith.forSubjectLessTest(""),
+        notToStartWith.forSubjectLessTest(""),
+        toEndWith.forSubjectLessTest(""),
+        notToEndWith.forSubjectLessTest(""),
+        toMatch.forSubjectLessTest(Regex("")),
+        notToMatch.forSubjectLessTest(Regex(""))
     ) {})
 
     fun describeFun(vararg funName: String, body: Suite.() -> Unit) =

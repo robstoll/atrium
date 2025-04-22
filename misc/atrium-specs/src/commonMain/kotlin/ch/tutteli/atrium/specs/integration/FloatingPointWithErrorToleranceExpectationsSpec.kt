@@ -10,8 +10,7 @@ import ch.tutteli.atrium.core.polyfills.formatFloatingPointNumber
 import ch.tutteli.atrium.core.polyfills.fullName
 import ch.tutteli.atrium.specs.Fun2
 import ch.tutteli.atrium.specs.SubjectLessSpec
-import ch.tutteli.atrium.specs.forSubjectLess
-import ch.tutteli.atrium.translations.DescriptionFloatingPointException
+import ch.tutteli.atrium.specs.forSubjectLessTest
 import ch.tutteli.atrium.translations.DescriptionFloatingPointException.*
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.dsl.Root
@@ -26,11 +25,11 @@ abstract class FloatingPointWithErrorToleranceExpectationsSpec(
 
     include(object : SubjectLessSpec<Float>(
         "$describePrefix[Float] ",
-        toEqualWithErrorToleranceFloat.forSubjectLess(1.0f, 0.01f)
+        toEqualWithErrorToleranceFloat.forSubjectLessTest(1.0f, 0.01f)
     ) {})
     include(object : SubjectLessSpec<Double>(
         "$describePrefix[Double] ",
-        toEqualWithErrorToleranceDouble.forSubjectLess(1.0, 0.01)
+        toEqualWithErrorToleranceDouble.forSubjectLessTest(1.0, 0.01)
     ) {})
 
     fun <T : Number> Root.describeFun(

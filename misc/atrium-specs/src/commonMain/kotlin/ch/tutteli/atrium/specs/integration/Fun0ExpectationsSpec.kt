@@ -6,6 +6,7 @@ import ch.tutteli.atrium.core.polyfills.format
 import ch.tutteli.atrium.core.polyfills.fullName
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
+import ch.tutteli.atrium.specs.integration.utils.ExpectationCreatorTriple
 import ch.tutteli.atrium.translations.DescriptionFunLikeExpectation
 import ch.tutteli.atrium.translations.DescriptionFunLikeExpectation.NO_EXCEPTION_OCCURRED
 import ch.tutteli.atrium.translations.DescriptionFunLikeExpectation.THROWN_EXCEPTION_WHEN_CALLED
@@ -23,18 +24,18 @@ abstract class Fun0ExpectationsSpec(
 
     include(object : SubjectLessSpec<() -> Any?>(
         "$describePrefix[toThrow] ",
-        toThrowFeature.forSubjectLess(),
-        toThrow.forSubjectLess { messageToContain("bla") }
+        toThrowFeature.forSubjectLessTest(),
+        toThrow.forSubjectLessTest { messageToContain("bla") }
     ) {})
 
     include(object : SubjectLessSpec<() -> Int>(describePrefix,
-        notToThrowFeature.forSubjectLess(),
-        notToThrow.forSubjectLess { toEqual(2) }
+        notToThrowFeature.forSubjectLessTest(),
+        notToThrow.forSubjectLessTest { toEqual(2) }
     ) {})
 
     include(object : AssertionCreatorSpec<() -> Any?>(
         "$describePrefix[toThrow] ", { throw IllegalArgumentException("bla") },
-        assertionCreatorSpecTriple(
+        ExpectationCreatorTriple(
             toThrow.name,
             "bla",
             { apply { toThrow.invoke(this) { messageToContain("bla") } } },
@@ -44,7 +45,7 @@ abstract class Fun0ExpectationsSpec(
 
     include(object : AssertionCreatorSpec<() -> Int>(
         describePrefix, { 1 },
-        assertionCreatorSpecTriple(
+        ExpectationCreatorTriple(
             notToThrow.name,
             "$toEqualDescr: 1",
             { apply { notToThrow.invoke(this) { toEqual(1) } } },
@@ -72,7 +73,7 @@ abstract class Fun0ExpectationsSpec(
 
         context("no exception occurs") {
             toThrowFunctions.forEach { (name, toThrowFun, hasExtraHint) ->
-                it("$name - throws an AssertionError" + showsSubAssertionIf(hasExtraHint)) {
+                it("$name - throws an AssertionError" + showsSubExpectationIf(hasExtraHint)) {
                     expect {
                         expect<() -> Any?> { /* no exception occurs */ 1 }.toThrowFun {
                             toEqual(
@@ -124,7 +125,7 @@ abstract class Fun0ExpectationsSpec(
 
                 it(
                     "$name - throws an AssertionError in case of a wrong exception and shows message and stacktrace as extra hint" +
-                        showsSubAssertionIf(hasExtraHint)
+                        showsSubExpectationIf(hasExtraHint)
                 ) {
                     expect {
                         expect<() -> Any?> {
@@ -146,7 +147,7 @@ abstract class Fun0ExpectationsSpec(
             notToThrowFunctions.forEach { (name, notToThrowFun, hasExtraHint) ->
                 it(
                     "$name - throws an AssertionError and shows message and stacktrace as extra hint" +
-                        showsSubAssertionIf(hasExtraHint)
+                        showsSubExpectationIf(hasExtraHint)
                 ) {
                     expect {
                         expect<() -> Int> {
@@ -187,7 +188,7 @@ abstract class Fun0ExpectationsSpec(
                 toThrowFunctions.forEach { (name, toThrowFun, hasExtraHint) ->
                     it(
                         "$name - shows cause as extra hint in case of a wrong exception" +
-                            showsSubAssertionIf(hasExtraHint)
+                            showsSubExpectationIf(hasExtraHint)
                     ) {
                         expect {
                             expect<() -> Any?> {
@@ -201,7 +202,7 @@ abstract class Fun0ExpectationsSpec(
                 }
 
                 notToThrowFunctions.forEach { (name, notToThrowFun, hasExtraHint) ->
-                    it("$name - shows cause as extra hint" + showsSubAssertionIf(hasExtraHint)) {
+                    it("$name - shows cause as extra hint" + showsSubExpectationIf(hasExtraHint)) {
                         expect {
                             expect<() -> Int> {
                                 throw exceptionWithCause
@@ -233,7 +234,7 @@ abstract class Fun0ExpectationsSpec(
 
 
                     toThrowFunctions.forEach { (name, toThrowFun, hasExtraHint) ->
-                        it("$name - shows both causes as extra hint" + showsSubAssertionIf(hasExtraHint)) {
+                        it("$name - shows both causes as extra hint" + showsSubExpectationIf(hasExtraHint)) {
                             expect {
                                 expect<() -> Any?> {
                                     throw exceptionWithNestedCause
@@ -246,7 +247,7 @@ abstract class Fun0ExpectationsSpec(
                     }
 
                     notToThrowFunctions.forEach { (name, notToThrowFun, hasExtraHint) ->
-                        it("$name - shows both causes as extra hint" + showsSubAssertionIf(hasExtraHint)) {
+                        it("$name - shows both causes as extra hint" + showsSubExpectationIf(hasExtraHint)) {
                             expect {
                                 expect<() -> Int> {
                                     throw exceptionWithNestedCause

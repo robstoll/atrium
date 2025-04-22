@@ -25,24 +25,24 @@ abstract class IterableExpectationsSpec(
 
     include(object : SubjectLessSpec<Iterable<Int>>(
         describePrefix,
-        toHaveElements.forSubjectLess(),
-        notToHaveElements.forSubjectLess(),
-        minFeature.forSubjectLess(),
-        min.forSubjectLess { toBeGreaterThan(-100) },
-        maxFeature.forSubjectLess(),
-        max.forSubjectLess { toEqual(1) },
-        toHaveElementsAndNoDuplicates.forSubjectLess()
+        toHaveElements.forSubjectLessTest(),
+        notToHaveElements.forSubjectLessTest(),
+        minFeature.forSubjectLessTest(),
+        min.forSubjectLessTest { toBeGreaterThan(-100) },
+        maxFeature.forSubjectLessTest(),
+        max.forSubjectLessTest { toEqual(1) },
+        toHaveElementsAndNoDuplicates.forSubjectLessTest()
     ) {})
 
     include(object : AssertionCreatorSpec<Iterable<Int>>(
         describePrefix, listOf(-20, 20, 0),
-        min.forAssertionCreatorSpec("$toEqualDescr: -20") { toEqual(-20) },
-        max.forAssertionCreatorSpec("$toEqualDescr: 20") { toEqual(20) }
+        min.forExpectationCreatorTest("$toEqualDescr: -20") { toEqual(-20) },
+        max.forExpectationCreatorTest("$toEqualDescr: 20") { toEqual(20) }
     ) {})
 
     include(object : SubjectLessSpec<Iterable<Int>>(describePrefix,
-        lastFeature.forSubjectLess(),
-        last.forSubjectLess { toEqual(1) }
+        lastFeature.forSubjectLessTest(),
+        last.forSubjectLessTest { toEqual(1) }
     ) {})
 
     fun describeFun(vararg pairs: SpecPair<*>, body: Suite.() -> Unit) =
@@ -208,7 +208,7 @@ abstract class IterableExpectationsSpec(
         val lastFunctions = unifySignatures(lastFeature, last)
         context("list $emptyList") {
             lastFunctions.forEach { (name, lastFun, hasExtraHint) ->
-                it("$name - empty list throws" + showsSubAssertionIf(hasExtraHint)) {
+                it("$name - empty list throws" + showsSubExpectationIf(hasExtraHint)) {
                     expect {
                         fluentEmptyList.lastFun { toEqual(3) }
                     }.toThrow<AssertionError> {
