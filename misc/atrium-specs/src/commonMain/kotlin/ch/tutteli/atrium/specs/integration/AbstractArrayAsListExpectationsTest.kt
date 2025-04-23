@@ -5,226 +5,272 @@ import ch.tutteli.atrium.api.fluent.en_GB.toContainExactly
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic.utils.expectLambda
-import ch.tutteli.atrium.specs.*
+import ch.tutteli.atrium.specs.integration.utils.ExpectationCreatorTestData
+import ch.tutteli.atrium.specs.integration.utils.ExpectationCreatorTriple
+import ch.tutteli.atrium.specs.integration.utils.SubjectLessTestData
+import ch.tutteli.atrium.testfactories.TestFactory
 import ch.tutteli.atrium.translations.DescriptionIterableLikeExpectation
-import org.spekframework.spek2.Spek
-import org.spekframework.spek2.style.specification.describe
+import kotlin.test.Test
 
+@Suppress("FunctionName")
 abstract class AbstractArrayAsListExpectationsTest(
-    asListFunName: String,
-    arr: Expect<Array<Int>>.() -> Expect<List<Int>>,
-    arrByte: Expect<ByteArray>.() -> Expect<List<Byte>>,
-    arrChar: Expect<CharArray>.() -> Expect<List<Char>>,
-    arrShort: Expect<ShortArray>.() -> Expect<List<Short>>,
-    arrInt: Expect<IntArray>.() -> Expect<List<Int>>,
-    arrLong: Expect<LongArray>.() -> Expect<List<Long>>,
-    arrFloat: Expect<FloatArray>.() -> Expect<List<Float>>,
-    arrDouble: Expect<DoubleArray>.() -> Expect<List<Double>>,
-    arrBoolean: Expect<BooleanArray>.() -> Expect<List<Boolean>>,
-    arrWithCreator: Expect<Array<Int>>.(Expect<List<Int>>.() -> Unit) -> Expect<Array<Int>>,
-    arrByteWithCreator: Expect<ByteArray>.(Expect<List<Byte>>.() -> Unit) -> Expect<ByteArray>,
-    arrCharWithCreator: Expect<CharArray>.(Expect<List<Char>>.() -> Unit) -> Expect<CharArray>,
-    arrShortWithCreator: Expect<ShortArray>.(Expect<List<Short>>.() -> Unit) -> Expect<ShortArray>,
-    arrIntWithCreator: Expect<IntArray>.(Expect<List<Int>>.() -> Unit) -> Expect<IntArray>,
-    arrLongWithCreator: Expect<LongArray>.(Expect<List<Long>>.() -> Unit) -> Expect<LongArray>,
-    arrFloatWithCreator: Expect<FloatArray>.(Expect<List<Float>>.() -> Unit) -> Expect<FloatArray>,
-    arrDoubleWithCreator: Expect<DoubleArray>.(Expect<List<Double>>.() -> Unit) -> Expect<DoubleArray>,
-    arrBooleanWithCreator: Expect<BooleanArray>.(Expect<List<Boolean>>.() -> Unit) -> Expect<BooleanArray>,
-    describePrefix: String = "[Atrium] "
-) : Spek({
+    private val asListFunName: String,
+    private val arr: Expect<Array<Int>>.() -> Expect<List<Int>>,
+    private val byteArr: Expect<ByteArray>.() -> Expect<List<Byte>>,
+    private val charArr: Expect<CharArray>.() -> Expect<List<Char>>,
+    private val shortArr: Expect<ShortArray>.() -> Expect<List<Short>>,
+    private val intArr: Expect<IntArray>.() -> Expect<List<Int>>,
+    private val longArr: Expect<LongArray>.() -> Expect<List<Long>>,
+    private val floatArr: Expect<FloatArray>.() -> Expect<List<Float>>,
+    private val doubleArr: Expect<DoubleArray>.() -> Expect<List<Double>>,
+    private val booleanArr: Expect<BooleanArray>.() -> Expect<List<Boolean>>,
+    private val arrWithCreator: Expect<Array<Int>>.(Expect<List<Int>>.() -> Unit) -> Expect<Array<Int>>,
+    private val byteArrWithCreator: Expect<ByteArray>.(Expect<List<Byte>>.() -> Unit) -> Expect<ByteArray>,
+    private val charArrWithCreator: Expect<CharArray>.(Expect<List<Char>>.() -> Unit) -> Expect<CharArray>,
+    private val shortArrWithCreator: Expect<ShortArray>.(Expect<List<Short>>.() -> Unit) -> Expect<ShortArray>,
+    private val intArrWithCreator: Expect<IntArray>.(Expect<List<Int>>.() -> Unit) -> Expect<IntArray>,
+    private val longArrWithCreator: Expect<LongArray>.(Expect<List<Long>>.() -> Unit) -> Expect<LongArray>,
+    private val floatArrWithCreator: Expect<FloatArray>.(Expect<List<Float>>.() -> Unit) -> Expect<FloatArray>,
+    private val doubleArrWithCreator: Expect<DoubleArray>.(Expect<List<Double>>.() -> Unit) -> Expect<DoubleArray>,
+    private val booleanArrWithCreator: Expect<BooleanArray>.(Expect<List<Boolean>>.() -> Unit) -> Expect<BooleanArray>,
+) : ExpectationFunctionBaseTest() {
 
-    val asListWithCreator = "$asListFunName with Creator"
-    include(object : SubjectLessSpec<Array<Int>>("$describePrefix[arr] ",
-        asListFunName to expectLambda { arr(this) },
-        asListWithCreator to expectLambda { arrWithCreator(this) { toContain(1) } }
-    ) {})
-    include(object : SubjectLessSpec<ByteArray>("$describePrefix[arrByte] ",
-        asListFunName to expectLambda { arrByte(this) },
-        asListWithCreator to expectLambda { arrByteWithCreator(this) { toContain(1) } }
-    ) {})
-    include(object : SubjectLessSpec<CharArray>("$describePrefix[arrChar] ",
-        asListFunName to expectLambda { arrChar(this) },
-        asListWithCreator to expectLambda { arrCharWithCreator(this) { toContain('a') } }
-    ) {})
-    include(object : SubjectLessSpec<ShortArray>("$describePrefix[arrShort] ",
-        asListFunName to expectLambda { arrShort(this) },
-        asListWithCreator to expectLambda { arrShortWithCreator(this) { toContain(1.toShort()) } }
-    ) {})
-    include(object : SubjectLessSpec<IntArray>("$describePrefix[arrInt] ",
-        asListFunName to expectLambda { arrInt(this) },
-        asListWithCreator to expectLambda { arrIntWithCreator(this) { toContain(1) } }
-    ) {})
-    include(object : SubjectLessSpec<LongArray>("$describePrefix[arrLong] ",
-        asListFunName to expectLambda { arrLong(this) },
-        asListWithCreator to expectLambda { arrLongWithCreator(this) { toContain(1L) } }
-    ) {})
-    include(object : SubjectLessSpec<FloatArray>("$describePrefix[arrFloat] ",
-        asListFunName to expectLambda { arrFloat(this) },
-        asListWithCreator to expectLambda { arrFloatWithCreator(this) { toContain(1f) } }
-    ) {})
-    include(object : SubjectLessSpec<DoubleArray>("$describePrefix[arrDouble] ",
-        asListFunName to expectLambda { arrDouble(this) },
-        asListWithCreator to expectLambda { arrDoubleWithCreator(this) { toContain(1.0) } }
-    ) {})
-    include(object : SubjectLessSpec<BooleanArray>("$describePrefix[arrBoolean] ",
-        asListFunName to expectLambda { arrBoolean(this) },
-        asListWithCreator to expectLambda { arrBooleanWithCreator(this) { toContain(true) } }
-    ) {})
-
-    fun bytes(vararg bytes: Byte) = bytes
-    fun chars(vararg chars: Char) = chars
-    fun shorts(vararg shorts: Short) = shorts
-    fun ints(vararg ints: Int) = ints
-    fun longs(vararg longs: Long) = longs
-    fun floats(vararg floats: Float) = floats
-    fun doubles(vararg doubles: Double) = doubles
-    fun booleans(vararg booleans: Boolean) = booleans
-
-    val anElementWhichEquals = DescriptionIterableLikeExpectation.AN_ELEMENT_WHICH_EQUALS.getDefault()
-    include(object : AssertionCreatorSpec<Array<Int>>(
-        "$describePrefix[arr] ", arrayOf(1),
-        assertionCreatorSpecTriple(
-            asListFunName,
-            anElementWhichEquals,
-            { arrWithCreator.invoke(this) { toContain(1) } },
-            { arrWithCreator.invoke(this) {} })
-    ) {})
-    include(object : AssertionCreatorSpec<ByteArray>(
-        "$describePrefix[arrByte] ", bytes(1),
-        assertionCreatorSpecTriple(
-            asListFunName,
-            anElementWhichEquals,
-            { arrByteWithCreator.invoke(this) { toContain(1) } },
-            { arrByteWithCreator.invoke(this) {} })
-    ) {})
-    include(object : AssertionCreatorSpec<CharArray>(
-        "$describePrefix[arrChar] ", chars('a'),
-        assertionCreatorSpecTriple(
-            asListFunName,
-            anElementWhichEquals,
-            { arrCharWithCreator.invoke(this) { toContain('a') } },
-            { arrCharWithCreator.invoke(this) {} })
-    ) {})
-    include(object : AssertionCreatorSpec<ShortArray>(
-        "$describePrefix[arrShort] ", shorts(1),
-        assertionCreatorSpecTriple(
-            asListFunName,
-            anElementWhichEquals,
-            { arrShortWithCreator.invoke(this) { toContain(1) } },
-            { arrShortWithCreator.invoke(this) {} })
-    ) {})
-    include(object : AssertionCreatorSpec<IntArray>(
-        "$describePrefix[arrInt] ", ints(1),
-        assertionCreatorSpecTriple(
-            asListFunName,
-            anElementWhichEquals,
-            { arrIntWithCreator.invoke(this) { toContain(1) } },
-            { arrIntWithCreator.invoke(this) {} })
-    ) {})
-    include(object : AssertionCreatorSpec<LongArray>(
-        "$describePrefix[arrLong] ", longs(1),
-        assertionCreatorSpecTriple(
-            asListFunName,
-            anElementWhichEquals,
-            { arrLongWithCreator.invoke(this) { toContain(1) } },
-            { arrLongWithCreator.invoke(this) {} })
-    ) {})
-    include(object : AssertionCreatorSpec<FloatArray>(
-        "$describePrefix[arrFloat] ", floats(1.0f),
-        assertionCreatorSpecTriple(
-            asListFunName,
-            anElementWhichEquals,
-            { arrFloatWithCreator.invoke(this) { toContain(1.0f) } },
-            { arrFloatWithCreator.invoke(this) {} })
-    ) {})
-    include(object : AssertionCreatorSpec<DoubleArray>(
-        "$describePrefix[arrDouble] ", doubles(1.0),
-        assertionCreatorSpecTriple(
-            asListFunName,
-            anElementWhichEquals,
-            { arrDoubleWithCreator.invoke(this) { toContain(1.0) } },
-            { arrDoubleWithCreator.invoke(this) {} })
-    ) {})
-    include(object : AssertionCreatorSpec<BooleanArray>(
-        "$describePrefix[arrBoolean] ", booleans(true),
-        assertionCreatorSpecTriple(
-            asListFunName,
-            anElementWhichEquals,
-            { arrBooleanWithCreator.invoke(this) { toContain(true) } },
-            { arrBooleanWithCreator.invoke(this) {} })
-    ) {})
-
-    describe("$asListFunName arr") {
-        it("transformation can be applied and a subsequent assertion made") {
-            expect(arrayOf(1, 2)).arr().toContainExactly(1, 2)
-        }
-        it("transformation can be applied and a sub-assertion made") {
-            expect(arrayOf(1, 2)).arrWithCreator { toContainExactly(1, 2) }
-        }
+    @TestFactory
+    fun subjectLessTest(): Any {
+        val asListWithCreator = "$asListFunName with Creator"
+        return subjectLessTestFactory(
+            SubjectLessTestData<Array<Int>>(
+                asListFunName to expectLambda { arr(this) },
+                asListWithCreator to expectLambda { arrWithCreator(this) { toContain(1) } },
+                groupPrefix = "Array"
+            ),
+            SubjectLessTestData<ByteArray>(
+                asListFunName to expectLambda { byteArr(this) },
+                asListWithCreator to expectLambda { byteArrWithCreator(this) { toContain(1) } },
+                groupPrefix = "ByteArray"
+            ),
+            SubjectLessTestData<CharArray>(
+                asListFunName to expectLambda { charArr(this) },
+                asListWithCreator to expectLambda { charArrWithCreator(this) { toContain(1) } },
+                groupPrefix = "CharArray"
+            ),
+            SubjectLessTestData<ShortArray>(
+                asListFunName to expectLambda { shortArr(this) },
+                asListWithCreator to expectLambda { shortArrWithCreator(this) { toContain(1) } },
+                groupPrefix = "ShortArray"
+            ),
+            SubjectLessTestData<IntArray>(
+                asListFunName to expectLambda { intArr(this) },
+                asListWithCreator to expectLambda { intArrWithCreator(this) { toContain(1) } },
+                groupPrefix = "IntArray"
+            ),
+            SubjectLessTestData<LongArray>(
+                asListFunName to expectLambda { longArr(this) },
+                asListWithCreator to expectLambda { longArrWithCreator(this) { toContain(1) } },
+                groupPrefix = "LongArray"
+            ),
+            SubjectLessTestData<FloatArray>(
+                asListFunName to expectLambda { floatArr(this) },
+                asListWithCreator to expectLambda { floatArrWithCreator(this) { toContain(1) } },
+                groupPrefix = "FloatArray"
+            ),
+            SubjectLessTestData<DoubleArray>(
+                asListFunName to expectLambda { doubleArr(this) },
+                asListWithCreator to expectLambda { doubleArrWithCreator(this) { toContain(1) } },
+                groupPrefix = "DoubleArray"
+            ),
+            SubjectLessTestData<BooleanArray>(
+                asListFunName to expectLambda { booleanArr(this) },
+                asListWithCreator to expectLambda { booleanArrWithCreator(this) { toContain(1) } },
+                groupPrefix = "BooleanArray"
+            )
+        )
     }
 
-    describe("$asListFunName arrByte") {
-        it("transformation can be applied and a subsequent assertion made") {
-            expect(bytes(1.toByte(), 2.toByte())).arrByte().toContainExactly(1.toByte(), 2.toByte())
-        }
-        it("transformation can be applied and a sub assertion made") {
-            expect(bytes(1.toByte(), 2.toByte())).arrByteWithCreator { toContainExactly(1.toByte(), 2.toByte()) }
-        }
+    @TestFactory
+    fun expectationCreatorTest(): Any {
+        val anElementWhichEquals = DescriptionIterableLikeExpectation.AN_ELEMENT_WHICH_EQUALS.getDefault()
+        return expectationCreatorTestFactory(
+            ExpectationCreatorTestData(
+                arrayOf(1),
+                ExpectationCreatorTriple(
+                    asListFunName,
+                    anElementWhichEquals,
+                    { arrWithCreator.invoke(this) { toContain(1) } },
+                    { arrWithCreator.invoke(this) {} }
+                ),
+                groupPrefix = "Array"
+            ),
+            ExpectationCreatorTestData(
+                byteArrayOf(1),
+                ExpectationCreatorTriple(
+                    asListFunName,
+                    anElementWhichEquals,
+                    { byteArrWithCreator.invoke(this) { toContain(1) } },
+                    { byteArrWithCreator.invoke(this) {} }
+                ),
+                groupPrefix = "ByteArray"
+            ),
+            ExpectationCreatorTestData(
+                charArrayOf('a'),
+                ExpectationCreatorTriple(
+                    asListFunName,
+                    anElementWhichEquals,
+                    { charArrWithCreator.invoke(this) { toContain('a') } },
+                    { charArrWithCreator.invoke(this) {} }
+                ),
+                groupPrefix = "CharArray"
+            ),
+            ExpectationCreatorTestData(
+                shortArrayOf(1),
+                ExpectationCreatorTriple(
+                    asListFunName,
+                    anElementWhichEquals,
+                    { shortArrWithCreator.invoke(this) { toContain(1) } },
+                    { shortArrWithCreator.invoke(this) {} }
+                ),
+                groupPrefix = "ShortArray"
+            ),
+            ExpectationCreatorTestData(
+                intArrayOf(1),
+                ExpectationCreatorTriple(
+                    asListFunName,
+                    anElementWhichEquals,
+                    { intArrWithCreator.invoke(this) { toContain(1) } },
+                    { intArrWithCreator.invoke(this) {} }
+                ),
+                groupPrefix = "IntArray"
+            ),
+            ExpectationCreatorTestData(
+                longArrayOf(1),
+                ExpectationCreatorTriple(
+                    asListFunName,
+                    anElementWhichEquals,
+                    { longArrWithCreator.invoke(this) { toContain(1) } },
+                    { longArrWithCreator.invoke(this) {} }
+                ),
+                groupPrefix = "LongArray"
+            ),
+            ExpectationCreatorTestData(
+                floatArrayOf(1.0f),
+                ExpectationCreatorTriple(
+                    asListFunName,
+                    anElementWhichEquals,
+                    { floatArrWithCreator.invoke(this) { toContain(1.0f) } },
+                    { floatArrWithCreator.invoke(this) {} }
+                ),
+                groupPrefix = "FloatArray"
+            ),
+            ExpectationCreatorTestData(
+                doubleArrayOf(1.0),
+                ExpectationCreatorTriple(
+                    asListFunName,
+                    anElementWhichEquals,
+                    { doubleArrWithCreator.invoke(this) { toContain(1.0) } },
+                    { doubleArrWithCreator.invoke(this) {} }
+                ),
+                groupPrefix = "DoubleArray"
+            ),
+            ExpectationCreatorTestData(
+                booleanArrayOf(true),
+                ExpectationCreatorTriple(
+                    asListFunName,
+                    anElementWhichEquals,
+                    { booleanArrWithCreator.invoke(this) { toContain(true) } },
+                    { booleanArrWithCreator.invoke(this) {} }
+                ),
+                groupPrefix = "BooleanArray"
+            )
+        )
     }
-    describe("$asListFunName arrChar") {
-        it("transformation can be applied and a subsequent assertion made") {
-            expect(chars(1.toChar(), 2.toChar())).arrChar().toContainExactly(1.toChar(), 2.toChar())
-        }
-        it("transformation can be applied and a sub assertion made") {
-            expect(chars(1.toChar(), 2.toChar())).arrCharWithCreator { toContainExactly(1.toChar(), 2.toChar()) }
-        }
+
+    @Test
+    fun subject_array__transformation_can_be_applied_and_a_subsequent_expectation_made() {
+        expect(arrayOf(1, 2)).arr().toContainExactly(1, 2)
     }
-    describe("$asListFunName arrShort") {
-        it("transformation can be applied and a subsequent assertion made") {
-            expect(shorts(1, 2)).arrShort().toContainExactly(1.toShort(), 2.toShort())
-        }
-        it("transformation can be applied and a sub assertion made") {
-            expect(shorts(1, 2)).arrShortWithCreator { toContainExactly(1.toShort(), 2.toShort()) }
-        }
+
+    @Test
+    fun subject_array__transformation_can_be_applied_and_a_sub_expectation_made() {
+        expect(arrayOf(1, 2)).arrWithCreator { toContainExactly(1, 2) }
     }
-    describe("$asListFunName arrInt") {
-        it("transformation can be applied and a subsequent assertion made") {
-            expect(ints(1, 2)).arrInt().toContainExactly(1, 2)
-        }
-        it("transformation can be applied and a sub assertion made") {
-            expect(ints(1, 2)).arrIntWithCreator { toContainExactly(1, 2) }
-        }
+
+    @Test
+    fun subject_byteArray__transformation_can_be_applied_and_a_subsequent_expectation_made() {
+        expect(byteArrayOf(1, 2)).byteArr().toContainExactly(1, 2)
     }
-    describe("$asListFunName arrLong") {
-        it("transformation can be applied and a subsequent assertion made") {
-            expect(longs(1, 2)).arrLong().toContainExactly(1L, 2L)
-        }
-        it("transformation can be applied and a sub assertion made") {
-            expect(longs(1, 2)).arrLongWithCreator { toContainExactly(1L, 2L) }
-        }
+
+    @Test
+    fun subject_byteArray__transformation_can_be_applied_and_a_sub_expectation_made() {
+        expect(byteArrayOf(1, 2)).byteArrWithCreator { toContainExactly(1, 2) }
     }
-    describe("$asListFunName arrFloat") {
-        it("transformation can be applied and a subsequent assertion made") {
-            expect(floats(1f, 2f)).arrFloat().toContainExactly(1f, 2f)
-        }
-        it("transformation can be applied and a sub assertion made") {
-            expect(floats(1f, 2f)).arrFloatWithCreator { toContainExactly(1f, 2f) }
-        }
+
+    @Test
+    fun subject_charArray__transformation_can_be_applied_and_a_subsequent_expectation_made() {
+        expect(charArrayOf(1.toChar(), 2.toChar())).charArr().toContainExactly(1.toChar(), 2.toChar())
     }
-    describe("$asListFunName arrDouble") {
-        it("transformation can be applied and a subsequent assertion made") {
-            expect(doubles(1.0, 2.0)).arrDouble().toContainExactly(1.0, 2.0)
-        }
-        it("transformation can be applied and a sub assertion made") {
-            expect(doubles(1.0, 2.0)).arrDoubleWithCreator { toContainExactly(1.0, 2.0) }
-        }
+
+    @Test
+    fun subject_charArray__transformation_can_be_applied_and_a_sub_expectation_made() {
+        expect(charArrayOf(1.toChar(), 2.toChar())).charArrWithCreator { toContainExactly(1.toChar(), 2.toChar()) }
     }
-    describe("$asListFunName arrBoolean") {
-        it("transformation can be applied and a subsequent assertion made") {
-            expect(booleans(true, false)).arrBoolean().toContainExactly(true, false)
-        }
-        it("transformation can be applied and a sub assertion made") {
-            expect(booleans(true, false)).arrBooleanWithCreator { toContainExactly(true, false) }
-        }
+
+    @Test
+    fun subject_shortArray__transformation_can_be_applied_and_a_subsequent_expectation_made() {
+        expect(shortArrayOf(1, 2)).shortArr().toContainExactly(1, 2)
     }
-})
+
+    @Test
+    fun subject_shortArray__transformation_can_be_applied_and_a_sub_expectation_made() {
+        expect(shortArrayOf(1, 2)).shortArrWithCreator { toContainExactly(1, 2) }
+    }
+
+    @Test
+    fun subject_intArray__transformation_can_be_applied_and_a_subsequent_expectation_made() {
+        expect(intArrayOf(1, 2)).intArr().toContainExactly(1, 2)
+    }
+
+    @Test
+    fun subject_intArray__transformation_can_be_applied_and_a_sub_expectation_made() {
+        expect(intArrayOf(1, 2)).intArrWithCreator { toContainExactly(1, 2) }
+    }
+
+    @Test
+    fun subject_longArray__transformation_can_be_applied_and_a_subsequent_expectation_made() {
+        expect(longArrayOf(1, 2)).longArr().toContainExactly(1L, 2L)
+    }
+
+    @Test
+    fun subject_longArray__transformation_can_be_applied_and_a_sub_expectation_made() {
+        expect(longArrayOf(1, 2)).longArrWithCreator { toContainExactly(1L, 2L) }
+    }
+
+    @Test
+    fun subject_floatArray__transformation_can_be_applied_and_a_subsequent_expectation_made() {
+        expect(floatArrayOf(1f, 2f)).floatArr().toContainExactly(1f, 2f)
+    }
+
+    @Test
+    fun subject_floatArray__transformation_can_be_applied_and_a_sub_expectation_made() {
+        expect(floatArrayOf(1f, 2f)).floatArrWithCreator { toContainExactly(1f, 2f) }
+    }
+
+    @Test
+    fun subject_doubleArray__transformation_can_be_applied_and_a_subsequent_expectation_made() {
+        expect(doubleArrayOf(1.0, 2.0)).doubleArr().toContainExactly(1.0, 2.0)
+    }
+
+    @Test
+    fun subject_doubleArray__transformation_can_be_applied_and_a_sub_expectation_made() {
+        expect(doubleArrayOf(1.0, 2.0)).doubleArrWithCreator { toContainExactly(1.0, 2.0) }
+    }
+
+    @Test
+    fun subject_booleanArray__transformation_can_be_applied_and_a_subsequent_expectation_made() {
+        expect(booleanArrayOf(true, false)).booleanArr().toContainExactly(true, false)
+    }
+
+    @Test
+    fun subject_booleanArray__transformation_can_be_applied_and_a_sub_expectation_made() {
+        expect(booleanArrayOf(true, false)).booleanArrWithCreator { toContainExactly(true, false) }
+    }
+}

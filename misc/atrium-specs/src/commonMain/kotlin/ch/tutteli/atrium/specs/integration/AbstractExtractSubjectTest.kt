@@ -4,95 +4,88 @@ import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
-import ch.tutteli.atrium.specs.integration.IterableToContainSpecBase.Companion.nonNullableCases
-import org.spekframework.spek2.Spek
-import org.spekframework.spek2.style.specification.Suite
+import ch.tutteli.atrium.specs.integration.utils.ExpectationCreatorTestData
+import ch.tutteli.atrium.specs.integration.utils.ExpectationCreatorTriple
+import ch.tutteli.atrium.testfactories.TestFactory
+import kotlin.test.Test
 
+@Suppress("FunctionName")
 abstract class AbstractExtractSubjectTest(
+    private val extractSubjectSpec: Fun2<Int, String?, Expect<Int>.(Int) -> Unit>,
+    private val extractSubjectNullableSpec: Fun2<Int?, String?, Expect<Int?>.(Int?) -> Unit>,
+    private val extractSubjectDefaultFailureDescription: String
+) : ExpectationFunctionBaseTest() {
 
-    extractSubject: Fun2<Int, String?, Expect<Int>.(Int) -> Unit>,
-    extractSubjectNullable: Fun2<Int?, String?, Expect<Int?>.(Int?) -> Unit>,
-    extractSubjectDefaultFailureDescription: String,
-
-    describePrefix: String = "[Atrium] "
-) : Spek({
-
-    include(object : AssertionCreatorSpec<Int>(
-        describePrefix, 1,
-        assertionCreatorSpecTriple(extractSubject.name, "$toEqualDescr: 1",
-            { extractSubject.invoke(this, "failure description") { toEqual(1) } },
-            { extractSubject.invoke(this, "failure description") {} }
+    @TestFactory
+    fun expectationCreatorTest() = expectationCreatorTestFactory(
+        ExpectationCreatorTestData(
+            1,
+            ExpectationCreatorTriple(
+                extractSubjectSpec.name, "$toEqualDescr: 1",
+                { extractSubjectSpec.invoke(this, "failure description") { toEqual(1) } },
+                { extractSubjectSpec.invoke(this, "failure description") {} }
+            )
+        ),
+        ExpectationCreatorTestData(
+            1 as Int?,
+            ExpectationCreatorTriple(
+                extractSubjectNullableSpec.name, "$toEqualDescr: 1",
+                { extractSubjectNullableSpec.invoke(this, "failure description") { toEqual(1) } },
+                { extractSubjectNullableSpec.invoke(this, "failure description") {} }
+            ),
         )
-    ) {})
+    )
 
-    include(object : AssertionCreatorSpec<Int?>(
-        describePrefix, 1 as Int?,
-        assertionCreatorSpecTriple(extractSubject.name, "$toEqualDescr: 1",
-            { extractSubjectNullable.invoke(this, "failure description") { toEqual(1) } },
-            { extractSubjectNullable.invoke(this, "failure description") {} }
-        )
-    ) {})
+    @TestFactory
+    fun subject_defined__extraction_successful() =
+        nonNullableCases(extractSubjectSpec, extractSubjectNullableSpec) { extractSubjectFun ->
+            expect(1).extractSubjectFun("failure desc irrelevant") { subject ->
+                feature("extracted subject") { subject }.toEqual(1)
+            }
+        }
 
-    fun describeFun(vararg pairs: SpecPair<*>, body: Suite.() -> Unit) =
-        describeFunTemplate(describePrefix, pairs.map { it.name }.toTypedArray(), body = body)
-
-    nonNullableCases(
-        describePrefix,
-        extractSubject,
-        extractSubjectNullable
-    ) { extractSubjectFun ->
-
-        context("subject defined") {
-            it("extraction successful") {
-                expect(1).extractSubjectFun("failure desc irrelevant") { subject ->
-                    feature("extracted subject") { subject }.toEqual(1)
+    @TestFactory
+    fun subject_not_defined__shows_the_default_failure_description_if_null_passed() =
+        nonNullableCases(extractSubjectSpec, extractSubjectNullableSpec) { extractSubjectFun ->
+            expect {
+                expect(null as Int?).notToEqualNull {
+                    extractSubjectFun(null) { _ ->
+                        // should not be evaluated
+                        toEqual(1)
+                    }
+                }
+            }.toThrow<AssertionError> {
+                message {
+                    toContain(extractSubjectDefaultFailureDescription)
+                    notToContain("$toEqualDescr: 1")
                 }
             }
         }
 
-        context("subject not defined") {
-            it("shows the default failure description if null passed") {
-                expect {
-                    expect(null as Int?).notToEqualNull {
-                        extractSubjectFun(null) { _ ->
-                            // should not be evaluated
-                            toEqual(1)
-                        }
-                    }
-                }.toThrow<AssertionError> {
-                    message {
-                        toContain(extractSubjectDefaultFailureDescription)
-                        notToContain("$toEqualDescr: 1")
+    @TestFactory
+    fun subject_not_defined__shows_the_given_failure_description() =
+        nonNullableCases(extractSubjectSpec, extractSubjectNullableSpec) { extractSubjectFun ->
+            val failureDescription = "failure description shown in reporting"
+            expect {
+                expect(null as Int?).notToEqualNull {
+                    extractSubjectFun(failureDescription) { _ ->
+                        // should not be evaluated
+                        toEqual(1)
                     }
                 }
-            }
-            it("shows given failure description") {
-                val failureDescription = "failure description shown in reporting"
-                expect {
-                    expect(null as Int?).notToEqualNull {
-                        extractSubjectFun(failureDescription) { _ ->
-                            // should not be evaluated
-                            toEqual(1)
-                        }
-                    }
-                }.toThrow<AssertionError> {
-                    message {
-                        toContain(failureDescription)
-                        notToContain("$toEqualDescr: 1")
-                    }
+            }.toThrow<AssertionError> {
+                message {
+                    toContain(failureDescription)
+                    notToContain("$toEqualDescr: 1")
                 }
             }
+        }
+
+    @Test
+    fun subject_null__extraction_also_successful() {
+        val extractSubjectFun = extractSubjectNullableSpec.lambda
+        expect(null as Int?).extractSubjectFun("failure desc irrelevant") { subject ->
+            feature("extracted subject") { subject }.toEqual(null)
         }
     }
-
-    describeFun(extractSubjectNullable) {
-        val extractSubjectFun = extractSubjectNullable.lambda
-        context("subject defined") {
-            it("extraction also successful in case of null") {
-                expect(null as Int?).extractSubjectFun("failure desc irrelevant") { subject ->
-                    feature("extracted subject") { subject }.toEqual(null)
-                }
-            }
-        }
-    }
-})
+}

@@ -1,50 +1,34 @@
 package ch.tutteli.atrium.api.infix.en_GB
 
+import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.fun1
+import ch.tutteli.atrium.specs.integration.AbstractComparableExpectationsTest
 import ch.tutteli.atrium.specs.integration.DiffEqualsCompareTo
-import ch.tutteli.atrium.specs.notImplemented
-import ch.tutteli.atrium.translations.DescriptionComparableExpectation
-import org.spekframework.spek2.Spek
+import ch.tutteli.atrium.translations.DescriptionComparableExpectation.TO_BE_GREATER_THAN_OR_EQUAL_TO
+import ch.tutteli.atrium.translations.DescriptionComparableExpectation.TO_BE_LESS_THAN_OR_EQUAL_TO
+import kotlin.test.Test
 
-class ComparableExpectationsTest: Spek({
+class ComparableExpectationsTest : AbstractComparableExpectationsTest(
+    fun1(Expect<Int>::toBeLessThan),
+    fun1(Expect<Int>::toBeLessThanOrEqualTo),
+    fun1(Expect<Int>::toBeEqualComparingTo),
+    fun1(Expect<Int>::toBeGreaterThanOrEqualTo),
+    fun1(Expect<Int>::toBeGreaterThan),
 
-    include(object: ch.tutteli.atrium.specs.integration.AbstractComparableExpectationsTest(
-        fun1(Expect<Int>::toBeLessThan),
-        fun1(Expect<Int>::toBeLessThanOrEqualTo),
-        fun1(Expect<Int>::toBeEqualComparingTo),
-        fun1(Expect<Int>::toBeGreaterThanOrEqualTo),
-        fun1(Expect<Int>::toBeGreaterThan),
+    fun1(Expect<DiffEqualsCompareTo>::toBeLessThanOrEqualTo),
+    fun1(Expect<DiffEqualsCompareTo>::toBeEqualComparingTo),
+    fun1(Expect<DiffEqualsCompareTo>::toBeGreaterThanOrEqualTo),
 
-        fun1(Expect<DiffEqualsCompareTo>::toBeLessThanOrEqualTo),
-        fun1(Expect<DiffEqualsCompareTo>::toBeEqualComparingTo),
-        fun1(Expect<DiffEqualsCompareTo>::toBeGreaterThanOrEqualTo),
-        describePrefix = "[Atrium][<=] "
-    ){})
-
-    include(object: ch.tutteli.atrium.specs.integration.AbstractComparableExpectationsTest(
-        fun1(Expect<Int>::toBeLessThan),
-        fun1(Expect<Int>::notToBeGreaterThan),
-        fun1(Expect<Int>::toBeEqualComparingTo),
-        fun1(Expect<Int>::notToBeLessThan),
-        fun1(Expect<Int>::toBeGreaterThan),
-
-        fun1(Expect<DiffEqualsCompareTo>::notToBeGreaterThan),
-        fun1(Expect<DiffEqualsCompareTo>::toBeEqualComparingTo),
-        fun1(Expect<DiffEqualsCompareTo>::notToBeLessThan),
-
-        DescriptionComparableExpectation.NOT_TO_BE_GREATER_THAN.getDefault(),
-        DescriptionComparableExpectation.NOT_TO_BE_LESS_THAN.getDefault(),
-        describePrefix = "[Atrium][!>] "
-    ){})
-})  {
-
-    @Suppress("unused")
+    TO_BE_LESS_THAN_OR_EQUAL_TO.getDefault(),
+    TO_BE_GREATER_THAN_OR_EQUAL_TO.getDefault(),
+) {
+    @Test
     fun ambiguityTest() {
-        val a1: Expect<Int> = notImplemented()
-        a1 toBeLessThan 1
+        val a1: Expect<Int> = expect(1)
+        a1 toBeLessThan 2
         a1 toBeLessThanOrEqualTo 1
-        a1 toBeGreaterThan 1
+        a1 toBeGreaterThan 0
         a1 toBeGreaterThanOrEqualTo 1
         a1 toBeEqualComparingTo 1
     }
