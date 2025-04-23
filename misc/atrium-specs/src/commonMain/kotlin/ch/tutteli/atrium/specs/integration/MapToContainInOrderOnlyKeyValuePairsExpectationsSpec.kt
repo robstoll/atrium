@@ -18,12 +18,12 @@ abstract class MapToContainInOrderOnlyKeyValuePairsExpectationsSpec(
 
     include(object : SubjectLessSpec<Map<out String, Int>>(
         describePrefix,
-        keyValuePairs.forSubjectLess("key" to 1, arrayOf(), emptyInOrderOnlyReportOptions)
+        keyValuePairs.forSubjectLessTest("key" to 1, arrayOf(), emptyInOrderOnlyReportOptions)
     ) {})
 
     include(object : SubjectLessSpec<Map<out String?, Int?>>(
         "$describePrefix[nullable Key] ",
-        keyValuePairsNullable.forSubjectLess(null to 1, arrayOf("a" to null), emptyInOrderOnlyReportOptions)
+        keyValuePairsNullable.forSubjectLessTest(null to 1, arrayOf("a" to null), emptyInOrderOnlyReportOptions)
     ) {})
 
     fun describeFun(vararg pairs: SpecPair<*>, body: Suite.() -> Unit) =

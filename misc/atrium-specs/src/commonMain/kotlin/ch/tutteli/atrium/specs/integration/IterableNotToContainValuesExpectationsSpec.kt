@@ -16,11 +16,11 @@ abstract class IterableNotToContainValuesExpectationsSpec(
 
     include(object : SubjectLessSpec<Iterable<Double>>(
         describePrefix,
-        notToContainValues.forSubjectLess(2.3, arrayOf())
+        notToContainValues.forSubjectLessTest(2.3, arrayOf())
     ) {})
     include(object : SubjectLessSpec<Iterable<Double?>>(
         describePrefix,
-        notToContainNullableValues.forSubjectLess(2.3, arrayOf())
+        notToContainNullableValues.forSubjectLessTest(2.3, arrayOf())
     ) {})
 
     fun Expect<Iterable<Double?>>.notToContainNullableFun(a: Double?, vararg aX: Double?) =

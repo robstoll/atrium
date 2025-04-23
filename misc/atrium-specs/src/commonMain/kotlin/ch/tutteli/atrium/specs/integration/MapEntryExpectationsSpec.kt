@@ -23,12 +23,12 @@ abstract class MapEntryExpectationsSpec(
 
     include(object : SubjectLessSpec<Map.Entry<String, Int>>(
         describePrefix,
-        toEqualKeyValue.forSubjectLess("key", 1)
+        toEqualKeyValue.forSubjectLessTest("key", 1)
     ) {})
 
     include(object : SubjectLessSpec<Map.Entry<String?, Int?>>(
         "$describePrefix[nullable] ",
-        toEqualKeyValueNullable.forSubjectLess("key", 1)
+        toEqualKeyValueNullable.forSubjectLessTest("key", 1)
     ) {})
 
     include(object : KeyValueLikeExpectationsSpec<Map.Entry<String, Int>, Map.Entry<String?, Int?>>(

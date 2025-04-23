@@ -1,11 +1,12 @@
 package ch.tutteli.atrium.api.infix.en_GB
 
+import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.fun2
-import ch.tutteli.atrium.specs.notImplemented
+import ch.tutteli.atrium.specs.integration.AbstractExtractSubjectTest
 import ch.tutteli.atrium.specs.withNullableSuffix
 
-class ExtractSubjectSpec : ch.tutteli.atrium.specs.integration.ExtractSubjectSpec(
+class ExtractSubjectTest : AbstractExtractSubjectTest(
     fun2(Companion::extractSubject),
     fun2(Companion::extractSubjectNullable).withNullableSuffix(),
     extractSubjectDefaultFailureDescription = "❗❗ subject extraction not possible, previous expectation failed, cannot show sub-expectations"
@@ -34,9 +35,9 @@ class ExtractSubjectSpec : ch.tutteli.atrium.specs.integration.ExtractSubjectSpe
 
     @Suppress("unused")
     private fun ambiguityTest() {
-        val int: Expect<Int> = notImplemented()
-        val nullableInt: Expect<Int?> = notImplemented()
-        val star: Expect<*> = notImplemented()
+        val int: Expect<Int> = expect(1)
+        val nullableInt: Expect<Int?> = expect(1)
+        val star: Expect<*> = expect(1)
 
         int extractSubject { _ -> toEqual(1) }
         int extractSubject withFailureDescription(failureDescription = "custom descr") { _ -> toEqual(1) }

@@ -1,7 +1,7 @@
 plugins {
     id("build-logic.published-kotlin-multiplatform")
 }
-description = "Provides test factory utility functions."
+description = "Provides common test factory utility functions and types."
 
 kotlin {
     sourceSets {

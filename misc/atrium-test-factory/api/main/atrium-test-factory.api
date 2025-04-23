@@ -11,8 +11,10 @@ public final class ch/tutteli/atrium/testfactories/LeafTestNode : ch/tutteli/atr
 }
 
 public abstract interface class ch/tutteli/atrium/testfactories/TestExecutable {
-	public abstract fun expect (Ljava/lang/Object;)Lch/tutteli/atrium/creating/Expect;
-	public abstract fun expect (Ljava/lang/Object;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/creating/Expect;
+}
+
+public abstract interface class ch/tutteli/atrium/testfactories/TestExecutableImplContract : ch/tutteli/atrium/testfactories/TestExecutable {
+	public abstract fun getExpectationVerbs ()Lch/tutteli/atrium/creating/ExpectationVerbs;
 }
 
 public final class ch/tutteli/atrium/testfactories/TestFactoryBuilder {
@@ -22,27 +24,83 @@ public final class ch/tutteli/atrium/testfactories/TestFactoryBuilder {
 	public final fun it (Ljava/lang/String;Lkotlin/jvm/functions/Function1;)V
 }
 
-public final class ch/tutteli/atrium/testfactories/TestFactoryKt {
+public final class ch/tutteli/atrium/testfactories/TestFactoryBuilderKt {
 	public static final fun buildTestNodes (Lkotlin/jvm/functions/Function1;)Ljava/util/List;
 }
 
 public final class ch/tutteli/atrium/testfactories/TestFactoryTemplatesKt {
-	public static final fun testFactoryTemplate (Lkotlin/jvm/functions/Function1;Lch/tutteli/atrium/creating/ExpectationVerbs;)Ljava/lang/Object;
-	public static final fun testFactoryTemplate (Lkotlin/jvm/functions/Function1;[Lkotlin/jvm/functions/Function1;Lch/tutteli/atrium/creating/ExpectationVerbs;)Ljava/lang/Object;
+	public static final fun testFactoryTemplate (Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function0;)Ljava/lang/Object;
+	public static final fun testFactoryTemplate (Lkotlin/jvm/functions/Function1;[Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function0;)Ljava/lang/Object;
 }
 
 public final class ch/tutteli/atrium/testfactories/TestFactory_jvmKt {
-	public static final fun turnTestNodesIntoPlatformSpecificTestFactory (Ljava/util/List;Lch/tutteli/atrium/creating/ExpectationVerbs;)Ljava/lang/Object;
+	public static final fun turnTestNodesIntoPlatformSpecificTestFactory (Ljava/util/List;Lkotlin/jvm/functions/Function0;)Ljava/lang/Object;
 }
 
 public abstract class ch/tutteli/atrium/testfactories/TestNode {
 }
 
-public final class ch/tutteli/atrium/testfactories/TurnTestNodesIntoExpectGroupingKt {
-	public static final fun turnTestNodesIntoExpectGrouping (Ljava/util/List;Lch/tutteli/atrium/creating/ExpectationVerbs;)Lch/tutteli/atrium/creating/ExpectGrouping;
+public final class ch/tutteli/atrium/testfactories/TestNodesKt {
+	public static final fun execute (Lch/tutteli/atrium/testfactories/TestExecutable;Lch/tutteli/atrium/testfactories/LeafTestNode;)Lch/tutteli/atrium/testfactories/TestExecutable;
 }
 
-public final class ch/tutteli/atrium/testfactories/junit/TestFactory_jvmKt {
-	public static final fun turnIntoJunitDynamicNodes (Ljava/util/List;Lch/tutteli/atrium/creating/ExpectationVerbs;)Ljava/util/List;
+public abstract interface class ch/tutteli/atrium/testfactories/expect/ExpectTestExecutable : ch/tutteli/atrium/testfactories/TestExecutable, ch/tutteli/atrium/testfactories/TestExecutableImplContract {
+	public abstract fun expect (Ljava/lang/Object;)Lch/tutteli/atrium/creating/Expect;
+	public abstract fun expect (Ljava/lang/Object;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/creating/Expect;
+	public abstract fun expectGrouped (Ljava/lang/String;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/creating/ExpectGrouping;
+}
+
+public final class ch/tutteli/atrium/testfactories/expect/ExpectTestExecutableKt {
+	public static final fun createExpectTestExecutableFactory (Lch/tutteli/atrium/creating/ExpectationVerbs;)Lkotlin/jvm/functions/Function0;
+}
+
+public abstract class ch/tutteli/atrium/testfactories/expect/grouped/ExpectGroupedBasedExpectTestExecutable : ch/tutteli/atrium/testfactories/expect/ExpectTestExecutable, ch/tutteli/atrium/testfactories/expect/grouped/GroupingBasedTestExecutable {
+	public fun <init> (Lch/tutteli/atrium/creating/ExpectationVerbs;)V
+	public fun expect (Ljava/lang/Object;)Lch/tutteli/atrium/creating/Expect;
+	public fun expect (Ljava/lang/Object;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/creating/Expect;
+	public fun expectGrouped (Ljava/lang/String;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/creating/ExpectGrouping;
+	public fun getExpectationVerbs ()Lch/tutteli/atrium/creating/ExpectationVerbs;
+}
+
+public abstract class ch/tutteli/atrium/testfactories/expect/grouped/ExpectGroupingBasedExpectTestExecutable : ch/tutteli/atrium/testfactories/TestExecutableImplContract, ch/tutteli/atrium/testfactories/expect/ExpectTestExecutable {
+	public fun <init> (Lch/tutteli/atrium/creating/ExpectGrouping;Lch/tutteli/atrium/creating/ExpectationVerbs;)V
+	public fun expect (Ljava/lang/Object;)Lch/tutteli/atrium/creating/Expect;
+	public fun expect (Ljava/lang/Object;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/creating/Expect;
+	public fun expectGrouped (Ljava/lang/String;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/creating/ExpectGrouping;
+	public fun getExpectationVerbs ()Lch/tutteli/atrium/creating/ExpectationVerbs;
+}
+
+public abstract interface class ch/tutteli/atrium/testfactories/expect/grouped/GroupingBasedTestExecutable : ch/tutteli/atrium/testfactories/TestExecutable, ch/tutteli/atrium/testfactories/TestExecutableImplContract {
+	public abstract fun testFactory (Lch/tutteli/atrium/creating/ExpectGrouping;)Lch/tutteli/atrium/testfactories/TestExecutable;
+}
+
+public final class ch/tutteli/atrium/testfactories/expect/grouped/impl/ExpectGroupedBasedExpectTestExecutableImpl : ch/tutteli/atrium/testfactories/expect/grouped/ExpectGroupedBasedExpectTestExecutable {
+	public fun <init> (Lch/tutteli/atrium/creating/ExpectationVerbs;)V
+	public synthetic fun testFactory (Lch/tutteli/atrium/creating/ExpectGrouping;)Lch/tutteli/atrium/testfactories/TestExecutable;
+	public fun testFactory (Lch/tutteli/atrium/creating/ExpectGrouping;)Lch/tutteli/atrium/testfactories/expect/ExpectTestExecutable;
+}
+
+public final class ch/tutteli/atrium/testfactories/expect/grouped/impl/ExpectGroupingBasedExpectTestExecutableImpl : ch/tutteli/atrium/testfactories/expect/grouped/ExpectGroupingBasedExpectTestExecutable {
+	public fun <init> (Lch/tutteli/atrium/creating/ExpectGrouping;Lch/tutteli/atrium/creating/ExpectationVerbs;)V
+}
+
+public final class ch/tutteli/atrium/testfactories/expect/grouped/impl/TurnTestNodesIntoExpectGroupingKt {
+	public static final fun turnTestNodesIntoExpectGrouping (Ljava/util/List;Lkotlin/jvm/functions/Function0;)Lch/tutteli/atrium/creating/ExpectGrouping;
+}
+
+public abstract class ch/tutteli/atrium/testfactories/expect/root/RootExpectTestExecutable : ch/tutteli/atrium/testfactories/TestExecutableImplContract, ch/tutteli/atrium/testfactories/expect/ExpectTestExecutable {
+	public fun <init> (Lch/tutteli/atrium/creating/ExpectationVerbs;)V
+	public fun expect (Ljava/lang/Object;)Lch/tutteli/atrium/creating/Expect;
+	public fun expect (Ljava/lang/Object;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/creating/Expect;
+	public fun expectGrouped (Ljava/lang/String;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/creating/ExpectGrouping;
+	public fun getExpectationVerbs ()Lch/tutteli/atrium/creating/ExpectationVerbs;
+}
+
+public final class ch/tutteli/atrium/testfactories/expect/root/impl/RootExpectTestExecutableImpl : ch/tutteli/atrium/testfactories/expect/root/RootExpectTestExecutable {
+	public fun <init> (Lch/tutteli/atrium/creating/ExpectationVerbs;)V
+}
+
+public final class ch/tutteli/atrium/testfactories/junit/TurnIntoJunitDynamicNodesKt {
+	public static final fun turnIntoJunitDynamicNodes (Ljava/util/List;Lkotlin/jvm/functions/Function0;)Ljava/util/List;
 }
 

@@ -27,15 +27,15 @@ abstract class BigDecimalExpectationsSpec(
 
     include(object : SubjectLessSpec<BigDecimal>(
         describePrefix,
-        toEqualNumerically.forSubjectLess(BigDecimal.TEN),
-        notToEqualNumerically.forSubjectLess(BigDecimal.TEN),
-        toEqualIncludingScale.forSubjectLess(BigDecimal.TEN),
-        notToEqualIncludingScale.forSubjectLess(BigDecimal.TEN)
+        toEqualNumerically.forSubjectLessTest(BigDecimal.TEN),
+        notToEqualNumerically.forSubjectLessTest(BigDecimal.TEN),
+        toEqualIncludingScale.forSubjectLessTest(BigDecimal.TEN),
+        notToEqualIncludingScale.forSubjectLessTest(BigDecimal.TEN)
     ) {})
 
     include(object : SubjectLessSpec<BigDecimal?>(
         "$describePrefix[nullable] ",
-        toEqualNull.forSubjectLess(null)
+        toEqualNull.forSubjectLessTest(null)
     ) {})
 
     fun describeFun(vararg pairs: SpecPair<*>, body: Suite.() -> Unit) =

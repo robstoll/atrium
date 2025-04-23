@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.testfactories
 
-import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.creating.ExpectGrouping
+import ch.tutteli.atrium.creating.ExpectationVerbs
 
 /**
  * Represents a test as such and provides an abstraction over which expectation verb shall be used.
@@ -12,30 +12,17 @@ import ch.tutteli.atrium.creating.ExpectGrouping
  *
  * @since 1.3.0
  */
-interface TestExecutable {
+interface TestExecutable
 
-    /**
-     * Creates an [Expect] for the given [subject].
-     *
-     * @param subject The subject for which we are going to postulate expectations.
-     *
-     * @return The newly created [Expect].
-     * @throws AssertionError in case an assertion does not hold.
-     *
-     * @since 1.3.0
-     */
-    fun <T> expect(subject: T): Expect<T>
-
-    /**
-     * Creates an [Expect] for the given [subject] and appends the expectations the given
-     * [expectationCreator]-lambda creates as group to it.
-     *
-     * @param subject The subject for which we are going to postulate expectations.
-     * @param expectationCreator expectation-group with a non-fail fast behaviour.
-     * @return The newly created [Expect].
-     * @throws AssertionError in case an assertion does not hold.
-     *
-     * @since 1.3.0
-     */
-    fun <T> expect(subject: T, expectationCreator: Expect<T>.() -> Unit): Expect<T>
+/**
+ * Represents the contract each [TestExecutable] implementation has to follow.
+ * Not implementing it as well will lead to a [ClassCastException] at runtime.
+ *
+ * It's on purpose separated from [TestExecutable] to not reveal implementation details to the end-user.
+ *
+ * @since 1.3.0
+ */
+interface TestExecutableImplContract : TestExecutable {
+    val expectationVerbs: ExpectationVerbs
 }
+

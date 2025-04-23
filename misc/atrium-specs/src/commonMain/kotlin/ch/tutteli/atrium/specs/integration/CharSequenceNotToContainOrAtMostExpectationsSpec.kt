@@ -19,8 +19,8 @@ abstract class CharSequenceNotToContainOrAtMostExpectationsSpec(
 
     include(object : SubjectLessSpec<CharSequence>(
         describePrefix,
-        notToContainOrAtMost.forSubjectLess(2, 2.3, arrayOf()),
-        notToContainOrAtMostIgnoringCase.forSubjectLess(2, 2.3, arrayOf())
+        notToContainOrAtMost.forSubjectLessTest(2, 2.3, arrayOf()),
+        notToContainOrAtMostIgnoringCase.forSubjectLessTest(2, 2.3, arrayOf())
     ) {})
 
     fun describeFun(vararg funName: String, body: Suite.() -> Unit) =

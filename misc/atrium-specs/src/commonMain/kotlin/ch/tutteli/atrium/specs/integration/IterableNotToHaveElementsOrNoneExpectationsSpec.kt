@@ -13,19 +13,19 @@ abstract class IterableNotToHaveElementsOrNoneExpectationsSpec(
 ) : IterableToContainEntriesSpecBase({
 
     include(object : SubjectLessSpec<Iterable<Double>>(describePrefix,
-        notToHaveElementsOrNone.forSubjectLess { toEqual(2.3) }
+        notToHaveElementsOrNone.forSubjectLessTest { toEqual(2.3) }
     ) {})
     include(object : SubjectLessSpec<Iterable<Double?>>(describePrefix,
-        notToHaveElementsOrNoneNullable.forSubjectLess { toEqual(2.3) }
+        notToHaveElementsOrNoneNullable.forSubjectLessTest { toEqual(2.3) }
     ) {})
 
     include(object : AssertionCreatorSpec<Iterable<Double>>(
         describePrefix, oneToSeven().toList().asIterable(),
-        notToHaveElementsOrNone.forAssertionCreatorSpec("$toBeGreaterThanDescr: 10.0") { toBeGreaterThan(10.0) }
+        notToHaveElementsOrNone.forExpectationCreatorTest("$toBeGreaterThanDescr: 10.0") { toBeGreaterThan(10.0) }
     ) {})
     include(object : AssertionCreatorSpec<Iterable<Double?>>(
         "$describePrefix[nullable Element] ", oneToSeven().toList().asIterable(),
-        notToHaveElementsOrNoneNullable.forAssertionCreatorSpec("$toBeGreaterThanDescr: 10.0") { toBeGreaterThan(10.0) }
+        notToHaveElementsOrNoneNullable.forExpectationCreatorTest("$toBeGreaterThanDescr: 10.0") { toBeGreaterThan(10.0) }
     ) {})
 
     val notToHaveElementsOrNoneDescr = DescriptionIterableLikeExpectation.NOT_TO_HAVE_ELEMENTS_OR_NONE.getDefault()

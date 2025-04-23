@@ -29,28 +29,28 @@ abstract class KeyValueLikeExpectationsSpec<T : Any, TNullable : Any>(
     val nullMapEntry = creatorNullable(null, null)
 
     include(object : SubjectLessSpec<T>(describePrefix,
-        keyFeature.forSubjectLess(),
-        key.forSubjectLess { toEndWith("a") },
-        valueFeature.forSubjectLess(),
-        value.forSubjectLess { toBeGreaterThan(2) }
+        keyFeature.forSubjectLessTest(),
+        key.forSubjectLessTest { toEndWith("a") },
+        valueFeature.forSubjectLessTest(),
+        value.forSubjectLessTest { toBeGreaterThan(2) }
     ) {})
     include(object : SubjectLessSpec<TNullable>(
         "$describePrefix[nullable] ",
-        keyFeatureNullable.forSubjectLess(),
-        keyNullable.forSubjectLess { toEqual(null) },
-        valueFeatureNullable.forSubjectLess(),
-        valueNullable.forSubjectLess { toEqual(null) }
+        keyFeatureNullable.forSubjectLessTest(),
+        keyNullable.forSubjectLessTest { toEqual(null) },
+        valueFeatureNullable.forSubjectLessTest(),
+        valueNullable.forSubjectLessTest { toEqual(null) }
     ) {})
 
     include(object : AssertionCreatorSpec<T>(
         describePrefix, mapEntry,
-        key.forAssertionCreatorSpec("$toEqualDescr: hello") { toEqual("hello") },
-        value.forAssertionCreatorSpec("$toEqualDescr: 1") { toEqual(1) }
+        key.forExpectationCreatorTest("$toEqualDescr: hello") { toEqual("hello") },
+        value.forExpectationCreatorTest("$toEqualDescr: 1") { toEqual(1) }
     ) {})
     include(object : AssertionCreatorSpec<TNullable>(
         "$describePrefix[nullable]", nullMapEntry,
-        keyNullable.forAssertionCreatorSpec("$toEqualDescr: null") { toEqual(null) },
-        valueNullable.forAssertionCreatorSpec("$toEqualDescr: null") { toEqual(null) }
+        keyNullable.forExpectationCreatorTest("$toEqualDescr: null") { toEqual(null) },
+        valueNullable.forExpectationCreatorTest("$toEqualDescr: null") { toEqual(null) }
     ) {})
 
     fun describeFun(vararg pairs: SpecPair<*>, body: Suite.() -> Unit) =

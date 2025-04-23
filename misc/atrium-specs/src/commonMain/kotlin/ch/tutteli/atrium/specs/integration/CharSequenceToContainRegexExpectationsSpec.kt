@@ -26,11 +26,11 @@ abstract class CharSequenceToContainRegexExpectationsSpec(
 
     include(object : SubjectLessSpec<CharSequence>(
         describePrefix,
-        toContainAtLeast.forSubjectLess(2, "a|b", arrayOf()),
-        toContainAtLeastIgnoringCase.forSubjectLess(2, "a|b", arrayOf()),
-        toContainShortcut.forSubjectLess("a|b", arrayOf()),
-        toContainAtMost.forSubjectLess(2, "a|b", arrayOf()),
-        toContainAtMostIgnoringCase.forSubjectLess(2, "a|b", arrayOf())
+        toContainAtLeast.forSubjectLessTest(2, "a|b", arrayOf()),
+        toContainAtLeastIgnoringCase.forSubjectLessTest(2, "a|b", arrayOf()),
+        toContainShortcut.forSubjectLessTest("a|b", arrayOf()),
+        toContainAtMost.forSubjectLessTest(2, "a|b", arrayOf()),
+        toContainAtMostIgnoringCase.forSubjectLessTest(2, "a|b", arrayOf())
     ) {})
 
     fun describeFun(vararg funName: String, body: Suite.() -> Unit) =

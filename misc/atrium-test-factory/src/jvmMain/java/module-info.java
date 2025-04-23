@@ -6,4 +6,7 @@ module ch.tutteli.atrium.testfactory.junit {
     requires org.junit.jupiter.api;
 
     exports ch.tutteli.atrium.testfactories;
+    exports ch.tutteli.atrium.testfactories.expect;
+    exports ch.tutteli.atrium.testfactories.expect.root;
+    exports ch.tutteli.atrium.testfactories.expect.grouped;
 }

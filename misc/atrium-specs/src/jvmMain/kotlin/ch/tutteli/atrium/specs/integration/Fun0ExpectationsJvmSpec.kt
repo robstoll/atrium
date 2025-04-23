@@ -55,7 +55,7 @@ abstract class Fun0ExpectationsJvmSpec(
                 }
 
             toThrowFunctions.forEach { (name, toThrowFun, hasExtraHint) ->
-                it("$name - shows all suppressed as extra hint" + showsSubAssertionIf(hasExtraHint)) {
+                it("$name - shows all suppressed as extra hint" + showsSubExpectationIf(hasExtraHint)) {
 
                     expect {
                         expect<() -> Any?> {
@@ -69,7 +69,7 @@ abstract class Fun0ExpectationsJvmSpec(
             }
 
             notToThrowFunctions.forEach { (name, notToThrowFun, hasExtraHint) ->
-                it("$name - shows all suppressed as extra hint" + showsSubAssertionIf(hasExtraHint)) {
+                it("$name - shows all suppressed as extra hint" + showsSubExpectationIf(hasExtraHint)) {
                     expect {
                         expect<() -> Int> {
                             throw exceptionWithSuppressed
@@ -99,7 +99,7 @@ abstract class Fun0ExpectationsJvmSpec(
                     }
 
                 toThrowFunctions.forEach { (name, toThrowFun, hasExtraHint) ->
-                    it("$name -shows suppressed including cause as extra hint" + showsSubAssertionIf(hasExtraHint)) {
+                    it("$name -shows suppressed including cause as extra hint" + showsSubExpectationIf(hasExtraHint)) {
 
                         expect {
                             expect<() -> Any?> {
@@ -113,7 +113,7 @@ abstract class Fun0ExpectationsJvmSpec(
                 }
 
                 notToThrowFunctions.forEach { (name, notToThrowFun, hasExtraHint) ->
-                    it("$name - shows suppressed including cause as extra hint" + showsSubAssertionIf(hasExtraHint)) {
+                    it("$name - shows suppressed including cause as extra hint" + showsSubExpectationIf(hasExtraHint)) {
                         expect {
                             expect<() -> Int> {
                                 throw exceptionWithSuppressedWhichHasCause

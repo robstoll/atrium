@@ -19,8 +19,8 @@ abstract class CharSequenceToContainExactlyExpectationsSpec(
 
     include(object : SubjectLessSpec<CharSequence>(
         describePrefix,
-        toContainExactly.forSubjectLess(2, 2.3, arrayOf()),
-        toContainExactlyIgnoringCase.forSubjectLess(2, 2.3, arrayOf())
+        toContainExactly.forSubjectLessTest(2, 2.3, arrayOf()),
+        toContainExactlyIgnoringCase.forSubjectLessTest(2, 2.3, arrayOf())
     ) {})
 
     fun describeFun(vararg funName: String, body: Suite.() -> Unit) =

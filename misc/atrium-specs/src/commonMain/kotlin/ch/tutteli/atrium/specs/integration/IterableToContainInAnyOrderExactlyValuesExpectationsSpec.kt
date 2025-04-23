@@ -17,7 +17,7 @@ abstract class IterableToContainInAnyOrderExactlyValuesExpectationsSpec(
 
     include(object : SubjectLessSpec<Iterable<Double>>(
         describePrefix,
-        toContainExactly.forSubjectLess(2, 2.3, arrayOf())
+        toContainExactly.forSubjectLessTest(2, 2.3, arrayOf())
     ) {})
 
     fun describeFun(vararg pairs: SpecPair<*>, body: Suite.() -> Unit) =

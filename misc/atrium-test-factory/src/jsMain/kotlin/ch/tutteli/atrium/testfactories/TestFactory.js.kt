@@ -1,10 +1,10 @@
 package ch.tutteli.atrium.testfactories
 
-import ch.tutteli.atrium.creating.ExpectationVerbs
+import ch.tutteli.atrium.testfactories.mocha.turnIntoDescribeIt
 
 actual typealias TestFactory = kotlin.test.Test
 
-actual fun turnTestNodesIntoPlatformSpecificTestFactory(
+actual fun <TestExecutableT : TestExecutable> turnTestNodesIntoPlatformSpecificTestFactory(
     testNodes: List<TestNode>,
-    expectationVerbs: ExpectationVerbs
-): Any = turnTestNodesIntoExpectGrouping(testNodes, expectationVerbs)
+    testExecutableFactory: () -> TestExecutableT
+): Any = turnIntoDescribeIt(testNodes, testExecutableFactory, isFirstDescribe = true)

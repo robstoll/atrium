@@ -8,6 +8,7 @@ import ch.tutteli.atrium.logic.creating.iterablelike.contains.reporting.InAnyOrd
 import ch.tutteli.atrium.logic.creating.iterablelike.contains.reporting.InOrderOnlyReportingOptions
 import ch.tutteli.atrium.logic.utils.Group
 import ch.tutteli.atrium.specs.*
+import ch.tutteli.atrium.specs.integration.utils.ExpectationCreatorTriple
 import ch.tutteli.atrium.translations.DescriptionCollectionExpectation
 import ch.tutteli.atrium.translations.DescriptionIterableLikeExpectation
 import org.spekframework.spek2.style.specification.Suite
@@ -29,7 +30,7 @@ abstract class IterableToContainInOrderOnlyGroupedEntriesExpectationsSpec(
 
     include(object : SubjectLessSpec<Iterable<Double?>>(
         describePrefix,
-        toContainInOrderOnlyGroupedEntries.forSubjectLess(
+        toContainInOrderOnlyGroupedEntries.forSubjectLessTest(
             context({ toEqual(2.5) }),
             context({ toEqual(4.1) }),
             arrayOf(),
@@ -40,15 +41,15 @@ abstract class IterableToContainInOrderOnlyGroupedEntriesExpectationsSpec(
     //@formatter:off
     include(object : AssertionCreatorSpec<Iterable<Double?>>(
         describePrefix, listOf(1.2, 2.0, 3.0),
-        assertionCreatorSpecTriple(toContainInOrderOnlyGroupedEntries.name + " [first empty]", "$toEqualDescr: 1.2",
+        ExpectationCreatorTriple(toContainInOrderOnlyGroupedEntries.name + " [first empty]", "$toEqualDescr: 1.2",
             { toContainInOrderOnlyGroupedEntries(this, Entry { toEqual(1.2) }, Entry { toEqual(2.0) }, arrayOf( Entry { toEqual(3.0) }), emptyInOrderOnlyReportOptions, emptyInAnyOrderOnlyReportOptions) },
             { toContainInOrderOnlyGroupedEntries(this, Entry { }, Entry { toEqual(2.0) }, arrayOf( Entry { toEqual(3.0) }), emptyInOrderOnlyReportOptions, emptyInAnyOrderOnlyReportOptions) }
         ),
-        assertionCreatorSpecTriple(toContainInOrderOnlyGroupedEntries.name + " [second empty]", "$toEqualDescr: 2.0",
+        ExpectationCreatorTriple(toContainInOrderOnlyGroupedEntries.name + " [second empty]", "$toEqualDescr: 2.0",
             { toContainInOrderOnlyGroupedEntries(this, Entry { toEqual(1.2) }, Entry { toEqual(2.0) }, arrayOf( Entry { toEqual(3.0) }), emptyInOrderOnlyReportOptions, emptyInAnyOrderOnlyReportOptions) },
             { toContainInOrderOnlyGroupedEntries(this, Entry { toEqual(1.2) }, Entry { }, arrayOf( Entry { toEqual(3.0) }), emptyInOrderOnlyReportOptions, emptyInAnyOrderOnlyReportOptions) }
         ),
-        assertionCreatorSpecTriple(toContainInOrderOnlyGroupedEntries.name + " [third empty]", "$toEqualDescr: 3.0",
+        ExpectationCreatorTriple(toContainInOrderOnlyGroupedEntries.name + " [third empty]", "$toEqualDescr: 3.0",
             { toContainInOrderOnlyGroupedEntries(this, Entry { toEqual(1.2) }, Entry { toEqual(2.0) }, arrayOf( Entry { }), emptyInOrderOnlyReportOptions, emptyInAnyOrderOnlyReportOptions) },
             { toContainInOrderOnlyGroupedEntries(this, Entry { toEqual(1.2) }, Entry { toEqual(2.0) }, arrayOf( Entry {  }), emptyInOrderOnlyReportOptions, emptyInAnyOrderOnlyReportOptions) }
         )

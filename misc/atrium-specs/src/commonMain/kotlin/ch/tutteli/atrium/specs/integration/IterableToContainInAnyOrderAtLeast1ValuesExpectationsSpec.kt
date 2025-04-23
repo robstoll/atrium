@@ -14,11 +14,11 @@ abstract class IterableToContainInAnyOrderAtLeast1ValuesExpectationsSpec(
 
     include(object : SubjectLessSpec<Iterable<Double>>(
         describePrefix,
-        toContainInAnyOrderValues.forSubjectLess(1.2, arrayOf())
+        toContainInAnyOrderValues.forSubjectLessTest(1.2, arrayOf())
     ) {})
     include(object : SubjectLessSpec<Iterable<Double?>>(
         describePrefix,
-        toContainInAnyOrderNullableValues.forSubjectLess(null, arrayOf())
+        toContainInAnyOrderNullableValues.forSubjectLessTest(null, arrayOf())
     ) {})
 
     fun Expect<Iterable<Double?>>.toContainInAnyOrderNullableValuesFun(t: Double?, vararg tX: Double?) =

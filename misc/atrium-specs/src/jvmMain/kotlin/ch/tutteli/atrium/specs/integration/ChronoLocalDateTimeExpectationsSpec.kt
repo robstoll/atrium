@@ -27,11 +27,11 @@ abstract class ChronoLocalDateTimeExpectationsSpec(
 
     include(object : SubjectLessSpec<ChronoLocalDateTime<*>>(
         describePrefix,
-        toBeBefore.forSubjectLess(eleven),
-        toBeBeforeOrTheSamePointInTimeAs.forSubjectLess(eleven),
-        toBeAfter.forSubjectLess(eleven),
-        toBeAfterOrTheSamePointInTimeAs.forSubjectLess(eleven),
-        toBeTheSamePointInTimeAs.forSubjectLess(eleven)
+        toBeBefore.forSubjectLessTest(eleven),
+        toBeBeforeOrTheSamePointInTimeAs.forSubjectLessTest(eleven),
+        toBeAfter.forSubjectLessTest(eleven),
+        toBeAfterOrTheSamePointInTimeAs.forSubjectLessTest(eleven),
+        toBeTheSamePointInTimeAs.forSubjectLessTest(eleven)
     ) {})
 
     val toBeBeforeDescr = DescriptionDateTimeLikeExpectation.TO_BE_BEFORE.getDefault()

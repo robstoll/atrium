@@ -766,6 +766,11 @@ public abstract interface class ch/tutteli/atrium/creating/ExpectationVerbs {
 	public abstract fun expectGrouped (Ljava/lang/String;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/creating/ExpectGrouping;
 	public abstract fun expectInExpectGrouped (Lch/tutteli/atrium/creating/ExpectGrouping;Ljava/lang/Object;)Lch/tutteli/atrium/creating/Expect;
 	public abstract fun expectInExpectGrouped (Lch/tutteli/atrium/creating/ExpectGrouping;Ljava/lang/Object;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/creating/Expect;
+	public abstract fun getDefaultExpectGroupDescription ()Ljava/lang/String;
+}
+
+public final class ch/tutteli/atrium/creating/ExpectationVerbs$DefaultImpls {
+	public static synthetic fun expectGrouped$default (Lch/tutteli/atrium/creating/ExpectationVerbs;Ljava/lang/String;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lch/tutteli/atrium/creating/ExpectGrouping;
 }
 
 public abstract interface annotation class ch/tutteli/atrium/creating/ExperimentalComponentFactoryContainer : java/lang/annotation/Annotation {

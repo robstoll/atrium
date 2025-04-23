@@ -4,6 +4,7 @@ import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
+import ch.tutteli.atrium.specs.integration.utils.ExpectationCreatorTriple
 import org.spekframework.spek2.style.specification.Suite
 
 abstract class MapToContainInAnyOrderOnlyKeyValueExpectationsSpec(
@@ -15,7 +16,7 @@ abstract class MapToContainInAnyOrderOnlyKeyValueExpectationsSpec(
     include(
     object : SubjectLessSpec<Map<out String, Int>>(
         describePrefix,
-        keyWithValueAssertions.forSubjectLess(
+        keyWithValueAssertions.forSubjectLessTest(
             keyValue("a") { toEqual(1) },
             arrayOf(keyValue("a") { toBeLessThanOrEqualTo(2) })
         )
@@ -24,7 +25,7 @@ abstract class MapToContainInAnyOrderOnlyKeyValueExpectationsSpec(
     include(
     object : SubjectLessSpec<Map<out String?, Int?>>(
         "$describePrefix[nullable Key] ",
-        keyWithNullableValueAssertions.forSubjectLess(
+        keyWithNullableValueAssertions.forSubjectLessTest(
             keyNullableValue(null) { toEqual(1) },
             arrayOf(keyNullableValue("a", null))
         )
@@ -33,7 +34,7 @@ abstract class MapToContainInAnyOrderOnlyKeyValueExpectationsSpec(
     include(
     object : AssertionCreatorSpec<Map<out String, Int>>(
         describePrefix, map,
-        assertionCreatorSpecTriple(keyWithValueAssertions.name, "$toBeLessThanDescr: 2",
+        ExpectationCreatorTriple(keyWithValueAssertions.name, "$toBeLessThanDescr: 2",
             {
                 keyWithValueAssertions(
                     this,
@@ -48,7 +49,7 @@ abstract class MapToContainInAnyOrderOnlyKeyValueExpectationsSpec(
     include(
     object : AssertionCreatorSpec<Map<out String?, Int?>>(
         "$describePrefix[nullable] ", mapOf("a" to 1, "b" to null),
-        assertionCreatorSpecTriple(keyWithNullableValueAssertions.name, "$toBeLessThanDescr: 2",
+        ExpectationCreatorTriple(keyWithNullableValueAssertions.name, "$toBeLessThanDescr: 2",
             {
                 keyWithNullableValueAssertions(
                     this,

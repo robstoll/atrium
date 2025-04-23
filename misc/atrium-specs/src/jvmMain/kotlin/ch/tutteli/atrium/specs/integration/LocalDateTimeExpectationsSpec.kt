@@ -23,22 +23,22 @@ abstract class LocalDateTimeExpectationsSpec(
 ) : Spek({
 
     include(object : SubjectLessSpec<LocalDateTime>(describePrefix,
-        yearFeature.forSubjectLess(),
-        year.forSubjectLess { toBeGreaterThan(2000) },
-        monthFeature.forSubjectLess(),
-        month.forSubjectLess { toBeLessThan(12) },
-        dayFeature.forSubjectLess(),
-        day.forSubjectLess { toBeLessThanOrEqualTo(20) },
-        dayOfWeekFeature.forSubjectLess(),
-        dayOfWeek.forSubjectLess { toBeLessThanOrEqualTo(DayOfWeek.SUNDAY) }
+        yearFeature.forSubjectLessTest(),
+        year.forSubjectLessTest { toBeGreaterThan(2000) },
+        monthFeature.forSubjectLessTest(),
+        month.forSubjectLessTest { toBeLessThan(12) },
+        dayFeature.forSubjectLessTest(),
+        day.forSubjectLessTest { toBeLessThanOrEqualTo(20) },
+        dayOfWeekFeature.forSubjectLessTest(),
+        dayOfWeek.forSubjectLessTest { toBeLessThanOrEqualTo(DayOfWeek.SUNDAY) }
     ) {})
 
     include(object : AssertionCreatorSpec<LocalDateTime>(
         describePrefix, LocalDateTime.of(2040, 1, 15, 10, 20, 30),
-        year.forAssertionCreatorSpec("$toEqualDescr: 1") { toEqual(2040) },
-        month.forAssertionCreatorSpec("$toEqualDescr: 1") { toEqual(1) },
-        day.forAssertionCreatorSpec("$toEqualDescr: 1") { toEqual(15) },
-        dayOfWeek.forAssertionCreatorSpec("$toEqualDescr: 1") { toEqual(DayOfWeek.SUNDAY) }
+        year.forExpectationCreatorTest("$toEqualDescr: 1") { toEqual(2040) },
+        month.forExpectationCreatorTest("$toEqualDescr: 1") { toEqual(1) },
+        day.forExpectationCreatorTest("$toEqualDescr: 1") { toEqual(15) },
+        dayOfWeek.forExpectationCreatorTest("$toEqualDescr: 1") { toEqual(DayOfWeek.SUNDAY) }
     ) {})
 
     fun describeFun(vararg pairs: SpecPair<*>, body: Suite.() -> Unit) =

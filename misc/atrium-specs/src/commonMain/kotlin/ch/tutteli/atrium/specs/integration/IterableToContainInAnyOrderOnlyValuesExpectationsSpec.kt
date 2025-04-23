@@ -14,12 +14,12 @@ abstract class IterableToContainInAnyOrderOnlyValuesExpectationsSpec(
 
     include(object : SubjectLessSpec<Iterable<Double>>(
         describePrefix,
-        toContainInAnyOrderOnlyValues.forSubjectLess(2.5, arrayOf(), emptyInAnyOrderOnlyReportOptions)
+        toContainInAnyOrderOnlyValues.forSubjectLessTest(2.5, arrayOf(), emptyInAnyOrderOnlyReportOptions)
 
     ) {})
     include(object : SubjectLessSpec<Iterable<Double?>>(
         describePrefix,
-        toContainInAnyOrderOnlyNullableValues.forSubjectLess(2.5, arrayOf(), emptyInAnyOrderOnlyReportOptions)
+        toContainInAnyOrderOnlyNullableValues.forSubjectLessTest(2.5, arrayOf(), emptyInAnyOrderOnlyReportOptions)
     ) {})
 
     nonNullableCases(

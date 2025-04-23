@@ -37,7 +37,7 @@ abstract class IterableToContainInOrderOnlyGroupedValuesExpectationsSpec(
 
     include(object : SubjectLessSpec<Iterable<Double>>(
         describePrefix,
-        toContainInOrderOnlyGroupedValues.forSubjectLess(
+        toContainInOrderOnlyGroupedValues.forSubjectLessTest(
             context(2.5),
             context(4.1),
             arrayOf(),
@@ -47,7 +47,7 @@ abstract class IterableToContainInOrderOnlyGroupedValuesExpectationsSpec(
     ) {})
     include(object : SubjectLessSpec<Iterable<Double?>>(
         describePrefix,
-        toContainInOrderOnlyGroupedNullableValues.forSubjectLess(
+        toContainInOrderOnlyGroupedNullableValues.forSubjectLessTest(
             nullableGroup(2.5),
             nullableGroup(4.1),
             arrayOf(),

@@ -4,6 +4,7 @@ package ch.tutteli.atrium.specs
 
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic.utils.expectLambda
+import ch.tutteli.atrium.specs.integration.utils.ExpectationCreatorTriple
 import ch.tutteli.atrium.translations.DescriptionAnyExpectation
 import ch.tutteli.atrium.translations.DescriptionBasic
 import ch.tutteli.atrium.translations.DescriptionComparableExpectation
@@ -50,94 +51,90 @@ inline operator fun <T, A1, A2, A3, A4, A5, R> Feature5<T, A1, A2, A3, A4, A5, R
 ): Expect<R> = this.second(expect, a1, a2, a3, a4, a5)
 
 
-inline fun <T, R> Feature0<T, R>.forSubjectLess(): Pair<String, Expect<T>.() -> Unit> =
-    this.name to expectLambda { this@forSubjectLess.invoke(this) }
+inline fun <T, R> Feature0<T, R>.forSubjectLessTest(): Pair<String, Expect<T>.() -> Unit> =
+    this.name to expectLambda { this@forSubjectLessTest.invoke(this) }
 
-inline fun <T, A1, R> Feature1<T, A1, R>.forSubjectLess(a1: A1): Pair<String, Expect<T>.() -> Unit> =
-    this.name to expectLambda { this@forSubjectLess.invoke(this, a1) }
+inline fun <T, A1, R> Feature1<T, A1, R>.forSubjectLessTest(a1: A1): Pair<String, Expect<T>.() -> Unit> =
+    this.name to expectLambda { this@forSubjectLessTest.invoke(this, a1) }
 
-inline fun <T, A1, A2, R> Feature2<T, A1, A2, R>.forSubjectLess(a1: A1, a2: A2): Pair<String, Expect<T>.() -> Unit> =
-    this.name to expectLambda { this@forSubjectLess.invoke(this, a1, a2) }
+inline fun <T, A1, A2, R> Feature2<T, A1, A2, R>.forSubjectLessTest(a1: A1, a2: A2): Pair<String, Expect<T>.() -> Unit> =
+    this.name to expectLambda { this@forSubjectLessTest.invoke(this, a1, a2) }
 
-inline fun <T, A1, A2, A3, R> Feature3<T, A1, A2, A3, R>.forSubjectLess(
+inline fun <T, A1, A2, A3, R> Feature3<T, A1, A2, A3, R>.forSubjectLessTest(
     a1: A1, a2: A2, a3: A3
-): Pair<String, Expect<T>.() -> Unit> = this.name to expectLambda { this@forSubjectLess.invoke(this, a1, a2, a3) }
+): Pair<String, Expect<T>.() -> Unit> = this.name to expectLambda { this@forSubjectLessTest.invoke(this, a1, a2, a3) }
 
-inline fun <T, A1, A2, A3, A4, R> Feature4<T, A1, A2, A3, A4, R>.forSubjectLess(
+inline fun <T, A1, A2, A3, A4, R> Feature4<T, A1, A2, A3, A4, R>.forSubjectLessTest(
     a1: A1, a2: A2, a3: A3, a4: A4
-): Pair<String, Expect<T>.() -> Unit> = this.name to expectLambda { this@forSubjectLess.invoke(this, a1, a2, a3, a4) }
+): Pair<String, Expect<T>.() -> Unit> = this.name to expectLambda { this@forSubjectLessTest.invoke(this, a1, a2, a3, a4) }
 
-inline fun <T, A1, A2, A3, A4, A5, R> Feature5<T, A1, A2, A3, A4, A5, R>.forSubjectLess(
+inline fun <T, A1, A2, A3, A4, A5, R> Feature5<T, A1, A2, A3, A4, A5, R>.forSubjectLessTest(
     a1: A1, a2: A2, a3: A3, a4: A4, a5: A5
 ): Pair<String, Expect<T>.() -> Unit> =
-    this.name to expectLambda { this@forSubjectLess.invoke(this, a1, a2, a3, a4, a5) }
+    this.name to expectLambda { this@forSubjectLessTest.invoke(this, a1, a2, a3, a4, a5) }
 
 
-inline fun <T, R> Fun1<T, Expect<R>.() -> Unit>.forAssertionCreatorSpec(
+inline fun <T, R> Fun1<T, Expect<R>.() -> Unit>.forExpectationCreatorTest(
     containsNot: String,
     noinline subAssert: (Expect<R>.() -> Unit)?
-): Triple<String, String, Pair<Expect<T>.() -> Expect<T>, Expect<T>.() -> Expect<T>>> =
-    assertionCreatorSpecTriple(
-        this.name,
-        containsNot,
-        { this@forAssertionCreatorSpec(this, subAssert ?: throw IllegalArgumentException("pass a lambda")) },
-        { this@forAssertionCreatorSpec(this) {} }
-    )
+): ExpectationCreatorTriple<T> = ExpectationCreatorTriple(
+    this.name,
+    containsNot,
+    { this@forExpectationCreatorTest(this, subAssert ?: throw IllegalArgumentException("pass a lambda")) },
+    { this@forExpectationCreatorTest(this) {} }
+)
 
-inline fun <T, A1, R> Fun2<T, A1, Expect<R>.() -> Unit>.forAssertionCreatorSpec(
+inline fun <T, A1, R> Fun2<T, A1, Expect<R>.() -> Unit>.forExpectationCreatorTest(
     containsNot: String,
     a1: A1,
     noinline subAssert: (Expect<R>.() -> Unit)?
-): Triple<String, String, Pair<Expect<T>.() -> Expect<T>, Expect<T>.() -> Expect<T>>> =
-    assertionCreatorSpecTriple(
-        this.name,
-        containsNot,
-        { this@forAssertionCreatorSpec(this, a1, subAssert ?: throw IllegalArgumentException("pass a lambda")) },
-        { this@forAssertionCreatorSpec(this, a1) {} }
-    )
+): ExpectationCreatorTriple<T> = ExpectationCreatorTriple(
+    this.name,
+    containsNot,
+    { this@forExpectationCreatorTest(this, a1, subAssert ?: throw IllegalArgumentException("pass a lambda")) },
+    { this@forExpectationCreatorTest(this, a1) {} }
+)
 
-inline fun <T, R> Fun2<T, Expect<R>.() -> Unit, Array<out Expect<R>.() -> Unit>>.forAssertionCreatorSpec(
+inline fun <T, R> Fun2<T, Expect<R>.() -> Unit, Array<out Expect<R>.() -> Unit>>.forExpectationCreatorTest(
     containsNot1: String,
     containsNot2: String,
     noinline subAssert: Expect<R>.() -> Unit,
     subAsserts: Array<out Expect<R>.() -> Unit>
-): Array<Triple<String, String, Pair<Expect<T>.() -> Expect<T>, Expect<T>.() -> Expect<T>>>> =
-    arrayOf(
-        assertionCreatorSpecTriple(
-            this.name + " - first empty",
-            containsNot1,
-            { this@forAssertionCreatorSpec(this, subAssert, subAsserts) },
-            { this@forAssertionCreatorSpec(this, {}, subAsserts) }
-        ),
-        assertionCreatorSpecTriple(
-            this.name + " - second empty",
-            containsNot2,
-            { this@forAssertionCreatorSpec(this, subAssert, subAsserts) },
-            { this@forAssertionCreatorSpec(this, subAssert, arrayOf(expectLambda<R> {}) + subAsserts.drop(1)) }
-        )
+): Array<out ExpectationCreatorTriple<T>> = arrayOf(
+    ExpectationCreatorTriple(
+        this.name + " - first empty",
+        containsNot1,
+        { this@forExpectationCreatorTest(this, subAssert, subAsserts) },
+        { this@forExpectationCreatorTest(this, {}, subAsserts) }
+    ),
+    ExpectationCreatorTriple(
+        this.name + " - second empty",
+        containsNot2,
+        { this@forExpectationCreatorTest(this, subAssert, subAsserts) },
+        { this@forExpectationCreatorTest(this, subAssert, arrayOf(expectLambda<R> {}) + subAsserts.drop(1)) }
     )
+)
 
-inline fun <T, R, A1> Fun3<T, Expect<R>.() -> Unit, Array<out Expect<R>.() -> Unit>, A1>.forAssertionCreatorSpec(
+inline fun <T, R, A1> Fun3<T, Expect<R>.() -> Unit, Array<out Expect<R>.() -> Unit>, A1>.forExpectationCreatorTest(
     containsNot1: String,
     containsNot2: String,
     noinline subAssert: Expect<R>.() -> Unit,
     subAsserts: Array<out Expect<R>.() -> Unit>,
     a1: A1
-): Array<Triple<String, String, Pair<Expect<T>.() -> Expect<T>, Expect<T>.() -> Expect<T>>>> =
-    arrayOf(
-        assertionCreatorSpecTriple(
-            this.name + " - first empty",
-            containsNot1,
-            { this@forAssertionCreatorSpec(this, subAssert, subAsserts, a1) },
-            { this@forAssertionCreatorSpec(this, {}, subAsserts, a1) }
-        ),
-        assertionCreatorSpecTriple(
-            this.name + " - second empty",
-            containsNot2,
-            { this@forAssertionCreatorSpec(this, subAssert, subAsserts, a1) },
-            { this@forAssertionCreatorSpec(this, subAssert, arrayOf(expectLambda<R> {}) + subAsserts.drop(1), a1) }
-        )
+): Array<ExpectationCreatorTriple<T>> = arrayOf(
+    ExpectationCreatorTriple(
+        this.name + " - first empty",
+        containsNot1,
+        { this@forExpectationCreatorTest(this, subAssert, subAsserts, a1) },
+        { this@forExpectationCreatorTest(this, {}, subAsserts, a1) }
+    ),
+    ExpectationCreatorTriple(
+        this.name + " - second empty",
+        containsNot2,
+        { this@forExpectationCreatorTest(this, subAssert, subAsserts, a1) },
+        { this@forExpectationCreatorTest(this, subAssert, arrayOf(expectLambda<R> {}) + subAsserts.drop(1), a1) }
     )
+)
 
 
 fun <T, R> unifySignatures(
@@ -145,7 +142,7 @@ fun <T, R> unifySignatures(
     f1: Fun1<T, Expect<R>.() -> Unit>
 ): List<Triple<String, Expect<T>.(Expect<R>.() -> Unit) -> Expect<T>, Boolean>> =
     listOf(
-        Triple(f0.name, f0.withSubAssertion(), false),
+        Triple(f0.name, f0.withSubExpectation(), false),
         Triple(f1.name, f1.lambda, true)
     )
 
@@ -155,7 +152,7 @@ fun <T, A1, R> unifySignatures(
     f1: Fun2<T, A1, Expect<R>.() -> Unit>
 ): List<Triple<String, Expect<T>.(A1, Expect<R>.() -> Unit) -> Expect<T>, Boolean>> =
     listOf(
-        Triple(f0.name, f0.withSubAssertion(), false),
+        Triple(f0.name, f0.withSubExpectation(), false),
         Triple(f1.name, f1.lambda, true)
     )
 
@@ -165,7 +162,7 @@ fun <T, A1, A2, R> unifySignatures(
     f1: Fun3<T, A1, A2, Expect<R>.() -> Unit>
 ): List<Triple<String, Expect<T>.(A1, A2, Expect<R>.() -> Unit) -> Expect<T>, Boolean>> =
     listOf(
-        Triple(f0.name, f0.withSubAssertion(), false),
+        Triple(f0.name, f0.withSubExpectation(), false),
         Triple(f1.name, f1.lambda, true)
     )
 
@@ -181,20 +178,6 @@ fun <T, R> unifySignatures(
         Triple(f1.name, f1.lambda, true)
     )
 }
-
-// TODO I cant make this work any way I try, it seems to me like I wont be able to unify like this
-//@JvmName("unifySignatures0Feature")
-//fun <T, R> unifySignatures(
-//    f0: Feature0<T, T>,
-//    f1: Feature1<T, Expect<R>.() -> Unit, T>
-//): List<Triple<String, Expect<T>.(Expect<R>.() -> Unit) -> Expect<T>, Boolean>> {
-//    val f0WithSubAssertion: Expect<T>.(Expect<R>.() -> Unit) -> Expect<T> =
-//        { f: Expect<R>.() -> Unit -> (f0.lambda)() }
-//    return listOf(
-//        Triple(f0.name, f0WithSubAssertion, false),
-//        Triple(f1.name, f1.lambda, true)
-//    )
-//}
 
 @JvmName("unifySignatures1Feature")
 fun <T, A1, R> unifySignatures(
@@ -215,7 +198,7 @@ fun <T> unifySignatures(
     f1: Fun1<T, Expect<T>.() -> Unit>
 ): List<Triple<String, Expect<T>.(Expect<T>.() -> Unit) -> Expect<T>, Boolean>> =
     listOf(
-        Triple(f0.name, f0.withSubAssertion(), false),
+        Triple(f0.name, f0.withSubExpectation(), false),
         Triple(f1.name, f1.lambda, true)
     )
 
@@ -225,7 +208,7 @@ fun <T, A1> unifySignatures(
     f1: Fun2<T, A1, Expect<T>.() -> Unit>
 ): List<Triple<String, Expect<T>.(A1, Expect<T>.() -> Unit) -> Expect<T>, Boolean>> =
     listOf(
-        Triple(f0.name, f0.withSubAssertion(), false),
+        Triple(f0.name, f0.withSubExpectation(), false),
         Triple(f1.name, f1.lambda, true)
     )
 
@@ -235,7 +218,7 @@ fun <T, A1, A2> unifySignatures(
     f1: Fun3<T, A1, A2, Expect<T>.() -> Unit>
 ): List<Triple<String, Expect<T>.(A1, A2, Expect<T>.() -> Unit) -> Expect<T>, Boolean>> =
     listOf(
-        Triple(f0.name, f0.withSubAssertion(), false),
+        Triple(f0.name, f0.withSubExpectation(), false),
         Triple(f1.name, f1.lambda, true)
     )
 
@@ -246,21 +229,21 @@ fun <F> uncheckedToNonNullable(f: List<F>, fNullable: List<Any>): List<F> = f + 
 fun <F> uncheckedToNonNullable(f: F, fNullable: Any): List<F> = listOf(f, fNullable as F)
 
 
-internal inline fun <T, R> Feature0<T, R>.withSubAssertion(): Expect<T>.(Expect<R>.() -> Unit) -> Expect<T> =
+internal inline fun <T, R> Feature0<T, R>.withSubExpectation(): Expect<T>.(Expect<R>.() -> Unit) -> Expect<T> =
     { f: Expect<R>.() -> Unit -> apply { (lambda)().f() } }
 
 @JvmName("withSubAssertion1")
-internal inline fun <T, R, A1> Feature1<T, A1, R>.withSubAssertion()
+internal inline fun <T, R, A1> Feature1<T, A1, R>.withSubExpectation()
     : Expect<T>.(A1, Expect<R>.() -> Unit) -> Expect<T> =
     { a1, f: Expect<R>.() -> Unit -> apply { (lambda)(a1).f() } }
 
 @JvmName("withSubAssertion2")
-internal inline fun <T, R, A1, A2> Feature2<T, A1, A2, R>.withSubAssertion():
+internal inline fun <T, R, A1, A2> Feature2<T, A1, A2, R>.withSubExpectation():
     Expect<T>.(A1, A2, Expect<R>.() -> Unit) -> Expect<T> =
     { a1, a2, f: Expect<R>.() -> Unit -> apply { (lambda)(a1, a2).f() } }
 
 @JvmName("withSubAssertion3")
-internal inline fun <T, R, A1, A2, A3> Feature3<T, A1, A2, A3, R>.withSubAssertion():
+internal inline fun <T, R, A1, A2, A3> Feature3<T, A1, A2, A3, R>.withSubExpectation():
     Expect<T>.(A1, A2, A3, Expect<R>.() -> Unit) -> Expect<T> =
     { a1, a2, a3, f: Expect<R>.() -> Unit -> apply { (lambda)(a1, a2, a3).f() } }
 
@@ -293,7 +276,7 @@ val notToEqualNullButToBeInstanceOfDescr = DescriptionAnyExpectation.NOT_TO_EQUA
 
 expect val lineSeparator: String
 
-fun showsSubAssertionIf(hasExtraHint: Boolean): String = if (hasExtraHint) "; shows intended sub assertion" else ""
+fun showsSubExpectationIf(hasExtraHint: Boolean): String = if (hasExtraHint) "; shows intended sub assertion" else ""
 
 val emptyIterableLikeTypes = mapOf(
     "Iterable" to emptyList<Int>(),

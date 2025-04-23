@@ -15,20 +15,20 @@ abstract class IterableToHaveElementsAndAnyExpectationsSpec(
     val toBeGreaterThanDescr = DescriptionComparableExpectation.TO_BE_GREATER_THAN.getDefault()
 
     include(object : SubjectLessSpec<Iterable<Double>>(describePrefix,
-        toHaveElementsAndAny.forSubjectLess { toEqual(2.5) }
+        toHaveElementsAndAny.forSubjectLessTest { toEqual(2.5) }
     ) {})
     include(object : SubjectLessSpec<Iterable<Double?>>(
         describePrefix,
-        toHaveElementsAndAnyNullable.forSubjectLess(null)
+        toHaveElementsAndAnyNullable.forSubjectLessTest(null)
     ) {})
 
     include(object : AssertionCreatorSpec<Iterable<Double>>(
         describePrefix, oneToSeven().toList().asIterable(),
-        toHaveElementsAndAny.forAssertionCreatorSpec("$toBeGreaterThanDescr: 1.0") { toBeGreaterThan(1.0) }
+        toHaveElementsAndAny.forExpectationCreatorTest("$toBeGreaterThanDescr: 1.0") { toBeGreaterThan(1.0) }
     ) {})
     include(object : AssertionCreatorSpec<Iterable<Double?>>(
         "$describePrefix[nullable Element] ", oneToSeven().toList().asIterable(),
-        toHaveElementsAndAnyNullable.forAssertionCreatorSpec("$toBeGreaterThanDescr: 1.0") { toBeGreaterThan(1.0) }
+        toHaveElementsAndAnyNullable.forExpectationCreatorTest("$toBeGreaterThanDescr: 1.0") { toBeGreaterThan(1.0) }
     ) {})
 
     nonNullableCases(

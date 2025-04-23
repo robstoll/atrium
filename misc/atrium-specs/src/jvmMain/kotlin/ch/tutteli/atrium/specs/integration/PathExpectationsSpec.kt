@@ -66,36 +66,36 @@ abstract class PathExpectationsSpec(
 
     include(object : SubjectLessSpec<Path>(
         "$describePrefix[Path] ",
-        toExist.forSubjectLess(),
-        notToExist.forSubjectLess(),
-        toStartWith.forSubjectLess(Paths.get("a")),
-        notToStartWith.forSubjectLess(Paths.get("a")),
-        toEndWith.forSubjectLess(Paths.get("a")),
-        notToEndWith.forSubjectLess(Paths.get("a")),
-        toBeReadable.forSubjectLess(),
-        notToBeReadable.forSubjectLess(),
-        toBeWritable.forSubjectLess(),
-        notToBeWritable.forSubjectLess(),
-        toBeExecutable.forSubjectLess(),
-        toBeRegularFile.forSubjectLess(),
-        toBeADirectory.forSubjectLess(),
-        toBeASymbolicLink.forSubjectLess(),
-        toBeAbsolute.forSubjectLess(),
-        toBeRelative.forSubjectLess(),
-        toBeAnEmptyDirectory.forSubjectLess(),
-        toHaveTheDirectoryEntry.forSubjectLess("a"),
-        toHaveTheDirectoryEntries.forSubjectLess("a", arrayOf("b", "c")),
-        toHaveTheSameBinaryContentAs.forSubjectLess(Paths.get("a")),
-        toHaveTheSameTextualContentAs.forSubjectLess(Paths.get("a"), Charsets.ISO_8859_1, Charsets.ISO_8859_1),
-        toHaveTheSameTextualContentAsDefaultArgs.forSubjectLess(Paths.get("a")),
-        parentFeature.forSubjectLess(),
-        parent.forSubjectLess { },
-        resolveFeature.forSubjectLess("test"),
-        resolve.forSubjectLess("test") { toEqual(Paths.get("a/my.txt")) },
-        fileNameFeature.forSubjectLess(),
-        fileName.forSubjectLess { },
-        fileNameWithoutExtensionFeature.forSubjectLess(),
-        fileNameWithoutExtension.forSubjectLess { }
+        toExist.forSubjectLessTest(),
+        notToExist.forSubjectLessTest(),
+        toStartWith.forSubjectLessTest(Paths.get("a")),
+        notToStartWith.forSubjectLessTest(Paths.get("a")),
+        toEndWith.forSubjectLessTest(Paths.get("a")),
+        notToEndWith.forSubjectLessTest(Paths.get("a")),
+        toBeReadable.forSubjectLessTest(),
+        notToBeReadable.forSubjectLessTest(),
+        toBeWritable.forSubjectLessTest(),
+        notToBeWritable.forSubjectLessTest(),
+        toBeExecutable.forSubjectLessTest(),
+        toBeRegularFile.forSubjectLessTest(),
+        toBeADirectory.forSubjectLessTest(),
+        toBeASymbolicLink.forSubjectLessTest(),
+        toBeAbsolute.forSubjectLessTest(),
+        toBeRelative.forSubjectLessTest(),
+        toBeAnEmptyDirectory.forSubjectLessTest(),
+        toHaveTheDirectoryEntry.forSubjectLessTest("a"),
+        toHaveTheDirectoryEntries.forSubjectLessTest("a", arrayOf("b", "c")),
+        toHaveTheSameBinaryContentAs.forSubjectLessTest(Paths.get("a")),
+        toHaveTheSameTextualContentAs.forSubjectLessTest(Paths.get("a"), Charsets.ISO_8859_1, Charsets.ISO_8859_1),
+        toHaveTheSameTextualContentAsDefaultArgs.forSubjectLessTest(Paths.get("a")),
+        parentFeature.forSubjectLessTest(),
+        parent.forSubjectLessTest { },
+        resolveFeature.forSubjectLessTest("test"),
+        resolve.forSubjectLessTest("test") { toEqual(Paths.get("a/my.txt")) },
+        fileNameFeature.forSubjectLessTest(),
+        fileName.forSubjectLessTest { },
+        fileNameWithoutExtensionFeature.forSubjectLessTest(),
+        fileNameWithoutExtension.forSubjectLessTest { }
     ) {})
 
     val tempFolder by memoizedTempFolder()
@@ -1730,7 +1730,7 @@ abstract class PathExpectationsSpec(
 
         context("folder without parent") {
             parentFunctions.forEach { (name, parentFun, hasExtraHint) ->
-                it("$name - toBe(folder.parent) fails" + showsSubAssertionIf(hasExtraHint)) {
+                it("$name - toBe(folder.parent) fails" + showsSubExpectationIf(hasExtraHint)) {
                     expect {
                         val rootFolder = tempFolder.tmpDir.root
                         expect(rootFolder).parentFun { toEqual(Paths.get("non-existing")) }
@@ -1758,7 +1758,7 @@ abstract class PathExpectationsSpec(
 
         context("resolve non-existing") {
             resolveFunctions.forEach { (name, resolveFun, hasExtraHint) ->
-                it("$name - toBe(folder) fails" + showsSubAssertionIf(hasExtraHint)) {
+                it("$name - toBe(folder) fails" + showsSubExpectationIf(hasExtraHint)) {
                     expect {
                         val resolvedFolder = tempFolder.newDirectory("child")
                         val rootFolder = resolvedFolder.parent
