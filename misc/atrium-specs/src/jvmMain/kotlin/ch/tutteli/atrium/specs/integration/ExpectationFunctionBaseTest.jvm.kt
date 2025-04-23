@@ -63,11 +63,11 @@ actual abstract class ExpectationFunctionBaseTest {
     protected actual fun <T : Any> nonNullableCases(
         nonNullableSpecPair: SpecPair<T>,
         nullableSpecPair: Any,
-        setup: TestFactoryBuilder<ExpectTestExecutableForTests>.(T) -> Unit,
+        testExecutable: ExpectTestExecutableForTests.(T) -> Unit,
     ): Any = testFactory {
         describe("non-nullable cases") {
             uncheckedToNonNullable(nonNullableSpecPair, nullableSpecPair)
-                .forEach { specPair -> itFun(specPair, setup) }
+                .forEach { specPair -> itFun(specPair, testExecutable) }
         }
     }
 }
