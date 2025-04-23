@@ -88,7 +88,7 @@ abstract class AbstractArrayAsListExpectationsTest(
     }
 
     @TestFactory
-    fun assertionCreator(): Any {
+    fun expectationCreatorTest(): Any {
         val anElementWhichEquals = DescriptionIterableLikeExpectation.AN_ELEMENT_WHICH_EQUALS.getDefault()
         return expectationCreatorTestFactory(
             ExpectationCreatorTestData(

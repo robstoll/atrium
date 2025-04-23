@@ -17,7 +17,7 @@ abstract class AbstractExtractSubjectTest(
 ) : ExpectationFunctionBaseTest() {
 
     @TestFactory
-    fun assertionCreator() = expectationCreatorTestFactory(
+    fun expectationCreatorTest() = expectationCreatorTestFactory(
         ExpectationCreatorTestData(
             1,
             ExpectationCreatorTriple(
