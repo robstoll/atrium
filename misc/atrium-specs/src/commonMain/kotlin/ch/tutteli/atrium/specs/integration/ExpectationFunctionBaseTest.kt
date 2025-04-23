@@ -40,7 +40,7 @@ expect abstract class ExpectationFunctionBaseTest() {
     protected fun <T : Any> nonNullableCases(
         nonNullableSpecPair: SpecPair<T>,
         nullableSpecPair: Any,
-        setup: TestFactoryBuilder<ExpectTestExecutableForTests>.(T) -> Unit,
+        testExecutable: ExpectTestExecutableForTests.(T) -> Unit,
     ): Any
 }
 
@@ -92,6 +92,8 @@ fun <T> TestFactoryBuilder<ExpectTestExecutableForTests>.describeFun(
 
 fun <T> TestFactoryBuilder<ExpectTestExecutableForTests>.itFun(
     specPair: SpecPair<T>,
-    setup: TestFactoryBuilder<ExpectTestExecutableForTests>.(T) -> Unit
-) = it("fun `${specPair.name}") { setup(specPair.lambda) }
+    setup: ExpectTestExecutableForTests.(T) -> Unit
+) = it("fun `${specPair.name}") {
+    setup(specPair.lambda)
+}
 

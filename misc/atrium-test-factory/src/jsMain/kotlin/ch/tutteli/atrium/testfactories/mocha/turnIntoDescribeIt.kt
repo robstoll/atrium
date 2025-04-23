@@ -23,8 +23,13 @@ fun <TestExecutableT : TestExecutable> turnIntoDescribeIt(
                 collectDescribeAndOutputSingleTest(node.displayName, node.nodes, testExecutableFactory)
             }
 
-        is LeafTestNode<*> -> it(node.displayName) {
-            testExecutableFactory().execute(node)
+        is LeafTestNode<*> -> {
+            check(isFirstDescribe.not()) {
+                "you need to define a describe, you cannot start with `it(\"my test case\"){...}` directly"
+            }
+            it(node.displayName) {
+                testExecutableFactory().execute(node)
+            }
         }
     }
 }

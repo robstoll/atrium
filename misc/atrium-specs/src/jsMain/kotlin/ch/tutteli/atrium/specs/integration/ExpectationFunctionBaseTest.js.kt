@@ -1,16 +1,19 @@
 package ch.tutteli.atrium.specs.integration
 
-import ch.tutteli.atrium.api.verbs.internal.testfactories.ExpectTestExecutableForTests
 import ch.tutteli.atrium.api.verbs.internal.factories.InternalExpectationVerbs
 import ch.tutteli.atrium.api.verbs.internal.testFactory
+import ch.tutteli.atrium.api.verbs.internal.testfactories.ExpectTestExecutableForTests
 import ch.tutteli.atrium.api.verbs.internal.testfactories.impl.ExpectGroupedBasedExpectTestExecutableForTestsImpl
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.specs.*
+import ch.tutteli.atrium.specs.SpecPair
 import ch.tutteli.atrium.specs.integration.utils.ExpectationCreatorTestData
 import ch.tutteli.atrium.specs.integration.utils.SubjectLessTestData
 import ch.tutteli.atrium.specs.integration.utils.subjectLessTestSetup
+import ch.tutteli.atrium.specs.lambda
+import ch.tutteli.atrium.specs.uncheckedToNonNullable
 import ch.tutteli.atrium.testfactories.TestFactoryBuilder
-import ch.tutteli.atrium.testfactories.testFactoryTemplate
+import ch.tutteli.atrium.testfactories.buildTestNodes
+import ch.tutteli.atrium.testfactories.expect.grouped.impl.turnTestNodesIntoExpectGrouping
 
 actual abstract class ExpectationFunctionBaseTest {
 
@@ -66,7 +69,7 @@ actual abstract class ExpectationFunctionBaseTest {
         vararg otherTestData: ExpectationCreatorTestData<*>,
     ): Any = this.let { self ->
         testFactory {
-            describe("${self::class.simpleName} - assertionCreatorTest") {
+            describe("${self::class.simpleName} - expectationCreatorTest") {
                 applyExpectationCreatorTestSetup(testData, otherTestData)
             }
         }
@@ -75,13 +78,13 @@ actual abstract class ExpectationFunctionBaseTest {
     protected actual fun <T : Any> nonNullableCases(
         nonNullableSpecPair: SpecPair<T>,
         nullableSpecPair: Any,
-        setup: TestFactoryBuilder<ExpectTestExecutableForTests>.(T) -> Unit
-    ): Any = testFactoryTemplate<ExpectTestExecutableForTests>(
-        {
+        testExecutable: ExpectTestExecutableForTests.(T) -> Unit
+    ): Any = turnTestNodesIntoExpectGrouping(
+        buildTestNodes<ExpectTestExecutableForTests> {
             uncheckedToNonNullable(nonNullableSpecPair, nullableSpecPair).forEach { specPair ->
-                describeFun(specPair, setup)
+                itFun(specPair, testExecutable)
             }
-        },
-        { ExpectGroupedBasedExpectTestExecutableForTestsImpl(InternalExpectationVerbs) }
-    )
+        }
+    ) { ExpectGroupedBasedExpectTestExecutableForTestsImpl(InternalExpectationVerbs) }
+
 }
