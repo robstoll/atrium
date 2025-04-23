@@ -9,7 +9,7 @@ import ch.tutteli.atrium.translations.DescriptionComparableExpectation.*
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.describe
 
-abstract class ComparableExpectationsSpec(
+abstract class AbstractComparableExpectationsTest(
     toBeLessThan: Fun1<Int, Int>,
     toBeLessThanOrEqualTo: Fun1<Int, Int>,
     toBeEqualComparingTo: Fun1<Int, Int>,

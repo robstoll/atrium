@@ -8,7 +8,7 @@ import ch.tutteli.atrium.specs.integration.IterableToContainSpecBase.Companion.n
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.Suite
 
-abstract class ExtractSubjectSpec(
+abstract class AbstractExtractSubjectTest(
 
     extractSubject: Fun2<Int, String?, Expect<Int>.(Int) -> Unit>,
     extractSubjectNullable: Fun2<Int?, String?, Expect<Int?>.(Int?) -> Unit>,

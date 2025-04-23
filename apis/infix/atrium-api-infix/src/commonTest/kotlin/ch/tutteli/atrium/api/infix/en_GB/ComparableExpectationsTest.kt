@@ -7,9 +7,9 @@ import ch.tutteli.atrium.specs.notImplemented
 import ch.tutteli.atrium.translations.DescriptionComparableExpectation
 import org.spekframework.spek2.Spek
 
-class ComparableExpectationsSpec: Spek({
+class ComparableExpectationsTest: Spek({
 
-    include(object: ch.tutteli.atrium.specs.integration.ComparableExpectationsSpec(
+    include(object: ch.tutteli.atrium.specs.integration.AbstractComparableExpectationsTest(
         fun1(Expect<Int>::toBeLessThan),
         fun1(Expect<Int>::toBeLessThanOrEqualTo),
         fun1(Expect<Int>::toBeEqualComparingTo),
@@ -22,7 +22,7 @@ class ComparableExpectationsSpec: Spek({
         describePrefix = "[Atrium][<=] "
     ){})
 
-    include(object: ch.tutteli.atrium.specs.integration.ComparableExpectationsSpec(
+    include(object: ch.tutteli.atrium.specs.integration.AbstractComparableExpectationsTest(
         fun1(Expect<Int>::toBeLessThan),
         fun1(Expect<Int>::notToBeGreaterThan),
         fun1(Expect<Int>::toBeEqualComparingTo),

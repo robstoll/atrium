@@ -3,7 +3,7 @@ package ch.tutteli.atrium.api.infix.en_GB
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.notImplemented
 
-class ArrayAsListExpectationsSpec : ch.tutteli.atrium.specs.integration.ArrayAsListExpectationsSpec(
+class ArrayAsListExpectationsTest : ch.tutteli.atrium.specs.integration.AbstractArrayAsListExpectationsTest(
     "asList",
     Companion::arrayInt,
     Companion::byteArray,
