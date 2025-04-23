@@ -38,18 +38,18 @@ abstract class AbstractExtractSubjectTest(
 
     @TestFactory
     fun subject_defined__extraction_successful() =
-        nonNullableCases(extractSubjectSpec, extractSubjectNullableSpec) { extractSubject ->
-            expect(1).extractSubject("failure desc irrelevant") { subject ->
+        nonNullableCases(extractSubjectSpec, extractSubjectNullableSpec) { extractSubjectFun ->
+            expect(1).extractSubjectFun("failure desc irrelevant") { subject ->
                 feature("extracted subject") { subject }.toEqual(1)
             }
         }
 
     @TestFactory
     fun subject_not_defined__shows_the_default_failure_description_if_null_passed() =
-        nonNullableCases(extractSubjectSpec, extractSubjectNullableSpec) { extractSubject ->
+        nonNullableCases(extractSubjectSpec, extractSubjectNullableSpec) { extractSubjectFun ->
             expect {
                 expect(null as Int?).notToEqualNull {
-                    extractSubject(null) { _ ->
+                    extractSubjectFun(null) { _ ->
                         // should not be evaluated
                         toEqual(1)
                     }
@@ -64,11 +64,11 @@ abstract class AbstractExtractSubjectTest(
 
     @TestFactory
     fun subject_not_defined__shows_the_given_failure_description() =
-        nonNullableCases(extractSubjectSpec, extractSubjectNullableSpec) { extractSubject ->
+        nonNullableCases(extractSubjectSpec, extractSubjectNullableSpec) { extractSubjectFun ->
             val failureDescription = "failure description shown in reporting"
             expect {
                 expect(null as Int?).notToEqualNull {
-                    extractSubject(failureDescription) { _ ->
+                    extractSubjectFun(failureDescription) { _ ->
                         // should not be evaluated
                         toEqual(1)
                     }
@@ -83,8 +83,8 @@ abstract class AbstractExtractSubjectTest(
 
     @Test
     fun subject_null__extraction_also_successful() {
-        val extractSubject = extractSubjectNullableSpec.lambda
-        expect(null as Int?).extractSubject("failure desc irrelevant") { subject ->
+        val extractSubjectFun = extractSubjectNullableSpec.lambda
+        expect(null as Int?).extractSubjectFun("failure desc irrelevant") { subject ->
             feature("extracted subject") { subject }.toEqual(null)
         }
     }
