@@ -12,10 +12,20 @@ module ch.tutteli.atrium.core.api {
     exports ch.tutteli.atrium.core.migration;
     exports ch.tutteli.atrium.core.polyfills;
     exports ch.tutteli.atrium.creating;
-    exports ch.tutteli.atrium.creating.proofs;
-    exports ch.tutteli.atrium.creating.proofs.builders;
     exports ch.tutteli.atrium.creating.feature;
+
+    exports ch.tutteli.atrium.creating.proofs;
+    exports ch.tutteli.atrium.creating.proofs.basic.contains;
+    exports ch.tutteli.atrium.creating.proofs.charsequence.contains;
+    exports ch.tutteli.atrium.creating.proofs.charsequence.contains.checkers;
+    exports ch.tutteli.atrium.creating.proofs.charsequence.contains.creators;
+    exports ch.tutteli.atrium.creating.proofs.charsequence.contains.searchbehaviours;
+    exports ch.tutteli.atrium.creating.proofs.charsequence.contains.steps;
+    exports ch.tutteli.atrium.creating.proofs.builders;
+
     exports ch.tutteli.atrium.creating.transformers;
+    exports ch.tutteli.atrium.creating.typeutils;
+    exports ch.tutteli.atrium.creating.utils;
     exports ch.tutteli.atrium.reporting;
     exports ch.tutteli.atrium.reporting.erroradjusters;
     exports ch.tutteli.atrium.reporting.reportables;

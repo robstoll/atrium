@@ -5,6 +5,7 @@ import ch.tutteli.atrium.creating.proofs.builders.impl.BaseBuilder
 import ch.tutteli.atrium.reporting.HorizontalAlignment
 import ch.tutteli.atrium.reporting.reportables.*
 
+/** @since 1.3.0 */
 class RowBuilder<SubjectT>(
     proofContainer: ProofContainer<SubjectT>,
     private val icon: Icon?,

@@ -8,13 +8,15 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic.creating.maplike.contains.MapLikeContains
 import ch.tutteli.atrium.reporting.BUG_REPORT_URL
 
-//TODO 1.3.0 deprecate everything
-
 /**
  * Appends the [Assertion] the given [factory] creates based on this [MapLikeContains.EntryPointStep].
  *
  * Use [_logic] for more sophisticated scenarios.
  */
+@Deprecated(
+    "Switch from _logic to _core, will be removed with 2.0.0 at the latest",
+    ReplaceWith("_coreAppend", "ch.tutteli.atrium._coreAppend")
+)
 inline fun <K, V, T : Any, S : MapLikeContains.SearchBehaviour>
     MapLikeContains.EntryPointStep<K, V, T, S>._logicAppend(
     factory: MapLikeContains.EntryPointStepLogic<K, V, T, S>.() -> Assertion
@@ -24,6 +26,10 @@ inline fun <K, V, T : Any, S : MapLikeContains.SearchBehaviour>
  * Entry point to the logic level of Atrium -- which is one level deeper than the API --
  * within the building process of a sophisticated `contains` assertion for [Iterable].
  */
+@Deprecated(
+    "Switch from _logic to _core, will be removed with 2.0.0 at the latest",
+    ReplaceWith("_core", "ch.tutteli.atrium._core")
+)
 inline val <K, V, T : Any, S : MapLikeContains.SearchBehaviour>
     MapLikeContains.EntryPointStep<K, V, T, S>._logic: MapLikeContains.EntryPointStepLogic<K, V, T, S>
     get() = when (this) {

@@ -1,5 +1,12 @@
+//TODO remove file with 2.0.0 at the latest
+@file:Suppress("DEPRECATION")
+
 package ch.tutteli.atrium.logic.creating.typeutils
 
+@Deprecated(
+    "Use the import from atrium-core, atrium-logic will be removed with 2.0.0 at the latest",
+    ReplaceWith("ch.tutteli.atrium.creating.typeutils.MapLikeToIterablePairTransformer")
+)
 interface MapLikeToIterablePairTransformer {
     /**
      * Transforms the given [mapLike] to an [Iterable]`<`[Pair]`<K, V>>` where [K] represents the key type

@@ -4,7 +4,6 @@ import ch.tutteli.atrium.api.verbs.internal.factories.InternalExpectationVerbs
 import ch.tutteli.atrium.api.verbs.internal.testfactories.ExpectTestExecutableForTests
 import ch.tutteli.atrium.api.verbs.internal.testfactories.impl.RootExpectTestExecutableForTestsImpl
 import ch.tutteli.atrium._core
-import ch.tutteli.atrium.api.verbs.internal.factory.InternalExpectationVerbs
 import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
 import ch.tutteli.atrium.creating.*
 import ch.tutteli.atrium.logic._logic

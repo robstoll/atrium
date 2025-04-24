@@ -1,13 +1,10 @@
-//TODO 1.3.0 remove again and switch to core
-@file:Suppress("DEPRECATION")
-
 package ch.tutteli.atrium.api.fluent.en_GB
 
+import ch.tutteli.atrium._core
 import ch.tutteli.atrium.api.fluent.en_GB.creating.charSequence.toContain.impl.StaticNames
-import ch.tutteli.atrium.logic._logic
-import ch.tutteli.atrium.logic.creating.charsequence.contains.CharSequenceContains
-import ch.tutteli.atrium.logic.creating.charsequence.contains.CharSequenceContains.SearchBehaviour
-import ch.tutteli.atrium.logic.creating.charsequence.contains.steps.*
+import ch.tutteli.atrium.creating.proofs.charsequence.contains.CharSequenceToContain
+import ch.tutteli.atrium.creating.proofs.charsequence.contains.CharSequenceToContain.SearchBehaviour
+import ch.tutteli.atrium.creating.proofs.charsequence.contains.steps.*
 
 /**
  * Restricts a `contains` assertion by specifying that the number of occurrences of the value which we are looking
@@ -22,10 +19,10 @@ import ch.tutteli.atrium.logic.creating.charsequence.contains.steps.*
  *
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.CharSequenceToContainCheckerSamples.atLeast
  */
-fun <T : CharSequence, S : SearchBehaviour> CharSequenceContains.EntryPointStep<T, S>.atLeast(
+fun <T : CharSequence, S : SearchBehaviour> CharSequenceToContain.EntryPointStep<T, S>.atLeast(
     times: Int
 ): AtLeastCheckerStep<T, S> =
-    _logic.atLeastCheckerStep(times, StaticNames.notToContainValuesFun) { "${StaticNames.atLeast}($it)" }
+    _core.atLeastCheckerStep(times, StaticNames.notToContainValuesFun) { "${StaticNames.atLeast}($it)" }
 
 /**
  * Restricts a `contains at least` assertion by specifying that the number of occurrences of the value which we
@@ -47,7 +44,7 @@ fun <T : CharSequence, S : SearchBehaviour> CharSequenceContains.EntryPointStep<
  */
 fun <T : CharSequence, S : SearchBehaviour> AtLeastCheckerStep<T, S>.butAtMost(
     times: Int
-): ButAtMostCheckerStep<T, S> = _logic.butAtMostCheckerStep(
+): ButAtMostCheckerStep<T, S> = _core.butAtMostCheckerStep(
     times,
     StaticNames.notToContainValuesFun,
     { l, u -> "${StaticNames.atLeast}($l).${StaticNames.butAtMost}($u)" },
@@ -71,10 +68,10 @@ fun <T : CharSequence, S : SearchBehaviour> AtLeastCheckerStep<T, S>.butAtMost(
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.CharSequenceToContainCheckerSamples.exactly
  *
  */
-fun <T : CharSequence, S : SearchBehaviour> CharSequenceContains.EntryPointStep<T, S>.exactly(
+fun <T : CharSequence, S : SearchBehaviour> CharSequenceToContain.EntryPointStep<T, S>.exactly(
     times: Int
 ): ExactlyCheckerStep<T, S> =
-    _logic.exactlyCheckerStep(times, StaticNames.notToContainValuesFun) { "${StaticNames.exactly}($it)" }
+    _core.exactlyCheckerStep(times, StaticNames.notToContainValuesFun) { "${StaticNames.exactly}($it)" }
 
 /**
  * Restricts a `contains` assertion by specifying that the number of occurrences of the value which we
@@ -95,9 +92,9 @@ fun <T : CharSequence, S : SearchBehaviour> CharSequenceContains.EntryPointStep<
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.CharSequenceToContainCheckerSamples.atMost
  *
  */
-fun <T : CharSequence, S : SearchBehaviour> CharSequenceContains.EntryPointStep<T, S>.atMost(
+fun <T : CharSequence, S : SearchBehaviour> CharSequenceToContain.EntryPointStep<T, S>.atMost(
     times: Int
-): AtMostCheckerStep<T, S> = _logic.atMostCheckerStep(
+): AtMostCheckerStep<T, S> = _core.atMostCheckerStep(
     times,
     StaticNames.notToContainValuesFun,
     { "${StaticNames.atMost}($it)" },
@@ -119,7 +116,7 @@ fun <T : CharSequence, S : SearchBehaviour> CharSequenceContains.EntryPointStep<
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.CharSequenceToContainCheckerSamples.notOrAtMost
  *
  */
-fun <T : CharSequence, S : SearchBehaviour> CharSequenceContains.EntryPointStep<T, S>.notOrAtMost(
+fun <T : CharSequence, S : SearchBehaviour> CharSequenceToContain.EntryPointStep<T, S>.notOrAtMost(
     times: Int
 ): NotOrAtMostCheckerStep<T, S> =
-    _logic.notOrAtMostCheckerStep(times, StaticNames.notToContainValuesFun) { "${StaticNames.notOrAtMost}($it)" }
+    _core.notOrAtMostCheckerStep(times, StaticNames.notToContainValuesFun) { "${StaticNames.notOrAtMost}($it)" }

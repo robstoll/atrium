@@ -8,17 +8,19 @@ import ch.tutteli.atrium.creating.proofs.builders.impl.DiagnosticBuilderDelegate
 import ch.tutteli.atrium.reporting.reportables.InlineElement
 import ch.tutteli.atrium.reporting.reportables.Reportable
 
+/** @since 1.3.0 */
 fun <T> ProofContainer<T>.buildSimpleProof(
     description: InlineElement,
     representation: Any?,
     test: (T) -> Boolean
 ): Proof = Proof.simple(description, representation, this.toTestFunction(test))
 
+/** @since 1.3.0 */
 fun <T> ProofContainer<T>.toTestFunction(test: (T) -> Boolean): () -> Boolean = {
     this.maybeSubject.fold(falseProvider, test)
 }
 
-
+/** @since 1.3.0 */
 fun <T> ProofContainer<T>.buildProof(init: EntryPointProofBuilder<T>.() -> Unit): Proof =
     EntryPointProofBuilder(this).build(init)
 
@@ -43,6 +45,7 @@ typealias AnyBuilder = BaseGroupBuilder<*, *, *>
 typealias AnyProofBuilder = BaseGroupBuilder<*, Proof, *>
 typealias AnyReportableBuilder = BaseGroupBuilder<*, Reportable, *>
 
+/** @since 1.3.0 */
 class EntryPointProofBuilder<T> internal constructor(
     proofContainer: ProofContainer<T>
 ) : BaseGroupBuilder<T, Proof, EntryPointProofBuilder<T>>(proofContainer, DiagnosticBuilderDelegate()) {

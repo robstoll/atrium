@@ -20,7 +20,7 @@ import ch.tutteli.atrium.logic.creating.typeutils.IterableLike
  * defines which [Checker]s should be applied and
  * is finalized by one of the [IterableLikeContainsAssertions] which usually use a [Creator].
  */
-//TODO 1.3.0 use IterableLikeToContains in combination with Proof
+//TODO 1.3.0 use IterableLikeToContain in combination with Proof
 interface IterableLikeContains {
 
     /**

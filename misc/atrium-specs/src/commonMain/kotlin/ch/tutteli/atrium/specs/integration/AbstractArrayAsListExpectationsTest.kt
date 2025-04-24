@@ -5,11 +5,11 @@ import ch.tutteli.atrium.api.fluent.en_GB.toContainExactly
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic.utils.expectLambda
+import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionIterableLikeProof
 import ch.tutteli.atrium.specs.integration.utils.ExpectationCreatorTestData
 import ch.tutteli.atrium.specs.integration.utils.ExpectationCreatorTriple
 import ch.tutteli.atrium.specs.integration.utils.SubjectLessTestData
 import ch.tutteli.atrium.testfactories.TestFactory
-import ch.tutteli.atrium.translations.DescriptionIterableLikeExpectation
 import kotlin.test.Test
 
 @Suppress("FunctionName")
@@ -89,7 +89,7 @@ abstract class AbstractArrayAsListExpectationsTest(
 
     @TestFactory
     fun expectationCreatorTest(): Any {
-        val anElementWhichEquals = DescriptionIterableLikeExpectation.AN_ELEMENT_WHICH_EQUALS.getDefault()
+        val anElementWhichEquals = DescriptionIterableLikeProof.AN_ELEMENT_WHICH_EQUALS.string
         return expectationCreatorTestFactory(
             ExpectationCreatorTestData(
                 arrayOf(1),

@@ -5,6 +5,7 @@ import ch.tutteli.atrium.creating.proofs.builders.impl.BaseSubGroupBuilder
 import ch.tutteli.atrium.reporting.reportables.Diagnostic
 import ch.tutteli.atrium.reporting.reportables.UsageHintGroup
 
+/** @since 1.3.0 */
 class UsageHintGroupBuilder<SubjectT>(
     proofContainer: ProofContainer<SubjectT>,
 ) : BaseSubGroupBuilder<SubjectT, UsageHintGroup, UsageHintGroupBuilder<SubjectT>>(

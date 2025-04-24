@@ -16,18 +16,23 @@ import kotlin.reflect.KClass
  * [ProofContainer] (we call them proof functions) return [Proof] (or even more generally [Reportable])
  *
  * @param SubjectT The type of the subject of `this` expectation.
+ *
+ * @since 1.3.0
  */
 //TODO remove AssertionContainer (and the Suppress) with Kotlin 2.0.0 at the latest
-@Suppress("DEPRECATION")
-interface ProofContainer<SubjectT> : AssertionContainer<SubjectT> {
+interface ProofContainer<SubjectT> : @Suppress("DEPRECATION") AssertionContainer<SubjectT> {
     /**
      * Either [Some] wrapping the subject of a [Proof] or [None] in case a previous subject transformation
      * could not be carried out.
+     *
+     * @since 1.3.0
      */
     override val maybeSubject: Option<SubjectT>
 
     /**
      * Do not use yet, this is experimental and might change or be removed without prior notice.
+     *
+     * @since 1.3.0
      */
     //TODO 1.3.0 maybe it would be better to have proofFactories as val like we have components?
     //TODO 1.3.0 I guess it would make sense to get rid of getImpl and only use the ComponentFactoryContainer approach
@@ -38,6 +43,8 @@ interface ProofContainer<SubjectT> : AssertionContainer<SubjectT> {
 
     /**
      * Do not use yet, this is experimental
+     *
+     * @since 1.3.0
      */
     @ExperimentalComponentFactoryContainer
     override val components: ComponentFactoryContainer
@@ -55,6 +62,8 @@ interface ProofContainer<SubjectT> : AssertionContainer<SubjectT> {
      *
      * @throws AssertionError Might throw an [AssertionError] in case the container evaluates [Proof]s immediately and
      *   the given [proof] does not [hold][Proof.holds].
+     *
+     * @since 1.3.0
      */
     fun append(proof: Proof): Expect<SubjectT>
 
@@ -75,6 +84,8 @@ interface ProofContainer<SubjectT> : AssertionContainer<SubjectT> {
      *
      * @throws AssertionError Might throw an [AssertionError] in case the container evaluates [Proof]s immediately and
      *   one of the created [Proof]s does not [hold][Proof.holds].
+     *
+     * @since 1.3.0
      */
     //TODO 1.3.0 check if the boolean flag is used somewhere. I think we used it in the context of Assertion to turn an
     // explanatoryAssertionGroup into a failing one. Now that we distinguish between Reportable and Proof this might be
@@ -86,20 +97,27 @@ interface ProofContainer<SubjectT> : AssertionContainer<SubjectT> {
 
 }
 
+/** @since 1.3.0 */
 fun <SubjectT> Expect<SubjectT>.toProofContainer(): ProofContainer<SubjectT> =
     when (this) {
         is ExpectInternal<SubjectT> -> this
         else -> throw UnsupportedOperationException("Unsupported Expect: $this -- please open an issue that a hook shall be implemented: $BUG_REPORT_URL?template=feature_request&title=Hook%20for%20Expect.toProofContainer")
     }
 
+/** @since 1.3.0 */
 fun <SubjectT> ProofContainer<SubjectT>.toExpect(): Expect<SubjectT> =
     when (this) {
         is ExpectInternal<SubjectT> -> this
         else -> throw UnsupportedOperationException("Unsupported ProofContainer: $this -- Please open an issue that a hook shall be implemented: $BUG_REPORT_URL?template=feature_request&title=Hook%20for%20ProofContainer.toExpect")
     }
 
+/** @since 1.3.0 */
 fun <T> Expect<T>.toExpectGrouping(): ExpectGrouping =
     when (this) {
         is ExpectInternal<T> -> this
         else -> throw UnsupportedOperationException("Unsupported AssertionContainer: $this -- Please open an issue that a hook shall be implemented: $BUG_REPORT_URL?template=feature_request&title=Hook%20for%Expect.toExpectGrouping")
     }
+
+/** @since 1.3.0 */
+@Suppress("UNCHECKED_CAST") // safe to cast as long as Expect is the only subtype of ExpectGrouping
+fun (ExpectGrouping.() -> Unit).toExpectationCreator(): Expect<*>.() -> Unit = this as Expect<*>.() -> Unit

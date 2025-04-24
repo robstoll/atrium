@@ -17,6 +17,7 @@ import kotlin.js.JsName
  * }
  * ```
  */
+@Deprecated("Use the library ch.tutteli.kbox and mapVararg, atrium-logic will be removed with 2.0.0 at the latest")
 fun <T> mapArguments(first: T, others: Array<out T>): ArgumentMapperBuilder<T> = ArgumentMapperBuilder(first, others)
 
 /**

@@ -10,13 +10,24 @@ import ch.tutteli.atrium.reporting.Text
 
 /**
  * Helps in using [FeatureExtractor] by providing a guide to set the different parameters in form of a fluent builder.
+ *
+ * @since 1.3.0
  */
 interface FeatureExtractorBuilder {
 
+    /**
+     * Extension point for [FeatureExtractorBuilder].
+     *
+     * @since 1.3.0
+     */
     companion object {
         /**
          * Entry point to use the [FeatureExtractorBuilder].
+         *
+         * @since 1.3.0
          */
+        //TODO 1.3.0 decide what we want, I think this is not consistent, sometimes we use invoke and sometimes we
+        // use create...
         operator fun <SubjectT> invoke(proofContainer: ProofContainer<SubjectT>): DescriptionStep<SubjectT> =
             DescriptionStep(proofContainer)
     }
@@ -25,21 +36,34 @@ interface FeatureExtractorBuilder {
      * Step which allows to specify the description which will be used to describe the feature.
      *
      * @param SubjectT the type of the current subject.
+     *
+     * @since 1.3.0
      */
     interface DescriptionStep<SubjectT> {
         /**
          * The previously specified assertion container from which we are going to extract the feature.
+         *
+         * @since 1.3.0
          */
         val container: ProofContainer<SubjectT>
 
         /**
          * Uses the given [description] as description of the feature.
+         *
+         * @since 1.3.0
          */
         fun withDescription(description: InlineElement): RepresentationInCaseOfFailureStep<SubjectT>
 
+        /**
+         * Extension point for [DescriptionStep].
+         *
+         * @since 1.3.0
+         */
         companion object {
             /**
              * Creates a [DescriptionStep] in the context of the [FeatureExtractorBuilder].
+             *
+             * @since 1.3.0
              */
             operator fun <SubjectT> invoke(container: ProofContainer<SubjectT>): DescriptionStep<SubjectT> =
                 DescriptionStepImpl(container)
@@ -51,21 +75,29 @@ interface FeatureExtractorBuilder {
      * in case the extraction cannot be performed.
      *
      * @param SubjectT the type of the current subject.
+     *
+     * @since 1.3.0
      */
     interface RepresentationInCaseOfFailureStep<SubjectT> {
         /**
          * The previously specified assertion container from which we are going to extract the feature.
+         *
+         * @since 1.3.0
          */
         val container: ProofContainer<SubjectT>
 
         /**
          * The previously specified description which describes the kind of feature extraction.
+         *
+         * @since 1.3.0
          */
         val description: InlineElement
 
         /**
          * Uses the given [representationProvider], by turning it into a [LazyRepresentation],
          * to get the representation which will be used in case the extraction cannot be performed.
+         *
+         * @since 1.3.0
          */
         fun withRepresentationForFailure(representationProvider: () -> Any?): FeatureExtractionStep<SubjectT> =
             withRepresentationForFailure(LazyRepresentation(representationProvider))
@@ -75,12 +107,21 @@ interface FeatureExtractorBuilder {
          *
          * Notice, if you want to use text (a [String] which is treated as raw string in reporting) as representation,
          * then wrap it into a [Text] and pass it instead.
+         *
+         * @since 1.3.0
          */
         fun withRepresentationForFailure(representation: Any): FeatureExtractionStep<SubjectT>
 
+        /**
+         * Extension point for [RepresentationInCaseOfFailureStep].
+         *
+         * @since 1.3.0
+         */
         companion object {
             /**
              * Creates a [RepresentationInCaseOfFailureStep] in the context of the [FeatureExtractorBuilder].
+             *
+             * @since 1.3.0
              */
             operator fun <SubjectT> invoke(
                 container: ProofContainer<SubjectT>,
@@ -95,20 +136,28 @@ interface FeatureExtractorBuilder {
      * extraction should not be carried out.
      *
      * @param SubjectT the type of the current subject.
+     *
+     * @since 1.3.0
      */
     interface FeatureExtractionStep<SubjectT> {
         /**
          * The previously specified assertion container from which we are going to extract the feature.
+         *
+         * @since 1.3.0
          */
         val container: ProofContainer<SubjectT>
 
         /**
          * The previously specified description which describes the kind of feature extraction.
+         *
+         * @since 1.3.0
          */
         val description: InlineElement
 
         /**
          * The previously specified representation which will be used in case the feature cannot be extracted.
+         *
+         * @since 1.3.0
          */
         val representationForFailure: Any
 
@@ -118,12 +167,21 @@ interface FeatureExtractorBuilder {
          *
          * @param extraction A function returning either [Some] with the corresponding feature or [None] in case the
          *   extraction cannot be carried out.
+         *
+         * @since 1.3.0
          */
         fun <FeatureT> withFeatureExtraction(extraction: (subject: SubjectT) -> Option<FeatureT>): OptionsStep<SubjectT, FeatureT>
 
+        /**
+         * Extension point for [FeatureExtractionStep].
+         *
+         * @since 1.3.0
+         */
         companion object {
             /**
              * Creates a [FeatureExtractionStep] in the context of the [FeatureExtractorBuilder].
+             *
+             * @since 1.3.0
              */
             operator fun <SubjectT> invoke(
                 container: ProofContainer<SubjectT>,
@@ -141,20 +199,28 @@ interface FeatureExtractorBuilder {
      * use as representation, this can be changed.
      *
      * @param SubjectT the type of the subject.
+     *
+     * @since 1.3.0
      */
     interface OptionsStep<SubjectT, FeatureT> {
         /**
          * The so far chosen options up to the [FeatureExtractionStep] step.
+         *
+         * @since 1.3.0
          */
         val featureExtractionStep: FeatureExtractionStep<SubjectT>
 
         /**
          * The previously specified feature extraction lambda.
+         *
+         * @since 1.3.0
          */
         val featureExtraction: (SubjectT) -> Option<FeatureT>
 
         /**
          * Uses the given [expectOptions].
+         *
+         * @since 1.3.0
          */
         @ExperimentalNewExpectTypes
         fun withOptions(expectOptions: FeatureExpectOptions<FeatureT>): FinalStep<SubjectT, FeatureT>
@@ -166,10 +232,22 @@ interface FeatureExtractorBuilder {
          *
          * Use [withOptions] if you want to define optional [FeatureExpectOptions] such as, override the
          * description, define an own representation etc.
+         *
+         * @since 1.3.0
          */
         fun withoutOptions(): FinalStep<SubjectT, FeatureT>
 
+        /**
+         * Extension point for [OptionsStep].
+         *
+         * @since 1.3.0
+         */
         companion object {
+            /**
+             * Creates an [OptionsStep].
+             *
+             * @since 1.3.0
+             */
             operator fun <SubjectT, FeatureT> invoke(
                 featureExtractionStep: FeatureExtractionStep<SubjectT>,
                 featureExtraction: (SubjectT) -> Option<FeatureT>
@@ -183,20 +261,28 @@ interface FeatureExtractorBuilder {
      *
      * @param SubjectT the type of the current subject.
      * @param FeatureT the type of the new subject.
+     *
+     * @since 1.3.0
      */
     interface FinalStep<SubjectT, FeatureT> {
         /**
          * The so far chosen options up to the [FeatureExtractionStep] step.
+         *
+         * @since 1.3.0
          */
         val featureExtractionStep: FeatureExtractionStep<SubjectT>
 
         /**
          * The previously specified feature extraction lambda.
+         *
+         * @since 1.3.0
          */
         val featureExtraction: (SubjectT) -> Option<FeatureT>
 
         /**
          * Either the previously specified [FeatureExpectOptions] or `null`.
+         *
+         * @since 1.3.0
          */
         @OptIn(ExperimentalNewExpectTypes::class)
         val featureExpectOptions: FeatureExpectOptions<FeatureT>?
@@ -206,12 +292,21 @@ interface FeatureExtractorBuilder {
          * previously chosen options.
          *
          * @return The [ExecutionStep] which allows to define how the change shall be carried out.
+         *
+         * @since 1.3.0
          */
         fun build(): ExecutionStep<SubjectT, FeatureT>
 
+        /**
+         * Extension point for [FinalStep].
+         *
+         * @since 1.3.0
+         */
         companion object {
             /**
              * Creates the [FinalStep] in the context of the [FeatureExtractorBuilder].
+             *
+             * @since 1.3.0
              */
             @ExperimentalNewExpectTypes
             operator fun <SubjectT, FeatureT> invoke(
@@ -229,13 +324,22 @@ interface FeatureExtractorBuilder {
      *
      * For instance, if it shall just perform the feature extraction and return the new [Expect] of type [FeatureT]
      * or if it shall pass an assertionCreator-lambda which creates sub-assertions etc.
+     *
+     * @since 1.3.0
      */
     interface ExecutionStep<SubjectT, FeatureT> :
         TransformationExecutionStep<SubjectT, FeatureT, FeatureExpect<SubjectT, FeatureT>> {
 
+        /**
+         * Extension point for [ExecutionStep].
+         *
+         * @since 1.3.0
+         */
         companion object {
             /**
              * Creates the [FinalStep] in the context of the [SubjectChangerBuilder].
+             *
+             * @since 1.3.0
              */
             operator fun <SubjectT, FeatureT> invoke(
                 container: ProofContainer<SubjectT>,

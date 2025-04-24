@@ -8,6 +8,7 @@ import ch.tutteli.atrium.creating.proofs.builders.impl.DiagnosticBuilder
 import ch.tutteli.atrium.creating.proofs.builders.impl.DiagnosticBuilderDelegate
 import ch.tutteli.atrium.reporting.reportables.Diagnostic
 
+/** @since 1.3.0 */
 class InvisibleFailingProofGroupBuilder<SubjectT>(
     proofContainer: ProofContainer<SubjectT>,
     diagnosticBuilderDelegate: DiagnosticBuilderDelegate<SubjectT>

@@ -10,8 +10,8 @@ import kotlin.reflect.KClass
  */
 // TODO 1.3.0 explain replacement once representable is introduced
 @Deprecated(
-    "Switch to Text, Atrium no longer supports translation, will be remove with 2.0.0 at the latest",
-    ReplaceWith("ch.tutteli.atrium.reporting.Text")
+    "Switch to Description (or another non-deprecated TextElement), Atrium no longer supports translation, will be remove with 2.0.0 at the latest",
+    ReplaceWith("ch.tutteli.atrium.reporting.reportables.Description")
 )
 interface Translatable : TextElement {
 

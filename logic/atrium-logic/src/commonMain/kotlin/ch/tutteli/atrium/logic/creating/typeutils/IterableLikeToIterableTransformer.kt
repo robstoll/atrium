@@ -1,5 +1,12 @@
+//TODO remove file with 2.0.0 at the latest
+@file:Suppress("DEPRECATION")
+
 package ch.tutteli.atrium.logic.creating.typeutils
 
+@Deprecated(
+    "Use the import from atrium-core, atrium-logic will be removed with 2.0.0 at the latest",
+    ReplaceWith("ch.tutteli.atrium.creating.typeutils.IterableLikeToIterableTransformer")
+)
 interface IterableLikeToIterableTransformer {
     /**
      * Transforms the given [IterableLike] to an [Iterable] with an element type [T].

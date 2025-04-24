@@ -23,7 +23,7 @@ import kotlin.reflect.KClass
  *
  * @param T The type of the subject of `this` expectation.
  */
-@Deprecated("Switch to ProofContainer, will be removed with 2.0.0 at the latest", ReplaceWith("ProofContainer<T>"))
+@Deprecated("Switch to ProofContainer, will be removed with 2.0.0 at the latest", ReplaceWith("ProofContainer<T>", "ch.tutteli.atrium.creating.ProofContainer"))
 interface AssertionContainer<T> {
     /**
      * Either [Some] wrapping the subject of an [Assertion] or [None] in case a previous subject transformation
@@ -34,10 +34,6 @@ interface AssertionContainer<T> {
     /**
      * Do not use yet, this is experimental and might change or be removed without prior notice.
      */
-    //TODO 1.3.0 maybe it would be better to have proofFactories as val like we have components?
-    //TODO 1.3.0 I guess it would make sense to get rid of getImpl and only use the ComponentFactoryContainer approach
-    // however, check if extensibility for a library author is still given. We don't want that a consumer of a third-party
-    // expectation function collection-library needs to use an own expectation verb
     @ExperimentalNewExpectTypes
     fun <I : Any> getImpl(kClass: KClass<I>, defaultFactory: () -> I): I
 
@@ -80,7 +76,7 @@ interface AssertionContainer<T> {
     @Deprecated(
         "Use appendAsGroupIndicateIfOneCollected and define the alternative or pass an empty list if you don't have any",
         ReplaceWith(
-            "this.appendAsGroupIndicateIfOneCollected(ExpectationCreatorWithUsageHints(usageHintsOverloadWithoutExpectationCreator = listOf(/* ... add a usage hint in case you have an overload which does not expect an expectationCreator */), expectationCreator = assertionCreator)).first",
+            "this.appendAsGroupIndicateIfOneCollected(ExpectationCreatorWithUsageHints(usageHintsOverloadWithoutExpectationCreator = listOf(/* TODO add a usage hint in case you have an overload which does not expect an expectationCreator */), expectationCreator = assertionCreator)).first",
             "ch.tutteli.atrium.creating.ExpectationCreatorWithUsageHints",
         )
     )
@@ -122,6 +118,7 @@ interface AssertionContainer<T> {
         )
 }
 
+@Deprecated("Switch to ProofContainer, will be removed with 2.0.0 at the latest")
 fun <T> AssertionContainer<T>.toExpect(): Expect<T> =
     when (this) {
         is ExpectInternal<T> -> this

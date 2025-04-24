@@ -6,6 +6,7 @@ import ch.tutteli.atrium.creating.proofs.ProofGroup
 import ch.tutteli.atrium.creating.proofs.builders.impl.BaseSubGroupBuilder
 import ch.tutteli.atrium.reporting.reportables.Diagnostic
 
+/** @since 1.3.0 */
 class ProofGroupBuilder<SubjectT>(
     proofContainer: ProofContainer<SubjectT>,
     private val description: Diagnostic,

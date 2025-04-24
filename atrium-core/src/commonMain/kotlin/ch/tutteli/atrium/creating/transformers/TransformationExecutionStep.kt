@@ -23,6 +23,8 @@ interface TransformationExecutionStep<SubjectT, SubjectAfterTransformationT, Exp
      * See [collect] for more information.
      *
      * @return an [Expect] for the subject of this expectation.
+     *
+     * @since 1.3.0
      */
     fun collectAndAppend(expectationCreatorWithUsageHints: ExpectationCreatorWithUsageHints<SubjectAfterTransformationT>): Expect<SubjectT>
 
@@ -33,6 +35,8 @@ interface TransformationExecutionStep<SubjectT, SubjectAfterTransformationT, Exp
      *
      * @returns A [Proof] consisting of all proofs the given [expectationCreatorWithUsageHints] creates
      *   for the resulting subject of type [SubjectAfterTransformationT].
+     *
+     * @since 1.3.0
      */
     fun collect(expectationCreatorWithUsageHints: ExpectationCreatorWithUsageHints<SubjectAfterTransformationT>): Proof
 
@@ -41,6 +45,8 @@ interface TransformationExecutionStep<SubjectT, SubjectAfterTransformationT, Exp
      *
      * @return An [Expect] of type [ExpectForNewSubjectT] for the subject of type [SubjectAfterTransformationT]
      *   resulting from the transformation.
+     *
+     * @since 1.3.0
      */
     fun transform(): ExpectForNewSubjectT
 
@@ -57,6 +63,8 @@ interface TransformationExecutionStep<SubjectT, SubjectAfterTransformationT, Exp
      *
      * @return The newly created [Expect] for the subject of type [SubjectAfterTransformationT] resulting from the
      *   transformation.
+     *
+     * @since 1.3.0
      */
     fun transformAndAppend(
         expectationCreatorWithUsageHints: ExpectationCreatorWithUsageHints<SubjectAfterTransformationT>

@@ -9,6 +9,8 @@ import ch.tutteli.atrium.core.*
 import ch.tutteli.atrium.core.polyfills.cast
 import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.creating.proofs.builders.buildSimpleProof
+import ch.tutteli.atrium.creating.toProofContainer
 import ch.tutteli.atrium.logic.*
 import ch.tutteli.atrium.logic.creating.transformers.SubjectChangerBuilder
 import ch.tutteli.atrium.reporting.Text
