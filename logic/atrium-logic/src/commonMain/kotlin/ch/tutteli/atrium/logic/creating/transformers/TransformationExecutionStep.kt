@@ -10,6 +10,10 @@ import ch.tutteli.atrium.creating.Expect
  * Defines the minimal contract for the execution step of a subject transformation process -
  * i.e. the step after choosing all options.
  */
+@Deprecated(
+    "Use the import from atrium-core, atrium-logic will be removed with 2.0.0 at the latest",
+    ReplaceWith("ch.tutteli.atrium.creating.transformers.TransformationExecutionStep")
+)
 interface TransformationExecutionStep<SubjectT, FeatureT, ExpectForFeatureT : Expect<FeatureT>> {
 
     /**

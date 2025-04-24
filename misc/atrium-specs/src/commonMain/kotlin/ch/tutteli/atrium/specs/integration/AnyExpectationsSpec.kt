@@ -657,7 +657,7 @@ abstract class AnyExpectationsSpec(
                     expect(subject).toEqualNullIfNullElseFun { toBeGreaterThan(1) }
                 }.toThrow<AssertionError> {
                     message {
-                        toContainToBeGreaterDescr(1)
+                        toContainToBeGreaterThanDescr(1)
                     }
                 }
             }
@@ -1053,7 +1053,7 @@ abstract class AnyExpectationsSpec(
                 }
         }
 
-        it("provoke the failing of one assertion") {
+        it("provoke the failing of one expectation") {
             expect {
                 expect("filename?")
                     .becauseFun("? is not allowed in file names on Windows") {
@@ -1067,7 +1067,7 @@ abstract class AnyExpectationsSpec(
             }
         }
 
-        it("provoke the failing of two assertions") {
+        it("provoke the failing of two expectations") {
             expect {
                 expect(21)
                     .becauseFunForInt("we use the definition that teens are between 12 and 18 years old") {

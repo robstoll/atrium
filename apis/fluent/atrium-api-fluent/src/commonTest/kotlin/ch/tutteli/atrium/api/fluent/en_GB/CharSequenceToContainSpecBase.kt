@@ -1,10 +1,11 @@
 package ch.tutteli.atrium.api.fluent.en_GB
 
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.logic.creating.charsequence.contains.CharSequenceContains
-import ch.tutteli.atrium.logic.creating.charsequence.contains.searchbehaviours.IgnoringCaseSearchBehaviour
-import ch.tutteli.atrium.logic.creating.charsequence.contains.searchbehaviours.NoOpSearchBehaviour
-import ch.tutteli.atrium.logic.creating.charsequence.contains.steps.AtLeastCheckerStep
+import ch.tutteli.atrium.creating.proofs.charsequence.contains.CharSequenceToContain.CheckerStep
+import ch.tutteli.atrium.creating.proofs.charsequence.contains.CharSequenceToContain.EntryPointStep
+import ch.tutteli.atrium.creating.proofs.charsequence.contains.searchbehaviours.IgnoringCaseSearchBehaviour
+import ch.tutteli.atrium.creating.proofs.charsequence.contains.searchbehaviours.NoOpSearchBehaviour
+import ch.tutteli.atrium.creating.proofs.charsequence.contains.steps.AtLeastCheckerStep
 import ch.tutteli.atrium.specs.fun2
 import ch.tutteli.atrium.specs.name
 import ch.tutteli.atrium.specs.notImplemented
@@ -17,22 +18,22 @@ abstract class CharSequenceToContainSpecBase {
     private val notToContainProp: KProperty<*> = Expect<String>::notToContain
     protected val toContainNot = notToContainProp.name
     protected val toContainRegex = fun2<String, String, Array<out String>>(Expect<String>::toContainRegex).name
-    protected val atLeast = CharSequenceContains.EntryPointStep<CharSequence, *>::atLeast.name
+    protected val atLeast = EntryPointStep<CharSequence, *>::atLeast.name
     protected val butAtMost = AtLeastCheckerStep<CharSequence, *>::butAtMost.name
-    protected val atMost = CharSequenceContains.EntryPointStep<CharSequence, *>::atMost.name
-    protected val exactly = CharSequenceContains.EntryPointStep<CharSequence, *>::exactly.name
-    protected val notOrAtMost = CharSequenceContains.EntryPointStep<CharSequence, *>::notOrAtMost.name
+    protected val atMost = EntryPointStep<CharSequence, *>::atMost.name
+    protected val exactly = EntryPointStep<CharSequence, *>::exactly.name
+    protected val notOrAtMost = EntryPointStep<CharSequence, *>::notOrAtMost.name
     private val regexKFun: KFunction3<
-        CharSequenceContains.CheckerStep<CharSequence, NoOpSearchBehaviour>,
+        CheckerStep<CharSequence, NoOpSearchBehaviour>,
         String,
         Array<out String>,
         Expect<*>
-        > = CharSequenceContains.CheckerStep<CharSequence, NoOpSearchBehaviour>::regex
+        > = CheckerStep<CharSequence, NoOpSearchBehaviour>::regex
     protected val regex = regexKFun.name
-    protected val ignoringCase = CharSequenceContains.EntryPointStep<CharSequence, NoOpSearchBehaviour>::ignoringCase.name
-    protected val value = CharSequenceContains.CheckerStep<CharSequence, NoOpSearchBehaviour>::value.name
-    protected val values = CharSequenceContains.CheckerStep<CharSequence, NoOpSearchBehaviour>::values.name
-    protected val elementsOf = CharSequenceContains.EntryPointStep<String, IgnoringCaseSearchBehaviour>::elementsOf.name
+    protected val ignoringCase = EntryPointStep<CharSequence, NoOpSearchBehaviour>::ignoringCase.name
+    protected val value = CheckerStep<CharSequence, NoOpSearchBehaviour>::value.name
+    protected val values = CheckerStep<CharSequence, NoOpSearchBehaviour>::values.name
+    protected val elementsOf = EntryPointStep<String, IgnoringCaseSearchBehaviour>::elementsOf.name
 
     @Suppress("unused", "UNUSED_VALUE")
     private fun ambiguityTest() {

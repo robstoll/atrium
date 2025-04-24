@@ -29,7 +29,7 @@ class ArrayAsListExpectationsTest : AbstractArrayAsListExpectationsTest(
     Expect<BooleanArray>::asList
 ) {
 
-    @Suppress("UNUSED_VALUE")
+    @Suppress("UNUSED_VALUE", "AssignedValueIsNeverRead")
     @Test
     fun ambiguityTest() {
         var a1: Expect<Array<Int>> = expect(arrayOf(1))

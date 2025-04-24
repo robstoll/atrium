@@ -23,6 +23,10 @@ import ch.tutteli.atrium.logic.FeatureAssertions
  * that the call/access fails depending on given arguments.
  * For instance, [List.get] is a good example where it fails if the given index is out of bounds.
  */
+@Deprecated(
+    "Use the import from atrium-core, atrium-logic will be removed with 2.0.0 at the latest",
+    ReplaceWith("ch.tutteli.atrium.creating.transformers.FeatureExtractor")
+)
 interface FeatureExtractor {
 
     /**

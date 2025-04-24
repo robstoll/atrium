@@ -15,6 +15,10 @@ import ch.tutteli.atrium.reporting.Text
 /**
  * Helps in using [FeatureExtractor] by providing a guide to set the different parameters in form of a fluent builder.
  */
+@Deprecated(
+    "Use the import from atrium-core, atrium-logic will be removed with 2.0.0 at the latest",
+    ReplaceWith("ch.tutteli.atrium.creating.transformers.FeatureExtractorBuilder")
+)
 interface FeatureExtractorBuilder {
 
     companion object {

@@ -1,6 +1,7 @@
 package ch.tutteli.atrium.api.fluent.logic.based.en_GB
 
 import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionComparableProof
 import ch.tutteli.atrium.specs.fun1
 import ch.tutteli.atrium.specs.integration.AbstractComparableExpectationsTest
 import ch.tutteli.atrium.specs.integration.DiffEqualsCompareTo
@@ -18,7 +19,7 @@ class ComparableNotToExpectationsTest : AbstractComparableExpectationsTest(
     fun1(Expect<DiffEqualsCompareTo>::toBeEqualComparingTo),
     fun1(Expect<DiffEqualsCompareTo>::notToBeLessThan),
 
-    NOT_TO_BE_GREATER_THAN.getDefault(),
+    DescriptionComparableProof.NOT_TO_BE_GREATER_THAN.getDefault(),
     NOT_TO_BE_LESS_THAN.getDefault(),
 ) {
     @Test

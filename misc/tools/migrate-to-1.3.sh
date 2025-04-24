@@ -69,6 +69,18 @@ function migrateFrom_1_2_to_1_3() {
         addImportIfNeededFile "$file" "$@"
     }
 
+    local -ra replaceImports=(
+        ch.tutteli.atrium.logic._logicAppend ch.tutteli.atrium._coreAppend
+        ch.tutteli.atrium.logic._logic ch.tutteli.atrium._core
+        ch.tutteli.atrium.logic.toExpectGrouping ch.tutteli.atrium.creating.toExpectGrouping
+    )
+    local -i replaceImportsLength="${#replaceImports[@]}"
+    for ((i = 0; i < replaceImportsLength; i += 2)); do
+        local oldImport="${replaceImports[i]}"
+        local newImport="${replaceImports[i + 1]}"
+        replaceImport "$oldImport" "$newImport" || true
+    done
+
 
     local -a symbolRenamings=(
         CharSequenceContains.EntryPointStepLogic CharSequenceToContain.EntryPointStepCore ch.tutteli.atrium.logic.creating.charsequence.contains.CharSequenceContains.EntryPointStepLogic ch.tutteli.atrium.creating.proofs.charsequence.contains.CharSequenceToContain.EntryPointStepCore
@@ -82,7 +94,6 @@ function migrateFrom_1_2_to_1_3() {
         CharSequenceContains.Creator CharSequenceToContain.Creator ch.tutteli.atrium.logic.creating.charsequence.contains.CharSequenceContains.Creator ch.tutteli.atrium.creating.proofs.charsequence.contains.CharSequenceToContain.Creator
         CharSequenceContains CharSequenceToContain ch.tutteli.atrium.logic.creating.charsequence.contains.CharSequenceContains ch.tutteli.atrium.creating.proofs.charsequence.contains.CharSequenceToContain
 
-        WithTimesCheckerStepInternal WithTimesCheckerStepInternal ch.tutteli.atrium.logic.creating.charsequence.contains.steps.WithTimesCheckerStepInternal ch.tutteli.atrium.creating.proofs.charsequence.contains.steps.WithTimesCheckerStepInternal
         WithTimesCheckerStepLogic WithTimesCheckerStepCore ch.tutteli.atrium.logic.creating.charsequence.contains.steps.WithTimesCheckerStepLogic ch.tutteli.atrium.creating.proofs.charsequence.contains.steps.WithTimesCheckerStepCore
         WithTimesCheckerStep WithTimesCheckerStep ch.tutteli.atrium.logic.creating.charsequence.contains.steps.WithTimesCheckerStep ch.tutteli.atrium.creating.proofs.charsequence.contains.steps.WithTimesCheckerStep
 
@@ -97,14 +108,14 @@ function migrateFrom_1_2_to_1_3() {
         Contains.Creator ToContain.Creator ch.tutteli.atrium.logic.creating.basic.contains.Contains.Creator ch.tutteli.atrium.creating.proofs.basic.contains.ToContain.Creator
         Contains ToContain ch.tutteli.atrium.logic.creating.basic.contains.Contains ch.tutteli.atrium.creating.proofs.basic.contains.ToContain
 
-        Group Group ch.tutteli.atrium.logic.utils.Group ch.tutteli.atrium.core.Group
-
         Translation Description ch.tutteli.atrium.reporting.translating.Translatable ch.tutteli.atrium.reporting.reportables.Description
         toAssertionCreator toExpectationCreator ch.tutteli.atrium.logic.toAssertionCreator ch.tutteli.atrium.creating.toExpectationCreator
         toAssertionContainer toProofContainer ch.tutteli.atrium.logic.toAssertionContainer ch.tutteli.atrium.creating.toProofContainer
         AssertionContainer ProofContainer ch.tutteli.atrium.creating.AssertionContainer ch.tutteli.atrium.creating.ProofContainer
         AssertionGroup ProofGroup ch.tutteli.atrium.assertions.AssertionGroup ch.tutteli.atrium.creating.proofs.ProofGroup
         Assertion Proof ch.tutteli.atrium.assertions.Assertion ch.tutteli.atrium.creating.proofs.Proof
+
+
 
         expectLambda expectationCreator ch.tutteli.atrium.logic.utils.expectLambda ch.tutteli.atrium.creating.expectationCreator
     )
@@ -114,7 +125,16 @@ function migrateFrom_1_2_to_1_3() {
 
         DescriptionBasic DescriptionBasic
         DescriptionCharSequenceExpectation DescriptionCharSequenceProof
-
+        DescriptionCollectionExpectation DescriptionCollectionProof
+        DescriptionComparableExpectation DescriptionComparableProof
+        DescriptionDateTimeLikeExpectation DescriptionDateTimeLikeProof
+        DescriptionFloatingPointException DescriptionFloatingPointProof
+        DescriptionFunLikeExpectation DescriptionFunLikeProof
+        DescriptionIterableLikeExpectation DescriptionIterableLikeProof
+        DescriptionListLikeExpectation DescriptionListLikeProof
+        DescriptionMapLikeExpectation DescriptionMapLikeProof
+        DescriptionResultExpectation DescriptionResultProof
+        DescriptionThrowableExpectation DescriptionThrowableProof
         # TODO 1.3.0 add more?
     )
     local -i descriptionRenamingsLength="${#descriptionRenamings[@]}"
@@ -144,7 +164,13 @@ function migrateFrom_1_2_to_1_3() {
     done
 
     local -ra packageChanges=(
+        ch.tutteli.atrium.logic.creating.charsequence.contains.checkers ch.tutteli.atrium.creating.proofs.charsequence.contains.checkers
+        ch.tutteli.atrium.logic.creating.charsequence.contains.creators ch.tutteli.atrium.creating.proofs.charsequence.contains.creators
+        ch.tutteli.atrium.logic.creating.charsequence.contains.searchbehaviours ch.tutteli.atrium.creating.proofs.charsequence.contains.searchbehaviours
+        ch.tutteli.atrium.logic.creating.charsequence.contains.searchers ch.tutteli.atrium.creating.proofs.charsequence.contains.searchers
+        ch.tutteli.atrium.logic.creating.charsequence.contains.steps ch.tutteli.atrium.creating.proofs.charsequence.contains.steps
         ch.tutteli.atrium.logic.creating.charsequence.contains ch.tutteli.atrium.creating.proofs.charsequence.contains
+        ch.tutteli.atrium.logic.creating.transformers ch.tutteli.atrium.creating.transformers
         ch.tutteli.atrium.logic.creating.typeutils ch.tutteli.atrium.creating.typeutils
         ch.tutteli.atrium.logic.utils ch.tutteli.atrium.creating.utils
     )
@@ -153,23 +179,9 @@ function migrateFrom_1_2_to_1_3() {
         local old="${packageChanges[i]}"
         local new="${packageChanges[i + 1]}"
         perlReplace "s/\\Q$old\\E/$new/g" || true
+        replaceImport "$oldImport.*" "$newImport.*" || true
     done
 
-    local -ra replaceImports=(
-        ch.tutteli.atrium.logic._logicAppend ch.tutteli.atrium._coreAppend
-        ch.tutteli.atrium.logic._logic ch.tutteli.atrium._core
-        "ch.tutteli.atrium.logic.creating.charsequence.contains.checkers.*" "ch.tutteli.atrium.creating.proofs.charsequence.contains.checkers.*"
-        "ch.tutteli.atrium.logic.creating.charsequence.contains.creators.*" "ch.tutteli.atrium.creating.proofs.charsequence.contains.creators.*"
-        "ch.tutteli.atrium.logic.creating.charsequence.contains.searchbehaviours.*" "ch.tutteli.atrium.creating.proofs.charsequence.contains.searchbehaviours.*"
-        "ch.tutteli.atrium.logic.creating.charsequence.contains.searchers.*" "ch.tutteli.atrium.creating.proofs.charsequence.contains.searchers.*"
-        "ch.tutteli.atrium.logic.creating.charsequence.contains.steps.*" "ch.tutteli.atrium.creating.proofs.charsequence.contains.steps.*"
-    )
-    local -i replaceImportsLength="${#replaceImports[@]}"
-    for ((i = 0; i < replaceImportsLength; i += 2)); do
-        local oldImport="${replaceImports[i]}"
-        local newImport="${replaceImports[i + 1]}"
-        replaceImport "$oldImport" "$newImport" || true
-    done
 
     if perlReplace "s/_logicAppend/_coreAppend/g"; then
         replaceOrAddImport "ch.tutteli.atrium.logic._logicAppend" "ch.tutteli.atrium._coreAppend"
@@ -180,6 +192,7 @@ function migrateFrom_1_2_to_1_3() {
 
     # val definitions and references in KDoc
     perlReplace 's/_logic(:|\])/_core$1/g' || true
+    perlReplace 's/entryPointStepLogic/entryPointStepCore/g' || true
 
     local -ra containerExtensionRenamings=(
         containsBuilder toContainBuilder
@@ -202,6 +215,7 @@ function migrateFrom_1_2_to_1_3() {
         isNotSameAs notToBeTheInstance
         isA toBeAnInstanceOf
         isNotIn notToEqualOneIn
+        createDescriptiveProof buildSimpleProof
     )
     local -i containerExtensionRenamingsLength="${#containerExtensionRenamings[@]}"
     for ((i = 0; i < containerExtensionRenamingsLength; i += 2)); do
@@ -215,7 +229,7 @@ function migrateFrom_1_2_to_1_3() {
         if perlReplace "s/_core\.$funToReplace\(/_core.$replacement\(/g"; then
             needsImport=true
         fi
-        if perlReplace "s/assertionContainer\.$funToReplace\(/assertionContainer.$replacement\(/g"; then
+        if perlReplace "s/(container|assertionContainer)\.$funToReplace\(/\${1}.$replacement\(/g"; then
             needsImport=true
         fi
         if [[ $needsImport == true ]]; then
@@ -240,7 +254,6 @@ function migrateFrom_1_2_to_1_3() {
     done
     local -ra replaceSimpleImports=(
         creating.transformers.SubjectChangerBuilder
-        creating.toExpectGrouping
     )
     for importToReplace in "${replaceSimpleImports[@]}"; do
         replaceImport "ch.tutteli.atrium.logic.$importToReplace" "ch.tutteli.atrium.$importToReplace" || true

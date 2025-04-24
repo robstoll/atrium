@@ -13,6 +13,7 @@ import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
 import ch.tutteli.atrium.creating.proofs.impl.DefaultDocumentationUtils
 
 
+    /** @since 1.3.0 */
 fun <T> ProofContainer<T>.because(reason: InlineElement, expectationCreator: Expect<T>.() -> Unit): Proof =
     impl.because(this, reason, expectationCreator)
 

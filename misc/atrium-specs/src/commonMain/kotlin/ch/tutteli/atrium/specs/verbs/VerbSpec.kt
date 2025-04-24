@@ -11,7 +11,7 @@ import ch.tutteli.atrium.reporting.reportables.ErrorMessages.*
 import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionAnyProof
 import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionComparableProof
 import ch.tutteli.atrium.specs.*
-import ch.tutteli.atrium.specs.integration.toContainToBeGreaterDescr
+import ch.tutteli.atrium.specs.integration.toContainToBeGreaterThanDescr
 import ch.tutteli.atrium.specs.integration.toContainToBeLessThanDescr
 import ch.tutteli.atrium.specs.integration.toContainToEqualDescr
 import org.spekframework.spek2.Spek
@@ -76,7 +76,7 @@ abstract class VerbSpec(
                         message {
                             toContain(": 1")
                             toContainToBeLessThanDescr(0)
-                            toContainToBeGreaterDescr(2)
+                            toContainToBeGreaterThanDescr(2)
                             notToContain(toEqualDescr)
                         }
                     }
@@ -95,7 +95,7 @@ abstract class VerbSpec(
                     message {
                         toContain(": 1")
                         toContainToBeLessThanDescr(0)
-                        toContainToBeGreaterDescr(2)
+                        toContainToBeGreaterThanDescr(2)
                     }
                 }
             }
