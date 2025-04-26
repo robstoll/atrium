@@ -2,20 +2,16 @@ package ch.tutteli.atrium.specs.integration
 
 import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.internal.expect
-import ch.tutteli.atrium.assertions.DescriptiveAssertion
-import ch.tutteli.atrium.core.polyfills.format
 import ch.tutteli.atrium.core.polyfills.fullName
 import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.creating.expectationCreator
 import ch.tutteli.atrium.logic.utils.expectLambda
+import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionAnyProof
 import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionAnyProof.*
 import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionComparableProof
 import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionDocumentationUtil
 import ch.tutteli.atrium.specs.*
-import ch.tutteli.atrium.specs.integration.MapLikeToContainSpecBase.Companion.separator
 import ch.tutteli.atrium.specs.integration.utils.ExpectationCreatorTriple
-import ch.tutteli.atrium.translations.DescriptionAnyExpectation.*
-import ch.tutteli.atrium.translations.DescriptionComparableExpectation.TO_BE_GREATER_THAN
-import ch.tutteli.atrium.translations.DescriptionComparableExpectation.TO_BE_LESS_THAN
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.Suite
 import kotlin.reflect.KClass
@@ -100,7 +96,7 @@ abstract class AnyExpectationsSpec(
     include(object : SubjectLessSpec<Any>(
         "$describePrefix[Any] ",
         notToBeInstanceOfSuperType.let {
-            it.name to expectLambda { it.lambda.invoke(this) }
+            it.name to expectationCreator { it.lambda.invoke(this) }
         },
         notToBeInstanceOfKClass.let {
             it.name to expectLambda { it.lambda.invoke(this, Int::class) }
@@ -117,7 +113,7 @@ abstract class AnyExpectationsSpec(
     include(object : AssertionCreatorSpec<Int?>(
         "$describePrefix[nullable Element] ", 1,
         toEqualNullIfNullGivenElse.forExpectationCreatorTest("$toEqualDescr: 1") { toEqual(1) },
-        assertionCreatorSpecTriple(
+        ExpectationCreatorTriple(
             toBeAnInstanceOfInt.name,
             "$toEqualDescr\\s+: 1",
             { apply { toBeAnInstanceOfInt.invoke(this) { toEqual(1) } } },
@@ -662,7 +658,7 @@ abstract class AnyExpectationsSpec(
                     expect(subject).toEqualNullIfNullElseFun { toBeGreaterThan(1) }
                 }.toThrow<AssertionError> {
                     message {
-                        toContainToBeGreaterDescr(1)
+                        toContainToBeGreaterThanDescr(1)
                     }
                 }
             }
@@ -689,10 +685,11 @@ abstract class AnyExpectationsSpec(
                         expect(null as Int?).notToEqualNullFun { toEqual(1) }
                     }.toThrow<AssertionError> {
                         message {
-                            toContainDescr(notToEqualNullButToBeInstanceOfDescr, "Int (kotlin.Int)")
+                            toContainSubject(null)
+                            toContainDescr(NOT_TO_EQUAL, null)
+                            toContainDescr(TO_BE_AN_INSTANCE_OF, "Int (kotlin.Int)")
                             if (hasExtraHint) toContainToEqualDescr(1)
                         }
-
                     }
                 }
             }
@@ -719,15 +716,15 @@ abstract class AnyExpectationsSpec(
                 }
             }
             context("it allows to define multiple assertions for the subject") {
-                notToEqualNullFunctions.forEach { (name, notToBeNullFun, hasExtraHint) ->
+                notToEqualNullFunctions.forEach { (name, notToEqualNullFun, hasExtraHint) ->
                     it("$name - does not throw if the assertions hold") {
-                        expect(1 as Int?).notToBeNullFun { toBeGreaterThan(0); toBeLessThan(2) }
+                        expect(1 as Int?).notToEqualNullFun { toBeGreaterThan(0); toBeLessThan(2) }
                     }
 
                     it("$name - throws an AssertionError if one assertion does not hold") {
                         expect {
                             val i = 1 as Int?
-                            expect(i).notToBeNullFun { toBeGreaterThan(2); toBeLessThan(5) }
+                            expect(i).notToEqualNullFun { toBeGreaterThan(2); toBeLessThan(5) }
                         }.toThrow<AssertionError> {
                             message {
                                 toContainDescr(DescriptionComparableProof.TO_BE_GREATER_THAN, 2)
@@ -739,7 +736,7 @@ abstract class AnyExpectationsSpec(
                     it("$name - throws an AssertionError if both assertions do not hold " + (if (hasExtraHint) "and contains both messages" else "and contains only first message")) {
                         expect {
                             val i = 1 as Int?
-                            expect(i).notToBeNullFun { toBeGreaterThan(2); toBeLessThan(0) }
+                            expect(i).notToEqualNullFun { toBeGreaterThan(2); toBeLessThan(0) }
                         }.toThrow<AssertionError> {
                             message {
                                 toContainDescr(DescriptionComparableProof.TO_BE_GREATER_THAN, 2)
@@ -752,29 +749,17 @@ abstract class AnyExpectationsSpec(
         }
 
         context("in a feature assertion and subject is null") {
-            notToEqualNullFunctions.forEach { (name, notToBeNullFun, hasExtraHint) ->
+            notToEqualNullFunctions.forEach { (name, notToEqualNullFun, hasExtraHint) ->
                 it("$name - throws an AssertionError" + showsSubExpectationIf(hasExtraHint)) {
                     class A(val i: Int? = null)
                     expect {
-                        expect(A()).feature(A::i).notToBeNullFun { toEqual(1) }
+                        expect(A()).feature(A::i).notToEqualNullFun { toEqual(1) }
                     }.toThrow<AssertionError> {
                         message {
                             toContainSubject(A::class.fullName)
-                            toContainDescr(notToEqualNullButToBeInstanceOfDescr, "Int (kotlin.Int)")
+                            toContainDescr(NOT_TO_EQUAL, null)
+                            toContainDescr(TO_BE_AN_INSTANCE_OF, "Int (kotlin.Int)")
                             if (hasExtraHint) toContainToEqualDescr(1)
-                        }
-                    }
-                }
-
-                it("$name - throws an AssertionError which contains subsequent expectations") {
-                    class A(val i: Int? = null)
-                    expect {
-                        expect(A()).feature(A::i).notToEqualNull { toBeLessThan(1) }
-                    }.toThrow<AssertionError> {
-                        message {
-                            toContainSubject(A::class.fullName)
-                            toContainDescr(notToEqualNullButToBeInstanceOfDescr, "Int (kotlin.Int)")
-                            toContainToBeLessThanDescr(1)
                         }
                     }
                 }
@@ -1058,7 +1043,7 @@ abstract class AnyExpectationsSpec(
                 }
         }
 
-        it("provoke the failing of one assertion") {
+        it("provoke the failing of one expectation") {
             expect {
                 expect("filename?")
                     .becauseFun("? is not allowed in file names on Windows") {
@@ -1072,7 +1057,7 @@ abstract class AnyExpectationsSpec(
             }
         }
 
-        it("provoke the failing of two assertions") {
+        it("provoke the failing of two expectations") {
             expect {
                 expect(21)
                     .becauseFunForInt("we use the definition that teens are between 12 and 18 years old") {

@@ -40,6 +40,7 @@ inline fun ExpectGrouping._coreAppend(crossinline proofCreator: ProofContainer<*
     return (_core as ProofContainer<Any>).appendAsGroupIndicateIfOneCollected(ExpectationCreatorWithUsageHints(
         forgotToAppendProofPseudoUsageHint
     ) {
+        //TODO 2.0.0 remove types once we use K2
         _core.run<ProofContainer<Any>, Unit> { append(proofCreator()) }
     }).first.toExpectGrouping()
 }

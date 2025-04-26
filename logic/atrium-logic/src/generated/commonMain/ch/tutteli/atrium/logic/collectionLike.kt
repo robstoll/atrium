@@ -13,16 +13,20 @@ import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.logic.creating.transformers.FeatureExtractorBuilder
 import ch.tutteli.atrium.logic.creating.typeutils.CollectionLike
-
-/**
- * Collection of assertion functions and builders which are applicable to subjects which can be transformed to a
- * [Collection] - intended for types which are Collection like such as [Map].
- */
 import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
 import ch.tutteli.atrium.logic.impl.DefaultCollectionLikeAssertions
 
 
+    @Deprecated(
+        "Migrate from AssertionContainer to ProofContainer and use toBeEmpty, will be removed with 2.0.0 at the latest",
+        ReplaceWith("this.toBeEmpty()", "ch.tutteli.atrium.creating.proofs.toBeEmpty")
+    )
 fun <T : CollectionLike> AssertionContainer<T>.isEmpty(converter: (T) -> Collection<*>): Assertion = impl.isEmpty(this, converter)
+
+    @Deprecated(
+        "Migrate from AssertionContainer to ProofContainer and use notToBeEmpty, will be removed with 2.0.0 at the latest",
+        ReplaceWith("this.notToBeEmpty()", "ch.tutteli.atrium.creating.proofs.notToBeEmpty")
+    )
 fun <T : CollectionLike> AssertionContainer<T>.isNotEmpty(converter: (T) -> Collection<*>): Assertion = impl.isNotEmpty(this, converter)
 
 fun <T : CollectionLike> AssertionContainer<T>.size(converter: (T) -> Collection<*>): FeatureExtractorBuilder.ExecutionStep<T, Int> = impl.size(this, converter)

@@ -14,6 +14,10 @@ import ch.tutteli.kbox.appendToStringBuilder
  * Transforms all [Map] as well as all [IterableLike] which have a resulting element type of either `[Pair]<*, *>`
  * or `[Map.Entry]<*, *>` to an [Iterable] with an element type `[Pair]<K, V>`.
  */
+@Deprecated(
+    "Use the import from atrium-core, atrium-logic will be removed with 2.0.0 at the latest",
+    ReplaceWith("ch.tutteli.atrium.creating.typeutils.impl.DefaultMapLikeToIterablePairTransformer")
+)
 class DefaultMapLikeToIterablePairTransformer(private val container: AssertionContainer<*>) :
     MapLikeToIterablePairTransformer {
 

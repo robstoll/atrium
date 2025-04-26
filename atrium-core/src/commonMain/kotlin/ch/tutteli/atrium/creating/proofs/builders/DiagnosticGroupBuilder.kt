@@ -6,6 +6,7 @@ import ch.tutteli.atrium.reporting.reportables.Diagnostic
 import ch.tutteli.atrium.reporting.reportables.DiagnosticGroup
 import ch.tutteli.atrium.reporting.reportables.InlineElement
 
+/** @since 1.3.0 */
 class DiagnosticGroupBuilder<SubjectT>(
     proofContainer: ProofContainer<SubjectT>,
     private val description: InlineElement,

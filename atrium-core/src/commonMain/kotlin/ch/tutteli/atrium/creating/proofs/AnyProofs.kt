@@ -7,27 +7,45 @@ import kotlin.reflect.KClass
 
 /**
  * Collection of proof functions and builders which are applicable to any type (sometimes `Any?` sometimes `Any`).
+ *
+ * @since 1.3.0
  */
 interface AnyProofs {
 
-    fun <T> toEqual(container: ProofContainer<T>, expected: T): Proof
-    fun <T> notToEqual(container: ProofContainer<T>, expected: T): Proof
+    /** @since 1.3.0 */
+    fun <SubjectT> toEqual(container: ProofContainer<SubjectT>, expected: SubjectT): Proof
 
-    fun <T> toBeTheInstance(container: ProofContainer<T>, expected: T): Proof
-    fun <T> notToBeTheInstance(container: ProofContainer<T>, expected: T): Proof
+    /** @since 1.3.0 */
+    fun <SubjectT> notToEqual(container: ProofContainer<SubjectT>, expected: SubjectT): Proof
 
+    /** @since 1.3.0 */
+    fun <SubjectT> toBeTheInstance(container: ProofContainer<SubjectT>, expected: SubjectT): Proof
+
+    /** @since 1.3.0 */
+    fun <SubjectT> notToBeTheInstance(container: ProofContainer<SubjectT>, expected: SubjectT): Proof
+
+    /** @since 1.3.0 */
     @Suppress("BOUNDS_NOT_ALLOWED_IF_BOUNDED_BY_TYPE_PARAMETER")
-    fun <T, SubTypeOfT> toBeAnInstanceOf(
-        container: ProofContainer<T>,
-        subType: KClass<SubTypeOfT>
-    ): SubjectChangerBuilder.ExecutionStep<T, SubTypeOfT> where SubTypeOfT : Any, SubTypeOfT : T
-//
-//    fun <T> notToBeAnInstanceOfAny(container: ProofContainer<T>, notExpectedTypes: List<KClass<*>>): Proof
-//
-    fun <T : Any> notToEqualNullButToBeAnInstanceOf(
-        container: ProofContainer<T?>,
-        subType: KClass<T>
-    ): SubjectChangerBuilder.ExecutionStep<T?, T>
+    fun <SubjectT, SubTypeOfSubjectT> toBeAnInstanceOf(
+        container: ProofContainer<SubjectT>,
+        subType: KClass<SubTypeOfSubjectT>
+    ): SubjectChangerBuilder.ExecutionStep<SubjectT, SubTypeOfSubjectT> where SubTypeOfSubjectT : Any, SubTypeOfSubjectT : SubjectT
 
-    fun <T> notToEqualOneIn(container: ProofContainer<T>, expected: Iterable<T>): Proof
+    /** @since 1.3.0 */
+    fun <SubjectT> notToBeAnInstanceOf(container: ProofContainer<SubjectT>, types: List<KClass<*>>): Proof
+
+    /** @since 1.3.0 */
+    fun <SubjectT : Any> toEqualNullIfNullGivenElse(
+        container: ProofContainer<SubjectT?>,
+        expectationCreatorOrNull: (Expect<SubjectT>.() -> Unit)?
+    ): Proof
+
+    /** @since 1.3.0 */
+    fun <SubjectT : Any> notToEqualNullButToBeAnInstanceOf(
+        container: ProofContainer<SubjectT?>,
+        subType: KClass<SubjectT>
+    ): SubjectChangerBuilder.ExecutionStep<SubjectT?, SubjectT>
+
+    /** @since 1.3.0 */
+    fun <SubjectT> notToEqualOneIn(container: ProofContainer<SubjectT>, expected: Iterable<SubjectT>): Proof
 }

@@ -6,16 +6,16 @@
 //---------------------------------------------------
 package ch.tutteli.atrium.creating.proofs
 
-import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.creating.ProofContainer
-import ch.tutteli.atrium.creating.proofs.impl.DefaultDocumentationUtils
 import ch.tutteli.atrium.reporting.reportables.InlineElement
+import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
+import ch.tutteli.atrium.creating.proofs.impl.DefaultDocumentationUtils
 
 
+    /** @since 1.3.0 */
 fun <T> ProofContainer<T>.because(reason: InlineElement, expectationCreator: Expect<T>.() -> Unit): Proof =
     impl.because(this, reason, expectationCreator)
-
 
 @OptIn(ExperimentalNewExpectTypes::class)
 private inline val <T> ProofContainer<T>.impl: DocumentationUtils

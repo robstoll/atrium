@@ -12,7 +12,6 @@ import java.nio.file.Paths
 import java.util.*
 import kotlin.streams.asSequence
 
-//TODO 1.4.0 consider to switch to Kotlin Symbol Processing (KSP)
 /**
  * Use the function `forTarget` to create this data class.
  */
@@ -120,7 +119,7 @@ fun Project.registerGenerateCoreTaskForPackage(
                     Regex(typeIdentifier.pattern + params.joinToString("") { paramNumber -> parameter(paramNumber).pattern } + returnType.pattern),
                     """fun ${"$"}{generics}${"$"}{type}\.${"$"}{funcName}\(""" +
                         params.joinToString(", ") { paramNumber -> """${"$"}{paramName$paramNumber}: ${"$"}{typeName$paramNumber}"""} +
-                        """\)${"$"}{returnType} =""" + if(numOfParams > 1) "$ln    " else " ",
+                        """\)${"$"}{returnType} =$ln    """,
                     """\.${"$"}{funcName}\(this""" +
                         (if(numOfParams > 0) ", " else "") +
                         params.joinToString(", ") { paramNumber -> """${"$"}{paramName$paramNumber}""" } +
@@ -149,8 +148,8 @@ fun Project.registerGenerateCoreTaskForPackage(
                 }
 
                 val generatedContent = tmp.substring(0, tmp.lastIndexOf("}"))
-                output.writeText(header,StandardCharsets.UTF_8)
-                output.appendText(generatedContent,StandardCharsets.UTF_8)
+                output.writeText(header, StandardCharsets.UTF_8)
+                output.appendText(generatedContent, StandardCharsets.UTF_8)
                 output.appendText(
                     """
 

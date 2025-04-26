@@ -6,7 +6,7 @@ package ch.tutteli.atrium.logic.creating.basic.contains
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.creating.AssertionContainer
-import ch.tutteli.atrium.logic.creating.basic.contains.Contains.*
+import ch.tutteli.atrium.creating.proofs.basic.contains.ToContain
 
 //TODO 1.3.0 deprecate everything in this package and sub-packages
 
@@ -17,12 +17,20 @@ import ch.tutteli.atrium.logic.creating.basic.contains.Contains.*
  * A builder typically allows a user to choose a desired [SearchBehaviour], one or more [Checker]s and uses an
  * [Creator] to finish the building process.
  */
-interface Contains {
+@Deprecated(
+    "Switch to core ToContain, will be removed with 2.0.0 at the latest",
+    ReplaceWith("ch.tutteli.atrium.creating.basic.contains.ToContain")
+)
+interface Contains : ToContain {
 
     /**
      * The entry point of the contract.
      * Use `_logic` to retrieve the [EntryPointStepLogic] counterpart in case you want to extend the building process.
      */
+    @Deprecated(
+        "Switch to core ToContain.EntryPointStep, will be removed with 2.0.0 at the latest",
+        ReplaceWith("ch.tutteli.atrium.creating.basic.contains.ToContain.EntryPointStep")
+    )
     interface EntryPointStep<T : Any, out S : SearchBehaviour>
 
     /**
@@ -32,6 +40,10 @@ interface Contains {
      * The [searchBehaviour] might me modified in which case it is recommended that a new [EntryPointStep] is created (retain
      * immutability).
      */
+    @Deprecated(
+        "Switch to core ToContain.EntryPointStepCore, will be removed with 2.0.0 at the latest",
+        ReplaceWith("ch.tutteli.atrium.creating.basic.contains.ToContain.EntryPointStepCore")
+    )
     interface EntryPointStepLogic<T : Any, out S : SearchBehaviour> {
         /**
          * The [AssertionContainer] from which this building process started and to which the resulting [Assertion]
@@ -48,11 +60,19 @@ interface Contains {
     /**
      * The step of choosing/defining [Checker]s.
      */
+    @Deprecated(
+        "Switch to core ToContain.CheckerStep, will be removed with 2.0.0 at the latest",
+        ReplaceWith("ch.tutteli.atrium.creating.basic.contains.ToContain.CheckerStep")
+    )
     interface CheckerStep<T : Any, out S : SearchBehaviour, out C : Checker, out B : EntryPointStep<T, S>>
 
     /**
      * The step of choosing/defining [Checker]s on the logic level.
      */
+    @Deprecated(
+        "Switch to core ToContain.CheckerStepCore, will be removed with 2.0.0 at the latest",
+        ReplaceWith("ch.tutteli.atrium.creating.basic.contains.ToContain.CheckerStepCore")
+    )
     interface CheckerStepLogic<T : Any, out S : SearchBehaviour, out C : Checker, out B : EntryPointStepLogic<T, S>> {
         /**
          * The previously chosen [EntryPointStep], containing inter alia the [AssertionContainer] to which the resulting
@@ -73,13 +93,16 @@ interface Contains {
      * Represents a search behaviour but leaves it up to the [Creator] how this behaviour is implemented -- yet, it
      * provides a method to decorate a description (a [ch.tutteli.atrium.reporting.translating.Translatable]) in order that it reflects the search behaviour.
      */
+    @Deprecated(
+        "Switch to core ToContain.SearchBehaviour, will be removed with 2.0.0 at the latest",
+        ReplaceWith("ch.tutteli.atrium.creating.basic.contains.ToContain.SearchBehaviour")
+    )
     interface SearchBehaviour {
         /**
          * Decorates the given [description] so that it represents the search behaviour and returns the result.
          *
          * @return The decorated [description].
          */
-        //TODO 1.3.0 replace with InlineElement and remove suppression
         @Suppress("DEPRECATION")
         fun decorateDescription(description: ch.tutteli.atrium.reporting.translating.Translatable): ch.tutteli.atrium.reporting.translating.Translatable
     }
@@ -89,6 +112,10 @@ interface Contains {
      *
      * It provides the method [createAssertion] which creates an [Assertion] representing this check.
      */
+    @Deprecated(
+        "Switch to core ToContain.Checker, will be removed with 2.0.0 at the latest",
+        ReplaceWith("ch.tutteli.atrium.creating.basic.contains.ToContain.Checker")
+    )
     interface Checker {
         /**
          * Creates an [Assertion] representing this check based on the given [foundNumberOfTimes] which is the result
@@ -106,6 +133,10 @@ interface Contains {
      * @param T The type of the subject of this expectation.
      * @param SC The type of the search criteria.
      */
+    @Deprecated(
+        "Switch to core ToContain.Creator, will be removed with 2.0.0 at the latest",
+        ReplaceWith("ch.tutteli.atrium.creating.basic.contains.ToContain.Creator")
+    )
     interface Creator<T, in SC> {
         /**
          * Creates an [AssertionGroup] representing the sophisticated `contains` assertion for the

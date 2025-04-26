@@ -1,11 +1,13 @@
 package ch.tutteli.atrium.specs.integration
 
+import ch.tutteli.atrium.api.fluent.en_GB.message
 import ch.tutteli.atrium.api.fluent.en_GB.messageToContain
 import ch.tutteli.atrium.api.fluent.en_GB.toThrow
+import ch.tutteli.atrium.reporting.reportables.Description
+import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionComparableProof
 import ch.tutteli.atrium.specs.Fun1
 import ch.tutteli.atrium.specs.forSubjectLessTest
 import ch.tutteli.atrium.testfactories.TestFactory
-import ch.tutteli.atrium.translations.DescriptionComparableExpectation.*
 
 @Suppress("FunctionName")
 abstract class AbstractComparableExpectationsTest(
@@ -19,8 +21,8 @@ abstract class AbstractComparableExpectationsTest(
     private val toBeEqualComparingTo2Spec: Fun1<DiffEqualsCompareTo, DiffEqualsCompareTo>,
     private val toBeGreaterThanOrEqualTo2Spec: Fun1<DiffEqualsCompareTo, DiffEqualsCompareTo>,
 
-    private val toBeLessThanOrEqualToDescr: String,
-    private val toBeGreaterThanOrEqualToDescr: String,
+    private val toBeLessThanOrEqualToDescr: Description,
+    private val toBeGreaterThanOrEqualToDescr: Description,
 ) : ExpectationFunctionBaseTest() {
 
     @TestFactory
@@ -32,9 +34,9 @@ abstract class AbstractComparableExpectationsTest(
         toBeGreaterThanSpec.forSubjectLessTest(1),
     )
 
-    val toBeLessThanDescr = TO_BE_LESS_THAN.getDefault()
-    val toBeGreaterThanDescr = TO_BE_GREATER_THAN.getDefault()
-    val toBeEqualComparingToDescr = TO_BE_EQUAL_COMPARING_TO.getDefault()
+    val toBeLessThanDescr = DescriptionComparableProof.TO_BE_LESS_THAN
+    val toBeGreaterThanDescr = DescriptionComparableProof.TO_BE_GREATER_THAN
+    val toBeEqualComparingToDescr = DescriptionComparableProof.TO_BE_EQUAL_COMPARING_TO
 
     @TestFactory
     fun toBeLessThan__subject_is_10() = testFactory(toBeLessThanSpec) { toBeLessThanFun ->
@@ -42,12 +44,12 @@ abstract class AbstractComparableExpectationsTest(
         it("10 - throws") {
             expect {
                 expect(10).toBeLessThanFun(10)
-            }.toThrow<AssertionError> { messageToContain("$toBeLessThanDescr: 10") }
+            }.toThrow<AssertionError> { message { toContainToBeLessThanDescr(10) } }
         }
         it(" 9 - throws") {
             expect {
                 expect(10).toBeLessThanFun(9)
-            }.toThrow<AssertionError> { messageToContain("$toBeLessThanDescr: 9") }
+            }.toThrow<AssertionError> { message { toContainToBeLessThanDescr(9) } }
         }
     }
 
@@ -58,7 +60,7 @@ abstract class AbstractComparableExpectationsTest(
         it(" 9 - throws") {
             expect {
                 expect(10).toBeLessThanOrEqualToFun(9)
-            }.toThrow<AssertionError> { messageToContain("$toBeLessThanOrEqualToDescr: 9") }
+            }.toThrow<AssertionError> { message { toContainDescr(toBeLessThanOrEqualToDescr, 9) } }
         }
     }
 
@@ -68,13 +70,13 @@ abstract class AbstractComparableExpectationsTest(
             it("11 - throws") {
                 expect {
                     expect(10).toBeEqualComparingToFun(11)
-                }.toThrow<AssertionError> { messageToContain("$toBeEqualComparingToDescr: 11") }
+                }.toThrow<AssertionError> { message { toContainDescr(toBeEqualComparingToDescr, 11) } }
             }
             it("10 - does not throw") { expect(10).toBeEqualComparingToFun(10) }
             it(" 9 - throws") {
                 expect {
                     expect(10).toBeEqualComparingToFun(9)
-                }.toThrow<AssertionError> { messageToContain("$toBeEqualComparingToDescr: 9") }
+                }.toThrow<AssertionError> { message { toContainDescr(toBeEqualComparingToDescr, 9) } }
             }
         }
 
@@ -85,7 +87,7 @@ abstract class AbstractComparableExpectationsTest(
             it("11 - throws") {
                 expect {
                     expect(10).toBeGreaterThanOrEqualToFun(11)
-                }.toThrow<AssertionError> { messageToContain("$toBeGreaterThanOrEqualToDescr: 11") }
+                }.toThrow<AssertionError> { message { toContainDescr(toBeGreaterThanOrEqualToDescr, 11) } }
             }
             it("10 - does not throw") {
                 expect(10).toBeGreaterThanOrEqualToFun(10)
@@ -101,12 +103,12 @@ abstract class AbstractComparableExpectationsTest(
             it("11 - throws") {
                 expect {
                     expect(10).toBeGreaterThanFun(11)
-                }.toThrow<AssertionError> { messageToContain("$toBeGreaterThanDescr: 11") }
+                }.toThrow<AssertionError> { message { toContainToBeGreaterThanDescr(11) } }
             }
             it("10 - does not throw") {
                 expect {
                     expect(10).toBeGreaterThanFun(10)
-                }.toThrow<AssertionError> { messageToContain("$toBeGreaterThanDescr: 10") }
+                }.toThrow<AssertionError> { message { toContainToBeGreaterThanDescr(10) } }
             }
             it(" 9 - throws") {
                 expect(10).toBeGreaterThanFun(9)
@@ -121,12 +123,20 @@ abstract class AbstractComparableExpectationsTest(
                 val subject = DiffEqualsCompareTo("welcome")
                 expect {
                     expect(subject).toBeLessThanOrEqualToFun(subject)
-                }.toThrow<AssertionError> { messageToContain("$toBeLessThanOrEqualToDescr: DiffEqualsCompareTo(s=welcome)") }
+                }.toThrow<AssertionError> {
+                    message {
+                        toContainDescr(toBeLessThanOrEqualToDescr, "DiffEqualsCompareTo(s=welcome)")
+                    }
+                }
             }
             it("expected equals but compareTo does not return 0 but 1- throws") {
                 expect {
                     expect(DiffEqualsCompareTo("welcome")).toBeLessThanOrEqualToFun(DiffEqualsCompareTo("welcome"))
-                }.toThrow<AssertionError> { messageToContain("$toBeLessThanOrEqualToDescr: DiffEqualsCompareTo(s=welcome)") }
+                }.toThrow<AssertionError> {
+                    message {
+                        toContainDescr(toBeLessThanOrEqualToDescr, "DiffEqualsCompareTo(s=welcome)")
+                    }
+                }
             }
             it("expected does not equal but compareTo returns 0 - does not throw") {
                 expect(DiffEqualsCompareTo("welcome")).toBeLessThanOrEqualToFun(DiffEqualsCompareTo("hello"))
@@ -141,12 +151,20 @@ abstract class AbstractComparableExpectationsTest(
                 expect {
                     val subject = DiffEqualsCompareTo("welcome")
                     expect(subject).toBeEqualComparingToFun(subject)
-                }.toThrow<AssertionError> { messageToContain("$toBeEqualComparingToDescr: DiffEqualsCompareTo(s=welcome)") }
+                }.toThrow<AssertionError> {
+                    message {
+                        toContainDescr(toBeEqualComparingToDescr, "DiffEqualsCompareTo(s=welcome)")
+                    }
+                }
             }
             it("expected equals but compareTo does not return 0 but 1 - throws") {
                 expect {
                     expect(DiffEqualsCompareTo("welcome")).toBeEqualComparingToFun(DiffEqualsCompareTo("welcome"))
-                }.toThrow<AssertionError> { messageToContain("$toBeEqualComparingToDescr: DiffEqualsCompareTo(s=welcome)") }
+                }.toThrow<AssertionError> {
+                    message {
+                        toContainDescr(toBeEqualComparingToDescr, "DiffEqualsCompareTo(s=welcome)")
+                    }
+                }
             }
             it("expected does not equal but compareTo returns 0 - does not throw") {
                 expect(DiffEqualsCompareTo("welcome")).toBeEqualComparingToFun(DiffEqualsCompareTo("hello"))
@@ -161,13 +179,21 @@ abstract class AbstractComparableExpectationsTest(
                 expect {
                     val subject = DiffEqualsCompareTo("allo")
                     expect(subject).toBeGreaterThanOrEqualToFun(subject)
-                }.toThrow<AssertionError> { messageToContain("$toBeGreaterThanOrEqualToDescr: DiffEqualsCompareTo(s=allo)") }
+                }.toThrow<AssertionError> {
+                    message {
+                        toContainDescr(toBeGreaterThanOrEqualToDescr, "DiffEqualsCompareTo(s=allo)")
+                    }
+                }
             }
 
             it("expected equals but compareTo does not return 0 but -1 - throws AssertionError") {
                 expect {
                     expect(DiffEqualsCompareTo("allo")).toBeGreaterThanOrEqualToFun(DiffEqualsCompareTo("allo"))
-                }.toThrow<AssertionError> { messageToContain("$toBeGreaterThanOrEqualToDescr: DiffEqualsCompareTo(s=allo)") }
+                }.toThrow<AssertionError> {
+                    message {
+                        toContainDescr(toBeGreaterThanOrEqualToDescr, "DiffEqualsCompareTo(s=allo)")
+                    }
+                }
             }
             it("expected does not equal but compareTo returns 0 - does not throw") {
                 expect(DiffEqualsCompareTo("welcome")).toBeGreaterThanOrEqualToFun(DiffEqualsCompareTo("hello"))

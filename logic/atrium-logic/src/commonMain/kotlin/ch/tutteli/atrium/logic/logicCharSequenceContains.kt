@@ -1,5 +1,6 @@
 //TODO 2.0.0 remove file
-@file:Suppress("DEPRECATION","ObjectPropertyName", "FunctionName")
+@file:Suppress("DEPRECATION", "ObjectPropertyName", "FunctionName")
+
 package ch.tutteli.atrium.logic
 
 import ch.tutteli.atrium.assertions.Assertion
@@ -10,12 +11,14 @@ import ch.tutteli.atrium.logic.creating.charsequence.contains.steps.WithTimesChe
 import ch.tutteli.atrium.logic.creating.charsequence.contains.steps.WithTimesCheckerStepLogic
 import ch.tutteli.atrium.reporting.BUG_REPORT_URL
 
-//TODO 1.3.0 deprecate everything
-
 /**
  * Entry point to the logic level of Atrium -- which is one level deeper than the API --
  * within the building process of a sophisticated `contains` assertion for [CharSequence].
  */
+@Deprecated(
+    "Switch from _logic to _core, will be removed with 2.0.0 at the latest",
+    ReplaceWith("_core", "ch.tutteli.atrium._core")
+)
 inline val <T : CharSequence, S : CharSequenceContains.SearchBehaviour>
     CharSequenceContains.EntryPointStep<T, S>._logic: CharSequenceContains.EntryPointStepLogic<T, S>
     get() = when (this) {
@@ -27,6 +30,10 @@ inline val <T : CharSequence, S : CharSequenceContains.SearchBehaviour>
  * Entry point to the logic level of Atrium -- which is one level deeper than the API --
  * within the building process of a sophisticated `contains` assertion for [CharSequence].
  */
+@Deprecated(
+    "Switch from _logic to _core, will be removed with 2.0.0 at the latest",
+    ReplaceWith("_core", "ch.tutteli.atrium._core")
+)
 inline val <T : CharSequence, S : CharSequenceContains.SearchBehaviour>
     WithTimesCheckerStep<T, S>._logic: WithTimesCheckerStepLogic<T, S>
     get() = when (this) {
@@ -39,6 +46,10 @@ inline val <T : CharSequence, S : CharSequenceContains.SearchBehaviour>
  *
  * Use [_logic] for more sophisticated scenarios.
  */
+@Deprecated(
+    "Switch from _logic to _core, will be removed with 2.0.0 at the latest",
+    ReplaceWith("_coreAppend", "ch.tutteli.atrium._coreAppend")
+)
 inline fun <T : CharSequence, S : CharSequenceContains.SearchBehaviour>
     CharSequenceContains.CheckerStep<T, S>._logicAppend(
     factory: CharSequenceContains.CheckerStepLogic<T, S>.() -> Assertion
@@ -48,6 +59,10 @@ inline fun <T : CharSequence, S : CharSequenceContains.SearchBehaviour>
  * Entry point to the logic level of Atrium -- which is one level deeper than the API --
  * within the building process of a sophisticated `contains` assertion for [CharSequence].
  */
+@Deprecated(
+    "Switch from _logic to _core, will be removed with 2.0.0 at the latest",
+    ReplaceWith("_core", "ch.tutteli.atrium._core")
+)
 inline val <T : CharSequence, S : CharSequenceContains.SearchBehaviour>
     CharSequenceContains.CheckerStep<T, S>._logic: CharSequenceContains.CheckerStepLogic<T, S>
     get() = when (this) {

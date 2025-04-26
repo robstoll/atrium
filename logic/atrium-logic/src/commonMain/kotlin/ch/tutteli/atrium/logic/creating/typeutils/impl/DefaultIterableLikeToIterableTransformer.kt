@@ -1,3 +1,6 @@
+//TODO remove file with 2.0.0 at the latest
+@file:Suppress("DEPRECATION")
+
 package ch.tutteli.atrium.logic.creating.typeutils.impl
 
 import ch.tutteli.atrium.core.polyfills.fullName
@@ -21,6 +24,10 @@ import ch.tutteli.kbox.appendToStringBuilder
  * - DoubleArray
  * - BooleanArray
  */
+@Deprecated(
+    "Use the import from atrium-core, atrium-logic will be removed with 2.0.0 at the latest",
+    ReplaceWith("ch.tutteli.atrium.creating.typeutils.impl.DefaultIterableLikeToIterableTransformer")
+)
 class DefaultIterableLikeToIterableTransformer : IterableLikeToIterableTransformer {
 
     override fun <T> unsafeTransform(iterableLike: IterableLike): Iterable<T> {

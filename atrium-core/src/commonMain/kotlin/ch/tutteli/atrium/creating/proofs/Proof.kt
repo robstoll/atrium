@@ -5,17 +5,22 @@ import ch.tutteli.atrium.reporting.Text
 import ch.tutteli.atrium.reporting.reportables.Diagnostic
 import ch.tutteli.atrium.reporting.reportables.InlineElement
 import ch.tutteli.atrium.reporting.reportables.Reportable
+import ch.tutteli.atrium.reporting.reportables.ReportableGroup
 import ch.tutteli.atrium.reporting.reportables.ReportableWithInlineDesignation
 import ch.tutteli.kbox.takeIf
 
 /**
  * The base interface of all proofs, providing the method [holds].
+ *
+ * @since 1.3.0
  */
 interface Proof : Reportable {
     /**
      * Indicates whether the proof holds for a given subject or not.
      *
      * @return `true` in case the proof holds otherwise `false`.
+     *
+     * @since 1.3.0
      */
     fun holds(): Boolean
 
@@ -44,7 +49,7 @@ interface Proof : Reportable {
             representation ?: Text.NULL,
             children
             //TODO 1.3.0 why not the following to children?
-        //children.unwrapInvisibleGroupIfSingleElement()
+            //children.unwrapInvisibleGroupIfSingleElement()
         )
 
         fun group(description: Diagnostic, representation: Any?, children: List<Reportable>): ProofGroup =
@@ -87,5 +92,12 @@ interface Proof : Reportable {
 }
 
 interface SimpleProof : Proof, ReportableWithInlineDesignation
-
+interface RepresentationOnlyProof : Proof {
+    /**
+     * The representation.
+     *
+     * @since 1.3.0
+     */
+    val representation: Any
+}
 

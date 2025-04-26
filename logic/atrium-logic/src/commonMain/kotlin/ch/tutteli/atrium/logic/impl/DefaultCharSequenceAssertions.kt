@@ -20,6 +20,7 @@ import ch.tutteli.atrium.translations.DescriptionBasic.NOT_TO_BE
 import ch.tutteli.atrium.translations.DescriptionBasic.TO_BE
 import ch.tutteli.atrium.translations.DescriptionCharSequenceExpectation.*
 
+@Suppress("OVERRIDE_DEPRECATION")
 class DefaultCharSequenceAssertions : CharSequenceAssertions {
     override fun <T : CharSequence> containsBuilder(
         container: AssertionContainer<T>

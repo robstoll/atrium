@@ -13,6 +13,8 @@ import ch.tutteli.atrium.reporting.reportables.ProofExplanation
  * Defines the contract to change the subject of a [ProofContainer] by creating
  * a new [Expect] with the new subject whereas the new [Expect] delegates proof checking to the given original
  * [ProofContainer].
+ *
+ * @since 1.3.0
  */
 interface SubjectChanger {
 
@@ -39,6 +41,8 @@ interface SubjectChanger {
      * @param SubjectAfterChangeT the type of the new subject.
      *
      * @return The newly created [Expect] for the extracted feature.
+     *
+     * @since 1.3.0
      */
     fun <SubjectT, SubjectAfterChangeT> unreported(
         container: ProofContainer<SubjectT>,
@@ -83,6 +87,8 @@ interface SubjectChanger {
      * @param SubjectAfterChangeT the type of the new subject.
      *
      * @return The newly created [Expect] for the new subject.
+     *
+     * @since 1.3.0
      */
     fun <SubjectT, SubjectAfterChangeT> reported(
         container: ProofContainer<SubjectT>,
@@ -102,6 +108,8 @@ interface SubjectChanger {
      *
      * @param SubjectT The type of the subject
      * @param SubjectAfterChangeT The type of the subject after the subject change (if it were possible).
+     *
+     * @since 1.3.0
      */
     interface FailureHandler<SubjectT, SubjectAfterChangeT> {
         /**
@@ -111,6 +119,8 @@ interface SubjectChanger {
          * for the new subject) as well as the usage hints provided as [Pair.second] element.
          *
          * @return The newly created failing [Proof].
+         *
+         * @since 1.3.0
          */
         fun createProof(
             container: ProofContainer<SubjectT>,
@@ -131,6 +141,8 @@ interface SubjectChanger {
  * @param SubjectT The type of the subject
  * @param SubjectIntermediateT The type of the mapped subject
  * @param SubjectAfterChangeT The type of the subject after the subject change (if it were possible).
+ *
+ * @since 1.3.0
  */
 class FailureHandlerAdapter<SubjectT, SubjectIntermediateT, SubjectAfterChangeT>(
     private val failureHandler: SubjectChanger.FailureHandler<SubjectIntermediateT, SubjectAfterChangeT>,

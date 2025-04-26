@@ -4,12 +4,12 @@ import ch.tutteli.atrium.api.fluent.en_GB.toContain
 import ch.tutteli.atrium.api.fluent.en_GB.toContainExactly
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.logic.utils.expectLambda
+import ch.tutteli.atrium.creating.expectationCreator
+import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionIterableLikeProof
 import ch.tutteli.atrium.specs.integration.utils.ExpectationCreatorTestData
 import ch.tutteli.atrium.specs.integration.utils.ExpectationCreatorTriple
 import ch.tutteli.atrium.specs.integration.utils.SubjectLessTestData
 import ch.tutteli.atrium.testfactories.TestFactory
-import ch.tutteli.atrium.translations.DescriptionIterableLikeExpectation
 import kotlin.test.Test
 
 @Suppress("FunctionName")
@@ -35,53 +35,55 @@ abstract class AbstractArrayAsListExpectationsTest(
     private val booleanArrWithCreator: Expect<BooleanArray>.(Expect<List<Boolean>>.() -> Unit) -> Expect<BooleanArray>,
 ) : ExpectationFunctionBaseTest() {
 
+    //TODO 2.0.0 remove once we use K2
+    @Suppress("RemoveExplicitTypeArguments")
     @TestFactory
     fun subjectLessTest(): Any {
         val asListWithCreator = "$asListFunName with Creator"
         return subjectLessTestFactory(
             SubjectLessTestData<Array<Int>>(
-                asListFunName to expectLambda { arr(this) },
-                asListWithCreator to expectLambda { arrWithCreator(this) { toContain(1) } },
+                asListFunName to expectationCreator { arr(this) },
+                asListWithCreator to expectationCreator { arrWithCreator(this) { toContain(1) } },
                 groupPrefix = "Array"
             ),
             SubjectLessTestData<ByteArray>(
-                asListFunName to expectLambda { byteArr(this) },
-                asListWithCreator to expectLambda { byteArrWithCreator(this) { toContain(1) } },
+                asListFunName to expectationCreator { byteArr(this) },
+                asListWithCreator to expectationCreator { byteArrWithCreator(this) { toContain(1) } },
                 groupPrefix = "ByteArray"
             ),
             SubjectLessTestData<CharArray>(
-                asListFunName to expectLambda { charArr(this) },
-                asListWithCreator to expectLambda { charArrWithCreator(this) { toContain(1) } },
+                asListFunName to expectationCreator { charArr(this) },
+                asListWithCreator to expectationCreator { charArrWithCreator(this) { toContain(1) } },
                 groupPrefix = "CharArray"
             ),
             SubjectLessTestData<ShortArray>(
-                asListFunName to expectLambda { shortArr(this) },
-                asListWithCreator to expectLambda { shortArrWithCreator(this) { toContain(1) } },
+                asListFunName to expectationCreator { shortArr(this) },
+                asListWithCreator to expectationCreator { shortArrWithCreator(this) { toContain(1) } },
                 groupPrefix = "ShortArray"
             ),
             SubjectLessTestData<IntArray>(
-                asListFunName to expectLambda { intArr(this) },
-                asListWithCreator to expectLambda { intArrWithCreator(this) { toContain(1) } },
+                asListFunName to expectationCreator { intArr(this) },
+                asListWithCreator to expectationCreator { intArrWithCreator(this) { toContain(1) } },
                 groupPrefix = "IntArray"
             ),
             SubjectLessTestData<LongArray>(
-                asListFunName to expectLambda { longArr(this) },
-                asListWithCreator to expectLambda { longArrWithCreator(this) { toContain(1) } },
+                asListFunName to expectationCreator { longArr(this) },
+                asListWithCreator to expectationCreator { longArrWithCreator(this) { toContain(1) } },
                 groupPrefix = "LongArray"
             ),
             SubjectLessTestData<FloatArray>(
-                asListFunName to expectLambda { floatArr(this) },
-                asListWithCreator to expectLambda { floatArrWithCreator(this) { toContain(1) } },
+                asListFunName to expectationCreator { floatArr(this) },
+                asListWithCreator to expectationCreator { floatArrWithCreator(this) { toContain(1) } },
                 groupPrefix = "FloatArray"
             ),
             SubjectLessTestData<DoubleArray>(
-                asListFunName to expectLambda { doubleArr(this) },
-                asListWithCreator to expectLambda { doubleArrWithCreator(this) { toContain(1) } },
+                asListFunName to expectationCreator { doubleArr(this) },
+                asListWithCreator to expectationCreator { doubleArrWithCreator(this) { toContain(1) } },
                 groupPrefix = "DoubleArray"
             ),
             SubjectLessTestData<BooleanArray>(
-                asListFunName to expectLambda { booleanArr(this) },
-                asListWithCreator to expectLambda { booleanArrWithCreator(this) { toContain(1) } },
+                asListFunName to expectationCreator { booleanArr(this) },
+                asListWithCreator to expectationCreator { booleanArrWithCreator(this) { toContain(1) } },
                 groupPrefix = "BooleanArray"
             )
         )
@@ -89,7 +91,7 @@ abstract class AbstractArrayAsListExpectationsTest(
 
     @TestFactory
     fun expectationCreatorTest(): Any {
-        val anElementWhichEquals = DescriptionIterableLikeExpectation.AN_ELEMENT_WHICH_EQUALS.getDefault()
+        val anElementWhichEquals = DescriptionIterableLikeProof.AN_ELEMENT_WHICH_EQUALS.string
         return expectationCreatorTestFactory(
             ExpectationCreatorTestData(
                 arrayOf(1),

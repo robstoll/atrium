@@ -1,8 +1,6 @@
-//TODO 1.3.0 remove again and switch to core
-@file:Suppress("DEPRECATION")
-
 package ch.tutteli.atrium.api.fluent.en_GB
 
+import ch.tutteli.atrium._core
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic.*
 import ch.tutteli.kbox.identity
@@ -16,7 +14,7 @@ import ch.tutteli.kbox.identity
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.CollectionFeatureExtractorSamples.sizeFeature
  */
 val <T : Collection<*>> Expect<T>.size: Expect<Int>
-    get() = _logic.size(::identity).transform()
+    get() = _core.size(::identity).transform()
 
 /**
  * Expects that the property [Collection.size] of the subject of `this` expectation
@@ -28,4 +26,4 @@ val <T : Collection<*>> Expect<T>.size: Expect<Int>
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.CollectionFeatureExtractorSamples.size
  */
 fun <E, T : Collection<E>> Expect<T>.size(assertionCreator: Expect<Int>.() -> Unit): Expect<T> =
-    _logic.size(::identity).collectAndAppend(assertionCreator)
+    _core.size(::identity).collectAndAppend(assertionCreator)

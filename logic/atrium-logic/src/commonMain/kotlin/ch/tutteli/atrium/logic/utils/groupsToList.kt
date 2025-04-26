@@ -1,11 +1,16 @@
-package ch.tutteli.atrium.logic.utils
+//TODO remove file with 2.0.0 at the latest
+@file:Suppress("DEPRECATION")
 
-//TODO 1.3.0 deprecate everything
+package ch.tutteli.atrium.logic.utils
 
 /**
  * Adds the given [firstGroup], the [secondGroup] and the [otherGroups] into a new [List] and returns it.
  * @return a [List] containing [firstGroup], [secondGroup] and [otherGroups].
  */
+@Deprecated(
+    "Use the import from atrium-core, atrium-logic will be removed with 2.0.0 at the latest",
+    ReplaceWith("ch.tutteli.atrium.creating.utils.groupsToList")
+)
 fun <T> groupsToList(firstGroup: Group<T>, secondGroup: Group<T>, otherGroups: Array<out Group<T>>): List<List<T>> {
     val groups = ArrayList<List<T>>(otherGroups.size + 2)
     requireNotEmptyAndAdd(groups, firstGroup)

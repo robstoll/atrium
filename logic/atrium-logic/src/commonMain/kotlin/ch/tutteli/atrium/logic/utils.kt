@@ -15,8 +15,6 @@ import ch.tutteli.atrium.logic.creating.transformers.SubjectChangerBuilder
 import ch.tutteli.atrium.reporting.BUG_REPORT_URL
 import ch.tutteli.atrium.reporting.Text
 
-//TODO 1.3.0 deprecate everything
-
 /**
  * Creates a [DescriptiveAssertion] based on the given [description], [representation] and [test].
  *
@@ -27,10 +25,10 @@ import ch.tutteli.atrium.reporting.Text
  * @param representation The representation of the expected outcome
  * @param test The test which checks whether the assertion holds
  */
-//TODO deprecate with 1.3.0 (when ProofContainer is introduced) and remove suppression
+@Deprecated("Switch to ProofContainer and use buildSimpleProof, AssertionContainer will be removed with 2.0.0 at the latest")
 @Suppress("DEPRECATION")
 fun <T> AssertionContainer<T>.createDescriptiveAssertion(
-    description:  ch.tutteli.atrium.reporting.translating.Translatable,
+    description: ch.tutteli.atrium.reporting.translating.Translatable,
     representation: Any?,
     test: (T) -> Boolean
 ): Assertion = assertionBuilder.descriptive
@@ -41,7 +39,10 @@ fun <T> AssertionContainer<T>.createDescriptiveAssertion(
 /**
  * Entry point to use the [SubjectChangerBuilder] based on this [AssertionContainer].
  */
-//TODO deprecate with 1.3.0 (when ProofContainer is introduced)
+@Deprecated(
+    "Use the import from atrium-core, atrium-logic will be removed with 2.0.0 at the latest",
+    ReplaceWith("this.changeSubject", "ch.tutteli.atrium.creating.changeSubject")
+)
 val <T> AssertionContainer<T>.changeSubject: SubjectChangerBuilder.KindStep<T>
     get() = SubjectChangerBuilder(this)
 
@@ -58,7 +59,10 @@ val <T> AssertionContainer<T>.extractFeature: FeatureExtractorBuilder.Descriptio
  * logic level.
  */
 //is not internal as it is used by extensions, however it is not made visible via module-info.java
-//TODO deprecate with 1.3.0 and move toProofContainer to core
+@Deprecated(
+    "Switch to ProofContainer, will be removed with 2.0.0 at the latest",
+    ReplaceWith("toProofContainer()", "ch.tutteli.atrium.creating.toProofContainer")
+)
 fun <T> Expect<T>.toAssertionContainer(): AssertionContainer<T> =
     when (this) {
         is ExpectInternal<T> -> this
@@ -68,7 +72,7 @@ fun <T> Expect<T>.toAssertionContainer(): AssertionContainer<T> =
 /**
  * Casts this [AssertionContainer] back to an [Expect] so that you can use it in places where an [Expect] is used.
  */
-//TODO deprecate with 1.3.0 and move ProofContainer.toExpect to core
+@Deprecated("Switch to ProofContainer, AssertionContainer will be removed with 2.0.0 at the latest")
 fun <T> AssertionContainer<T>.toExpect(): Expect<T> =
     when (this) {
         is ExpectInternal<T> -> this
@@ -78,12 +82,19 @@ fun <T> AssertionContainer<T>.toExpect(): Expect<T> =
 /**
  * Casts this [Expect] back to an [ExpectGrouping] so that you can use it in places where an [ExpectGrouping] is used.
  */
-//TODO deprecate with 1.3.0 and move ProofContainer.toExpect to core
+@Deprecated(
+    "Use the import from atrium-core, atrium-logic will be removed with 2.0.0 at the latest",
+    ReplaceWith("this.toExpectGrouping()", "ch.tutteli.atrium.creating.toExpectGrouping")
+)
 fun <T> Expect<T>.toExpectGrouping(): ExpectGrouping =
     when (this) {
         is ExpectInternal<T> -> this
         else -> throw UnsupportedOperationException("Unsupported AssertionContainer: $this -- Please open an issue that a hook shall be implemented: $BUG_REPORT_URL?template=feature_request&title=Hook%20for%Expect.toExpectGrouping")
     }
 
+@Deprecated(
+    "Use the import from atrium-core, atrium-logic will be removed with 2.0.0 at the latest",
+    ReplaceWith("this.toExpectationCreator()", "ch.tutteli.atrium.creating.toExpectationCreator")
+)
 @Suppress("UNCHECKED_CAST") // safe to cast as long as Expect is the only subtype of ExpectGrouping
 fun (ExpectGrouping.() -> Unit).toAssertionCreator(): Expect<*>.() -> Unit = this as Expect<*>.() -> Unit

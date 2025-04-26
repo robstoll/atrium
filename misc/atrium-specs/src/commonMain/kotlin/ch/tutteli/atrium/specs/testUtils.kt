@@ -273,10 +273,6 @@ val toBeAnInstanceOfDescr = DescriptionAnyProof.TO_BE_AN_INSTANCE_OF.string
 val toBeLessThanDescr = DescriptionComparableProof.TO_BE_LESS_THAN.string
 val toBeGreaterThanDescr = DescriptionComparableProof.TO_BE_GREATER_THAN.string
 
-//TODO 1.3.0 replace
-@Suppress("DEPRECATION")
-val notToEqualNullButToBeInstanceOfDescr = ch.tutteli.atrium.translations.DescriptionAnyExpectation.NOT_TO_EQUAL_NULL_TO_BE_AN_INSTANCE_OF.string
-
 expect val lineSeparator: String
 val expectationVerb = "I expected subject"
 

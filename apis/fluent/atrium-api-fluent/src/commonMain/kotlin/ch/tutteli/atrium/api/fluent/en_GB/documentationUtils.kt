@@ -1,10 +1,9 @@
-//TODO 1.3.0 remove again and switch to core
-@file:Suppress("DEPRECATION")
 package ch.tutteli.atrium.api.fluent.en_GB
 
+import ch.tutteli.atrium._coreAppend
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.logic._logicAppend
-import ch.tutteli.atrium.logic.because
+import ch.tutteli.atrium.creating.proofs.because
+import ch.tutteli.atrium.reporting.Text
 
 /**
  * Allows to state a reason for one or multiple assertions for the current subject.
@@ -19,4 +18,4 @@ import ch.tutteli.atrium.logic.because
  * @since 0.15.0
  */
 fun <T> Expect<T>.because(reason: String, assertionCreator: Expect<T>.() -> Unit): Expect<T> =
-    _logicAppend { because(reason, assertionCreator) }
+    _coreAppend { because(Text(reason), assertionCreator) }

@@ -9,6 +9,7 @@ import ch.tutteli.atrium.creating.proofs.builders.impl.BaseSubGroupBuilder
 import ch.tutteli.atrium.reporting.reportables.Diagnostic
 import ch.tutteli.atrium.reporting.reportables.ProofExplanation
 
+/** @since 1.3.0 */
 class ProofExplanationGroupBuilder<SubjectT>(
     proofContainer: ProofContainer<SubjectT>,
 ) : BaseSubGroupBuilder<SubjectT, ProofExplanation, ProofExplanationGroupBuilder<SubjectT>>(

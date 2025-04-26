@@ -48,19 +48,40 @@ fun <T> AssertionContainer<T>.isNotSameAs(expected: T): Assertion = impl.isNotSa
     @Suppress("BOUNDS_NOT_ALLOWED_IF_BOUNDED_BY_TYPE_PARAMETER")
 fun <T, SubTypeOfT> AssertionContainer<T>.isA(subType: KClass<SubTypeOfT>): SubjectChangerBuilder.ExecutionStep<T, SubTypeOfT> where SubTypeOfT : Any, SubTypeOfT : T = impl.isA(this, subType)
 
-
 fun <T> AssertionContainer<T>.notToBeAnInstanceOf(notExpectedTypes: List<KClass<*>>): Assertion = impl.notToBeAnInstanceOf(this, notExpectedTypes)
 
+    @Deprecated(
+        "Migrate from AssertionContainer to ProofContainer and use toEqualNullIfNullGivenElse, will be removed with 2.0.0 at the latest",
+        ReplaceWith(
+            "this.toEqualNullIfNullGivenElse(assertionCreatorOrNull)",
+            "ch.tutteli.atrium.creating.proofs.toEqualNullIfNullGivenElse"
+        )
+    )
 fun <T : Any> AssertionContainer<T?>.toBeNullIfNullGivenElse(assertionCreatorOrNull: (Expect<T>.() -> Unit)?): Assertion = impl.toBeNullIfNullGivenElse(this, assertionCreatorOrNull)
 
+    @Deprecated(
+        "Migrate from AssertionContainer to ProofContainer and use notToEqualNullButToBeAnInstanceOf, will be removed with 2.0.0 at the latest",
+        ReplaceWith(
+            "this.notToEqualNullButToBeAnInstanceOf(subType)",
+            "ch.tutteli.atrium.creating.proofs.notToEqualNullButToBeAnInstanceOf"
+        )
+    )
 fun <T : Any> AssertionContainer<T?>.notToBeNullButOfType(subType: KClass<T>): SubjectChangerBuilder.ExecutionStep<T?, T> = impl.notToBeNullButOfType(this, subType)
 
 
+    @Deprecated(
+        "Migrate from AssertionContainer to ProofContainer and use notToEqualOneIn, will be removed with 2.0.0 at the latest",
+        ReplaceWith("this.notToEqualOneIn(expected)", "ch.tutteli.atrium.creating.proofs.notToEqualOneIn")
+    )
 fun <T> AssertionContainer<T>.isNotIn(expected: Iterable<T>): Assertion = impl.isNotIn(this, expected)
 
     @Deprecated(
         "Migrate from AssertionContainer to ProofContainer and use DocumentationUtils.because, will be removed with 2.0.0 at the latest",
-        ReplaceWith("this.because(Text(reason), assertionCreator)", "ch.tutteli.atrium.creating.proofs.because", "ch.tutteli.atrium.reporting.Text")
+        ReplaceWith(
+            "this.because(Text(reason), assertionCreator)",
+            "ch.tutteli.atrium.creating.proofs.because",
+            "ch.tutteli.atrium.reporting.Text"
+        )
     )
 fun <T> AssertionContainer<T>.because(reason: String, assertionCreator: (Expect<T>.() -> Unit)): Assertion =
     impl.because(this, reason, assertionCreator)

@@ -3,7 +3,6 @@
 
 package ch.tutteli.atrium.assertions.builders
 
-import ch.tutteli.atrium.assertions.DescriptiveAssertion
 import ch.tutteli.atrium.assertions.RepresentationOnlyAssertion
 import ch.tutteli.atrium.assertions.builders.impl.representationOnly.FinalStepImpl
 import ch.tutteli.atrium.assertions.builders.impl.representationOnly.HoldsStepImpl

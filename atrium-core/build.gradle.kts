@@ -50,11 +50,11 @@ createGenerateCoreTask(
     includingTarget("jvm"),
     includingTarget(
         "common",
+        "/charsequence/contains/creators" to { _ ->
+            "<SubjectT : CharSequence, SearchBehaviourT : CharSequenceToContain.SearchBehaviour> CharSequenceToContain.CheckerStepCore<SubjectT, SearchBehaviourT>" to
+                "entryPointStepCore.container.getImpl"
+        },
         //TODO 1.3.0 enable once transitioned to proofs
-//        "/creating/charsequence/contains/creators" to { _ ->
-//            "<T : CharSequence, S : CharSequenceContains.SearchBehaviour> CharSequenceContains.CheckerStepLogic<T, S>" to
-//                "entryPointStepLogic.container.getImpl"
-//        },
 //        "/creating/iterable/contains/creators" to { path ->
 //            when (val fileNameAsString = path.fileName.toString()) {
 //                "IterableLikeContainsInAnyOrderProofs.kt" ->

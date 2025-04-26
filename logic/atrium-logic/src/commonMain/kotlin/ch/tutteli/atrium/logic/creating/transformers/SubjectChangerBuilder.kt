@@ -18,12 +18,21 @@ import kotlin.reflect.KClass
 /**
  * Helps in using [SubjectChanger] by providing a guide to set the different parameters in form of a fluent builder.
  */
+@Deprecated("Use the import from atrium-core, atrium-logic will be removed with 2.0.0 at the latest", ReplaceWith("ch.tutteli.atrium.creating.transformers.SubjectChangerBuilder"))
 interface SubjectChangerBuilder {
 
+    @Deprecated(
+        "Use the import from atrium-core, atrium-logic will be removed with 2.0.0 at the latest",
+        ReplaceWith("ch.tutteli.atrium.creating.transformers.SubjectChangerBuilder.Companion")
+    )
     companion object {
         /**
          * Entry point to use the [SubjectChangerBuilder].
          */
+        @Deprecated(
+            "Use the import from atrium-core, atrium-logic will be removed with 2.0.0 at the latest",
+            ReplaceWith("ch.tutteli.atrium.creating.transformers.SubjectChangerBuilder(container)")
+        )
         operator fun <SubjectT> invoke(container: AssertionContainer<SubjectT>): KindStep<SubjectT> =
             KindStepImpl(container)
     }
@@ -33,6 +42,10 @@ interface SubjectChangerBuilder {
      *
      * @param SubjectT the type of the current subject.
      */
+    @Deprecated(
+        "Use the import from atrium-core, atrium-logic will be removed with 2.0.0 at the latest",
+        ReplaceWith("ch.tutteli.atrium.creating.transformers.SubjectChangerBuilder.KindStep<Subject>")
+    )
     interface KindStep<SubjectT> {
         /**
          * The previously specified assertion container to which the new [Expect] will delegate.
@@ -82,6 +95,7 @@ interface SubjectChangerBuilder {
                 .withTransformation {
                     Option.someIf(subType.isInstance(it)) { subType.cast(it) }
                 }
+
         /**
          * Uses the given [description] and [representation] to represent the change by delegating to the other overload
          * which expects a [ch.tutteli.atrium.reporting.translating.Translatable] instead of a [String].
@@ -91,7 +105,10 @@ interface SubjectChangerBuilder {
         //TODO 1.3.0 remove suppress again, use InlineElement instead
         @Suppress("DEPRECATION")
         fun withDescriptionAndRepresentation(description: String, representation: Any?): TransformationStep<SubjectT> =
-            withDescriptionAndRepresentation(ch.tutteli.atrium.reporting.translating.Untranslatable(description), representation)
+            withDescriptionAndRepresentation(
+                ch.tutteli.atrium.reporting.translating.Untranslatable(description),
+                representation
+            )
 
         /**
          * Uses the given [description] and [representation] to represent the change.
@@ -104,7 +121,10 @@ interface SubjectChangerBuilder {
          */
         //TODO 1.3.0 remove suppress again, use InlineElement instead
         @Suppress("DEPRECATION")
-        fun withDescriptionAndRepresentation(description: ch.tutteli.atrium.reporting.translating.Translatable, representation: Any?): TransformationStep<SubjectT>
+        fun withDescriptionAndRepresentation(
+            description: ch.tutteli.atrium.reporting.translating.Translatable,
+            representation: Any?
+        ): TransformationStep<SubjectT>
 
         companion object {
             /**
@@ -133,7 +153,7 @@ interface SubjectChangerBuilder {
          */
         //TODO 1.3.0 remove suppress again, use InlineElement instead
         @Suppress("DEPRECATION")
-        val description:  ch.tutteli.atrium.reporting.translating.Translatable
+        val description: ch.tutteli.atrium.reporting.translating.Translatable
 
         /**
          * The previously specified representation of the change.
@@ -153,7 +173,7 @@ interface SubjectChangerBuilder {
             @Suppress("DEPRECATION")
             operator fun <T> invoke(
                 container: AssertionContainer<T>,
-                description:  ch.tutteli.atrium.reporting.translating.Translatable,
+                description: ch.tutteli.atrium.reporting.translating.Translatable,
                 representation: Any
             ): TransformationStep<T> = TransformationStepImpl(container, description, representation)
         }
@@ -212,7 +232,8 @@ interface SubjectChangerBuilder {
             operator fun <SubjectT, SubjectAfterChangeT> invoke(
                 transformationStep: TransformationStep<SubjectT>,
                 transformation: (SubjectT) -> Option<SubjectAfterChangeT>
-            ): FailureHandlerStep<SubjectT, SubjectAfterChangeT> = FailureHandlerStepImpl(transformationStep, transformation)
+            ): FailureHandlerStep<SubjectT, SubjectAfterChangeT> =
+                FailureHandlerStepImpl(transformationStep, transformation)
         }
     }
 
@@ -265,7 +286,8 @@ interface SubjectChangerBuilder {
      * For instance, if it shall just perform the transformation and return the new [Expect] of type [SubjectAfterChangeT]
      * or if it shall pass an assertionCreator-lambda which creates sub-assertions etc.
      */
-    interface ExecutionStep<SubjectT, SubjectAfterChangeT> : TransformationExecutionStep<SubjectT, SubjectAfterChangeT, Expect<SubjectAfterChangeT>> {
+    interface ExecutionStep<SubjectT, SubjectAfterChangeT> :
+        TransformationExecutionStep<SubjectT, SubjectAfterChangeT, Expect<SubjectAfterChangeT>> {
 
         companion object {
             /**

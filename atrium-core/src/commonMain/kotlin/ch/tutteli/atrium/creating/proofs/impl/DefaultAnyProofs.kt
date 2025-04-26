@@ -1,7 +1,10 @@
 package ch.tutteli.atrium.creating.proofs.impl
 
 import ch.tutteli.atrium._core
+import ch.tutteli.atrium.assertions.builders.assertionBuilder
+import ch.tutteli.atrium.core.None
 import ch.tutteli.atrium.core.Option
+import ch.tutteli.atrium.core.Some
 import ch.tutteli.atrium.core.polyfills.cast
 import ch.tutteli.atrium.creating.*
 import ch.tutteli.atrium.creating.proofs.*
@@ -11,6 +14,7 @@ import ch.tutteli.atrium.creating.transformers.SubjectChanger
 import ch.tutteli.atrium.creating.transformers.SubjectChangerBuilder
 import ch.tutteli.atrium.reporting.Text
 import ch.tutteli.atrium.reporting.forgotToAppendProofPseudoUsageHint
+import ch.tutteli.atrium.reporting.reportables.ErrorMessages
 import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionAnyProof.*
 import kotlin.reflect.KClass
 
@@ -35,6 +39,51 @@ class DefaultAnyProofs : AnyProofs {
         container.changeSubject.reportBuilder()
             .downCastTo(subType)
             .build()
+
+    override fun <T> notToBeAnInstanceOf(
+        container: ProofContainer<T>,
+        types: List<KClass<*>>
+    ): Proof = container.buildProof {
+        types.forEach { notExpectedType ->
+            simpleProof(NOT_TO_BE_AN_INSTANCE_OF, notExpectedType) {
+                notExpectedType.isInstance(it).not()
+            }
+        }
+    }
+
+    override fun <T : Any> toEqualNullIfNullGivenElse(
+        container: ProofContainer<T?>,
+        expectationCreatorOrNull: (Expect<T>.() -> Unit)?
+    ): Proof =
+        if (expectationCreatorOrNull == null) {
+            container.toEqual(null)
+        } else {
+            val collectSubject = container.maybeSubject.flatMap { if (it != null) Some(it) else None }
+            val proof = container.collectBasedOnGivenSubject(
+                collectSubject,
+                ExpectationCreatorWithUsageHints(forgotToAppendProofPseudoUsageHint, expectationCreatorOrNull)
+            )
+            //TODO 1.4.0 this is a pattern which occurs over and over again, maybe incorporate into collect?
+            container.maybeSubject.fold(
+                {
+                    // already in a proof explanatory context, no need to wrap it again
+                    proof
+                },
+                {
+                    if (it != null) {
+                        proof
+                    } else {
+                        container.buildProof {
+                            invisibleFailingProofGroup {
+                                proofExplanation {
+                                    add(proof)
+                                }
+                            }
+                        }
+                    }
+                }
+            )
+        }
 
     override fun <T : Any> notToEqualNullButToBeAnInstanceOf(
         container: ProofContainer<T?>,

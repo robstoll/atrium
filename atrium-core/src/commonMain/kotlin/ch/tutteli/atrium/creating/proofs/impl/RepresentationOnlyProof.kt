@@ -1,9 +1,11 @@
 package ch.tutteli.atrium.creating.proofs.impl
 
+import ch.tutteli.atrium.creating.proofs.RepresentationOnlyProof
+
 internal class RepresentationOnlyProofImpl(
-    val representation: Any,
+    override val representation: Any,
     test: () -> Boolean,
-) : TestBasedProof(test) {
+) : TestBasedProof(test), RepresentationOnlyProof {
 
     /**
      * @suppress

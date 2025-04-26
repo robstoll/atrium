@@ -5,6 +5,7 @@ import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.core.polyfills.format
 import ch.tutteli.atrium.core.polyfills.fullName
 import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionAnyProof
 import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionCharSequenceProof
 import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionThrowableProof
 import ch.tutteli.atrium.specs.*
@@ -51,11 +52,11 @@ abstract class ThrowableExpectationsSpec(
                     expect {
                         expect(throwable).messageFun { toEqual("hello") }
                     }.toThrow<AssertionError> {
-                        messageToContain(
-                            notToEqualNullButToBeInstanceOfDescr,
-                            String::class.fullName
-                        )
-                        if (hasExtraHint) messageToContain("$toEqualDescr : \"hello\"")
+                        message{
+                            toContainDescr(DescriptionAnyProof.NOT_TO_EQUAL, null)
+                            toContainDescr(DescriptionAnyProof.TO_BE_AN_INSTANCE_OF, "String (kotlin.String")
+                            if(hasExtraHint) toContainToEqualDescr("\"hello\"")
+                        }
                     }
                 }
             }
@@ -65,14 +66,17 @@ abstract class ThrowableExpectationsSpec(
                 expect {
                     expect(throwable).messageContainsFun(1, arrayOf(2.3, 'z', "hello"))
                 }.toThrow<AssertionError> {
-                    messageToContain(
-                        notToEqualNullButToBeInstanceOfDescr, String::class.fullName,
-                        DescriptionCharSequenceProof.TO_CONTAIN.string,
-                        "$valueDescr : 1",
-                        "$valueDescr : 2.3",
-                        "$valueDescr : 'z'",
-                        "$valueDescr : \"hello\""
-                    )
+                    message {
+                        toContainDescr(DescriptionAnyProof.NOT_TO_EQUAL, null)
+                        toContainDescr(DescriptionAnyProof.TO_BE_AN_INSTANCE_OF, "String (kotlin.String")
+                        toContainDescr(DescriptionCharSequenceProof.TO_CONTAIN, "")
+                        toContain(
+                            "$valueDescr : 1",
+                            "$valueDescr : 2.3",
+                            "$valueDescr : 'z'",
+                            "$valueDescr : \"hello\""
+                        )
+                    }
                 }
             }
         }
@@ -108,7 +112,8 @@ abstract class ThrowableExpectationsSpec(
                 it("$name - throws an AssertionError if the assertion does not hold") {
                     expect {
                         expect(throwable).messageFun { toEqual("hello") }
-                    }.toThrow<AssertionError> { messageToContain("$toEqualDescr : \"hello\"") }
+                    }.toThrow<AssertionError> {
+                        messageToContain("$toEqualDescr : \"hello\"") }
                 }
 
                 it("$name - does not throw if the assertion holds") {

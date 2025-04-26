@@ -18,6 +18,8 @@ import ch.tutteli.atrium.reporting.reportables.InlineElement
  * The [FeatureExtractor] on the other hand should be used if it is already known,
  * that the call/access fails depending on given arguments.
  * For instance, [List.get] is a good example where it fails if the given index is out of bounds.
+ *
+ * @since 1.3.0
  */
 interface FeatureExtractor {
 
@@ -45,6 +47,8 @@ interface FeatureExtractor {
      * @param FeatureT the type of the extracted feature.
      *
      * @return The newly created [FeatureExpect] for the extracted feature.
+     *
+     * @since 1.3.0
      */
     @OptIn(ExperimentalNewExpectTypes::class)
     fun <SubjectT, FeatureT> extract(

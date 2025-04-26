@@ -30,7 +30,7 @@ interface CharSequenceContains {
      * The entry point of the contract on the logic level, containing the [container] -- i.e. the subject of this expectation
      * for which the sophisticated `contain` assertion should be created -- as well as the chosen [searchBehaviour].
      *
-     * The [searchBehaviour] might me modified in which case it is recommended that a new [EntryPointStep] is created (retain
+     * The [searchBehaviour] might be modified in which case it is recommended that a new [EntryPointStep] is created (retain
      * immutability).
      */
     interface EntryPointStepLogic<T : CharSequence, out S : SearchBehaviour> : Contains.EntryPointStepLogic<T, S>

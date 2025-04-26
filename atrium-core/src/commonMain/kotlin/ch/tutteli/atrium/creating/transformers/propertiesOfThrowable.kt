@@ -19,6 +19,8 @@ import ch.tutteli.kbox.takeIf
 
 /**
  * Returns a [Reportable] showing properties of the given [throwable].
+ *
+ * @since 1.3.0
  */
 @OptIn(ExperimentalComponentFactoryContainer::class)
 fun ProofContainer<*>.propertiesOfThrowable(
@@ -38,6 +40,7 @@ fun ProofContainer<*>.propertiesOfThrowable(
 }
 
 //TODO 1.3.0 shouldn't the receiver be AnyReportableGroupBuilder (same same for the one below)
+/** @since 1.3.0 */
 private fun AnyBuilder.addHints(
     throwable: Throwable,
     secondStackFrameOfParent: String?
@@ -48,12 +51,14 @@ private fun AnyBuilder.addHints(
     addCauseHint(throwable)
 }
 
+/** @since 1.3.0 */
 private fun AnyBuilder.addMessageHint(throwable: Throwable) =
     row {
         column(OCCURRED_EXCEPTION_MESSAGE)
         column(Diagnostic.representation(throwable.message))
     }
 
+/** @since 1.3.0 */
 private fun AnyBuilder.addStackTraceHint(
     throwable: Throwable,
     secondStackFrameOfParent: String?
@@ -70,7 +75,7 @@ private fun AnyBuilder.addStackTraceHint(
     }
 }
 
-
+/** @since 1.3.0 */
 private fun AnyBuilder.addCauseHint(throwable: Throwable) {
     throwable.cause?.let { cause ->
         addChildHint(
@@ -82,6 +87,8 @@ private fun AnyBuilder.addCauseHint(throwable: Throwable) {
 
 /**
  * Creates a hint for a given [child] of the given [throwable] using the given [childDescription].
+ *
+ * @since 1.3.0
  */
 fun AnyBuilder.addChildHint(
     throwable: Throwable,

@@ -6,6 +6,8 @@ import ch.tutteli.atrium.reporting.reportables.ReportableGroupWithDesignation
 /**
  * The base interface for [Proof] groups, providing a default implementation for [Proof.holds]
  * which returns `true` if all its [proofs] hold.
+ *
+ * @since 1.3.0
  */
 interface ProofGroup : Proof, ReportableGroup {
 
@@ -13,6 +15,8 @@ interface ProofGroup : Proof, ReportableGroup {
      * The [Proof]s of this group, which are defined for the subject.
      *
      * Per default all instances in [children] which are [Proof]s.
+     *
+     * @since 1.3.0
      */
     val proofs: List<Proof> get() = children.filterIsInstance<Proof>()
 
@@ -20,10 +24,13 @@ interface ProofGroup : Proof, ReportableGroup {
      * Holds if all its [proofs] hold.
      *
      * @return `true` if all [proofs] hold; `false` otherwise.
+     *
+     * @since 1.3.0
      */
     override fun holds(): Boolean  = proofs.all(Proof::holds)
 }
 
+//TODO 1.3.0 write KDOC
 interface ProofGroupWithDesignation: ProofGroup, ReportableGroupWithDesignation
 
 interface RootProofGroup: ProofGroupWithDesignation

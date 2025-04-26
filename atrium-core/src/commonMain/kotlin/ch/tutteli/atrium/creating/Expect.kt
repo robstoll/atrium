@@ -63,14 +63,7 @@ interface ExpectInternal<SubjectT> : Expect<SubjectT>, AssertionContainer<Subjec
  */
 interface Expect<SubjectT>
 
-/**
- * A type-alias which allows to refer (in KDoc) to a definition of a lambda responsible to create expectations.
- *
- * @param SubjectT The type of the subject of `this` expectation.
- *
- * @since 1.1.0
- */
-typealias ExpectationCreator<SubjectT> = Expect<SubjectT>.() -> Unit
+
 
 /**
  * Represents a group of expectations including nested groups of expectations (nested [ExpectGrouping]).

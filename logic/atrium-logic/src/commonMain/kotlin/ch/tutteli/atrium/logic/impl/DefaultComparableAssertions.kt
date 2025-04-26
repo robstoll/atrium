@@ -6,6 +6,7 @@ import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.logic.ComparableAssertions
 import ch.tutteli.atrium.logic.createDescriptiveAssertion
+import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionComparableProof
 import ch.tutteli.atrium.translations.DescriptionComparableExpectation.*
 
 class DefaultComparableAssertions : ComparableAssertions {

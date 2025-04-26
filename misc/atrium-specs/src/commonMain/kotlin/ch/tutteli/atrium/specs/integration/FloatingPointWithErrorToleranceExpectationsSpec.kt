@@ -10,10 +10,8 @@ import ch.tutteli.atrium.core.polyfills.formatFloatingPointNumber
 import ch.tutteli.atrium.core.polyfills.fullName
 import ch.tutteli.atrium.specs.Fun2
 import ch.tutteli.atrium.specs.SubjectLessSpec
-import ch.tutteli.atrium.specs.forSubjectLess
 import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionFloatingPointProof.*
 import ch.tutteli.atrium.specs.forSubjectLessTest
-import ch.tutteli.atrium.translations.DescriptionFloatingPointException.*
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.dsl.Root
 import org.spekframework.spek2.style.specification.describe

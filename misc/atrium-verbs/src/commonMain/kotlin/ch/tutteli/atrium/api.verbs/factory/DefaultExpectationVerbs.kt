@@ -18,7 +18,7 @@ object DefaultExpectationVerbs : ExpectationVerbs {
     override fun <T> expect(subject: T, expectationCreator: Expect<T>.() -> Unit): Expect<T> =
         defaultExpect(subject)
 
-    override val defaultExpectGroupDescription: String = ExpectationVerb.EXPECT_GROUPED.string,
+    override val defaultExpectGroupDescription: String = ExpectationVerb.EXPECT_GROUPED.string
 
     override fun expectGrouped(description: String, groupingActions: ExpectGrouping.() -> Unit): ExpectGrouping =
         ch.tutteli.atrium.api.verbs.expectGrouped(

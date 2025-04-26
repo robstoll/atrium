@@ -267,6 +267,7 @@ internal object DefaultComponentFactoryContainer : ComponentFactoryContainer by 
 
             // Proofs non-group
             { _ -> DefaultSimpleProofTextPreRenderer() },
+            { c -> DefaultRepresentationOnlyProofTextPreRenderer(c.build()) },
 
             // Reportable non-group
             { c -> DefaultRowTextPreRenderer(c.build()) },

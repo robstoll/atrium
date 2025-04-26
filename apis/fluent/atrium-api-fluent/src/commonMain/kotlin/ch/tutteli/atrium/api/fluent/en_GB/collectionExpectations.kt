@@ -1,10 +1,9 @@
-//TODO 1.3.0 remove again and switch to core
-@file:Suppress("DEPRECATION")
-
 package ch.tutteli.atrium.api.fluent.en_GB
 
+import ch.tutteli.atrium._coreAppend
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.logic.*
+import ch.tutteli.atrium.creating.proofs.notToBeEmpty
+import ch.tutteli.atrium.creating.proofs.toBeEmpty
 import ch.tutteli.kbox.identity
 
 /**
@@ -17,7 +16,7 @@ import ch.tutteli.kbox.identity
  * @since 0.17.0
  */
 fun <T : Collection<*>> Expect<T>.toBeEmpty(): Expect<T> =
-    _logicAppend { isEmpty(::identity) }
+    _coreAppend { toBeEmpty(::identity) }
 
 /**
  * Expects that the subject of `this` expectation (a [Collection]) is not an empty [Collection].
@@ -27,7 +26,7 @@ fun <T : Collection<*>> Expect<T>.toBeEmpty(): Expect<T> =
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.CollectionExpectationSamples.notToBeEmpty
  */
 fun <T : Collection<*>> Expect<T>.notToBeEmpty(): Expect<T> =
-    _logicAppend { isNotEmpty(::identity) }
+    _coreAppend { notToBeEmpty(::identity) }
 
 /**
  * Expects that the subject of `this` expectation (a [Collection]) has the given [expected] size.

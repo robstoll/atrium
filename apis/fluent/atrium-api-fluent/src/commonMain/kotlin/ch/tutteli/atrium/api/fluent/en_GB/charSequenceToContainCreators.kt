@@ -1,22 +1,19 @@
-//TODO 1.3.0 remove again and switch to core
-@file:Suppress("DEPRECATION")
-
 package ch.tutteli.atrium.api.fluent.en_GB
 
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.logic._logic
-import ch.tutteli.atrium.logic._logicAppend
-import ch.tutteli.atrium.logic.creating.charsequence.contains.CharSequenceContains.CheckerStep
-import ch.tutteli.atrium.logic.creating.charsequence.contains.CharSequenceContains.EntryPointStep
-import ch.tutteli.atrium.logic.creating.charsequence.contains.creators.regex
-import ch.tutteli.atrium.logic.creating.charsequence.contains.creators.regexIgnoringCase
-import ch.tutteli.atrium.logic.creating.charsequence.contains.creators.values
-import ch.tutteli.atrium.logic.creating.charsequence.contains.creators.valuesIgnoringCase
-import ch.tutteli.atrium.logic.creating.charsequence.contains.searchbehaviours.IgnoringCaseSearchBehaviour
-import ch.tutteli.atrium.logic.creating.charsequence.contains.searchbehaviours.NoOpSearchBehaviour
-import ch.tutteli.atrium.logic.creating.typeutils.CharSequenceOrNumberOrChar
-import ch.tutteli.atrium.logic.creating.typeutils.IterableLike
-import ch.tutteli.atrium.logic.utils.toVarArg
+import ch.tutteli.atrium._core
+import ch.tutteli.atrium._coreAppend
+import ch.tutteli.atrium.creating.proofs.charsequence.contains.CharSequenceToContain.CheckerStep
+import ch.tutteli.atrium.creating.proofs.charsequence.contains.CharSequenceToContain.EntryPointStep
+import ch.tutteli.atrium.creating.proofs.charsequence.contains.creators.regex
+import ch.tutteli.atrium.creating.proofs.charsequence.contains.creators.regexIgnoringCase
+import ch.tutteli.atrium.creating.proofs.charsequence.contains.creators.values
+import ch.tutteli.atrium.creating.proofs.charsequence.contains.creators.valuesIgnoringCase
+import ch.tutteli.atrium.creating.proofs.charsequence.contains.searchbehaviours.IgnoringCaseSearchBehaviour
+import ch.tutteli.atrium.creating.proofs.charsequence.contains.searchbehaviours.NoOpSearchBehaviour
+import ch.tutteli.atrium.creating.typeutils.CharSequenceOrNumberOrChar
+import ch.tutteli.atrium.creating.typeutils.IterableLike
+import ch.tutteli.atrium.creating.utils.toVarArg
 import ch.tutteli.kbox.glue
 import kotlin.jvm.JvmName
 
@@ -76,7 +73,7 @@ fun <T : CharSequence> CheckerStep<T, NoOpSearchBehaviour>.value(expected: CharS
 fun <T : CharSequence> CheckerStep<T, NoOpSearchBehaviour>.values(
     expected: CharSequenceOrNumberOrChar,
     vararg otherExpected: CharSequenceOrNumberOrChar
-): Expect<T> = _logicAppend { values(expected glue otherExpected) }
+): Expect<T> = _coreAppend { values(expected glue otherExpected) }
 
 
 /**
@@ -136,7 +133,7 @@ fun <T : CharSequence> CheckerStep<T, IgnoringCaseSearchBehaviour>.value(
 fun <T : CharSequence> CheckerStep<T, IgnoringCaseSearchBehaviour>.values(
     expected: CharSequenceOrNumberOrChar,
     vararg otherExpected: CharSequenceOrNumberOrChar
-): Expect<T> = _logicAppend { valuesIgnoringCase(expected glue otherExpected) }
+): Expect<T> = _coreAppend { valuesIgnoringCase(expected glue otherExpected) }
 
 
 /**
@@ -220,7 +217,7 @@ fun <T : CharSequence> EntryPointStep<T, IgnoringCaseSearchBehaviour>.values(
 fun <T : CharSequence> CheckerStep<T, NoOpSearchBehaviour>.regex(
     pattern: String,
     vararg otherPatterns: String
-): Expect<T> = _logicAppend { regex(pattern glue otherPatterns) }
+): Expect<T> = _coreAppend { regex(pattern glue otherPatterns) }
 
 /**
  * Finishes the specification of the sophisticated `to contain` expectation where the given [Regex] [pattern]
@@ -251,7 +248,7 @@ fun <T : CharSequence> CheckerStep<T, NoOpSearchBehaviour>.regex(
 fun <T : CharSequence> CheckerStep<T, NoOpSearchBehaviour>.regex(
     pattern: Regex,
     vararg otherPatterns: Regex
-): Expect<T> = _logicAppend { regex(pattern glue otherPatterns) }
+): Expect<T> = _coreAppend { regex(pattern glue otherPatterns) }
 
 /**
  * Finishes the specification of the sophisticated `to contain` expectation where the given [Regex] [pattern]
@@ -281,7 +278,7 @@ fun <T : CharSequence> CheckerStep<T, NoOpSearchBehaviour>.regex(
 fun <T : CharSequence> CheckerStep<T, NoOpSearchBehaviour>.matchFor(
     pattern: Regex,
     vararg otherPatterns: Regex
-): Expect<T> = _logicAppend { regex(pattern glue otherPatterns) }
+): Expect<T> = _coreAppend { regex(pattern glue otherPatterns) }
 
 /**
  * Finishes the specification of the sophisticated `to contain` expectation where the given regular expression [pattern]
@@ -310,11 +307,11 @@ fun <T : CharSequence> CheckerStep<T, NoOpSearchBehaviour>.matchFor(
 fun <T : CharSequence> CheckerStep<T, IgnoringCaseSearchBehaviour>.regex(
     pattern: String,
     vararg otherPatterns: String
-): Expect<T> = _logicAppend { regexIgnoringCase(pattern glue otherPatterns) }
+): Expect<T> = _coreAppend { regexIgnoringCase(pattern glue otherPatterns) }
 
 /**
  * Finishes the specification of the sophisticated `to contain` expectation where the given regular expression [pattern]
- * as well as the [otherPatterns] are expected to to have at least one match (ignoring case),
+ * as well as the [otherPatterns] are expected to have at least one match (ignoring case),
  * using a non-disjoint search.
  *
  * Delegates to `atLeast(1).regex(pattern, otherPatterns)`
@@ -368,8 +365,7 @@ fun <T : CharSequence> EntryPointStep<T, IgnoringCaseSearchBehaviour>.regex(
  */
 fun <T : CharSequence> CheckerStep<T, NoOpSearchBehaviour>.elementsOf(
     expectedIterableLike: IterableLike
-): Expect<T> =
-    _logic.toVarArg<CharSequenceOrNumberOrChar>(expectedIterableLike)
+): Expect<T> = _core.toVarArg<CharSequenceOrNumberOrChar>(expectedIterableLike)
         .let { (first, rest) -> values(first, *rest) }
 
 
@@ -399,7 +395,7 @@ fun <T : CharSequence> CheckerStep<T, NoOpSearchBehaviour>.elementsOf(
 fun <T : CharSequence> CheckerStep<T, IgnoringCaseSearchBehaviour>.elementsOf(
     expectedIterableLike: IterableLike
 ): Expect<T> =
-    _logic.toVarArg<CharSequenceOrNumberOrChar>(expectedIterableLike)
+    _core.toVarArg<CharSequenceOrNumberOrChar>(expectedIterableLike)
         .let { (first, rest) -> values(first, *rest) }
 
 /**
@@ -429,5 +425,5 @@ fun <T : CharSequence> CheckerStep<T, IgnoringCaseSearchBehaviour>.elementsOf(
 fun <T : CharSequence> EntryPointStep<T, IgnoringCaseSearchBehaviour>.elementsOf(
     expectedIterableLike: IterableLike
 ): Expect<T> =
-    _logic.toVarArg<CharSequenceOrNumberOrChar>(expectedIterableLike)
+    _core.toVarArg<CharSequenceOrNumberOrChar>(expectedIterableLike)
         .let { (first, rest) -> values(first, *rest) }

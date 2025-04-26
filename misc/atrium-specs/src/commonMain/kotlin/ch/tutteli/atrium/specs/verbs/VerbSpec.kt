@@ -11,7 +11,8 @@ import ch.tutteli.atrium.reporting.reportables.ErrorMessages.*
 import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionAnyProof
 import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionComparableProof
 import ch.tutteli.atrium.specs.*
-import ch.tutteli.atrium.specs.integration.toContainToBeGreaterDescr
+import ch.tutteli.atrium.specs.integration.toContainDescr
+import ch.tutteli.atrium.specs.integration.toContainToBeGreaterThanDescr
 import ch.tutteli.atrium.specs.integration.toContainToBeLessThanDescr
 import ch.tutteli.atrium.specs.integration.toContainToEqualDescr
 import org.spekframework.spek2.Spek
@@ -76,7 +77,7 @@ abstract class VerbSpec(
                         message {
                             toContain(": 1")
                             toContainToBeLessThanDescr(0)
-                            toContainToBeGreaterDescr(2)
+                            toContainToBeGreaterThanDescr(2)
                             notToContain(toEqualDescr)
                         }
                     }
@@ -95,7 +96,7 @@ abstract class VerbSpec(
                     message {
                         toContain(": 1")
                         toContainToBeLessThanDescr(0)
-                        toContainToBeGreaterDescr(2)
+                        toContainToBeGreaterThanDescr(2)
                     }
                 }
             }
@@ -114,11 +115,9 @@ abstract class VerbSpec(
                     assertionVerb(null).notToEqualNull { toEqual(1) }
                 }.toThrow<AssertionError> {
                     message {
-                        toContain(
-                            ": null",
-                            "$notToEqualNullButToBeInstanceOfDescr : Int",
-                            "$indentX$explanatoryBulletPoint$toEqualDescr : 1"
-                        )
+                        toContainDescr(DescriptionAnyProof.NOT_TO_EQUAL, null)
+                        toContainDescr(DescriptionAnyProof.TO_BE_AN_INSTANCE_OF, "Int (kotlin.Int)")
+                        toContainRegex("$indentX\\Q$explanatoryBulletPoint$toEqualDescr\\E\\s+: 1")
                     }
                 }
             }
@@ -291,10 +290,10 @@ private fun Suite.testNonNullableSubject(assertionVerb: (Int) -> Expect<Int>) {
         assert {
             assertionVerb(1).toBeLessThanOrEqualTo(10).and.toBeLessThanOrEqualTo(0).and.toBeGreaterThanOrEqualTo(2)
         }.toThrow<AssertionError> {
-            message{
+            message {
                 toContain(": 1")
-                toContainRegex(DescriptionComparableProof.TO_BE_LESS_THAN_OR_EQUAL_TO.string+"\\s+: 0")
-                notToContain.regex(DescriptionComparableProof.TO_BE_GREATER_THAN_OR_EQUAL_TO.string+"\\s+: 2")
+                toContainRegex(DescriptionComparableProof.TO_BE_LESS_THAN_OR_EQUAL_TO.string + "\\s+: 0")
+                notToContain.regex(DescriptionComparableProof.TO_BE_GREATER_THAN_OR_EQUAL_TO.string + "\\s+: 2")
 
             }
         }

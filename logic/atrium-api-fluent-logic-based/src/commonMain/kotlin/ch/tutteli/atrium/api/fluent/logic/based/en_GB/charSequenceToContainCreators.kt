@@ -314,7 +314,7 @@ fun <T : CharSequence> CheckerStep<T, IgnoringCaseSearchBehaviour>.regex(
 
 /**
  * Finishes the specification of the sophisticated `to contain` expectation where the given regular expression [pattern]
- * as well as the [otherPatterns] are expected to to have at least one match (ignoring case),
+ * as well as the [otherPatterns] are expected to have at least one match (ignoring case),
  * using a non-disjoint search.
  *
  * Delegates to `atLeast(1).regex(pattern, otherPatterns)`

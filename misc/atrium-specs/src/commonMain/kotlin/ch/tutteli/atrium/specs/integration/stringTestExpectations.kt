@@ -11,7 +11,6 @@ import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionBasic
 import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionComparableProof
 import ch.tutteli.atrium.specs.expectationVerb
 import ch.tutteli.atrium.specs.x
-import ch.tutteli.atrium.specs.g
 
 
 fun Expect<String>.toContainSubject(subject: Any?) =
@@ -25,7 +24,7 @@ fun Expect<String>.toContainToBeDescr(representation: Any?) = toContainDescr(Des
 fun Expect<String>.toContainNotToBeDescr(representation: Any?) = toContainDescr(DescriptionBasic.NOT_TO_BE, representation)
 
 
-fun Expect<String>.toContainToBeGreaterDescr(representation: Any?) =
+fun Expect<String>.toContainToBeGreaterThanDescr(representation: Any?) =
     toContainDescr(DescriptionComparableProof.TO_BE_GREATER_THAN, representation)
 
 fun Expect<String>.toContainToBeLessThanDescr(representation: Any?) =
