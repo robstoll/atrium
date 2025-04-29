@@ -20,7 +20,6 @@ import ch.tutteli.atrium.reporting.theming.text.TextIconStyler
 import ch.tutteli.atrium.reporting.theming.text.impl.MarkdownTextIconStyler
 import ch.tutteli.atrium.testfactories.TestFactoryBuilder
 import ch.tutteli.atrium.testfactories.testFactoryTemplate
-import ch.tutteli.atrium.testfactories.*
 
 @OptIn(ExperimentalNewExpectTypes::class, ExperimentalComponentFactoryContainer::class)
 fun <T> expect(subject: T): RootExpect<T> =
@@ -45,7 +44,7 @@ fun <T> expect(subject: T, assertionCreator: Expect<T>.() -> Unit): Expect<T> =
         ExpectationCreatorWithUsageHints(
             // we don't have an alternative, we always expect expectations and hence we don't provide a failure hint
             // (proposing `expect(subject).` as alternative would be wrong as we also expect further expectations)
-            usageHintsOverloadWithoutExpectationCreator = emptyList(),
+            usageHintsAlternativeWithoutExpectationCreator = emptyList(),
             expectationCreator = assertionCreator
         )
     ).first
@@ -65,7 +64,7 @@ fun expectGrouped(
     ._core.appendAsGroupIndicateIfOneCollected(
         ExpectationCreatorWithUsageHints(
             // we don't have an alternative, we always expect sub-expectations and hence we don't provide a failure hint
-            usageHintsOverloadWithoutExpectationCreator = emptyList(),
+            usageHintsAlternativeWithoutExpectationCreator = emptyList(),
             expectationCreator = groupingActions.toAssertionCreator()
         )
     ).first

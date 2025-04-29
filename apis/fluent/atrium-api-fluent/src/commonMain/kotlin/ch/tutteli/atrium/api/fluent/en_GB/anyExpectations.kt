@@ -1,22 +1,17 @@
 package ch.tutteli.atrium.api.fluent.en_GB
 
-import ch.tutteli.atrium.creating.ExpectationCreatorWithUsageHints
-import ch.tutteli.atrium.creating.proofs.notToEqualOneIn
-import ch.tutteli.atrium.creating.proofs.toBeAnInstanceOf
-import ch.tutteli.atrium.creating.proofs.notToBeTheInstance
-import ch.tutteli.atrium.creating.proofs.toBeTheInstance
-import ch.tutteli.atrium.creating.proofs.notToEqual
-import ch.tutteli.atrium.creating.proofs.toEqual
-import ch.tutteli.atrium.creating.proofs.notToEqualNullButToBeAnInstanceOf
-import ch.tutteli.atrium.creating.proofs.toEqualNullIfNullGivenElse
 import ch.tutteli.atrium._core
 import ch.tutteli.atrium._coreAppend
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.logic.*
+import ch.tutteli.atrium.creating.ExpectationCreatorWithUsageHints
+import ch.tutteli.atrium.creating.proofs.*
 import ch.tutteli.atrium.creating.transformers.SubjectChangerBuilder
-import ch.tutteli.atrium.logic.creating.typeutils.IterableLike
-import ch.tutteli.atrium.logic.utils.iterableLikeToIterable
+import ch.tutteli.atrium.creating.typeutils.IterableLike
+import ch.tutteli.atrium.creating.utils.iterableLikeToIterable
 import ch.tutteli.atrium.reporting.Reporter
+import ch.tutteli.atrium.reporting.Text
+import ch.tutteli.atrium.reporting.reportables.defaultSuffixForUsageHintWithoutLambda
+import ch.tutteli.atrium.reporting.reportables.useAlternativeUsageHint
 import ch.tutteli.kbox.glue
 import kotlin.reflect.KClass
 
@@ -105,7 +100,7 @@ internal fun <T : Any> Expect<T?>.notToEqualNullButToBeAnInstanceOf(kClass: KCla
 inline fun <reified T : Any> Expect<T?>.notToEqualNull(noinline assertionCreator: Expect<T>.() -> Unit): Expect<T> =
     notToEqualNullButToBeAnInstanceOf(T::class).transformAndAppend(
         ExpectationCreatorWithUsageHints(
-            usageHintsOverloadWithoutExpectationCreator = listOf(/* TODO add a usage hint in case you have an overload which does not expect an expectationCreator */),
+            usageHintsAlternativeWithoutExpectationCreator = useAlternativeUsageHint("notToEqualNull()"),
             expectationCreator = assertionCreator
         )
     )
@@ -198,7 +193,7 @@ internal fun <SubTypeOfSubjectT : Any> Expect<*>.toBeAnInstanceOf(
 inline fun <reified SubTypeOfSubjectT : Any> Expect<*>.toBeAnInstanceOf(noinline assertionCreator: Expect<SubTypeOfSubjectT>.() -> Unit): Expect<SubTypeOfSubjectT> =
     toBeAnInstanceOf(SubTypeOfSubjectT::class).transformAndAppend(
         ExpectationCreatorWithUsageHints(
-            usageHintsOverloadWithoutExpectationCreator = listOf(/* TODO add a usage hint in case you have an overload which does not expect an expectationCreator */),
+            usageHintsAlternativeWithoutExpectationCreator = useAlternativeUsageHint("toBeAnInstanceOf()"),
             expectationCreator = assertionCreator
         )
     )
@@ -296,7 +291,9 @@ inline val <T> Expect<T>.and: Expect<T> get() = this
 infix fun <T> Expect<T>.and(assertionCreator: Expect<T>.() -> Unit): Expect<T> =
     _core.appendAsGroupIndicateIfOneCollected(
         ExpectationCreatorWithUsageHints(
-            usageHintsOverloadWithoutExpectationCreator = listOf(/* TODO add a usage hint in case you have an overload which does not expect an expectationCreator */),
+            // although there is `and` which does not expect an expectationCreator-lambda we don't promote it as it
+            // doesn't make sense to write ...and without a subsequent expectation.
+            usageHintsAlternativeWithoutExpectationCreator = emptyList(),
             expectationCreator = assertionCreator
         )
     ).first

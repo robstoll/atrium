@@ -75,7 +75,7 @@ internal class DefaultInvisibleProofGroup(
 
 internal class DefaultInvisibleFailingProofGroup(
     override val children: List<Diagnostic>,
-) : InvisibleFailingProof {
+) :  InvisibleFailingProof {
     init {
         requireOneChild()
     }
@@ -86,7 +86,7 @@ internal class DefaultInvisibleFailingProofGroup(
      * @suppress No need to document this behaviour.
      */
     override fun toString(): String {
-        return this::class.simpleName + "holds=" + holds() + ", children=" + children
+        return this::class.simpleName + " holds=" + holds() + ", children=" + children
     }
 }
 

@@ -1,6 +1,7 @@
 package ch.tutteli.atrium.creating
 
 import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
+import ch.tutteli.atrium.reporting.reportables.InlineElement
 
 /**
  * Additional (non-mandatory) options to create a [FeatureExpect].
@@ -10,10 +11,7 @@ import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
  */
 @ExperimentalNewExpectTypes
 data class FeatureExpectOptions<R>(
-    //TODO 1.3.0 replace with InlineElement or make InlineElement a Translatable instead and provide a second
-    // constructor? it's experimental we can also just change it (is most likely not used often
-    @Suppress("DEPRECATION")
-    val description: ch.tutteli.atrium.reporting.translating.Translatable? = null,
+    val description: InlineElement? = null,
     val representationInsteadOfFeature: ((R) -> Any)? = null
 ) {
 

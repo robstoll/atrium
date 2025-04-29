@@ -77,11 +77,7 @@ fun <T> AssertionContainer<T>.isNotIn(expected: Iterable<T>): Assertion = impl.i
 
     @Deprecated(
         "Migrate from AssertionContainer to ProofContainer and use DocumentationUtils.because, will be removed with 2.0.0 at the latest",
-        ReplaceWith(
-            "this.because(Text(reason), assertionCreator)",
-            "ch.tutteli.atrium.creating.proofs.because",
-            "ch.tutteli.atrium.reporting.Text"
-        )
+        ReplaceWith("this.because(Text(reason), assertionContainer)", "ch.tutteli.atrium.creating.proofs.because")
     )
 fun <T> AssertionContainer<T>.because(reason: String, assertionCreator: (Expect<T>.() -> Unit)): Assertion =
     impl.because(this, reason, assertionCreator)

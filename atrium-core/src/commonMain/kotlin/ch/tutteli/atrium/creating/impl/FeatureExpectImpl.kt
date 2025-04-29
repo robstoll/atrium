@@ -28,6 +28,8 @@ internal class FeatureExpectImpl<T, R>(
         previousExpect,
         maybeSubject,
         options.description ?: description,
+        //TODO 1.4.0 this is smelly, determineRepresentation was written for RootExpect, is subject really always
+        // defined at that place?
         determineRepresentation(
             options.representationInsteadOfFeature,
             maybeSubject

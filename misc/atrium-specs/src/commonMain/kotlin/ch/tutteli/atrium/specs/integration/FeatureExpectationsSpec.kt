@@ -5,6 +5,8 @@ import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic.utils.expectLambda
 import ch.tutteli.atrium.reporting.reportables.ErrorMessages
+import ch.tutteli.atrium.reporting.reportables.InlineElement
+import ch.tutteli.atrium.reporting.reportables.defaultHintsAtLeastOneExpectationDefined
 import ch.tutteli.atrium.specs.*
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.Suite
@@ -94,6 +96,8 @@ abstract class FeatureExpectationsSpec(
 
     lazyWithNestedImmediateFeatureInfo: String = "length",
     lazyWithNestedLazyFeatureInfo: String = "length",
+
+    hintsAtLeastOneExpectationDefined: List<String> = defaultHintsAtLeastOneExpectationDefined.map { it.string },
 
     describePrefix: String = "[Atrium] "
 ) : Spek({
@@ -270,11 +274,9 @@ abstract class FeatureExpectationsSpec(
                         expect(TestData("hello robert", 1)).lambda()
                     }.toThrow<AssertionError> {
                         message {
-                            toContain(
-                                ErrorMessages.FORGOT_DO_DEFINE_EXPECTATION.string,
-                                ErrorMessages.DEFAULT_HINT_AT_LEAST_ONE_EXPECTATION_DEFINED.string
-                            )
-                            toContainRegex(ErrorMessages.AT_LEAST_ONE_EXPECTATION_DEFINED.string + "\\s+: false",)
+                            toContain(ErrorMessages.FORGOT_DO_DEFINE_EXPECTATION.string)
+                            hintsAtLeastOneExpectationDefined.forEach { toContain(it) }
+                            toContainRegex(ErrorMessages.AT_LEAST_ONE_EXPECTATION_DEFINED.string + "\\s+: false")
                         }
                     }
                 }

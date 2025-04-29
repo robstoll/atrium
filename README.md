@@ -390,9 +390,10 @@ expect {
 ```text
 I expected subject : () -> kotlin.Nothing        (readme.examples.ToThrowExamples$ex-toThrow2$1 <1234789>)
 🚩️ ▶ thrown exception when called : java.lang.IllegalArgumentException
-     🚩️ ▶ message                                        : null
-          🚫️ not to equal: null but to be an instance of : String (kotlin.String) -- Class: java.lang.String
-          » to start with : "firstName"
+     🚩️ ▶ message                      : null
+          🚫️ not to equal              : null
+          🚫️ to be an instance of type : String (kotlin.String) -- Class: java.lang.String
+          »  to start with             : "firstName"
 ```
 </ex-toThrow2>
 
@@ -411,8 +412,9 @@ expect {
 ```text
 I expected subject : () -> kotlin.Nothing        (readme.examples.ToThrowExamples$ex-toThrow3$1 <1234789>)
 🚩️ ▶ thrown exception when called : java.lang.IllegalArgumentException
-     🚩️ ▶ message                                        : null
-          🚫️ not to equal: null but to be an instance of : String (kotlin.String) -- Class: java.lang.String
+     🚩️ ▶ message                      : null
+          🚫️ not to equal              : null
+          🚫️ to be an instance of type : String (kotlin.String) -- Class: java.lang.String
 ```
 </ex-toThrow3>
 
@@ -761,9 +763,11 @@ expect(listOf(1 to "a", 2 to "b")).get(10) {
 I expected subject : [(1, a), (2, b)]        (java.util.Arrays.ArrayList <1234789>)
 🚩️ ▶ get(10) : ❗❗ Index out of bounds
      » ▶ CANNOT show description as it is based on subject which is not defined : 
-         • to equal                                                             : 1
-     » ▶ first      : 
-         • to equal : 1
+         • ❗❗ Assertion is deprecated, move to Proof, cannot show description : DefaultInvisibleFailingProofGroup holds=false, children=[ch.tutteli.atrium.reporting.reportables.impl.DefaultProofExplanation@5a63de07]        (ch.tutteli.atrium.creating.proofs.impl.DefaultInvisibleFailingProofGroup <1234789>)
+           » to equal : 1
+     » ▶ first : 
+         • ❗❗ Assertion is deprecated, move to Proof, cannot show description : DefaultInvisibleFailingProofGroup holds=false, children=[ch.tutteli.atrium.reporting.reportables.impl.DefaultProofExplanation@7d364bce]        (ch.tutteli.atrium.creating.proofs.impl.DefaultInvisibleFailingProofGroup <1234789>)
+           » to equal : 1
 ```
 </ex-within-expectation-functions>
 
@@ -967,8 +971,9 @@ expect(slogan2)        // subject has type String?
 ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/v1.3.0-alpha-1/misc/tools/readme-examples/src/test/kotlin/readme/examples/MostExamples.kt#L85)</sub> ↓ <sub>[Output](#ex-nullable-3)</sub>
 <a name="ex-nullable-3"></a>
 ```text
-I expected subject                             : null
-🚫️ not to equal: null but to be an instance of : String (kotlin.String) -- Class: java.lang.String
+I expected subject           : null
+🚫️ not to equal              : null
+🚫️ to be an instance of type : String (kotlin.String) -- Class: java.lang.String
 ```
 </ex-nullable-3>
 
@@ -984,9 +989,10 @@ expect(slogan2).notToEqualNull { toStartWith("atrium") }
 ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/v1.3.0-alpha-1/misc/tools/readme-examples/src/test/kotlin/readme/examples/MostExamples.kt#L91)</sub> ↓ <sub>[Output](#ex-nullable-4)</sub>
 <a name="ex-nullable-4"></a>
 ```text
-I expected subject                             : null
-🚫️ not to equal: null but to be an instance of : String (kotlin.String) -- Class: java.lang.String
-   » to start with : "atrium"
+I expected subject           : null
+🚫️ not to equal              : null
+🚫️ to be an instance of type : String (kotlin.String) -- Class: java.lang.String
+»  to start with             : "atrium"
 ```
 </ex-nullable-4>
 
@@ -1988,9 +1994,10 @@ expectGrouped {
 my expectations : 
 🚩️ calling myFun with -2147483648 : 
    🚩️ ▶ I expected subject : null
-        » to contain : 
-          • value : "min"
-            » but no match was found
+        🚩️ ❗❗ Assertion is deprecated, move to Proof, cannot show description : DefaultInvisibleFailingProofGroup holds=false, children=[ch.tutteli.atrium.reporting.reportables.impl.DefaultProofExplanation@41acf2f1]        (ch.tutteli.atrium.creating.proofs.impl.DefaultInvisibleFailingProofGroup <1234789>)
+           » to contain : 
+             • value : "min"
+               » but no match was found
 🚩️ calling myFun with 2147483647 : 
    🚩️ ▶ I expected subject : "2147483647"
         🚫️ to equal        : "max"
@@ -2107,17 +2114,18 @@ expect {
 I expected subject : () -> kotlin.Nothing        (readme.examples.MostExamples$ex-add-info-3$1 <1234789>)
 🚩️ ▶ thrown exception when called : java.lang.IllegalArgumentException
      🚫️ to be an instance of type : IllegalStateException (java.lang.IllegalStateException)
-     » ▶ message                                       : 
-         • not to equal: null but to be an instance of : String (kotlin.String) -- Class: java.lang.String
-         • to contain : 
-           • value : "no no no"
-             » but no match was found
+     » ▶ message : 
+         • ❗❗ Assertion is deprecated, move to Proof, cannot show description : DefaultInvisibleFailingProofGroup holds=false, children=[ch.tutteli.atrium.reporting.reportables.impl.DefaultProofExplanation@5a2ce458]        (ch.tutteli.atrium.creating.proofs.impl.DefaultInvisibleFailingProofGroup <1234789>)
+           » not to equal : null
+           » to contain : 
+             • value : "no no no"
+               » but no match was found
      ℹ️ Properties of the unexpected IllegalArgumentException
         » message : "no no no..."
         » stacktrace : 
           • readme.examples.MostExamples$ex-add-info-3$1.invoke(MostExamples.kt:117)
           • readme.examples.MostExamples$ex-add-info-3$1.invoke(MostExamples.kt:113)
-          • readme.examples.MostExamples.ex-add-info-3(MostExamples.kt:148)
+          • readme.examples.MostExamples.ex-add-info-3(MostExamples.kt:158)
           • java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
           • java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
           • java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -2172,7 +2180,8 @@ I expected subject : [1]        (java.util.Collections.SingletonList <1234789>)
      🚩️ at least one expectation defined : false
         🚫️ to equal                      : true
         💡️ ❗❗ Assertion is deprecated, move to Proof, cannot show description : You forgot to create expectations in the expectationCreator-lambda
-        💡️ ❗❗ Assertion is deprecated, move to Proof, cannot show description : Sometimes you can use an alternative to `{ }` For instance, instead of `toThrow<..> { }` you should use `toThrow<..>()`
+        💡️ ❗❗ Assertion is deprecated, move to Proof, cannot show description : Sometimes you can use an alternative to `{ }`
+        💡️ ❗❗ Assertion is deprecated, move to Proof, cannot show description : For instance, instead of `toThrow<..> { }` you should use `toThrow<..>()`
 ```
 </ex-pitfall-2>
 

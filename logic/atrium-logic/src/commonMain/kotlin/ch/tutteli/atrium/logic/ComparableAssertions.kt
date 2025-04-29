@@ -11,25 +11,25 @@ import ch.tutteli.atrium.creating.AssertionContainer
  */
 @Deprecated("Switch to CollectionLikeProofs, will be removed with 2.0.0 at the latest")
 interface ComparableAssertions {
-        @Deprecated(
+    @Deprecated(
         "Migrate from AssertionContainer to ProofContainer and use toBeLessThan, will be removed with 2.0.0 at the latest",
         ReplaceWith("this.toBeLessThan()", "ch.tutteli.atrium.creating.proofs.toBeLessThan")
     )
     fun <T1 : Comparable<T2>, T2 : Any?> isLessThan(container: AssertionContainer<T1>, expected: T2): Assertion
 
-        @Deprecated(
+    @Deprecated(
         "Migrate from AssertionContainer to ProofContainer and use toBeLessThanOrEqualTo, will be removed with 2.0.0 at the latest",
         ReplaceWith("this.toBeLessThanOrEqualTo()", "ch.tutteli.atrium.creating.proofs.toBeLessThanOrEqualTo")
     )
     fun <T1 : Comparable<T2>, T2 : Any?> isLessThanOrEqual(container: AssertionContainer<T1>, expected: T2): Assertion
 
-        @Deprecated(
+    @Deprecated(
         "Migrate from AssertionContainer to ProofContainer and use notToBeGreaterThan, will be removed with 2.0.0 at the latest",
         ReplaceWith("this.notToBeGreaterThan()", "ch.tutteli.atrium.creating.proofs.notToBeGreaterThan")
     )
     fun <T1 : Comparable<T2>, T2 : Any?> isNotGreaterThan(container: AssertionContainer<T1>, expected: T2): Assertion
 
-        @Deprecated(
+    @Deprecated(
         "Migrate from AssertionContainer to ProofContainer and use toBeEqualComparingTo, will be removed with 2.0.0 at the latest",
         ReplaceWith("this.toBeEqualComparingTo()", "ch.tutteli.atrium.creating.proofs.toBeEqualComparingTo")
     )
@@ -38,7 +38,7 @@ interface ComparableAssertions {
         expected: T2
     ): Assertion
 
-        @Deprecated(
+    @Deprecated(
         "Migrate from AssertionContainer to ProofContainer and use toBeGreaterThanOrEqualTo, will be removed with 2.0.0 at the latest",
         ReplaceWith("this.toBeGreaterThanOrEqualTo()", "ch.tutteli.atrium.creating.proofs.toBeGreaterThanOrEqualTo")
     )
@@ -47,13 +47,13 @@ interface ComparableAssertions {
         expected: T2
     ): Assertion
 
-        @Deprecated(
+    @Deprecated(
         "Migrate from AssertionContainer to ProofContainer and use notToBeLessThan, will be removed with 2.0.0 at the latest",
         ReplaceWith("this.notToBeLessThan()", "ch.tutteli.atrium.creating.proofs.notToBeLessThan")
     )
     fun <T1 : Comparable<T2>, T2 : Any?> isNotLessThan(container: AssertionContainer<T1>, expected: T2): Assertion
 
-        @Deprecated(
+    @Deprecated(
         "Migrate from AssertionContainer to ProofContainer and use toBeGreaterThan, will be removed with 2.0.0 at the latest",
         ReplaceWith("this.toBeGreaterThan()", "ch.tutteli.atrium.creating.proofs.toBeGreaterThan")
     )

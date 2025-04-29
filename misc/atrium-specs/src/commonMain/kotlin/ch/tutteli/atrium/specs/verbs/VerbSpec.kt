@@ -8,6 +8,7 @@ import ch.tutteli.atrium.creating.ExpectGrouping
 import ch.tutteli.atrium.logic.changeSubject
 import ch.tutteli.atrium.logic.creating.RootExpectBuilder
 import ch.tutteli.atrium.reporting.reportables.ErrorMessages.*
+import ch.tutteli.atrium.reporting.reportables.defaultHintsAtLeastOneExpectationDefined
 import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionAnyProof
 import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionComparableProof
 import ch.tutteli.atrium.specs.*
@@ -168,7 +169,9 @@ abstract class VerbSpec(
                             AT_LEAST_ONE_EXPECTATION_DEFINED.string + " : false",
                             FORGOT_DO_DEFINE_EXPECTATION.string,
                         )
-                        notToContain(DEFAULT_HINT_AT_LEAST_ONE_EXPECTATION_DEFINED.string)
+                        defaultHintsAtLeastOneExpectationDefined.forEach {
+                            notToContain(it.string)
+                        }
                     }
                 }
 
@@ -193,8 +196,10 @@ abstract class VerbSpec(
                         toContain.exactly(2).values(
                             AT_LEAST_ONE_EXPECTATION_DEFINED.string + " : false",
                             FORGOT_DO_DEFINE_EXPECTATION.string,
-                            DEFAULT_HINT_AT_LEAST_ONE_EXPECTATION_DEFINED.string
                         )
+                        defaultHintsAtLeastOneExpectationDefined.forEach {
+                            toContain.exactly(2).value(it.string)
+                        }
                         notToContain("with expect")
                     }
                 }

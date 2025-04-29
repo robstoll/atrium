@@ -20,7 +20,10 @@ data class Text private constructor(override val string: String) : TextElement {
 
         operator fun invoke(string: String): Text {
             require(string.isNotEmpty()) { "use Text.EMPTY instead" }
-            return Text(string)
+            val warning = if (string.contains(Regex("[\r\n]"))) {
+                "\n-- Text should not contain line breaks and such, will error with Atrium 2.0.0"
+            } else ""
+            return Text(string + warning)
         }
 
         /**

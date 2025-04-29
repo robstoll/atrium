@@ -1,14 +1,15 @@
 package ch.tutteli.atrium.creating
 
 import ch.tutteli.atrium.creating.proofs.Proof
-import ch.tutteli.atrium.reporting.reportables.Reportable
+import ch.tutteli.atrium.reporting.reportables.Diagnostic
+import ch.tutteli.atrium.reporting.reportables.InlineElement
 
 
 /**
  * Represents an [ExpectationCreator] with usage hints which  are shown in case no expectation is created within the
  * lambda.
  *
- * @property usageHintsOverloadWithoutExpectationCreator  Reportables explaining what other overload (or other
+ * @property usageHintsAlternativeWithoutExpectationCreator [Diagnostic]s explaining what other overload (or other
  *   expectation function) should have been used if one really doesn't want to create additional expectations.
  *
  *   Whenever a user creates an [expectationCreator] then it is best practice to fail if no expectation was created (to
@@ -21,6 +22,8 @@ import ch.tutteli.atrium.reporting.reportables.Reportable
  * @since 1.3.0
  */
 data class ExpectationCreatorWithUsageHints<SubjectT>(
-    val usageHintsOverloadWithoutExpectationCreator: List<Reportable>,
+    //TODO 1.3.0 does it really make sense to use a List of InlineElements?  wouldn't it make more sense to allow a
+    // Diagnostic instead so that one can also use other diagnostics?
+    val usageHintsAlternativeWithoutExpectationCreator: List<InlineElement>,
     val expectationCreator: Expect<SubjectT>.() -> Unit,
 )

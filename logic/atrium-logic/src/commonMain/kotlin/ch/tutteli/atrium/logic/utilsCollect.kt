@@ -16,7 +16,6 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.creating.ExperimentalComponentFactoryContainer
 import ch.tutteli.atrium.logic.creating.transformers.TransformationExecutionStep
 
-//TODO 1.3.0 deprecate everything
 
 /**
  * Use this function if you want to make [Assertion]s about a feature or you perform a type transformation or any
@@ -35,6 +34,15 @@ import ch.tutteli.atrium.logic.creating.transformers.TransformationExecutionStep
  *
  * @return The collected assertions.
  */
+@Deprecated(
+    "Use the import from core and pass an ExpectationCreatorWithUsageHints, will be removed with 2.0.0 at the latest",
+    ReplaceWith(
+        "this.collect(ExpectationCreatorWithUsageHints<T>(assertionCreator, listOf(/* .. add a custom usage hint in case you have an overload which does not expect an expectationCreator or use the generic */ ErrorMessages.DEFAULT_HINT_AT_LEAST_ONE_EXPECTATION_DEFINED))).first",
+        "ch.tutteli.atrium.creating.ExpectationCreatorWithUsageHints",
+        "ch.tutteli.atrium.reporting.reportables.ErrorMessages",
+        "ch.tutteli.atrium.creating.collect"
+    )
+)
 inline fun <T> AssertionContainer<T>.collect(noinline assertionCreator: Expect<T>.() -> Unit): Assertion =
     collectBasedOnSubject(maybeSubject, assertionCreator)
 
@@ -52,7 +60,15 @@ inline fun <T> AssertionContainer<T>.collect(noinline assertionCreator: Expect<T
  *
  * @return The collected assertions as a `List<[Assertion]>`.
  */
-//TODO 1.3.0 refactor with ProofContainer, return a flag which indicates whether no assertion was created by the assertionCreator
+@Deprecated(
+    "Use the import from core and pass an ExpectationCreatorWithUsageHints, will be removed with 2.0.0 at the latest",
+    ReplaceWith(
+        "this.collectForComposition(ExpectationCreatorWithUsageHints<T>(assertionCreator, listOf(/* .. add a custom usage hint in case you have an overload which does not expect an expectationCreator or use the defaultHintsAtLeastOneExpectationDefined */))).first",
+        "ch.tutteli.atrium.creating.ExpectationCreatorWithUsageHints",
+        "ch.tutteli.atrium.reporting.reportables.ErrorMessages",
+        "ch.tutteli.atrium.creating.collectForComposition"
+    )
+)
 inline fun <T> AssertionContainer<T>.collectForComposition(
     noinline assertionCreator: Expect<T>.() -> Unit
 ): List<Assertion> = collectForCompositionBasedOnSubject(maybeSubject, assertionCreator)
@@ -74,8 +90,15 @@ inline fun <T> AssertionContainer<T>.collectForComposition(
  *
  * @return The collected assertions.
  */
-//TODO check if it makes more sense to stay on the logic level for assertionCreator
-//TODO 1.3.0 deprecate and move to ProofContainer
+@Deprecated(
+    "Use collectBasedOnGivenSubject from core and pass an ExpectationCreatorWithUsageHints, will be removed with 2.0.0 at the latest",
+    ReplaceWith(
+        "this.collectBasedOnGivenSubject(maybeSubject, ExpectationCreatorWithUsageHints<T>(assertionCreator, listOf(/* .. add a custom usage hint in case you have an overload which does not expect an expectationCreator or use the defaultHintsAtLeastOneExpectationDefined */))).first",
+        "ch.tutteli.atrium.creating.ExpectationCreatorWithUsageHints",
+        "ch.tutteli.atrium.reporting.reportables.ErrorMessages",
+        "ch.tutteli.atrium.creating.collectBasedOnGivenSubject"
+    )
+)
 inline fun <T> AssertionContainer<*>.collectBasedOnSubject(
     maybeSubject: Option<T>,
     noinline assertionCreator: Expect<T>.() -> Unit
@@ -99,7 +122,15 @@ inline fun <T> AssertionContainer<*>.collectBasedOnSubject(
  *
  * @return The collected assertions as a `List<[Assertion]>`.
  */
-//TODO 1.3.0 refactor with ProofContainer, return a flag which indicates whether no assertion was created by the assertionCreator
+@Deprecated(
+    "Use collectForCompositionBasedOnGivenSubject from core and pass an ExpectationCreatorWithUsageHints, will be removed with 2.0.0 at the latest",
+    ReplaceWith(
+        "this.collectForCompositionBasedOnGivenSubject(maybeSubject, ExpectationCreatorWithUsageHints<T>(assertionCreator, listOf(/* .. add a custom usage hint in case you have an overload which does not expect an expectationCreator or use the defaultHintsAtLeastOneExpectationDefined */))).first",
+        "ch.tutteli.atrium.creating.ExpectationCreatorWithUsageHints",
+        "ch.tutteli.atrium.reporting.reportables.ErrorMessages",
+        "ch.tutteli.atrium.creating.collectForCompositionBasedOnGivenSubject"
+    )
+)
 @OptIn(ExperimentalComponentFactoryContainer::class)
 inline fun <T> AssertionContainer<*>.collectForCompositionBasedOnSubject(
     maybeSubject: Option<T>,
@@ -108,6 +139,16 @@ inline fun <T> AssertionContainer<*>.collectForCompositionBasedOnSubject(
     .appendAsGroup(assertionCreator)
     .getAssertions()
 
+
+@Deprecated(
+    "Use collectAndCoreAppend from core and pass an ExpectationCreatorWithUsageHints, will be removed with 2.0.0 at the latest",
+    ReplaceWith(
+        "this.collectAndCoreAppend(ExpectationCreatorWithUsageHints<T>(assertionCreator, listOf(/* .. add a custom usage hint in case you have an overload which does not expect an expectationCreator or use the defaultHintsAtLeastOneExpectationDefined */))).first",
+        "ch.tutteli.atrium.creating.ExpectationCreatorWithUsageHints",
+        "ch.tutteli.atrium.reporting.reportables.ErrorMessages",
+        "ch.tutteli.atrium.creating.collectAndCoreAppend"
+    )
+)
 /**
  * Finishes the transformation process by appending the [Assertion]
  * which is returned when calling [TransformationExecutionStep.collectAndAppend] with [_logicAppend]

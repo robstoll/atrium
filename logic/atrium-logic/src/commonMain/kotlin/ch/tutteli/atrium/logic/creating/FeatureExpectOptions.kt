@@ -1,3 +1,6 @@
+//TODO 2.0.0 remove file
+@file:Suppress("DEPRECATION")
+
 package ch.tutteli.atrium.logic.creating
 
 import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
@@ -12,7 +15,10 @@ import ch.tutteli.atrium.reporting.Text
  * Define additional (non-mandatory) options to create a [FeatureExpect] based on a given
  * [FeatureExpectOptionsChooser]-lambda.
  */
-@Suppress("FunctionName")
+@Deprecated(
+    "Use the import from atrium-core, atrium-logic will be removed with 2.0.0 at the latest",
+    ReplaceWith("ch.tutteli.atrium.creating.FeatureExpectOptions")
+)
 @ExperimentalNewExpectTypes
 //using a function because overloading a constructor of a data class does not work well in Kotlin (type inference bugs)
 fun <R> FeatureExpectOptions(configuration: FeatureExpectOptionsChooser<R>.() -> Unit): FeatureExpectOptions<R> =
@@ -23,6 +29,10 @@ fun <R> FeatureExpectOptions(configuration: FeatureExpectOptionsChooser<R>.() ->
  *
  * Calling multiple times the same method overrides the previously defined value.
  */
+@Deprecated(
+    "Use the import from atrium-core, atrium-logic will be removed with 2.0.0 at the latest",
+    ReplaceWith("ch.tutteli.atrium.creating.FeatureExpectOptionsChooser")
+)
 @ExperimentalNewExpectTypes
 interface FeatureExpectOptionsChooser<R> {
 
@@ -32,6 +42,10 @@ interface FeatureExpectOptionsChooser<R> {
      * instead of the previously defined description.
      *
      */
+    @Deprecated(
+        "Use the import from atrium-core and wrap into Text, atrium-logic will be removed with 2.0.0 at the latest",
+        ReplaceWith("withDescription(Text(description))", "ch.tutteli.atrium.reporting.Text")
+    )
     fun withDescription(description: String) {
         @Suppress("DEPRECATION")
         withDescription(ch.tutteli.atrium.reporting.translating.Untranslatable(description))
@@ -40,7 +54,6 @@ interface FeatureExpectOptionsChooser<R> {
     /**
      * Uses the given [description] as custom description instead of the previously defined description.
      */
-    //TODO 1.3.0 replace with InlineElement and remove suppression
     @Suppress("DEPRECATION")
     fun withDescription(description: ch.tutteli.atrium.reporting.translating.Translatable)
 
@@ -50,6 +63,10 @@ interface FeatureExpectOptionsChooser<R> {
      *
      * In case [ProofContainer.maybeSubject] is not defined i.e. [None], then the previous representation is used.
      */
+    @Deprecated(
+        "Use the import from atrium-core and wrap into Text, atrium-logic will be removed with 2.0.0 at the latest",
+        ReplaceWith("withRepresentationIfSubjectDefined { Text(textRepresentation) }", "ch.tutteli.atrium.reporting.Text")
+    )
     fun withRepresentation(textRepresentation: String): Unit =
         withRepresentation { Text(textRepresentation) }
 
@@ -65,9 +82,17 @@ interface FeatureExpectOptionsChooser<R> {
      *
      * In case [ProofContainer.maybeSubject] is not defined i.e. [None], then the previous representation is used.
      */
+    @Deprecated(
+        "Use the import from atrium-core and wrap into Text, atrium-logic will be removed with 2.0.0 at the latest",
+        ReplaceWith("withRepresentationIfSubjectDefined(representationProvider)", "ch.tutteli.atrium.reporting.Text")
+    )
     fun withRepresentation(representationProvider: (R) -> Any)
 
     companion object {
+        @Deprecated(
+            "Use the import from atrium-core, atrium-logic will be removed with 2.0.0 at the latest",
+            ReplaceWith("ch.tutteli.atrium.creating.FeatureExpectOptionsChooser(configuration)")
+        )
         @ExperimentalNewExpectTypes
         operator fun <R> invoke(configuration: FeatureExpectOptionsChooser<R>.() -> Unit): FeatureExpectOptions<R> =
             FeatureExpectOptionsChooserImpl<R>().apply(configuration).build()

@@ -58,6 +58,8 @@ abstract class BaseGroupBuilder<
     fun invisibleFailingProofGroup(init: InvisibleFailingProofGroupBuilder<SubjectT>.() -> Unit): Proof =
         add(InvisibleFailingProofGroupBuilder(proofContainer, DiagnosticBuilderDelegate()).build(init))
 
+    //TODO 1.3.0 still necessary? we already had a case where we should have used feature + invisibleFailingProofGroup
+    // instead of fixedClaimGroup, so this is somewhat smelly
     fun fixedClaimGroup(
         description: InlineElement,
         representation: Any?,

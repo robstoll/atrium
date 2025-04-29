@@ -225,10 +225,8 @@ class CreateReportTest {
             ) {
                 simpleProof(DescriptionAnyProof.TO_EQUAL, true) { false }
                 usageHintGroup {
-                    addAll(
-                        ErrorMessages.FORGOT_DO_DEFINE_EXPECTATION,
-                        ErrorMessages.DEFAULT_HINT_AT_LEAST_ONE_EXPECTATION_DEFINED
-                    )
+                    addAll(ErrorMessages.FORGOT_DO_DEFINE_EXPECTATION)
+                    addAll(defaultHintsAtLeastOneExpectationDefined)
                 }
             }
         }
@@ -239,7 +237,8 @@ class CreateReportTest {
             |(f) at least one expectation defined : false
             |    (f) to equal                     : true
             |        (u) You forgot to create expectations in the expectationCreator-lambda
-            |        (u) Sometimes you can use an alternative to `{ }` For instance, instead of `toThrow<..> { }` you should use `toThrow<..>()`
+            |        (u) Sometimes you can use an alternative to `{ }`
+            |        (u) For instance, instead of `toThrow<..> { }` you should use `toThrow<..>()`
             """.trimMargin()
         )
 
@@ -250,7 +249,8 @@ class CreateReportTest {
             |$g at least one expectation defined : false
             |   $x to equal                      : true
             |      $u You forgot to create expectations in the expectationCreator-lambda
-            |      $u Sometimes you can use an alternative to `{ }` For instance, instead of `toThrow<..> { }` you should use `toThrow<..>()`
+            |      $u Sometimes you can use an alternative to `{ }`
+            |      $u For instance, instead of `toThrow<..> { }` you should use `toThrow<..>()`
             """.trimMargin()
         )
     }
@@ -451,7 +451,7 @@ class CreateReportTest {
             simpleProof(Text("to"), Text("exist")) { false }
             usageHintGroup {
                 add(ErrorMessages.FORGOT_DO_DEFINE_EXPECTATION)
-                add(ErrorMessages.DEFAULT_HINT_AT_LEAST_ONE_EXPECTATION_DEFINED)
+                addAll(defaultHintsAtLeastOneExpectationDefined)
             }
         }
         expectForReporterWithoutAnsi(
@@ -460,7 +460,8 @@ class CreateReportTest {
             |a verb : /usr/bin/noprogram
             |(f) to : exist
             |    (u) You forgot to create expectations in the expectationCreator-lambda
-            |    (u) Sometimes you can use an alternative to `{ }` For instance, instead of `toThrow<..> { }` you should use `toThrow<..>()`
+            |    (u) Sometimes you can use an alternative to `{ }`
+            |    (u) For instance, instead of `toThrow<..> { }` you should use `toThrow<..>()`
             """.trimMargin()
         )
         expectForReporterWithAnsi(
@@ -469,7 +470,8 @@ class CreateReportTest {
             |a verb : /usr/bin/noprogram
             |$x to  : exist
             |   $u You forgot to create expectations in the expectationCreator-lambda
-            |   $u Sometimes you can use an alternative to `{ }` For instance, instead of `toThrow<..> { }` you should use `toThrow<..>()`
+            |   $u Sometimes you can use an alternative to `{ }`
+            |   $u For instance, instead of `toThrow<..> { }` you should use `toThrow<..>()`
             """.trimMargin()
         )
     }
@@ -879,26 +881,26 @@ class CreateReportTest {
         expectForReporterWithoutAnsi(
             builder,
             """
-            |verb always without line break : ""${"\""}
-            |                                 a string with new line
-            |                                 as representation is wrapped
-            |                                 maxLength calculated correctly
-            |                                 ""${"\""}
-            |(f) test                       : 1
-            |(i) first column               : second longer than longest line of representation : 1
+            |verb always without line break -- Text should not contain line breaks and such, will error with Atrium 2.0.0 : ""${"\""}
+            |                                                                                                               a string with new line
+            |                                                                                                               as representation is wrapped
+            |                                                                                                               maxLength calculated correctly
+            |                                                                                                               ""${"\""}
+            |(f) test                                                                                                     : 1
+            |(i) first column                                                                                             : second longer than longest line of representation : 1
             """.trimMargin()
         )
 
         expectForReporterWithAnsi(
             builder,
             """
-            |verb always without line break : ""${"\""}
-            |                                 a string with new line
-            |                                 as representation is wrapped
-            |                                 maxLength calculated correctly
-            |                                 ""${"\""}
-            |$x  test                       : 1
-            |(i) first column               : second longer than longest line of representation : 1
+            |verb always without line break -- Text should not contain line breaks and such, will error with Atrium 2.0.0 : ""${"\""}
+            |                                                                                                               a string with new line
+            |                                                                                                               as representation is wrapped
+            |                                                                                                               maxLength calculated correctly
+            |                                                                                                               ""${"\""}
+            |$x  test                                                                                                     : 1
+            |(i) first column                                                                                             : second longer than longest line of representation : 1
             """.trimMargin()
         )
     }

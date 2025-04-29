@@ -8,7 +8,7 @@ import ch.tutteli.atrium.creating.*
 import ch.tutteli.atrium.creating.proofs.Proof
 import ch.tutteli.atrium.reporting.SHOULD_NOT_BE_SHOWN_TO_THE_USER_BUG
 import ch.tutteli.atrium.reporting.Text
-import ch.tutteli.atrium.reporting.reportables.ErrorMessages
+import ch.tutteli.atrium.reporting.reportables.defaultHintsAtLeastOneExpectationDefined
 import kotlin.reflect.KClass
 
 @ExperimentalNewExpectTypes
@@ -49,17 +49,15 @@ abstract class BaseExpectImpl<T>(
     @Deprecated(
         "Use appendAsGroupIndicateIfOneCollected and define the alternative or pass an empty list if you don't have any",
         ReplaceWith(
-            "this.appendAsGroupIndicateIfOneCollected(ExpectationCreatorWithUsageHints<T>(assertionCreator, listOf(/* .. add a custom usage hint in case you have an overload which does not expect an expectationCreator or use the generic */ ErrorMessages.DEFAULT_HINT_AT_LEAST_ONE_EXPECTATION_DEFINED))).first",
+            "this.appendAsGroupIndicateIfOneCollected(ExpectationCreatorWithUsageHints<T>(assertionCreator, listOf(/* .. add a custom usage hint in case you have an overload which does not expect an expectationCreator or use the defaultHintsAtLeastOneExpectationDefined */ ))).first",
             "ch.tutteli.atrium.creating.ExpectationCreatorWithUsageHints",
-            "ch.tutteli.atrium.reporting.reportables.ErrorMessages"
+            "ch.tutteli.atrium.reporting.reportables.defaultHintsAtLeastOneExpectationDefined"
         )
     )
     override fun appendAsGroup(assertionCreator: Expect<T>.() -> Unit): Expect<T> =
         appendAsGroupIndicateIfOneCollected(
             ExpectationCreatorWithUsageHints(
-                usageHintsOverloadWithoutExpectationCreator = listOf(
-                    ErrorMessages.DEFAULT_HINT_AT_LEAST_ONE_EXPECTATION_DEFINED
-                ),
+                usageHintsAlternativeWithoutExpectationCreator = defaultHintsAtLeastOneExpectationDefined,
                 assertionCreator,
             )
         ).first

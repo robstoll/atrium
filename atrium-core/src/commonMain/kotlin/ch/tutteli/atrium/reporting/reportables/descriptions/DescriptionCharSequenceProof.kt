@@ -24,6 +24,7 @@ enum class DescriptionCharSequenceProof(override val string: String) : Descripti
     /** @since 1.3.0 (but was since 0.18.0 in atrium-translations DescriptionCharSequenceExpectation) */
     EXACTLY("is exactly"),
 
+    //TODO 1.3.0 remove, we should not need this
     /** @since 1.3.0 (but was since 0.18.0 in atrium-translations DescriptionCharSequenceExpectation) */
     NOT_FOUND("but no match was found"),
 

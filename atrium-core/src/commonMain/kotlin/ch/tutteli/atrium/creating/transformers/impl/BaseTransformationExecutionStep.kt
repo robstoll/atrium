@@ -36,7 +36,7 @@ abstract class BaseTransformationExecutionStep<SubjectT, SubjectAfterTransformat
     final override fun collect(
         expectationCreatorWithUsageHints: ExpectationCreatorWithUsageHints<SubjectAfterTransformationT>
     ): Proof =
-        container.collect(ExpectationCreatorWithUsageHints(expectationCreatorWithUsageHints.usageHintsOverloadWithoutExpectationCreator) {
+        container.collect(ExpectationCreatorWithUsageHints(expectationCreatorWithUsageHints.usageHintsAlternativeWithoutExpectationCreator) {
             actionAndApply(this._core, expectationCreatorWithUsageHints)
         })
 

@@ -30,7 +30,7 @@ enum class ErrorMessages(override val value: String) : StringBasedTranslatable {
 
     @Deprecated(
         "Will be removed with 2.0.0 at the latest",
-        ReplaceWith("ch.tutteli.atrium.reporting.reportables.ErrorMessages.DEFAULT_HINT_AT_LEAST_ONE_EXPECTATION_DEFINED")
+        ReplaceWith("ch.tutteli.atrium.reporting.reportables.defaultHintsAtLeastOneExpectationDefined")
     )
     /** @since 0.18.0 */
     HINT_AT_LEAST_ONE_EXPECTATION_DEFINED("Sometimes you can use an alternative to `{ }` For instance, instead of `toThrow<..> { }` you should use `toThrow<..>()`"),

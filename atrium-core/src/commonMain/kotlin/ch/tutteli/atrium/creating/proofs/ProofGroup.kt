@@ -43,4 +43,3 @@ interface InvisibleLikeProofGroup: ProofGroup
  */
 interface InvisibleProofGroup: InvisibleLikeProofGroup
 interface InvisibleFailingProof: InvisibleLikeProofGroup
-

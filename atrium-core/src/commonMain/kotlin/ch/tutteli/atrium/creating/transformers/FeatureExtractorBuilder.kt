@@ -218,6 +218,19 @@ interface FeatureExtractorBuilder {
         val featureExtraction: (SubjectT) -> Option<FeatureT>
 
         /**
+         * Allows to define the [FeatureExpectOptions] via an [FeatureExpectOptionsChooser]-lambda
+         * which provides convenience functions.
+         *
+         * A convenience function usually starts with `with...`.
+         *
+         * @since 1.3.0
+         */
+        @ExperimentalNewExpectTypes
+        fun withOptions(configuration: FeatureExpectOptionsChooser<FeatureT>.() -> Unit): FinalStep<SubjectT, FeatureT> =
+            withOptions(FeatureExpectOptions(configuration))
+
+
+        /**
          * Uses the given [expectOptions].
          *
          * @since 1.3.0

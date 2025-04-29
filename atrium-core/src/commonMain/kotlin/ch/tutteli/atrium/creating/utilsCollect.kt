@@ -10,6 +10,7 @@ import ch.tutteli.atrium.creating.proofs.Proof
 import ch.tutteli.atrium.creating.proofs.ProofGroup
 import ch.tutteli.atrium.creating.proofs.builders.buildProof
 import ch.tutteli.atrium.creating.transformers.TransformationExecutionStep
+import ch.tutteli.atrium.reporting.reportables.InlineElement
 import ch.tutteli.atrium.reporting.reportables.Reportable
 import ch.tutteli.kbox.mapFirst
 
@@ -99,7 +100,6 @@ inline fun <SubjectT> ProofContainer<SubjectT>.collectForComposition(
  */
 //TODO check if it makes more sense to stay on the core level for expectationCreatorWithUsageHints, i.e. to use ProofContainer<T>.() -> Unit instead of Expect<T>.() -> Unit
 //TODO 1.3.0 document params
-//TODO 1.3.0 check replaceWith in @Deprecation in atrium-logic, we renamed the function from collectBasedOnSubject to collectBasedOnGivenSubject
 inline fun <SomeSubjectT> ProofContainer<*>.collectBasedOnGivenSubject(
     maybeSubject: Option<SomeSubjectT>,
     expectationCreatorWithUsageHints: ExpectationCreatorWithUsageHints<SomeSubjectT>
@@ -131,8 +131,7 @@ inline fun <SomeSubjectT> ProofContainer<*>.collectBasedOnGivenSubject(
  */
 //TODO 1.3.0 check where the flag is used, we had a todo that we should return a flag but so far I don't see a usage
 // where it would make sense
-//TODO 1.3.0 check replaceWith of logic, we renamed the function from collectForCompositionBasedOnSubject to collectForCompositionBasedOnGivenSubject
-//TODO 1.3.0 better rename to collectForFailureHintBasedOnGivenSubject?
+//TODO 1.3.0 better rename to collectForFailureHintBasedOnGivenSubject -- if you rename, adjust @Deprecated in logic?
 @OptIn(ExperimentalComponentFactoryContainer::class)
 inline fun <SomeSubjectT> ProofContainer<*>.collectForCompositionBasedOnGivenSubject(
     maybeSubject: Option<SomeSubjectT>,
@@ -149,11 +148,11 @@ inline fun <SomeSubjectT> ProofContainer<*>.collectForCompositionBasedOnGivenSub
  *
  * @return an [Expect] for the subject of this expectation.
  */
-//TODO 1.3.0 remove?
-fun <SubjectT, SubjectAfterTransformationT, ExpectForNewSubjectT : Expect<SubjectAfterTransformationT>> TransformationExecutionStep<SubjectT, SubjectAfterTransformationT, ExpectForNewSubjectT>.collectAndDomainAppend(
-    usageHintsOverloadWithoutExpectationCreator: List<Reportable>,
+//TODO 1.3.0 remove, if yes, then adjust @Deprecated in logic
+fun <SubjectT, SubjectAfterTransformationT, ExpectForNewSubjectT : Expect<SubjectAfterTransformationT>> TransformationExecutionStep<SubjectT, SubjectAfterTransformationT, ExpectForNewSubjectT>.collectAndCoreAppend(
+    usageHintsAlternativeWithoutExpectationCreator: List<InlineElement>,
     expectationCreator: ProofContainer<SubjectAfterTransformationT>.() -> Proof
 ): Expect<SubjectT> =
-    collectAndAppend(ExpectationCreatorWithUsageHints(usageHintsOverloadWithoutExpectationCreator) {
+    collectAndAppend(ExpectationCreatorWithUsageHints(usageHintsAlternativeWithoutExpectationCreator) {
         _coreAppend(expectationCreator)
     })

@@ -56,7 +56,7 @@ interface TransformationExecutionStep<SubjectT, SubjectAfterTransformationT, Exp
      * [SubjectAfterTransformationT] resulting from the transformation as single [Proof].
      *
      * The proofs the given [expectationCreatorWithUsageHints] creates are appended as hint in case the transformation
-     * fails together with the provided [ExpectationCreatorWithUsageHints.usageHintsOverloadWithoutExpectationCreator].
+     * fails together with the provided [ExpectationCreatorWithUsageHints.usageHintsAlternativeWithoutExpectationCreator].
      * This is also the difference between calling [transform] and state sub-expectations in a second call
      * as the sub-expectations the [expectationCreatorWithUsageHints] creates would not be available for reporting in case the
      * transformation cannot be carried out.

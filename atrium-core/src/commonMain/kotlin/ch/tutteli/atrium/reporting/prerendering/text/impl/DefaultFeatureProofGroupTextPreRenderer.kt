@@ -25,7 +25,7 @@ internal class DefaultFeatureProofGroupTextPreRenderer(
                 controlObject,
                 child,
                 Icon.LIST_BULLET_POINT,
-                // indent by two, one for the Icon.FAILING_GROUP Icon (at the time of writing  🚩) and one for the
+                // indent by two, one for the Icon.FAILING_GROUP Icon (at the time of writing 🚩) and one for the
                 // Icon.FEATURE (we want that the children are after Icon.FEATURE)
                 additionalIndent = 2
             )

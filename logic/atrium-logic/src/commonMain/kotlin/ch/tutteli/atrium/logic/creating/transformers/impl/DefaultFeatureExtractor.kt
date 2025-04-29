@@ -18,8 +18,7 @@ import ch.tutteli.atrium.translations.DescriptionFunLikeExpectation
 
 class DefaultFeatureExtractor : FeatureExtractor {
 
-    //TODO 1.3.0 remove suppress again, use InlineElement instead
-    @Suppress("DEPRECATION")
+    @Suppress("OVERRIDE_DEPRECATION")
     @OptIn(ExperimentalNewExpectTypes::class, ExperimentalComponentFactoryContainer::class)
     override fun <SubjectT, FeatureT> extract(
         container: AssertionContainer<SubjectT>,
@@ -51,8 +50,6 @@ class DefaultFeatureExtractor : FeatureExtractor {
                 val (failureHintAssertions, repForFailure) = maybeThrowable.fold(
                     { emptyList<Assertion>() to representationForFailure },
                     { throwable ->
-                        //TODO 1.3.0 replace with Representable and remove suppression
-                        @Suppress("DEPRECATION")
                         listOf(propertiesOfThrowable(throwable, container)) to
                             ch.tutteli.atrium.reporting.translating.TranslatableWithArgs(DescriptionFunLikeExpectation.THREW, throwable::class.fullName)
                     })
@@ -60,7 +57,6 @@ class DefaultFeatureExtractor : FeatureExtractor {
                 val subAssertions = maybeSubAssertions.fold({
                     emptyList()
                 }) { assertionCreator ->
-                    // TODO 1.3.0: factor out in common pattern, should not be the concern of the average expectation
                     // function writer
                     container.maybeSubject.fold({
                         // already in an explanatory expectation-group, no need to wrap again

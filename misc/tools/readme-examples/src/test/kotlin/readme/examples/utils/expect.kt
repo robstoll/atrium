@@ -7,7 +7,6 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.creating.ExpectGrouping
 import ch.tutteli.atrium.creating.ExpectationCreatorWithUsageHints
 import ch.tutteli.atrium.creating.ExperimentalComponentFactoryContainer
-import ch.tutteli.atrium.logic._logic
 import ch.tutteli.atrium.reporting.text.TextObjectFormatter
 import ch.tutteli.atrium.reporting.text.impl.AbstractTextObjectFormatter
 import ch.tutteli.atrium.reporting.theming.text.TextIconStyler
@@ -39,7 +38,7 @@ fun <T> expect(t: T, assertionCreator: Expect<T>.() -> Unit): Expect<T> =
         ExpectationCreatorWithUsageHints(
             // we don't have an alternative, we always expect expectations and hence we don't provide a failure hint
             // (proposing `expect(subject).` as alternative would be wrong as we also expect further expectation)
-            usageHintsOverloadWithoutExpectationCreator = emptyList(),
+            usageHintsAlternativeWithoutExpectationCreator = emptyList(),
             expectationCreator = assertionCreator
         )
     ).first

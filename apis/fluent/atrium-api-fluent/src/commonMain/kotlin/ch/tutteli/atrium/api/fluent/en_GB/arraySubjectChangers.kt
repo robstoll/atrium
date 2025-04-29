@@ -4,6 +4,7 @@ import ch.tutteli.atrium.creating.ExpectationCreatorWithUsageHints
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium._core
 import ch.tutteli.atrium.creating.changeSubject
+import ch.tutteli.atrium.reporting.reportables.useAlternativeUsageHint
 import kotlin.jvm.JvmName
 
 /**
@@ -38,7 +39,7 @@ fun <E> Expect<Array<E>>.asList(assertionCreator: Expect<List<E>>.() -> Unit): E
     apply {
         asList()._core.appendAsGroupIndicateIfOneCollected(
             ExpectationCreatorWithUsageHints(
-                usageHintsOverloadWithoutExpectationCreator = listOf(/* TODO add a usage hint in case you have an overload which does not expect an expectationCreator */),
+                usageHintsAlternativeWithoutExpectationCreator = hintsAtLeastOneExpectationDefined,
                 expectationCreator = assertionCreator
             )
         ).first
@@ -62,7 +63,7 @@ fun <E> Expect<Array<out E>>.asList(assertionCreator: Expect<List<E>>.() -> Unit
     apply {
         asList()._core.appendAsGroupIndicateIfOneCollected(
             ExpectationCreatorWithUsageHints(
-                usageHintsOverloadWithoutExpectationCreator = listOf(/* TODO add a usage hint in case you have an overload which does not expect an expectationCreator */),
+                usageHintsAlternativeWithoutExpectationCreator = hintsAtLeastOneExpectationDefined,
                 expectationCreator = assertionCreator
             )
         ).first
@@ -102,7 +103,7 @@ fun Expect<ByteArray>.asList(assertionCreator: Expect<List<Byte>>.() -> Unit): E
     apply {
         asList()._core.appendAsGroupIndicateIfOneCollected(
             ExpectationCreatorWithUsageHints(
-                usageHintsOverloadWithoutExpectationCreator = listOf(/* TODO add a usage hint in case you have an overload which does not expect an expectationCreator */),
+                usageHintsAlternativeWithoutExpectationCreator = hintsAtLeastOneExpectationDefined,
                 expectationCreator = assertionCreator
             )
         ).first
@@ -143,7 +144,7 @@ fun Expect<CharArray>.asList(assertionCreator: Expect<List<Char>>.() -> Unit): E
     apply {
         asList()._core.appendAsGroupIndicateIfOneCollected(
             ExpectationCreatorWithUsageHints(
-                usageHintsOverloadWithoutExpectationCreator = listOf(/* TODO add a usage hint in case you have an overload which does not expect an expectationCreator */),
+                usageHintsAlternativeWithoutExpectationCreator = hintsAtLeastOneExpectationDefined,
                 expectationCreator = assertionCreator
             )
         ).first
@@ -184,7 +185,7 @@ fun Expect<ShortArray>.asList(assertionCreator: Expect<List<Short>>.() -> Unit):
     apply {
         asList()._core.appendAsGroupIndicateIfOneCollected(
             ExpectationCreatorWithUsageHints(
-                usageHintsOverloadWithoutExpectationCreator = listOf(/* TODO add a usage hint in case you have an overload which does not expect an expectationCreator */),
+                usageHintsAlternativeWithoutExpectationCreator = hintsAtLeastOneExpectationDefined,
                 expectationCreator = assertionCreator
             )
         ).first
@@ -225,7 +226,7 @@ fun Expect<IntArray>.asList(assertionCreator: Expect<List<Int>>.() -> Unit): Exp
     apply {
         asList()._core.appendAsGroupIndicateIfOneCollected(
             ExpectationCreatorWithUsageHints(
-                usageHintsOverloadWithoutExpectationCreator = listOf(/* TODO add a usage hint in case you have an overload which does not expect an expectationCreator */),
+                usageHintsAlternativeWithoutExpectationCreator = hintsAtLeastOneExpectationDefined,
                 expectationCreator = assertionCreator
             )
         ).first
@@ -266,7 +267,7 @@ fun Expect<LongArray>.asList(assertionCreator: Expect<List<Long>>.() -> Unit): E
     apply {
         asList()._core.appendAsGroupIndicateIfOneCollected(
             ExpectationCreatorWithUsageHints(
-                usageHintsOverloadWithoutExpectationCreator = listOf(/* TODO add a usage hint in case you have an overload which does not expect an expectationCreator */),
+                usageHintsAlternativeWithoutExpectationCreator = hintsAtLeastOneExpectationDefined,
                 expectationCreator = assertionCreator
             )
         ).first
@@ -307,7 +308,7 @@ fun Expect<FloatArray>.asList(assertionCreator: Expect<List<Float>>.() -> Unit):
     apply {
         asList()._core.appendAsGroupIndicateIfOneCollected(
             ExpectationCreatorWithUsageHints(
-                usageHintsOverloadWithoutExpectationCreator = listOf(/* TODO add a usage hint in case you have an overload which does not expect an expectationCreator */),
+                usageHintsAlternativeWithoutExpectationCreator = hintsAtLeastOneExpectationDefined,
                 expectationCreator = assertionCreator
             )
         ).first
@@ -348,7 +349,7 @@ fun Expect<DoubleArray>.asList(assertionCreator: Expect<List<Double>>.() -> Unit
     apply {
         asList()._core.appendAsGroupIndicateIfOneCollected(
             ExpectationCreatorWithUsageHints(
-                usageHintsOverloadWithoutExpectationCreator = listOf(/* TODO add a usage hint in case you have an overload which does not expect an expectationCreator */),
+                usageHintsAlternativeWithoutExpectationCreator = hintsAtLeastOneExpectationDefined,
                 expectationCreator = assertionCreator
             )
         ).first
@@ -389,8 +390,11 @@ fun Expect<BooleanArray>.asList(assertionCreator: Expect<List<Boolean>>.() -> Un
     apply {
         asList()._core.appendAsGroupIndicateIfOneCollected(
             ExpectationCreatorWithUsageHints(
-                usageHintsOverloadWithoutExpectationCreator = listOf(/* TODO add a usage hint in case you have an overload which does not expect an expectationCreator */),
+                usageHintsAlternativeWithoutExpectationCreator = hintsAtLeastOneExpectationDefined,
                 expectationCreator = assertionCreator
             )
         ).first
     }
+
+private val hintsAtLeastOneExpectationDefined =
+    useAlternativeUsageHint("asList()")

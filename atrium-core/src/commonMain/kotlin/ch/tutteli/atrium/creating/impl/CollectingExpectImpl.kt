@@ -146,9 +146,9 @@ internal class CollectingExpectImpl<T>(
     @Deprecated(
         "Use appendAsGroupIndicateIfOneCollected and define the alternative or pass an empty list if you don't have any",
         replaceWith = ReplaceWith(
-            "this.appendAsGroupIndicateIfOneCollected(ExpectationCreatorWithUsageHints<T>(assertionCreator, listOf(/* .. add a custom usage hint in case you have an overload which does not expect an expectationCreator or use the generic */ ErrorMessages.DEFAULT_HINT_AT_LEAST_ONE_EXPECTATION_DEFINED))).first",
+            "this.appendAsGroupIndicateIfOneCollected(ExpectationCreatorWithUsageHints<T>(assertionCreator, listOf(/* .. add a custom usage hint in case you have an overload which does not expect an expectationCreator or use the defaultHintsAtLeastOneExpectationDefined */))).first",
             "ch.tutteli.atrium.creating.ExpectationCreatorWithUsageHints",
-            "ch.tutteli.atrium.reporting.reportables.ErrorMessages"
+            "ch.tutteli.atrium.reporting.reportables.defaultHintsAtLeastOneExpectationDefined"
         )
     )
     override fun appendAsGroup(assertionCreator: Expect<T>.() -> Unit): CollectingExpect<T> {
@@ -181,9 +181,10 @@ internal class CollectingExpectImpl<T>(
                     ) {
                         simpleProof(DescriptionAnyProof.TO_EQUAL, true) { false }
 
+                        //TODO 1.3.0 introduce usageErrorGroup which uses an exploding icon and only intend
                         usageHintGroup {
                             add(ErrorMessages.FORGOT_DO_DEFINE_EXPECTATION)
-                            addAll(expectationCreatorWithUsageHints.usageHintsOverloadWithoutExpectationCreator)
+                            addAll(expectationCreatorWithUsageHints.usageHintsAlternativeWithoutExpectationCreator)
                         }
                     }
                 }

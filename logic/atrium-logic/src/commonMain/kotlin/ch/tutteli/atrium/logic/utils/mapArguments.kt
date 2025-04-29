@@ -1,10 +1,10 @@
+//TODO 2.0.0 remove file
+@file:Suppress("DEPRECATION")
+
 package ch.tutteli.atrium.logic.utils
 
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.creating.PleaseUseReplacementException
-import kotlin.js.JsName
 
-//TODO 1.3.0 deprecate everything
 
 /**
  * Creates a [ArgumentMapperBuilder] with the given [first] and [others] as arguments;
@@ -26,6 +26,7 @@ fun <T> mapArguments(first: T, others: Array<out T>): ArgumentMapperBuilder<T> =
  * Use the overload without `mapper` in case you want to map to an lambda with an [Expect] receiver
  * and use one of the available options as second step. For instance, `mapArguments(a, aX).toExpect<String> { ... }`
  */
+@Deprecated("Use the library ch.tutteli.kbox and mapVararg, atrium-logic will be removed with 2.0.0 at the latest")
 inline fun <T, reified R> mapArguments(first: T, others: Array<out T>, mapper: (T) -> R): Pair<R, Array<out R>> =
     mapArguments(first, others).to(mapper)
 
@@ -33,6 +34,7 @@ inline fun <T, reified R> mapArguments(first: T, others: Array<out T>, mapper: (
  * Creates a [ArgumentMapperBuilder] with the given [first] and [others] as arguments;
  * specify the mapping as such using a subsequent step in the building process.
  */
+@Deprecated("Use the library ch.tutteli.kbox and mapVararg, atrium-logic will be removed with 2.0.0 at the latest")
 fun mapArguments(first: Byte, others: ByteArray): ArgumentMapperBuilder<Byte> =
     mapArguments(first, others.toTypedArray())
 
@@ -42,6 +44,7 @@ fun mapArguments(first: Byte, others: ByteArray): ArgumentMapperBuilder<Byte> =
  * Use the overload without `mapper` in case you want to map to an lambda with an [Expect] receiver
  * and use one of the available options as second step. For instance, `mapArguments(a, aX).toExpect<String> { ... }`
  */
+@Deprecated("Use the library ch.tutteli.kbox and mapVararg, atrium-logic will be removed with 2.0.0 at the latest")
 inline fun <reified R> mapArguments(first: Byte, others: ByteArray, mapper: (Byte) -> R): Pair<R, Array<out R>> =
     mapArguments(first, others).to(mapper)
 
@@ -49,6 +52,7 @@ inline fun <reified R> mapArguments(first: Byte, others: ByteArray, mapper: (Byt
  * Creates a [ArgumentMapperBuilder] with the given [first] and [others] as arguments;
  * specify the mapping as such using a subsequent step in the building process.
  */
+@Deprecated("Use the library ch.tutteli.kbox and mapVararg, atrium-logic will be removed with 2.0.0 at the latest")
 fun mapArguments(first: Char, others: CharArray): ArgumentMapperBuilder<Char> =
     mapArguments(first, others.toTypedArray())
 
@@ -58,6 +62,7 @@ fun mapArguments(first: Char, others: CharArray): ArgumentMapperBuilder<Char> =
  * Use the overload without `mapper` in case you want to map to an lambda with an [Expect] receiver
  * and use one of the available options as second step. For instance, `mapArguments(a, aX).toExpect<String> { ... }`
  */
+@Deprecated("Use the library ch.tutteli.kbox and mapVararg, atrium-logic will be removed with 2.0.0 at the latest")
 inline fun <reified R> mapArguments(first: Char, others: CharArray, mapper: (Char) -> R): Pair<R, Array<out R>> =
     mapArguments(first, others).to(mapper)
 
@@ -65,6 +70,7 @@ inline fun <reified R> mapArguments(first: Char, others: CharArray, mapper: (Cha
  * Creates a [ArgumentMapperBuilder] with the given [first] and [others] as arguments;
  * specify the mapping as such using a subsequent step in the building process.
  */
+@Deprecated("Use the library ch.tutteli.kbox and mapVararg, atrium-logic will be removed with 2.0.0 at the latest")
 fun mapArguments(first: Short, others: ShortArray): ArgumentMapperBuilder<Short> =
     mapArguments(first, others.toTypedArray())
 
@@ -74,6 +80,7 @@ fun mapArguments(first: Short, others: ShortArray): ArgumentMapperBuilder<Short>
  * Use the overload without `mapper` in case you want to map to an lambda with an [Expect] receiver
  * and use one of the available options as second step. For instance, `mapArguments(a, aX).toExpect<String> { ... }`
  */
+@Deprecated("Use the library ch.tutteli.kbox and mapVararg, atrium-logic will be removed with 2.0.0 at the latest")
 inline fun <reified R> mapArguments(first: Short, others: ShortArray, mapper: (Short) -> R): Pair<R, Array<out R>> =
     mapArguments(first, others).to(mapper)
 
@@ -81,6 +88,7 @@ inline fun <reified R> mapArguments(first: Short, others: ShortArray, mapper: (S
  * Creates a [ArgumentMapperBuilder] with the given [first] and [others] as arguments;
  * specify the mapping as such using a subsequent step in the building process.
  */
+@Deprecated("Use the library ch.tutteli.kbox and mapVararg, atrium-logic will be removed with 2.0.0 at the latest")
 fun mapArguments(first: Int, others: IntArray): ArgumentMapperBuilder<Int> = mapArguments(first, others.toTypedArray())
 
 /**
@@ -89,6 +97,7 @@ fun mapArguments(first: Int, others: IntArray): ArgumentMapperBuilder<Int> = map
  * Use the overload without `mapper` in case you want to map to an lambda with an [Expect] receiver
  * and use one of the available options as second step. For instance, `mapArguments(a, aX).toExpect<String> { ... }`
  */
+@Deprecated("Use the library ch.tutteli.kbox and mapVararg, atrium-logic will be removed with 2.0.0 at the latest")
 inline fun <reified R> mapArguments(first: Int, others: IntArray, mapper: (Int) -> R): Pair<R, Array<out R>> =
     mapArguments(first, others).to(mapper)
 
@@ -96,6 +105,7 @@ inline fun <reified R> mapArguments(first: Int, others: IntArray, mapper: (Int) 
  * Creates a [ArgumentMapperBuilder] with the given [first] and [others] as arguments;
  * specify the mapping as such using a subsequent step in the building process.
  */
+@Deprecated("Use the library ch.tutteli.kbox and mapVararg, atrium-logic will be removed with 2.0.0 at the latest")
 fun mapArguments(first: Long, others: LongArray): ArgumentMapperBuilder<Long> =
     mapArguments(first, others.toTypedArray())
 
@@ -105,6 +115,7 @@ fun mapArguments(first: Long, others: LongArray): ArgumentMapperBuilder<Long> =
  * Use the overload without `mapper` in case you want to map to an lambda with an [Expect] receiver
  * and use one of the available options as second step. For instance, `mapArguments(a, aX).toExpect<String> { ... }`
  */
+@Deprecated("Use the library ch.tutteli.kbox and mapVararg, atrium-logic will be removed with 2.0.0 at the latest")
 inline fun <reified R> mapArguments(first: Long, others: LongArray, mapper: (Long) -> R): Pair<R, Array<out R>> =
     mapArguments(first, others).to(mapper)
 
@@ -112,6 +123,7 @@ inline fun <reified R> mapArguments(first: Long, others: LongArray, mapper: (Lon
  * Creates a [ArgumentMapperBuilder] with the given [first] and [others] as arguments;
  * specify the mapping as such using a subsequent step in the building process.
  */
+@Deprecated("Use the library ch.tutteli.kbox and mapVararg, atrium-logic will be removed with 2.0.0 at the latest")
 fun mapArguments(first: Float, others: FloatArray): ArgumentMapperBuilder<Float> =
     mapArguments(first, others.toTypedArray())
 
@@ -121,6 +133,7 @@ fun mapArguments(first: Float, others: FloatArray): ArgumentMapperBuilder<Float>
  * Use the overload without `mapper` in case you want to map to an lambda with an [Expect] receiver
  * and use one of the available options as second step. For instance, `mapArguments(a, aX).toExpect<String> { ... }`
  */
+@Deprecated("Use the library ch.tutteli.kbox and mapVararg, atrium-logic will be removed with 2.0.0 at the latest")
 inline fun <reified R> mapArguments(first: Float, others: FloatArray, mapper: (Float) -> R): Pair<R, Array<out R>> =
     mapArguments(first, others).to(mapper)
 
@@ -128,6 +141,7 @@ inline fun <reified R> mapArguments(first: Float, others: FloatArray, mapper: (F
  * Creates a [ArgumentMapperBuilder] with the given [first] and [others] as arguments;
  * specify the mapping as such using a subsequent step in the building process.
  */
+@Deprecated("Use the library ch.tutteli.kbox and mapVararg, atrium-logic will be removed with 2.0.0 at the latest")
 fun mapArguments(first: Double, others: DoubleArray): ArgumentMapperBuilder<Double> =
     mapArguments(first, others.toTypedArray())
 
@@ -137,6 +151,7 @@ fun mapArguments(first: Double, others: DoubleArray): ArgumentMapperBuilder<Doub
  * Use the overload without `mapper` in case you want to map to an lambda with an [Expect] receiver
  * and use one of the available options as second step. For instance, `mapArguments(a, aX).toExpect<String> { ... }`
  */
+@Deprecated("Use the library ch.tutteli.kbox and mapVararg, atrium-logic will be removed with 2.0.0 at the latest")
 inline fun <reified R> mapArguments(first: Double, others: DoubleArray, mapper: (Double) -> R): Pair<R, Array<out R>> =
     mapArguments(first, others).to(mapper)
 
@@ -144,6 +159,7 @@ inline fun <reified R> mapArguments(first: Double, others: DoubleArray, mapper: 
  * Creates a [ArgumentMapperBuilder] with the given [first] and [others] as arguments;
  * specify the mapping as such using a subsequent step in the building process.
  */
+@Deprecated("Use the library ch.tutteli.kbox and mapVararg, atrium-logic will be removed with 2.0.0 at the latest")
 fun mapArguments(first: Boolean, others: BooleanArray): ArgumentMapperBuilder<Boolean> =
     mapArguments(first, others.toTypedArray())
 
@@ -153,6 +169,7 @@ fun mapArguments(first: Boolean, others: BooleanArray): ArgumentMapperBuilder<Bo
  * Use the overload without `mapper` in case you want to map to an lambda with an [Expect] receiver
  * and use one of the available options as second step. For instance, `mapArguments(a, aX).toExpect<String> { ... }`
  */
+@Deprecated("Use the library ch.tutteli.kbox and mapVararg, atrium-logic will be removed with 2.0.0 at the latest")
 inline fun <reified R> mapArguments(
     first: Boolean,
     others: BooleanArray,
@@ -162,6 +179,7 @@ inline fun <reified R> mapArguments(
 /**
  * Builder to map variable length arguments formulated as ([first]: [T], `vararg` [others] : [T]) to something else.
  */
+@Deprecated("Use the library ch.tutteli.kbox and mapVararg, atrium-logic will be removed with 2.0.0 at the latest")
 class ArgumentMapperBuilder<out T> internal constructor(
     val first: T,
     val others: Array<out T>
@@ -195,6 +213,7 @@ class ArgumentMapperBuilder<out T> internal constructor(
  *
  * @returns The mapped [ArgumentMapperBuilder.first] and [ArgumentMapperBuilder.others].
  */
+@Deprecated("Use the library ch.tutteli.kbox and mapVararg, atrium-logic will be removed with 2.0.0 at the latest")
 fun <T : Any> ArgumentMapperBuilder<T?>.toNullOr(): ArgumentToNullOrMapperBuilder<T> =
     ArgumentToNullOrMapperBuilder(this)
 
@@ -205,6 +224,7 @@ fun <T : Any> ArgumentMapperBuilder<T?>.toNullOr(): ArgumentToNullOrMapperBuilde
  * type if the argument is not null in order that the non-nullable type can be used/passed to function which expect
  * a non-nullable type.
  */
+@Deprecated("Use the library ch.tutteli.kbox and mapVararg, atrium-logic will be removed with 2.0.0 at the latest")
 class ArgumentToNullOrMapperBuilder<T : Any>(
     val argumentMapperBuilder: ArgumentMapperBuilder<T?>
 ) {

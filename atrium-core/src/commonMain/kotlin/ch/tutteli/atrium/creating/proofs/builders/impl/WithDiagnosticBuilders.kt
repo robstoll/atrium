@@ -31,14 +31,12 @@ interface DiagnosticBuilder<SubjectT> {
     fun text(string: String): Diagnostic
 }
 
-class DiagnosticBuilderDelegate<SubjectT>(
-
-) : DiagnosticBuilder<SubjectT> {
+class DiagnosticBuilderDelegate<SubjectT>() : DiagnosticBuilder<SubjectT> {
     lateinit var reportableBuilder: ReportableBuilder<SubjectT, Diagnostic>
 
     private val proofContainer get() = reportableBuilder.proofContainer
 
-    private fun <R: Diagnostic> add(r: R): R = reportableBuilder.add(r)
+    private fun <R : Diagnostic> add(r: R): R = reportableBuilder.add(r)
 
     override fun diagnosticGroup(
         description: InlineElement,

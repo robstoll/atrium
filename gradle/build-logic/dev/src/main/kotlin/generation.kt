@@ -134,7 +134,7 @@ fun Project.registerGenerateCoreTaskForPackage(
                 val decapitalized = type.replaceFirstChar { it.lowercase(Locale.getDefault()) }
                 val output = File("$generatedPath/${decapitalized}.kt")
                 val content = interfacePath.toFile().readText(StandardCharsets.UTF_8)
-                val interfaceName = if(type == "DocumentationUtils") type else "${type}Proofs"
+                val interfaceName = if(type == "DocumentationUtils" ||type == "FeatureExtractors") type else "${type}Proofs"
                 val implValName = "impl"
 
                 var tmp = content.replace(Regex("""(${newLine}/\*\*[\S\s]+?\*/)?${newLine}interface $interfaceName \{"""),
@@ -172,7 +172,8 @@ fun getProofInterfaces(path: String): List<Path> =
         stream.asSequence()
             .filter { file ->
                 file.fileName.toString().endsWith("Proofs.kt") ||
-                    file.fileName.toString().endsWith("DocumentationUtils.kt")
+                    file.fileName.toString().endsWith("DocumentationUtils.kt") ||
+                    file.fileName.toString().endsWith("FeatureExtractors.kt")
             }
             .sortedWith { a, b -> a.fileName.toString().compareTo(b.fileName.toString()) }
             .toList()
@@ -180,8 +181,11 @@ fun getProofInterfaces(path: String): List<Path> =
 
 fun getTypeForProofFile(input: Path): String {
     val fileName = input.fileName.toString()
-   return if(fileName == "DocumentationUtils.kt") "DocumentationUtils"
-    else fileName.substring(0, fileName.length - "Proofs.kt".length)
+   return when (fileName) {
+        "DocumentationUtils.kt" -> "DocumentationUtils"
+        "FeatureExtractors.kt" -> "FeatureExtractors"
+        else -> fileName.substring(0, fileName.length - "Proofs.kt".length)
+    }
 }
 
 

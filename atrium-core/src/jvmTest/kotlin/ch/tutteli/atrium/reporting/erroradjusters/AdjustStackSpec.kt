@@ -9,7 +9,6 @@ import ch.tutteli.atrium.creating.*
 import ch.tutteli.atrium.logic.creating.RootExpectBuilder
 import ch.tutteli.atrium.logic.utils.expectLambda
 import ch.tutteli.atrium.reporting.AtriumErrorAdjuster
-import ch.tutteli.atrium.reporting.reportables.Reportable
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.describe
 
@@ -20,11 +19,16 @@ class AdjustStackSpec : Spek({
 
     fun <T> expectWithNoOpErrorAdjuster(subject: T) =
         expect(subject).withOptions {
-            withComponent(AtriumErrorAdjuster::class ) { _ -> NoOpAtriumErrorAdjuster }
+            withComponent(AtriumErrorAdjuster::class) { _ -> NoOpAtriumErrorAdjuster }
         }
 
     fun <T> expectWithNoOpErrorAdjuster(subject: T, assertionCreator: Expect<T>.() -> Unit): Expect<T> =
-        expectWithNoOpErrorAdjuster(subject)._core.appendAsGroupIndicateIfOneCollected(ExpectationCreatorWithUsageHints<T>(usageHintsOverloadWithoutExpectationCreator = listOf<Reportable>(/* ... add a usage hint in case you have an overload which does not expect an expectationCreator */), expectationCreator = assertionCreator)).first
+        expectWithNoOpErrorAdjuster(subject)._core.appendAsGroupIndicateIfOneCollected(
+            ExpectationCreatorWithUsageHints(
+                usageHintsAlternativeWithoutExpectationCreator = emptyList(),
+                expectationCreator = assertionCreator
+            )
+        ).first
 
     describe("no-op adjuster") {
         fun <T : Any> assertNoOp(subject: T) =

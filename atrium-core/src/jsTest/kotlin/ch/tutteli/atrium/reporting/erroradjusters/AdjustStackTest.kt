@@ -6,7 +6,6 @@ import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
 import ch.tutteli.atrium.core.polyfills.stackBacktrace
 import ch.tutteli.atrium.creating.*
-import ch.tutteli.atrium.logic._logic
 import ch.tutteli.atrium.logic.creating.RootExpectBuilder
 import ch.tutteli.atrium.reporting.AtriumErrorAdjuster
 import kotlin.test.Test
@@ -22,7 +21,7 @@ class AdjustStackTest {
     private fun <T> expectWithNoOpErrorAdjuster(subject: T, assertionCreator: Expect<T>.() -> Unit): Expect<T> =
         expectWithNoOpErrorAdjuster(subject)._core.appendAsGroupIndicateIfOneCollected(
             ExpectationCreatorWithUsageHints(
-                usageHintsOverloadWithoutExpectationCreator = emptyList(),
+                usageHintsAlternativeWithoutExpectationCreator = emptyList(),
                 expectationCreator = assertionCreator
             )
         ).first

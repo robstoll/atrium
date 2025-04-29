@@ -16,12 +16,13 @@ module ch.tutteli.atrium.core.api {
 
     exports ch.tutteli.atrium.creating.proofs;
     exports ch.tutteli.atrium.creating.proofs.basic.contains;
+    exports ch.tutteli.atrium.creating.proofs.builders;
     exports ch.tutteli.atrium.creating.proofs.charsequence.contains;
     exports ch.tutteli.atrium.creating.proofs.charsequence.contains.checkers;
     exports ch.tutteli.atrium.creating.proofs.charsequence.contains.creators;
     exports ch.tutteli.atrium.creating.proofs.charsequence.contains.searchbehaviours;
     exports ch.tutteli.atrium.creating.proofs.charsequence.contains.steps;
-    exports ch.tutteli.atrium.creating.proofs.builders;
+    exports ch.tutteli.atrium.creating.proofs.feature;
 
     exports ch.tutteli.atrium.creating.transformers;
     exports ch.tutteli.atrium.creating.typeutils;

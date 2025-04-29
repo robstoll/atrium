@@ -20,7 +20,7 @@ class DefaultDocumentationUtils : DocumentationUtils {
         collect(
             ExpectationCreatorWithUsageHints(
                 // there is no alternative for `because` which does not take an expectationCreator
-                usageHintsOverloadWithoutExpectationCreator = emptyList(),
+                usageHintsAlternativeWithoutExpectationCreator = emptyList(),
                 expectationCreator
             )
         )

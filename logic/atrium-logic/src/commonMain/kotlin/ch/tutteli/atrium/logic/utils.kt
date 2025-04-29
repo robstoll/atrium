@@ -49,7 +49,10 @@ val <T> AssertionContainer<T>.changeSubject: SubjectChangerBuilder.KindStep<T>
 /**
  * Entry point to use the [FeatureExtractorBuilder] based on this [AssertionContainer].
  */
-//TODO deprecate with 1.3.0 (when ProofContainer is introduced)
+@Deprecated(
+    "Use the import from atrium-core, atrium-logic will be removed with 2.0.0 at the latest",
+    ReplaceWith("this.extractFeature", "ch.tutteli.atrium.creating.extractFeature")
+)
 val <T> AssertionContainer<T>.extractFeature: FeatureExtractorBuilder.DescriptionStep<T>
     get() = FeatureExtractorBuilder(this)
 

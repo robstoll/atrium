@@ -8,12 +8,11 @@ import ch.tutteli.atrium.creating.*
 import ch.tutteli.atrium.creating.proofs.Proof
 import ch.tutteli.atrium.reporting.reportables.InlineElement
 
-//TODO 1.3.0 fix KDoc links
 /**
  * Defines the contract for sophisticated `safe feature extractions` including expectation creation for the feature.
  *
- * It is similar to [FeatureProofs] but differs in the intended usage.
- * [FeatureProofs] are intended to state expectations about a return value of a method call or a property,
+ * It is similar to [ch.tutteli.atrium.creating.proofs.FeatureExtractors] but differs in the intended usage.
+ * [FeatureExtractors] are intended to state expectations about a return value of a method call or a property,
  * assuming that the call as such always succeeds (no exception is thrown).
  * The [FeatureExtractor] on the other hand should be used if it is already known,
  * that the call/access fails depending on given arguments.

@@ -14,14 +14,21 @@ import ch.tutteli.atrium.core.Some
  * @property maybeSubject The feature as such where it is [Some] in case the extraction was successful or [None] if it
  *   was not.
  */
+@Deprecated(
+    "Use the import from atrium-core, atrium-logic will be removed with 2.0.0 at the latest",
+    ReplaceWith("ch.tutteli.atrium.creating.feature.MetaFeature")
+)
 data class MetaFeature<T>(
-    //TODO 1.3.0 replace with Representable and remove suppression
     @Suppress("DEPRECATION")
     val description: ch.tutteli.atrium.reporting.translating.Translatable,
     val representation: Any?,
     val maybeSubject: Option<T>
 ) {
-    //TODO 1.3.0 remove suppress again, use InlineElement instead
+
+    @Deprecated(
+        "Use the import from atrium-core, atrium-logic will be removed with 2.0.0 at the latest",
+        ReplaceWith("ch.tutteli.atrium.creating.feature.MetaFeature")
+    )
     @Suppress("DEPRECATION")
     constructor(description: String, representation: Any?, maybeSubject: Option<T>) :
         this(ch.tutteli.atrium.reporting.translating.Untranslatable(description), representation, maybeSubject)

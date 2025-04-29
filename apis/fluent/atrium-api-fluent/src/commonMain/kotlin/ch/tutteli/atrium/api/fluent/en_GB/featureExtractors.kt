@@ -1,14 +1,15 @@
 package ch.tutteli.atrium.api.fluent.en_GB
 
+import ch.tutteli.atrium._core
 import ch.tutteli.atrium.api.fluent.en_GB.creating.feature.MetaFeatureOption
-import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.creating.ExperimentalComponentFactoryContainer
-import ch.tutteli.atrium.creating.FeatureExpect
-import ch.tutteli.atrium.creating.build
+import ch.tutteli.atrium.creating.*
 import ch.tutteli.atrium.creating.feature.ExperimentalFeatureInfo
 import ch.tutteli.atrium.creating.feature.FeatureInfo
-import ch.tutteli.atrium.logic.*
-import ch.tutteli.atrium.logic.creating.feature.MetaFeature
+import ch.tutteli.atrium.creating.proofs.*
+import ch.tutteli.atrium.creating.proofs.feature.MetaFeature
+import ch.tutteli.atrium.creating.transformers.FeatureExtractorBuilder
+import ch.tutteli.atrium.reporting.Text
+import ch.tutteli.atrium.reporting.reportables.useAlternativeUsageHint
 import kotlin.reflect.*
 
 /**
@@ -39,11 +40,16 @@ fun <T, R> Expect<T>.its(extractor: T.() -> R): FeatureExpect<T, R> =
  * @since 0.16.0
  */
 fun <T, R> Expect<T>.its(extractor: T.() -> R, assertionCreator: Expect<R>.() -> Unit): Expect<T> =
-    itsInternal(extractor).collectAndAppend(assertionCreator)
+    itsInternal(extractor).collectAndAppend(
+        ExpectationCreatorWithUsageHints(
+            usageHintsAlternativeWithoutExpectationCreator = useAlternativeUsageHint("its { }."),
+            expectationCreator = assertionCreator
+        )
+    )
 
 @OptIn(ExperimentalComponentFactoryContainer::class, ExperimentalFeatureInfo::class)
 private fun <R, T> Expect<T>.itsInternal(extractor: T.() -> R) =
-    _logic.manualFeature(_logic.components.build<FeatureInfo>().determine(extractor, stacksToDrop = 2), extractor)
+    _core.manualFeature(Text(_core.components.build<FeatureInfo>().determine(extractor, stacksToDrop = 2)), extractor)
 
 /**
  * Extracts the [property] out of the current subject of `this` expectation,
@@ -57,7 +63,7 @@ private fun <R, T> Expect<T>.itsInternal(extractor: T.() -> R) =
  * @since 0.9.0
  */
 fun <T, R> Expect<T>.feature(property: KProperty1<in T, R>): FeatureExpect<T, R> =
-    _logic.property(property).transform()
+    _core.property(property).transform()
 
 /**
  * Extracts the [property] out of the current subject of `this` expectation,
@@ -74,7 +80,12 @@ fun <T, R> Expect<T>.feature(property: KProperty1<in T, R>): FeatureExpect<T, R>
 fun <T, R> Expect<T>.feature(
     property: KProperty1<in T, R>,
     assertionCreator: Expect<R>.() -> Unit
-): Expect<T> = _logic.property(property).collectAndAppend(assertionCreator)
+): Expect<T> = _core.property(property).collectAndAppend(
+    ExpectationCreatorWithUsageHints(
+        usageHintsAlternativeWithoutExpectationCreator = useAlternativeUsageHint("feature(MyClass::property)."),
+        expectationCreator = assertionCreator
+    )
+)
 
 
 /**
@@ -90,7 +101,7 @@ fun <T, R> Expect<T>.feature(
  * @since 0.9.0
  */
 fun <T, R> Expect<T>.feature(f: KFunction1<T, R>): FeatureExpect<T, R> =
-    _logic.f0(f).transform()
+    _core.f0(f).transform()
 
 /**
  * Extracts the value which is returned when calling [f] on the current subject of `this` expectation,
@@ -107,7 +118,12 @@ fun <T, R> Expect<T>.feature(f: KFunction1<T, R>): FeatureExpect<T, R> =
 fun <T, R> Expect<T>.feature(
     f: KFunction1<T, R>,
     assertionCreator: Expect<R>.() -> Unit
-): Expect<T> = _logic.f0(f).collectAndAppend(assertionCreator)
+): Expect<T> = _core.f0(f).collectAndAppend(
+    ExpectationCreatorWithUsageHints(
+        usageHintsAlternativeWithoutExpectationCreator = useAlternativeUsageHint("feature(MyClass:fun0)."),
+        expectationCreator = assertionCreator
+    )
+)
 
 
 /**
@@ -126,7 +142,7 @@ fun <T, R> Expect<T>.feature(
 fun <T, A1, R> Expect<T>.feature(
     f: KFunction2<T, A1, R>,
     a1: A1
-): FeatureExpect<T, R> = _logic.f1(f, a1).transform()
+): FeatureExpect<T, R> = _core.f1(f, a1).transform()
 
 /**
  * Extracts the value which is returned when calling [f] with argument [a1]
@@ -145,7 +161,12 @@ fun <T, A1, R> Expect<T>.feature(
     f: KFunction2<T, A1, R>,
     a1: A1,
     assertionCreator: Expect<R>.() -> Unit
-): Expect<T> = _logic.f1(f, a1).collectAndAppend(assertionCreator)
+): Expect<T> = _core.f1(f, a1).collectAndAppend(
+    ExpectationCreatorWithUsageHints(
+        usageHintsAlternativeWithoutExpectationCreator = useAlternativeUsageHint("feature(MyClass:fun1, arg1)."),
+        expectationCreator = assertionCreator
+    )
+)
 
 
 /**
@@ -164,7 +185,7 @@ fun <T, A1, R> Expect<T>.feature(
 fun <T, A1, A2, R> Expect<T>.feature(
     f: KFunction3<T, A1, A2, R>,
     a1: A1, a2: A2
-): FeatureExpect<T, R> = _logic.f2(f, a1, a2).transform()
+): FeatureExpect<T, R> = _core.f2(f, a1, a2).transform()
 
 /**
  * Extracts the value which is returned when calling [f] with argument [a1], [a2]
@@ -183,7 +204,12 @@ fun <T, A1, A2, R> Expect<T>.feature(
     f: KFunction3<T, A1, A2, R>,
     a1: A1, a2: A2,
     assertionCreator: Expect<R>.() -> Unit
-): Expect<T> = _logic.f2(f, a1, a2).collectAndAppend(assertionCreator)
+): Expect<T> = _core.f2(f, a1, a2).collectAndAppend(
+    ExpectationCreatorWithUsageHints(
+        usageHintsAlternativeWithoutExpectationCreator = useAlternativeUsageHint("feature(MyClass:fun2, arg1, arg2)."),
+        expectationCreator = assertionCreator
+    )
+)
 
 
 /**
@@ -202,7 +228,7 @@ fun <T, A1, A2, R> Expect<T>.feature(
 fun <T, A1, A2, A3, R> Expect<T>.feature(
     f: KFunction4<T, A1, A2, A3, R>,
     a1: A1, a2: A2, a3: A3
-): FeatureExpect<T, R> = _logic.f3(f, a1, a2, a3).transform()
+): FeatureExpect<T, R> = _core.f3(f, a1, a2, a3).transform()
 
 /**
  * Extracts the value which is returned when calling [f] with argument [a1], [a2], [a3]
@@ -221,7 +247,12 @@ fun <T, A1, A2, A3, R> Expect<T>.feature(
     f: KFunction4<T, A1, A2, A3, R>,
     a1: A1, a2: A2, a3: A3,
     assertionCreator: Expect<R>.() -> Unit
-): Expect<T> = _logic.f3(f, a1, a2, a3).collectAndAppend(assertionCreator)
+): Expect<T> = _core.f3(f, a1, a2, a3).collectAndAppend(
+    ExpectationCreatorWithUsageHints(
+        usageHintsAlternativeWithoutExpectationCreator = useAlternativeUsageHint("feature(MyClass:fun3, arg1, arg2, arg3)."),
+        expectationCreator = assertionCreator
+    )
+)
 
 
 /**
@@ -240,7 +271,7 @@ fun <T, A1, A2, A3, R> Expect<T>.feature(
 fun <T, A1, A2, A3, A4, R> Expect<T>.feature(
     f: KFunction5<T, A1, A2, A3, A4, R>,
     a1: A1, a2: A2, a3: A3, a4: A4
-): FeatureExpect<T, R> = _logic.f4(f, a1, a2, a3, a4).transform()
+): FeatureExpect<T, R> = _core.f4(f, a1, a2, a3, a4).transform()
 
 /**
  * Extracts the value which is returned when calling [f] with argument [a1], [a2], [a3], [a4]
@@ -259,7 +290,12 @@ fun <T, A1, A2, A3, A4, R> Expect<T>.feature(
     f: KFunction5<T, A1, A2, A3, A4, R>,
     a1: A1, a2: A2, a3: A3, a4: A4,
     assertionCreator: Expect<R>.() -> Unit
-): Expect<T> = _logic.f4(f, a1, a2, a3, a4).collectAndAppend(assertionCreator)
+): Expect<T> = _core.f4(f, a1, a2, a3, a4).collectAndAppend(
+    ExpectationCreatorWithUsageHints(
+        usageHintsAlternativeWithoutExpectationCreator = useAlternativeUsageHint("feature(MyClass:fun4, arg1, arg2, arg3, arg4)."),
+        expectationCreator = assertionCreator
+    )
+)
 
 
 /**
@@ -277,7 +313,7 @@ fun <T, A1, A2, A3, A4, R> Expect<T>.feature(
 fun <T, A1, A2, A3, A4, A5, R> Expect<T>.feature(
     f: KFunction6<T, A1, A2, A3, A4, A5, R>,
     a1: A1, a2: A2, a3: A3, a4: A4, a5: A5
-): FeatureExpect<T, R> = _logic.f5(f, a1, a2, a3, a4, a5).transform()
+): FeatureExpect<T, R> = _core.f5(f, a1, a2, a3, a4, a5).transform()
 
 /**
  * Extracts the value which is returned when calling [f] with argument [a1], [a2], [a3], [a4], [a5]
@@ -296,7 +332,12 @@ fun <T, A1, A2, A3, A4, A5, R> Expect<T>.feature(
     f: KFunction6<T, A1, A2, A3, A4, A5, R>,
     a1: A1, a2: A2, a3: A3, a4: A4, a5: A5,
     assertionCreator: Expect<R>.() -> Unit
-): Expect<T> = _logic.f5(f, a1, a2, a3, a4, a5).collectAndAppend(assertionCreator)
+): Expect<T> = _core.f5(f, a1, a2, a3, a4, a5).collectAndAppend(
+    ExpectationCreatorWithUsageHints(
+        usageHintsAlternativeWithoutExpectationCreator = useAlternativeUsageHint("feature(MyClass:fun5, arg1, arg2, arg3, arg4, arg5)."),
+        expectationCreator = assertionCreator
+    )
+)
 
 
 /**
@@ -315,7 +356,7 @@ fun <T, A1, A2, A3, A4, A5, R> Expect<T>.feature(
  * @since 0.9.0
  */
 fun <T, R> Expect<T>.feature(description: String, provider: T.() -> R): FeatureExpect<T, R> =
-    _logic.manualFeature(description, provider).transform()
+    _core.manualFeature(Text(description), provider).transform()
 
 /**
  * Extracts a feature out of the current subject of `this` expectation
@@ -337,7 +378,12 @@ fun <T, R> Expect<T>.feature(
     description: String,
     provider: T.() -> R,
     assertionCreator: Expect<R>.() -> Unit
-): Expect<T> = _logic.manualFeature(description, provider).collectAndAppend(assertionCreator)
+): Expect<T> = _core.manualFeature(Text(description), provider).collectAndAppend(
+    ExpectationCreatorWithUsageHints(
+        usageHintsAlternativeWithoutExpectationCreator = useAlternativeUsageHint("feature(\"children\") { children }."),
+        expectationCreator = assertionCreator
+    )
+)
 
 
 /**
@@ -357,7 +403,7 @@ fun <T, R> Expect<T>.feature(
  * @since 0.9.0
  */
 fun <T, R> Expect<T>.feature(provider: MetaFeatureOption<T>.(T) -> MetaFeature<R>): FeatureExpect<T, R> =
-    extractFeature(provider).transform()
+    featureBasedOnMetaFeatureProvider(provider).transform()
 
 /**
  * Extracts a feature out of the current subject of `this` expectation,
@@ -378,10 +424,17 @@ fun <T, R> Expect<T>.feature(provider: MetaFeatureOption<T>.(T) -> MetaFeature<R
 fun <T, R> Expect<T>.feature(
     provider: MetaFeatureOption<T>.(T) -> MetaFeature<R>,
     assertionCreator: Expect<R>.() -> Unit
-): Expect<T> = extractFeature(provider).collectAndAppend(assertionCreator)
+): Expect<T> = featureBasedOnMetaFeatureProvider(provider).collectAndAppend(
+    ExpectationCreatorWithUsageHints(
+        usageHintsAlternativeWithoutExpectationCreator = useAlternativeUsageHint("feature { }."),
+        expectationCreator = assertionCreator
+    )
+)
 
-private fun <R, T> Expect<T>.extractFeature(provider: MetaFeatureOption<T>.(T) -> MetaFeature<R>) =
-    _logic.genericSubjectBasedFeature { MetaFeatureOption(this).provider(it) }
+private fun <R, T> Expect<T>.featureBasedOnMetaFeatureProvider(
+    provider: MetaFeatureOption<T>.(T) -> MetaFeature<R>
+): FeatureExtractorBuilder.ExecutionStep<T, R> =
+    _core.featureBasedOnMetaFeature { MetaFeatureOption(this).provider(it) }
 
 /**
  * Extracts the subject of this [Expect] in case it is defined and passes it to the given [assertionCreator]
@@ -401,7 +454,12 @@ private fun <R, T> Expect<T>.extractFeature(provider: MetaFeatureOption<T>.(T) -
  * @since 1.2.0
  */
 fun <T> Expect<T>.extractSubject(
-    failureDescription: String? =  null,
+    failureDescription: String? = null,
     assertionCreator: Expect<T>.(T) -> Unit
-) = _logic.extractSubject(failureDescription, assertionCreator)
+) = _core.extractSubject(
+    failureDescription?.let { Text(it) },
+    // we currently don't provide an overload without expectationCreator
+    usageHintsAlternativeWithoutExpectationCreator = emptyList(),
+    expectationCreator = assertionCreator
+)
 
