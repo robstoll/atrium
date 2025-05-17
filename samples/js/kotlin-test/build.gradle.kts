@@ -11,18 +11,8 @@ repositories {
     mavenCentral()
 }
 
-dependencies {
-    "implementation"("org.jetbrains.kotlin:kotlin-stdlib-js")
-
-    // setup for Atrium:
-    "testImplementation"("ch.tutteli.atrium:$atriumApi:$atriumVersion")
-
-    // setup for mocha:
-    "testImplementation"("org.jetbrains.kotlin:kotlin-test-js")
-}
-
 plugins {
-    kotlin("js") version "2.1.20"
+    kotlin("multiplatform") version "2.1.20"
 }
 
 group = "org.atriumlib.samples"
@@ -40,6 +30,18 @@ kotlin {
                     showCauses = true                          // defaults to true
                     showStackTraces = true                     // defaults to true
                 }
+            }
+        }
+    }
+
+    sourceSets {
+        val jsTest by getting {
+            dependencies {
+                // setup for Atrium:
+                implementation("ch.tutteli.atrium:$atriumApi:$atriumVersion")
+
+                // setup for mocha:
+                implementation(kotlin("test"))
             }
         }
     }
