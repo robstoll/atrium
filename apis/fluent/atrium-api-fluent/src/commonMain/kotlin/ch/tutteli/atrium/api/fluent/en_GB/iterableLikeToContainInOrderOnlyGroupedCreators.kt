@@ -33,6 +33,10 @@ import kotlin.jvm.JvmName
  * @return an [Expect] for the subject of `this` expectation.
  *
  * @since 0.14.0 -- API existed for [Iterable] but not for [IterableLike].
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.IterableLikeToContainInOrderOnlyGroupedCreatorSamples.inAnyOrderWithValues
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.IterableLikeToContainInOrderOnlyGroupedCreatorSamples.inAnyOrderMultipleGroups
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.IterableLikeToContainInOrderOnlyGroupedCreatorSamples.inAnyOrderWithDuplicates
  */
 fun <E, T : IterableLike> EntryPointStep<E, T, InOrderOnlyGroupedWithinSearchBehaviour>.inAnyOrder(
     firstGroup: Group<E>,
@@ -68,6 +72,10 @@ fun <E, T : IterableLike> EntryPointStep<E, T, InOrderOnlyGroupedWithinSearchBeh
  * @return an [Expect] for the subject of `this` expectation.
  *
  * @since 0.14.0 -- API existed for [Iterable] but not for [IterableLike].
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.IterableLikeToContainInOrderOnlyGroupedCreatorSamples.inAnyOrderWithEntries
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.IterableLikeToContainInOrderOnlyGroupedCreatorSamples.inAnyOrderEntriesWithStringList
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.IterableLikeToContainInOrderOnlyGroupedCreatorSamples.inAnyOrderEntriesWithNumbers
  */
 @JvmName("inAnyOrderEntries")
 fun <E : Any, T : IterableLike> EntryPointStep<out E?, T, InOrderOnlyGroupedWithinSearchBehaviour>.inAnyOrder(
