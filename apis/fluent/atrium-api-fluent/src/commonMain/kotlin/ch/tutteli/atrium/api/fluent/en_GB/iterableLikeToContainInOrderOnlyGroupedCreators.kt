@@ -36,6 +36,8 @@ import kotlin.jvm.JvmName
  *
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.IterableLikeToContainInOrderOnlyGroupedCreatorSamples.inAnyOrderWithValues
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.IterableLikeToContainInOrderOnlyGroupedCreatorSamples.inAnyOrderMultipleGroups
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.IterableLikeToContainInOrderOnlyGroupedCreatorSamples.inAnyOrderWithNullValues
+  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.IterableLikeToContainInOrderOnlyGroupedCreatorSamples.inAnyOrderWithReportingOptions
  * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.IterableLikeToContainInOrderOnlyGroupedCreatorSamples.inAnyOrderWithDuplicates
  */
 fun <E, T : IterableLike> EntryPointStep<E, T, InOrderOnlyGroupedWithinSearchBehaviour>.inAnyOrder(
