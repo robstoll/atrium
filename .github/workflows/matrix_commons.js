@@ -5,7 +5,7 @@
 //  \__/\__/\_, /\___/_//_/\_,_/_/         It is licensed under Apache License 2.0
 //         /___/                           Please report bugs and contribute back your improvements
 //
-//                                         Version: v2.8.2
+//                                         Version: v3.0.0
 //##################################
 // adapted version of https://github.com/vlsi/github-actions-random-matrix/blob/main/examples/matrix.js
 // licensed under Apache License 2.0
