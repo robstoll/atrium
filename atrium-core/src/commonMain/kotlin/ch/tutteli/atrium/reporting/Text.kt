@@ -11,7 +11,7 @@ import ch.tutteli.atrium.reporting.reportables.TextElement
  */
 //TODO add when using Kotlin apiLevel 2.0.0
 //@ConsistentCopyVisibility
-//TODO 2.0.0 remove data
+//TODO 2.0.0 remove data?
 data class Text private constructor(override val string: String) : TextElement {
 
     override fun toString(): String = "Text($string)"

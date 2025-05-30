@@ -39,6 +39,7 @@ inline fun <SubjectT> ProofContainer<SubjectT>.collect(
 
 
 //TODO 1.3.0 KDOC (see next function) and check if Boolean flag is used somewhere
+//TODO 1.3.0 rename to collectForProofExplanation?
 /**
  * @since 1.3.0
  */

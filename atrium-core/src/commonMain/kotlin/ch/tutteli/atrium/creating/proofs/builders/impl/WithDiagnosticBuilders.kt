@@ -13,6 +13,7 @@ interface DiagnosticBuilder<SubjectT> {
         init: DiagnosticGroupBuilder<SubjectT>.() -> Unit
     ): Diagnostic
 
+    //TODO 1.3.0 check if proofExplanation exists without a surrounding invisibleFailingProof
     fun proofExplanation(init: ProofExplanationGroupBuilder<SubjectT>.() -> Unit): Diagnostic
     fun failureExplanationGroup(
         description: InlineElement,

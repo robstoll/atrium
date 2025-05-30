@@ -1,19 +1,13 @@
 package ch.tutteli.atrium.creating.proofs.impl
 
-import ch.tutteli.atrium.assertions.builders.assertionBuilder
-import ch.tutteli.atrium.assertions.builders.invisibleGroup
-import ch.tutteli.atrium.assertions.builders.withExplanatoryAssertion
-import ch.tutteli.atrium.core.*
-import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.creating.ProofContainer
 import ch.tutteli.atrium.creating.proofs.Proof
 import ch.tutteli.atrium.creating.proofs.builders.buildProof
 import ch.tutteli.atrium.creating.proofs.builders.buildSimpleProof
-import ch.tutteli.atrium.reporting.Text
 import ch.tutteli.atrium.reporting.reportables.Description
 import ch.tutteli.atrium.reporting.reportables.Reportable
 import ch.tutteli.atrium.reporting.reportables.descriptions.DescriptionIterableLikeProof
-import ch.tutteli.kbox.identity
+
 //
 //internal fun <E : Any> allCreatedAssertionsHold(
 //    container: AssertionContainer<*>,
@@ -76,15 +70,18 @@ internal fun ProofContainer<*>.createFailureExplanationForMismatches(
     }
 }
 
+//TODO 1.3.0 that's a horrible name
 internal fun ProofContainer<*>.createProofGroupFromReportables(
     description: Description,
     representation: Any?,
-    proofs: List<Reportable>
+    reportables: List<Reportable>
 ): Proof =
-    if (proofs.isEmpty()) buildSimpleProof(description, representation) { true }
-    else buildProof {
+    if (reportables.isEmpty()) {
+        //TODO 1.3.0 document in which case they are empty and why then true and not false
+        buildSimpleProof(description, representation) { true }
+    } else buildProof {
         proofGroup(description, representation) {
-            addAll(proofs)
+            addAll(reportables)
         }
     }
 //

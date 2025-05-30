@@ -39,6 +39,7 @@ enum class DescriptionIterableLikeProof(override val string: String) : Descripti
     /** @since 1.3.0 (but was in DescriptionIterableLikeExpectation since 0.18.0) */
     EXACTLY("is exactly"),
 
+    //TODO 1.3.0 we don't support replacements via %s anymore, check also other values
     /** @since 1.3.0 (but was in DescriptionIterableLikeExpectation since 0.18.0) */
     IN_ANY_ORDER("%s, in any order"),
 

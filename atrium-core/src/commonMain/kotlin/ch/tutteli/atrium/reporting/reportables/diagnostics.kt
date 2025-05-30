@@ -58,10 +58,15 @@ interface Diagnostic : Reportable {
             DefaultColumn(inlineElement, alignment)
 
         fun representation(representation: Any?): Representation = DefaultRepresentation(representation)
+        fun invisibleGroup(children: List<Diagnostic>): Diagnostic = DefaultInvisibleDiagnosticGroup(children)
     }
 }
 
 interface DiagnosticGroup : Diagnostic, ReportableGroup
+interface InvisibleLikeDiagnosticGroup: DiagnosticGroup
+interface InvisibleDiagnosticGroup: InvisibleLikeDiagnosticGroup
+
+
 interface DiagnosticGroupWithDesignation : DiagnosticGroup, ReportableGroupWithDesignation
 
 interface DiagnosticGroupWithDescription : DiagnosticGroup {

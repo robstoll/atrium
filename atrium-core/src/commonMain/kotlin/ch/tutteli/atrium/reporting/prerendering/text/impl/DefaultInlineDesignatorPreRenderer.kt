@@ -43,6 +43,10 @@ class DefaultInlineDesignatorPreRenderer(
                         add(it)
                     }
                     add(StyledString.COLON_SEPARATOR)
+                    //TODO 1.3.0 I am no longer sure if this is correct or not for regular proofGroups. in the old
+                    // reporter we only hid the representation for features. but I have in mind that there is a case
+                    // where we would show the representation although we shouldn't. Something related to toContain
+                    // expectation
                     if (controlObject.explainsProof.not()) {
                         add(objectFormatter.format(representation))
                     }

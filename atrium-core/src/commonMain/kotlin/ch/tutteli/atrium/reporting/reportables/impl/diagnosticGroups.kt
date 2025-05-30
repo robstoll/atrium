@@ -71,3 +71,15 @@ internal class DefaultColumn(
     override val inlineElement: InlineElement,
     override val alignment: HorizontalAlignment
 ) : Column
+
+internal class DefaultInvisibleDiagnosticGroup(
+    children: List<Reportable>
+) : BaseDiagnosticGroup(children), InvisibleDiagnosticGroup {
+
+    /**
+     * @suppress No need to document this behaviour.
+     */
+    override fun toString(): String {
+        return this::class.simpleName + " " + children
+    }
+}

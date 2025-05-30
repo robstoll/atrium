@@ -3,26 +3,33 @@ package ch.tutteli.atrium.creating.proofs.builders
 import ch.tutteli.atrium.core.falseProvider
 import ch.tutteli.atrium.creating.ProofContainer
 import ch.tutteli.atrium.creating.proofs.Proof
+import ch.tutteli.atrium.creating.proofs.builders.impl.BaseBuilder
 import ch.tutteli.atrium.creating.proofs.builders.impl.BaseGroupBuilder
+import ch.tutteli.atrium.creating.proofs.builders.impl.DiagnosticBuilder
 import ch.tutteli.atrium.creating.proofs.builders.impl.DiagnosticBuilderDelegate
+import ch.tutteli.atrium.reporting.reportables.Diagnostic
 import ch.tutteli.atrium.reporting.reportables.InlineElement
 import ch.tutteli.atrium.reporting.reportables.Reportable
 
 /** @since 1.3.0 */
-fun <T> ProofContainer<T>.buildSimpleProof(
+fun <SubjectT> ProofContainer<SubjectT>.buildSimpleProof(
     description: InlineElement,
     representation: Any?,
-    test: (T) -> Boolean
+    test: (SubjectT) -> Boolean
 ): Proof = Proof.simple(description, representation, this.toTestFunction(test))
 
 /** @since 1.3.0 */
-fun <T> ProofContainer<T>.toTestFunction(test: (T) -> Boolean): () -> Boolean = {
+fun <SubjectT> ProofContainer<SubjectT>.toTestFunction(test: (SubjectT) -> Boolean): () -> Boolean = {
     this.maybeSubject.fold(falseProvider, test)
 }
 
 /** @since 1.3.0 */
-fun <T> ProofContainer<T>.buildProof(init: EntryPointProofBuilder<T>.() -> Unit): Proof =
+fun <SubjectT> ProofContainer<SubjectT>.buildProof(init: EntryPointProofBuilder<SubjectT>.() -> Unit): Proof =
     EntryPointProofBuilder(this).build(init)
+
+/** @since 1.3.0 */
+fun <SubjectT> ProofContainer<SubjectT>.buildDiagnostic(init: EntryPointDiagnosticBuilder<SubjectT>.() -> Unit): Diagnostic =
+    EntryPointDiagnosticBuilder(this, DiagnosticBuilderDelegate()).build(init)
 
 /**
  * Used to prevent that one can use e.g. [ProofExplanationGroupBuilder.collectWithoutSubject] in a nested [ProofExplanationGroupBuilder.proofGroup].
@@ -46,9 +53,9 @@ typealias AnyProofBuilder = BaseGroupBuilder<*, Proof, *>
 typealias AnyReportableBuilder = BaseGroupBuilder<*, Reportable, *>
 
 /** @since 1.3.0 */
-class EntryPointProofBuilder<T> internal constructor(
-    proofContainer: ProofContainer<T>
-) : BaseGroupBuilder<T, Proof, EntryPointProofBuilder<T>>(proofContainer, DiagnosticBuilderDelegate()) {
+class EntryPointProofBuilder<SubjectT> internal constructor(
+    proofContainer: ProofContainer<SubjectT>
+) : BaseGroupBuilder<SubjectT, Proof, EntryPointProofBuilder<SubjectT>>(proofContainer, DiagnosticBuilderDelegate()) {
 
     override fun build(children: List<Reportable>): Proof =
         when (children.size) {
@@ -61,4 +68,20 @@ class EntryPointProofBuilder<T> internal constructor(
         }
 }
 
+/** @since 1.3.0 */
+class EntryPointDiagnosticBuilder<SubjectT>(
+    proofContainer: ProofContainer<SubjectT>,
+    diagnosticBuilderDelegate: DiagnosticBuilderDelegate<SubjectT>
+) : BaseBuilder<SubjectT, Diagnostic, Diagnostic, EntryPointDiagnosticBuilder<SubjectT>>(proofContainer),
+    DiagnosticBuilder<SubjectT> by diagnosticBuilderDelegate {
+    init {
+        diagnosticBuilderDelegate.reportableBuilder = this
+    }
 
+    override fun build(children: List<Diagnostic>): Diagnostic =
+        when (children.size) {
+            1 -> children.first()
+
+            else -> Diagnostic.invisibleGroup(children)
+        }
+}

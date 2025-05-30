@@ -763,11 +763,9 @@ expect(listOf(1 to "a", 2 to "b")).get(10) {
 I expected subject : [(1, a), (2, b)]        (java.util.Arrays.ArrayList <1234789>)
 🚩️ ▶ get(10) : ❗❗ Index out of bounds
      » ▶ CANNOT show description as it is based on subject which is not defined : 
-         • ❗❗ Assertion is deprecated, move to Proof, cannot show description : DefaultInvisibleFailingProofGroup holds=false, children=[ch.tutteli.atrium.reporting.reportables.impl.DefaultProofExplanation@5a63de07]        (ch.tutteli.atrium.creating.proofs.impl.DefaultInvisibleFailingProofGroup <1234789>)
-           » to equal : 1
-     » ▶ first : 
-         • ❗❗ Assertion is deprecated, move to Proof, cannot show description : DefaultInvisibleFailingProofGroup holds=false, children=[ch.tutteli.atrium.reporting.reportables.impl.DefaultProofExplanation@7d364bce]        (ch.tutteli.atrium.creating.proofs.impl.DefaultInvisibleFailingProofGroup <1234789>)
-           » to equal : 1
+         • to equal                                                             : 1
+     » ▶ first      : 
+         • to equal : 1
 ```
 </ex-within-expectation-functions>
 
@@ -1994,7 +1992,7 @@ expectGrouped {
 my expectations : 
 🚩️ calling myFun with -2147483648 : 
    🚩️ ▶ I expected subject : null
-        🚩️ ❗❗ Assertion is deprecated, move to Proof, cannot show description : DefaultInvisibleFailingProofGroup holds=false, children=[ch.tutteli.atrium.reporting.reportables.impl.DefaultProofExplanation@41acf2f1]        (ch.tutteli.atrium.creating.proofs.impl.DefaultInvisibleFailingProofGroup <1234789>)
+        🚩️ ❗❗ Assertion is deprecated, move to Proof, cannot show description : DefaultInvisibleFailingProofGroup holds=false, children=[ch.tutteli.atrium.reporting.reportables.impl.DefaultProofExplanation@5d8c03cc]        (ch.tutteli.atrium.creating.proofs.impl.DefaultInvisibleFailingProofGroup <1234789>)
            » to contain : 
              • value : "min"
                » but no match was found
@@ -2114,12 +2112,11 @@ expect {
 I expected subject : () -> kotlin.Nothing        (readme.examples.MostExamples$ex-add-info-3$1 <1234789>)
 🚩️ ▶ thrown exception when called : java.lang.IllegalArgumentException
      🚫️ to be an instance of type : IllegalStateException (java.lang.IllegalStateException)
-     » ▶ message : 
-         • ❗❗ Assertion is deprecated, move to Proof, cannot show description : DefaultInvisibleFailingProofGroup holds=false, children=[ch.tutteli.atrium.reporting.reportables.impl.DefaultProofExplanation@5a2ce458]        (ch.tutteli.atrium.creating.proofs.impl.DefaultInvisibleFailingProofGroup <1234789>)
-           » not to equal : null
-           » to contain : 
-             • value : "no no no"
-               » but no match was found
+     » ▶ message        : 
+         • not to equal : null
+         • to contain : 
+           • value : "no no no"
+             » but no match was found
      ℹ️ Properties of the unexpected IllegalArgumentException
         » message : "no no no..."
         » stacktrace : 

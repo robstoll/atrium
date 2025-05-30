@@ -10,6 +10,7 @@ import ch.tutteli.atrium.creating.proofs.basic.contains.checkers.AtLeastChecker
 import ch.tutteli.atrium.creating.proofs.builders.buildProof
 import ch.tutteli.atrium.reporting.Text
 import ch.tutteli.atrium.reporting.reportables.Description
+import ch.tutteli.kbox.takeIf
 
 
 /**
@@ -102,7 +103,6 @@ abstract class ToContainProofCreator<SubjectT : Any, SubjectMultiConsumableT : A
         count: Int,
         numberOfOccurrences: Description
     ): Proof {
-        val proofs = checkers.map { it.createProof(count) }
         val checker = checkers.firstOrNull()
         return if (checkers.size == 1 && checker is AtLeastChecker && checker.times == 1) {
             //TODO 1.3.0 change return type to Either<Boolean, Proof> and return Left in this branch as we don't want
@@ -120,17 +120,19 @@ abstract class ToContainProofCreator<SubjectT : Any, SubjectMultiConsumableT : A
                     )
                     .build()
             } else {
-                assertionBuilder.explanatoryGroup
-                    .withDefaultType
-                    .withExplanatoryAssertion(descriptionNotFound)
-                    .failing
-                    .build()
+                multiConsumableContainer.buildProof {
+                    invisibleFailingProofGroup {
+                        row {
+                            column(descriptionNotFound)
+                        }
+                    }
+                }
             }
         } else {
             multiConsumableContainer.buildProof {
                 //TODO 1.3.0 still use feature for it?
                 feature(numberOfOccurrences, Text(count.toString())) {
-                    addAll(proofs)
+                    checkers.forEach { add(it.createProof(count)) }
                 }
             }
         }

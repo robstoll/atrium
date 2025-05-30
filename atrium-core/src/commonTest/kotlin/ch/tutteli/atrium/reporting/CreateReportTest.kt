@@ -34,6 +34,7 @@ import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
 import ch.tutteli.atrium.reporting.translating.Untranslatable
 import ch.tutteli.atrium.specs.lineSeparator
 import ch.tutteli.atrium.translations.DescriptionBasic
+import ch.tutteli.atrium.translations.DescriptionIterableLikeExpectation
 import com.github.ajalt.mordant.rendering.AnsiLevel
 import com.github.ajalt.mordant.rendering.TextColors
 import com.github.ajalt.mordant.rendering.TextStyle
@@ -404,7 +405,7 @@ class CreateReportTest {
     }
 
     @Test
-    fun debugGroup_withReportableGroup() {
+    fun debugGroup_withDiagnosticGroup() {
         val builder = buildRootGroup(representation = Text("/usr/bin/noprogram")) {
             simpleProof(Text("to"), Text("exist")) { false }
             debugGroup(Text("properties of unexpected exception")) {
@@ -534,6 +535,45 @@ class CreateReportTest {
             |$x $f get(10) : ❗❗ Index out of bounds
              |     » $f firstName       :${' '}
               |         • to start with : "Ro"
+            """.trimMargin()
+        )
+    }
+
+    @Test
+    fun proofExplanation_proofGroup_showsRepresentation() {
+        val builder = buildRootGroup {
+            feature(Text("message"), Text.NULL) {
+                simpleProof(Text("not to equal"), Text.NULL) { false }
+                simpleProof(Text("to be an instance of"), String::class) { false }
+                invisibleFailingProofGroup {
+                    proofExplanation {
+                        proofGroup(Text("third party expectation"), Text("1")) {
+                            simpleProof(Text("value"), 1) { false }
+                        }
+                    }
+                }
+            }
+        }
+        expectForReporterWithoutAnsi(
+            builder,
+            """
+            |a verb : "representation"
+            |(f) > message                  : null
+            |      (f) not to equal         : null
+            |      (f) to be an instance of : String (kotlin.String) -- Class: java.lang.String
+            |      » to contain :${' '}
+            |        • value    : 1
+            """.trimMargin()
+        )
+        expectForReporterWithAnsi(
+            builder,
+            """
+            |a verb : "representation"
+           |$g $f message                 : null
+            |     $x not to equal         : null
+            |     $x to be an instance of : String (kotlin.String) -- Class: java.lang.String
+            |     » to contain :${' '}
+            |       • value    : 1
             """.trimMargin()
         )
     }
@@ -1012,6 +1052,72 @@ class CreateReportTest {
 // --------------------------------------------------------------------------------------------------------------
 // Backwards compatibility with Assertions, regression tests
 // --------------------------------------------------------------------------------------------------------------
+
+    @Suppress("DEPRECATION")
+    @Test
+    fun proofExplanation_assertionGroup_in_feature_doesNotShowRepresentationOfFeatureButOfGroup() {
+        val builder = buildRootGroup {
+            feature(Text("message"), Text.NULL) {
+                simpleProof(Text("not to equal"), Text.NULL) { false }
+                simpleProof(Text("to be an instance of"), String::class) { false }
+                invisibleFailingProofGroup {
+                    proofExplanation {
+                        feature(Text("as char list"), Text("should not be shown")) {
+                            add(
+                                BasicAssertionGroup(
+                                    DefaultListAssertionGroupType, TranslatableWithArgs(
+                                        DescriptionIterableLikeExpectation.IN_ANY_ORDER,
+                                        DescriptionIterableLikeExpectation.TO_CONTAIN
+                                    ),
+                                    Text.EMPTY,
+                                    listOf(
+                                        BasicAssertionGroup(
+                                            DefaultListAssertionGroupType,
+                                            DescriptionIterableLikeExpectation.AN_ELEMENT_WHICH_EQUALS, 'x', listOf(
+                                                ExplanatoryAssertionGroup(
+                                                    DefaultExplanatoryAssertionGroupType, listOf(
+                                                        BasicExplanatoryAssertion(DescriptionCharSequenceProof.NOT_FOUND)
+                                                    ),
+                                                    false
+                                                )
+                                            )
+                                        )
+                                    )
+                                )
+                            )
+                        }
+                    }
+                }
+            }
+        }
+        expectForReporterWithoutAnsi(
+            builder,
+            """
+            |a verb : "representation"
+            |(f) > message                  : null
+            |      (f) not to equal         : null
+            |      (f) to be an instance of : String (kotlin.String) -- Class: java.lang.String
+            |      » > as char list :${' '}
+            |          • to contain, in any order :${' '}
+            |            • an element which equals : 'x'
+            |              » but no match was found
+            """.trimMargin()
+        )
+        expectForReporterWithAnsi(
+            builder,
+            """
+            |a verb : "representation"
+           |$g $f message                 : null
+            |     $x not to equal         : null
+            |     $x to be an instance of : String (kotlin.String) -- Class: java.lang.String
+            |     » $f as char list :${' '}
+            |         • to contain, in any order :${' '}
+            |           • an element which equals : 'x'
+            |             » but no match was found
+            """.trimMargin()
+        )
+    }
+
 
     @Suppress("DEPRECATION")
     @Test

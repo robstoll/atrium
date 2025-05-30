@@ -6,7 +6,7 @@ import ch.tutteli.atrium.creating.ExperimentalComponentFactoryContainer
 import ch.tutteli.atrium.creating.ProofContainer
 import ch.tutteli.atrium.creating.build
 import ch.tutteli.atrium.creating.proofs.builders.AnyBuilder
-import ch.tutteli.atrium.creating.proofs.builders.buildProof
+import ch.tutteli.atrium.creating.proofs.builders.buildDiagnostic
 import ch.tutteli.atrium.creating.transformers.impl.addAdditionalHints
 import ch.tutteli.atrium.reporting.AtriumErrorAdjuster
 import ch.tutteli.atrium.reporting.Text
@@ -25,9 +25,9 @@ import ch.tutteli.kbox.takeIf
 @OptIn(ExperimentalComponentFactoryContainer::class)
 fun ProofContainer<*>.propertiesOfThrowable(
     throwable: Throwable,
-): Reportable {
+): Diagnostic {
     components.build<AtriumErrorAdjuster>().adjust(throwable)
-    return buildProof {
+    return buildDiagnostic {
         val description = inlineGroup(
             OCCURRED_EXCEPTION_PROPERTIES,
             Text.SPACE,
@@ -78,10 +78,7 @@ private fun AnyBuilder.addStackTraceHint(
 /** @since 1.3.0 */
 private fun AnyBuilder.addCauseHint(throwable: Throwable) {
     throwable.cause?.let { cause ->
-        addChildHint(
-            throwable, cause,
-            OCCURRED_EXCEPTION_CAUSE
-        )
+        addChildHint(throwable, cause, OCCURRED_EXCEPTION_CAUSE)
     }
 }
 

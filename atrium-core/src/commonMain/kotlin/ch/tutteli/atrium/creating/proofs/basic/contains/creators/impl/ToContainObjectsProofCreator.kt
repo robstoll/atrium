@@ -3,7 +3,6 @@ package ch.tutteli.atrium.creating.proofs.basic.contains.creators.impl
 import ch.tutteli.atrium.creating.proofs.basic.contains.ToContain.Checker
 import ch.tutteli.atrium.creating.proofs.basic.contains.ToContain.SearchBehaviour
 import ch.tutteli.atrium.creating.proofs.Proof
-import ch.tutteli.atrium.creating.proofs.ProofGroup
 import ch.tutteli.atrium.creating.ProofContainer
 import ch.tutteli.atrium.creating.proofs.basic.contains.ToContain
 import ch.tutteli.atrium.creating.proofs.builders.buildProof
@@ -43,15 +42,16 @@ abstract class ToContainObjectsProofCreator<SubjectT : Any, SubjectMultiConsumab
     ): Proof {
         val reportables = mutableListOf<Reportable>()
         //TODO 1.3.0 change as soon as Iterable is migrated as well
-        if (false){//searchBehaviour is IterableNotSearchBehaviour) {
+        if (false) {//searchBehaviour is IterableNotSearchBehaviour) {
             val mismatches = mismatchesForNotSearchBehaviour(multiConsumableContainer, searchCriterion)
             if (mismatches.isNotEmpty()) reportables.add(
                 multiConsumableContainer.createFailureExplanationForMismatches(mismatches)
             )
         } else {
             val count = search(multiConsumableContainer, searchCriterion)
-            val featureProof = featureFactory(multiConsumableContainer, count, descriptionNumberOfOccurrences)
-            reportables.add(featureProof)
+            featureFactory(multiConsumableContainer, count, descriptionNumberOfOccurrences).also { featureProof ->
+                reportables.add(featureProof)
+            }
         }
 
         return multiConsumableContainer.createProofGroupFromReportables(groupDescription, searchCriterion, reportables)

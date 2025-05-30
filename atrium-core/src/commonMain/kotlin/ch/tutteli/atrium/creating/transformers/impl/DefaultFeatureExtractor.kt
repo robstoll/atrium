@@ -91,27 +91,27 @@ class DefaultFeatureExtractor : FeatureExtractor {
             // sub-expectations defined, show them in the failure hint as well to give more context
             container.collectForFailureHint(expectationCreatorWithUsageHints).first
         }
-        val featureAssertions = failureHints + subExpectations
+        val featureExpectations = failureHints + subExpectations
 
-        val fixedClaimGroup = container.buildProof {
-            fixedClaimGroup(description, repForFailure, holds = false) {
+        fun featureGroup() = container.buildProof {
+            feature(description, repForFailure) {
                 //TODO 1.3.0 this building process should fail in case we don't define any expectation
                 // make sure we have an appropriate test which covers this
-                addAll(featureAssertions)
+                addAll(featureExpectations)
             }
         }
         container.maybeSubject.fold({
             // The subject is already None, i.e. the feature extraction cannot be carried out.
             // If no subExpectations where defined, then we don't need/want to show the fixedClaimGroup because the
-            // feature as such will already be shown via explanatory expectation-group at the place where the first
+            // feature as such will already be shown via proofExplanation at the place where the first
             // extraction/transformation failed.
-            if (featureAssertions.isNotEmpty()) {
-                container.append(fixedClaimGroup)
+            if (featureExpectations.isNotEmpty()) {
+                container.append(featureGroup())
             }
         }, {
             // on the other hand, if the subject is defined, then we need the fixedClaimGroup which inter alia
             // shows why the extraction went wrong (e.g. index out of bound)
-            container.append(fixedClaimGroup)
+            container.append(featureGroup())
         })
     }
 

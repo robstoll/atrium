@@ -13,11 +13,9 @@ class ThrowableExpectationsSpec : ch.tutteli.atrium.specs.integration.ThrowableE
 
     companion object {
 
-        @Suppress("RemoveExplicitTypeArguments")
         private fun causeFeature(expect: Expect<out Throwable>): Expect<IllegalArgumentException> =
             expect.cause<IllegalArgumentException>()
 
-        @Suppress("RemoveExplicitTypeArguments")
         private fun cause(
             expect: Expect<out Throwable>,
             assertionCreator: Expect<IllegalArgumentException>.() -> Unit

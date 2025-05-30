@@ -52,17 +52,16 @@ abstract class ThrowableExpectationsSpec(
                     expect {
                         expect(throwable).messageFun { toEqual("hello") }
                     }.toThrow<AssertionError> {
-                        message{
+                        message {
                             toContainDescr(DescriptionAnyProof.NOT_TO_EQUAL, null)
                             toContainDescr(DescriptionAnyProof.TO_BE_AN_INSTANCE_OF, "String (kotlin.String")
-                            if(hasExtraHint) toContainToEqualDescr("\"hello\"")
+                            if (hasExtraHint) toContainToEqualDescr("\"hello\"")
                         }
                     }
                 }
             }
 
             it("${messageToContain.name} - throws an AssertionError which shows intended sub assertion") {
-
                 expect {
                     expect(throwable).messageContainsFun(1, arrayOf(2.3, 'z', "hello"))
                 }.toThrow<AssertionError> {
@@ -113,7 +112,8 @@ abstract class ThrowableExpectationsSpec(
                     expect {
                         expect(throwable).messageFun { toEqual("hello") }
                     }.toThrow<AssertionError> {
-                        messageToContain("$toEqualDescr : \"hello\"") }
+                        messageToContain("$toEqualDescr : \"hello\"")
+                    }
                 }
 
                 it("$name - does not throw if the assertion holds") {

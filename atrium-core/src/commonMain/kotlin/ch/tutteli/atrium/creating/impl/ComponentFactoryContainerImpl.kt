@@ -256,12 +256,15 @@ internal object DefaultComponentFactoryContainer : ComponentFactoryContainer by 
             { _ -> DefaultFallbackProofGroupWithDesignationTextPreRenderer() },
 
 
-            // ReportableGroup
+            // DiagnosticGroup
+            { _ -> DefaultInvisibleLikeDiagnosticGroupTextPreRenderer() },
             { c -> DefaultDebugGroupTextPreRenderer(c.build()) },
             { c -> DefaultInformationGroupTextPreRenderer(c.build()) },
             { c -> DefaultFailureExplanationGroupTextPreRenderer(c.build()) },
             { _ -> DefaultProofExplanationTextPreRenderer() },
             { _ -> DefaultUsageHintGroupTextPreRenderer() },
+
+            // fallback Reportable Group
             { _ -> DefaultFallbackReportableGroupWithDesignationTextPreRenderer() },
 
 
