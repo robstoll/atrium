@@ -13,18 +13,5 @@
             ],
             "additionalBranchPrefix": "samples/"
         }
-    ],
-    "description": "TODO 3.0 activate again once we support scala",
-    "ignorePaths": [
-        "atrium-scala2/"
-    ],
-    "ignoreDeps": [
-        "org.spekframework.spek2:spek-dsl-js",
-        "org.spekframework.spek2:spek-runtime-jvm",
-        "org.spekframework.spek2:spek-runner-junit5",
-        "org.spekframework.spek2:spek-dsl-jvm",
-        "org.spekframework.spek2:spek-dsl-metadata",
-        "io.mockk:mockk",
-        "io.mockk:mockk-common"
     ]
 }

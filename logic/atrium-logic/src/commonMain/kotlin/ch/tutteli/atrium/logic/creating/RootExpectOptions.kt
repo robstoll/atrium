@@ -14,7 +14,6 @@ import kotlin.reflect.KClass
 fun <T> RootExpectOptions(configuration: RootExpectBuilder.OptionsChooser<T>.() -> Unit): RootExpectOptions<T> =
     RootExpectBuilder.OptionsChooser(configuration)
 
-//TODO 1.5.0 move to core? Not usable for things like scala though
 /**
  * Convenience function which infers the [KClass] usually required for [RootExpectBuilder.OptionsChooser.withComponent].
  */
