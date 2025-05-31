@@ -8,7 +8,7 @@ junit = "5.13.0"
 junitPlatform = "1.13.0"
 spek = "2.0.12"
 spekExtensions = "1.2.1"
-mockk = "1.12.5"
+mockk = "1.14.2"
 mockitoKotlin = "2.2.0"
 
 # gradle
