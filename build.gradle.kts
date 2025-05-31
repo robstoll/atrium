@@ -23,24 +23,6 @@ subprojects {
 }
 
 //TODO 1.3.0 add a relocation publication for translations-de_CH which points to translations-en_GB
-
-// TODO 1.5.0 reactivate and transform to Kotlin as soon as we tackle the scala API again
-//def getSubprojectTasks(String name) {
-//    return subprojects.collect { it.tasks.findByName(name) }.findAll { it != null }
-//}
-//
-//task publishForScala(description: "fast publish to maven local for scala projects") {
-//    dependsOn getSubprojectTasks("publishToMavenLocal")
-//}
-//
-//gradle.taskGraph.whenReady { graph ->
-//    if (graph.hasTask(":publishForScala")) {
-//        ["test", "dokka", "signTutteliPublication", "validateBeforePublish", "javadocJar", "sourcesJar"].forEach {
-//            getSubprojectTasks(it).forEach { it.enabled = false }
-//        }
-//    }
-//}
-
 nexusPublishing {
     repositories {
         sonatype()
