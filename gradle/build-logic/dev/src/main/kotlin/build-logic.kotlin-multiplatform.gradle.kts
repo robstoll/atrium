@@ -58,15 +58,19 @@ kotlin {
     }
 }
 
-// need to do it afterEvaluate as the spek plugin adds spek and we don't want it
-// also the reason why we don't addIncludeEngines but set it
-project.afterEvaluate {
-    kotlin {
-        jvm {
-            // for module-info.java and Java sources in test
-            testRuns["test"].executionTask.configure {
-                useJUnitPlatform {
-                    includeEngines = setOf("spek2-atrium", "junit-jupiter")
+
+// the bundles don't rely on atrium-specs and thus don't have the spek2-atrium engine
+if (name != "atrium-fluent" && name != "atrium-infix") {
+    // need to do it afterEvaluate as the spek plugin adds spek and we don't want it
+    // also the reason why we don't addIncludeEngines but set it
+    project.afterEvaluate {
+        kotlin {
+            jvm {
+                // for module-info.java and Java sources in test
+                testRuns["test"].executionTask.configure {
+                    useJUnitPlatform {
+                        includeEngines = setOf("spek2-atrium", "junit-jupiter")
+                    }
                 }
             }
         }
