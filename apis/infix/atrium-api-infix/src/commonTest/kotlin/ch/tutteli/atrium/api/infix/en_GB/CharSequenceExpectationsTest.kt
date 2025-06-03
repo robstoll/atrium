@@ -4,7 +4,7 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.fun1
 import ch.tutteli.atrium.specs.notImplemented
 
-class CharSequenceExpectationsSpec : ch.tutteli.atrium.specs.integration.CharSequenceExpectationsSpec(
+class CharSequenceExpectationsTest : ch.tutteli.atrium.specs.integration.AbstractCharSequenceExpectationsTest(
     "toBe ${empty::class.simpleName}" to Companion::toBeEmpty,
     "notToBe ${empty::class.simpleName}" to Companion::notToBeEmpty,
     "notToBe ${blank::class.simpleName}" to Companion::notToBeBlank,

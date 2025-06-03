@@ -5,7 +5,7 @@ import ch.tutteli.atrium.specs.fun0
 import ch.tutteli.atrium.specs.fun1
 import ch.tutteli.atrium.specs.notImplemented
 
-class CharSequenceExpectationsSpec : ch.tutteli.atrium.specs.integration.CharSequenceExpectationsSpec(
+class CharSequenceExpectationsTest : ch.tutteli.atrium.specs.integration.AbstractCharSequenceExpectationsTest(
     fun0(Expect<CharSequence>::toBeEmpty),
     fun0(Expect<CharSequence>::notToBeEmpty),
     fun0(Expect<CharSequence>::notToBeBlank),
