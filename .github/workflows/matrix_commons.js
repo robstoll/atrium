@@ -5,7 +5,7 @@
 //  \__/\__/\_, /\___/_//_/\_,_/_/         It is licensed under Apache License 2.0
 //         /___/                           Please report bugs and contribute back your improvements
 //
-//                                         Version: v3.0.0
+//                                         Version: v3.0.1
 //##################################
 // adapted version of https://github.com/vlsi/github-actions-random-matrix/blob/main/examples/matrix.js
 // licensed under Apache License 2.0
@@ -17,12 +17,14 @@ const javaDistributionAxis = {
 	name: 'java_distribution',
 	values: [
 		'corretto',
+		'dragonwell',
+		'graalvm',
 		'liberica',
 		'microsoft',
+		'sapmachine',
 		'semeru',
 		'temurin',
 		'zulu',
-		'sapmachine'
 	]
 };
 
