@@ -1,10 +1,12 @@
 package ch.tutteli.atrium.api.infix.en_GB
 
+import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.fun1
-import ch.tutteli.atrium.specs.notImplemented
+import ch.tutteli.atrium.specs.integration.AbstractCharSequenceExpectationsTest
+import kotlin.test.Test
 
-class CharSequenceExpectationsTest : ch.tutteli.atrium.specs.integration.AbstractCharSequenceExpectationsTest(
+class CharSequenceExpectationsTest : AbstractCharSequenceExpectationsTest(
     "toBe ${empty::class.simpleName}" to Companion::toBeEmpty,
     "notToBe ${empty::class.simpleName}" to Companion::notToBeEmpty,
     "notToBe ${blank::class.simpleName}" to Companion::notToBeBlank,
@@ -21,20 +23,22 @@ class CharSequenceExpectationsTest : ch.tutteli.atrium.specs.integration.Abstrac
         private fun notToBeBlank(expect: Expect<CharSequence>) = expect notToBe blank
     }
 
-    @Suppress("unused", "UNUSED_VALUE")
-    private fun ambiguityTest() {
-        val a1: Expect<String> = notImplemented()
+    @Test
+    fun ambiguityTest() {
+        val a1: Expect<String> = expect("Hello my name is Robert")
+        val a2: Expect<String> = expect("")
 
-        a1 toBe empty
+        a2 toBe empty
+
         a1 notToBe empty
         a1 notToBe blank
 
-        a1 toStartWith "expected"
-        a1 notToStartWith "expected"
-        a1 toEndWith "expected"
-        a1 notToEndWith "expected"
+        a1 toStartWith "Hello"
+        a1 notToStartWith "Robert"
+        a1 toEndWith "Robert"
+        a1 notToEndWith "Hello"
 
-        a1 toMatch Regex("a")
+        a1 toMatch Regex(".+Robert")
         a1 notToMatch Regex("a")
     }
 }
