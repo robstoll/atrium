@@ -1,5 +1,6 @@
 package ch.tutteli.atrium.api.infix.en_GB
 
+import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic.creating.charsequence.contains.CharSequenceContains
 import ch.tutteli.atrium.logic.creating.charsequence.contains.searchbehaviours.IgnoringCaseSearchBehaviour
@@ -9,8 +10,8 @@ import ch.tutteli.atrium.logic.creating.charsequence.contains.steps.AtLeastCheck
 import ch.tutteli.atrium.logic.creating.charsequence.contains.steps.NotCheckerStep
 import ch.tutteli.atrium.specs.fun1
 import ch.tutteli.atrium.specs.name
-import ch.tutteli.atrium.specs.notImplemented
 import kotlin.reflect.KFunction2
+import kotlin.test.Test
 
 abstract class CharSequenceToContainSpecBase {
     private val toContainProp: KFunction2<Expect<String>, o, CharSequenceContains.EntryPointStep<String, NoOpSearchBehaviour>> =
@@ -40,63 +41,63 @@ abstract class CharSequenceToContainSpecBase {
     protected val values = "the values"
     protected val elementsOf = CharSequenceContains.EntryPointStep<String, IgnoringCaseSearchBehaviour>::elementsOf.name
 
-    @Suppress("unused", "UNUSED_VALUE")
-    private fun ambiguityTest() {
-        val a1: Expect<String> = notImplemented()
+    @Test
+    fun ambiguityTest() {
+        val a1: Expect<CharSequence> = expect("Hello my name is Robert")
 
-        a1 toContain o atLeast 1 value 1
-        a1 toContain o atMost 2 the values("a", 1)
-        a1 toContain o notOrAtMost 2 regex "h|b"
-        a1 toContain o exactly 2 the regexPatterns("h|b", "b")
-        a1 toContain o atLeast 2 matchFor Regex("bla")
-        a1 toContain o atLeast 2 matchFor all(Regex("bla"), Regex("b"))
-        a1 toContain o atLeast 2 elementsOf listOf(1, 2)
+        a1 toContain o atLeast 1 value 'R'
+        a1 toContain o atMost 2 the values('l', 'm')
+        a1 toContain o notOrAtMost 2 regex "H|R"
+        a1 toContain o exactly 2 the regexPatterns("H|R", "l.")
+        a1 toContain o atLeast 2 matchFor Regex("\\w")
+        a1 toContain o atLeast 2 matchFor all(Regex("\\w"), Regex("\\s"))
+        a1 toContain o atLeast 2 elementsOf listOf('l', 'm')
 
-        a1 notToContain o value "a"
-        a1 notToContain o the values("a", 'b')
-        a1 notToContain o regex "a"
-        a1 notToContain o the regexPatterns("a", "bl")
-        a1 notToContain o matchFor Regex("a")
-        a1 notToContain o matchFor all(Regex("a"), Regex("bl"))
-        a1 notToContain o elementsOf listOf(1, 2)
+        a1 notToContain o value 'E'
+        a1 notToContain o the values('L', 'M')
+        a1 notToContain o regex "h|E"
+        a1 notToContain o the regexPatterns("h|E", "O{2}")
+        a1 notToContain o matchFor Regex("\\d")
+        a1 notToContain o matchFor all(Regex("\\d"), Regex("\\s{2}"))
+        a1 notToContain o elementsOf listOf('L', 'M')
 
-        a1 toContain o ignoring case atLeast 1 value "a"
-        a1 toContain o ignoring case atLeast 1 the values("a", 'b')
-        a1 toContain o ignoring case atLeast 1 regex "a"
-        a1 toContain o ignoring case atLeast 1 the regexPatterns("a", "bl")
+        a1 toContain o ignoring case atLeast 1 value 'E'
+        a1 toContain o ignoring case atLeast 1 the values('L', 'M')
+        a1 toContain o ignoring case atLeast 1 regex "h|M"
+        a1 toContain o ignoring case atLeast 1 the regexPatterns("h|M", "\\s")
         // not supported on purpose as one can specify an ignore case flag for Regex
         // and hence these would be a second way to do the same thing
         //a1 toContain o ignoring case atLeast 1 matchFor Regex("a")
         //a1 toContain o ignoring case atLeast 1 matchFor all(Regex("a"), Regex("bl"))
-        a1 toContain o ignoring case atLeast 1 elementsOf listOf(1, 2)
+        a1 toContain o ignoring case atLeast 1 elementsOf listOf('L', 'M')
 
-        a1 notToContain o ignoring case value "a"
-        a1 notToContain o ignoring case the values("a", 'b')
-        a1 notToContain o ignoring case regex "a"
-        a1 notToContain o ignoring case the regexPatterns("a", "bl")
+        a1 notToContain o ignoring case value 'c'
+        a1 notToContain o ignoring case the values('c', 'D')
+        a1 notToContain o ignoring case regex "l\\s"
+        a1 notToContain o ignoring case the regexPatterns("l\\s", "l{3}")
         // not supported on purpose as one can specify an ignore case flag for Regex
         // and hence these would be a second way to do the same thing
         //a1 notToContain o ignoring case matchFor Regex("a")
         //a1 notToContain o ignoring case matchFor all(Regex("a"), Regex("bl"))
-        a1 notToContain o ignoring case elementsOf listOf(1, 2)
+        a1 notToContain o ignoring case elementsOf listOf('c', 'D')
 
         // skip atLeast
-        a1 toContain o ignoring case value "a"
-        a1 toContain o ignoring case the values("a", 'b')
-        a1 toContain o ignoring case regex "a"
-        a1 toContain o ignoring case the regexPatterns("a", "bl")
+        a1 toContain o ignoring case value 'E'
+        a1 toContain o ignoring case the values('L', 'M')
+        a1 toContain o ignoring case regex "h|M"
+        a1 toContain o ignoring case the regexPatterns("h|M", "\\s")
         // not supported on purpose as one can specify an ignore case flag for Regex
         // and hence these would be a second way to do the same thing
         //a1 toContain o ignoring case matchFor Regex("a")
         //a1 toContain o ignoring case matchFor all(Regex("a"), Regex("bl"))
-        a1 toContain o ignoring case elementsOf listOf("a", 2)
+        a1 toContain o ignoring case elementsOf listOf('L', 'M')
 
-        a1 and { it toContain o atLeast 1 value 1 }
-        a1 and { it toContain o atMost 2 the values("a", 1) }
-        a1 and { it toContain o notOrAtMost 2 regex "h|b" }
-        a1 and { it toContain o exactly 2 the regexPatterns("h|b", "b") }
-        a1 and { it toContain o atLeast 2 matchFor Regex("bla") }
-        a1 and { it toContain o atLeast 2 matchFor all(Regex("bla"), Regex("b")) }
-        a1 and { it toContain o atLeast 2 elementsOf listOf(1, 2) }
+        a1 and { it toContain o atLeast 1 value 'R' }
+        a1 and { it toContain o atMost 2 the values('l', 'm') }
+        a1 and { it toContain o notOrAtMost 2 regex "H|R" }
+        a1 and { it toContain o exactly 2 the regexPatterns("H|R", "l.") }
+        a1 and { it toContain o atLeast 2 matchFor Regex("\\w") }
+        a1 and { it toContain o atLeast 2 matchFor all(Regex("\\w"), Regex("\\s")) }
+        a1 and { it toContain o atLeast 2 elementsOf listOf('l', 'm') }
     }
 }
