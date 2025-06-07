@@ -7,7 +7,7 @@ import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.translations.DescriptionCharSequenceExpectation.EXACTLY
 import org.spekframework.spek2.style.specification.Suite
 
-abstract class CharSequenceToContainExactlyExpectationsSpec(
+abstract class AbstractCharSequenceToContainExactlyExpectationsTest(
     toContainExactlyPair: Pair<(String, String) -> String, Fun3<CharSequence, Int, Any, Array<out Any>>>,
     toContainExactlyIgnoringCasePair: Pair<(String, String) -> String, Fun3<CharSequence, Int, Any, Array<out Any>>>,
     notToContainPair: Pair<String, (Int) -> String>,
