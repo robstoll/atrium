@@ -7,7 +7,7 @@ import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.translations.DescriptionCharSequenceExpectation.AT_MOST
 import org.spekframework.spek2.style.specification.Suite
 
-abstract class CharSequenceNotToContainOrAtMostExpectationsSpec(
+abstract class AbstractCharSequenceNotToContainOrAtMostExpectationsTest(
     notToContainOrAtMostPair: Pair<(String, String) -> String, Fun3<CharSequence, Int, Any, Array<out Any>>>,
     notToContainOrAtMostIgnoringCasePair: Pair<(String, String) -> String, Fun3<CharSequence, Int, Any, Array<out Any>>>,
     notToContainPair: Pair<String, (Int) -> String>,
