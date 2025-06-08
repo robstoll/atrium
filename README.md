@@ -2884,9 +2884,9 @@ for further suggestions and guidelines.
 
 # Sponsors
 We would like to thank the following sponsors for their support:
-- [Tegonal Cooperative](https://tegonal.com) for sponsoring Support and PR-Review time.
+- [![Tegonal Genossenschaft](https://docs.atriumlib.org/sponsors/tegonal_text_logo_green.svg)](https://tegonal.com) (Tegonal Cooperative, Bern, Switzerland) for sponsoring the time @robstoll is working on Atrium.
 
-Do you want to become a sponsor as well? Great, have a look at the following GitHub sponsor profiles:
+Do you want to become a sponsor as well and cover the remaining costs (domain, hosting)? Great, have a look at the following GitHub sponsor profiles:
 - [robstoll](https://github.com/sponsors/robstoll) (Author and main contributor)
 
 or ping @robstoll in the Slack-Channel if you would like to support the project in another way.
