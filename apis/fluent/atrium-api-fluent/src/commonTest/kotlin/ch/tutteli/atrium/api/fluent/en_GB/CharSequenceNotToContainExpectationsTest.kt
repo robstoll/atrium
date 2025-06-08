@@ -1,12 +1,12 @@
 package ch.tutteli.atrium.api.fluent.en_GB
 
 import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.specs.integration.AbstractCharSequenceNotToContainExpectationsTest
 
-class CharSequenceNotToContainExpectationsSpec : ch.tutteli.atrium.specs.integration.CharSequenceNotToContainExpectationsSpec(
+class CharSequenceNotToContainExpectationsTest : AbstractCharSequenceNotToContainExpectationsTest(
     getNotToContainTriple(),
     getNotToContainIgnoringCaseTriple()
 ) {
-
     companion object : CharSequenceToContainSpecBase() {
 
         private fun getNotToContainTriple() =
