@@ -10,12 +10,12 @@ class CharSequenceExpectationsTest : AbstractCharSequenceExpectationsTest(
     "toBe ${empty::class.simpleName}" to Companion::toBeEmpty,
     "notToBe ${empty::class.simpleName}" to Companion::notToBeEmpty,
     "notToBe ${blank::class.simpleName}" to Companion::notToBeBlank,
-    fun1<CharSequence, CharSequence>(Expect<CharSequence>::toStartWith),
-    fun1<CharSequence, CharSequence>(Expect<CharSequence>::notToStartWith),
-    fun1<CharSequence, CharSequence>(Expect<CharSequence>::toEndWith),
-    fun1<CharSequence, CharSequence>(Expect<CharSequence>::notToEndWith),
-    fun1<CharSequence, Regex>(Expect<CharSequence>::toMatch),
-    fun1<CharSequence, Regex>(Expect<CharSequence>::notToMatch)
+    fun1(Expect<CharSequence>::toStartWith),
+    fun1(Expect<CharSequence>::notToStartWith),
+    fun1(Expect<CharSequence>::toEndWith),
+    fun1(Expect<CharSequence>::notToEndWith),
+    fun1(Expect<CharSequence>::toMatch),
+    fun1(Expect<CharSequence>::notToMatch)
 ) {
     companion object {
         private fun toBeEmpty(expect: Expect<CharSequence>) = expect toBe empty

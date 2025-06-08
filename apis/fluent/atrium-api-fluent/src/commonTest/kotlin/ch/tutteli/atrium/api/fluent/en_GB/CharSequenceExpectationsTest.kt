@@ -11,15 +11,14 @@ class CharSequenceExpectationsTest : AbstractCharSequenceExpectationsTest(
     fun0(Expect<CharSequence>::toBeEmpty),
     fun0(Expect<CharSequence>::notToBeEmpty),
     fun0(Expect<CharSequence>::notToBeBlank),
-    fun1<CharSequence, CharSequence>(Expect<CharSequence>::toStartWith),
-    fun1<CharSequence, CharSequence>(Expect<CharSequence>::notToStartWith),
-    fun1<CharSequence, CharSequence>(Expect<CharSequence>::toEndWith),
-    fun1<CharSequence, CharSequence>(Expect<CharSequence>::notToEndWith),
-    fun1<CharSequence, Regex>(Expect<CharSequence>::toMatch),
-    fun1<CharSequence, Regex>(Expect<CharSequence>::notToMatch)
+    fun1(Expect<CharSequence>::toStartWith),
+    fun1(Expect<CharSequence>::notToStartWith),
+    fun1(Expect<CharSequence>::toEndWith),
+    fun1(Expect<CharSequence>::notToEndWith),
+    fun1(Expect<CharSequence>::toMatch),
+    fun1(Expect<CharSequence>::notToMatch)
 ) {
 
-    @Suppress("UNUSED_VALUE")
     @Test
     fun ambiguityTest() {
         val a1: Expect<String> = expect("Hello my name is Robert")
