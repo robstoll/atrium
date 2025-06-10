@@ -167,6 +167,12 @@ fun <E> order(
  * the [WithInAnyOrderOnlyReportingOptions].
  *
  * @since 0.18.0
+ *
+ *  @sample ch.tutteli.atrium.api.infix.en_GB.samples.IterableLikeToContainInOrderOnlyGroupedCreatorSamples.inAnyOrderWithValues
+ *  @sample ch.tutteli.atrium.api.infix.en_GB.samples.IterableLikeToContainInOrderOnlyGroupedCreatorSamples.inAnyOrderMultipleGroups
+ *  @sample ch.tutteli.atrium.api.infix.en_GB.samples.IterableLikeToContainInOrderOnlyGroupedCreatorSamples.inAnyOrderWithNullValues
+ *  @sample ch.tutteli.atrium.api.infix.en_GB.samples.IterableLikeToContainInOrderOnlyGroupedCreatorSamples.inAnyOrderWithReportingOptions
+ *  @sample ch.tutteli.atrium.api.infix.en_GB.samples.IterableLikeToContainInOrderOnlyGroupedCreatorSamples.inAnyOrderWithDuplicates
  */
 @JvmName("orderWithReportInGroup")
 fun <E> order(
@@ -185,6 +191,10 @@ fun <E> order(
  * the [WithInAnyOrderOnlyReportingOptions].
  *
  * @since 0.18.0
+ *
+ *  @sample ch.tutteli.atrium.api.infix.en_GB.samples.IterableLikeToContainInOrderOnlyGroupedCreatorSamples.inAnyOrderWithEntries
+ *  @sample ch.tutteli.atrium.api.infix.en_GB.samples.IterableLikeToContainInOrderOnlyGroupedCreatorSamples.inAnyOrderEntriesWithStringList
+ *  @sample ch.tutteli.atrium.api.infix.en_GB.samples.IterableLikeToContainInOrderOnlyGroupedCreatorSamples.inAnyOrderEntriesWithNumbers
  */
 fun <E> order(
     firstGroup: Group<E>,
