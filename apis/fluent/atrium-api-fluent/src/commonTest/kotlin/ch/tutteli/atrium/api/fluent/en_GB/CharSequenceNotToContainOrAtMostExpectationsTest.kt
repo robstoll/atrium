@@ -1,9 +1,10 @@
 package ch.tutteli.atrium.api.fluent.en_GB
 
 import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.specs.integration.AbstractCharSequenceNotToContainOrAtMostExpectationsTest
 
-class CharSequenceNotToContainOrAtMostExpectationsSpec :
-    ch.tutteli.atrium.specs.integration.CharSequenceNotToContainOrAtMostExpectationsSpec(
+class CharSequenceNotToContainOrAtMostExpectationsTest :
+    AbstractCharSequenceNotToContainOrAtMostExpectationsTest(
         getNotOrAtMostTriple(),
         getNotOrAtMostIgnoringCaseTriple(),
         getNotToContainPair()
