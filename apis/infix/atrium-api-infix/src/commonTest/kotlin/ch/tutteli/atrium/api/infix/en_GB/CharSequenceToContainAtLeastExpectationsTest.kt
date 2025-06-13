@@ -3,25 +3,25 @@ package ch.tutteli.atrium.api.infix.en_GB
 import ch.tutteli.atrium.creating.Expect
 import org.spekframework.spek2.Spek
 
-class CharSequenceToContainAtLeastExpectationsSpec : Spek({
-    include(object : ch.tutteli.atrium.specs.integration.CharSequenceToContainAtLeastExpectationsSpec(
+class CharSequenceToContainAtLeastExpectationsTest : Spek({
+    include(object : ch.tutteli.atrium.specs.integration.AbstractCharSequenceToContainAtLeastExpectationsTest(
         getAtLeastValuesTriple(),
         getAtLeastIgnoringCaseValuesTriple(),
         getAtLeastButAtMostValuesTriple(),
         getAtLeastBustAtMostIgnoringCaseValuesTriple(),
         getNotToContainPair(),
         getExactlyPair(),
-        CharSequenceToContainAtLeastExpectationsSpec.Companion::getErrorMsgAtLeastButAtMost
+        CharSequenceToContainAtLeastExpectationsTest.Companion::getErrorMsgAtLeastButAtMost
     ) {})
 
-    include(object : ch.tutteli.atrium.specs.integration.CharSequenceToContainAtLeastExpectationsSpec(
+    include(object : ch.tutteli.atrium.specs.integration.AbstractCharSequenceToContainAtLeastExpectationsTest(
         getAtLeastElementsOfTriple(),
         getAtLeastIgnoringCaseElementsOfTriple(),
         getAtLeastButAtMostElementsOfTriple(),
         getAtLeastButAtMostIgnoringCaseElementsOfTriple(),
         getNotToContainPair(),
         getExactlyPair(),
-        CharSequenceToContainAtLeastExpectationsSpec.Companion::getErrorMsgAtLeastButAtMost
+        CharSequenceToContainAtLeastExpectationsTest.Companion::getErrorMsgAtLeastButAtMost
     ) {})
 
     include(object : ch.tutteli.atrium.specs.integration.IterableLikeToIterableSpec<String>(
