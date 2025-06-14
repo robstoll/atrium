@@ -11,7 +11,7 @@ kotlin {
         commonMain {
             dependencies {
                 api(libs.kbox)
-                api("com.github.ajalt.mordant:mordant:2.7.2")
+                api("com.github.ajalt.mordant:mordant:3.0.2")
             }
         }
         commonTest {
