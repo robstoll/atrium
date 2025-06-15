@@ -3,9 +3,12 @@ package ch.tutteli.atrium.specs.integration
 import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
+import ch.tutteli.atrium.specs.integration.CharSequenceToContainSpecBase.Companion.helloWorld
+import ch.tutteli.atrium.specs.integration.CharSequenceToContainSpecBase.Companion.text
 import ch.tutteli.atrium.testfactories.TestFactory
 import ch.tutteli.atrium.translations.DescriptionCharSequenceExpectation
 
+@Suppress("FunctionName")
 abstract class AbstractCharSequenceNotToContainOrAtMostExpectationsTest(
     private val notToContainOrAtMostPair: Pair<(String, String) -> String, Fun3<CharSequence, Int, Any, Array<out Any>>>,
     private val notToContainOrAtMostIgnoringCasePair: Pair<(String, String) -> String, Fun3<CharSequence, Int, Any, Array<out Any>>>,
@@ -15,6 +18,7 @@ abstract class AbstractCharSequenceNotToContainOrAtMostExpectationsTest(
     private val notToContainOrAtMostSpec = notToContainOrAtMostPair.second
     private val notToContainOrAtMostIgnoringCaseSpec = notToContainOrAtMostIgnoringCasePair.second
 
+    @TestFactory
     fun subjectLessTest() = subjectLessTestFactory(
         notToContainOrAtMostSpec.forSubjectLessTest(2, 2.3, arrayOf()),
         notToContainOrAtMostIgnoringCaseSpec.forSubjectLessTest(2, 2.3, arrayOf())
@@ -29,7 +33,7 @@ abstract class AbstractCharSequenceNotToContainOrAtMostExpectationsTest(
     private val valueWithIndent = "$indentRootBulletPoint$listBulletPoint$value"
 
     @TestFactory
-    fun notToContainOrAtMost__subject_throws_an_IllegalArgumentException() =
+    fun notToContainOrAtMost__illegal_subject__throws_IllegalArgumentException() =
         testFactory(notToContainOrAtMostSpec) { notToContainOrAtMostFun ->
             val (notToContain, errorMsgContainsNot) = notToContainPair
 
@@ -56,7 +60,7 @@ abstract class AbstractCharSequenceNotToContainOrAtMostExpectationsTest(
         }
 
     @TestFactory
-    fun notToContainOrAtMost__subject_happy_case_with_notToContainOrAtMost_once() =
+    fun notToContainOrAtMost__helloWorld__happy_cases() =
         testFactory(notToContainOrAtMostSpec) { notToContainOrAtMostFun ->
             it("${notToContainOrAtMostPair.first("'H'", "once")} does not throw") {
                 expect(helloWorld).notToContainOrAtMostFun(1, 'H')
@@ -73,7 +77,7 @@ abstract class AbstractCharSequenceNotToContainOrAtMostExpectationsTest(
         }
 
     @TestFactory
-    fun notToContainOrAtMostIgnoringCase__subject_happy_case_with_notToContainOrAtMostIgnoringCase_once() =
+    fun notToContainOrAtMostIgnoringCase__helloWorld__happy_cases() =
         testFactory(notToContainOrAtMostIgnoringCaseSpec) { notToContainOrAtMostIgnoringCaseFun ->
             it("${notToContainOrAtMostIgnoringCasePair.first("'x' and 'y' and 'z'", "twice")} does not throw") {
                 expect(helloWorld).notToContainOrAtMostIgnoringCaseFun(2, 'x', 'y', 'z')
@@ -81,7 +85,7 @@ abstract class AbstractCharSequenceNotToContainOrAtMostExpectationsTest(
         }
 
     @TestFactory
-    fun notToContainOrAtMost__subject_failing_cases__search_string_at_different_positions() =
+    fun notToContainOrAtMost__helloWorld__failing_cases__search_string_at_different_positions() =
         testFactory(notToContainOrAtMostSpec) { notToContainOrAtMostFun ->
             it("${notToContainOrAtMostPair.first("'l'", "once")} throws AssertionError") {
                 expect {
@@ -111,7 +115,7 @@ abstract class AbstractCharSequenceNotToContainOrAtMostExpectationsTest(
         }
 
     @TestFactory
-    fun notToContainOrAtMostIgnoringCase__subject_failing_cases__search_string_at_different_positions() =
+    fun notToContainOrAtMostIgnoringCase__helloWorld__failing_cases__search_string_at_different_positions() =
         testFactory(notToContainOrAtMostIgnoringCaseSpec) { notToContainOrAtMostIgnoringCaseFun ->
             it(
                 "${
@@ -133,7 +137,7 @@ abstract class AbstractCharSequenceNotToContainOrAtMostExpectationsTest(
         }
 
     @TestFactory
-    fun notToContainOrAtMost__multiple_occurrences_of_the_search_string() =
+    fun notToContainOrAtMost__helloWorld__multiple_occurrences_of_the_search_string() =
         testFactory(notToContainOrAtMostSpec) { notToContainOrAtMostFun ->
             it(
                 "${notToContainOrAtMostPair.first("'o'", "once")} throws AssertionError and " +
@@ -187,7 +191,7 @@ abstract class AbstractCharSequenceNotToContainOrAtMostExpectationsTest(
         }
 
     @TestFactory
-    fun notToContainOrAtMostIgnoringCase__multiple_occurrences_of_the_search_string() =
+    fun notToContainOrAtMostIgnoringCase__helloWorld__multiple_occurrences_of_the_search_string() =
         testFactory(notToContainOrAtMostIgnoringCaseSpec) { notToContainOrAtMostIgnoringCaseFun ->
             it("${notToContainOrAtMostIgnoringCasePair.first("'o'", "twice")} throws AssertionError") {
                 expect {
@@ -197,8 +201,6 @@ abstract class AbstractCharSequenceNotToContainOrAtMostExpectationsTest(
         }
 
     companion object {
-        val text: CharSequence = "Hello my name is Robert"
-        val helloWorld: CharSequence = "Hello World, I am Oskar"
 
         val atLeast = DescriptionCharSequenceExpectation.AT_LEAST.getDefault()
         val atMost = DescriptionCharSequenceExpectation.AT_MOST.getDefault()

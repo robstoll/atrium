@@ -2,13 +2,15 @@ package ch.tutteli.atrium.api.fluent.en_GB
 
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.integration.AbstractCharSequenceNotToContainOrAtMostExpectationsTest
+import kotlin.test.Test
 
-class CharSequenceNotToContainOrAtMostExpectationsTest :
-    AbstractCharSequenceNotToContainOrAtMostExpectationsTest(
-        getNotOrAtMostTriple(),
-        getNotOrAtMostIgnoringCaseTriple(),
-        getNotToContainPair()
-    ) {
+class CharSequenceNotToContainOrAtMostExpectationsTest : AbstractCharSequenceNotToContainOrAtMostExpectationsTest(
+    getNotOrAtMostTriple(),
+    getNotOrAtMostIgnoringCaseTriple(),
+    getNotToContainPair()
+) {
+    @Test
+    fun trigger_run_gutter() = 1
 
     companion object : CharSequenceToContainSpecBase() {
 
