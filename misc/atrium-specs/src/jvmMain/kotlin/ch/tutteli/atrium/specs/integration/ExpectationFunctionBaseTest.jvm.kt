@@ -9,6 +9,12 @@ import ch.tutteli.atrium.specs.integration.utils.SubjectLessTestData
 import ch.tutteli.atrium.specs.integration.utils.expectationCreatorTestSetup
 import ch.tutteli.atrium.specs.integration.utils.subjectLessTestSetup
 import ch.tutteli.atrium.testfactories.TestFactoryBuilder
+import org.junit.jupiter.api.BeforeAll
+import java.util.logging.ConsoleHandler
+import java.util.logging.Handler
+import java.util.logging.Level
+import java.util.logging.LogRecord
+import java.util.logging.Logger
 
 
 actual abstract class ExpectationFunctionBaseTest {
@@ -69,5 +75,61 @@ actual abstract class ExpectationFunctionBaseTest {
             uncheckedToNonNullable(nonNullableSpecPair, nullableSpecPair)
                 .forEach { specPair -> itFun(specPair, testExecutable) }
         }
+    }
+
+    companion object {
+        @BeforeAll
+        @JvmStatic
+        fun suppressSpecificJUnitWarnings() {
+            val logger = Logger.getLogger("org.junit.platform.launcher.core.DiscoveryIssueNotifier")
+            logger.useParentHandlers = false
+
+            logger.addHandler(
+                SuppressingHandler(
+                    logger.handlers.firstOrNull() ?: ConsoleHandler().apply { level = Level.ALL }
+                )
+            )
+        }
+    }
+}
+
+class SuppressingHandler(private val delegate: Handler) : Handler() {
+
+    override fun publish(record: LogRecord) {
+        val originalMessage = record.message ?: return
+
+        val modifiedMessage = originalMessage
+            .replace(runGutterRegex, "")
+            .replace(testFactoryRegex, "")
+
+        if (modifiedMessage.replace(testEngineRegex, "").isBlank()) return
+        else if (modifiedMessage != originalMessage) {
+            val redactedRecord = LogRecord(
+                record.level,
+                "$modifiedMessage\n\nRemoved warnings about trigger_run_gutter and INFO about testFactory, that's why the number of issues is off"
+            ).apply {
+                loggerName = record.loggerName
+                thrown = record.thrown
+                sourceClassName = record.sourceClassName
+                sourceMethodName = record.sourceMethodName
+            }
+
+            delegate.publish(redactedRecord)
+        } else {
+            delegate.publish(record)
+        }
+    }
+
+    override fun flush() = delegate.flush()
+    override fun close() = delegate.close()
+
+    companion object {
+        val testEngineRegex = Regex("TestEngine with ID.*\n\n")
+        val runGutterRegex = Regex("\\(\\d+\\) \\[WARNING\\] .*trigger_run_gutter[\\S\\s]+?\n\n")
+
+        // we only need this filter since Kotlin does not allow to define typealiases with type parameters on the right
+        // hand side, otherwise we could define that testFactory returns List<DynamicNode> on the JVM platform
+        val testFactoryRegex =
+            Regex("\\(\\d+\\) \\[INFO\\].*@TestFactory method 'public final java.lang.Object[\\S\\s]+?(\n\n|$)")
     }
 }
