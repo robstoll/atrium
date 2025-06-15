@@ -138,15 +138,28 @@ alternatively the manual steps:
     d) search and replace to add version drop down into the header
     e) commit & push changes
 
-3. deploy to maven central:
+3. deploy to sonatype central portal:
 (assumes you have an alias named gr pointing to ./gradlew)
-    a) echo "enter the sonatype user token (input is hidden)"
-	   read -s -r SONATYPE_PW
-       java -version 2>&1 | grep "version \"11" && ORG_GRADLE_PROJECT_sonatypePassword="$SONATYPE_PW" PUB=true CI=true gr clean publishToSonatype
-    b) Log into https://oss.sonatype.org/#stagingRepositories
-    c) check if staging repo is ok
-    d) close repo
-    e) release repo
+    a) java -version 2>&1 | grep "version \"11" && PUB=true CI=true gr clean pubToMaLo && \
+       tmpDir=$(mktemp -d -t "atrium-release-$ATRIUM_VERSION-XXXXXXXXXX")
+       find "$HOME/.m2/repository/ch/tutteli/atrium" -type -d name "$ATRIUM_VERSION" -print0 |
+         while read -r -d $'\0' versionDir; do
+           find "$versionDir" -type f -print0 | while read -r -d $'\0' file; do
+              relPath="${file#"$HOME/.m2/repository/"}"
+              mkdir -p "$tmpDir/$(dirname "$relPath")"
+              cp "$file" "$tmpDir/$relPath"
+           done
+         done &&
+       find . -type f -not -name "*.md5" -not -name "*.sha1" -not -name "*.asc" -print0 |
+         while read -r -d $'\0' file; do
+           base=$(basename "$file");
+           md5sum "$file" | awk '{ print $1 }' > "${file}.md5"
+           sha1sum "$file" | awk '{ print $1 }' > "$file.sha1"
+       done &&
+       zip -r "atrium-$ATRIUM_VERSION.zip" "$tmpDir"
+    b) Log into https://central.sonatype.com/publishing/deployments
+    c) click on publish component and upload zip
+    d) click on publish once verification is done
 
 4. publish release on github
     1) Log in to github and publish draft
