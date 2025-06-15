@@ -57,14 +57,18 @@ abstract class AbstractCharSequenceExpectationsTest(
                 expect(blankStringBuilder).toBeEmptyFun()
             }.toThrow<AssertionError> { message { toEndWith("$toBeDescr: empty") } }
         }
+        it("non-blank string - throws") {
+            expect {
+                expect(notBlankString).toBeEmptyFun()
+            }.toThrow<AssertionError> { message { toEndWith("$toBeDescr: empty") } }
+            expect {
+                expect(notBlankStringBuilder).toBeEmptyFun()
+            }.toThrow<AssertionError> { message { toEndWith("$toBeDescr: empty") } }
+        }
     }
 
     @TestFactory
     fun notToBeEmpty() = testFactory(notToBeEmptySpec) { notToBeEmptyFun ->
-        it("blank string - does not throw") {
-            expect(blankString).notToBeEmptyFun()
-            expect(blankStringBuilder).notToBeEmptyFun()
-        }
         it("empty string - throws") {
             expect {
                 expect(emptyString).notToBeEmptyFun()
@@ -73,13 +77,25 @@ abstract class AbstractCharSequenceExpectationsTest(
                 expect(emptyStringBuilder).notToBeEmptyFun()
             }.toThrow<AssertionError> { message { toEndWith("$notToBeDescr: empty") } }
         }
+        it("blank string - does not throw") {
+            expect(blankString).notToBeEmptyFun()
+            expect(blankStringBuilder).notToBeEmptyFun()
+        }
+        it("non-blank string - does not throw") {
+            expect(notBlankString).notToBeEmptyFun()
+            expect(notBlankStringBuilder).notToBeEmptyFun()
+        }
     }
 
     @TestFactory
     fun notToBeBlank() = testFactory(notToBeBlankSpec) { notToBeBlankFun ->
-        it("non-blank string - does not throw") {
-            expect(notBlankString).notToBeBlankFun()
-            expect(notBlankStringBuilder).notToBeBlankFun()
+        it("empty string - does not throw") {
+            expect {
+                expect(emptyString).notToBeBlankFun()
+            }.toThrow<AssertionError> { message { toEndWith("$notToBeDescr: blank") } }
+            expect {
+                expect(emptyStringBuilder).notToBeBlankFun()
+            }.toThrow<AssertionError> { message { toEndWith("$notToBeDescr: blank") } }
         }
         it("blank string - throws") {
             expect {
@@ -88,6 +104,10 @@ abstract class AbstractCharSequenceExpectationsTest(
             expect {
                 expect(blankStringBuilder).notToBeBlankFun()
             }.toThrow<AssertionError> { message { toEndWith("$notToBeDescr: blank") } }
+        }
+        it("non-blank string - does not throw") {
+            expect(notBlankString).notToBeBlankFun()
+            expect(notBlankStringBuilder).notToBeBlankFun()
         }
     }
 

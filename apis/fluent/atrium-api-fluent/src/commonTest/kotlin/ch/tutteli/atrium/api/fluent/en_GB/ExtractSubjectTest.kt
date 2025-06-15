@@ -3,10 +3,11 @@ package ch.tutteli.atrium.api.fluent.en_GB
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.fun2
+import ch.tutteli.atrium.specs.integration.AbstractExtractSubjectTest
 import ch.tutteli.atrium.specs.withNullableSuffix
 import kotlin.test.Test
 
-class ExtractSubjectTest : ch.tutteli.atrium.specs.integration.AbstractExtractSubjectTest(
+class ExtractSubjectTest : AbstractExtractSubjectTest(
     fun2(Expect<Int>::extractSubject),
     fun2(Expect<Int?>::extractSubject).withNullableSuffix(),
     extractSubjectDefaultFailureDescription = "❗❗ subject extraction not possible, previous expectation failed, cannot show sub-expectations"

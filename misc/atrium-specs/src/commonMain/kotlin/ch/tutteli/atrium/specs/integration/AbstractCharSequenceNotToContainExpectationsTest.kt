@@ -5,6 +5,8 @@ import ch.tutteli.atrium.api.fluent.en_GB.toThrow
 import ch.tutteli.atrium.core.polyfills.format
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
+import ch.tutteli.atrium.specs.integration.CharSequenceToContainSpecBase.Companion.helloWorld
+import ch.tutteli.atrium.specs.integration.CharSequenceToContainSpecBase.Companion.text
 import ch.tutteli.atrium.testfactories.TestFactory
 import ch.tutteli.atrium.translations.DescriptionCharSequenceExpectation
 
@@ -25,7 +27,8 @@ abstract class AbstractCharSequenceNotToContainExpectationsTest(
 
     fun Expect<CharSequence>.notToContainFun(a: Any, vararg aX: Any) = notToContainSpec(this, a, aX)
 
-    fun Expect<CharSequence>.notToContainIgnoringCaseFun(a: Any, vararg aX: Any) = notToContainIgnoringCaseSpec(this, a, aX)
+    fun Expect<CharSequence>.notToContainIgnoringCaseFun(a: Any, vararg aX: Any) =
+        notToContainIgnoringCaseSpec(this, a, aX)
 
     val notToContainDescr = DescriptionCharSequenceExpectation.NOT_TO_CONTAIN.getDefault()
     val notToContainIgnoringCaseDescr =
@@ -34,7 +37,7 @@ abstract class AbstractCharSequenceNotToContainExpectationsTest(
     val valueWithIndent = "$indentRootBulletPoint$listBulletPoint$value"
 
     @TestFactory
-    fun notToContain__subject_throws_an_IllegalArgumentException() =
+    fun notToContain__illegal_subject__throws_an_IllegalArgumentException() =
         testFactory(notToContainSpec) {
             it("if an object is passed as first expected") {
                 expect {
@@ -59,7 +62,7 @@ abstract class AbstractCharSequenceNotToContainExpectationsTest(
         }
 
     @TestFactory
-    fun notToContain__subject_happy_case_with_notToContain_once() =
+    fun notToContain__helloWorld__happy_cases() =
         testFactory(notToContainSpec) {
             it("${notToContainPair.first("'h'")} does not throw") {
                 expect(helloWorld).notToContainFun('h')
@@ -76,20 +79,20 @@ abstract class AbstractCharSequenceNotToContainExpectationsTest(
         }
 
     @TestFactory
-    fun notToContain__subject_failing_cases__search_string_at_different_positions() =
+    fun notToContain__helloWorld__failing_cases__search_string_at_different_positions() =
         testFactory(notToContainSpec) {
             it("${notToContainPair.first("'l'")} throws AssertionError") {
                 expect {
-                        expect(helloWorld).notToContainFun('l')
-                    }.toThrow<AssertionError> {
-                        messageToContain(
-                            "$rootBulletPoint$notToContainDescr: $separator" +
-                                "$valueWithIndent: 'l'",
-                            "$numberOfOccurrences: 3",
-                            "$toEqualDescr: 0"
-                        )
-                    }
+                    expect(helloWorld).notToContainFun('l')
+                }.toThrow<AssertionError> {
+                    messageToContain(
+                        "$rootBulletPoint$notToContainDescr: $separator" +
+                            "$valueWithIndent: 'l'",
+                        "$numberOfOccurrences: 3",
+                        "$toEqualDescr: 0"
+                    )
                 }
+            }
             it("${notToContainPair.first("'H', 'l'")} throws AssertionError") {
                 expect {
                     expect(helloWorld).notToContainFun('H', 'l')
@@ -129,8 +132,6 @@ abstract class AbstractCharSequenceNotToContainExpectationsTest(
         }
 
     companion object {
-        val text: CharSequence = "Hello my name is Robert"
-        val helloWorld: CharSequence = "Hello World, I am Oskar"
 
         val numberOfOccurrences = DescriptionCharSequenceExpectation.NUMBER_OF_MATCHES.getDefault()
         val value = DescriptionCharSequenceExpectation.VALUE.getDefault()
