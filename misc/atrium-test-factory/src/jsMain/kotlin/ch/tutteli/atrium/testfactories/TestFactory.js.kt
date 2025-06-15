@@ -7,4 +7,6 @@ actual typealias TestFactory = kotlin.test.Test
 actual fun <TestExecutableT : TestExecutable> turnTestNodesIntoPlatformSpecificTestFactory(
     testNodes: List<TestNode>,
     testExecutableFactory: () -> TestExecutableT
-): Any = turnIntoDescribeIt(testNodes, testExecutableFactory, isFirstDescribe = true)
+): TestFactoryReturnType = turnIntoDescribeIt(testNodes, testExecutableFactory, isFirstDescribe = true)
+
+actual typealias TestFactoryReturnType = Any
