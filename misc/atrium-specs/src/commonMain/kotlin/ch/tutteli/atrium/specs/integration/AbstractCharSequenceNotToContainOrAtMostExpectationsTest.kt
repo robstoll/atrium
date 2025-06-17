@@ -34,7 +34,7 @@ abstract class AbstractCharSequenceNotToContainOrAtMostExpectationsTest(
 
     @TestFactory
     fun notToContainOrAtMost__illegal_subject__throws_IllegalArgumentException() =
-        testFactory(notToContainOrAtMostSpec) { notToContainOrAtMostFun ->
+        testFactory(notToContainOrAtMostSpec) { _ ->
             val (notToContain, errorMsgContainsNot) = notToContainPair
 
             it("for not at all or at most -1 -- only positive numbers") {
@@ -61,7 +61,7 @@ abstract class AbstractCharSequenceNotToContainOrAtMostExpectationsTest(
 
     @TestFactory
     fun notToContainOrAtMost__helloWorld__happy_cases() =
-        testFactory(notToContainOrAtMostSpec) { notToContainOrAtMostFun ->
+        testFactory(notToContainOrAtMostSpec) { _ ->
             it("${notToContainOrAtMostPair.first("'H'", "once")} does not throw") {
                 expect(helloWorld).notToContainOrAtMostFun(1, 'H')
             }
@@ -78,7 +78,7 @@ abstract class AbstractCharSequenceNotToContainOrAtMostExpectationsTest(
 
     @TestFactory
     fun notToContainOrAtMostIgnoringCase__helloWorld__happy_cases() =
-        testFactory(notToContainOrAtMostIgnoringCaseSpec) { notToContainOrAtMostIgnoringCaseFun ->
+        testFactory(notToContainOrAtMostIgnoringCaseSpec) { _ ->
             it("${notToContainOrAtMostIgnoringCasePair.first("'x' and 'y' and 'z'", "twice")} does not throw") {
                 expect(helloWorld).notToContainOrAtMostIgnoringCaseFun(2, 'x', 'y', 'z')
             }
@@ -86,7 +86,7 @@ abstract class AbstractCharSequenceNotToContainOrAtMostExpectationsTest(
 
     @TestFactory
     fun notToContainOrAtMost__helloWorld__failing_cases__search_string_at_different_positions() =
-        testFactory(notToContainOrAtMostSpec) { notToContainOrAtMostFun ->
+        testFactory(notToContainOrAtMostSpec) { _ ->
             it("${notToContainOrAtMostPair.first("'l'", "once")} throws AssertionError") {
                 expect {
                     expect(helloWorld).notToContainOrAtMostFun(1, 'l')
@@ -116,7 +116,7 @@ abstract class AbstractCharSequenceNotToContainOrAtMostExpectationsTest(
 
     @TestFactory
     fun notToContainOrAtMostIgnoringCase__helloWorld__failing_cases__search_string_at_different_positions() =
-        testFactory(notToContainOrAtMostIgnoringCaseSpec) { notToContainOrAtMostIgnoringCaseFun ->
+        testFactory(notToContainOrAtMostIgnoringCaseSpec) { _ ->
             it(
                 "${
                     notToContainOrAtMostPair.first(
@@ -138,7 +138,7 @@ abstract class AbstractCharSequenceNotToContainOrAtMostExpectationsTest(
 
     @TestFactory
     fun notToContainOrAtMost__helloWorld__multiple_occurrences_of_the_search_string() =
-        testFactory(notToContainOrAtMostSpec) { notToContainOrAtMostFun ->
+        testFactory(notToContainOrAtMostSpec) { _ ->
             it(
                 "${notToContainOrAtMostPair.first("'o'", "once")} throws AssertionError and " +
                     "message contains both, how many times we expected (1) and how many times it actually contained 'o' (2)"
@@ -192,7 +192,7 @@ abstract class AbstractCharSequenceNotToContainOrAtMostExpectationsTest(
 
     @TestFactory
     fun notToContainOrAtMostIgnoringCase__helloWorld__multiple_occurrences_of_the_search_string() =
-        testFactory(notToContainOrAtMostIgnoringCaseSpec) { notToContainOrAtMostIgnoringCaseFun ->
+        testFactory(notToContainOrAtMostIgnoringCaseSpec) { _ ->
             it("${notToContainOrAtMostIgnoringCasePair.first("'o'", "twice")} throws AssertionError") {
                 expect {
                     expect(helloWorld).notToContainOrAtMostIgnoringCaseFun(2, 'o')
@@ -201,7 +201,6 @@ abstract class AbstractCharSequenceNotToContainOrAtMostExpectationsTest(
         }
 
     companion object {
-
         val atLeast = DescriptionCharSequenceExpectation.AT_LEAST.getDefault()
         val atMost = DescriptionCharSequenceExpectation.AT_MOST.getDefault()
         val numberOfOccurrences = DescriptionCharSequenceExpectation.NUMBER_OF_MATCHES.getDefault()
