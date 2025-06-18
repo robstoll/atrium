@@ -1,10 +1,11 @@
 package ch.tutteli.atrium.api.infix.en_GB
 
 import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.specs.integration.AbstractCharSequenceToContainAtMostExpectationsTest
 
 
-class CharSequenceToContainAtMostExpectationsSpec :
-    ch.tutteli.atrium.specs.integration.CharSequenceToContainAtMostExpectationsSpec(
+class CharSequenceToContainAtMostExpectationsTest :
+    AbstractCharSequenceToContainAtMostExpectationsTest(
         getAtMostTriple(),
         getAtMostIgnoringCaseTriple(),
         getNotToContainPair(),
