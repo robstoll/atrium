@@ -6,7 +6,7 @@ import ch.tutteli.atrium.specs.feature1
 import ch.tutteli.atrium.specs.notImplemented
 import ch.tutteli.atrium.specs.withFeatureSuffix
 
-class Fun0ExpectationsSpec : ch.tutteli.atrium.specs.integration.Fun0ExpectationsSpec(
+class Fun0ExpectationsTest : ch.tutteli.atrium.specs.integration.AbstractFun0ExpectationsTest(
     ("toThrow" to Companion::toThrowFeature).withFeatureSuffix(),
     "toThrow" to Companion::toThrow,
     feature0<() -> Int, Int>(Expect<() -> Int>::notToThrow),

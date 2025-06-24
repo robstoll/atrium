@@ -14,7 +14,7 @@ import ch.tutteli.atrium.translations.DescriptionThrowableExpectation
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.Suite
 
-abstract class Fun0ExpectationsSpec(
+abstract class AbstractFun0ExpectationsTest(
     toThrowFeature: Feature0<out () -> Any?, IllegalArgumentException>,
     toThrow: Feature1<out () -> Any?, Expect<IllegalArgumentException>.() -> Unit, IllegalArgumentException>,
     notToThrowFeature: Feature0<() -> Int, Int>,
@@ -65,7 +65,7 @@ abstract class Fun0ExpectationsSpec(
     fun messageAndStackTrace(message: String) =
         "\\s+\\Q$explanatoryBulletPoint\\E$messageDescr: \"$message\".*$separator" +
             "\\s+\\Q$explanatoryBulletPoint\\E$stackTraceDescr: $separator" +
-            "\\s+\\Q$listBulletPoint\\E${Fun0ExpectationsSpec::class.fullName}"
+            "\\s+\\Q$listBulletPoint\\E${AbstractFun0ExpectationsTest::class.fullName}"
 
     describeFun(toThrowFeature, toThrow, notToThrowFeature, notToThrow) {
         val toThrowFunctions = unifySignatures(toThrowFeature, toThrow)
