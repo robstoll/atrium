@@ -1,15 +1,18 @@
 package ch.tutteli.atrium.api.infix.en_GB
 
 import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.specs.integration.AbstractCharSequenceToContainAtMostExpectationsTest
+import kotlin.test.Test
 
 
-class CharSequenceToContainAtMostExpectationsSpec :
-    ch.tutteli.atrium.specs.integration.CharSequenceToContainAtMostExpectationsSpec(
-        getAtMostTriple(),
-        getAtMostIgnoringCaseTriple(),
-        getNotToContainPair(),
-        getExactlyPair()
-    ) {
+class CharSequenceToContainAtMostExpectationsTest : AbstractCharSequenceToContainAtMostExpectationsTest(
+    getAtMostTriple(),
+    getAtMostIgnoringCaseTriple(),
+    getNotToContainPair(),
+    getExactlyPair()
+) {
+    @Test
+    fun trigger_run_gutter() = 1
 
     companion object : CharSequenceToContainSpecBase() {
 
