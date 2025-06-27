@@ -8,7 +8,7 @@ import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.translations.DescriptionCharSequenceExpectation.NOT_TO_CONTAIN
 import org.spekframework.spek2.style.specification.Suite
 
-abstract class CharSequenceToContainNotToContainExpectationsSpec(
+abstract class AbstractCharSequenceToContainNotToContainExpectationsTest(
     toContain: Fun2<CharSequence, Any, Array<out Any>>,
     notToContain: Fun2<CharSequence, Any, Array<out Any>>,
     describePrefix: String = "[Atrium] "
