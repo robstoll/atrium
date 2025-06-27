@@ -5,15 +5,15 @@ import ch.tutteli.atrium.specs.fun2
 import ch.tutteli.atrium.specs.notImplemented
 import org.spekframework.spek2.Spek
 
-class CharSequenceToContainNotToContainExpectationsSpec : Spek({
+class CharSequenceToContainNotToContainExpectationsTest : Spek({
 
-    include(object : ch.tutteli.atrium.specs.integration.CharSequenceToContainNotToContainExpectationsSpec(
+    include(object : ch.tutteli.atrium.specs.integration.AbstractCharSequenceToContainNotToContainExpectationsTest(
         getToContainPair(),
         getNotToContainPair(),
         "[Atrium][Builder]"
     ) {})
 
-    include(object : ch.tutteli.atrium.specs.integration.CharSequenceToContainNotToContainExpectationsSpec(
+    include(object : ch.tutteli.atrium.specs.integration.AbstractCharSequenceToContainNotToContainExpectationsTest(
         getToContainShortcutPair(),
         getNotToContainShortcutPair(),
         "[Atrium][Shortcut]"
