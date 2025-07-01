@@ -8,15 +8,21 @@ import ch.tutteli.atrium.specs.fun3
 import ch.tutteli.atrium.specs.integration.IterableToContainSpecBase.Companion.emptyInOrderOnlyReportOptions
 import ch.tutteli.atrium.specs.notImplemented
 import ch.tutteli.atrium.specs.withNullableSuffix
-import org.spekframework.spek2.Spek
+import kotlin.test.Test
 import ch.tutteli.atrium.api.fluent.en_GB.IterableToContainInOrderOnlyValuesExpectationsSpec.Companion as C
 
-class IterableToContainInOrderOnlyValuesExpectationsSpec : Spek({
+class IterableToContainInOrderOnlyValuesExpectationsSpec {
 
-    include(BuilderSpec)
-    include(ShortcutSpec)
+    @Test
+    fun builderSpec() {
+        BuilderSpec
+    }
 
-}) {
+    @Test
+    fun shortcutSpec() {
+        ShortcutSpec
+    }
+
     object BuilderSpec : ch.tutteli.atrium.specs.integration.IterableToContainInOrderOnlyValuesExpectationsSpec(
         functionDescription to C::toContainInOrderOnlyValues,
         (functionDescription to C::toContainInOrderOnlyNullableValues).withNullableSuffix(),
