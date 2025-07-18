@@ -1,10 +1,11 @@
 package ch.tutteli.atrium.api.infix.en_GB
 
 import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.specs.integration.AbstractIterableNotToContainEntriesExpectationsTest
 import ch.tutteli.atrium.specs.withNullableSuffix
 
-class IterableNotToContainEntriesExpectationsSpec :
-    ch.tutteli.atrium.specs.integration.IterableNotToContainEntriesExpectationsSpec(
+class IterableNotToContainEntriesExpectationsTest :
+    AbstractIterableNotToContainEntriesExpectationsTest(
         getNotToContainPair(),
         getNotToContainNullablePair().withNullableSuffix(),
         Expect<List<Int>>::notToHaveElementsOrNone.name,

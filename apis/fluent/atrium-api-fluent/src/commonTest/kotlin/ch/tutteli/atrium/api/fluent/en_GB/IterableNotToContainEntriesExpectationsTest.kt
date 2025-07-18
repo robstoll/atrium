@@ -1,11 +1,12 @@
 package ch.tutteli.atrium.api.fluent.en_GB
 
 import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.specs.integration.AbstractIterableNotToContainEntriesExpectationsTest
 import ch.tutteli.atrium.specs.notImplemented
 import ch.tutteli.atrium.specs.withNullableSuffix
 
-class IterableNotToContainEntriesExpectationsSpec :
-    ch.tutteli.atrium.specs.integration.IterableNotToContainEntriesExpectationsSpec(
+class IterableNotToContainEntriesExpectationsTest :
+    AbstractIterableNotToContainEntriesExpectationsTest(
         functionDescription to Companion::notToContainFun,
         (functionDescription to Companion::notToContainNullableFun).withNullableSuffix(),
         Expect<List<Int>>::notToHaveElementsOrNone.name,

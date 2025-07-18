@@ -8,7 +8,7 @@ import ch.tutteli.atrium.logic.utils.expectLambda
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.translations.DescriptionIterableLikeExpectation
 
-abstract class IterableNotToContainEntriesExpectationsSpec(
+abstract class AbstractIterableNotToContainEntriesExpectationsTest(
     notToContainEntries: Fun2<Iterable<Double>, Expect<Double>.() -> Unit, Array<out Expect<Double>.() -> Unit>>,
     notToContainNullableEntries: Fun2<Iterable<Double?>, (Expect<Double>.() -> Unit)?, Array<out (Expect<Double>.() -> Unit)?>>,
     notToHaveElementsOrNoneFunName: String,
