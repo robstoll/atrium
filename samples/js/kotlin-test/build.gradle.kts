@@ -12,7 +12,7 @@ repositories {
 }
 
 plugins {
-    kotlin("multiplatform") version "2.1.20"
+    kotlin("multiplatform") version "2.2.0"
 }
 
 group = "org.atriumlib.samples"
