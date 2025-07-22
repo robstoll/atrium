@@ -1,6 +1,5 @@
 package readme.examples.jupiter
 
-import org.junit.jupiter.api.Order
 import org.junit.jupiter.api.extension.ExtendWith
 
 /**
@@ -27,5 +26,4 @@ import org.junit.jupiter.api.extension.ExtendWith
  * }
  */
 @ExtendWith(ReadmeInvocationInterceptor::class)
-@Order(0)
 interface ReadmeTest

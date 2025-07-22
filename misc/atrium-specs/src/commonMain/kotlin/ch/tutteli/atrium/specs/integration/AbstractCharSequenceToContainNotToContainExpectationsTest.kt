@@ -29,7 +29,7 @@ abstract class AbstractCharSequenceToContainNotToContainExpectationsTest(
     val valueWithIndent = "$indentRootBulletPoint$listBulletPoint$value"
 
     @TestFactory
-    fun toContain__subject_empty_string() = testFactory(toContainSpec) { toContainFun ->
+    fun toContain__subject_empty_string() = testFactory(toContainSpec) {
         val fluentEmptyString = expect("" as CharSequence)
 
         it("${toContainSpec.name} 'Hello' throws AssertionError") {
@@ -46,7 +46,7 @@ abstract class AbstractCharSequenceToContainNotToContainExpectationsTest(
     }
 
     @TestFactory
-    fun notToContain__subject_empty_string() = testFactory(notToContainSpec) { notToContainFun ->
+    fun notToContain__subject_empty_string() = testFactory(notToContainSpec) {
         val fluentEmptyString = expect("" as CharSequence)
 
         it("${notToContainSpec.name} 'Hello' does not throw") {
@@ -55,14 +55,14 @@ abstract class AbstractCharSequenceToContainNotToContainExpectationsTest(
     }
 
     @TestFactory
-    fun toContain__subject_text_search_for_Hello() = testFactory(toContainSpec) { toContainFun ->
+    fun toContain__subject_text_search_for_Hello() = testFactory(toContainSpec) {
         it("${toContainSpec.name} 'Hello' does not throw") {
             expect(text).toContainFun("Hello")
         }
     }
 
     @TestFactory
-    fun toContain__subject_text_search_for_Hello_and_Robert() = testFactory(toContainSpec) { toContainFun ->
+    fun toContain__subject_text_search_for_Hello_and_Robert() = testFactory(toContainSpec) {
         it("${toContainSpec.name} 'Hello' and 'Robert' does not throw") {
             expect(text).toContainFun("Hello", "Robert")
         }
@@ -85,7 +85,7 @@ abstract class AbstractCharSequenceToContainNotToContainExpectationsTest(
     }
 
     @TestFactory
-    fun notToContain__subject_text_search_for_Hello() = testFactory(notToContainSpec) { notToContainFun ->
+    fun notToContain__subject_text_search_for_Hello() = testFactory(notToContainSpec) {
         it("${notToContainSpec.name} 'Hello' throws AssertionError") {
             expect {
                 expect(text).notToContainFun("Hello")
@@ -94,7 +94,7 @@ abstract class AbstractCharSequenceToContainNotToContainExpectationsTest(
     }
 
     @TestFactory
-    fun notToContain__subject_text_search_for_Hello_and_Robert() = testFactory(notToContainSpec) { notToContainFun ->
+    fun notToContain__subject_text_search_for_Hello_and_Robert() = testFactory(notToContainSpec) {
         it("${notToContainSpec.name} 'Hello' and 'Robert' throws AssertionError") {
             expect {
                 expect(text).notToContainFun("Hello", "Robert")
@@ -112,7 +112,7 @@ abstract class AbstractCharSequenceToContainNotToContainExpectationsTest(
     }
 
     @TestFactory
-    fun toContain__subject_text_search_for_notInThere_and_neitherInThere() = testFactory(toContainSpec) { toContainFun ->
+    fun toContain__subject_text_search_for_notInThere_and_neitherInThere() = testFactory(toContainSpec) {
         it("${toContainSpec.name} 'notInThere' and 'neitherInThere' throws AssertionError") {
             expect {
                 expect(text).toContainFun("notInThere", "neitherInThere")
@@ -127,14 +127,14 @@ abstract class AbstractCharSequenceToContainNotToContainExpectationsTest(
     }
 
     @TestFactory
-    fun notToContain__subject_text_search_for_notInThere_and_neitherInThere() = testFactory(notToContainSpec) { notToContainFun ->
+    fun notToContain__subject_text_search_for_notInThere_and_neitherInThere() = testFactory(notToContainSpec) {
         it("${notToContainSpec.name} 'notInThere' and 'neitherInThere' does not throw") {
             expect(text).notToContainFun("notInThere", "neitherInThere")
         }
     }
 
     @TestFactory
-    fun toContain__subject_text_search_for_notInThere() = testFactory(toContainSpec) { toContainFun ->
+    fun toContain__subject_text_search_for_notInThere() = testFactory(toContainSpec) {
         it("${toContainSpec.name} 'notInThere' throws AssertionError") {
             expect {
                 expect(text).toContainFun("notInThere")
@@ -143,7 +143,7 @@ abstract class AbstractCharSequenceToContainNotToContainExpectationsTest(
     }
 
     @TestFactory
-    fun toContain__subject_text_search_for_Hello_and_notInThere() = testFactory(toContainSpec) { toContainFun ->
+    fun toContain__subject_text_search_for_Hello_and_notInThere() = testFactory(toContainSpec) {
         it("${toContainSpec.name} 'Hello' and 'notInThere' throws AssertionError mentioning only 'Hello'") {
             expect {
                 expect(text).toContainFun("Hello", "notInThere")
@@ -156,14 +156,15 @@ abstract class AbstractCharSequenceToContainNotToContainExpectationsTest(
         }
     }
 
-    fun notToContain__subject_text_search_for_notInThere() = testFactory(notToContainSpec) { notToContainFun ->
+    @TestFactory
+    fun notToContain__subject_text_search_for_notInThere() = testFactory(notToContainSpec) {
         it("${notToContainSpec.name} 'notInThere' does not throw") {
             expect(text).notToContainFun("notInThere")
         }
     }
 
     @TestFactory
-    fun notToContain__subject_text_search_for_Hello_and_notInThere() = testFactory(notToContainSpec) { notToContainFun ->
+    fun notToContain__subject_text_search_for_Hello_and_notInThere() = testFactory(notToContainSpec) {
         it("${notToContainSpec.name} 'Hello' and 'notInThere' throws AssertionError mentioning only 'notInThere'") {
             expect {
                 expect(text).notToContainFun("Hello", "notInThere")
@@ -177,21 +178,21 @@ abstract class AbstractCharSequenceToContainNotToContainExpectationsTest(
     }
 
     @TestFactory
-    fun toContain__subject_text_search_for_Hello_and_Hello() = testFactory(toContainSpec) { toContainFun ->
+    fun toContain__subject_text_search_for_Hello_and_Hello() = testFactory(toContainSpec) {
         it("${toContainSpec.name} 'Hello' and 'Hello' (searching twice in the same assertion) does not throw") {
             expect(text).toContainFun("Hello", "Hello")
         }
     }
 
     @TestFactory
-    fun notToContain__subject_text_search_for_notInThere_and_notInThere() = testFactory(notToContainSpec) { notToContainFun ->
+    fun notToContain__subject_text_search_for_notInThere_and_notInThere() = testFactory(notToContainSpec) {
         it("${notToContainSpec.name} 'notInThere' and 'notInThere' does not throw") {
             expect(text).notToContainFun("notInThere", "notInThere")
         }
     }
 
     @TestFactory
-    fun toContain__error_message_feature_assertion_about_a_persons_name() = testFactory(toContainSpec) { toContainFun ->
+    fun toContain__error_message_feature_assertion_about_a_persons_name() = testFactory(toContainSpec) {
         data class Person(val name: CharSequence)
 
         val person = Person("Robert Stoll")
@@ -209,7 +210,7 @@ abstract class AbstractCharSequenceToContainNotToContainExpectationsTest(
     }
 
     @TestFactory
-    fun notToContain__error_message_feature_assertion_about_a_persons_name() = testFactory(notToContainSpec) { notToContainFun ->
+    fun notToContain__error_message_feature_assertion_about_a_persons_name() = testFactory(notToContainSpec) {
         data class Person(val name: CharSequence)
 
         val person = Person("Robert Stoll")
