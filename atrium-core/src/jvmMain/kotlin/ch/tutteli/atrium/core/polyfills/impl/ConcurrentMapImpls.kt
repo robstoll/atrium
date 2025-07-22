@@ -14,5 +14,11 @@ internal actual class ConcurrentMapImpl<K, out V : Any> actual constructor(sourc
 internal actual class MutableConcurrentMapImpl<K, V : Any> actual constructor() : MutableConcurrentMap<K, V> {
     private val map = ConcurrentHashMap<K, V>()
     actual override operator fun get(key: K): V? = map[key]
+    actual override fun computeIfAbsent(key: K, value: (K) -> V): V = map.computeIfAbsent(key, value)
+
+    @Deprecated(
+        "Use computeIfAbsent since we return the new value and not the old",
+        replaceWith = ReplaceWith("computeIfAbsent(key) { value}")
+    )
     actual override fun putIfAbsent(key: K, value: V): V = map.putIfAbsent(key, value) ?: value
 }

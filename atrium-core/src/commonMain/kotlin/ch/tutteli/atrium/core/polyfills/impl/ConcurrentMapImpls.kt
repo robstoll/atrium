@@ -9,5 +9,6 @@ internal expect class ConcurrentMapImpl<K, out V : Any>(source: Map<K, V>) : Con
 
 internal expect class MutableConcurrentMapImpl<K, V : Any>() : MutableConcurrentMap<K, V> {
     override fun get(key: K): V?
+    override fun computeIfAbsent(key: K, value: (K) -> V): V
     override fun putIfAbsent(key: K, value: V): V
 }

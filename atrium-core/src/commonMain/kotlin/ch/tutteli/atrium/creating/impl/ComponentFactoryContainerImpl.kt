@@ -44,8 +44,7 @@ internal abstract class ComponentFactoryContainerImpl : ComponentFactoryContaine
         factory: ComponentFactory
     ): I {
         val untypedInstance = if (factory.producesSingleton) {
-            // we first check so that we only invoke the factory more than once in case of a race condition
-            singletonComponents[kClass] ?: singletonComponents.putIfAbsent(kClass, factory.build(this))
+            singletonComponents.computeIfAbsent(kClass) { factory.build(this) }
         } else {
             factory.build(this)
         }
@@ -162,8 +161,8 @@ internal object DefaultComponentFactoryContainer : ComponentFactoryContainer by 
         BulletPointProvider::class createVia { _ -> UsingDefaultBulletPoints }
     ),
 
-    mapOf(TextAssertionFormatterFactory::class createChainVia
-        sequenceOf(
+    mapOf(
+        TextAssertionFormatterFactory::class createChainVia sequenceOf(
             { c ->
                 val bulletPoints = c.build<BulletPointProvider>().getBulletPoints()
                 val textAssertionPairFormatter = c.build<TextAssertionPairFormatter>()

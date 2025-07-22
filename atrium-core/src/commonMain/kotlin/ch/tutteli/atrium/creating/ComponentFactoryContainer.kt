@@ -18,20 +18,20 @@ annotation class ExperimentalComponentFactoryContainer
 interface ComponentFactoryContainer {
 
     /**
-     * Returns the component of type [I] using a corresponding factory or `null` in case no factory was found
+     * Returns the component of type [T] using a corresponding factory or `null` in case no factory was found
      * which is able to build a component of the given type.
      *
      * @throws ClassCastException in case the factory returns an illegal type.
      */
-    fun <I : Any> buildOrNull(kClass: KClass<I>): I?
+    fun <T : Any> buildOrNull(kClass: KClass<T>): T?
 
     /**
-     * Returns a chain of components of type [I] using a corresponding chain of factories or `null`
+     * Returns a chain of components of type [T] using a corresponding chain of factories or `null`
      * in case no chain was found which is able to build a chain of components of the given type.
      *
      * @throws ClassCastException in case one of factories returns an illegal type.
      */
-    fun <I : Any> buildChainedOrNull(kClass: KClass<I>): Sequence<I>?
+    fun <T : Any> buildChainedOrNull(kClass: KClass<T>): Sequence<T>?
 
     /**
      * Returns a factory which is able to build a component for the given [kClass]
@@ -79,7 +79,7 @@ interface ComponentFactoryContainer {
 data class ComponentFactory(val build: (ComponentFactoryContainer) -> Any, val producesSingleton: Boolean)
 
 /**
- * Returns the component of type [I] using a corresponding factory or throws an [IllegalStateException]
+ * Returns the component of type [T] using a corresponding factory or throws an [IllegalStateException]
  * in case no factory was found which is able to build a component of the given type.
  *
  * @throws IllegalStateException in case [ComponentFactoryContainer.buildOrNull] returns `null`
@@ -87,12 +87,12 @@ data class ComponentFactory(val build: (ComponentFactoryContainer) -> Any, val p
  * @throws ClassCastException in case the factory returns an illegal type.
  */
 @ExperimentalComponentFactoryContainer
-inline fun <reified I : Any> ComponentFactoryContainer.build(): I = buildOrNull(I::class)
-    ?: throw IllegalStateException("No factory is registered in this ComponentContainer which is able to build a ${I::class.fullName}")
+inline fun <reified T : Any> ComponentFactoryContainer.build(): T = buildOrNull(T::class)
+    ?: throw IllegalStateException("No factory is registered in this ComponentFactoryContainer which is able to build a ${T::class.fullName}")
 
 
 /**
- * Returns a chain of components of type [I] using a corresponding factory or throws an [IllegalStateException]
+ * Returns a chain of components of type [T] using a corresponding factory or throws an [IllegalStateException]
  * in case no factory was found which is able to build a chain of components of the given type.
 
  * @throws IllegalStateException in case [ComponentFactoryContainer.buildChainedOrNull] returns `null`
@@ -100,5 +100,5 @@ inline fun <reified I : Any> ComponentFactoryContainer.build(): I = buildOrNull(
  * @throws ClassCastException in case one of factories returns an illegal type.
  */
 @ExperimentalComponentFactoryContainer
-inline fun <reified I : Any> ComponentFactoryContainer.buildChained(): Sequence<I> = buildChainedOrNull(I::class)
-    ?: throw IllegalStateException("No factory is registered in this ComponentContainer which is able to build a chain of ${I::class.fullName}")
+inline fun <reified T : Any> ComponentFactoryContainer.buildChained(): Sequence<T> = buildChainedOrNull(T::class)
+    ?: throw IllegalStateException("No factory is registered in this ComponentFactoryContainer which is able to build a chain of ${T::class.fullName}")
