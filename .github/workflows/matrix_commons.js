@@ -5,7 +5,7 @@
 //  \__/\__/\_, /\___/_//_/\_,_/_/         It is licensed under Apache License 2.0
 //         /___/                           Please report bugs and contribute back your improvements
 //
-//                                         Version: v3.1.0
+//                                         Version: v3.1.1
 //##################################
 // adapted version of https://github.com/vlsi/github-actions-random-matrix/blob/main/examples/matrix.js
 // licensed under Apache License 2.0
@@ -19,9 +19,9 @@ const javaDistributionAxis = {
 		'corretto',
 		'dragonwell',
 
-		// we run into github api rate limits with those two from time to time, disable them if it starts to be too annoying
+		// we ran into github API rate limits with those two from time to time, disable them if it starts to be too annoying
 		'graalvm',
-		'jetbrains',
+		//'jetbrains',
 
 		'liberica',
 		'microsoft',
