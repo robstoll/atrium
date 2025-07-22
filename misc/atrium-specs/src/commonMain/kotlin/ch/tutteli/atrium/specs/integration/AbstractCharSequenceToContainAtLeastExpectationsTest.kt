@@ -9,6 +9,7 @@ import ch.tutteli.atrium.translations.DescriptionCharSequenceExpectation
 import ch.tutteli.atrium.specs.integration.CharSequenceToContainSpecBase.Companion.text
 import ch.tutteli.atrium.specs.integration.CharSequenceToContainSpecBase.Companion.helloWorld
 
+@Suppress("FunctionName")
 abstract class AbstractCharSequenceToContainAtLeastExpectationsTest(
     private val toContainAtLeastPair: Pair<(String, String) -> String, Fun3<CharSequence, Int, Any, Array<out Any>>>,
     private val toContainAtLeastIgnoringCasePair: Pair<(String, String) -> String, Fun3<CharSequence, Int, Any, Array<out Any>>>,
@@ -49,7 +50,7 @@ abstract class AbstractCharSequenceToContainAtLeastExpectationsTest(
 
     @TestFactory
     fun toContainAtLeast__subject_throws_an_IllegalArgumentException() =
-        testFactory(toContainAtLeastSpec) { toContainAtLeastFun ->
+        testFactory(toContainAtLeastSpec) {
             val (notToContain, errorMsgNotToContain) = notToContainPair
 
             it("for at least -1 -- only positive numbers") {
@@ -86,7 +87,7 @@ abstract class AbstractCharSequenceToContainAtLeastExpectationsTest(
 
     @TestFactory
     fun toContainAtLeastButAtMost__subject_throws_an_IllegalArgumentException() =
-        testFactory(toContainAtLeastButAtMostSpec) { toContainAtLeastButAtMostFun ->
+        testFactory(toContainAtLeastButAtMostSpec) {
             val (exactly, errorMsgExactly) = exactlyPair
 
             it("for at least 1 but at most -1 -- since -1 is smaller than 1") {
@@ -123,7 +124,7 @@ abstract class AbstractCharSequenceToContainAtLeastExpectationsTest(
 
     @TestFactory
     fun toContainAtLeast__happy_case_with_toContainAtLeast_once() =
-        testFactory(toContainAtLeastSpec) { toContainAtLeastFun ->
+        testFactory(toContainAtLeastSpec) {
             it("${toContainAtLeastPair.first("'H'", "once")} does not throw") {
                 expect(helloWorld).toContainAtLeastFun(1, 'H')
             }
@@ -137,7 +138,7 @@ abstract class AbstractCharSequenceToContainAtLeastExpectationsTest(
 
     @TestFactory
     fun toContainAtLeast__subject_failing_cases__search_string_at_different_positions() =
-        testFactory(toContainAtLeastSpec) { toContainAtLeastFun ->
+        testFactory(toContainAtLeastSpec) {
             it("${toContainAtLeastPair.first("'h'", "once")} throws AssertionError") {
                 expect {
                     expect(helloWorld).toContainAtLeastFun(1, 'h')
@@ -179,7 +180,7 @@ abstract class AbstractCharSequenceToContainAtLeastExpectationsTest(
 
     @TestFactory
     fun toContainAtLeastIgnoringCase__subject_failing_cases__search_string_at_different_positions() =
-        testFactory(toContainAtLeastIgnoringCaseSpec) { toContainAtLeastIgnoringCaseFun ->
+        testFactory(toContainAtLeastIgnoringCaseSpec) {
             it("${toContainAtLeastIgnoringCasePair.first("'h'", "once")} does not throw") {
                 expect(helloWorld).toContainAtLeastIgnoringCaseFun(1, 'h')
             }
@@ -203,7 +204,7 @@ abstract class AbstractCharSequenceToContainAtLeastExpectationsTest(
 
     @TestFactory
     fun toContainAtLeast__multiple_occurrences_of_the_search_string() =
-        testFactory(toContainAtLeastSpec) { toContainAtLeastFun ->
+        testFactory(toContainAtLeastSpec) {
             it("${toContainAtLeastPair.first("'o'", "once")} does not throw") {
                 expect(helloWorld).toContainAtLeastFun(1, 'o')
             }
@@ -255,7 +256,7 @@ abstract class AbstractCharSequenceToContainAtLeastExpectationsTest(
 
     @TestFactory
     fun toContainAtLeastIgnoringCase__multiple_occurrences_of_the_search_string() =
-        testFactory(toContainAtLeastIgnoringCaseSpec) { toContainAtLeastIgnoringCaseFun ->
+        testFactory(toContainAtLeastIgnoringCaseSpec) {
             it("${toContainAtLeastIgnoringCasePair.first("'o'", "3 times")} does not throw") {
                 expect(helloWorld).toContainAtLeastIgnoringCaseFun(3, 'o')
             }
@@ -265,7 +266,7 @@ abstract class AbstractCharSequenceToContainAtLeastExpectationsTest(
         }
 
     @TestFactory
-    fun toContainAtLeast__subject_special_cases() = testFactory(toContainAtLeastSpec) { toContainAtLeastFun ->
+    fun toContainAtLeast__subject_special_cases() = testFactory(toContainAtLeastSpec) {
         // string: "\0 hello"
         it("${toContainAtLeastPair.first("\"hello\" and '\\0'", "once")} does not throw") {
             expect(('\u0000' + " hello") as CharSequence).toContainAtLeastFun(1, "hello", 0.toChar())
@@ -285,7 +286,7 @@ abstract class AbstractCharSequenceToContainAtLeastExpectationsTest(
     }
 
     @TestFactory
-    fun toContainAtLeastButAtMost() = testFactory(toContainAtLeastButAtMostSpec) { toContainAtLeastButAtMostFun ->
+    fun toContainAtLeastButAtMost() = testFactory(toContainAtLeastButAtMostSpec) {
         it("${toContainAtLeastButAtMostPair.first("'o'", "once", "twice")} does not throw") {
             expect(helloWorld).toContainAtLeastButAtMostFun(1, 2, 'o')
         }
@@ -332,7 +333,7 @@ abstract class AbstractCharSequenceToContainAtLeastExpectationsTest(
 
     @TestFactory
     fun toContainAtLeastButAtMostIgnoringCase() =
-        testFactory(toContainAtLeastButAtMostIgnoringCaseSpec) { toContainAtLeastButAtMostIgnoringCaseFun ->
+        testFactory(toContainAtLeastButAtMostIgnoringCaseSpec) {
             it(
                 "${toContainAtLeastButAtMostIgnoringCasePair.first("'o' and 'l'", "twice", "3 times")} " +
                     "does not throw"

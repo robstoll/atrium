@@ -36,7 +36,7 @@ abstract class AbstractCharSequenceToContainAtMostExpectationsTest(
 
     @TestFactory
     fun toContainAtMost__subject_throws_an_IllegalArgumentException() =
-        testFactory(toContainAtMostSpec) { toContainAtMostFun ->
+        testFactory(toContainAtMostSpec) {
             val (notToContain, errorMsgContainsNot) = notToContainPair
             val (exactly, errorMsgExactly) = exactlyPair
 
@@ -69,7 +69,7 @@ abstract class AbstractCharSequenceToContainAtMostExpectationsTest(
 
     @TestFactory
     fun toContainAtMost__subject_happy_case_with_toContainAtMost_twice() =
-        testFactory(toContainAtMostSpec) { toContainAtMostFun ->
+        testFactory(toContainAtMostSpec) {
             it("${toContainAtMostPair.first("'H'", "twice")} does not throw") {
                 expect(helloWorld).toContainAtMostFun(2, 'H')
             }
@@ -83,7 +83,7 @@ abstract class AbstractCharSequenceToContainAtMostExpectationsTest(
 
     @TestFactory
     fun toContainAtMost__subject_failing_cases__search_string_at_different_positions() =
-        testFactory(toContainAtMostSpec) { toContainAtMostFun ->
+        testFactory(toContainAtMostSpec) {
             it("${toContainAtMostPair.first("'l'", "twice")} throws AssertionError") {
                 expect {
                     expect(helloWorld).toContainAtMostFun(2, 'l')
@@ -128,7 +128,7 @@ abstract class AbstractCharSequenceToContainAtMostExpectationsTest(
 
     @TestFactory
     fun toContainAtMostIgnoringCase__subject_failing_cases__search_string_at_different_positions() =
-        testFactory(toContainAtMostIgnoringCaseSpec) { toContainAtMostIgnoringCaseFun ->
+        testFactory(toContainAtMostIgnoringCaseSpec) {
             it(
                 "${
                     toContainAtMostPair.first(
@@ -150,7 +150,7 @@ abstract class AbstractCharSequenceToContainAtMostExpectationsTest(
 
     @TestFactory
     fun toContainAtMost__multiple_occurrences_of_the_search_string() =
-        testFactory(toContainAtMostSpec) { toContainAtMostFun ->
+        testFactory(toContainAtMostSpec) {
             it("${toContainAtMostPair.first("'o'", "twice")} does not throw") {
                 expect(helloWorld).toContainAtMostFun(2, 'o')
             }
@@ -185,7 +185,7 @@ abstract class AbstractCharSequenceToContainAtMostExpectationsTest(
 
     @TestFactory
     fun toContainAtMostIgnoringCase__multiple_occurrences_of_the_search_string() =
-        testFactory(toContainAtMostIgnoringCaseSpec) { toContainAtMostIgnoringCaseFun ->
+        testFactory(toContainAtMostIgnoringCaseSpec) {
             it(
                 "${toContainAtMostIgnoringCasePair.first("'o'", "twice")} throws AssertionError " +
                     "and message contains both, how many times we expected (2) and how many times it actually contained 'o' ignoring case (3)"
@@ -205,7 +205,7 @@ abstract class AbstractCharSequenceToContainAtMostExpectationsTest(
         }
 
     @TestFactory
-    fun toContainAtMost__subject_special_cases() = testFactory(toContainAtMostSpec) { toContainAtMostFun ->
+    fun toContainAtMost__subject_special_cases() = testFactory(toContainAtMostSpec) {
         // string: "\0 hello"
         it("${toContainAtMostPair.first("\"hello\" and '\\0'", "twice")} does not throw") {
             expect(('\u0000' + " hello") as CharSequence)
