@@ -9,7 +9,6 @@ class IterableNotToContainEntriesExpectationsTest :
         getNotToContainPair(),
         getNotToContainNullablePair().withNullableSuffix(),
         Expect<List<Int>>::notToHaveElementsOrNone.name,
-        "[Atrium][Builder] "
     ) {
 
     companion object : IterableToContainSpecBase() {
