@@ -6,6 +6,13 @@ internal actual class MutableConcurrentMapImpl<K, V : Any> actual constructor() 
     private val map = HashMap<K, V>()
 
     actual override operator fun get(key: K): V? = map[key]
-    actual override fun putIfAbsent(key: K, value: V): V =
-        map[key] ?: value.apply { map[key] = this }
+
+    actual override fun putIfAbsentReturnNew(key: K, value: V): V =
+        map[key] ?: value.also { map[key] = it }
+
+    @Deprecated(
+        "Use putIfAbsentReturnNew since we return the new value and not the old",
+        replaceWith = ReplaceWith("putIfAbsentReturnNew(key, value)")
+    )
+    actual override fun putIfAbsent(key: K, value: V): V = putIfAbsentReturnNew(key, value)
 }
