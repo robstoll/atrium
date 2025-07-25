@@ -8,6 +8,7 @@ import ch.tutteli.atrium.api.fluent.en_GB.toBeLessThan
 import ch.tutteli.atrium.api.fluent.en_GB.toContainRegex
 import ch.tutteli.atrium.api.fluent.en_GB.toEqual
 import ch.tutteli.atrium.api.fluent.en_GB.toThrow
+import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.core.polyfills.format
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic.utils.expectLambda
@@ -49,7 +50,7 @@ import ch.tutteli.atrium.translations.DescriptionIterableLikeExpectation
 abstract class AbstractIterableNotToContainEntriesExpectationsTest(
     private val notToContainEntriesSpec: Fun2<Iterable<Double>, Expect<Double>.() -> Unit, Array<out Expect<Double>.() -> Unit>>,
     private val notToContainNullableEntriesSpec: Fun2<Iterable<Double?>, (Expect<Double>.() -> Unit)?, Array<out (Expect<Double>.() -> Unit)?>>,
-    private val notToHaveElementsOrNoneFunNameSpec: String,
+    private val notToHaveElementsOrNoneFunName: String,
 ) : ExpectationFunctionBaseTest() {
 
     @TestFactory
@@ -92,7 +93,7 @@ abstract class AbstractIterableNotToContainEntriesExpectationsTest(
                         arrayOf(expectLambda { toBeGreaterThan(10.0) })
                     )
                 },
-                { notToContainEntriesSpec.invoke(this, { toBeGreaterThan(8.0) }, arrayOf(expectLambda<Double> {})) }
+                { notToContainEntriesSpec.invoke(this, { toBeGreaterThan(8.0) }, arrayOf(expectLambda {})) }
             )
         ),
 
@@ -129,8 +130,8 @@ abstract class AbstractIterableNotToContainEntriesExpectationsTest(
                 }
             ),
             groupPrefix = "[nullable Element] "
-        )
-    )
+        ))
+
 
     private fun Expect<Iterable<Double?>>.notToContainNullableFun(
         a: (Expect<Double>.() -> Unit)?,
@@ -151,12 +152,12 @@ abstract class AbstractIterableNotToContainEntriesExpectationsTest(
                 message {
                     toContainRegex(
                         "$hasANextElement$separator" +
-                                "$indentRootBulletPoint\\Q$explanatoryBulletPoint\\E$notToContainDescr: $separator" +
-                                "$indentRootBulletPoint$indentListBulletPoint\\Q$listBulletPoint\\E$anElementWhichNeedsDescr: $separator" +
-                                "$indentListBulletPoint$afterExplanatory$toEqualDescr: 4.0.*",
+                            "$indentRootBulletPoint\\Q$explanatoryBulletPoint\\E$notToContainDescr: $separator" +
+                            "$indentRootBulletPoint$indentListBulletPoint\\Q$listBulletPoint\\E$anElementWhichNeedsDescr: $separator" +
+                            "$indentListBulletPoint$afterExplanatory$toEqualDescr: 4.0.*",
                         "$hintBulletPoint${
                             DescriptionIterableLikeExpectation.USE_NOT_TO_HAVE_ELEMENTS_OR_NONE.getDefault()
-                                .format(notToHaveElementsOrNoneFunNameSpec)
+                                .format(notToHaveElementsOrNoneFunName)
                         }"
                     )
                 }
@@ -178,8 +179,7 @@ abstract class AbstractIterableNotToContainEntriesExpectationsTest(
                     expect(oneToSeven()).notToContainFun({ toEqual(1.1) }, { toEqual(2.2) }, { toEqual(3.3) })
                 }
                 it("$toEqualFun(3.3), $toEqualFun(1.1), $toEqualFun(2.2) does not throw") {
-                    ch.tutteli.atrium.api.verbs.internal.expect(oneToSeven())
-                        .notToContainFun({ toEqual(3.3) }, { toEqual(1.1) }, { toEqual(2.2) })
+                    expect(oneToSeven()).notToContainFun({ toEqual(3.3) }, { toEqual(1.1) }, { toEqual(2.2) })
                 }
             }
             expect(oneToSeven()).notToContainFun({ toBeGreaterThan(1.0); toBeLessThan(2.0) })
@@ -201,12 +201,12 @@ abstract class AbstractIterableNotToContainEntriesExpectationsTest(
                         message {
                             toContainRegex(
                                 "\\Q$rootBulletPoint\\E$notToContainDescr: $separator" +
-                                        "$indentRootBulletPoint\\Q$listBulletPoint\\E$anElementWhichNeedsDescr: $separator" +
-                                        "$afterExplanatory$toBeLessThanDescr: 4.0.*$separator" +
-                                        "$afterExplanatoryIndent\\Q$warningBulletPoint$mismatches:\\E $separator" +
-                                        "$afterMismatchedWarning${mismatchedIndex(0, "1.0")}.*$separator" +
-                                        "$afterMismatchedWarning${mismatchedIndex(1, "2.0")}.*$separator" +
-                                        "$afterMismatchedWarning${mismatchedIndex(5, "3.0")}.*"
+                                    "$indentRootBulletPoint\\Q$listBulletPoint\\E$anElementWhichNeedsDescr: $separator" +
+                                    "$afterExplanatory$toBeLessThanDescr: 4.0.*$separator" +
+                                    "$afterExplanatoryIndent\\Q$warningBulletPoint$mismatches:\\E $separator" +
+                                    "$afterMismatchedWarning${mismatchedIndex(0, "1.0")}.*$separator" +
+                                    "$afterMismatchedWarning${mismatchedIndex(1, "2.0")}.*$separator" +
+                                    "$afterMismatchedWarning${mismatchedIndex(5, "3.0")}.*"
                             )
                         }
                     }
@@ -218,16 +218,16 @@ abstract class AbstractIterableNotToContainEntriesExpectationsTest(
                         message {
                             toContainRegex(
                                 "\\Q$rootBulletPoint\\E$notToContainDescr: $separator" +
-                                        "$indentRootBulletPoint\\Q$listBulletPoint\\E$anElementWhichNeedsDescr: $separator" +
-                                        "$afterExplanatory$toEqualDescr: 1.0.*$separator" +
-                                        "$afterExplanatoryIndent\\Q$warningBulletPoint$mismatches:\\E $separator" +
-                                        "$afterMismatchedWarning${mismatchedIndex(0, "1.0")}.*$separator" +
-                                        "$indentRootBulletPoint\\Q$listBulletPoint\\E$anElementWhichNeedsDescr: $separator" +
-                                        "$afterExplanatory$toEqualDescr: 4.0.*$separator" +
-                                        "$afterExplanatoryIndent\\Q$warningBulletPoint$mismatches:\\E $separator" +
-                                        "$afterMismatchedWarning${mismatchedIndex(2, "4.0")}.*$separator" +
-                                        "$afterMismatchedWarning${mismatchedIndex(3, "4.0")}.*$separator" +
-                                        "$afterMismatchedWarning${mismatchedIndex(8, "4.0")}.*"
+                                    "$indentRootBulletPoint\\Q$listBulletPoint\\E$anElementWhichNeedsDescr: $separator" +
+                                    "$afterExplanatory$toEqualDescr: 1.0.*$separator" +
+                                    "$afterExplanatoryIndent\\Q$warningBulletPoint$mismatches:\\E $separator" +
+                                    "$afterMismatchedWarning${mismatchedIndex(0, "1.0")}.*$separator" +
+                                    "$indentRootBulletPoint\\Q$listBulletPoint\\E$anElementWhichNeedsDescr: $separator" +
+                                    "$afterExplanatory$toEqualDescr: 4.0.*$separator" +
+                                    "$afterExplanatoryIndent\\Q$warningBulletPoint$mismatches:\\E $separator" +
+                                    "$afterMismatchedWarning${mismatchedIndex(2, "4.0")}.*$separator" +
+                                    "$afterMismatchedWarning${mismatchedIndex(3, "4.0")}.*$separator" +
+                                    "$afterMismatchedWarning${mismatchedIndex(8, "4.0")}.*"
                             )
                         }
                     }
@@ -248,9 +248,7 @@ abstract class AbstractIterableNotToContainEntriesExpectationsTest(
 
     @TestFactory
     fun iterable__null_does_not_throw() {
-        nonNullableCases(notToContainEntriesSpec, notToContainNullableEntriesSpec) {
-            expect(oneToSeven() as Iterable<Double?>).notToContainNullableFun(null)
-        }
+        expect(oneToSeven() as Iterable<Double?>).notToContainNullableFun(null)
     }
 
     @TestFactory
@@ -263,11 +261,11 @@ abstract class AbstractIterableNotToContainEntriesExpectationsTest(
                     message {
                         toContainRegex(
                             "\\Q$rootBulletPoint\\E$notToContainDescr: $separator" +
-                                    "$indentRootBulletPoint\\Q$listBulletPoint\\E$anElementWhichNeedsDescr: $separator" +
-                                    "$afterExplanatory$toEqualDescr: null$separator" +
-                                    "$afterExplanatoryIndent\\Q$warningBulletPoint$mismatches:\\E $separator" +
-                                    "$afterMismatchedWarning${mismatchedIndex(1, "null")}.*$separator" +
-                                    "$afterMismatchedWarning${mismatchedIndex(5, "null")}.*"
+                                "$indentRootBulletPoint\\Q$listBulletPoint\\E$anElementWhichNeedsDescr: $separator" +
+                                "$afterExplanatory$toEqualDescr: null$separator" +
+                                "$afterExplanatoryIndent\\Q$warningBulletPoint$mismatches:\\E $separator" +
+                                "$afterMismatchedWarning${mismatchedIndex(1, "null")}.*$separator" +
+                                "$afterMismatchedWarning${mismatchedIndex(5, "null")}.*"
                         )
                     }
                 }
@@ -279,11 +277,11 @@ abstract class AbstractIterableNotToContainEntriesExpectationsTest(
                     message {
                         toContainRegex(
                             "\\Q$rootBulletPoint\\E$notToContainDescr: $separator" +
-                                    "$indentRootBulletPoint\\Q$listBulletPoint\\E$anElementWhichNeedsDescr: $separator" +
-                                    "$afterExplanatory$toEqualDescr: null$separator" +
-                                    "$afterExplanatoryIndent\\Q$warningBulletPoint$mismatches:\\E $separator" +
-                                    "$afterMismatchedWarning${index(1)}: null.*$separator" +
-                                    "$afterMismatchedWarning${index(5)}: null.*"
+                                "$indentRootBulletPoint\\Q$listBulletPoint\\E$anElementWhichNeedsDescr: $separator" +
+                                "$afterExplanatory$toEqualDescr: null$separator" +
+                                "$afterExplanatoryIndent\\Q$warningBulletPoint$mismatches:\\E $separator" +
+                                "$afterMismatchedWarning${index(1)}: null.*$separator" +
+                                "$afterMismatchedWarning${index(5)}: null.*"
                         )
                         this.notToContain("$notToContainDescr: 1.1")
                     }

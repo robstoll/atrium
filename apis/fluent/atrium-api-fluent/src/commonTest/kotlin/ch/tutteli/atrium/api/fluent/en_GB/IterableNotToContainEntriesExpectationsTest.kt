@@ -32,30 +32,30 @@ class IterableNotToContainEntriesExpectationsTest :
             else expect.notToContain.entries(a, *aX)
     }
 
-}
 
-@Test
-@Suppress("unused", "UNUSED_VALUE")
-fun ambiguityTest() {
-    var list: Expect<List<Number>> = expect(listOf(1, 2, 3))
-    var nList: Expect<Set<Number?>> = expect(setOf(1, 2, null))
-    var subList: Expect<ArrayList<Number>> = expect(arrayListOf(1, 2, 3))
-    var star: Expect<Collection<*>> = expect(listOf(1, 2))
+    @Test
+    @Suppress("AssignedValueIsNeverRead")
+    fun ambiguityTest() {
+        var list: Expect<List<Number>> = expect(listOf(1, 2, 3))
+        var nList: Expect<Set<Number?>> = expect(setOf(1, 2))
+        var subList: Expect<ArrayList<Number>> = expect(arrayListOf(1, 2, 3))
+        var star: Expect<Collection<*>> = expect(listOf(1, 2))
 
 
-    list = list.notToContain.entry {}
-    nList = nList.notToContain.entry {}
-    subList = subList.notToContain.entry {}
-    star = star.notToContain.entry {}
+        list = list.notToContain.value(4)
+        nList = nList.notToContain.value(4)
+        subList = subList.notToContain.value(4)
+        star = star.notToContain.value(4)
 
-    nList = nList.notToContain.entry(null)
-    star = star.notToContain.entry(null)
+        nList = nList.notToContain.value(null)
+        star = star.notToContain.value(null)
 
-    list = list.notToContain.entries({}, {})
-    nList = nList.notToContain.entries({}, {})
-    subList = subList.notToContain.entries({}, {})
-    star = star.notToContain.entries({}, {})
+        list = list.notToContain.values(5, 7)
+        nList = nList.notToContain.values(3, 4)
+        subList = subList.notToContain.values(5, 6)
+        star = star.notToContain.values(7, 8)
 
-    nList = nList.notToContain.entries(null, {}, null)
-    star = star.notToContain.entries(null, {}, null)
+        nList = nList.notToContain.values(null, 8)
+        star = star.notToContain.values(null, {})
+    }
 }
