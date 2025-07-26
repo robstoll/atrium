@@ -11,7 +11,7 @@ import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
 
 class DefaultRangeAssertions : RangeAssertions {
 
-    override fun <T : Comparable<T>> toBeInRange(
+    override fun <T : Comparable<T>> isInRange(
         container: AssertionContainer<T>,
         range: ClosedRange<T>
     ): Assertion =

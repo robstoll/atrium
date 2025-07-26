@@ -11,7 +11,7 @@ import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
 import ch.tutteli.atrium.logic.impl.DefaultRangeAssertions
 
-fun <T : Comparable<T>> AssertionContainer<T>.toBeInRange(range: ClosedRange<T>): Assertion = impl.toBeInRange(this, range)
+fun <T : Comparable<T>> AssertionContainer<T>.isInRange(range: ClosedRange<T>): Assertion = impl.isInRange(this, range)
 
 @OptIn(ExperimentalNewExpectTypes::class)
 private inline val <T> AssertionContainer<T>.impl: RangeAssertions
