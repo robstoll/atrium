@@ -27,4 +27,7 @@ enum class DescriptionComparableExpectation(override val value: String) : String
 
     /** @since 0.18.0 */
     TO_BE_GREATER_THAN("to be greater than"),
+
+    /** @since 1.3.0 */
+    TO_BE_IN_RANGE("to be in range"),
 }
