@@ -1,8 +1,8 @@
 // @formatter:off
 //---------------------------------------------------
-//  Generated content, modify:
-//  buildSrc/generation.kt
-//  if necessary - enjoy the day 🙂
+//  Generated content, don't change here but in:
+//  gradle/build-logic/dev/src/main/kotlin/generation.kt
+//  Enjoy the day 🙂
 //---------------------------------------------------
 package ch.tutteli.atrium.logic.creating.charsequence.contains.creators
 

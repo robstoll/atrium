@@ -21,7 +21,8 @@ Following the things you need to do:
 *logic*
 - [ ] extend XyAssertions with a function `foo` (see YzAssertions as a guideline)
 - [ ] implement foo in DefaultXyAssertions.kt by using the `ExpectImpl.feature.extractor...`
-- [ ] execute `./gradlew generate` which will create accessors which are then used in the API
+- [ ] execute `./gradlew generateLogic` which will create accessors which are then used in the API
+- [ ] execute `./gradlew apiDump & KOTLIN_VERSION=1.9 ./gradlew apiDump`
 
 *api-fluent*
 - [ ] provide a val which returns `Expect<T>` in xYExpectations.kt (see yzExpectations.kt as a guideline)
@@ -31,7 +32,7 @@ Following the things you need to do:
 - [ ] add samples to XyExpectationSamples.kt  (see YzExpectationSamples.kt as guideline -- try to provide the reason why an expectation fails)
 - [ ] add `@sample` with link to your sample method to the two functions in xYExpectations.kt
 - [ ] add `@since 1.3.0` (adapt to current [milestone](https://github.com/robstoll/atrium/milestones)) to KDOC of the two functions in xYExpectations.kt
-
+- [ ] execute `./gradlew apiDump & KOTLIN_VERSION=1.9 ./gradlew apiDump`
 
 *api-infix*
 - [ ] provide a val which returns `Expect<T>` in xYExpectations.kt (see yzExpectations.kt as a guideline)
@@ -40,6 +41,7 @@ Following the things you need to do:
 - [ ] add samples to XyExpectationSamples.kt  (see YzExpectationSamples.kt as guideline -- try to provide the reason why an expectation fails)
 - [ ] add `@sample` with link to your sample method to the two functions in xYExpectations.kt
 - [ ] add `@since 1.3.0` (adapt to current [milestone](https://github.com/robstoll/atrium/milestones)) to KDOC of the two functions in xYExpectations.kt
+- [ ] execute `./gradlew apiDump & KOTLIN_VERSION=1.9 ./gradlew apiDump`
 
 ## Non-Code related feature
 **Is your feature request related to a problem? Please describe.**
