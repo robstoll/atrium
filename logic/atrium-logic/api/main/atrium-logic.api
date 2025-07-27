@@ -459,6 +459,14 @@ public final class ch/tutteli/atrium/logic/PathKt {
 	public static final fun startsWith (Lch/tutteli/atrium/creating/AssertionContainer;Ljava/nio/file/Path;)Lch/tutteli/atrium/assertions/Assertion;
 }
 
+public abstract interface class ch/tutteli/atrium/logic/RangeAssertions {
+	public abstract fun toBeInRange (Lch/tutteli/atrium/creating/AssertionContainer;Lkotlin/ranges/ClosedRange;)Lch/tutteli/atrium/assertions/Assertion;
+}
+
+public final class ch/tutteli/atrium/logic/RangeKt {
+	public static final fun toBeInRange (Lch/tutteli/atrium/creating/AssertionContainer;Lkotlin/ranges/ClosedRange;)Lch/tutteli/atrium/assertions/Assertion;
+}
+
 public abstract interface class ch/tutteli/atrium/logic/ResultAssertions {
 	public abstract fun isFailureOfType (Lch/tutteli/atrium/creating/AssertionContainer;Lkotlin/reflect/KClass;)Lch/tutteli/atrium/logic/creating/transformers/SubjectChangerBuilder$ExecutionStep;
 	public abstract fun isSuccess (Lch/tutteli/atrium/creating/AssertionContainer;)Lch/tutteli/atrium/logic/creating/transformers/FeatureExtractorBuilder$ExecutionStep;
@@ -2136,6 +2144,11 @@ public final class ch/tutteli/atrium/logic/impl/DefaultPathAssertions : ch/tutte
 	public fun resolve (Lch/tutteli/atrium/creating/AssertionContainer;Ljava/lang/String;)Lch/tutteli/atrium/logic/creating/transformers/FeatureExtractorBuilder$ExecutionStep;
 	public fun startsNotWith (Lch/tutteli/atrium/creating/AssertionContainer;Ljava/nio/file/Path;)Lch/tutteli/atrium/assertions/Assertion;
 	public fun startsWith (Lch/tutteli/atrium/creating/AssertionContainer;Ljava/nio/file/Path;)Lch/tutteli/atrium/assertions/Assertion;
+}
+
+public final class ch/tutteli/atrium/logic/impl/DefaultRangeAssertions : ch/tutteli/atrium/logic/RangeAssertions {
+	public fun <init> ()V
+	public fun toBeInRange (Lch/tutteli/atrium/creating/AssertionContainer;Lkotlin/ranges/ClosedRange;)Lch/tutteli/atrium/assertions/Assertion;
 }
 
 public final class ch/tutteli/atrium/logic/impl/DefaultResultAssertions : ch/tutteli/atrium/logic/ResultAssertions {
