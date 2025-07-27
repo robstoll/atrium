@@ -21,11 +21,13 @@ Following the things you need to do:
 *logic*
 - [ ] extend XyAssertions with a function `foo` (see YzAssertions as a guideline)
 - [ ] implement foo in DefaultXyAssertions.kt by using the `ExpectImpl.feature.extractor...`
+- [ ] execute `./gradlew generate` which will create accessors which are then used in the API
 
 *api-fluent*
 - [ ] provide a val which returns `Expect<T>` in xYExpectations.kt (see yzExpectations.kt as a guideline)
 - [ ] provide a fun which expects an `assertionCreator`-lambda and returns `Expect<AB>` in xyExpectations.kt (see yzExpectations.kt as a guideline)
-- [ ] extend or write a separate Spec named XyExpectationsSpec in specs -> commonMain  (see for instance YzExpectationsSpec) and extend it in atrium-api-fluent -> commonTest
+- [ ] extend or write a separate Spec named AbstractXyExpectationsTest in atrium-specs -> commonMain  (see for instance AbstractYzExpectationsTest)
+- [ ] extend it in atrium-api-fluent -> commonTest, name it XyExpectationsTest
 - [ ] add samples to XyExpectationSamples.kt  (see YzExpectationSamples.kt as guideline -- try to provide the reason why an expectation fails)
 - [ ] add `@sample` with link to your sample method to the two functions in xYExpectations.kt
 - [ ] add `@since 1.3.0` (adapt to current [milestone](https://github.com/robstoll/atrium/milestones)) to KDOC of the two functions in xYExpectations.kt
@@ -34,7 +36,7 @@ Following the things you need to do:
 *api-infix*
 - [ ] provide a val which returns `Expect<T>` in xYExpectations.kt (see yzExpectations.kt as a guideline)
 - [ ] provide a fun which expects an `assertionCreator`-lambda and returns `Expect<AB>` in xyExpectations.kt (see yzExpectations.kt as a guideline)
-- [ ] extend or write a separate Spec named XyExpectationsSpec in specs -> commonMain  (see for instance YzExpectationsSpec) and extend it in atrium-api-fluent -> commonTest
+- [ ] extend AbstractXyExpectationsTest also in atrium-api-infix -> commonTest, name it XyExpectationsTest
 - [ ] add samples to XyExpectationSamples.kt  (see YzExpectationSamples.kt as guideline -- try to provide the reason why an expectation fails)
 - [ ] add `@sample` with link to your sample method to the two functions in xYExpectations.kt
 - [ ] add `@since 1.3.0` (adapt to current [milestone](https://github.com/robstoll/atrium/milestones)) to KDOC of the two functions in xYExpectations.kt
