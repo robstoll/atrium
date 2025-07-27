@@ -48,6 +48,7 @@ class Entries<T : Any>(
  * Parameter object to express a key/value [Pair] whose value type is a nullable lambda with an
  * [Expect] receiver, which means one can either pass a lambda or `null`.
  */
+//TODO 2.0.0 remove data?
 data class KeyValue<out K, V : Any>(val key: K, val valueAssertionCreatorOrNull: (Expect<V>.() -> Unit)?) {
     fun toPair(): Pair<K, (Expect<V>.() -> Unit)?> = key to valueAssertionCreatorOrNull
 
@@ -58,6 +59,7 @@ data class KeyValue<out K, V : Any>(val key: K, val valueAssertionCreatorOrNull:
 /**
  * Represents a [Group] with a single value.
  */
+//TODO 2.0.0 remove data?
 data class Value<out T>(val expected: T) : Group<T> {
     override fun toList(): List<T> = listOf(expected)
 }

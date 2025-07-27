@@ -7,4 +7,5 @@ import ch.tutteli.atrium.logic.creating.iterablelike.contains.reporting.InOrderO
  *
  * @since 0.18.0
  */
+//TODO 2.0.0 remove data?
 data class WithInOrderOnlyReportingOptions<out T>(val options: InOrderOnlyReportingOptions.() -> Unit, val t: T)

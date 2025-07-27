@@ -13,8 +13,6 @@ plugins {
     id("org.jetbrains.kotlinx.binary-compatibility-validator")
 }
 
-val rootProject = this
-
 ifIsPublishing {
     println(
         """

@@ -13,6 +13,7 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  * @property representationInsteadOfSubject Defines a custom representation based on a present subject if not null.
  * @property componentFactoryContainer Defines a custom components.
  */
+//TODO 2.0.0 remove data
 @ExperimentalNewExpectTypes
 @OptIn(ExperimentalComponentFactoryContainer::class)
 data class RootExpectOptions<T>(

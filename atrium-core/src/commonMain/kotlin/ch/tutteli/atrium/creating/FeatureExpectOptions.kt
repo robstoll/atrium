@@ -10,6 +10,7 @@ import ch.tutteli.atrium.reporting.translating.Translatable
  * @property representationInsteadOfFeature Defines a custom representation based on a present subject if not null.
  */
 @ExperimentalNewExpectTypes
+//TODO 2.0.0 remove data
 data class FeatureExpectOptions<R>(
     val description: Translatable? = null,
     val representationInsteadOfFeature: ((R) -> Any)? = null

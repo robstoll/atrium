@@ -76,6 +76,7 @@ interface ComponentFactoryContainer {
  * component should be treated as singleton or not.
  */
 @ExperimentalComponentFactoryContainer
+//TODO 2.0.0 remove data
 data class ComponentFactory(val build: (ComponentFactoryContainer) -> Any, val producesSingleton: Boolean)
 
 /**
