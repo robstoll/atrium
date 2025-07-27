@@ -16,6 +16,7 @@ import ch.tutteli.atrium.logic.utils.Group
  *   to be identified if it holds all [Assertion]s the lambda creates.
  *   In case it is defined as `null`, then an entry is identified if it is `null` as well.
  */
+//TODO 2.0.0 remove data?
 data class Entry<T : Any> internal constructor(
     val assertionCreatorOrNull: (Expect<T>.() -> Unit)?
 ) : Group<(Expect<T>.() -> Unit)?> {

@@ -10,6 +10,7 @@ import java.nio.file.Path
  *
  *  @since 0.13.0
  */
+//TODO 2.0.0 remove data?
 data class PathWithEncoding internal constructor(
     val path: Path,
     val sourceCharset: Charset,

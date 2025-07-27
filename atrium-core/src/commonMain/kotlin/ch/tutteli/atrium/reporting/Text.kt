@@ -7,6 +7,7 @@ package ch.tutteli.atrium.reporting
  * @property string The string which should be treated as raw [String].
  * @param string The string which should be treated as raw [String].
  */
+//TODO 2.0.0 remove data?
 //TODO add when using Kotlin apiLevel 2.0.0
 //@ConsistentCopyVisibility
 data class Text private constructor(val string: String) {

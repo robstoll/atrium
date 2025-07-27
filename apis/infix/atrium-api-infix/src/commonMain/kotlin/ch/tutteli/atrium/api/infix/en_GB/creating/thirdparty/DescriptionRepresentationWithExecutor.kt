@@ -13,6 +13,7 @@ package ch.tutteli.atrium.api.infix.en_GB.creating.thirdparty
  *
  * @since 1.2.0
  */
+//TODO 2.0.0 remove data?
 data class DescriptionRepresentationWithExecutor<T> internal constructor(
     val description: String,
     val representation: Any?,

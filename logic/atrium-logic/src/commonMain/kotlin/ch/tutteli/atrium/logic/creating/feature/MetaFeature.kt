@@ -16,6 +16,7 @@ import ch.tutteli.atrium.reporting.translating.Untranslatable
  * @property maybeSubject The feature as such where it is [Some] in case the extraction was successful or [None] if it
  *   was not.
  */
+//TODO 2.0.0 remove data?
 data class MetaFeature<T>(val description: Translatable, val representation: Any?, val maybeSubject: Option<T>) {
     constructor(description: String, representation: Any?, maybeSubject: Option<T>) :
         this(Untranslatable(description), representation, maybeSubject)

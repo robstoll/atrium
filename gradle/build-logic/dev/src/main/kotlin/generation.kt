@@ -13,7 +13,6 @@ import java.nio.file.Paths
 import java.util.*
 import kotlin.streams.asSequence
 
-//TODO 1.4.0 consider to switch to Kotlin Symbol Processing (KSP)
 /**
  * Use the function `forTarget` to create this data class.
  */

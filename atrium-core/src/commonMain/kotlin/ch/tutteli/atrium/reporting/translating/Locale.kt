@@ -9,6 +9,7 @@ package ch.tutteli.atrium.reporting.translating
  * @property country can be null or needs to consist of at least one letter and only letters
  * @property variant can be null or needs at least one character, cannot be blank though (use null instead)
  */
+//TODO 2.0.0 remove data?
 data class Locale(val language: String, val script: String?, val country: String?, val variant: String?) {
     constructor(language: String, country: String) : this(language, null, country, null)
     constructor(language: String) : this(language, null, null, null)

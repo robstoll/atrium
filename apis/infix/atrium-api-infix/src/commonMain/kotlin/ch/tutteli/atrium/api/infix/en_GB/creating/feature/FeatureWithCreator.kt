@@ -20,6 +20,7 @@ import kotlin.reflect.KProperty1
  *
  * @since 0.12.0
  */
+//TODO 2.0.0 remove data?
 @OptIn(ExperimentalComponentFactoryContainer::class)
 data class FeatureWithCreator<T, R> internal constructor(
     val descriptionProvider: (ComponentFactoryContainer) -> String,
