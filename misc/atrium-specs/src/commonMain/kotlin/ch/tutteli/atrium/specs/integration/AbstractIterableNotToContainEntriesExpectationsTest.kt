@@ -14,6 +14,7 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic.utils.expectLambda
 import ch.tutteli.atrium.specs.Fun2
 import ch.tutteli.atrium.specs.explanatoryBulletPoint
+import ch.tutteli.atrium.specs.forExpectationCreatorTest
 import ch.tutteli.atrium.specs.forSubjectLessTest
 import ch.tutteli.atrium.specs.hintBulletPoint
 import ch.tutteli.atrium.specs.indentListBulletPoint
@@ -37,13 +38,13 @@ import ch.tutteli.atrium.specs.integration.utils.ExpectationCreatorTriple
 import ch.tutteli.atrium.specs.integration.utils.SubjectLessTestData
 import ch.tutteli.atrium.specs.invoke
 import ch.tutteli.atrium.specs.listBulletPoint
-import ch.tutteli.atrium.specs.name
 import ch.tutteli.atrium.specs.rootBulletPoint
 import ch.tutteli.atrium.specs.toEqualDescr
 import ch.tutteli.atrium.specs.warningBulletPoint
 import ch.tutteli.atrium.testfactories.TestFactory
 import ch.tutteli.atrium.translations.DescriptionComparableExpectation
 import ch.tutteli.atrium.translations.DescriptionIterableLikeExpectation
+import ch.tutteli.kbox.toVararg
 
 
 @Suppress("FunctionName")
@@ -69,68 +70,33 @@ abstract class AbstractIterableNotToContainEntriesExpectationsTest(
 
     @TestFactory
     fun expectationCreatorTest() = expectationCreatorTestFactory(
-        ExpectationCreatorTestData(
-            oneToSeven().toList().asIterable(),
-            expectationCreator = ExpectationCreatorTriple(
-                "${notToContainEntriesSpec.name} - first empty",
-                "$toBeGreaterThanDescr: 8.0",
-                {
-                    notToContainEntriesSpec.invoke(
-                        this,
-                        { toBeGreaterThan(8.0) },
-                        arrayOf(expectLambda { toBeGreaterThan(10.0) })
-                    )
-                },
-                { notToContainEntriesSpec.invoke(this, {}, arrayOf(expectLambda { toBeGreaterThan(10.0) })) }
-            ),
-            ExpectationCreatorTriple(
-                "${notToContainEntriesSpec.name} - second empty",
-                "$toBeGreaterThanDescr: 10.0",
-                {
-                    notToContainEntriesSpec.invoke(
-                        this,
-                        { toBeGreaterThan(8.0) },
-                        arrayOf(expectLambda { toBeGreaterThan(10.0) })
-                    )
-                },
-                { notToContainEntriesSpec.invoke(this, { toBeGreaterThan(8.0) }, arrayOf(expectLambda {})) }
-            )
-        ),
 
-        ExpectationCreatorTestData(
-            subject = oneToSeven().toList().asIterable(),
-            expectationCreator = ExpectationCreatorTriple<Iterable<Double?>>(
-                "${notToContainNullableEntriesSpec.name} - first empty",
-                "$toBeGreaterThanDescr: 8.0",
-                {
-                    notToContainNullableEntriesSpec.invoke(
-                        this,
-                        { toBeGreaterThan(8.0) },
-                        arrayOf(expectLambda { toBeGreaterThan(10.0) })
-                    )
-                },
-                { notToContainNullableEntriesSpec(this, {}, arrayOf(expectLambda { toBeGreaterThan(10.0) })) }
-            ),
-            ExpectationCreatorTriple(
-                "${notToContainNullableEntriesSpec.name} - second empty",
-                "$toBeGreaterThanDescr: 10.0",
-                {
-                    notToContainNullableEntriesSpec.invoke(
-                        this,
-                        { toBeGreaterThan(8.0) },
-                        arrayOf(expectLambda { toBeGreaterThan(10.0) })
-                    )
-                },
-                {
-                    notToContainNullableEntriesSpec.invoke(
-                        this,
-                        { toBeGreaterThan(8.0) },
-                        arrayOf(expectLambda<Double> {})
-                    )
-                }
-            ),
-            groupPrefix = "[nullable Element] "
-        ))
+        notToContainEntriesSpec.forExpectationCreatorTest(
+            "$toBeGreaterThanDescr: 8.0",
+            "$toBeGreaterThanDescr: 10.0",
+            { toBeGreaterThan(8.0) }, arrayOf(expectLambda { toBeGreaterThan(10.0) })
+        ).toVararg().let { (first, rest) ->
+            ExpectationCreatorTestData(
+                oneToSeven().toList().asIterable(),
+                first as ExpectationCreatorTriple<Iterable<Double>>,
+                *(rest as Array<ExpectationCreatorTriple<Iterable<Double>>>)
+            )
+        },
+
+        notToContainNullableEntriesSpec.forExpectationCreatorTest(
+            "$toBeGreaterThanDescr: 8.0",
+            "$toBeGreaterThanDescr: 10.0",
+            { toBeGreaterThan(8.0) }, arrayOf(expectLambda { toBeGreaterThan(10.0) })
+        ).toVararg().let { (first, rest) ->
+            ExpectationCreatorTestData(
+                oneToSeven().toList().asIterable(),
+                first as ExpectationCreatorTriple<Iterable<Double?>>,
+                *(rest as Array<ExpectationCreatorTriple<Iterable<Double?>>>),
+                groupPrefix = "[nullable Element] "
+            )
+        },
+    )
+
 
 
     private fun Expect<Iterable<Double?>>.notToContainNullableFun(
