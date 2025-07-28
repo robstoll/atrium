@@ -97,6 +97,7 @@ public final class ch/tutteli/atrium/translations/DescriptionComparableExpectati
 	public static final field TO_BE_EQUAL_COMPARING_TO Lch/tutteli/atrium/translations/DescriptionComparableExpectation;
 	public static final field TO_BE_GREATER_THAN Lch/tutteli/atrium/translations/DescriptionComparableExpectation;
 	public static final field TO_BE_GREATER_THAN_OR_EQUAL_TO Lch/tutteli/atrium/translations/DescriptionComparableExpectation;
+	public static final field TO_BE_IN_RANGE Lch/tutteli/atrium/translations/DescriptionComparableExpectation;
 	public static final field TO_BE_LESS_THAN Lch/tutteli/atrium/translations/DescriptionComparableExpectation;
 	public static final field TO_BE_LESS_THAN_OR_EQUAL_TO Lch/tutteli/atrium/translations/DescriptionComparableExpectation;
 	public fun getDefault ()Ljava/lang/String;
