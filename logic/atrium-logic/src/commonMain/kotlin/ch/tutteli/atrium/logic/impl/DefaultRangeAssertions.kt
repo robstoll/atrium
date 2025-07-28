@@ -18,6 +18,6 @@ class DefaultRangeAssertions : RangeAssertions {
             DescriptionComparableExpectation.TO_BE_IN_RANGE,
             range
         ){
-            it >= range.start && it <= range.endInclusive
+            it in range
         }
 }
