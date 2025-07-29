@@ -6,7 +6,7 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
 import org.spekframework.spek2.style.specification.Suite
 
-abstract class CharSequenceToContainRegexExpectationsSpec(
+abstract class AbstractCharSequenceToContainRegexExpectationsTest(
     toContainRegex: String,
     toContainAtLeastPair: Pair<(String, String) -> String, Fun3<CharSequence, Int, String, Array<out String>>>,
     toContainAtLeastIgnoringCasePair: Pair<(String, String) -> String, Fun3<CharSequence, Int, String, Array<out String>>>,
