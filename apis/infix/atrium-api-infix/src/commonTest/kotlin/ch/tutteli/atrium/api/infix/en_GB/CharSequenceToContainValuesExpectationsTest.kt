@@ -1,5 +1,5 @@
 package ch.tutteli.atrium.api.infix.en_GB
-import ch.tutteli.atrium.api.infix.en_GB.value
+
 import ch.tutteli.atrium.api.verbs.expect
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.Fun2
@@ -39,7 +39,7 @@ class CharSequenceToContainValuesExpectationsTest : AbstractCharSequenceToContai
         private fun getShortcutTriple(): Pair<(String, String) -> String, Fun2<CharSequence, String, Array<out String>>> =
             { what: String, _: String -> "$toContain $what" } to
                 ("$toContain value" to fun Expect<CharSequence>.(a: String, aX: Array<out String>): Expect<CharSequence> {
-                    this toContain value a
+                    this.toContain(value(a))
                     return this
                 })
 
