@@ -1,195 +1,162 @@
 package ch.tutteli.atrium.specs.integration
 
 import ch.tutteli.atrium.api.fluent.en_GB.*
-import ch.tutteli.atrium.api.verbs.internal.expect
-import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.api.verbs.internal.testFactory
 import ch.tutteli.atrium.specs.*
-import org.spekframework.spek2.style.specification.Suite
+import ch.tutteli.atrium.specs.integration.CharSequenceToContainSpecBase.Companion.noMatchFoundDescr
+import ch.tutteli.atrium.specs.integration.CharSequenceToContainSpecBase.Companion.stringMatchingRegex
+import ch.tutteli.atrium.testfactories.TestFactory
 
 abstract class AbstractCharSequenceToContainRegexExpectationsTest(
-    toContainRegex: String,
-    toContainAtLeastPair: Pair<(String, String) -> String, Fun3<CharSequence, Int, String, Array<out String>>>,
-    toContainAtLeastIgnoringCasePair: Pair<(String, String) -> String, Fun3<CharSequence, Int, String, Array<out String>>>,
-    //TODO usually the shortcut is tested individually on a level lower and not expected as we did it here (search for ShortcutSpec or similar)
-    toContainShortcutPair: Pair<(String, String) -> String, Fun2<CharSequence, String, Array<out String>>>,
-    toContainAtMostPair: Pair<(String, String) -> String, Fun3<CharSequence, Int, String, Array<out String>>>,
-    toContainAtMostIgnoringCasePair: Pair<(String, String) -> String, Fun3<CharSequence, Int, String, Array<out String>>>,
-    describePrefix: String = "[Atrium] "
-) : CharSequenceToContainSpecBase({
+    private val toContainAtLeastPair: Pair<(String, String) -> String, Fun3<CharSequence, Int, String, Array<out String>>>,
+    private val toContainAtLeastIgnoringCasePair: Pair<(String, String) -> String, Fun3<CharSequence, Int, String, Array<out String>>>,
+    private val toContainShortcutPair: Pair<(String, String) -> String, Fun2<CharSequence, String, Array<out String>>>,
+    private val toContainAtMostPair: Pair<(String, String) -> String, Fun3<CharSequence, Int, String, Array<out String>>>,
+    private val toContainAtMostIgnoringCasePair: Pair<(String, String) -> String, Fun3<CharSequence, Int, String, Array<out String>>>
+) : ExpectationFunctionBaseTest() {
 
-    val toContainAtLeast = toContainAtLeastPair.second
-    val toContainAtLeastIgnoringCase = toContainAtLeastIgnoringCasePair.second
-    val toContainShortcut = toContainShortcutPair.second
-    val toContainAtMost = toContainAtMostPair.second
-    val toContainAtMostIgnoringCase = toContainAtMostIgnoringCasePair.second
+    private val text = "Hello my name is Robert"
+    private val hello = "[hH][ea]llo"
+    private val roberto = "Roberto?"
+    private val regexWithIndent = "$indentRootBulletPoint$listBulletPoint$stringMatchingRegex"
 
-
-    include(object : SubjectLessSpec<CharSequence>(
-        describePrefix,
-        toContainAtLeast.forSubjectLessTest(2, "a|b", arrayOf()),
-        toContainAtLeastIgnoringCase.forSubjectLessTest(2, "a|b", arrayOf()),
-        toContainShortcut.forSubjectLessTest("a|b", arrayOf()),
-        toContainAtMost.forSubjectLessTest(2, "a|b", arrayOf()),
-        toContainAtMostIgnoringCase.forSubjectLessTest(2, "a|b", arrayOf())
-    ) {})
-
-    fun describeFun(vararg funName: String, body: Suite.() -> Unit) =
-        describeFunTemplate(describePrefix, funName, body = body)
-
-
-    val text : CharSequence = "Hello my name is Robert"
-    val hello = "[hH][ea]llo"
-    val roberto = "Roberto?"
-
-    fun Expect<CharSequence>.toContainAtLeastFun(atLeast: Int, a: String, vararg aX: String) =
-        toContainAtLeast(this, atLeast, a, aX)
-
-    fun Expect<CharSequence>.toContainAtLeastIgnoringCaseFun(atLeast: Int, a: String, vararg aX: String) =
-        toContainAtLeastIgnoringCase(this, atLeast, a, aX)
-
-
-    fun Expect<CharSequence>.toContainShortcutFun(a: String, vararg aX: String) = toContainShortcut(this, a, aX)
-
-    fun Expect<CharSequence>.toContainAtMostFun(atLeast: Int, a: String, vararg aX: String) =
-        toContainAtMost(this, atLeast, a, aX)
-
-    fun Expect<CharSequence>.toContainAtMostIgnoringCaseFun(atLeast: Int, a: String, vararg aX: String) =
-        toContainAtMostIgnoringCase(this, atLeast, a, aX)
-
-    val regexWithIndent = "$indentRootBulletPoint$listBulletPoint$stringMatchingRegex"
-
-    describeFun(toContainRegex) {
-        context("throws an ${IllegalArgumentException::class.simpleName}") {
-            it("if an erroneous pattern is passed to `${toContainAtLeast.name}` as first argument") {
-                expect {
-                    expect("a" as CharSequence).toContainAtLeastFun(1, "notA(validPattern")
-                }.toThrow<IllegalArgumentException>()
-            }
-            it("if an erroneous pattern is passed to `${toContainAtLeast.name}` as second argument") {
-                expect {
-                    expect("a" as CharSequence).toContainAtLeastFun(1, "h(a|e)llo", "notA(validPattern")
-                }.toThrow<IllegalArgumentException>()
-            }
-            it("if an erroneous pattern is passed to `${toContainAtLeastIgnoringCase.name}` as first argument") {
-                expect {
-                    expect("a" as CharSequence).toContainAtLeastIgnoringCaseFun(1, "notA(validPattern")
-                }.toThrow<IllegalArgumentException>()
-            }
-            it("if an erroneous pattern is passed to `${toContainAtLeastIgnoringCase.name}` as second argument") {
-                expect {
-                    expect("a" as CharSequence).toContainAtLeastIgnoringCaseFun(1, "h(a|e)llo", "notA(validPattern")
-                }.toThrow<IllegalArgumentException>()
-            }
-
-            it("if an erroneous pattern is passed to `${toContainShortcut.name}` as first argument") {
-                expect {
-                    expect("a" as CharSequence).toContainShortcutFun("notA(validPattern")
-                }.toThrow<IllegalArgumentException>()
-            }
-            it("if an erroneous pattern is passed to `${toContainShortcut.name}` as second argument") {
-                expect {
-                    expect("a" as CharSequence).toContainShortcutFun("h(a|e)llo", "notA(validPattern")
-                }.toThrow<IllegalArgumentException>()
-            }
-
-            it("if an erroneous pattern is passed to `${toContainAtMost.name}` as first argument") {
-                expect {
-                    expect("a" as CharSequence).toContainAtMostFun(2, "notA(validPattern")
-                }.toThrow<IllegalArgumentException>()
-            }
-            it("if an erroneous pattern is passed to `${toContainAtMost.name}` as second argument") {
-                expect {
-                    expect("a" as CharSequence).toContainAtMostFun(2, "h(a|e)llo", "notA(validPattern")
-                }.toThrow<IllegalArgumentException>()
-            }
-
-            it("if an erroneous pattern is passed to `${toContainAtMostIgnoringCase.name}` as first argument") {
-                expect {
-                    expect("a" as CharSequence).toContainAtMostIgnoringCaseFun(2, "notA(validPattern")
-                }.toThrow<IllegalArgumentException>()
-            }
-            it("if an erroneous pattern is passed to `${toContainAtMostIgnoringCase.name}` as second argument") {
-                expect {
-                    expect("a" as CharSequence).toContainAtMostIgnoringCaseFun(2, "h(a|e)llo", "notA(validPattern")
-                }.toThrow<IllegalArgumentException>()
-            }
+    @OptIn(ExperimentalStdlibApi::class)
+    @TestFactory
+    fun toContainAtLeast() = testFactory(toContainAtLeastPair.second) { fn ->
+        it("contains '$hello' once") {
+            fn(expect(text), 1, hello, emptyArray())
         }
 
-        context("text $text") {
-            it("${toContainAtLeastPair.first("'$hello'", "once")} does not throw") {
-                expect(text).toContainAtLeastFun(1, hello)
-            }
-            it("${toContainAtLeastPair.first("'$hello', '$hello' and '$hello'", "once")} does not throw") {
-                expect(text).toContainAtLeastFun(1, hello, hello, hello)
-            }
-            it("${toContainAtLeastPair.first("'$hello' and '$roberto'", "once")} does not throw") {
-                expect(text).toContainAtLeastFun(1, hello, roberto)
-            }
-            it("${toContainAtLeastPair.first("'${roberto.toLowerCase()}'", "once")} throws AssertionError") {
-                expect {
-                    expect(text).toContainAtLeastFun(1, roberto.toLowerCase())
-                }.toThrow<AssertionError> {
-                    message {
-                        toContain(
-                            "$rootBulletPoint$toContainDescr: $separator" +
-                                "$regexWithIndent: ${roberto.toLowerCase()}",
-                            noMatchFoundDescr
-                        )
-                    }
-                }
-            }
-            it("${toContainAtLeastIgnoringCasePair.first("'${roberto.toLowerCase()}'", "once")} does not throw") {
-                expect(text).toContainAtLeastIgnoringCaseFun(1, roberto.toLowerCase())
-            }
+        it("contains '$hello' x3") {
+            fn(expect(text), 1, hello, arrayOf(hello, hello))
+        }
 
-            it("${toContainShortcutPair.first("'$hello'", "once")} does not throw") {
-                expect(text).toContainShortcutFun(hello)
-            }
-            it("${toContainShortcutPair.first("'$hello', '$hello' and '$hello'", "once")} does not throw") {
-                expect(text).toContainShortcutFun(hello, hello, hello)
-            }
-            it("${toContainShortcutPair.first("'$hello' and '$roberto'", "once")} does not throw") {
-                expect(text).toContainShortcutFun(hello, roberto)
-            }
+        it("contains '$hello' and '$roberto'") {
+            fn(expect(text), 1, hello, arrayOf(roberto))
+        }
 
-            it("${toContainAtMostPair.first("'[a-z]'", "17 times")} does not throw") {
-                expect(text).toContainAtMostFun(17, "[a-z]")
-            }
-            it("${toContainAtMostIgnoringCasePair.first("'[a-z]'", "19 times")} does not throw") {
-                expect(text).toContainAtMostIgnoringCaseFun(19, "[a-z]")
-            }
-            it("${toContainAtMostIgnoringCasePair.first("'[a-z]' and '[A-Z]'", "19 times")} does not throw") {
-                expect(text).toContainAtMostIgnoringCaseFun(19, "[a-z]", "[A-Z]")
-            }
-
-            it("${toContainAtMostPair.first("'[a-z]'", "16 times")} throws AssertionError") {
-                expect {
-                    expect(text).toContainAtMostFun(16, "[a-z]")
-                }.toThrow<AssertionError> {
-                    message {
-                        toContain(
-                            "$rootBulletPoint$toContainDescr: $separator" +
-                                "$regexWithIndent: [a-z]",
-                            "$numberOfOccurrences: 17",
-                            "$atMost: 16"
-                        )
-                    }
-                }
-            }
-            it("${toContainAtMostIgnoringCasePair.first("'[a-z]'", "18 times")} throws AssertionError") {
-                expect {
-                    expect(text).toContainAtMostIgnoringCaseFun(18, "[a-z]")
-                }.toThrow<AssertionError> {
-                    message {
-                        toContain(
-                            "$rootBulletPoint$toContainIgnoringCase: $separator" +
-                                "$regexWithIndent: \"[a-z]\"",
-                            "$numberOfOccurrences: 19",
-                            "$atMost: 18"
-                        )
-                    }
-                }
+        it("does not contain '${roberto.lowercase()}' - throws") {
+            expect {
+                fn(expect(text), 1, roberto.lowercase(), emptyArray())
+            }.toThrow<AssertionError> {
+                messageToContain(regexWithIndent, roberto.lowercase(), noMatchFoundDescr)
             }
         }
     }
-})
+
+    @OptIn(ExperimentalStdlibApi::class)
+    @TestFactory
+    fun toContainAtLeastIgnoringCase() = testFactory(toContainAtLeastIgnoringCasePair.second) { fn ->
+        it("contains '${roberto.lowercase()}' ignoring case") {
+            fn(expect(text), 1, roberto.lowercase(), emptyArray())
+        }
+    }
+
+    @TestFactory
+    fun toContainShortcut() = testFactory(toContainShortcutPair.second) { fn ->
+        it("contains '$hello'") {
+            fn(expect(text), hello, emptyArray())
+        }
+
+        it("contains '$hello' and '$roberto'") {
+            fn(expect(text), hello, arrayOf(roberto))
+        }
+    }
+
+    @TestFactory
+    fun toContainAtMost() = testFactory(toContainAtMostPair.second) { fn ->
+        it("contains '[a-z]' at most 17 times") {
+            fn(expect(text), 17, "[a-z]", emptyArray())
+        }
+
+        it("contains '[a-z]' more than 16 times - throws") {
+            expect {
+                fn(expect(text), 16, "[a-z]", emptyArray())
+            }.toThrow<AssertionError> {
+                messageToContain(regexWithIndent, "[a-z]", "17", "16")
+            }
+        }
+    }
+
+    @TestFactory
+    fun toContainAtMostIgnoringCase() = testFactory(toContainAtMostIgnoringCasePair.second) { fn ->
+        it("contains '[a-z]' at most 19 times") {
+            fn(expect(text), 19, "[a-z]", emptyArray())
+        }
+
+        it("contains '[a-z]' and '[A-Z]' at most 19 times") {
+            fn(expect(text), 19, "[a-z]", arrayOf("[A-Z]"))
+        }
+
+        it("contains '[a-z]' more than 18 times - throws") {
+            expect {
+                fn(expect(text), 18, "[a-z]", emptyArray())
+            }.toThrow<AssertionError> {
+                messageToContain(regexWithIndent, "\"[a-z]\"", "19", "18")
+            }
+        }
+    }
+
+    @TestFactory
+    fun invalidRegexPatterns() = testFactory {
+        it("atLeast: invalid as first arg") {
+            expect {
+                toContainAtLeastPair.second(expect("a"), 1, "notA(validPattern", emptyArray())
+            }.toThrow<IllegalArgumentException>()
+        }
+
+        it("atLeast: invalid as second arg") {
+            expect {
+                toContainAtLeastPair.second(expect("a"), 1, "valid", arrayOf("notA(validPattern"))
+            }.toThrow<IllegalArgumentException>()
+        }
+
+        it("atLeastIgnoringCase: invalid as first arg") {
+            expect {
+                toContainAtLeastIgnoringCasePair.second(expect("a"), 1, "notA(validPattern", emptyArray())
+            }.toThrow<IllegalArgumentException>()
+        }
+
+        it("atLeastIgnoringCase: invalid as second arg") {
+            expect {
+                toContainAtLeastIgnoringCasePair.second(expect("a"), 1, "valid", arrayOf("notA(validPattern"))
+            }.toThrow<IllegalArgumentException>()
+        }
+
+        it("shortcut: invalid as first arg") {
+            expect {
+                toContainShortcutPair.second(expect("a"), "notA(validPattern", emptyArray())
+            }.toThrow<IllegalArgumentException>()
+        }
+
+        it("shortcut: invalid as second arg") {
+            expect {
+                toContainShortcutPair.second(expect("a"), "valid", arrayOf("notA(validPattern"))
+            }.toThrow<IllegalArgumentException>()
+        }
+
+        it("atMost: invalid as first arg") {
+            expect {
+                toContainAtMostPair.second(expect("a"), 2, "notA(validPattern", emptyArray())
+            }.toThrow<IllegalArgumentException>()
+        }
+
+        it("atMost: invalid as second arg") {
+            expect {
+                toContainAtMostPair.second(expect("a"), 2, "valid", arrayOf("notA(validPattern"))
+            }.toThrow<IllegalArgumentException>()
+        }
+
+        it("atMostIgnoringCase: invalid as first arg") {
+            expect {
+                toContainAtMostIgnoringCasePair.second(expect("a"), 2, "notA(validPattern", emptyArray())
+            }.toThrow<IllegalArgumentException>()
+        }
+
+        it("atMostIgnoringCase: invalid as second arg") {
+            expect {
+                toContainAtMostIgnoringCasePair.second(expect("a"), 2, "valid", arrayOf("notA(validPattern"))
+            }.toThrow<IllegalArgumentException>()
+        }
+    }
+}

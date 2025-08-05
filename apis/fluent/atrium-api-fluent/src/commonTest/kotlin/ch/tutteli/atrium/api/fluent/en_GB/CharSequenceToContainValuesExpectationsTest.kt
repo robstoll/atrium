@@ -1,11 +1,11 @@
 package ch.tutteli.atrium.api.fluent.en_GB
 
+import ch.tutteli.atrium.specs.integration.AbstractCharSequenceToContainValuesExpectationsTest
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.api.verbs.internal.expect
-import ch.tutteli.atrium.specs.integration.AbstractCharSequenceToContainRegexExpectationsTest
 import kotlin.test.Test
 
-class CharSequenceToContainRegexExpectationsTest : AbstractCharSequenceToContainRegexExpectationsTest(
+class CharSequenceToContainValuesExpectationsTest : AbstractCharSequenceToContainValuesExpectationsTest(
     getAtLeastTripleString(),
     getAtLeastIgnoringCaseTripleString(),
     getShortcutTripleString(),
@@ -15,8 +15,8 @@ class CharSequenceToContainRegexExpectationsTest : AbstractCharSequenceToContain
     @Test
     fun ambiguityTest() {
         val expectText = expect("Hello my name is Robert")
-        expectText.toContainRegex("[hH][ea]llo")
-        expectText.toContain.atLeast(1).regex("Roberto?")
+        expectText.toContainRegex("Hello")
+        expectText.toContain.atLeast(1).regex("Robert")
         expectText.toContain.ignoringCase.atMost(20).regex("[a-z]")
     }
 
