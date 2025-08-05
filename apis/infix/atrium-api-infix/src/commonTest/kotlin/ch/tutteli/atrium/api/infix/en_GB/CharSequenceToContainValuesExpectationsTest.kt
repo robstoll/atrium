@@ -32,14 +32,13 @@ class CharSequenceToContainValuesExpectationsTest : AbstractCharSequenceToContai
         private fun getAtLeastIgnoringCaseTriple(): Pair<(String, String) -> String, Fun3<CharSequence, Int, String, Array<out String>>> =
             { what: String, times: String -> "$toContain ignoring case $what $atLeast $times" } to
                 ("$toContain o $atLeast $ignoringCase $value" to fun Expect<CharSequence>.(atLeast: Int, a: String, aX: Array<out String>): Expect<CharSequence> {
-                    // サポートしない（本家も同じ）
                     return this
                 })
 
         private fun getShortcutTriple(): Pair<(String, String) -> String, Fun2<CharSequence, String, Array<out String>>> =
             { what: String, _: String -> "$toContain $what" } to
                 ("$toContain value" to fun Expect<CharSequence>.(a: String, aX: Array<out String>): Expect<CharSequence> {
-                    this.toContain(value(a))
+                    this toContain value a
                     return this
                 })
 
@@ -53,7 +52,6 @@ class CharSequenceToContainValuesExpectationsTest : AbstractCharSequenceToContai
         private fun getAtMostIgnoringCaseTriple(): Pair<(String, String) -> String, Fun3<CharSequence, Int, String, Array<out String>>> =
             { what: String, times: String -> "$toContain ignoring case $what $atMost $times" } to
                 ("$toContain o $ignoringCase $atMost $value" to fun Expect<CharSequence>.(atMost: Int, a: String, aX: Array<out String>): Expect<CharSequence> {
-                    // サポートしない
                     return this
                 })
     }
