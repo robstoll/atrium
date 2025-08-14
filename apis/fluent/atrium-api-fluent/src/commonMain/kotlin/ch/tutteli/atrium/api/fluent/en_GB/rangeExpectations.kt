@@ -13,6 +13,7 @@ import ch.tutteli.atrium.logic._logicAppend
  *
  * @since 1.3.0
  */
+//TODO 1.3.0 consider to rename it to toBeIn to more resemble the in operator
 fun Expect<Char>.toBeInRange(expected: CharRange): Expect<Char> =
     _logicAppend { toBeInRange(expected) }
 
