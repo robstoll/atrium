@@ -65,12 +65,12 @@ abstract class AbstractCharSequenceToContainValuesExpectationsTest(
 
     @TestFactory
     fun toContainAtMost() = testFactory(toContainAtMostPair.second) { fn ->
-        it("contains 'o' at most 4 times - does not throw") {
+        it("contains 'e' at most 4 times - does not throw") {
             fn(expect(text), 4, "o", emptyArray())
         }
-        it("contains 'o' at most 2 times - throws") {
+        it("contains 'o' and 'l' at most 2 times - throws") {
             expect {
-                fn(expect(text), 2, "o", emptyArray())
+                fn(expect(text), 2, "e", emptyArray())
             }.toThrow<AssertionError> {
                 messageToContain("to contain")
             }
@@ -82,9 +82,9 @@ abstract class AbstractCharSequenceToContainValuesExpectationsTest(
         it("contains 'o' and 'R' ignoring case at most 5 times - does not throw") {
             fn(expect(text), 5, "o", arrayOf("R"))
         }
-        it("contains 'o' ignoring case at most 2 times - throws") {
+        it("contains 'e' ignoring case at most 2 times - throws") {
             expect {
-                fn(expect(text), 2, "o", emptyArray())
+                fn(expect(text), 2, "e", emptyArray())
             }.toThrow<AssertionError> {
                 messageToContain("to contain")
             }
