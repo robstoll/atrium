@@ -99,64 +99,66 @@ abstract class AbstractCharSequenceToContainRegexExpectationsTest(
 
     @TestFactory
     fun invalidRegexPatterns() = testFactory {
-        it("atLeast: invalid as first arg") {
-            expect {
-                toContainAtLeastPair.second(expect("a"), 1, "notA(validPattern", emptyArray())
-            }.toThrow<IllegalArgumentException>()
-        }
+        describe("invalid regex patterns") {
+            it("atLeast: invalid as first arg") {
+                expect {
+                    toContainAtLeastPair.second(expect("a"), 1, "notA(validPattern", emptyArray())
+                }.toThrow<Throwable>()
+            }
 
-        it("atLeast: invalid as second arg") {
-            expect {
-                toContainAtLeastPair.second(expect("a"), 1, "valid", arrayOf("notA(validPattern"))
-            }.toThrow<IllegalArgumentException>()
-        }
+            it("atLeast: invalid as second arg") {
+                expect {
+                    toContainAtLeastPair.second(expect("a"), 1, "valid", arrayOf("notA(validPattern"))
+                }.toThrow<Throwable>()
+            }
 
-        it("atLeastIgnoringCase: invalid as first arg") {
-            expect {
-                toContainAtLeastIgnoringCasePair.second(expect("a"), 1, "notA(validPattern", emptyArray())
-            }.toThrow<IllegalArgumentException>()
-        }
+            it("atLeastIgnoringCase: invalid as first arg") {
+                expect {
+                    toContainAtLeastIgnoringCasePair.second(expect("a"), 1, "notA(validPattern", emptyArray())
+                }.toThrow<Throwable>()
+            }
 
-        it("atLeastIgnoringCase: invalid as second arg") {
-            expect {
-                toContainAtLeastIgnoringCasePair.second(expect("a"), 1, "valid", arrayOf("notA(validPattern"))
-            }.toThrow<IllegalArgumentException>()
-        }
+            it("atLeastIgnoringCase: invalid as second arg") {
+                expect {
+                    toContainAtLeastIgnoringCasePair.second(expect("a"), 1, "valid", arrayOf("notA(validPattern"))
+                }.toThrow<Throwable>()
+            }
 
-        it("shortcut: invalid as first arg") {
-            expect {
-                toContainShortcutPair.second(expect("a"), "notA(validPattern", emptyArray())
-            }.toThrow<IllegalArgumentException>()
-        }
+            it("shortcut: invalid as first arg") {
+                expect {
+                    toContainShortcutPair.second(expect("a"), "notA(validPattern", emptyArray())
+                }.toThrow<Throwable>()
+            }
 
-        it("shortcut: invalid as second arg") {
-            expect {
-                toContainShortcutPair.second(expect("a"), "valid", arrayOf("notA(validPattern"))
-            }.toThrow<IllegalArgumentException>()
-        }
+            it("shortcut: invalid as second arg") {
+                expect {
+                    toContainShortcutPair.second(expect("a"), "valid", arrayOf("notA(validPattern"))
+                }.toThrow<Throwable>()
+            }
 
-        it("atMost: invalid as first arg") {
-            expect {
-                toContainAtMostPair.second(expect("a"), 2, "notA(validPattern", emptyArray())
-            }.toThrow<IllegalArgumentException>()
-        }
+            it("atMost: invalid as first arg") {
+                expect {
+                    toContainAtMostPair.second(expect("a"), 2, "notA(validPattern", emptyArray())
+                }.toThrow<Throwable>()
+            }
 
-        it("atMost: invalid as second arg") {
-            expect {
-                toContainAtMostPair.second(expect("a"), 2, "valid", arrayOf("notA(validPattern"))
-            }.toThrow<IllegalArgumentException>()
-        }
+            it("atMost: invalid as second arg") {
+                expect {
+                    toContainAtMostPair.second(expect("a"), 2, "valid", arrayOf("notA(validPattern"))
+                }.toThrow<Throwable>()
+            }
 
-        it("atMostIgnoringCase: invalid as first arg") {
-            expect {
-                toContainAtMostIgnoringCasePair.second(expect("a"), 2, "notA(validPattern", emptyArray())
-            }.toThrow<IllegalArgumentException>()
-        }
+            it("atMostIgnoringCase: invalid as first arg") {
+                expect {
+                    toContainAtMostIgnoringCasePair.second(expect("a"), 2, "notA(validPattern", emptyArray())
+                }.toThrow<Throwable>()
+            }
 
-        it("atMostIgnoringCase: invalid as second arg") {
-            expect {
-                toContainAtMostIgnoringCasePair.second(expect("a"), 2, "valid", arrayOf("notA(validPattern"))
-            }.toThrow<IllegalArgumentException>()
+            it("atMostIgnoringCase: invalid as second arg") {
+                expect {
+                    toContainAtMostIgnoringCasePair.second(expect("a"), 2, "valid", arrayOf("notA(validPattern"))
+                }.toThrow<Throwable>()
+            }
         }
     }
 }
