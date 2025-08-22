@@ -35,7 +35,6 @@ Please have a look at the README of the corresponding release/git tag. Latest ve
 
 **Table of Content**
 - [Installation](#installation)
-  - [Extensions](#extensions)
   - [Sample Projects](#sample-projects)
 - [Examples](#examples)
   - [Your First Expectation](#your-first-expectation)
