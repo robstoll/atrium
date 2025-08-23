@@ -93,14 +93,14 @@ abstract class AbstractCharSequenceToContainRegexExpectationsTest(
             expect {
                 fn(expect(text), 18, "[a-z]", emptyArray())
             }.toThrow<AssertionError> {
-                messageToContain(regexWithIndent, "\"[a-z]\"", "19", "18")
+                messageToContain(regexWithIndent, "[a-z]", "19", "18")
             }
         }
     }
 
     @TestFactory
     fun invalidRegexPatterns() = testFactory {
-        describe("invalid regex patterns") {
+        describe("$toContainRegex: invalid regex patterns") {
             it("atLeast: invalid as first arg") {
                 expect {
                     toContainAtLeastPair.second(expect("a"), 1, "notA(validPattern", emptyArray())
