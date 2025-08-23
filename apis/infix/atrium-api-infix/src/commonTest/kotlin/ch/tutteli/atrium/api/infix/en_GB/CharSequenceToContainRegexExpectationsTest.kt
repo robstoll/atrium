@@ -19,6 +19,16 @@ class CharSequenceToContainRegexExpectationsTest : AbstractCharSequenceToContain
         expectText toContain o atMost 20 regex "[a-z]"
     }
 
+    @Test
+    fun context_aaaa_regex_aa_finds_3_non_disjoint_hits_infix() {
+        expect("aaaa") toContain o exactly 3 regex "aa"
+    }
+
+    @Test
+    fun context_aaaa_regex_aaQ_finds_4_non_disjoint_hits_infix() {
+        expect("aaaa") toContain o exactly 4 regex "aa?"
+    }
+
     companion object : CharSequenceToContainSpecBase() {
 
         private fun getAtLeastTripleString() =

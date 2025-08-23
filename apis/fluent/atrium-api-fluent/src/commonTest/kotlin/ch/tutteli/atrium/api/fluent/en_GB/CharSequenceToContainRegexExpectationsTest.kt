@@ -20,6 +20,16 @@ class CharSequenceToContainRegexExpectationsTest : AbstractCharSequenceToContain
         expectText.toContain.ignoringCase.atMost(20).regex("[a-z]")
     }
 
+    @Test
+    fun context_aaaa_regex_aa_finds_3_non_disjoint_hits() {
+        expect("aaaa").toContain.exactly(3).regex("aa")
+    }
+
+    @Test
+    fun context_aaaa_regex_aaQ_finds_4_non_disjoint_hits() {
+        expect("aaaa").toContain.exactly(4).regex("aa?")
+    }
+
     companion object : CharSequenceToContainSpecBase() {
 
         private fun getAtLeastTripleString() =
