@@ -6,6 +6,7 @@ import ch.tutteli.atrium.specs.integration.AbstractCharSequenceToContainRegexExp
 import kotlin.test.Test
 
 class CharSequenceToContainRegexExpectationsTest : AbstractCharSequenceToContainRegexExpectationsTest(
+    toContainRegex,
     getAtLeastTripleString(),
     getAtLeastIgnoringCaseTripleString(),
     getShortcutTripleString(),

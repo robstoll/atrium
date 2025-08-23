@@ -8,6 +8,7 @@ import ch.tutteli.atrium.specs.integration.CharSequenceToContainSpecBase.Compani
 import ch.tutteli.atrium.testfactories.TestFactory
 
 abstract class AbstractCharSequenceToContainRegexExpectationsTest(
+    private val toContainRegex: String,
     private val toContainAtLeastPair: Pair<(String, String) -> String, Fun3<CharSequence, Int, String, Array<out String>>>,
     private val toContainAtLeastIgnoringCasePair: Pair<(String, String) -> String, Fun3<CharSequence, Int, String, Array<out String>>>,
     private val toContainShortcutPair: Pair<(String, String) -> String, Fun2<CharSequence, String, Array<out String>>>,
