@@ -6,7 +6,7 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic.creating.iterablelike.contains.reporting.InAnyOrderOnlyReportingOptions
 import ch.tutteli.atrium.specs.*
 
-abstract class IterableToContainInAnyOrderOnlyValuesExpectationsSpec(
+abstract class AbstractIterableToContainInAnyOrderOnlyValuesExpectationsTest(
     toContainInAnyOrderOnlyValues: Fun3<Iterable<Double>, Double, Array<out Double>, InAnyOrderOnlyReportingOptions.() -> Unit>,
     toContainInAnyOrderOnlyNullableValues: Fun3<Iterable<Double?>, Double?, Array<out Double?>, InAnyOrderOnlyReportingOptions.() -> Unit>,
     describePrefix: String = "[Atrium] "

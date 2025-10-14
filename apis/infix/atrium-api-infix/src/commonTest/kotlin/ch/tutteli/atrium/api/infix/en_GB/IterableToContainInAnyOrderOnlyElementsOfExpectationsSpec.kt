@@ -10,7 +10,7 @@ class IterableToContainInAnyOrderOnlyElementsOfExpectationsSpec : Spek({
     include(BuilderSpec)
     include(BuilderIterableLikeToIterableSpec)
 }) {
-    object BuilderSpec : ch.tutteli.atrium.specs.integration.IterableToContainInAnyOrderOnlyValuesExpectationsSpec(
+    object BuilderSpec : ch.tutteli.atrium.specs.integration.AbstractIterableToContainInAnyOrderOnlyValuesExpectationsTest(
         getToContainPair(),
         getToContainNullablePair()
     )
