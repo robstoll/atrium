@@ -1,12 +1,15 @@
 package ch.tutteli.atrium.api.fluent.en_GB
 
 import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.api.verbs.expect
 import ch.tutteli.atrium.logic.creating.iterablelike.contains.reporting.InAnyOrderOnlyReportingOptions
+import ch.tutteli.atrium.specs.integration.IterableToContainSpecBase.Companion.emptyInOrderOnlyReportOptions
 import ch.tutteli.atrium.specs.notImplemented
 import ch.tutteli.atrium.specs.withNullableSuffix
+import kotlin.test.Test
 
 class IterableToContainInAnyOrderOnlyValuesExpectationsTest :
-    ch.tutteli.atrium.specs.integration.IterableToContainInAnyOrderOnlyValuesExpectationsSpec(
+    ch.tutteli.atrium.specs.integration.AbstractIterableToContainInAnyOrderOnlyValuesExpectationsTest(
         functionDescription to Companion::toContainInAnyOrderOnlyValues,
         (functionDescription to Companion::toContainInAnyOrderOnlyNullableValues).withNullableSuffix()
     ) {
@@ -36,32 +39,38 @@ class IterableToContainInAnyOrderOnlyValuesExpectationsTest :
             } else expect.toContain.inAnyOrder.only.values(a, *aX, report = report)
     }
 
-    @Suppress("unused", "UNUSED_VALUE")
-    private fun ambiguityTest() {
-        var list: Expect<List<Number>> = notImplemented()
-        var nList: Expect<Set<Number?>> = notImplemented()
-        var subList: Expect<ArrayList<Number>> = notImplemented()
-        var star: Expect<Collection<*>> = notImplemented()
+    @Suppress("AssignedValueIsNeverRead")
+    @Test
+    fun ambiguityTest() {
+        var list: Expect<List<Number>> = expect(listOf(1))
+        var nList: Expect<Set<Number?>> = expect(setOf(1))
+        var subList: Expect<ArrayList<Number>> = expect(arrayListOf<Number>(1))
+        var star: Expect<Collection<*>> = expect(listOf(1))
+
+        var listValues: Expect<List<Number>> = expect(listOf(1, 1.2))
+        var nListValues: Expect<Set<Number?>> = expect(setOf(1, 1.2))
+        var subListValues: Expect<ArrayList<Number>> = expect(arrayListOf<Number>(1, 1.2))
+        var starValues: Expect<Collection<*>> = expect(listOf(1, 1.2))
 
         list = list.toContain.inAnyOrder.only.value(1)
         nList = nList.toContain.inAnyOrder.only.value(1)
         subList = subList.toContain.inAnyOrder.only.value(1)
         star = star.toContain.inAnyOrder.only.value(1)
 
-        list = list.toContain.inAnyOrder.only.values(1, 1.2)
-        nList = nList.toContain.inAnyOrder.only.values(1, 1.2)
-        subList = subList.toContain.inAnyOrder.only.values(1, 2.2)
-        star = star.toContain.inAnyOrder.only.values(1, 1.2, "asdf")
+        listValues = listValues.toContain.inAnyOrder.only.values(1, 1.2)
+        nListValues = nListValues.toContain.inAnyOrder.only.values(1, 1.2)
+        subListValues = subListValues.toContain.inAnyOrder.only.values(1, 2.2)
+        starValues = starValues.toContain.inAnyOrder.only.values(1, 1.2, "asdf")
 
-        list = list.toContain.inAnyOrder.only.values(1, 1.2, report = {})
-        nList = nList.toContain.inAnyOrder.only.values(1, 1.2, report = {})
-        subList = subList.toContain.inAnyOrder.only.values(1, 2.2, report = {})
-        star = star.toContain.inAnyOrder.only.values(1, 1.2, "asdf", report = {})
+        listValues = listValues.toContain.inAnyOrder.only.values(1, 1.2, report = {})
+        nListValues = nListValues.toContain.inAnyOrder.only.values(1, 1.2, report = {})
+        subListValues = subListValues.toContain.inAnyOrder.only.values(1, 2.2, report = {})
+        starValues = starValues.toContain.inAnyOrder.only.values(1, 1.2, "asdf", report = {})
 
-        nList = nList.toContain.inAnyOrder.only.values(null, 1.2)
-        star = star.toContain.inAnyOrder.only.values(null, 1.2, "asdf")
+        nListValues = nListValues.toContain.inAnyOrder.only.values(null, 1.2)
+        starValues = starValues.toContain.inAnyOrder.only.values(null, 1.2, "asdf")
 
-        nList = nList.toContain.inAnyOrder.only.values(null, 1.2, report = {})
-        star = star.toContain.inAnyOrder.only.values(null, 1.2, "asdf", report = {})
+        nListValues = nListValues.toContain.inAnyOrder.only.values(null, 1.2, report = {})
+        starValues = starValues.toContain.inAnyOrder.only.values(null, 1.2, "asdf", report = {})
     }
 }

@@ -1,11 +1,13 @@
 package ch.tutteli.atrium.api.infix.en_GB
 
 import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.api.verbs.expect
 import ch.tutteli.atrium.logic.creating.iterablelike.contains.reporting.InAnyOrderOnlyReportingOptions
-import ch.tutteli.atrium.specs.notImplemented
+import ch.tutteli.atrium.specs.integration.IterableToContainSpecBase.Companion.emptyInAnyOrderOnlyReportOptions
+import kotlin.test.Test
 
 class IterableToContainInAnyOrderOnlyValuesExpectationsTest :
-    ch.tutteli.atrium.specs.integration.IterableToContainInAnyOrderOnlyValuesExpectationsSpec(
+    ch.tutteli.atrium.specs.integration.AbstractIterableToContainInAnyOrderOnlyValuesExpectationsTest(
         getContainsPair(),
         getContainsNullablePair()
     ) {
@@ -43,32 +45,37 @@ class IterableToContainInAnyOrderOnlyValuesExpectationsTest :
 
 
     @Suppress("unused", "UNUSED_VALUE")
-    private fun ambiguityTest() {
-        var list: Expect<List<Number>> = notImplemented()
-        var nList: Expect<Set<Number?>> = notImplemented()
-        var subList: Expect<ArrayList<Number>> = notImplemented()
-        var star: Expect<Collection<*>> = notImplemented()
+    @Test
+    fun ambiguityTest() {
+        var list: Expect<List<Number>> = expect(listOf(1))
+        var nList: Expect<Set<Number?>> = expect(setOf(1))
+        var subList: Expect<ArrayList<Number>> = expect(arrayListOf<Number>(1))
+        var star: Expect<Collection<*>> = expect(listOf(1))
+
+        var listValues:Expect<List<Number>> = expect(listOf(1, 1.2))
+        var nListValues: Expect<Set<Number?>> = expect(setOf(1, 1.2))
+        var subListValues: Expect<ArrayList<Number>> = expect(arrayListOf<Number>(1, 1.2))
+        var starValues: Expect<Collection<*>> = expect(listOf(1, 1.2))
 
         list = list toContain o inAny order but only value(1)
         nList = nList toContain o inAny order but only value(1)
         subList = subList toContain o inAny order but only value(1)
         star = star toContain o inAny order but only value(1)
 
-        //TODO type parameter should not be necessary, check with Kotlin 1.4
-        list = list toContain o inAny order but only the values<Number>(1, 1.2)
-        nList = nList toContain o inAny order but only the values<Number>(1, 1.2)
-        subList = subList toContain o inAny order but only the values<Number>(1, 2.2)
-        star = star toContain o inAny order but only the values(1, 1.2, "asdf")
+        listValues = listValues toContain o inAny order but only the values(1, 1.2)
+        nListValues = nListValues toContain o inAny order but only the values(1, 1.2)
+        subListValues = subListValues toContain o inAny order but only the values(1, 1.2)
+        starValues = starValues toContain o inAny order but only the values(1, 1.2, "asdf")
 
-        list = list toContain o inAny order but only the values(1, 1.2, reportOptionsInAnyOrderOnly = {})
-        nList = nList toContain o inAny order but only the values(1, 1.2, reportOptionsInAnyOrderOnly = {})
-        subList = subList toContain o inAny order but only the values(1, 2.2, reportOptionsInAnyOrderOnly = {})
-        star = star toContain o inAny order but only the values(1, 1.2, "asdf", reportOptionsInAnyOrderOnly = {})
+        listValues = listValues toContain o inAny order but only the values(1, 1.2, reportOptionsInAnyOrderOnly = {})
+        nListValues = nListValues toContain o inAny order but only the values(1, 1.2, reportOptionsInAnyOrderOnly = {})
+        subListValues = subListValues toContain o inAny order but only the values(1, 1.2, reportOptionsInAnyOrderOnly = {})
+        starValues = starValues toContain o inAny order but only the values(1, 1.2, "asdf", reportOptionsInAnyOrderOnly = {})
 
-        nList = nList toContain o inAny order but only the values(null, 1.2)
-        star = star toContain o inAny order but only the values(null, 1.2, "asdf")
+        nListValues = nListValues toContain o inAny order but only the values(null, 1.2)
+        starValues = starValues toContain o inAny order but only the values(null, 1.2, "asdf")
 
-        nList = nList toContain o inAny order but only the values(null, 1.2, reportOptionsInAnyOrderOnly = {})
-        star = star toContain o inAny order but only the values(null, 1.2, "asdf", reportOptionsInAnyOrderOnly = {})
+        nListValues = nListValues toContain o inAny order but only the values(null, 1.2, reportOptionsInAnyOrderOnly = {})
+        starValues = starValues toContain o inAny order but only the values(null, 1.2, "asdf", reportOptionsInAnyOrderOnly = {})
     }
 }
