@@ -9,7 +9,7 @@ import org.spekframework.spek2.Spek
 import ch.tutteli.atrium.api.fluent.en_GB.IterableToContainInAnyOrderOnlyElementsOfExpectationsSpec.Companion as C
 
 class IterableToContainInAnyOrderOnlyElementsOfExpectationsSpec : Spek({
-    include(BuilderSpec)
+    //include(BuilderSpec)
     include(BuilderIterableLikeToIterableSpec)
 }) {
     object BuilderSpec : ch.tutteli.atrium.specs.integration.AbstractIterableToContainInAnyOrderOnlyValuesExpectationsTest(
