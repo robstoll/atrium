@@ -1,19 +1,21 @@
 package ch.tutteli.atrium.api.infix.en_GB
 
+import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
 import kotlin.reflect.KFunction2
+import kotlin.test.Test
 
 class IterableExpectationsTest : ch.tutteli.atrium.specs.integration.AbstractIterableExpectationsTest(
     getToHaveElementsPair(),
     getNotToHaveElementsPair(),
     minFeaturePair(),
-    fun1<Iterable<Int>, Expect<Int>.() -> Unit>(Expect<Iterable<Int>>::min),
+    fun1(Expect<Iterable<Int>>::min),
     maxFeaturePair(),
-    fun1<Iterable<Int>, Expect<Int>.() -> Unit>(Expect<Iterable<Int>>::max),
+    fun1(Expect<Iterable<Int>>::max),
     getToHaveElementsAndNoDuplicatesPair(),
     lastFeaturePair(),
-    fun1<Iterable<Int>, Expect<Int>.() -> Unit>(Expect<Iterable<Int>>::last),
+    fun1(Expect<Iterable<Int>>::last),
 ) {
     companion object {
         private val toHave: KFunction2<Expect<Iterable<Int>>, elements, Expect<Iterable<Int>>> = Expect<Iterable<Int>>::toHave
@@ -26,10 +28,10 @@ class IterableExpectationsTest : ch.tutteli.atrium.specs.integration.AbstractIte
         private fun getNotToHaveElementsPair() = "${notToHave.name} ${elements::class.simpleName}" to Companion::notToHaveElements
         private fun notToHaveElements(expect: Expect<Iterable<Int>>) = expect notToHave elements
 
-        private fun minFeaturePair() = feature1<Iterable<Int>, o, Int>(Expect<Iterable<Int>>::min).name to ::minFeature
+        private fun minFeaturePair() = feature1(Expect<Iterable<Int>>::min).name to ::minFeature
         private fun minFeature(expect: Expect<Iterable<Int>>) = expect min o
 
-        private fun maxFeaturePair() = feature1<Iterable<Int>, o, Int>(Expect<Iterable<Int>>::max).name to ::maxFeature
+        private fun maxFeaturePair() = feature1(Expect<Iterable<Int>>::max).name to ::maxFeature
         private fun maxFeature(expect: Expect<Iterable<Int>>) = expect max o
 
         private val toHaveElementsAnd: KFunction2<Expect<Iterable<Int>>, noDuplicates, Expect<Iterable<Int>>> =
@@ -40,35 +42,35 @@ class IterableExpectationsTest : ch.tutteli.atrium.specs.integration.AbstractIte
 
         private fun toHaveElementsAndNoDuplicates(expect: Expect<Iterable<Int>>) = expect toHaveElementsAnd noDuplicates
 
-        private fun lastFeaturePair() = feature1<Iterable<Int>, o, Int>(Expect<Iterable<Int>>::last).name to ::lastFeature
+        private fun lastFeaturePair() = feature1(Expect<Iterable<Int>>::last).name to ::lastFeature
         private fun lastFeature(expect: Expect<Iterable<Int>>) = expect last o
     }
 
-    @Suppress("unused", "UNUSED_VALUE")
-    private fun ambiguityTest() {
-        var a1: Expect<List<Int>> = notImplemented()
-        var a1b: Expect<Set<Double?>> = notImplemented()
-        var star: Expect<Collection<*>> = notImplemented()
+    @Test
+    fun ambiguityTest() {
+        val a1 = expect(listOf(1, 2))
+        val a1b = expect(setOf(1.0, 2.0, null))
+        val star = expect(listOf(1, 2, 3) as Collection<*>)
 
-        a1 = a1 toHave elements
-        a1 = a1 notToHave elements
-        a1 = a1 toHaveElementsAnd noDuplicates
+        a1 toHave elements
+        a1 notToHave elements
+        a1 toHaveElementsAnd noDuplicates
 
-        a1b = a1b toHave elements
-        a1b = a1b notToHave elements
-        a1b = a1b toHaveElementsAnd noDuplicates
+        a1b toHave elements
+        a1b notToHave elements
+        a1b toHaveElementsAnd noDuplicates
 
-        star = star toHave elements
-        star = star notToHave elements
-        star = star toHaveElementsAnd noDuplicates
+        star toHave elements
+        star notToHave elements
+        star toHaveElementsAnd noDuplicates
 
         //nullable not supported by min/max or rather T : Comparable<T> does not exist for T? (one cannot implement an interface for the nullable type)
         //same for Iterable<*>
         a1 min o toEqual 2
         a1 max o toEqual 3
 
-        a1 = a1 min { }
-        a1 = a1 max { }
+        a1 min { }
+        a1 max { }
 
         a1 last o
         a1 last { }

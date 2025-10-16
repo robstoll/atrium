@@ -5,48 +5,43 @@ import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.core.polyfills.format
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
+import ch.tutteli.atrium.testfactories.TestFactory
 import ch.tutteli.atrium.translations.DescriptionBasic
 import ch.tutteli.atrium.translations.DescriptionIterableLikeExpectation
-import org.spekframework.spek2.Spek
-import org.spekframework.spek2.style.specification.Suite
+
 
 abstract class AbstractIterableExpectationsTest(
-    toHaveElements: Fun0<Iterable<Int>>,
-    notToHaveElements: Fun0<Iterable<Int>>,
-    minFeature: Feature0<Iterable<Int>, Int>,
-    min: Fun1<Iterable<Int>, Expect<Int>.() -> Unit>,
-    maxFeature: Feature0<Iterable<Int>, Int>,
-    max: Fun1<Iterable<Int>, Expect<Int>.() -> Unit>,
-    toHaveElementsAndNoDuplicates: Fun0<Iterable<Int>>,
-    lastFeature: Feature0<Iterable<Int>, Int>,
-    last: Fun1<Iterable<Int>, Expect<Int>.() -> Unit>,
+    private val toHaveElementsSpec: Fun0<Iterable<Int>>,
+    private val notToHaveElementsSpec: Fun0<Iterable<Int>>,
+    private val minFeatureSpec: Feature0<Iterable<Int>, Int>,
+    private val minSpec: Fun1<Iterable<Int>, Expect<Int>.() -> Unit>,
+    private val maxFeatureSpec: Feature0<Iterable<Int>, Int>,
+    private val maxSpec: Fun1<Iterable<Int>, Expect<Int>.() -> Unit>,
+    private val toHaveElementsAndNoDuplicatesSpec: Fun0<Iterable<Int>>,
+    private val lastFeatureSpec: Feature0<Iterable<Int>, Int>,
+    private val lastSpec: Fun1<Iterable<Int>, Expect<Int>.() -> Unit>,
     describePrefix: String = "[Atrium] "
-) : Spek({
+) : ExpectationFunctionBaseTest() {
 
-    include(object : SubjectLessSpec<Iterable<Int>>(
-        describePrefix,
-        toHaveElements.forSubjectLessTest(),
-        notToHaveElements.forSubjectLessTest(),
-        minFeature.forSubjectLessTest(),
-        min.forSubjectLessTest { toBeGreaterThan(-100) },
-        maxFeature.forSubjectLessTest(),
-        max.forSubjectLessTest { toEqual(1) },
-        toHaveElementsAndNoDuplicates.forSubjectLessTest()
-    ) {})
+    @TestFactory
+    fun subjectLessTest() = subjectLessTestFactory(
+        toHaveElementsSpec.forSubjectLessTest(),
+        notToHaveElementsSpec.forSubjectLessTest(),
+        minFeatureSpec.forSubjectLessTest(),
+        minSpec.forSubjectLessTest { toBeGreaterThan(-100) },
+        maxFeatureSpec.forSubjectLessTest(),
+        maxSpec.forSubjectLessTest { toEqual(1) },
+        toHaveElementsAndNoDuplicatesSpec.forSubjectLessTest(),
+        lastFeatureSpec.forSubjectLessTest(),
+        lastSpec.forSubjectLessTest { toEqual(1) }
+    )
 
-    include(object : AssertionCreatorSpec<Iterable<Int>>(
-        describePrefix, listOf(-20, 20, 0),
-        min.forExpectationCreatorTest("$toEqualDescr: -20") { toEqual(-20) },
-        max.forExpectationCreatorTest("$toEqualDescr: 20") { toEqual(20) }
-    ) {})
-
-    include(object : SubjectLessSpec<Iterable<Int>>(describePrefix,
-        lastFeature.forSubjectLessTest(),
-        last.forSubjectLessTest { toEqual(1) }
-    ) {})
-
-    fun describeFun(vararg pairs: SpecPair<*>, body: Suite.() -> Unit) =
-        describeFunTemplate(describePrefix, pairs.map { it.name }.toTypedArray(), body = body)
+    @TestFactory
+    fun expectationCreatorTest() = expectationCreatorTestFactory(
+        listOf(-20, 20, 0),
+        minSpec.forExpectationCreatorTest("$toEqualDescr: -20") { toEqual(-20) },
+        maxSpec.forExpectationCreatorTest("$toEqualDescr: 20") { toEqual(20) }
+    )
 
     val toHaveDescr = DescriptionBasic.TO_HAVE.getDefault()
     val notToHaveDescr = DescriptionBasic.NOT_TO_HAVE.getDefault()
@@ -55,9 +50,8 @@ abstract class AbstractIterableExpectationsTest(
 
     val toHaveANextElement = "$toHaveDescr: $aNextElementDescr"
 
-    describeFun(toHaveElements) {
-        val toHaveElementsFun = toHaveElements.lambda
-
+    @TestFactory
+    fun toHaveElements() = testFactory(toHaveElementsSpec) { toHaveElementsFun ->
         it("does not throw if an iterable has next") {
             expect(listOf(1, 2) as Iterable<Int>).toHaveElementsFun()
         }
@@ -69,9 +63,8 @@ abstract class AbstractIterableExpectationsTest(
         }
     }
 
-    describeFun(notToHaveElements) {
-        val notToHaveElementsFun = notToHaveElements.lambda
-
+    @TestFactory
+    fun notToHaveElements() = testFactory(notToHaveElementsSpec) { notToHaveElementsFun ->
         it("does not throw if an iterable has not next") {
             expect(emptyList<Int>() as Iterable<Int>).notToHaveElementsFun()
         }
@@ -83,11 +76,12 @@ abstract class AbstractIterableExpectationsTest(
         }
     }
 
-    describeFun(minFeature, min, maxFeature, max) {
-        val minFunctions = unifySignatures(minFeature, min)
-        val maxFunctions = unifySignatures(maxFeature, max)
+    @TestFactory
+    fun minAndMax() = testFactory(minFeatureSpec, minSpec, maxFeatureSpec, maxSpec) { spec ->
+        val minFunctions = unifySignatures(minFeatureSpec, minSpec)
+        val maxFunctions = unifySignatures(maxFeatureSpec, maxSpec)
 
-        context("list with 4 and 3") {
+        describe("list with 4 and 3") {
             val iterableWith4And3 = listOf(4, 3) as Iterable<Int>
             minFunctions.forEach { (name, minFun, _) ->
                 it("$name - is greater than 2 holds") {
@@ -115,7 +109,7 @@ abstract class AbstractIterableExpectationsTest(
             }
         }
 
-        context("empty list") {
+        describe("empty list") {
             val emptyIterable = expect(emptyList<Int>() as Iterable<Int>)
             val noElementsDescr = DescriptionIterableLikeExpectation.NO_ELEMENTS.getDefault()
 
@@ -140,9 +134,8 @@ abstract class AbstractIterableExpectationsTest(
         }
     }
 
-    describeFun(toHaveElementsAndNoDuplicates) {
-        val toHaveElementsAndNoDuplicatesFun = toHaveElementsAndNoDuplicates.lambda
-
+    @TestFactory
+    fun toHaveElementsAndNoDuplicates() = testFactory(toHaveElementsAndNoDuplicatesSpec) { toHaveElementsAndNoDuplicatesFun ->
         describe("empty collection") {
             it("throws AssertionError as there needs to be at least one element") {
                 expect {
@@ -185,28 +178,25 @@ abstract class AbstractIterableExpectationsTest(
         }
     }
 
-    val listNullable = listOf(1, 3, 4) as Iterable<Int>
-    val fluentNullable = expect(listNullable)
-
-    describeFun(lastFeature, last) {
-        val lastFunctions = unifySignatures(lastFeature, last)
-        context("list $listNullable") {
+    @TestFactory
+    fun last() = testFactory(lastFeatureSpec, lastSpec) { spec ->
+        val lastFunctions = unifySignatures(lastFeatureSpec, lastSpec)
+        val listNullable = listOf(1, 3, 4) as Iterable<Int>
+        val fluentNullable = expect(listNullable)
+        
+        describe("list $listNullable") {
             lastFunctions.forEach { (name, lastFun, _) ->
                 it("$name - can perform sub-assertion on last element with value") {
                     fluentNullable.lastFun { toEqual(4) }
                 }
             }
         }
-    }
 
-    val emptyList = emptyList<Int>() as Iterable<Int>
-    val fluentEmptyList = expect(emptyList)
+        val emptyList = emptyList<Int>() as Iterable<Int>
+        val fluentEmptyList = expect(emptyList)
+        val listIsEmptyDescr = DescriptionIterableLikeExpectation.NO_ELEMENTS.getDefault()
 
-    val listIsEmptyDescr = DescriptionIterableLikeExpectation.NO_ELEMENTS.getDefault()
-
-    describeFun(lastFeature, last) {
-        val lastFunctions = unifySignatures(lastFeature, last)
-        context("list $emptyList") {
+        describe("list $emptyList") {
             lastFunctions.forEach { (name, lastFun, hasExtraHint) ->
                 it("$name - empty list throws" + showsSubExpectationIf(hasExtraHint)) {
                     expect {
@@ -219,4 +209,4 @@ abstract class AbstractIterableExpectationsTest(
             }
         }
     }
-})
+}
