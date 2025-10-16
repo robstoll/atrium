@@ -4,7 +4,7 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
 import kotlin.reflect.KFunction2
 
-class IterableExpectationsSpec : ch.tutteli.atrium.specs.integration.IterableExpectationsSpec(
+class IterableExpectationsTest : ch.tutteli.atrium.specs.integration.AbstractIterableExpectationsTest(
     getToHaveElementsPair(),
     getNotToHaveElementsPair(),
     minFeaturePair(),
