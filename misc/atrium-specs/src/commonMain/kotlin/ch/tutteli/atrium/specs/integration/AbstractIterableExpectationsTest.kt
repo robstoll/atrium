@@ -10,7 +10,7 @@ import ch.tutteli.atrium.translations.DescriptionIterableLikeExpectation
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.Suite
 
-abstract class IterableExpectationsSpec(
+abstract class AbstractIterableExpectationsTest(
     toHaveElements: Fun0<Iterable<Int>>,
     notToHaveElements: Fun0<Iterable<Int>>,
     minFeature: Feature0<Iterable<Int>, Int>,
