@@ -8,7 +8,7 @@ import ch.tutteli.atrium.translations.DescriptionCollectionExpectation
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.Suite
 
-abstract class CollectionExpectationsSpec(
+abstract class AbstractCollectionExpectationsTest(
     isEmpty: Fun0<Collection<Int>>,
     isNotEmpty: Fun0<Collection<Int>>,
     sizeFeature: Feature0<Collection<Int>, Int>,

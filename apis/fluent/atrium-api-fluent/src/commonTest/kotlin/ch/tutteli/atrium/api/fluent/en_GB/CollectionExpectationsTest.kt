@@ -3,7 +3,7 @@ package ch.tutteli.atrium.api.fluent.en_GB
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
 
-object CollectionExpectationsSpec : ch.tutteli.atrium.specs.integration.CollectionExpectationsSpec(
+object CollectionExpectationsTest : ch.tutteli.atrium.specs.integration.CollectionExpectationsSpec(
     fun0(Expect<Collection<Int>>::toBeEmpty),
     fun0(Expect<Collection<Int>>::notToBeEmpty),
     property<Collection<Int>, Int>(Expect<Collection<Int>>::size),

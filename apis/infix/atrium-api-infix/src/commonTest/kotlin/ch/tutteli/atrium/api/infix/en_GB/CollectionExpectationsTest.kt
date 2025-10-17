@@ -3,7 +3,7 @@ package ch.tutteli.atrium.api.infix.en_GB
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
 
-class CollectionExpectationsSpec : ch.tutteli.atrium.specs.integration.CollectionExpectationsSpec(
+class CollectionExpectationsTest : ch.tutteli.atrium.specs.integration.CollectionExpectationsSpec(
     "toBe ${empty::class.simpleName}" to Companion::isEmpty,
     "notToBe ${empty::class.simpleName}" to Companion::isNotEmpty,
     property<Collection<Int>, Int>(Expect<Collection<Int>>::size),
