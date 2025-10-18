@@ -44,7 +44,7 @@ interface ExpectTestExecutable : TestExecutable, TestExecutableImplContract {
      *
      * @param description Description of the root group.
      * @param groupingActions Some action which defines what happens within the group (typically, creating some
-     *   expectations via [ch.tutteli.atrium.api.verbs.expect] or nesting the grouping further).
+     *   expectations via `ch.tutteli.atrium.api.verbs.expect` or nesting the grouping further).
      *
      * @since 1.3.0
      */
