@@ -1,28 +1,51 @@
 package ch.tutteli.atrium.specs.integration
 
 import ch.tutteli.atrium.api.verbs.internal.factories.InternalExpectationVerbs
-import ch.tutteli.atrium.api.verbs.internal.testFactory
 import ch.tutteli.atrium.api.verbs.internal.testfactories.ExpectTestExecutableForTests
 import ch.tutteli.atrium.api.verbs.internal.testfactories.impl.ExpectGroupedBasedExpectTestExecutableForTestsImpl
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.SpecPair
 import ch.tutteli.atrium.specs.integration.utils.ExpectationCreatorTestData
 import ch.tutteli.atrium.specs.integration.utils.SubjectLessTestData
-import ch.tutteli.atrium.specs.integration.utils.subjectLessTestSetup
 import ch.tutteli.atrium.specs.lambda
+import ch.tutteli.atrium.specs.name
 import ch.tutteli.atrium.specs.uncheckedToNonNullable
-import ch.tutteli.atrium.testfactories.TestFactoryBuilder
-import ch.tutteli.atrium.testfactories.buildTestNodes
+import ch.tutteli.atrium.testfactories.*
 import ch.tutteli.atrium.testfactories.expect.grouped.impl.turnTestNodesIntoExpectGrouping
+import ch.tutteli.kbox.glue
+import ch.tutteli.atrium.api.verbs.internal.testFactory as internalTestFactory
 
 actual abstract class ExpectationFunctionBaseTest {
+
+    init {
+        val mocha = js("global")
+        if (mocha.beforeEach != null && mocha.afterEach != null) {
+            mocha.beforeEach {
+                // `this.currentTest` is available here because Mocha calls this function
+                js("globalThis.__currentTestName__ = this.currentTest.title")
+            }
+            mocha.afterEach {
+                js("delete globalThis.__currentTestName__")
+            }
+        }
+    }
 
     protected actual fun <T> testFactory(
         specPair: SpecPair<T>,
         setup: TestFactoryBuilder<ExpectTestExecutableForTests>.(T) -> Unit
-    ): Any = this.let { self ->
-        testFactory {
-            describe("${self::class.simpleName} - ${specPair.first}") { setup(specPair.lambda) }
+    ): DynamicNodeContainer<DynamicNodeLike> = internalTestFactory {
+        describe(getDescribeText { specPair.name }) { setup(specPair.lambda) }
+    }
+
+    protected actual fun testFactory(
+        specPair: SpecPair<*>,
+        vararg otherSpecPairs: SpecPair<*>,
+        setup: TestFactoryBuilder<ExpectTestExecutableForTests>.() -> Unit,
+    ): DynamicNodeContainer<DynamicNodeLike> = internalTestFactory {
+        describe(getDescribeText {
+            (specPair glue otherSpecPairs).joinToString(", ") { "`${it.name}`" }
+        }) {
+            setup()
         }
     }
 
@@ -30,23 +53,16 @@ actual abstract class ExpectationFunctionBaseTest {
         expectationCreator: SpecPair<Expect<SubjectT>.() -> Unit>,
         vararg otherExpectationCreators: SpecPair<Expect<SubjectT>.() -> Unit>,
         groupPrefix: String?
-    ): Any = this.let { self ->
-        testFactory {
-            describe(
-                "${self::class.simpleName} - subjectLessTest${groupPrefix?.let { " - $it" } ?: ""}",
-                subjectLessTestSetup(expectationCreator, otherExpectationCreators)
-            )
-        }
-    }
+    ): DynamicNodeContainer<DynamicNodeLike> = subjectLessTestFactory(
+        SubjectLessTestData(expectationCreator, *otherExpectationCreators, groupPrefix = groupPrefix)
+    )
 
     protected actual fun subjectLessTestFactory(
         testData: SubjectLessTestData<*>,
         vararg otherTestData: SubjectLessTestData<*>,
-    ): Any = this.let { self ->
-        testFactory {
-            describe("${self::class.simpleName} - subjectLessTest") {
-                applySubjectLessTestSetup(testData, otherTestData)
-            }
+    ): DynamicNodeContainer<DynamicNodeLike> = internalTestFactory {
+        describe(getDescribeText { "subjectLess" }) {
+            applySubjectLessTestSetup(testData, otherTestData)
         }
     }
 
@@ -55,7 +71,7 @@ actual abstract class ExpectationFunctionBaseTest {
         assertionCreator: Triple<String, String, Pair<Expect<SubjectT>.() -> Expect<SubjectT>, Expect<SubjectT>.() -> Expect<SubjectT>>>,
         vararg otherAssertionCreators: Triple<String, String, Pair<Expect<SubjectT>.() -> Expect<SubjectT>, Expect<SubjectT>.() -> Expect<SubjectT>>>,
         groupPrefix: String?
-    ): Any = expectationCreatorTestFactory(
+    ): DynamicNodeContainer<DynamicNodeLike> = expectationCreatorTestFactory(
         ExpectationCreatorTestData(
             subject,
             assertionCreator,
@@ -67,11 +83,9 @@ actual abstract class ExpectationFunctionBaseTest {
     protected actual fun expectationCreatorTestFactory(
         testData: ExpectationCreatorTestData<*>,
         vararg otherTestData: ExpectationCreatorTestData<*>,
-    ): Any = this.let { self ->
-        testFactory {
-            describe("${self::class.simpleName} - expectationCreatorTest") {
-                applyExpectationCreatorTestSetup(testData, otherTestData)
-            }
+    ): DynamicNodeContainer<DynamicNodeLike> = internalTestFactory {
+        describe(getDescribeText { "expectationCreatorTest" }) {
+            applyExpectationCreatorTestSetup(testData, otherTestData)
         }
     }
 
@@ -79,12 +93,20 @@ actual abstract class ExpectationFunctionBaseTest {
         nonNullableSpecPair: SpecPair<T>,
         nullableSpecPair: Any,
         testExecutable: ExpectTestExecutableForTests.(T) -> Unit
-    ): Any = turnTestNodesIntoExpectGrouping(
-        buildTestNodes<ExpectTestExecutableForTests> {
-            uncheckedToNonNullable(nonNullableSpecPair, nullableSpecPair).forEach { specPair ->
-                itFun(specPair, testExecutable)
+    ): DynamicNodeContainer<DynamicNodeLike> = UnitDynamicNodeContainer.also {
+        turnTestNodesIntoExpectGrouping(
+            buildTestNodes<ExpectTestExecutableForTests> {
+                uncheckedToNonNullable(nonNullableSpecPair, nullableSpecPair).forEach { specPair ->
+                    itFun(specPair, setup = testExecutable)
+                }
             }
-        }
-    ) { ExpectGroupedBasedExpectTestExecutableForTestsImpl(InternalExpectationVerbs) }
+        ) { ExpectGroupedBasedExpectTestExecutableForTestsImpl(InternalExpectationVerbs) }
+    }
 
+    private inline fun getDescribeText(ifCurrentTestNameAbsent: () -> String): String =
+        if (js("globalThis.__currentTestName__") == null) {
+            "${this::class.simpleName} - ${ifCurrentTestNameAbsent()}"
+        } else {
+            "${this::class.simpleName}"
+        }
 }

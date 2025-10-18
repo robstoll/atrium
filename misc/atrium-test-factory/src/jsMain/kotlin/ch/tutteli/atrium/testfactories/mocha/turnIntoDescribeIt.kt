@@ -12,23 +12,27 @@ fun <TestExecutableT : TestExecutable> turnIntoDescribeIt(
     testNodes: List<TestNode>,
     testExecutableFactory: () -> TestExecutableT,
     isFirstDescribe: Boolean
-): Any = testNodes.forEach { node ->
-    when (node) {
-        is BranchTestNode ->
-            if (isFirstDescribe) {
-                describe(node.displayName) {
-                    turnIntoDescribeIt(node.nodes, testExecutableFactory, false)
+): DynamicNodeContainer<DynamicNodeLike> = UnitDynamicNodeContainer.also {
+    testNodes.forEach { node ->
+        when (node) {
+            is BranchTestNode ->
+                if (isFirstDescribe) {
+                    val currentTest = js("globalThis.__currentTestName__")
+                    val displayName = "${node.displayName} ${if (currentTest != null) "-- $currentTest" else ""}"
+                    describe(displayName) {
+                        turnIntoDescribeIt(node.nodes, testExecutableFactory, false)
+                    }
+                } else {
+                    collectDescribeAndOutputSingleTest(node.displayName, node.nodes, testExecutableFactory)
                 }
-            } else {
-                collectDescribeAndOutputSingleTest(node.displayName, node.nodes, testExecutableFactory)
-            }
 
-        is LeafTestNode<*> -> {
-            check(isFirstDescribe.not()) {
-                "you need to define a describe, you cannot start with `it(\"my test case\"){...}` directly"
-            }
-            it(node.displayName) {
-                testExecutableFactory().execute(node)
+            is LeafTestNode<*> -> {
+                check(isFirstDescribe.not()) {
+                    "you need to define a describe, you cannot start with `it(\"my test case\"){...}` directly"
+                }
+                it(node.displayName) {
+                    testExecutableFactory().execute(node)
+                }
             }
         }
     }
@@ -66,4 +70,4 @@ private fun <TestExecutableT : TestExecutable> collectDescribeAndOutputSingleTes
 }
 
 external fun describe(name: String, block: () -> Unit)
-external fun it(name: String, block: () -> Unit)
+external fun it(name: String, block: () -> Any?)

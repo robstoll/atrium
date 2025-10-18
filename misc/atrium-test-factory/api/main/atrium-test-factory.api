@@ -4,6 +4,14 @@ public final class ch/tutteli/atrium/testfactories/BranchTestNode : ch/tutteli/a
 	public final fun getNodes ()Ljava/util/List;
 }
 
+public final class ch/tutteli/atrium/testfactories/DefaultIterableDynamicNodeWrapper : ch/tutteli/atrium/testfactories/IterableDynamicNodeWrapper, java/lang/Iterable, kotlin/jvm/internal/markers/KMappedMarker {
+	public fun <init> (Ljava/util/List;)V
+	public fun iterator ()Ljava/util/Iterator;
+}
+
+public abstract interface class ch/tutteli/atrium/testfactories/IterableDynamicNodeWrapper : java/lang/Iterable, kotlin/jvm/internal/markers/KMappedMarker {
+}
+
 public final class ch/tutteli/atrium/testfactories/LeafTestNode : ch/tutteli/atrium/testfactories/TestNode {
 	public fun <init> (Ljava/lang/String;Lkotlin/jvm/functions/Function1;)V
 	public final fun getDisplayName ()Ljava/lang/String;
@@ -29,12 +37,12 @@ public final class ch/tutteli/atrium/testfactories/TestFactoryBuilderKt {
 }
 
 public final class ch/tutteli/atrium/testfactories/TestFactoryTemplatesKt {
-	public static final fun testFactoryTemplate (Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function0;)Ljava/lang/Object;
-	public static final fun testFactoryTemplate (Lkotlin/jvm/functions/Function1;[Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function0;)Ljava/lang/Object;
+	public static final fun testFactoryTemplate (Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function0;)Lch/tutteli/atrium/testfactories/IterableDynamicNodeWrapper;
+	public static final fun testFactoryTemplate (Lkotlin/jvm/functions/Function1;[Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function0;)Lch/tutteli/atrium/testfactories/IterableDynamicNodeWrapper;
 }
 
 public final class ch/tutteli/atrium/testfactories/TestFactory_jvmKt {
-	public static final fun turnTestNodesIntoPlatformSpecificTestFactory (Ljava/util/List;Lkotlin/jvm/functions/Function0;)Ljava/lang/Object;
+	public static final fun turnTestNodesIntoPlatformSpecificTestFactory (Ljava/util/List;Lkotlin/jvm/functions/Function0;)Lch/tutteli/atrium/testfactories/IterableDynamicNodeWrapper;
 }
 
 public abstract class ch/tutteli/atrium/testfactories/TestNode {
@@ -101,6 +109,6 @@ public final class ch/tutteli/atrium/testfactories/expect/root/impl/RootExpectTe
 }
 
 public final class ch/tutteli/atrium/testfactories/junit/TurnIntoJunitDynamicNodesKt {
-	public static final fun turnIntoJunitDynamicNodes (Ljava/util/List;Lkotlin/jvm/functions/Function0;)Ljava/util/List;
+	public static final fun turnIntoJunitDynamicNodes (Ljava/util/List;Lkotlin/jvm/functions/Function0;)Lch/tutteli/atrium/testfactories/IterableDynamicNodeWrapper;
 }
 

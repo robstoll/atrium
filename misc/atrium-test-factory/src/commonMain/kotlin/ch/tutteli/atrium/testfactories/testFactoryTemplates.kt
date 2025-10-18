@@ -15,7 +15,8 @@ import ch.tutteli.kbox.glue
 fun <TestExecutableT : TestExecutable> testFactoryTemplate(
     setup: TestFactoryBuilder<TestExecutableT>.() -> Unit,
     testExecutableFactory: () -> TestExecutableT
-): Any = turnTestNodesIntoPlatformSpecificTestFactory(buildTestNodes(setup), testExecutableFactory)
+): DynamicNodeContainer<DynamicNodeLike> =
+    turnTestNodesIntoPlatformSpecificTestFactory(buildTestNodes(setup), testExecutableFactory)
 
 /**
  * Template method intended for providers of expectation verbs.
@@ -31,6 +32,6 @@ fun <TestExecutableT : TestExecutable> testFactoryTemplate(
     setup: TestFactoryBuilder<TestExecutableT>.() -> Unit,
     otherSetups: Array<out TestFactoryBuilder<TestExecutableT>.() -> Unit>,
     testExecutableFactory: () -> TestExecutableT
-): Any = turnTestNodesIntoPlatformSpecificTestFactory(
+): DynamicNodeContainer<DynamicNodeLike> = turnTestNodesIntoPlatformSpecificTestFactory(
     (setup glue otherSetups).flatMap(::buildTestNodes), testExecutableFactory
 )

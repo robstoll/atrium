@@ -15,7 +15,8 @@ import ch.tutteli.atrium.reporting.Text
 import ch.tutteli.atrium.reporting.erroradjusters.MultiAtriumErrorAdjuster
 import ch.tutteli.atrium.reporting.erroradjusters.RemoveAtriumFromAtriumError
 import ch.tutteli.atrium.reporting.erroradjusters.RemoveRunnerFromAtriumError
-import ch.tutteli.atrium.testfactories.*
+import ch.tutteli.atrium.testfactories.TestFactoryBuilder
+import ch.tutteli.atrium.testfactories.testFactoryTemplate
 
 @OptIn(ExperimentalNewExpectTypes::class, ExperimentalComponentFactoryContainer::class)
 fun <T> expect(subject: T): RootExpect<T> =
