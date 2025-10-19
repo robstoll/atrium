@@ -14,14 +14,14 @@ class IterableNotToContainValuesExpectationsSpec : Spek({
 
 }) {
 
-    object BuilderSpec : ch.tutteli.atrium.specs.integration.IterableNotToContainValuesExpectationsSpec(
+    object BuilderSpec : ch.tutteli.atrium.specs.integration.AbstractIterableNotToContainValuesExpectationsTest(
         functionDescription to C::notToContainFun,
         (functionDescription to C::notToContainNullableFun).withNullableSuffix(),
         Expect<List<Int>>::notToHaveElementsOrNone.name,
         "[Atrium][Builder] "
     )
 
-    object ShortcutSpec : ch.tutteli.atrium.specs.integration.IterableNotToContainValuesExpectationsSpec(
+    object ShortcutSpec : ch.tutteli.atrium.specs.integration.AbstractIterableNotToContainValuesExpectationsTest(
         fun2<Iterable<Double>,Double, Array<out Double>>(Expect<Iterable<Double>>::notToContain),
         fun2<Iterable<Double?>,Double?, Array<out Double?>>(Expect<Iterable<Double?>>::notToContain).withNullableSuffix(),
         Expect<List<Int>>::notToHaveElementsOrNone.name,

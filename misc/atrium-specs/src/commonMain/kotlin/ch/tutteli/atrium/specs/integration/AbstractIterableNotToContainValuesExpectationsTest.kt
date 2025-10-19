@@ -7,7 +7,7 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.translations.DescriptionIterableLikeExpectation
 
-abstract class IterableNotToContainValuesExpectationsSpec(
+abstract class AbstractIterableNotToContainValuesExpectationsTest(
     notToContainValues: Fun2<Iterable<Double>, Double, Array<out Double>>,
     notToContainNullableValues: Fun2<Iterable<Double?>, Double?, Array<out Double?>>,
     notToHaveElementsOrNoneFunName: String,
