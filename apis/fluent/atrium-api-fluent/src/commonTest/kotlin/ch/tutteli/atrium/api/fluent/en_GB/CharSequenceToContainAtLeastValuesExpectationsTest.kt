@@ -2,6 +2,7 @@ package ch.tutteli.atrium.api.fluent.en_GB
 
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.integration.AbstractCharSequenceToContainAtLeastExpectationsTest
+import kotlin.test.Test
 
 class CharSequenceToContainAtLeastValuesExpectationsTest : AbstractCharSequenceToContainAtLeastExpectationsTest(
     getAtLeastValuesTriple(),
@@ -12,6 +13,8 @@ class CharSequenceToContainAtLeastValuesExpectationsTest : AbstractCharSequenceT
     getExactlyPair(),
     Companion::getErrorMsgAtLeastButAtMost
 ) {
+    @Test
+    fun trigger_run_gutter() = Unit
 
     companion object : CharSequenceToContainSpecBase() {
 

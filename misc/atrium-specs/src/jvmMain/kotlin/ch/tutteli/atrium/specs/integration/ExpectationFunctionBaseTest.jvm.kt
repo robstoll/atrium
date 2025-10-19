@@ -25,10 +25,13 @@ actual abstract class ExpectationFunctionBaseTest {
 
     protected actual fun testFactory(
         specPair: SpecPair<*>,
+        otherSpecPair: SpecPair<*>,
         vararg otherSpecPairs: SpecPair<*>,
         setup: TestFactoryBuilder<ExpectTestExecutableForTests>.() -> Unit,
     ) = internalTestFactory {
-        setup()
+        describe("_") {
+            setup()
+        }
     }
 
     protected actual fun <SubjectT> subjectLessTestFactory(
@@ -83,55 +86,5 @@ actual abstract class ExpectationFunctionBaseTest {
                 itFun(specPair, setup = testExecutable)
             }
         }
-    }
-
-    companion object {
-        @BeforeAll
-        @JvmStatic
-        fun suppressSpecificJUnitWarnings() {
-            val logger = Logger.getLogger("org.junit.platform.launcher.core.DiscoveryIssueNotifier")
-            logger.useParentHandlers = false
-
-            logger.addHandler(
-                SuppressingHandler(
-                    logger.handlers.firstOrNull() ?: ConsoleHandler().apply { level = Level.ALL }
-                )
-            )
-        }
-    }
-}
-
-class SuppressingHandler(private val delegate: Handler) : Handler() {
-
-    override fun publish(record: LogRecord) {
-        val originalMessage = record.message ?: return
-
-        val modifiedMessage = originalMessage
-            .replace(runGutterRegex, "")
-
-        if (modifiedMessage.replace(testEngineRegex, "").isBlank()) return
-        else if (modifiedMessage != originalMessage) {
-            val redactedRecord = LogRecord(
-                record.level,
-                "$modifiedMessage\n\nRemoved warnings about trigger_run_gutter and INFO about testFactory, that's why the number of issues is off"
-            ).apply {
-                loggerName = record.loggerName
-                thrown = record.thrown
-                sourceClassName = record.sourceClassName
-                sourceMethodName = record.sourceMethodName
-            }
-
-            delegate.publish(redactedRecord)
-        } else {
-            delegate.publish(record)
-        }
-    }
-
-    override fun flush() = delegate.flush()
-    override fun close() = delegate.close()
-
-    companion object {
-        val testEngineRegex = Regex("TestEngine with ID.*\n\n")
-        val runGutterRegex = Regex("\\(\\d+\\) \\[WARNING\\] .*trigger_run_gutter[\\S\\s]+?\n\n")
     }
 }

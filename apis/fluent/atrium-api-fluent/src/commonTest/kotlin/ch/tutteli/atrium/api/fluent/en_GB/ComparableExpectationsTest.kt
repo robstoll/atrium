@@ -23,13 +23,15 @@ class ComparableExpectationsTest : AbstractComparableExpectationsTest(
     TO_BE_LESS_THAN_OR_EQUAL_TO.getDefault(),
     TO_BE_GREATER_THAN_OR_EQUAL_TO.getDefault(),
 ) {
+
+    @Suppress("AssignedValueIsNeverRead", "UNUSED_VALUE")
     @Test
     fun ambiguityTest() {
         var a1: Expect<Int> = expect(1)
         a1 = a1.toBeLessThan(2)
-        a1.toBeLessThanOrEqualTo(1)
-        a1.toBeGreaterThan(0)
-        a1.toBeGreaterThanOrEqualTo(1)
-        a1.toBeEqualComparingTo(1)
+        a1 = a1.toBeLessThanOrEqualTo(1)
+        a1 = a1.toBeGreaterThan(0)
+        a1 = a1.toBeGreaterThanOrEqualTo(1)
+        a1 = a1.toBeEqualComparingTo(1)
     }
 }

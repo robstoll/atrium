@@ -26,11 +26,12 @@ class CharSequenceToContainNotToContainShortcutExpectationsTest :
             else expect notToContain values(a, *aX)
     }
 
+    @Suppress("AssignedValueIsNeverRead", "UNUSED_VALUE")
     @Test
     fun ambiguityTest() {
-        val a1: Expect<String> = expect("1ac")
+        var a1: Expect<String> = expect("1ac")
 
-        a1 toContain values(1, "a", 'c')
-        a1 notToContain values(2, "b", 'd')
+        a1 = a1 toContain values(1, "a", 'c')
+        a1 = a1 notToContain values(2, "b", 'd')
     }
 }

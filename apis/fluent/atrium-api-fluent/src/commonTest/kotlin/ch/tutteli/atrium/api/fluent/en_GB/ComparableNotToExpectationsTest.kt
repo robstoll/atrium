@@ -22,5 +22,5 @@ class ComparableNotToExpectationsTest : AbstractComparableExpectationsTest(
     NOT_TO_BE_LESS_THAN.getDefault(),
 ) {
     @Test
-    fun trigger_run_gutter() = 1
+    fun trigger_run_gutter() = Unit
 }

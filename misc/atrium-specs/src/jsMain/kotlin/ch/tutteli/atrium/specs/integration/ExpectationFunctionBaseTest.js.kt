@@ -16,7 +16,6 @@ import ch.tutteli.kbox.glue
 import ch.tutteli.atrium.api.verbs.internal.testFactory as internalTestFactory
 
 actual abstract class ExpectationFunctionBaseTest {
-
     init {
         val mocha = js("global")
         if (mocha.beforeEach != null && mocha.afterEach != null) {
@@ -39,11 +38,12 @@ actual abstract class ExpectationFunctionBaseTest {
 
     protected actual fun testFactory(
         specPair: SpecPair<*>,
+        otherSpecPair: SpecPair<*>,
         vararg otherSpecPairs: SpecPair<*>,
         setup: TestFactoryBuilder<ExpectTestExecutableForTests>.() -> Unit,
     ): DynamicNodeContainer<DynamicNodeLike> = internalTestFactory {
         describe(getDescribeText {
-            (specPair glue otherSpecPairs).joinToString(", ") { "`${it.name}`" }
+            (listOf(specPair, otherSpecPair) + otherSpecPairs).joinToString(", ") { "`${it.name}`" }
         }) {
             setup()
         }

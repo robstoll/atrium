@@ -35,51 +35,49 @@ abstract class AbstractCharSequenceToContainAtMostExpectationsTest(
     val valueWithIndent = "$indentRootBulletPoint$listBulletPoint$value"
 
     @TestFactory
-    fun toContainAtMost__subject_throws_an_IllegalArgumentException() =
-        testFactory(toContainAtMostSpec) {
-            val (notToContain, errorMsgContainsNot) = notToContainPair
-            val (exactly, errorMsgExactly) = exactlyPair
+    fun toContainAtMost__subject_throws_an_IllegalArgumentException() = testFactory(toContainAtMostSpec) {
+        val (notToContain, errorMsgContainsNot) = notToContainPair
+        val (exactly, errorMsgExactly) = exactlyPair
 
-            it("for at most -1 -- only positive numbers") {
-                expect {
-                    expect(text).toContainAtMostFun(-1, "")
-                }.toThrow<IllegalArgumentException> { messageToContain("positive number", -1) }
-            }
-            it("for at most 0 -- points to $notToContain") {
-                expect {
-                    expect(text).toContainAtMostFun(0, "")
-                }.toThrow<IllegalArgumentException> { message { toEqual(errorMsgContainsNot(0)) } }
-            }
-            it("for at most 1 -- points to $exactly") {
-                expect {
-                    expect(text).toContainAtMostFun(1, "")
-                }.toThrow<IllegalArgumentException> { message { toEqual(errorMsgExactly(1)) } }
-            }
-            it("if an object is passed as first expected") {
-                expect {
-                    expect(text).toContainAtMostFun(2, expect(text))
-                }.toThrow<IllegalArgumentException> { messageToContain("CharSequence", "Number", "Char") }
-            }
-            it("if an object is passed as second expected") {
-                expect {
-                    expect(text).toContainAtMostFun(2, "that's fine", expect(text))
-                }.toThrow<IllegalArgumentException> { messageToContain("CharSequence", "Number", "Char") }
-            }
+        it("for at most -1 -- only positive numbers") {
+            expect {
+                expect(text).toContainAtMostFun(-1, "")
+            }.toThrow<IllegalArgumentException> { messageToContain("positive number", -1) }
         }
+        it("for at most 0 -- points to $notToContain") {
+            expect {
+                expect(text).toContainAtMostFun(0, "")
+            }.toThrow<IllegalArgumentException> { message { toEqual(errorMsgContainsNot(0)) } }
+        }
+        it("for at most 1 -- points to $exactly") {
+            expect {
+                expect(text).toContainAtMostFun(1, "")
+            }.toThrow<IllegalArgumentException> { message { toEqual(errorMsgExactly(1)) } }
+        }
+        it("if an object is passed as first expected") {
+            expect {
+                expect(text).toContainAtMostFun(2, expect(text))
+            }.toThrow<IllegalArgumentException> { messageToContain("CharSequence", "Number", "Char") }
+        }
+        it("if an object is passed as second expected") {
+            expect {
+                expect(text).toContainAtMostFun(2, "that's fine", expect(text))
+            }.toThrow<IllegalArgumentException> { messageToContain("CharSequence", "Number", "Char") }
+        }
+    }
 
     @TestFactory
-    fun toContainAtMost__subject_happy_case_with_toContainAtMost_twice() =
-        testFactory(toContainAtMostSpec) {
-            it("${toContainAtMostPair.first("'H'", "twice")} does not throw") {
-                expect(helloWorld).toContainAtMostFun(2, 'H')
-            }
-            it("${toContainAtMostPair.first("'H' and 'e' and 'W'", "twice")} does not throw") {
-                expect(helloWorld).toContainAtMostFun(2, 'H', 'e', 'W')
-            }
-            it("${toContainAtMostPair.first("'W' and 'H' and 'e'", "twice")} does not throw") {
-                expect(helloWorld).toContainAtMostFun(2, 'W', 'H', 'e')
-            }
+    fun toContainAtMost__subject_happy_case_with_toContainAtMost_twice() = testFactory(toContainAtMostSpec) {
+        it("${toContainAtMostPair.first("'H'", "twice")} does not throw") {
+            expect(helloWorld).toContainAtMostFun(2, 'H')
         }
+        it("${toContainAtMostPair.first("'H' and 'e' and 'W'", "twice")} does not throw") {
+            expect(helloWorld).toContainAtMostFun(2, 'H', 'e', 'W')
+        }
+        it("${toContainAtMostPair.first("'W' and 'H' and 'e'", "twice")} does not throw") {
+            expect(helloWorld).toContainAtMostFun(2, 'W', 'H', 'e')
+        }
+    }
 
     @TestFactory
     fun toContainAtMost__subject_failing_cases__search_string_at_different_positions() =

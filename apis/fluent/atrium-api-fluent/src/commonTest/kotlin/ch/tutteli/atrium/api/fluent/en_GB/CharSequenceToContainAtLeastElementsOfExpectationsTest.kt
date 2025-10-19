@@ -7,7 +7,7 @@ import ch.tutteli.atrium.testfactories.TestFactory
 import kotlin.test.Test
 
 class CharSequenceToContainAtLeastElementsOfExpectationsTest : AbstractCharSequenceToContainAtLeastExpectationsTest(
-    getAtLeastElementsOfTriple(),
+    getAtLeastElementsOfPair(),
     getAtLeastIgnoringCaseElementsOfTriple(),
     getAtLeastButAtMostElementsOfTriple(),
     getAtLeastButAtMostIgnoringCaseElementsOfTriple(),
@@ -17,31 +17,27 @@ class CharSequenceToContainAtLeastElementsOfExpectationsTest : AbstractCharSeque
 ) {
 
     @Test
-    fun trigger_run_gutter() = 1
+    fun trigger_run_gutter() = Unit
 
     @TestFactory
-    fun toContainAtLeastOneElementsOf() =
-        iterableLikeToIterableTestFactory("$toContain.$atLeast(1).$elementsOf", "hello", { input ->
+    fun iterableLikeToIterableTest() = iterableLikeToIterableTestFactory(
+        subject = "hello",
+        "$toContain.$atLeast(1).$elementsOf" to { input ->
             toContain.atLeast(1).elementsOf(input)
-        })
-
-    @TestFactory
-    fun toContainIgnoringCaseAtLeastOneElementsOf() =
-        iterableLikeToIterableTestFactory("$toContain.$ignoringCase.$atLeast(1).$elementsOf", "hello", { input ->
+        },
+        "$toContain.$ignoringCase.$atLeast(1).$elementsOf" to { input ->
             toContain.ignoringCase.atLeast(1).elementsOf(input)
-        })
-
-    @TestFactory
-    fun toContainIgnoringCaseElementsOf() =
-        iterableLikeToIterableTestFactory("$toContain.$ignoringCase.$elementsOf", "hello", { input ->
+        },
+        "$toContain.$ignoringCase.$elementsOf" to { input ->
             toContain.ignoringCase.elementsOf(input)
-        })
+        }
+    )
 
     companion object : CharSequenceToContainSpecBase() {
 
         private val atLeastDescr = { what: String, times: String -> "$toContain $what $atLeast $times" }
 
-        internal fun getAtLeastElementsOfTriple() =
+        internal fun getAtLeastElementsOfPair() =
             atLeastDescr to ("$toContain.$atLeast.$elementsOf" to Companion::toContainAtLeastElementsOf)
 
         private fun toContainAtLeastElementsOf(

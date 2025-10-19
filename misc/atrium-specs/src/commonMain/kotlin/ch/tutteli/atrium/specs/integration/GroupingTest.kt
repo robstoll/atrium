@@ -1,5 +1,3 @@
-@file:Suppress("FunctionName")
-
 package ch.tutteli.atrium.specs.integration
 
 import ch.tutteli.atrium.api.fluent.en_GB.*
@@ -8,6 +6,7 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
 import kotlin.test.Test
 
+@Suppress("FunctionName")
 abstract class GroupingTest(
     group: Fun3<Int, String, () -> Any?, Expect<Int>.() -> Unit>
 ) {

@@ -10,7 +10,7 @@ class CharSequenceToContainExactlyExpectationsTest : AbstractCharSequenceToConta
     getNotToContainPair()
 ) {
     @Test
-    fun trigger_run_gutter() = 1
+    fun trigger_run_gutter() = Unit
 
     companion object : CharSequenceToContainSpecBase() {
 
@@ -24,7 +24,6 @@ class CharSequenceToContainExactlyExpectationsTest : AbstractCharSequenceToConta
         private fun getExactlyIgnoringCaseTriple() =
             { what: String, times: String -> "$toContain $ignoringCase $what $exactly $times" } to
                 ("$toContain.$ignoringCase.$exactly.$value/$values" to Companion::toContainExactlyIgnoringCase)
-
 
         private fun toContainExactlyIgnoringCase(
             expect: Expect<CharSequence>,

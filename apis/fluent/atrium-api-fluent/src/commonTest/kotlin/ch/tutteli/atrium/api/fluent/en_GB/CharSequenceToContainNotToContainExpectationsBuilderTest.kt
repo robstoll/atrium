@@ -1,8 +1,8 @@
 package ch.tutteli.atrium.api.fluent.en_GB
 
+import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.integration.AbstractCharSequenceToContainNotToContainExpectationsTest
-import ch.tutteli.atrium.api.verbs.internal.expect
 import kotlin.test.Test
 
 class CharSequenceToContainNotToContainExpectationsBuilderTest :
@@ -25,11 +25,14 @@ class CharSequenceToContainNotToContainExpectationsBuilderTest :
             else expect.notToContain.values(a, *aX)
     }
 
+    @Suppress("AssignedValueIsNeverRead", "UNUSED_VALUE")
     @Test
     fun ambiguityTest() {
-        val a1: Expect<String> = expect("1ac")
+        var a1: Expect<String> = expect("1ac")
 
-        a1.toContain(1, "a", 'c')
-        a1.notToContain(2, "b", 'd')
+        a1 = a1.toContain.atLeast(1).value(1)
+        a1 = a1.toContain.atLeast(1).values(1, "a", 'c')
+        a1 = a1.notToContain.value(2)
+        a1 = a1.notToContain.values(2, "b", 'd')
     }
 }

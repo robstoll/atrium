@@ -64,11 +64,14 @@ class ArrayAsListExpectationsTest : AbstractArrayAsListExpectationsTest(
         fun doubleArrayWithCreator(expect: Expect<DoubleArray>, expectationCreator: Expect<List<Double>>.() -> Unit) =
             expect asList { expectationCreator() }
 
-        fun booleanArrayWithCreator(expect: Expect<BooleanArray>, expectationCreator: Expect<List<Boolean>>.() -> Unit) =
+        fun booleanArrayWithCreator(
+            expect: Expect<BooleanArray>,
+            expectationCreator: Expect<List<Boolean>>.() -> Unit
+        ) =
             expect asList { expectationCreator() }
     }
 
-    @Suppress("UNUSED_VALUE")
+    @Suppress("UNUSED_VALUE", "UNUSED_VARIABLE", "unused", "AssignedValueIsNeverRead")
     @Test
     fun ambiguityTest() {
         var a1: Expect<Array<Int>> = expect(arrayOf(1))
@@ -78,19 +81,19 @@ class ArrayAsListExpectationsTest : AbstractArrayAsListExpectationsTest(
 
         var star: Expect<Array<*>> = expect(arrayOf(1))
 
-        a1 asList o
-        a2 asList o
+        val l1: Expect<List<Int>> = a1 asList o
+        val l2: Expect<List<Int>> = a2 asList o
 
         a1 = a1 asList { it toContain 1 }
         a2 = a2 asList { it toContain 1 }
 
-        a1b asList o
-        a2b asList o
+        val l1b: Expect<List<Int?>> = a1b asList o
+        val l2b: Expect<List<Int?>> = a2b asList o
 
         a1b = a1b asList { it toContain 1 }
         a2b = a2b asList { it toContain 1 }
 
-        star asList o
+        val lStar: Expect<List<*>> = star asList o
         star = star asList { it toContain 1 }
     }
 }

@@ -15,27 +15,22 @@ class CharSequenceToContainAtLeastElementsOfExpectationsTest : AbstractCharSeque
     getExactlyPair(),
     Companion::getErrorMsgAtLeastButAtMost
 ) {
-
     @Test
-    fun trigger_run_gutter() = 1
+    fun trigger_run_gutter() = Unit
 
     @TestFactory
-    fun toContainAtLeastOneElementsOf() =
-        iterableLikeToIterableTestFactory("$toContain.$atLeast(1).$elementsOf", "hello", { input ->
-        it toContain o atLeast 1 elementsOf input
-    })
-
-    @TestFactory
-    fun toContainIgnoringCaseAtLeastOneElementsOf() =
-        iterableLikeToIterableTestFactory("$toContain.$ignoringCase.$atLeast(1).$elementsOf", "hello", { input ->
-        it toContain o ignoring case atLeast 1 elementsOf input
-    })
-
-    @TestFactory
-    fun toContainIgnoringCaseElementsOf() =
-        iterableLikeToIterableTestFactory("$toContain.$ignoringCase.$elementsOf", "hello", { input ->
-        it toContain o ignoring case elementsOf input
-    })
+    fun iterableLikeToIterableTest() = iterableLikeToIterableTestFactory(
+        subject = "hello",
+        "$toContain.$atLeast(1).$elementsOf" to { input ->
+            it toContain o atLeast 1 elementsOf input
+        },
+        "$toContain.$ignoringCase.$atLeast(1).$elementsOf" to { input ->
+            it toContain o ignoring case atLeast 1 elementsOf input
+        },
+        "$toContain.$ignoringCase.$elementsOf" to { input ->
+            it toContain o ignoring case elementsOf input
+        },
+    )
 
     companion object : CharSequenceToContainSpecBase() {
 

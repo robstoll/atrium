@@ -23,22 +23,23 @@ class CharSequenceExpectationsTest : AbstractCharSequenceExpectationsTest(
         private fun notToBeBlank(expect: Expect<CharSequence>) = expect notToBe blank
     }
 
+    @Suppress("AssignedValueIsNeverRead", "UNUSED_VALUE")
     @Test
     fun ambiguityTest() {
-        val a1: Expect<String> = expect("Hello my name is Robert")
-        val a2: Expect<String> = expect("")
+        var a1: Expect<String> = expect("Hello my name is Robert")
+        var a2: Expect<String> = expect("")
 
-        a2 toBe empty
+        a2 = a2 toBe empty
 
-        a1 notToBe empty
-        a1 notToBe blank
+        a1 = a1 notToBe empty
+        a1 = a1 notToBe blank
 
-        a1 toStartWith "Hello"
-        a1 notToStartWith "Robert"
-        a1 toEndWith "Robert"
-        a1 notToEndWith "Hello"
+        a1 = a1 toStartWith "Hello"
+        a1 = a1 notToStartWith "Robert"
+        a1 = a1 toEndWith "Robert"
+        a1 = a1 notToEndWith "Hello"
 
-        a1 toMatch Regex(".+Robert")
-        a1 notToMatch Regex("a")
+        a1 = a1 toMatch Regex(".+Robert")
+        a1 = a1 notToMatch Regex("a")
     }
 }
