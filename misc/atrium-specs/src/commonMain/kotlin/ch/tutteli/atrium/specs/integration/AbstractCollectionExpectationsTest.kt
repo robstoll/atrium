@@ -1,84 +1,83 @@
 package ch.tutteli.atrium.specs.integration
 
 import ch.tutteli.atrium.api.fluent.en_GB.*
-import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
+import ch.tutteli.atrium.specs.integration.utils.ExpectationCreatorTestData
+import ch.tutteli.atrium.specs.integration.utils.SubjectLessTestData
+import ch.tutteli.atrium.testfactories.TestFactory
 import ch.tutteli.atrium.translations.DescriptionCollectionExpectation
-import org.spekframework.spek2.Spek
-import org.spekframework.spek2.style.specification.Suite
 
+@Suppress("FunctionName")
 abstract class AbstractCollectionExpectationsTest(
-    isEmpty: Fun0<Collection<Int>>,
-    isNotEmpty: Fun0<Collection<Int>>,
-    sizeFeature: Feature0<Collection<Int>, Int>,
-    size: Fun1<Collection<Int>, Expect<Int>.() -> Unit>,
-    describePrefix: String = "[Atrium] "
-) : Spek({
+    private val toBeEmptySpec: Fun0<Collection<Int>>,
+    private val notToBeEmptySpec: Fun0<Collection<Int>>,
+    private val sizeFeatureSpec: Feature0<Collection<Int>, Int>,
+    private val sizeSpec: Fun1<Collection<Int>, Expect<Int>.() -> Unit>
+) : ExpectationFunctionBaseTest() {
 
-    include(object : SubjectLessSpec<Collection<Int>>(
-        describePrefix,
-        isEmpty.forSubjectLessTest(),
-        isNotEmpty.forSubjectLessTest(),
-        sizeFeature.forSubjectLessTest().withFeatureSuffix(),
-        size.forSubjectLessTest { toBeGreaterThan(2) }
-    ) {})
 
-    include(object : AssertionCreatorSpec<Collection<Int>>(
-        describePrefix, listOf(999),
-        size.forExpectationCreatorTest("$toEqualDescr: 1") { toEqual(1) }
-    ) {})
+    @TestFactory
+    fun subjectLessTest() = subjectLessTestFactory(
+        toBeEmptySpec.forSubjectLessTest(),
+        notToBeEmptySpec.forSubjectLessTest(),
+        sizeFeatureSpec.forSubjectLessTest().withFeatureSuffix(),
+        sizeSpec.forSubjectLessTest { toBeLessThan(2) }
+    )
 
-    fun describeFun(vararg pairs: SpecPair<*>, body: Suite.() -> Unit) =
-        describeFunTemplate(describePrefix, pairs.map { it.name }.toTypedArray(), body = body)
+    @TestFactory
+    fun expectationCreatorTest() = expectationCreatorTestFactory(
+        listOf(999),
+        sizeSpec.forExpectationCreatorTest("$toEqualDescr: 1")
+        { toEqual(1) }
+    )
 
-    val empty = DescriptionCollectionExpectation.EMPTY.getDefault()
+    val emptyDescr = DescriptionCollectionExpectation.EMPTY.getDefault()
     val sizeDescr = DescriptionCollectionExpectation.SIZE.getDefault()
 
-    describeFun(isEmpty, isNotEmpty) {
-        val isEmptyFun = isEmpty.lambda
-        val isNotEmptyFun = isNotEmpty.lambda
-
-        context("collection is empty") {
-            it("${isEmpty.name} - does not throw") {
-                expect(emptyList<Int>() as Collection<Int>).isEmptyFun()
+    @TestFactory
+    fun toBeEmpty_notToBeEmpty() = testFactory(toBeEmptySpec, notToBeEmptySpec) {
+        describe("collection is empty") {
+            it("${toBeEmptySpec.name} - does not throw") {
+                expect(emptyList<Int>() as Collection<Int>).toBeEmpty()
             }
-            it("${isNotEmpty.name} - throws an AssertionError") {
+            it("${notToBeEmptySpec.name} - throws an AssertionError") {
                 expect {
-                    expect(emptyList<Int>() as Collection<Int>).isNotEmptyFun()
-                }.toThrow<AssertionError> { messageToContain("$notToBeDescr: $empty") }
+                    expect(emptyList<Int>() as Collection<Int>).notToBeEmpty()
+                }.toThrow<AssertionError> { messageToContain("$notToBeDescr: $emptyDescr") }
             }
         }
-
-        context("collection is not empty") {
-            it("${isEmpty.name} - throws an AssertionError") {
-                expect {
-                    expect(listOf(1, 2) as Collection<Int>).isEmptyFun()
-                }.toThrow<AssertionError> { messageToContain("$toBeDescr: $empty") }
+        it("${toBeEmptySpec.name} - does not throw") {
+            expect {
+                expect(emptyList<Int>() as Collection<Int>).toBeEmpty()
             }
-            it("${isNotEmpty.name} - does not throw") {
-                expect(listOf(1) as Collection<Int>).isNotEmptyFun()
+        }
+        describe("collection is not empty") {
+            it("${toBeEmptySpec.name} - throws an AssertionError") {
+                expect {
+                    expect(listOf(1, 2) as Collection<Int>).toBeEmpty()
+                }.toThrow<AssertionError> { messageToContain("$toBeDescr: $emptyDescr") }
+            }
+            it("${notToBeEmptySpec.name} - does not throw") {
+                expect(listOf(1) as Collection<Int>).notToBeEmpty()
             }
         }
     }
 
-    describeFun(sizeFeature, size) {
-        val sizeFunctions = unifySignatures(sizeFeature, size)
-
-        context("list with two entries") {
-            sizeFunctions.forEach { (name, sizeFun, _) ->
-                it("$name - is greater than 1 holds") {
-                    expect(listOf(1, 2) as Collection<Int>).sizeFun { toBeGreaterThan(1) }
-                }
-                it("$name - is less than 1 fails") {
-                    expect {
-                        expect(listOf(1, 2) as Collection<Int>).sizeFun { toBeLessThan(1) }
-                    }.toThrow<AssertionError> {
-                        messageToContain("$sizeDescr: 2")
-                    }
+    @TestFactory
+    fun size__list_with_two_entries() = testFactory(sizeFeatureSpec, sizeSpec) {
+        val sizeFunctions = unifySignatures(sizeFeatureSpec, sizeSpec)
+        sizeFunctions.forEach { (name, sizeFun, _) ->
+            it("$name - is greater than 1 holds") {
+                expect(listOf(1, 2) as Collection<Int>).sizeFun { toBeGreaterThan(1) }
+            }
+            it("$name - is less than 1 fails") {
+                expect {
+                    expect(listOf(1, 2) as Collection<Int>).sizeFun { toBeLessThan(1) }
+                }.toThrow<AssertionError> {
+                    messageToContain("$sizeDescr: 2")
                 }
             }
         }
     }
-
-})
+}
