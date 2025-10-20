@@ -5,7 +5,9 @@ package ch.tutteli.atrium.testfactories
  *
  * @since 1.3.0
  */
-sealed class TestNode
+sealed class TestNode(
+    val displayName: String
+)
 
 /**
  * A leaf test node consisting of a [displayName] and the [executable] which represents the Test as such
@@ -13,16 +15,16 @@ sealed class TestNode
  * @since 1.3.0
  */
 class LeafTestNode<TestExecutableT : TestExecutable>(
-    val displayName: String,
+    displayName: String,
     val executable: TestExecutableT.() -> Unit
-) : TestNode()
+) : TestNode(displayName)
 
 /**
  * A branch test node, i.e. which contains [nodes] itself.
  *
  * @since 1.3.0
  */
-class BranchTestNode(val displayName: String, val nodes: List<TestNode>) : TestNode()
+class BranchTestNode(displayName: String, val nodes: List<TestNode>) : TestNode(displayName)
 
 
 /**

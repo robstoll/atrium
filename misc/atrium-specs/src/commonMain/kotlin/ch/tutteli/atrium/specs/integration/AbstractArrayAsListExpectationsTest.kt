@@ -35,10 +35,11 @@ abstract class AbstractArrayAsListExpectationsTest(
     private val booleanArrWithCreator: Expect<BooleanArray>.(Expect<List<Boolean>>.() -> Unit) -> Expect<BooleanArray>,
 ) : ExpectationFunctionBaseTest() {
 
+    @Suppress("RemoveExplicitTypeArguments")
     @TestFactory
-    fun subjectLessTest(): Any {
+    fun subjectLessTest() = run {
         val asListWithCreator = "$asListFunName with Creator"
-        return subjectLessTestFactory(
+        subjectLessTestFactory(
             SubjectLessTestData<Array<Int>>(
                 asListFunName to expectLambda { arr(this) },
                 asListWithCreator to expectLambda { arrWithCreator(this) { toContain(1) } },
@@ -88,9 +89,9 @@ abstract class AbstractArrayAsListExpectationsTest(
     }
 
     @TestFactory
-    fun expectationCreatorTest(): Any {
+    fun expectationCreatorTest() = run {
         val anElementWhichEquals = DescriptionIterableLikeExpectation.AN_ELEMENT_WHICH_EQUALS.getDefault()
-        return expectationCreatorTestFactory(
+        expectationCreatorTestFactory(
             ExpectationCreatorTestData(
                 arrayOf(1),
                 ExpectationCreatorTriple(

@@ -3,7 +3,6 @@ package ch.tutteli.atrium.api.fluent.en_GB
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.integration.AbstractArrayAsListExpectationsTest
-import ch.tutteli.atrium.specs.notImplemented
 import kotlin.test.Test
 
 class ArrayAsListExpectationsTest : AbstractArrayAsListExpectationsTest(
@@ -29,7 +28,7 @@ class ArrayAsListExpectationsTest : AbstractArrayAsListExpectationsTest(
     Expect<BooleanArray>::asList
 ) {
 
-    @Suppress("UNUSED_VALUE", "AssignedValueIsNeverRead")
+    @Suppress("UNUSED_VALUE", "UNUSED_VARIABLE", "unused", "AssignedValueIsNeverRead")
     @Test
     fun ambiguityTest() {
         var a1: Expect<Array<Int>> = expect(arrayOf(1))
@@ -39,19 +38,19 @@ class ArrayAsListExpectationsTest : AbstractArrayAsListExpectationsTest(
 
         var star: Expect<Array<*>> = expect(arrayOf(1))
 
-        a1.asList()
-        a2.asList()
+        val l1: Expect<List<Int>> = a1.asList()
+        val l2: Expect<List<Int>> = a2.asList()
 
         a1 = a1.asList { toContain(1) }
         a2 = a2.asList { toContain(1) }
 
-        a1b.asList()
-        a2b.asList()
+        val l1b: Expect<List<Int?>> = a1b.asList()
+        val l2b: Expect<List<Int?>> = a2b.asList()
 
         a1b = a1b.asList { toContain(1) }
         a2b = a2b.asList { toContain(1) }
 
-        star.asList()
+        val lStar: Expect<List<*>> = star.asList()
         star = star.asList { toContain(1) }
     }
 }

@@ -18,24 +18,32 @@ fun <TestExecutableT : TestExecutable> turnIntoDescribeIt(
             is BranchTestNode ->
                 if (isFirstDescribe) {
                     val currentTest = js("globalThis.__currentTestName__")
-                    val displayName = "${node.displayName} ${if (currentTest != null) "-- $currentTest" else ""}"
+                    val displayName =
+                        "${cleanedDisplayName(node)} ${if (currentTest != null) "-- $currentTest" else ""}"
                     describe(displayName) {
                         turnIntoDescribeIt(node.nodes, testExecutableFactory, false)
                     }
                 } else {
-                    collectDescribeAndOutputSingleTest(node.displayName, node.nodes, testExecutableFactory)
+                    collectDescribeAndOutputSingleTest(cleanedDisplayName(node), node.nodes, testExecutableFactory)
                 }
 
             is LeafTestNode<*> -> {
                 check(isFirstDescribe.not()) {
                     "you need to define a describe, you cannot start with `it(\"my test case\"){...}` directly"
                 }
-                it(node.displayName) {
+                it(cleanedDisplayName(node)) {
                     testExecutableFactory().execute(node)
                 }
             }
         }
     }
+}
+
+private fun cleanedDisplayName(node: TestNode): String {
+    // that's a workaround for intellij's test view which treats . as separate groups
+    // (they probably parse the output of mocha)
+    // replace full stop by one dot leader
+    return node.displayName.replace(".", "․")
 }
 
 /**

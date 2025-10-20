@@ -1,6 +1,5 @@
 public final class ch/tutteli/atrium/testfactories/BranchTestNode : ch/tutteli/atrium/testfactories/TestNode {
 	public fun <init> (Ljava/lang/String;Ljava/util/List;)V
-	public final fun getDisplayName ()Ljava/lang/String;
 	public final fun getNodes ()Ljava/util/List;
 }
 
@@ -14,7 +13,6 @@ public abstract interface class ch/tutteli/atrium/testfactories/IterableDynamicN
 
 public final class ch/tutteli/atrium/testfactories/LeafTestNode : ch/tutteli/atrium/testfactories/TestNode {
 	public fun <init> (Ljava/lang/String;Lkotlin/jvm/functions/Function1;)V
-	public final fun getDisplayName ()Ljava/lang/String;
 	public final fun getExecutable ()Lkotlin/jvm/functions/Function1;
 }
 
@@ -46,6 +44,8 @@ public final class ch/tutteli/atrium/testfactories/TestFactory_jvmKt {
 }
 
 public abstract class ch/tutteli/atrium/testfactories/TestNode {
+	public synthetic fun <init> (Ljava/lang/String;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun getDisplayName ()Ljava/lang/String;
 }
 
 public final class ch/tutteli/atrium/testfactories/TestNodesKt {

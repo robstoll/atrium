@@ -13,19 +13,20 @@ class ExtractSubjectTest : AbstractExtractSubjectTest(
     extractSubjectDefaultFailureDescription = "❗❗ subject extraction not possible, previous expectation failed, cannot show sub-expectations"
 ) {
 
+    @Suppress("AssignedValueIsNeverRead", "UNUSED_VALUE")
     @Test
     fun ambiguityTest() {
-        val int: Expect<Int> = expect(1)
-        val nullableInt: Expect<Int?> = expect(1)
-        val star: Expect<*> = expect(1)
+        var int: Expect<Int> = expect(1)
+        var nullableInt: Expect<Int?> = expect(1)
+        var star: Expect<*> = expect(1)
 
-        int.extractSubject { _ -> toEqual(1) }
-        int.extractSubject(failureDescription = "custom descr") { _ -> toEqual(1) }
+        int = int.extractSubject { _ -> toEqual(1) }
+        int = int.extractSubject(failureDescription = "custom descr") { _ -> toEqual(1) }
 
-        nullableInt.extractSubject { _ -> toEqual(1) }
-        nullableInt.extractSubject(failureDescription = "custom descr") { _ -> toEqual(1) }
+        nullableInt = nullableInt.extractSubject { _ -> toEqual(1) }
+        nullableInt = nullableInt.extractSubject(failureDescription = "custom descr") { _ -> toEqual(1) }
 
-        star.extractSubject { _ -> toBeAnInstanceOf<Int>() }
-        star.extractSubject(failureDescription = "custom descr") { _ -> toBeAnInstanceOf<Int>() }
+        star = star.extractSubject { _ -> toBeAnInstanceOf<Int>() }
+        star = star.extractSubject(failureDescription = "custom descr") { _ -> toBeAnInstanceOf<Int>() }
     }
 }

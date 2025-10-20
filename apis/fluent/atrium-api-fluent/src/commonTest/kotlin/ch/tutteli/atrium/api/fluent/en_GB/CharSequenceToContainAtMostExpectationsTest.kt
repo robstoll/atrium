@@ -11,7 +11,7 @@ class CharSequenceToContainAtMostExpectationsTest : AbstractCharSequenceToContai
     getExactlyPair()
 ) {
     @Test
-    fun trigger_run_gutter() = 1
+    fun trigger_run_gutter() = Unit
 
     companion object : CharSequenceToContainSpecBase() {
 

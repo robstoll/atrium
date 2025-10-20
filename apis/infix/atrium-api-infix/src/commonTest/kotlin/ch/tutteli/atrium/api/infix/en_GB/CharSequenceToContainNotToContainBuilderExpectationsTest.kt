@@ -3,7 +3,6 @@ package ch.tutteli.atrium.api.infix.en_GB
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.integration.AbstractCharSequenceToContainNotToContainExpectationsTest
-import ch.tutteli.atrium.specs.notImplemented
 import kotlin.test.Test
 
 class CharSequenceToContainNotToContainBuilderExpectationsTest :
@@ -11,6 +10,7 @@ class CharSequenceToContainNotToContainBuilderExpectationsTest :
         getToContainPair(),
         getNotToContainPair()
     ) {
+
     companion object : CharSequenceToContainSpecBase() {
 
         private fun getToContainPair() = "$toContain o $value/$values" to Companion::toContainBuilder
@@ -25,11 +25,14 @@ class CharSequenceToContainNotToContainBuilderExpectationsTest :
             else expect notToContain o the values(a, *aX)
     }
 
+    @Suppress("AssignedValueIsNeverRead", "UNUSED_VALUE")
     @Test
     fun ambiguityTest() {
-        val a1: Expect<String> = expect("1ac")
+        var a1: Expect<String> = expect("1ac")
 
-        a1 toContain values(1, "a", 'c')
-        a1 notToContain values(2, "b", 'd')
+        a1 = a1 toContain o atLeast 1 value 1
+        a1 = a1 toContain o atLeast 1 the values(1, "a", 'c')
+        a1 = a1 notToContain o value 2
+        a1 = a1 notToContain o the values(2, "b", 'd')
     }
 }

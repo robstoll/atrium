@@ -20,6 +20,7 @@ expect abstract class ExpectationFunctionBaseTest() {
 
     protected fun testFactory(
         specPair: SpecPair<*>,
+        otherSpecPair: SpecPair<*>,
         vararg otherSpecPairs: SpecPair<*>,
         setup: TestFactoryBuilder<ExpectTestExecutableForTests>.() -> Unit,
     ): DynamicNodeContainer<DynamicNodeLike>

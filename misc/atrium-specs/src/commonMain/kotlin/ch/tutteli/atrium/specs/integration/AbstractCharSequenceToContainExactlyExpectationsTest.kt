@@ -126,21 +126,16 @@ abstract class AbstractCharSequenceToContainExactlyExpectationsTest(
             it("${toContainExactlyIgnoringCasePairSpec.first("'h'", "once")} does not throw (case ignored)") {
                 expect(helloWorld).toContainExactlyIgnoringCaseFun(1, 'h')
             }
-
             it("${toContainExactlyIgnoringCasePairSpec.first("'H', 'E'", "once")} does not throw (case ignored)") {
                 expect(helloWorld).toContainExactlyIgnoringCaseFun(1, 'H', 'E')
             }
-
             it("${toContainExactlyIgnoringCasePairSpec.first("'E', 'H'", "once")} does not throw (case ignored)") {
                 expect(helloWorld).toContainExactlyIgnoringCaseFun(1, 'E', 'H')
             }
 
             it(
                 "${
-                    toContainExactlyIgnoringCasePairSpec.first(
-                        "'H' and 'E' and 'w'",
-                        "once"
-                    )
+                    toContainExactlyIgnoringCasePairSpec.first("'H' and 'E' and 'w'", "once")
                 } does not throw (case ignored)"
             ) {
                 expect(helloWorld).toContainExactlyIgnoringCaseFun(1, 'H', 'E', 'w')
@@ -160,10 +155,7 @@ abstract class AbstractCharSequenceToContainExactlyExpectationsTest(
             }
             it(
                 "${
-                    toContainExactlyPairSpec.first(
-                        "'o'",
-                        "3 times"
-                    )
+                    toContainExactlyPairSpec.first("'o'", "3 times")
                 } throws AssertionError and message contains both, " +
                     "how many times we expected (3) and how many times it actually contained 'o' (2)"
             ) {
@@ -200,10 +192,7 @@ abstract class AbstractCharSequenceToContainExactlyExpectationsTest(
             }
             it(
                 "${
-                    toContainExactlyPairSpec.first(
-                        "'o' and 'l'",
-                        "3 times"
-                    )
+                    toContainExactlyPairSpec.first("'o' and 'l'", "3 times")
                 } throws AssertionError and message contains both, how many times we expected (3) and how many times it actually contained 'o' (2)"
             ) {
                 expect {

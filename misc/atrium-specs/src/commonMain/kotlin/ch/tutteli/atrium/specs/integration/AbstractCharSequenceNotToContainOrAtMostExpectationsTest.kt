@@ -60,21 +60,20 @@ abstract class AbstractCharSequenceNotToContainOrAtMostExpectationsTest(
         }
 
     @TestFactory
-    fun notToContainOrAtMost__helloWorld__happy_cases() =
-        testFactory(notToContainOrAtMostSpec) {
-            it("${notToContainOrAtMostPair.first("'H'", "once")} does not throw") {
-                expect(helloWorld).notToContainOrAtMostFun(1, 'H')
-            }
-            it("${notToContainOrAtMostPair.first("'H' and 'e' and 'W'", "once")} does not throw") {
-                expect(helloWorld).notToContainOrAtMostFun(1, 'H', 'e', 'W')
-            }
-            it("${notToContainOrAtMostPair.first("'W' and 'H' and 'e'", "once")} does not throw") {
-                expect(helloWorld).notToContainOrAtMostFun(1, 'W', 'H', 'e')
-            }
-            it("${notToContainOrAtMostPair.first("'x' and 'y' and 'z'", "twice")} does not throw") {
-                expect(helloWorld).notToContainOrAtMostFun(2, 'x', 'y', 'z')
-            }
+    fun notToContainOrAtMost__helloWorld__happy_cases() = testFactory(notToContainOrAtMostSpec) {
+        it("${notToContainOrAtMostPair.first("'H'", "once")} does not throw") {
+            expect(helloWorld).notToContainOrAtMostFun(1, 'H')
         }
+        it("${notToContainOrAtMostPair.first("'H' and 'e' and 'W'", "once")} does not throw") {
+            expect(helloWorld).notToContainOrAtMostFun(1, 'H', 'e', 'W')
+        }
+        it("${notToContainOrAtMostPair.first("'W' and 'H' and 'e'", "once")} does not throw") {
+            expect(helloWorld).notToContainOrAtMostFun(1, 'W', 'H', 'e')
+        }
+        it("${notToContainOrAtMostPair.first("'x' and 'y' and 'z'", "twice")} does not throw") {
+            expect(helloWorld).notToContainOrAtMostFun(2, 'x', 'y', 'z')
+        }
+    }
 
     @TestFactory
     fun notToContainOrAtMostIgnoringCase__helloWorld__happy_cases() =

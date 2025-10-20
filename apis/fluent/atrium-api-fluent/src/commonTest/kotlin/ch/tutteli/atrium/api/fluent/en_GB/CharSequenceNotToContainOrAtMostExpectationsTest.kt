@@ -10,7 +10,7 @@ class CharSequenceNotToContainOrAtMostExpectationsTest : AbstractCharSequenceNot
     getNotToContainPair()
 ) {
     @Test
-    fun trigger_run_gutter() = 1
+    fun trigger_run_gutter() = Unit
 
     companion object : CharSequenceToContainSpecBase() {
 
@@ -36,6 +36,5 @@ class CharSequenceNotToContainOrAtMostExpectationsTest : AbstractCharSequenceNot
         private fun getNotToContainPair() = toContainNot to Companion::getErrorMsgNotToContain
 
         private fun getErrorMsgNotToContain(times: Int) = "use $toContainNot instead of $notOrAtMost($times)"
-
     }
 }
