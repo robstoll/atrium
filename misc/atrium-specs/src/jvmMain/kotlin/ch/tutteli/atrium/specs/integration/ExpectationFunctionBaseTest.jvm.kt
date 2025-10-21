@@ -10,8 +10,6 @@ import ch.tutteli.atrium.specs.integration.utils.expectationCreatorTestSetup
 import ch.tutteli.atrium.specs.integration.utils.subjectLessTestSetup
 import ch.tutteli.atrium.specs.uncheckedToNonNullable
 import ch.tutteli.atrium.testfactories.TestFactoryBuilder
-import org.junit.jupiter.api.BeforeAll
-import java.util.logging.*
 
 
 actual abstract class ExpectationFunctionBaseTest {

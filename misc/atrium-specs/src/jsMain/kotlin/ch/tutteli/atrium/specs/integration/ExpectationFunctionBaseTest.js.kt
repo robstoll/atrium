@@ -12,7 +12,6 @@ import ch.tutteli.atrium.specs.name
 import ch.tutteli.atrium.specs.uncheckedToNonNullable
 import ch.tutteli.atrium.testfactories.*
 import ch.tutteli.atrium.testfactories.expect.grouped.impl.turnTestNodesIntoExpectGrouping
-import ch.tutteli.kbox.glue
 import ch.tutteli.atrium.api.verbs.internal.testFactory as internalTestFactory
 
 actual abstract class ExpectationFunctionBaseTest {
