@@ -10,3 +10,5 @@ actual fun String.format(locale: Locale, arg: Any, vararg otherArgs: Any): Strin
 actual fun String.format(arg: Any, vararg otherArgs: Any): String {
     return java.lang.String.format(this, arg, *otherArgs)
 }
+
+actual fun String.toRegexSupportingQE(): Regex = toRegex()

@@ -26,3 +26,12 @@ private fun replacePlaceholdersWithArgs(string: String, arg: Any, otherArgs: Arr
     }
     return tmp
 }
+
+actual fun String.toRegexSupportingQE(): Regex {
+    // Replace all \Q...\E blocks with escaped content
+    val replaced = Regex("""\\Q([\s\S]*?)\\E""")  // use [\s\S]*? to match all chars
+        .replace(this) { matchResult ->
+            matchResult.groupValues[1].replace(Regex("""[.*+?^$()|\[\]]""")) { "\\${it.value}" }
+        }
+    return Regex(replaced)
+}
