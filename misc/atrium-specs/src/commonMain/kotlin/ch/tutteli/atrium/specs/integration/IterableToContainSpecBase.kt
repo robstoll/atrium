@@ -23,11 +23,11 @@ import org.spekframework.spek2.style.specification.describe
 abstract class IterableToContainSpecBase(spec: Root.() -> Unit) : Spek(spec) {
 
     companion object {
-        val oneToFour = { sequenceOf(1.0, 2.0, 3.0, 4.0, 4.0).constrainOnce().asIterable() }
-        val oneToEleven = (1..11).map { it.toDouble() }.asIterable()
-        val oneToSeven = { sequenceOf(1.0, 2.0, 4.0, 4.0, 5.0, 3.0, 5.0, 6.0, 4.0, 7.0).constrainOnce().asIterable() }
+        val oneToFour = { sequenceOf(1.1, 2.1, 3.1, 4.1, 4.1).constrainOnce().asIterable() }
+        val oneToEleven = listOf(1.1, 2.1, 3.1, 4.1, 5.1, 6.1, 7.1, 8.1, 9.1, 10.1, 11.1).asIterable()
+        val oneToSeven = { sequenceOf(1.1, 2.1, 4.1, 4.1, 5.1, 3.1, 5.1, 6.1, 4.1, 7.1).constrainOnce().asIterable() }
         val oneToSevenNullable =
-            { sequenceOf(1.0, null, 4.0, 4.0, 5.0, null, 5.0, 6.0, 4.0, 7.0).constrainOnce().asIterable() }
+            { sequenceOf(1.1, null, 4.1, 4.1, 5.1, null, 5.1, 6.1, 4.1, 7.1).constrainOnce().asIterable() }
 
         val toContainInAnyOrder = DescriptionIterableLikeExpectation.IN_ANY_ORDER.getDefault().format(
             DescriptionIterableLikeExpectation.TO_CONTAIN.getDefault()

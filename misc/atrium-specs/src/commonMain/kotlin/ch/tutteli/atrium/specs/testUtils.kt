@@ -301,7 +301,7 @@ val iterableLikeTypesWithElement1 = mapOf(
     "ShortArray" to shortArrayOf(1),
     "IntArray" to intArrayOf(1),
     "LongArray" to longArrayOf(1),
-    "FloatArray" to floatArrayOf(1.0f),
-    "DoubleArray" to doubleArrayOf(1.0),
+    "FloatArray" to floatArrayOf(1.1f),
+    "DoubleArray" to doubleArrayOf(1.1),
     "BooleanArray" to booleanArrayOf(false)
 )

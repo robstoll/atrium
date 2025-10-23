@@ -218,14 +218,14 @@ abstract class IterableToContainInOrderOnlyGroupedValuesExpectationsSpec(
         }
 
         context("empty collection") {
-            it("(1.0), (1.2) throws AssertionError") {
+            it("(1.1), (1.2) throws AssertionError") {
                 expect {
-                    expect(fluentEmpty()).toContainFun(context(1.0), context(1.2))
+                    expect(fluentEmpty()).toContainFun(context(1.1), context(1.2))
                 }.toThrow<AssertionError> {
                     message {
                         toContainSize(0, 2)
                         toContain.exactly(1).value("$rootBulletPoint$toContainInOrderOnlyGrouped:")
-                        indexNonExisting(0, 1.0)
+                        indexNonExisting(0, 1.1)
                         indexNonExisting(1, 1.2)
                         notToContain(additionalElements)
                     }
@@ -236,114 +236,114 @@ abstract class IterableToContainInOrderOnlyGroupedValuesExpectationsSpec(
         context("iterable ${oneToFour().toList()}") {
 
             context("happy case") {
-                it("(1.0), (2.0, 3.0), (4.0, 4.0)") {
-                    expect(oneToFour()).toContainFun(context(1.0), context(2.0, 3.0), context(4.0, 4.0))
+                it("(1.1), (2.1, 3.1), (4.1, 4.1)") {
+                    expect(oneToFour()).toContainFun(context(1.1), context(2.1, 3.1), context(4.1, 4.1))
                 }
-                it("(2.0, 1.0), (4.0, 3.0), (4.0)") {
-                    expect(oneToFour()).toContainFun(context(2.0, 1.0), context(4.0, 3.0), context(4.0))
+                it("(2.1, 1.1), (4.1, 3.1), (4.1)") {
+                    expect(oneToFour()).toContainFun(context(2.1, 1.1), context(4.1, 3.1), context(4.1))
                 }
-                it("(2.0, 3.0, 1.0), (4.0), (4.0)") {
-                    expect(oneToFour()).toContainFun(context(2.0, 3.0, 1.0), context(4.0), context(4.0))
+                it("(2.1, 3.1, 1.1), (4.1), (4.1)") {
+                    expect(oneToFour()).toContainFun(context(2.1, 3.1, 1.1), context(4.1), context(4.1))
                 }
-                it("(1.0, 2.0), (4.0, 3.0, 4.0)") {
-                    expect(oneToFour()).toContainFun(context(1.0, 2.0), context(4.0, 3.0, 4.0))
+                it("(1.1, 2.1), (4.1, 3.1, 4.1)") {
+                    expect(oneToFour()).toContainFun(context(1.1, 2.1), context(4.1, 3.1, 4.1))
                 }
             }
 
             context("error cases (throws AssertionError)") {
 
-                it("(4.0, 1.0), (2.0, 3.0, 4.0) -- wrong order") {
+                it("(4.1, 1.1), (2.1, 3.1, 4.1) -- wrong order") {
                     expect {
-                        expect(oneToFour()).toContainFun(context(4.0, 1.0), context(2.0, 3.0, 4.0))
+                        expect(oneToFour()).toContainFun(context(4.1, 1.1), context(2.1, 3.1, 4.1))
                     }.toThrow<AssertionError> {
                         message {
                             toContain.exactly(1).value("$rootBulletPoint$toContainInOrderOnlyGrouped:")
                             indexFail(
-                                0, 1, listOf(1.0, 2.0),
+                                0, 1, listOf(1.1, 2.1),
                                 sizeCheck(2, 2),
-                                failAfterFail(4.0),
-                                successAfterFail(1.0),
-                                mismatchesAfterFail(2.0)
+                                failAfterFail(4.1),
+                                successAfterFail(1.1),
+                                mismatchesAfterFail(2.1)
                             )
                             indexFail(
-                                2, 4, listOf(3.0, 4.0, 4.0),
+                                2, 4, listOf(3.1, 4.1, 4.1),
                                 sizeCheck(3, 3),
-                                failAfterFail(2.0),
-                                successAfterFail(3.0),
-                                successAfterFail(4.0),
-                                mismatchesAfterFail(4.0)
+                                failAfterFail(2.1),
+                                successAfterFail(3.1),
+                                successAfterFail(4.1),
+                                mismatchesAfterFail(4.1)
                             )
                             notToContain(size(indentRootBulletPoint, successfulBulletPoint, 5, 5))
                         }
                     }
                 }
 
-                it("(1.0), (4.0, 3.0, 2.0) -- 4.0 was missing") {
+                it("(1.1), (4.1, 3.1, 2.1) -- 4.1 was missing") {
                     expect {
-                        expect(oneToFour()).toContainFun(context(1.0), context(4.0, 2.0, 3.0))
+                        expect(oneToFour()).toContainFun(context(1.1), context(4.1, 2.1, 3.1))
                     }.toThrow<AssertionError> {
                         message {
                             toContain.exactly(1).value("$rootBulletPoint$toContainInOrderOnlyGrouped:")
-                            indexSuccess(0, 1.0)
+                            indexSuccess(0, 1.1)
                             indexSuccess(
-                                1, 3, listOf(2.0, 3.0, 4.0),
+                                1, 3, listOf(2.1, 3.1, 4.1),
                                 sizeCheck(3, 3),
-                                successAfterSuccess(4.0, 2.0, 3.0)
+                                successAfterSuccess(4.1, 2.1, 3.1)
                             )
                             sizeCheck(5, 4)
-                            toContainRegex(additional(4 to 4.0))
+                            toContainRegex(additional(4 to 4.1))
                         }
                     }
                 }
 
-                it("(1.0), (4.0) -- 2.0, 3.0 and 4.0 was missing") {
+                it("(1.1), (4.1) -- 2.1, 3.1 and 4.1 was missing") {
                     expect {
-                        expect(oneToFour()).toContainFun(context(1.0), context(4.0))
+                        expect(oneToFour()).toContainFun(context(1.1), context(4.1))
                     }.toThrow<AssertionError> {
                         message {
                             toContain.exactly(1).value("$rootBulletPoint$toContainInOrderOnlyGrouped:")
-                            indexSuccess(0, 1.0)
-                            indexFail(1, 2.0, 4.0)
+                            indexSuccess(0, 1.1)
+                            indexFail(1, 2.1, 4.1)
                             sizeCheck(5, 2)
-                            toContainRegex(additional(2 to 3.0, 3 to 4.0, 4 to 4.0))
+                            toContainRegex(additional(2 to 3.1, 3 to 4.1, 4 to 4.1))
                         }
                     }
                 }
-                it("(1.0, 3.0), (5.0) -- 5.0 is wrong and 4.0 and 4.0 are missing") {
+                it("(1.1, 3.1), (5.1) -- 5.1 is wrong and 4.1 and 4.1 are missing") {
                     expect {
-                        expect(oneToFour()).toContainFun(context(1.0, 3.0), context(5.0))
+                        expect(oneToFour()).toContainFun(context(1.1, 3.1), context(5.1))
                     }.toThrow<AssertionError> {
                         message {
                             toContain.exactly(1).value("$rootBulletPoint$toContainInOrderOnlyGrouped:")
                             indexFail(
-                                0, 1, listOf(1.0, 2.0),
+                                0, 1, listOf(1.1, 2.1),
                                 sizeCheck(2, 2),
-                                successAfterFail(1.0),
-                                failAfterFail(3.0),
-                                mismatchesAfterFail(2.0)
+                                successAfterFail(1.1),
+                                failAfterFail(3.1),
+                                mismatchesAfterFail(2.1)
                             )
-                            indexFail(2, 3.0, 5.0)
+                            indexFail(2, 3.1, 5.1)
                             sizeCheck(5, 3)
-                            toContainRegex(additional(3 to 4.0, 4 to 4.0))
+                            toContainRegex(additional(3 to 4.1, 4 to 4.1))
                         }
                     }
                 }
-                it("( 4.0, 1.0, 3.0, 2.0), (5.0, 4.0) -- 5.0 too much") {
+                it("( 4.1, 1.1, 3.1, 2.1), (5.1, 4.1) -- 5.1 too much") {
                     expect {
-                        expect(oneToFour()).toContainFun(context(4.0, 1.0, 3.0, 2.0), context(5.0, 4.0))
+                        expect(oneToFour()).toContainFun(context(4.1, 1.1, 3.1, 2.1), context(5.1, 4.1))
                     }.toThrow<AssertionError> {
                         message {
                             toContain.exactly(1).value("$rootBulletPoint$toContainInOrderOnlyGrouped:")
                             indexSuccess(
-                                0, 3, listOf(1.0, 2.0, 3.0, 4.0),
+                                0, 3, listOf(1.1, 2.1, 3.1, 4.1),
                                 sizeCheck(4, 4),
-                                successAfterSuccess(4.0, 1.0, 3.0, 2.0)
+                                successAfterSuccess(4.1, 1.1, 3.1, 2.1)
                             )
                             indexFail(
-                                4, 5, listOf(4.0),
+                                4, 5, listOf(4.1),
                                 sizeCheck(1, 2),
-                                failAfterFail(5.0),
-                                successAfterFail(4.0)
+                                failAfterFail(5.1),
+                                successAfterFail(4.1)
                             )
                             sizeCheck(5, 7) // TODO change back to 5,6
                         }
@@ -357,9 +357,9 @@ abstract class IterableToContainInOrderOnlyGroupedValuesExpectationsSpec(
                 it("shows only failing indices with report option `showOnlyFailing` but still default behaviour per group (i.e. only failing if more than 10") {
                     expect {
                         expect(oneToFour()).toContainFun(
-                            context(1.0),
-                            context(2.0, 4.0),
-                            context(1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0, 11.0),
+                            context(1.1),
+                            context(2.1, 4.1),
+                            context(1.1, 2.1, 3.1, 4.1, 5.1, 6.1, 7.1, 8.1, 9.1, 10.1, 11.1),
                             report = { showOnlyFailing() })
                     }.toThrow<AssertionError> {
                         message {
@@ -367,30 +367,30 @@ abstract class IterableToContainInOrderOnlyGroupedValuesExpectationsSpec(
                             toContain.exactly(1).value("$rootBulletPoint$toContainInOrderOnlyGrouped:")
                             notToContainIndex(0, 0)
                             indexFail(
-                                1, 2, listOf(2.0, 3.0),
+                                1, 2, listOf(2.1, 3.1),
                                 null,
-                                successAfterSuccess(2.0),
-                                failAfterSuccess(4.0),
+                                successAfterSuccess(2.1),
+                                failAfterSuccess(4.1),
                                 withBulletPoint = false
                             )
                             indexFail(
                                 3,
                                 13,
-                                listOf(4.0, 4.0),
+                                listOf(4.1, 4.1),
                                 sizeCheck(2, 11),
-                                failAfterFail(1.0, withBulletPoint = false),
-                                failAfterFail(2.0, withBulletPoint = false),
-                                failAfterFail(3.0, withBulletPoint = false),
-                                failAfterFail(5.0, withBulletPoint = false),
-                                failAfterFail(6.0, withBulletPoint = false),
-                                failAfterFail(7.0, withBulletPoint = false),
-                                failAfterFail(8.0, withBulletPoint = false),
-                                failAfterFail(9.0, withBulletPoint = false),
-                                failAfterFail(10.0, withBulletPoint = false),
-                                failAfterFail(11.0, withBulletPoint = false),
+                                failAfterFail(1.1, withBulletPoint = false),
+                                failAfterFail(2.1, withBulletPoint = false),
+                                failAfterFail(3.1, withBulletPoint = false),
+                                failAfterFail(5.1, withBulletPoint = false),
+                                failAfterFail(6.1, withBulletPoint = false),
+                                failAfterFail(7.1, withBulletPoint = false),
+                                failAfterFail(8.1, withBulletPoint = false),
+                                failAfterFail(9.1, withBulletPoint = false),
+                                failAfterFail(10.1, withBulletPoint = false),
+                                failAfterFail(11.1, withBulletPoint = false),
                                 withBulletPoint = false
                             )
-                            mismatchesAfterFail(4.0)
+                            mismatchesAfterFail(4.1)
                         }
                     }
                 }
@@ -398,8 +398,8 @@ abstract class IterableToContainInOrderOnlyGroupedValuesExpectationsSpec(
                 it("shows only failing indices with report option `showOnlyFailing` and only failing elements with reportInGroup option `showOnlyFailing` ") {
                     expect {
                         expect(oneToFour()).toContainFun(
-                            context(1.0, 2.0, 3.0),
-                            context(4.0, 4.0, 5.0),
+                            context(1.1, 2.1, 3.1),
+                            context(4.1, 4.1, 5.1),
                             report = { showOnlyFailing() },
                             reportInGroup = { showOnlyFailing() }
                         )
@@ -409,12 +409,12 @@ abstract class IterableToContainInOrderOnlyGroupedValuesExpectationsSpec(
                             toContain.exactly(1).value("$rootBulletPoint$toContainInOrderOnlyGrouped:")
                             notToContainIndex(1, 2)
                             indexFail(
-                                3, 5, listOf(4.0, 4.0),
+                                3, 5, listOf(4.1, 4.1),
                                 sizeCheck(2, 3),
-                                failAfterFail(5.0, withBulletPoint = false),
+                                failAfterFail(5.1, withBulletPoint = false),
                                 withBulletPoint = false
                             )
-                            notToContain("$anElementWhichEquals: 4.0")
+                            notToContain("$anElementWhichEquals: 4.1")
                         }
                     }
                 }
@@ -422,8 +422,8 @@ abstract class IterableToContainInOrderOnlyGroupedValuesExpectationsSpec(
                 it("shows only failing indices with report option `showOnlyFailingIfMoreExpectedElementsThan(3)` because there are 5 but still all elements in group") {
                     expect {
                         expect(oneToFour()).toContainFun(
-                            context(1.0, 2.0, 3.0),
-                            context(4.0, 4.0, 5.0),
+                            context(1.1, 2.1, 3.1),
+                            context(4.1, 4.1, 5.1),
                             report = { showOnlyFailingIfMoreExpectedElementsThan(3) })
                     }.toThrow<AssertionError> {
                         message {
@@ -431,10 +431,10 @@ abstract class IterableToContainInOrderOnlyGroupedValuesExpectationsSpec(
                             toContain.exactly(1).value("$rootBulletPoint$toContainInOrderOnlyGrouped:")
                             notToContainIndex(1, 2)
                             indexFail(
-                                3, 5, listOf(4.0, 4.0),
+                                3, 5, listOf(4.1, 4.1),
                                 sizeCheck(2, 3),
-                                successAfterSuccess(4.0, 4.0),
-                                failAfterFail(5.0),
+                                successAfterSuccess(4.1, 4.1),
+                                failAfterFail(5.1),
                                 withBulletPoint = false
                             )
                         }
@@ -446,17 +446,17 @@ abstract class IterableToContainInOrderOnlyGroupedValuesExpectationsSpec(
                 it("shows only failing indices per default as there are more than 10 expected groups, yet still summary in group") {
                     expect {
                         expect(oneToEleven).toContainFun(
-                            context(1.0, 1.0),
-                            context(2.0),
-                            context(3.0, -3.0),
-                            context(1.0, 4.0),
-                            context(8.0),
-                            context(10.0, 9.0),
-                            context(-1.0, -2.0, 9.0),
-                            context(7.0, 8.0),
-                            context(9.0, -8.0),
-                            context(10.0, 11.0),
-                            context(12.0)
+                            context(1.1, 1.1),
+                            context(2.1),
+                            context(3.1, -3.1),
+                            context(1.1, 4.1),
+                            context(8.1),
+                            context(10.1, 9.1),
+                            context(-1.1, -2.1, 9.1),
+                            context(7.1, 8.1),
+                            context(9.1, -8.1),
+                            context(10.1, 11.1),
+                            context(12.1)
                         )
                     }.toThrow<AssertionError> {
 
@@ -464,136 +464,136 @@ abstract class IterableToContainInOrderOnlyGroupedValuesExpectationsSpec(
                             toContainSize(11, 20)
                             toContain.exactly(1).value("$rootBulletPoint$toContainInOrderOnlyGrouped:")
                             indexFail(
-                                0, 1, listOf(1.0, 2.0),
+                                0, 1, listOf(1.1, 2.1),
                                 null, //i.e no size check is shown as 2=2 and summary is only for inReportGroup
-                                successAfterFail(1.0),
-                                failAfterSuccess(1.0),
+                                successAfterFail(1.1),
+                                failAfterSuccess(1.1),
                                 withBulletPoint = false
                             )
-                            mismatchesAfterFail(2.0)
-                            indexFail(2, 3.0, 2.0, withBulletPoint = false)
+                            mismatchesAfterFail(2.1)
+                            indexFail(2, 3.1, 2.1, withBulletPoint = false)
                             indexFail(
-                                3, 4, listOf(4.0, 5.0),
+                                3, 4, listOf(4.1, 5.1),
                                 null, //i.e no size check is shown as 2=2 and summary is only for inReportGroup
-                                failAfterSuccess(3.0),
-                                failAfterFail(-3.0),
+                                failAfterSuccess(3.1),
+                                failAfterFail(-3.1),
                                 withBulletPoint = false
                             )
-                            mismatchesAfterFail(4.0, 5.0)
+                            mismatchesAfterFail(4.1, 5.1)
                             indexFail(
-                                5, 6, listOf(6.0, 7.0),
+                                5, 6, listOf(6.1, 7.1),
                                 null, //i.e no size check is shown as 2=2 and summary is only for inReportGroup
-                                failAfterSuccess(1.0),
-                                failAfterFail(4.0),
+                                failAfterSuccess(1.1),
+                                failAfterFail(4.1),
                                 withBulletPoint = false
                             )
-                            mismatchesAfterFail(6.0, 7.0)
+                            mismatchesAfterFail(6.1, 7.1)
                             notToContainIndex(7, 7)
                             notToContainIndex(8, 9)
                             indexFail(
-                                10, 12, listOf(11.0),
+                                10, 12, listOf(11.1),
                                 sizeCheck(1, 3),
-                                failAfterSuccess(-1.0),
-                                failAfterFail(-2.0),
-                                failAfterFail(9.0),
+                                failAfterSuccess(-1.1),
+                                failAfterFail(-2.1),
+                                failAfterFail(9.1),
                                 withBulletPoint = false
                             )
-                            mismatchesAfterFail(11.0)
+                            mismatchesAfterFail(11.1)
                             indexNonExisting(
                                 13, 14,
                                 size("", explanatoryBulletPoint, null, 2),
-                                7.0, 8.0,
+                                7.1, 8.1,
                                 withBulletPoint = false
                             )
                             indexNonExisting(
                                 15, 16,
                                 size("", explanatoryBulletPoint, null, 2),
-                                9.0, -8.0,
+                                9.1, -8.1,
                                 withBulletPoint = false
                             )
                             indexNonExisting(
                                 17, 18,
                                 size("", explanatoryBulletPoint, null, 2),
-                                10.0, 11.0,
+                                10.1, 11.1,
                                 withBulletPoint = false
                             )
-                            indexNonExisting(19, 12.0, withBulletPoint = false)
+                            indexNonExisting(19, 12.1, withBulletPoint = false)
                         }
                     }
                 }
                 it("shows all indices with report option `showAlwaysSummary`") {
                     expect {
                         expect(oneToEleven).toContainFun(
-                            context(1.0, 1.0),
-                            context(2.0),
-                            context(3.0, -3.0),
-                            context(1.0, 4.0),
-                            context(8.0),
-                            context(10.0, 9.0),
-                            context(-1.0, -2.0, 9.0),
-                            context(7.0, 8.0),
-                            context(9.0, -8.0),
-                            context(10.0, 11.0),
-                            context(12.0),
+                            context(1.1, 1.1),
+                            context(2.1),
+                            context(3.1, -3.1),
+                            context(1.1, 4.1),
+                            context(8.1),
+                            context(10.1, 9.1),
+                            context(-1.1, -2.1, 9.1),
+                            context(7.1, 8.1),
+                            context(9.1, -8.1),
+                            context(10.1, 11.1),
+                            context(12.1),
                             report = { showAlwaysSummary() }
                         )
                     }.toThrow<AssertionError> {
                         message {
                             toContainSize(11, 20)
                             indexFail(
-                                0, 1, listOf(1.0, 2.0),
+                                0, 1, listOf(1.1, 2.1),
                                 sizeCheck(2, 2),
-                                successAfterFail(1.0),
-                                failAfterSuccess(1.0)
+                                successAfterFail(1.1),
+                                failAfterSuccess(1.1)
                             )
-                            mismatchesAfterFail(2.0)
-                            indexFail(2, 3.0, 2.0)
+                            mismatchesAfterFail(2.1)
+                            indexFail(2, 3.1, 2.1)
                             indexFail(
-                                3, 4, listOf(4.0, 5.0),
+                                3, 4, listOf(4.1, 5.1),
                                 sizeCheck(2, 2),
-                                failAfterSuccess(3.0),
-                                failAfterFail(-3.0)
+                                failAfterSuccess(3.1),
+                                failAfterFail(-3.1)
                             )
-                            mismatchesAfterFail(4.0, 5.0)
+                            mismatchesAfterFail(4.1, 5.1)
                             indexFail(
-                                5, 6, listOf(6.0, 7.0),
+                                5, 6, listOf(6.1, 7.1),
                                 sizeCheck(2, 2),
-                                failAfterSuccess(1.0),
-                                failAfterFail(4.0)
+                                failAfterSuccess(1.1),
+                                failAfterFail(4.1)
                             )
-                            mismatchesAfterFail(6.0, 7.0)
-                            indexSuccess(7, 8.0)
+                            mismatchesAfterFail(6.1, 7.1)
+                            indexSuccess(7, 8.1)
                             indexSuccess(
-                                8, 9, listOf(9.0, 10.0),
-                                //TODO 1.3.0: https://github.com/robstoll/atrium/issues/724 should not be shown, is enough to show the indices
+                                8, 9, listOf(9.1, 10.1),
+                                //TODO 1.3.1: https://github.com/robstoll/atrium/issues/724 should not be shown, is enough to show the indices
                                 sizeCheck(2, 2),
-                                successAfterSuccess(10.0),
-                                successAfterSuccess(9.0)
+                                successAfterSuccess(10.1),
+                                successAfterSuccess(9.1)
                             )
                             indexFail(
-                                10, 12, listOf(11.0),
+                                10, 12, listOf(11.1),
                                 sizeCheck(1, 3),
-                                failAfterFail(-1.0),
-                                failAfterFail(-2.0),
-                                failAfterFail(9.0)
+                                failAfterFail(-1.1),
+                                failAfterFail(-2.1),
+                                failAfterFail(9.1)
                             )
-                            mismatchesAfterFail(11.0)
+                            mismatchesAfterFail(11.1)
                             indexNonExisting(
                                 13, 14,
                                 size("", explanatoryBulletPoint, null, 2),
-                                7.0, 8.0
+                                7.1, 8.1
                             )
                             indexNonExisting(
                                 15, 16,
                                 size("", explanatoryBulletPoint, null, 2),
-                                9.0, -8.0
+                                9.1, -8.1
                             )
                             indexNonExisting(
                                 17, 18,
                                 size("", explanatoryBulletPoint, null, 2),
-                                10.0, 11.0
+                                10.1, 11.1
                             )
-                            indexNonExisting(19, 12.0)
+                            indexNonExisting(19, 12.1)
                         }
                     }
                 }
@@ -601,17 +601,17 @@ abstract class IterableToContainInOrderOnlyGroupedValuesExpectationsSpec(
                 it("shows only failing indices per default and only failing in group with reportInGroup `showOnlyFailing`") {
                     expect {
                         expect(oneToEleven).toContainFun(
-                            context(1.0, 1.0),
-                            context(2.0),
-                            context(3.0, -3.0),
-                            context(1.0, 4.0),
-                            context(8.0),
-                            context(10.0, 9.0),
-                            context(-1.0, -2.0, 9.0),
-                            context(7.0, 8.0),
-                            context(9.0, -8.0),
-                            context(10.0, 11.0),
-                            context(12.0),
+                            context(1.1, 1.1),
+                            context(2.1),
+                            context(3.1, -3.1),
+                            context(1.1, 4.1),
+                            context(8.1),
+                            context(10.1, 9.1),
+                            context(-1.1, -2.1, 9.1),
+                            context(7.1, 8.1),
+                            context(9.1, -8.1),
+                            context(10.1, 11.1),
+                            context(12.1),
                             reportInGroup = { showOnlyFailing() }
                         )
                     }.toThrow<AssertionError> {
@@ -619,59 +619,59 @@ abstract class IterableToContainInOrderOnlyGroupedValuesExpectationsSpec(
                             toContainSize(11, 20)
                             toContain.exactly(1).value("$rootBulletPoint$toContainInOrderOnlyGrouped:")
                             indexFail(
-                                0, 1, listOf(1.0, 2.0),
+                                0, 1, listOf(1.1, 2.1),
                                 null, //i.e no size check is shown as 2=2 and summary is only for inReportGroup
-                                failAfterFail(1.0, withBulletPoint = false),
+                                failAfterFail(1.1, withBulletPoint = false),
                                 withBulletPoint = false
                             )
-                            mismatchesAfterFail(2.0)
-                            indexFail(2, 3.0, 2.0, withBulletPoint = false)
+                            mismatchesAfterFail(2.1)
+                            indexFail(2, 3.1, 2.1, withBulletPoint = false)
                             indexFail(
-                                3, 4, listOf(4.0, 5.0),
+                                3, 4, listOf(4.1, 5.1),
                                 null, //i.e no size check is shown as 2=2 and summary is only for inReportGroup
-                                failAfterFail(3.0, withBulletPoint = false),
-                                failAfterFail(-3.0, withBulletPoint = false),
+                                failAfterFail(3.1, withBulletPoint = false),
+                                failAfterFail(-3.1, withBulletPoint = false),
                                 withBulletPoint = false
                             )
-                            mismatchesAfterFail(4.0, 5.0)
+                            mismatchesAfterFail(4.1, 5.1)
                             indexFail(
-                                5, 6, listOf(6.0, 7.0),
+                                5, 6, listOf(6.1, 7.1),
                                 null, //i.e no size check is shown as 2=2 and summary is only for inReportGroup
-                                failAfterFail(1.0, withBulletPoint = false),
-                                failAfterFail(4.0, withBulletPoint = false),
+                                failAfterFail(1.1, withBulletPoint = false),
+                                failAfterFail(4.1, withBulletPoint = false),
                                 withBulletPoint = false
                             )
-                            mismatchesAfterFail(6.0, 7.0)
+                            mismatchesAfterFail(6.1, 7.1)
                             notToContainIndex(7, 7)
                             notToContainIndex(8, 9)
                             indexFail(
-                                10, 12, listOf(11.0),
+                                10, 12, listOf(11.1),
                                 sizeCheck(1, 3),
-                                failAfterFail(-1.0, withBulletPoint = false),
-                                failAfterFail(-2.0, withBulletPoint = false),
-                                failAfterFail(9.0, withBulletPoint = false),
+                                failAfterFail(-1.1, withBulletPoint = false),
+                                failAfterFail(-2.1, withBulletPoint = false),
+                                failAfterFail(9.1, withBulletPoint = false),
                                 withBulletPoint = false
                             )
-                            mismatchesAfterFail(11.0)
+                            mismatchesAfterFail(11.1)
                             indexNonExisting(
                                 13, 14,
                                 size("", explanatoryBulletPoint, null, 2),
-                                7.0, 8.0,
+                                7.1, 8.1,
                                 withBulletPoint = false
                             )
                             indexNonExisting(
                                 15, 16,
                                 size("", explanatoryBulletPoint, null, 2),
-                                9.0, -8.0,
+                                9.1, -8.1,
                                 withBulletPoint = false
                             )
                             indexNonExisting(
                                 17, 18,
                                 size("", explanatoryBulletPoint, null, 2),
-                                10.0, 11.0,
+                                10.1, 11.1,
                                 withBulletPoint = false
                             )
-                            indexNonExisting(19, 12.0, withBulletPoint = false)
+                            indexNonExisting(19, 12.1, withBulletPoint = false)
                         }
                     }
                 }
@@ -690,72 +690,72 @@ abstract class IterableToContainInOrderOnlyGroupedValuesExpectationsSpec(
         ) = toContainInOrderOnlyGroupedNullableValues(this, t1, t2, tX, report, reportInGroup)
 
         describeFun(toContainInOrderOnlyGroupedNullableValues) {
-            val null1null3 = { sequenceOf(null, 1.0, null, 3.0).constrainOnce().asIterable() }
+            val null1null3 = { sequenceOf(null, 1.1, null, 3.1).constrainOnce().asIterable() }
 
             context("iterable ${null1null3().toList()}") {
 
                 context("happy case") {
-                    it("[1.0, null], [null, 3.0]") {
+                    it("[1.1, null], [null, 3.1]") {
                         expect(null1null3()).toContainInOrderOnlyGroupedNullableValuesFun(
-                            nullableGroup(1.0, null),
-                            nullableGroup(null, 3.0)
+                            nullableGroup(1.1, null),
+                            nullableGroup(null, 3.1)
                         )
                     }
-                    it("[null], [null, 3.0, 1.0]") {
+                    it("[null], [null, 3.1, 1.1]") {
                         expect(null1null3()).toContainInOrderOnlyGroupedNullableValuesFun(
                             nullableGroup(null),
-                            nullableGroup(null, 3.0, 1.0)
+                            nullableGroup(null, 3.1, 1.1)
                         )
                     }
                 }
 
                 context("error cases (throws AssertionError)") {
 
-                    it("[null, null], [3.0, 1.0] -- wrong order") {
+                    it("[null, null], [3.1, 1.1] -- wrong order") {
                         expect {
                             expect(null1null3()).toContainInOrderOnlyGroupedNullableValuesFun(
                                 nullableGroup(null, null),
-                                nullableGroup(3.0, 1.0)
+                                nullableGroup(3.1, 1.1)
                             )
                         }.toThrow<AssertionError> {
                             message {
                                 toContain.exactly(1).value("$rootBulletPoint$toContainInOrderOnlyGrouped:")
                                 indexFail(
-                                    0, 1, listOf(null, 1.0),
+                                    0, 1, listOf(null, 1.1),
                                     sizeCheck(2, 2),
                                     successAfterFail(null),
                                     failAfterFail(null)
                                 )
                                 indexFail(
-                                    2, 3, listOf(null, 3.0),
+                                    2, 3, listOf(null, 3.1),
                                     sizeCheck(2, 2),
-                                    successAfterFail(3.0),
-                                    failAfterFail(1.0)
+                                    successAfterFail(3.1),
+                                    failAfterFail(1.1)
                                 )
                                 notToContain(size(indentRootBulletPoint, successfulBulletPoint, 4, 4))
                             }
                         }
                     }
 
-                    it("[null, 1.0], [3.0, null, null] -- null too much") {
+                    it("[null, 1.1], [3.1, null, null] -- null too much") {
                         expect {
                             expect(null1null3()).toContainInOrderOnlyGroupedNullableValuesFun(
-                                nullableGroup(null, 1.0),
-                                nullableGroup(3.0, null, null)
+                                nullableGroup(null, 1.1),
+                                nullableGroup(3.1, null, null)
                             )
                         }.toThrow<AssertionError> {
                             message {
                                 toContain.exactly(1).value("$rootBulletPoint$toContainInOrderOnlyGrouped:")
                                 indexSuccess(
-                                    0, 1, listOf(null, 1.0),
+                                    0, 1, listOf(null, 1.1),
                                     sizeCheck(2, 2),
                                     successAfterSuccess(null),
-                                    successAfterSuccess(1.0)
+                                    successAfterSuccess(1.1)
                                 )
                                 indexFail(
-                                    2, 4, listOf(null, 3.0),
+                                    2, 4, listOf(null, 3.1),
                                     sizeCheck(2, 3),
-                                    successAfterFail(3.0),
+                                    successAfterFail(3.1),
                                     successAfterFail(null),
                                     failAfterFail(null)
                                 )

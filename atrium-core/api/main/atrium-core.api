@@ -1154,8 +1154,6 @@ public final class ch/tutteli/atrium/reporting/text/impl/TextNextLineAssertionPa
 public abstract class ch/tutteli/atrium/reporting/text/impl/TextObjectFormatterCommon : ch/tutteli/atrium/reporting/text/TextObjectFormatter {
 	public static final field Companion Lch/tutteli/atrium/reporting/text/impl/TextObjectFormatterCommon$Companion;
 	public fun <init> (Lch/tutteli/atrium/reporting/translating/Translator;)V
-	protected final fun classNameAndIdentity (Ljava/lang/Object;)Ljava/lang/String;
-	protected final fun defaultFormat (Ljava/lang/Object;)Ljava/lang/String;
 	public fun format (Ljava/lang/Object;)Ljava/lang/String;
 	protected abstract fun format (Lkotlin/reflect/KClass;)Ljava/lang/String;
 	protected abstract fun identityHash (Ljava/lang/String;Ljava/lang/Object;)Ljava/lang/String;

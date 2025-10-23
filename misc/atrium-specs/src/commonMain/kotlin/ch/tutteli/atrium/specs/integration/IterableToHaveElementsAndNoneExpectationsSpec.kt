@@ -21,11 +21,11 @@ abstract class IterableToHaveElementsAndNoneExpectationsSpec(
 
     include(object : AssertionCreatorSpec<Iterable<Double>>(
         describePrefix, oneToSeven().toList().asIterable(),
-        toHaveElementsAndNone.forExpectationCreatorTest("$toBeGreaterThanDescr: 10.0") { toBeGreaterThan(10.0) }
+        toHaveElementsAndNone.forExpectationCreatorTest("$toBeGreaterThanDescr: 10.1") { toBeGreaterThan(10.1) }
     ) {})
     include(object : AssertionCreatorSpec<Iterable<Double?>>(
         "$describePrefix[nullable Element] ", oneToSeven().toList().asIterable(),
-        toHaveElementsAndNoneNullable.forExpectationCreatorTest("$toBeGreaterThanDescr: 10.0") { toBeGreaterThan(10.0) }
+        toHaveElementsAndNoneNullable.forExpectationCreatorTest("$toBeGreaterThanDescr: 10.1") { toBeGreaterThan(10.1) }
     ) {})
 
     val containsNotDescr = DescriptionIterableLikeExpectation.NOT_TO_CONTAIN.getDefault()
@@ -39,14 +39,14 @@ abstract class IterableToHaveElementsAndNoneExpectationsSpec(
         context("empty collection") {
             it("throws AssertionError as there needs to be at least one element") {
                 expect {
-                    expect(fluentEmpty()).toHaveElementsAndNoneFun { toBeLessThan(1.0) }
+                    expect(fluentEmpty()).toHaveElementsAndNoneFun { toBeLessThan(1.1) }
                 }.toThrow<AssertionError> {
                     message {
                         toContainRegex(
                             "$hasANextElement$separator" +
                                 "$indentRootBulletPoint\\Q$explanatoryBulletPoint\\E$containsNotDescr: $separator" +
                                 "$indentRootBulletPoint$indentListBulletPoint\\Q$listBulletPoint\\E$anElementWhichNeedsDescr: $separator" +
-                                "$indentListBulletPoint$afterExplanatory$toBeLessThanDescr: 1.0.*"
+                                "$indentListBulletPoint$afterExplanatory$toBeLessThanDescr: 1.1.*"
                         )
                     }
                 }
@@ -55,27 +55,27 @@ abstract class IterableToHaveElementsAndNoneExpectationsSpec(
 
         context("iterable ${oneToSeven().toList()}") {
             context("happy case") {
-                listOf(1.1, 2.2, 3.3).forEach {
+                listOf(1.2, 2.2, 3.3).forEach {
                     it("$toEqualDescr($it) does not throw") {
-                        expect(oneToSeven()).toHaveElementsAndNoneFun { toEqual(1.1) }
+                        expect(oneToSeven()).toHaveElementsAndNoneFun { toEqual(it) }
                     }
                 }
             }
 
             context("failing cases; search string at different positions") {
-                it("$toEqualDescr(4.0) throws AssertionError") {
+                it("$toEqualDescr(4.1) throws AssertionError") {
                     expect {
-                        expect(oneToSeven()).toHaveElementsAndNoneFun { toEqual(4.0) }
+                        expect(oneToSeven()).toHaveElementsAndNoneFun { toEqual(4.1) }
                     }.toThrow<AssertionError> {
                         message {
                             toContainRegex(
                                 "\\Q$rootBulletPoint\\E$containsNotDescr: $separator" +
                                     "$indentRootBulletPoint\\Q$listBulletPoint\\E$anElementWhichNeedsDescr: $separator" +
-                                    "$afterExplanatory$toEqualDescr: 4.0.*$separator" +
+                                    "$afterExplanatory$toEqualDescr: 4.1.*$separator" +
                                     "$afterExplanatoryIndent\\Q$warningBulletPoint$mismatches:\\E $separator" +
-                                    "$afterMismatchedWarning${mismatchedIndex(2, "4.0")}.*$separator" +
-                                    "$afterMismatchedWarning${mismatchedIndex(3, "4.0")}.*$separator" +
-                                    "$afterMismatchedWarning${mismatchedIndex(8, "4.0")}.*"
+                                    "$afterMismatchedWarning${mismatchedIndex(2, "4.1")}.*$separator" +
+                                    "$afterMismatchedWarning${mismatchedIndex(3, "4.1")}.*$separator" +
+                                    "$afterMismatchedWarning${mismatchedIndex(8, "4.1")}.*"
                             )
                         }
                     }
@@ -110,17 +110,17 @@ abstract class IterableToHaveElementsAndNoneExpectationsSpec(
                     }
                 }
 
-                it("1.0 throws AssertionError") {
+                it("1.1 throws AssertionError") {
                     expect {
-                        expect(oneToSevenNullable()).toHaveElementsAndNoneFun { toEqual(1.0) }
+                        expect(oneToSevenNullable()).toHaveElementsAndNoneFun { toEqual(1.1) }
                     }.toThrow<AssertionError> {
                         message {
                             toContainRegex(
                                 "\\Q$rootBulletPoint\\E$containsNotDescr: $separator" +
                                     "$indentRootBulletPoint\\Q$listBulletPoint\\E$anElementWhichNeedsDescr: $separator" +
-                                    "$afterExplanatory$toEqualDescr: 1.0.*$separator" +
+                                    "$afterExplanatory$toEqualDescr: 1.1.*$separator" +
                                     "$afterExplanatoryIndent\\Q$warningBulletPoint$mismatches:\\E $separator" +
-                                    "$afterMismatchedWarning${mismatchedIndex(0, "1.0")}.*"
+                                    "$afterMismatchedWarning${mismatchedIndex(0, "1.1")}.*"
                             )
                         }
                     }

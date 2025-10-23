@@ -65,7 +65,7 @@ abstract class AbstractTextObjectFormatter(
  * @property translator The [Translator] used to translate [Translatable]s.
  *
  * @constructor Formats an object by using its [toString] representation, its [Class.getName] and its [System.identityHashCode]
- *   (in most cases)
+ *   (in most cases).
  * @param translator The [Translator] used to translate [Translatable]s.
  */
 actual class DefaultTextObjectFormatter actual constructor(

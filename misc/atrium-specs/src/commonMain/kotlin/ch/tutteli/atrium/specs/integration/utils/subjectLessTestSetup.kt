@@ -31,7 +31,7 @@ fun <SubjectT> subjectLessTestSetup(
             expandAssertionGroups(assertions)
 
             @OptIn(ExperimentalNewExpectTypes::class, ExperimentalComponentFactoryContainer::class)
-            val expect = RootExpectBuilder.forSubject(1.0)
+            val expect = RootExpectBuilder.forSubject(1.1)
                 .withVerb("custom assertion verb")
                 .withOptions {
                     withComponent(AtriumErrorAdjuster::class) { _ -> NoOpAtriumErrorAdjuster }

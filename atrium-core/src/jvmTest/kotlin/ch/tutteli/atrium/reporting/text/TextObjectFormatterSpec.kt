@@ -6,12 +6,10 @@ import ch.tutteli.atrium.reporting.text.impl.DefaultTextObjectFormatter
 import ch.tutteli.atrium.reporting.text.impl.TextObjectFormatterCommon.Companion.INDENT
 import ch.tutteli.atrium.reporting.translating.UsingDefaultTranslator
 import ch.tutteli.atrium.specs.reporting.ObjectFormatterSpec
-import org.junit.platform.commons.annotation.Testable
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.describe
 import kotlin.reflect.KClass
 
-@Testable
 object TextObjectFormatterSpec : Spek({
     include(object : ObjectFormatterSpec(::DefaultTextObjectFormatter) {})
 

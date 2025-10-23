@@ -34,13 +34,13 @@ abstract class IterableToContainInAnyOrderAtLeast1ValuesExpectationsSpec(
 
 
         context("empty collection") {
-            it("1.0 throws AssertionError") {
+            it("1.1 throws AssertionError") {
                 expect {
-                    expect(fluentEmpty()).toContainFun(1.0)
+                    expect(fluentEmpty()).toContainFun(1.1)
                 }.toThrow<AssertionError> {
                     messageToContain(
                         "$rootBulletPoint$toContainInAnyOrder: $separator",
-                        "$anElementWhichEquals: 1.0",
+                        "$anElementWhichEquals: 1.1",
                         noSuchValueDescr
                     )
                 }
@@ -50,17 +50,16 @@ abstract class IterableToContainInAnyOrderAtLeast1ValuesExpectationsSpec(
         context("iterable '${oneToSeven()}'") {
 
             context("happy cases") {
-                (1..7).forEach {
-                    val d = it.toDouble()
-                    it("$d does not throw") {
-                        expect(oneToSeven()).toContainFun(d)
+                listOf(1.1, 2.1, 3.1, 4.1, 5.1, 6.1, 7.1).forEach {
+                    it("$it does not throw") {
+                        expect(oneToSeven()).toContainFun(it)
                     }
                 }
-                it("1.0 and 4.0 does not throw") {
-                    expect(oneToSeven()).toContainFun(1.0, 4.0)
+                it("1.1 and 4.1 does not throw") {
+                    expect(oneToSeven()).toContainFun(1.1, 4.1)
                 }
-                it("1.0 and 1.0 (searching twice in the same assertion) does not throw") {
-                    expect(oneToSeven()).toContainFun(1.0, 1.0)
+                it("1.1 and 1.1 (searching twice in the same assertion) does not throw") {
+                    expect(oneToSeven()).toContainFun(1.1, 1.1)
                 }
             }
 
@@ -76,9 +75,9 @@ abstract class IterableToContainInAnyOrderAtLeast1ValuesExpectationsSpec(
                         )
                     }
                 }
-                it("9.5 and 7.1 throws AssertionError") {
+                it("9.5 and 7.2 throws AssertionError") {
                     expect {
-                        expect(oneToSeven()).toContainFun(9.5, 7.1)
+                        expect(oneToSeven()).toContainFun(9.5, 7.2)
                     }.toThrow<AssertionError> {
                         message {
                             toContain.exactly(2).values(
@@ -87,18 +86,18 @@ abstract class IterableToContainInAnyOrderAtLeast1ValuesExpectationsSpec(
                             toContain.exactly(1).values(
                                 "$rootBulletPoint$toContainInAnyOrder: $separator",
                                 "$anElementWhichEquals: 9.5",
-                                "$anElementWhichEquals: 7.1"
+                                "$anElementWhichEquals: 7.2"
                             )
                         }
                     }
                 }
-                it("1.0 and 9.5 throws AssertionError") {
+                it("1.1 and 9.5 throws AssertionError") {
                     expect {
-                        expect(oneToSeven()).toContainFun(1.0, 9.5)
+                        expect(oneToSeven()).toContainFun(1.1, 9.5)
                     }.toThrow<AssertionError> {
                         message {
                             toContainRegex("$toContainInAnyOrder: $separator.*$anElementWhichEquals: 9.5")
-                            notToContain.regex("$toContainInAnyOrder: $separator.*$anElementWhichEquals: 1.0")
+                            notToContain.regex("$toContainInAnyOrder: $separator.*$anElementWhichEquals: 1.1")
                         }
                     }
                 }
@@ -113,12 +112,12 @@ abstract class IterableToContainInAnyOrderAtLeast1ValuesExpectationsSpec(
 
             context("iterable ${oneToSevenNullable().toList()}") {
                 listOf(
-                    1.0 to arrayOf<Double>(),
-                    4.0 to arrayOf<Double>(),
+                    1.1 to arrayOf<Double>(),
+                    4.1 to arrayOf<Double>(),
                     null to arrayOf<Double>(),
-                    null to arrayOf(4.0, null),
-                    null to arrayOf(1.0),
-                    1.0 to arrayOf(4.0, null)
+                    null to arrayOf(4.1, null),
+                    null to arrayOf(1.1),
+                    1.1 to arrayOf(4.1, null)
                 ).forEach { (first, rest) ->
                     val restText = if (rest.isEmpty()) "" else ", ${rest.joinToString()}"
 

@@ -163,11 +163,11 @@ abstract class AbstractArrayAsListExpectationsTest(
                 groupPrefix = "FloatArray"
             ),
             ExpectationCreatorTestData(
-                doubleArrayOf(1.0),
+                doubleArrayOf(1.1),
                 ExpectationCreatorTriple(
                     asListFunName,
                     anElementWhichEquals,
-                    { doubleArrWithCreator.invoke(this) { toContain(1.0) } },
+                    { doubleArrWithCreator.invoke(this) { toContain(1.1) } },
                     { doubleArrWithCreator.invoke(this) {} }
                 ),
                 groupPrefix = "DoubleArray"

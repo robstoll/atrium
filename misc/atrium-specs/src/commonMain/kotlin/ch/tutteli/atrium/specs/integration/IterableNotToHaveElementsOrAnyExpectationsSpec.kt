@@ -22,11 +22,11 @@ abstract class IterableNotToHaveElementsOrAnyExpectationsSpec(
 
     include(object : AssertionCreatorSpec<Iterable<Double>>(
         describePrefix, oneToSeven().toList().asIterable(),
-        notToHaveElementsOrAny.forExpectationCreatorTest("$toBeGreaterThanDescr: 1.0") { toBeGreaterThan(1.0) }
+        notToHaveElementsOrAny.forExpectationCreatorTest("$toBeGreaterThanDescr: 1.1") { toBeGreaterThan(1.1) }
     ) {})
     include(object : AssertionCreatorSpec<Iterable<Double?>>(
         "$describePrefix[nullable Element] ", oneToSeven().toList().asIterable(),
-        notToHaveElementsOrAnyNullable.forExpectationCreatorTest("$toBeGreaterThanDescr: 1.0") { toBeGreaterThan(1.0) }
+        notToHaveElementsOrAnyNullable.forExpectationCreatorTest("$toBeGreaterThanDescr: 1.1") { toBeGreaterThan(1.1) }
     ) {})
 
     val notToHaveElementsOrAnyDescr = DescriptionIterableLikeExpectation.NOT_TO_HAVE_ELEMENTS_OR_ANY.getDefault()
@@ -40,29 +40,29 @@ abstract class IterableNotToHaveElementsOrAnyExpectationsSpec(
 
         context("empty collection") {
             it("does not throw") {
-                expect(fluentEmpty()).notToHaveElementsOrAnyFun { toBeLessThan(1.0) }
+                expect(fluentEmpty()).notToHaveElementsOrAnyFun { toBeLessThan(1.1) }
             }
         }
 
         context("iterable ${oneToSeven().toList()}") {
-            context("search for entry which needs $toBeGreaterThanFun(1.0) and $toBeLessThanFun(2.0)") {
+            context("search for entry which needs $toBeGreaterThanFun(1.1) and $toBeLessThanFun(2.1)") {
                 it("throws AssertionError containing both assumptions in one expectation") {
                     expect {
-                        expect(oneToSeven()).notToHaveElementsOrAnyFun { toBeGreaterThan(1.0); toBeLessThan(2.0) }
+                        expect(oneToSeven()).notToHaveElementsOrAnyFun { toBeGreaterThan(1.1); toBeLessThan(2.1) }
                     }.toThrow<AssertionError> {
                         messageToContain(
                             "$rootBulletPoint$notToHaveElementsOrAnyDescr: $separator",
-                            "$toBeGreaterThanDescr: 1.0",
-                            "$toBeLessThanDescr: 2.0",
+                            "$toBeGreaterThanDescr: 1.1",
+                            "$toBeLessThanDescr: 2.1",
                             noSuchElementDescr
                         )
                     }
                 }
             }
 
-            context("search for entry which $toBeGreaterThanFun(1.0) and $toBeLessThanFun(2.1)") {
+            context("search for entry which $toBeGreaterThanFun(1.1) and $toBeLessThanFun(2.2)") {
                 it("does not throw an exception") {
-                    expect(oneToSeven()).notToHaveElementsOrAnyFun { toBeGreaterThan(1.0); toBeLessThan(2.1) }
+                    expect(oneToSeven()).notToHaveElementsOrAnyFun { toBeGreaterThan(1.1); toBeLessThan(2.2) }
                 }
             }
         }
@@ -75,8 +75,8 @@ abstract class IterableNotToHaveElementsOrAnyExpectationsSpec(
 
             context("iterable ${oneToSevenNullable().toList()}") {
                 context("happy cases (do not throw)") {
-                    it("$toEqualFun(1.0)") {
-                        expect(oneToSevenNullable()).notToHaveElementsOrAnyFun { toEqual(1.0) }
+                    it("$toEqualFun(1.1)") {
+                        expect(oneToSevenNullable()).notToHaveElementsOrAnyFun { toEqual(1.1) }
                     }
                     it("null") {
                         expect(oneToSevenNullable()).notToHaveElementsOrAnyFun(null)
@@ -84,14 +84,14 @@ abstract class IterableNotToHaveElementsOrAnyExpectationsSpec(
                 }
 
                 context("failing cases") {
-                    it("$toEqualFun(2.0)") {
+                    it("$toEqualFun(2.1)") {
                         expect {
-                            expect(oneToSevenNullable()).notToHaveElementsOrAnyFun { toEqual(2.0) }
+                            expect(oneToSevenNullable()).notToHaveElementsOrAnyFun { toEqual(2.1) }
                         }.toThrow<AssertionError> {
                             message {
                                 toContain.exactly(1).values(
                                     "$rootBulletPoint$notToHaveElementsOrAnyDescr: $separator",
-                                    "$toEqualDescr: 2.0",
+                                    "$toEqualDescr: 2.1",
                                     noSuchElementDescr
                                 )
                             }

@@ -157,16 +157,16 @@ object MapArgumentsSpec : Spek({
             it("without second step") {
                 fun it(i: Double, vararg iX: Double) = mapArguments(i, iX) { it + 1 }
 
-                expect(it(1.0, 2.0, 3.0, 4.0))
-                    .first { toEqual(2.0) }
-                    .second.asList().toContainExactly(3.0, 4.0, 5.0)
+                expect(it(1.1, 2.1, 3.1, 4.1))
+                    .first { toEqual(2.1) }
+                    .second.asList().toContainExactly(3.1, 4.1, 5.1)
             }
             it("with second step") {
                 fun it(i: Double, vararg iX: Double) = mapArguments(i, iX).to { it + 1 }
 
-                expect(it(1.0, 2.0, 3.0, 4.0))
-                    .first { toEqual(2.0) }
-                    .second.asList().toContainExactly(3.0, 4.0, 5.0)
+                expect(it(1.1, 2.1, 3.1, 4.1))
+                    .first { toEqual(2.1) }
+                    .second.asList().toContainExactly(3.1, 4.1, 5.1)
             }
         }
         context("Boolean") {
