@@ -6,7 +6,7 @@ import ch.tutteli.atrium.specs.integration.IterableToContainSpecBase.Companion.e
 import ch.tutteli.atrium.specs.notImplemented
 import org.spekframework.spek2.Spek
 
-class IterableToContainInAnyOrderOnlyElementsOfExpectationsSpec : Spek({
+class IterableToContainInAnyOrderOnlyElementsOfExpectationsTest : Spek({
 //    include(BuilderSpec)
     include(BuilderIterableLikeToIterableSpec)
 }) {
