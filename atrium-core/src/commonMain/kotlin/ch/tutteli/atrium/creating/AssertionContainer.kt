@@ -34,6 +34,9 @@ interface AssertionContainer<T> {
     //TODO 1.3.0 I guess it would make sense to get rid of getImpl and only use the ComponentFactoryContainer approach
     // however, check if extensibility for a library author is still given. We don't want that a consumer of a third-party
     // expectation function collection-library needs to use an own expectation verb
+    // First time that I actually wanted to replace Assertions and had to realise, that we don't pass the factories
+    // down the road when using CollectingExpectImpl (we only pass ComponentFactoryContainer) => for me a clear sign that
+    // we should only have a ComponentFactoryContainer
     @ExperimentalNewExpectTypes
     fun <I : Any> getImpl(kClass: KClass<I>, defaultFactory: () -> I): I
 

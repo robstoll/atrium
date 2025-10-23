@@ -54,19 +54,23 @@ abstract class TextObjectFormatterCommon(
         is KClass<*> -> format(value)
         is Enum<*> -> format(value)
         is Throwable -> format(value)
-        else -> limitRepresentation(value.toString()) + classNameAndIdentity(value)
+        else -> defaultFormat(value)
     }
 
+    protected fun defaultFormat(value: Any): String = limitRepresentation(value.toString()) + classNameAndIdentity(value)
+
     private fun format(string: String) = "\"${limitRepresentation(string)}\"" + identityHash(INDENT, string)
-    private fun format(charSequence: CharSequence) = "\"${limitRepresentation(charSequence.toString())}\"" + classNameAndIdentity(charSequence)
+    private fun format(charSequence: CharSequence) =
+        "\"${limitRepresentation(charSequence.toString())}\"" + classNameAndIdentity(charSequence)
+
     private fun format(enum: Enum<*>) =
         limitRepresentation(enum.toString()) + INDENT + "(" + (enum::class.fullName) + ")"
 
     private fun format(throwable: Throwable) = throwable::class.fullName
 
-    private fun classNameAndIdentity(any: Any): String = INDENT + "(${any::class.fullName}${identityHash(" ", any)})"
+    protected fun classNameAndIdentity(any: Any): String = INDENT + "(${any::class.fullName}${identityHash(" ", any)})"
     private fun limitRepresentation(value: String): String {
-        return if (value.length > 10000) "${value.substring(0, 10000)}..." else value
+        return if (value.length > 10000) "${value.take(10000)}..." else value
     }
 
     protected abstract fun format(kClass: KClass<*>): String

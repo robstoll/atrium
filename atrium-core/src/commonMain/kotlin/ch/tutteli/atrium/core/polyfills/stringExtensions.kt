@@ -15,3 +15,9 @@ expect fun String.format(locale: Locale, arg: Any, vararg otherArgs: Any): Strin
  * local for formatting is used which corresponds to [getDefaultLocale] if nothing special is defined).
  */
 expect fun String.format(arg: Any, vararg otherArgs: Any): String
+
+//TODO remove again before 1.3.0 => move to atrium-specs
+/**
+ * No backward compatibility guarantees
+ */
+expect fun String.toRegexSupportingQE(): Regex

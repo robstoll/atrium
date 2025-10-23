@@ -23,13 +23,7 @@ fun <T> expect(subject: T): RootExpect<T> =
     RootExpectBuilder.forSubject(subject)
         .withVerb("I expected subject")
         .withOptions {
-            withComponent(AtriumErrorAdjuster::class) { c ->
-                MultiAtriumErrorAdjuster(
-                    c.build<RemoveRunnerFromAtriumError>(),
-                    RemoveAtriumButNotAtriumSpecsFromAtriumErrorImpl(),
-                    otherAdjusters = emptyList()
-                )
-            }
+            commonOptions()
         }
         .build()
 
@@ -37,7 +31,7 @@ fun <T> expect(subject: T, assertionCreator: Expect<T>.() -> Unit): Expect<T> =
     expect(subject)._logic.appendAsGroup(assertionCreator)
 
 
-@OptIn(ExperimentalNewExpectTypes::class)
+@OptIn(ExperimentalNewExpectTypes::class, ExperimentalComponentFactoryContainer::class)
 fun expectGrouped(
     description: String = "my expectations",
     configuration: RootExpectBuilder.OptionsChooser<*>.() -> Unit = {},
@@ -45,12 +39,23 @@ fun expectGrouped(
 ): ExpectGrouping = RootExpectBuilder.forSubject(Text.EMPTY)
     .withVerb(description)
     .withOptions {
+        commonOptions()
         configuration()
     }
     .build()
     ._logic.appendAsGroup(groupingActions.toAssertionCreator())
     .toExpectGrouping()
 
+@OptIn(ExperimentalComponentFactoryContainer::class)
+private fun <T> RootExpectBuilder.OptionsChooser<T>.commonOptions() {
+    withComponent(AtriumErrorAdjuster::class) { c ->
+        MultiAtriumErrorAdjuster(
+            c.build<RemoveRunnerFromAtriumError>(),
+            RemoveAtriumButNotAtriumSpecsFromAtriumErrorImpl(),
+            otherAdjusters = emptyList()
+        )
+    }
+}
 
 fun <R> ExpectGrouping.expect(subject: R): Expect<R> =
     expectWithinExpectGroup(subject).transform()

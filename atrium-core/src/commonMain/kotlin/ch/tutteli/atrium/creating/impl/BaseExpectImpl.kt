@@ -32,12 +32,12 @@ abstract class BaseExpectImpl<T>(
     }
 
     @PublishedApi
-    internal fun <I : Any> registerImpl(kClass: KClass<I>, implFactory: (oldFactory: () -> I) -> () -> I) {
+    internal fun <I : Any> registerImpl(kClass: KClass<I>, implFactory: (defaultFactory: () -> I) -> () -> I) {
         implFactories[kClass] = implFactory
     }
 
     //TODO 1.3.0 move to RootExpectOptions?
-    inline fun <reified I : Any> withImplFactory(noinline implFactory: (oldFactory: () -> I) -> () -> I) {
+    inline fun <reified I : Any> withImplFactory(noinline implFactory: (defaultFactory: () -> I) -> () -> I) {
         registerImpl(I::class, implFactory)
     }
 
