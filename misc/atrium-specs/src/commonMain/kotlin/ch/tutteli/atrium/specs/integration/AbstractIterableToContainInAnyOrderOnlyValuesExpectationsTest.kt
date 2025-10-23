@@ -1,12 +1,6 @@
 package ch.tutteli.atrium.specs.integration
 
-import ch.tutteli.atrium.api.fluent.en_GB.exactly
-import ch.tutteli.atrium.api.fluent.en_GB.message
-import ch.tutteli.atrium.api.fluent.en_GB.notToContain
-import ch.tutteli.atrium.api.fluent.en_GB.toContain
-import ch.tutteli.atrium.api.fluent.en_GB.toThrow
-import ch.tutteli.atrium.api.fluent.en_GB.value
-import ch.tutteli.atrium.api.fluent.en_GB.values
+import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.logic.creating.iterablelike.contains.reporting.InAnyOrderOnlyReportingOptions
 import ch.tutteli.atrium.specs.*
@@ -45,14 +39,10 @@ abstract class AbstractIterableToContainInAnyOrderOnlyValuesExpectationsTest(
         )
     )
 
-        fun Expect<Iterable<Double>>.toContainFun(
-            t: Double,
-            vararg tX: Double,
-            report: InAnyOrderOnlyReportingOptions.() -> Unit = emptyInAnyOrderOnlyReportOptions
-        ) = toContainValuesFunArr(t, tX.toTypedArray(), report)
-
-        context("empty collection") {
-            it("1.1 throws AssertionError") {
+    @TestFactory
+    fun empty_collection__1__throws() = nonNullableCases(
+        toContainInAnyOrderOnlyValuesSpec, toContainInAnyOrderOnlyNullableValuesSpec
+    ) { toContainInAnyOrderOnlyValuesFun ->
         expect {
             expect(fluentEmpty()).toContainInAnyOrderOnlyValuesFun(
                 1.1, emptyArray(), emptyInAnyOrderOnlyReportOptions
@@ -60,8 +50,7 @@ abstract class AbstractIterableToContainInAnyOrderOnlyValuesExpectationsTest(
         }.toThrow<AssertionError> {
             message {
                 toContain(
-                    "$rootBulletPoint$toContainInAnyOrderOnly:",
-                    "$failingBulletPoint$anElementWhichEquals: 1.1"
+                    "$rootBulletPoint$toContainInAnyOrderOnly:", "$failingBulletPoint$anElementWhichEquals: 1.1"
                 )
                 notToContain(additionalElements)
                 toContainSize(0, 1)
@@ -69,38 +58,36 @@ abstract class AbstractIterableToContainInAnyOrderOnlyValuesExpectationsTest(
         }
     }
 
-
     @TestFactory
-    fun empty_collection__1_and_4__throws() =
-        nonNullableCases(
-            toContainInAnyOrderOnlyValuesSpec, toContainInAnyOrderOnlyNullableValuesSpec
-        ) { toContainInAnyOrderOnlyValuesFun ->
-            expect {
-                expect(fluentEmpty()).toContainInAnyOrderOnlyValuesFun(
-                    1.1, arrayOf(4.1), emptyInAnyOrderOnlyReportOptions
+    fun empty_collection__1_and_4__throws() = nonNullableCases(
+        toContainInAnyOrderOnlyValuesSpec, toContainInAnyOrderOnlyNullableValuesSpec
+    ) { toContainInAnyOrderOnlyValuesFun ->
+        expect {
+            expect(fluentEmpty()).toContainInAnyOrderOnlyValuesFun(
+                1.1, arrayOf(4.1), emptyInAnyOrderOnlyReportOptions
+            )
+        }.toThrow<AssertionError> {
+            message {
+                toContain.exactly(1).values(
+                    "$rootBulletPoint$toContainInAnyOrderOnly:",
+                    "$failingBulletPoint$anElementWhichEquals: 1.1",
+                    "$failingBulletPoint$anElementWhichEquals: 4.1"
                 )
-            }.toThrow<AssertionError> {
-                message {
-                    toContain.exactly(1).values(
-                        "$rootBulletPoint$toContainInAnyOrderOnly:",
-                            "$failingBulletPoint$anElementWhichEquals: 1.1",
-                            "$failingBulletPoint$anElementWhichEquals: 4.1"
-                    )
-                    notToContain(additionalElements)
-                    toContainSize(0, 2)
-                }
+                notToContain(additionalElements)
+                toContainSize(0, 2)
             }
         }
+    }
 
     @TestFactory
     fun one_to_4_different_order__1_to_4__works() = testFactory(toContainInAnyOrderOnlyValuesSpec) { toContainFun ->
         listOf(
-                    arrayOf(1.1, 2.1, 3.1, 4.1, 4.1),
-                    arrayOf(1.1, 3.1, 2.1, 4.1, 4.1),
-                    arrayOf(3.1, 4.1, 2.1, 1.1, 4.1),
-                    arrayOf(2.1, 4.1, 4.1, 1.1, 3.1),
-                    arrayOf(2.1, 4.1, 1.1, 4.1, 3.1),
-                    arrayOf(4.1, 4.1, 3.1, 2.1, 1.1)
+            arrayOf(1.1, 2.1, 3.1, 4.1, 4.1),
+            arrayOf(1.1, 3.1, 2.1, 4.1, 4.1),
+            arrayOf(3.1, 4.1, 2.1, 1.1, 4.1),
+            arrayOf(2.1, 4.1, 4.1, 1.1, 3.1),
+            arrayOf(2.1, 4.1, 1.1, 4.1, 3.1),
+            arrayOf(4.1, 4.1, 3.1, 2.1, 1.1)
         ).forEach {
             it(it.joinToString()) {
                 expect(oneToFour()).toContainFun(
@@ -123,12 +110,12 @@ abstract class AbstractIterableToContainInAnyOrderOnlyValuesExpectationsTest(
                 message {
                     toContain.exactly(1).values(
                         "$rootBulletPoint$toContainInAnyOrderOnly:",
-                                    "$successfulBulletPoint$anElementWhichEquals: 1.1",
-                                    "$successfulBulletPoint$anElementWhichEquals: 2.1",
-                                    "$successfulBulletPoint$anElementWhichEquals: 3.1",
-                                    "$successfulBulletPoint$anElementWhichEquals: 4.1",
+                        "$successfulBulletPoint$anElementWhichEquals: 1.1",
+                        "$successfulBulletPoint$anElementWhichEquals: 2.1",
+                        "$successfulBulletPoint$anElementWhichEquals: 3.1",
+                        "$successfulBulletPoint$anElementWhichEquals: 4.1",
                         "$warningBulletPoint$additionalElements:",
-                                    "${listBulletPoint}4.1"
+                        "${listBulletPoint}4.1"
                     )
                     toContainSize(5, 4)
                 }
@@ -141,12 +128,12 @@ abstract class AbstractIterableToContainInAnyOrderOnlyValuesExpectationsTest(
                 message {
                     toContain.exactly(1).values(
                         "$rootBulletPoint$toContainInAnyOrderOnly:",
-                                    "$successfulBulletPoint$anElementWhichEquals: 1.1",
-                                    "$successfulBulletPoint$anElementWhichEquals: 4.1",
+                        "$successfulBulletPoint$anElementWhichEquals: 1.1",
+                        "$successfulBulletPoint$anElementWhichEquals: 4.1",
                         "$warningBulletPoint$additionalElements:",
-                                    "${listBulletPoint}2.1",
-                                    "${listBulletPoint}3.1",
-                                    "${listBulletPoint}4.1"
+                        "${listBulletPoint}2.1",
+                        "${listBulletPoint}3.1",
+                        "${listBulletPoint}4.1"
                     )
                     toContainSize(5, 2)
                 }
@@ -159,12 +146,12 @@ abstract class AbstractIterableToContainInAnyOrderOnlyValuesExpectationsTest(
                 message {
                     toContain.exactly(1).values(
                         "$rootBulletPoint$toContainInAnyOrderOnly:",
-                                    "$successfulBulletPoint$anElementWhichEquals: 1.1",
-                                    "$successfulBulletPoint$anElementWhichEquals: 2.1",
-                                    "$successfulBulletPoint$anElementWhichEquals: 3.1",
-                                    "$failingBulletPoint$anElementWhichEquals: 5.1",
+                        "$successfulBulletPoint$anElementWhichEquals: 1.1",
+                        "$successfulBulletPoint$anElementWhichEquals: 2.1",
+                        "$successfulBulletPoint$anElementWhichEquals: 3.1",
+                        "$failingBulletPoint$anElementWhichEquals: 5.1",
                         "$warningBulletPoint$mismatches:",
-                                    "${listBulletPoint}4.1"
+                        "${listBulletPoint}4.1"
                     )
                     notToContain(sizeDescr)
                 }
@@ -177,13 +164,13 @@ abstract class AbstractIterableToContainInAnyOrderOnlyValuesExpectationsTest(
                 message {
                     toContain.exactly(1).values(
                         "$rootBulletPoint$toContainInAnyOrderOnly:",
-                                    "$successfulBulletPoint$anElementWhichEquals: 1.1",
-                                    "$successfulBulletPoint$anElementWhichEquals: 3.1",
-                                    "$failingBulletPoint$anElementWhichEquals: 5.1",
+                        "$successfulBulletPoint$anElementWhichEquals: 1.1",
+                        "$successfulBulletPoint$anElementWhichEquals: 3.1",
+                        "$failingBulletPoint$anElementWhichEquals: 5.1",
                         "$warningBulletPoint$mismatchesAdditionalElements:",
-                                    "${listBulletPoint}2.1"
+                        "${listBulletPoint}2.1"
                     )
-                                toContain.exactly(2).value("${listBulletPoint}4.1")
+                    toContain.exactly(2).value("${listBulletPoint}4.1")
                     toContainSize(5, 3)
                 }
             }
@@ -197,12 +184,12 @@ abstract class AbstractIterableToContainInAnyOrderOnlyValuesExpectationsTest(
                 message {
                     toContain.exactly(1).values(
                         "$rootBulletPoint$toContainInAnyOrderOnly:",
-                                    "$successfulBulletPoint$anElementWhichEquals: 1.1",
-                                    "$successfulBulletPoint$anElementWhichEquals: 2.1",
-                                    "$successfulBulletPoint$anElementWhichEquals: 3.1",
-                                    "$failingBulletPoint$anElementWhichEquals: 5.1"
+                        "$successfulBulletPoint$anElementWhichEquals: 1.1",
+                        "$successfulBulletPoint$anElementWhichEquals: 2.1",
+                        "$successfulBulletPoint$anElementWhichEquals: 3.1",
+                        "$failingBulletPoint$anElementWhichEquals: 5.1"
                     )
-                                toContain.exactly(2).value("$successfulBulletPoint$anElementWhichEquals: 4.1")
+                    toContain.exactly(2).value("$successfulBulletPoint$anElementWhichEquals: 4.1")
                     toContainSize(5, 6)
                     notToContain(additionalElements, mismatches, mismatchesAdditionalElements)
                 }
@@ -214,15 +201,15 @@ abstract class AbstractIterableToContainInAnyOrderOnlyValuesExpectationsTest(
     fun report_options() = testFactory(toContainInAnyOrderOnlyValuesSpec) { toContainFun ->
         it("shows only failing with report option `showOnlyFailing`") {
             expect {
-                expect(oneToFour()).toContainFun(2.1, emptyArray(), { showOnlyFailing() })
+                expect(oneToFour()).toContainFun(2.1, emptyArray()) { showOnlyFailing() }
             }.toThrow<AssertionError> {
                 message {
                     toContainSize(5, 1)
                     toContain.exactly(1).values(
                         "$rootBulletPoint$toContainInAnyOrderOnly:",
                         "$warningBulletPoint$additionalElements:",
-                                "${listBulletPoint}1.1",
-                                "${listBulletPoint}3.1"
+                        "${listBulletPoint}1.1",
+                        "${listBulletPoint}3.1"
                     )
                     toContain.exactly(2).value("${listBulletPoint}4.1")
                     notToContain("$anElementWhichEquals: 2.1")
@@ -232,19 +219,17 @@ abstract class AbstractIterableToContainInAnyOrderOnlyValuesExpectationsTest(
         it("shows only failing with report option `showOnlyFailingIfMoreExpectedElementsThan(3)` because there are 5") {
             expect {
                 expect(oneToFour()).toContainFun(
-                    1.1, arrayOf(
-                        2.1, 3.1, 4.1, 4.1, 5.1
-                    )
+                    1.1, arrayOf(2.1, 3.1, 4.1, 4.1, 5.1)
                 ) { showOnlyFailingIfMoreExpectedElementsThan(3) }
             }.toThrow<AssertionError> {
                 message {
                     toContainSize(5, 6)
-                            toContain.exactly(1).values("$listBulletPoint$anElementWhichEquals: 5.1")
+                    toContain.exactly(1).values("$listBulletPoint$anElementWhichEquals: 5.1")
                     notToContain(
-                                "$anElementWhichEquals: 1.1",
-                                "$anElementWhichEquals: 2.1",
-                                "$anElementWhichEquals: 3.1",
-                                "$anElementWhichEquals: 4.1"
+                        "$anElementWhichEquals: 1.1",
+                        "$anElementWhichEquals: 2.1",
+                        "$anElementWhichEquals: 3.1",
+                        "$anElementWhichEquals: 4.1"
                     )
                     notToContain(additionalElements, mismatches, mismatchesAdditionalElements)
                 }
@@ -253,29 +238,28 @@ abstract class AbstractIterableToContainInAnyOrderOnlyValuesExpectationsTest(
         it("shows only failing per default as there are more than 10 expected elements") {
             expect {
                 expect(oneToEleven).toContainFun(
-                    1.1, arrayOf(
-                        2.1, 3.1, 4.1, -1.1, 6.1, 7.1, -2.1, 9.1, 10.1, 11.1
-                    ), emptyInAnyOrderOnlyReportOptions
+                    1.1, arrayOf(2.1, 3.1, 4.1, -1.1, 6.1, 7.1, -2.1, 9.1, 10.1, 11.1),
+                    emptyInAnyOrderOnlyReportOptions
                 )
             }.toThrow<AssertionError> {
                 message {
                     toContain.exactly(1).values(
-                                "$listBulletPoint$anElementWhichEquals: -1.1",
-                                "$listBulletPoint$anElementWhichEquals: -2.1",
+                        "$listBulletPoint$anElementWhichEquals: -1.1",
+                        "$listBulletPoint$anElementWhichEquals: -2.1",
                         "$warningBulletPoint$mismatches:",
-                                "${listBulletPoint}5.1",
-                                "${listBulletPoint}8.1"
+                        "${listBulletPoint}5.1",
+                        "${listBulletPoint}8.1"
                     )
                     notToContain(
-                                "$anElementWhichEquals: 1.1",
-                                "$anElementWhichEquals: 2.1",
-                                "$anElementWhichEquals: 3.1",
-                                "$anElementWhichEquals: 4.1",
-                                "$anElementWhichEquals: 6.1",
-                                "$anElementWhichEquals: 7.1",
-                                "$anElementWhichEquals: 9.1",
-                                "$anElementWhichEquals: 10.1",
-                                "$anElementWhichEquals: 11.1",
+                        "$anElementWhichEquals: 1.1",
+                        "$anElementWhichEquals: 2.1",
+                        "$anElementWhichEquals: 3.1",
+                        "$anElementWhichEquals: 4.1",
+                        "$anElementWhichEquals: 6.1",
+                        "$anElementWhichEquals: 7.1",
+                        "$anElementWhichEquals: 9.1",
+                        "$anElementWhichEquals: 10.1",
+                        "$anElementWhichEquals: 11.1",
 
                         additionalElements,
                         mismatchesAdditionalElements
@@ -283,65 +267,60 @@ abstract class AbstractIterableToContainInAnyOrderOnlyValuesExpectationsTest(
                 }
             }
         }
-    }
 
-    @TestFactory
-    fun shows_all_with_report_option_showAlwaysSummary() =
-        testFactory(toContainInAnyOrderOnlyValuesSpec) { toContainFun ->
-            it("shows all with report option `showAlwaysSummary`") {
-                expect {
-                    expect(oneToEleven).toContainFun(
-                        1.1, arrayOf(
-                            2.1, 3.1, 4.1, -1.1, 6.1, 7.1, -2.1, 9.1, 10.1, 11.1
-                        )
-                    ) { showAlwaysSummary() }
-                }.toThrow<AssertionError> {
-                    message {
-                        toContain.exactly(1).values(
-                                "$successfulBulletPoint$anElementWhichEquals: 1.1",
-                                "$successfulBulletPoint$anElementWhichEquals: 2.1",
-                                "$successfulBulletPoint$anElementWhichEquals: 3.1",
-                                "$successfulBulletPoint$anElementWhichEquals: 4.1",
-                                "$failingBulletPoint$anElementWhichEquals: -1.1",
-                                "$successfulBulletPoint$anElementWhichEquals: 6.1",
-                                "$successfulBulletPoint$anElementWhichEquals: 7.1",
-                                "$failingBulletPoint$anElementWhichEquals: -2.1",
-                                "$successfulBulletPoint$anElementWhichEquals: 9.1",
-                                "$successfulBulletPoint$anElementWhichEquals: 10.1",
-                                "$successfulBulletPoint$anElementWhichEquals: 11.1",
-                            "$warningBulletPoint$mismatches:",
-                                "${listBulletPoint}5.1",
-                                "${listBulletPoint}8.1"
-                        )
-                        notToContain(additionalElements, mismatchesAdditionalElements)
-                    }
+        it("shows all with report option `showAlwaysSummary`") {
+            expect {
+                expect(oneToEleven).toContainFun(
+                    1.1, arrayOf(2.1, 3.1, 4.1, -1.1, 6.1, 7.1, -2.1, 9.1, 10.1, 11.1)
+                ) { showAlwaysSummary() }
+            }.toThrow<AssertionError> {
+                message {
+                    toContain.exactly(1).values(
+                        "$successfulBulletPoint$anElementWhichEquals: 1.1",
+                        "$successfulBulletPoint$anElementWhichEquals: 2.1",
+                        "$successfulBulletPoint$anElementWhichEquals: 3.1",
+                        "$successfulBulletPoint$anElementWhichEquals: 4.1",
+                        "$failingBulletPoint$anElementWhichEquals: -1.1",
+                        "$successfulBulletPoint$anElementWhichEquals: 6.1",
+                        "$successfulBulletPoint$anElementWhichEquals: 7.1",
+                        "$failingBulletPoint$anElementWhichEquals: -2.1",
+                        "$successfulBulletPoint$anElementWhichEquals: 9.1",
+                        "$successfulBulletPoint$anElementWhichEquals: 10.1",
+                        "$successfulBulletPoint$anElementWhichEquals: 11.1",
+                        "$warningBulletPoint$mismatches:",
+                        "${listBulletPoint}5.1",
+                        "${listBulletPoint}8.1"
+                    )
+                    notToContain(additionalElements, mismatchesAdditionalElements)
                 }
             }
         }
-
+    }
 
     @Test
     fun nullable__happy_cases__do_not_throw() {
         val null1null3 = { sequenceOf(null, 1.1, null, 3.1).constrainOnce().asIterable() }
 
-        expect(null1null3()).toContain(null, 1.1, null, 3.1)
-        expect(null1null3()).toContain(1.1, null, null, 3.1)
-        expect(null1null3()).toContain(1.1, null, 3.1, null)
-        expect(null1null3()).toContain(1.1, 3.1, null, null)
+        val toContainFun = toContainInAnyOrderOnlyNullableValuesSpec.lambda
+        expect(null1null3()).toContainFun(null, arrayOf(1.1, null, 3.1), emptyInAnyOrderOnlyReportOptions)
+        expect(null1null3()).toContainFun(1.1, arrayOf(null, null, 3.1), emptyInAnyOrderOnlyReportOptions)
+        expect(null1null3()).toContainFun(1.1, arrayOf(null, 3.1, null), emptyInAnyOrderOnlyReportOptions)
+        expect(null1null3()).toContainFun(1.1, arrayOf(3.1, null, null), emptyInAnyOrderOnlyReportOptions)
     }
 
-    @TestFactory
+    @Test
     fun nullable__one_null_missing__throws() {
         val null1null3 = { sequenceOf(null, 1.1, null, 3.1).constrainOnce().asIterable() }
+        val toContainFun = toContainInAnyOrderOnlyNullableValuesSpec.lambda
         expect {
-            expect(null1null3()).toContain(null, 1.1, 3.1)
+            expect(null1null3()).toContainFun(null, arrayOf(1.1, 3.1), emptyInAnyOrderOnlyReportOptions)
         }.toThrow<AssertionError> {
             message {
                 toContain.exactly(1).values(
                     "$rootBulletPoint$toContainInAnyOrderOnly:",
                     "$successfulBulletPoint$anElementWhichEquals: null",
-                                    "$successfulBulletPoint$anElementWhichEquals: 1.1",
-                                    "$successfulBulletPoint$anElementWhichEquals: 3.1",
+                    "$successfulBulletPoint$anElementWhichEquals: 1.1",
+                    "$successfulBulletPoint$anElementWhichEquals: 3.1",
                     "$warningBulletPoint$additionalElements:",
                     "${listBulletPoint}null"
                 )
