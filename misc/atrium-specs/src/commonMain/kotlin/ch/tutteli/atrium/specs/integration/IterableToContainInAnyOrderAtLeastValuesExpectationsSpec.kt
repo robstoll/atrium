@@ -40,33 +40,33 @@ abstract class IterableToContainInAnyOrderAtLeastValuesExpectationsSpec(
         context("throws an $illegalArgumentException") {
             it("for at least -1 -- only positive numbers") {
                 expect {
-                    expect(oneToSeven()).toContainAtLeastFun(-1, 9.0)
+                    expect(oneToSeven()).toContainAtLeastFun(-1, 9.1)
                 }.toThrow<IllegalArgumentException> { messageToContain("positive number", -1) }
             }
             it("for at least 0 -- points to $notToContain") {
                 expect {
-                    expect(oneToSeven()).toContainAtLeastFun(0, 9.0)
+                    expect(oneToSeven()).toContainAtLeastFun(0, 9.1)
                 }.toThrow<IllegalArgumentException> { message { toEqual(errorMsgContainsNot(0)) } }
             }
             context("using $toContainAtLeastButAtMost") {
                 it("for at least 1 but at most -1 -- since -1 is smaller than 1") {
                     expect {
-                        expect(oneToSeven()).toContainAtLeastButAtMostFun(1, -1, 9.0)
+                        expect(oneToSeven()).toContainAtLeastButAtMostFun(1, -1, 9.1)
                     }.toThrow<IllegalArgumentException> { message { toEqual(errorMsgAtLeastButAtMost(1, -1)) } }
                 }
                 it("for at least 1 but at most 0 -- since 0 is smaller than 1") {
                     expect {
-                        expect(oneToSeven()).toContainAtLeastButAtMostFun(1, 0, 9.0)
+                        expect(oneToSeven()).toContainAtLeastButAtMostFun(1, 0, 9.1)
                     }.toThrow<IllegalArgumentException> { message { toEqual(errorMsgAtLeastButAtMost(1, 0)) } }
                 }
                 it("for at least 2 but at most 1 -- since 1 is smaller than 2") {
                     expect {
-                        expect(oneToSeven()).toContainAtLeastButAtMostFun(2, 1, 9.0)
+                        expect(oneToSeven()).toContainAtLeastButAtMostFun(2, 1, 9.1)
                     }.toThrow<IllegalArgumentException> { message { toEqual(errorMsgAtLeastButAtMost(2, 1)) } }
                 }
                 it("for at least 1 but at most 1 -- points to $exactly") {
                     expect {
-                        expect(oneToSeven()).toContainAtLeastButAtMostFun(1, 1, 9.0)
+                        expect(oneToSeven()).toContainAtLeastButAtMostFun(1, 1, 9.1)
                     }.toThrow<IllegalArgumentException> { message { toEqual(errorMsgExactly(1)) } }
                 }
             }
@@ -75,46 +75,46 @@ abstract class IterableToContainInAnyOrderAtLeastValuesExpectationsSpec(
         context("iterable ${oneToSeven().toList()}") {
 
             context("happy case with $toContainAtLeast once") {
-                it("${toContainAtLeastPair.first("1.0", "once")} does not throw") {
-                    expect(oneToSeven()).toContainAtLeastFun(1, 1.0)
+                it("${toContainAtLeastPair.first("1.1", "once")} does not throw") {
+                    expect(oneToSeven()).toContainAtLeastFun(1, 1.1)
                 }
-                it("${toContainAtLeastPair.first("1.0 and 2.0 and 3.0", "once")} does not throw") {
-                    expect(oneToSeven()).toContainAtLeastFun(1, 1.0, 2.0, 3.0)
+                it("${toContainAtLeastPair.first("1.1 and 2.1 and 3.1", "once")} does not throw") {
+                    expect(oneToSeven()).toContainAtLeastFun(1, 1.1, 2.1, 3.1)
                 }
-                it("${toContainAtLeastPair.first("3.0 and 1.0 and 2.0", "once")} does not throw") {
-                    expect(oneToSeven()).toContainAtLeastFun(1, 3.0, 1.0, 2.0)
+                it("${toContainAtLeastPair.first("3.1 and 1.1 and 2.1", "once")} does not throw") {
+                    expect(oneToSeven()).toContainAtLeastFun(1, 3.1, 1.1, 2.1)
                 }
             }
 
             context("failing cases; search wrong number at different positions with $toContainAtLeast once") {
-                it("${toContainAtLeastPair.first("1.1", "once")} throws AssertionError") {
+                it("${toContainAtLeastPair.first("1.2", "once")} throws AssertionError") {
                     expect {
-                        expect(oneToSeven()).toContainAtLeastFun(1, 1.1)
-                    }.toThrow<AssertionError> { messageToContain(noSuchValueDescr, "$anElementWhichEquals: 1.1") }
+                        expect(oneToSeven()).toContainAtLeastFun(1, 1.2)
+                    }.toThrow<AssertionError> { messageToContain(noSuchValueDescr, "$anElementWhichEquals: 1.2") }
                 }
-                it("${toContainAtLeastPair.first("1.0, 2.3", "once")} throws AssertionError mentioning only 2.3") {
+                it("${toContainAtLeastPair.first("1.2, 2.3", "once")} throws AssertionError mentioning only 2.3") {
                     expect {
-                        expect(oneToSeven()).toContainAtLeastFun(1, 1.0, 2.3)
+                        expect(oneToSeven()).toContainAtLeastFun(1, 1.2, 2.3)
                     }.toThrow<AssertionError> {
                         message {
                             toContain(noSuchValueDescr, "$anElementWhichEquals: 2.3")
-                            notToContain("$anElementWhichEquals: 1.0")
+                            notToContain("$anElementWhichEquals: 1.1")
                         }
                     }
                 }
-                it("${toContainAtLeastPair.first("2.3, 1.0", "once")} throws AssertionError mentioning only 2.3") {
+                it("${toContainAtLeastPair.first("2.3, 1.1", "once")} throws AssertionError mentioning only 2.3") {
                     expect {
-                        expect(oneToSeven()).toContainAtLeastFun(1, 2.3, 1.0)
+                        expect(oneToSeven()).toContainAtLeastFun(1, 2.3, 1.1)
                     }.toThrow<AssertionError> {
                         message {
                             toContain(noSuchValueDescr, "$anElementWhichEquals: 2.3")
-                            notToContain("$anElementWhichEquals: 1.0")
+                            notToContain("$anElementWhichEquals: 1.1")
                         }
                     }
                 }
-                it("${toContainAtLeastPair.first("1.0, 2.3, 3.1 and 6.0", "once")} throws AssertionError") {
+                it("${toContainAtLeastPair.first("1.1, 2.3, 3.2 and 6.1", "once")} throws AssertionError") {
                     expect {
-                        expect(oneToSeven()).toContainAtLeastFun(1, 1.0, 2.3, 3.1, 6.0)
+                        expect(oneToSeven()).toContainAtLeastFun(1, 1.1, 2.3, 3.2, 6.1)
                     }.toThrow<AssertionError> {
                         message {
                             toContain.exactly(2).values(
@@ -123,7 +123,7 @@ abstract class IterableToContainInAnyOrderAtLeastValuesExpectationsSpec(
                             toContain.exactly(1).values(
                                 "$rootBulletPoint$toContainInAnyOrder: $separator",
                                 "$anElementWhichEquals: 2.3",
-                                "$anElementWhichEquals: 3.1"
+                                "$anElementWhichEquals: 3.2"
                             )
                         }
                     }
@@ -131,26 +131,26 @@ abstract class IterableToContainInAnyOrderAtLeastValuesExpectationsSpec(
             }
 
             context("multiple occurrences of the search string") {
-                it("${toContainAtLeastPair.first("5.0", "once")} does not throw") {
-                    expect(oneToSeven()).toContainAtLeastFun(1, 5.0)
+                it("${toContainAtLeastPair.first("5.1", "once")} does not throw") {
+                    expect(oneToSeven()).toContainAtLeastFun(1, 5.1)
                 }
-                it("${toContainAtLeastPair.first("5.0", "twice")} does not throw") {
-                    expect(oneToSeven()).toContainAtLeastFun(2, 5.0)
+                it("${toContainAtLeastPair.first("5.1", "twice")} does not throw") {
+                    expect(oneToSeven()).toContainAtLeastFun(2, 5.1)
                 }
 
                 it(
                     "${toContainAtLeastPair.first(
-                        "5.0",
+                        "5.1",
                         "3 times"
-                    )} throws AssertionError and message toContain both, how many times we expected (3) and how many times it actually contained 5.0 (2)"
+                    )} throws AssertionError and message toContain both, how many times we expected (3) and how many times it actually contained 5.1 (2)"
                 ) {
                     expect {
-                        expect(oneToSeven()).toContainAtLeastFun(3, 5.0)
+                        expect(oneToSeven()).toContainAtLeastFun(3, 5.1)
                     }.toThrow<AssertionError> {
                         message {
                             toContain(
                                 "$rootBulletPoint$toContainInAnyOrder: $separator",
-                                "$anElementWhichEquals: 5.0",
+                                "$anElementWhichEquals: 5.1",
                                 "$numberOfSuchElements: 2$separator"
                             )
                             toEndWith("$atLeastDescr: 3")
@@ -158,83 +158,83 @@ abstract class IterableToContainInAnyOrderAtLeastValuesExpectationsSpec(
                     }
                 }
 
-                it("${toContainAtLeastPair.first("5.0 and 4.0", "twice")} does not throw") {
-                    expect(oneToSeven()).toContainAtLeastFun(2, 5.0, 4.0)
+                it("${toContainAtLeastPair.first("5.1 and 4.1", "twice")} does not throw") {
+                    expect(oneToSeven()).toContainAtLeastFun(2, 5.1, 4.1)
                 }
-                it("${toContainAtLeastPair.first("4.0", "3 times")} does not throw") {
-                    expect(oneToSeven()).toContainAtLeastFun(3, 4.0)
+                it("${toContainAtLeastPair.first("4.1", "3 times")} does not throw") {
+                    expect(oneToSeven()).toContainAtLeastFun(3, 4.1)
                 }
 
                 it(
                     "${toContainAtLeastPair.first(
-                        "5.0 and 4.0",
+                        "5.1 and 4.1",
                         "3 times"
-                    )} throws AssertionError and message toContain both, at least: 3 and how many times it actually contained 5.0 (2)"
+                    )} throws AssertionError and message toContain both, at least: 3 and how many times it actually contained 5.1 (2)"
                 ) {
                     expect {
-                        expect(oneToSeven()).toContainAtLeastFun(3, 5.0, 4.0)
+                        expect(oneToSeven()).toContainAtLeastFun(3, 5.1, 4.1)
                     }.toThrow<AssertionError> {
                         message {
                             toContain(
                                 "$rootBulletPoint$toContainInAnyOrder: $separator",
-                                "$anElementWhichEquals: 5.0",
+                                "$anElementWhichEquals: 5.1",
                                 "$numberOfSuchElements: 2$separator"
                             )
                             toEndWith("$atLeastDescr: 3")
-                            notToContain("$anElementWhichEquals: 4.0")
+                            notToContain("$anElementWhichEquals: 4.1")
                         }
                     }
                 }
             }
 
             context("using $toContainAtLeastButAtMost") {
-                it("${toContainAtLeastButAtMostPair.first("5.0", "once", "twice")} does not throw") {
-                    expect(oneToSeven()).toContainAtLeastButAtMostFun(1, 2, 5.0)
+                it("${toContainAtLeastButAtMostPair.first("5.1", "once", "twice")} does not throw") {
+                    expect(oneToSeven()).toContainAtLeastButAtMostFun(1, 2, 5.1)
                 }
                 it(
                     "${toContainAtLeastButAtMostPair.first(
-                        "5.0 and 4.0",
+                        "5.1 and 4.1",
                         "once",
                         "twice"
-                    )} throws AssertionError and message toContain both, at most: 2 and how many times it actually contained 4.0 (3)"
+                    )} throws AssertionError and message toContain both, at most: 2 and how many times it actually contained 4.1 (3)"
                 ) {
                     expect {
-                        expect(oneToSeven()).toContainAtLeastButAtMostFun(1, 2, 5.0, 4.0)
+                        expect(oneToSeven()).toContainAtLeastButAtMostFun(1, 2, 5.1, 4.1)
                     }.toThrow<AssertionError> {
                         message {
                             toContain(
                                 "$rootBulletPoint$toContainInAnyOrder: $separator",
-                                "$anElementWhichEquals: 4.0",
+                                "$anElementWhichEquals: 4.1",
                                 "$numberOfSuchElements: 3$separator"
                             )
                             toEndWith("$atMostDescr: 2")
-                            notToContain(atLeastDescr, "$anElementWhichEquals: 5.0")
+                            notToContain(atLeastDescr, "$anElementWhichEquals: 5.1")
                         }
                     }
                 }
-                it("${toContainAtLeastButAtMostPair.first("5.0 and 4.0", "twice", "3 times")} does not throw") {
+                it("${toContainAtLeastButAtMostPair.first("5.1 and 4.1", "twice", "3 times")} does not throw") {
 
-                    expect(oneToSeven()).toContainAtLeastButAtMostFun(2, 3, 5.0, 4.0)
+                    expect(oneToSeven()).toContainAtLeastButAtMostFun(2, 3, 5.1, 4.1)
                 }
 
                 it(
                     "${toContainAtLeastButAtMostPair.first(
-                        "5.0 and 4.0",
+                        "5.1 and 4.1",
                         "3 times",
                         "4 times"
-                    )} throws AssertionError and message toContain both, at least: 3 and how many times it actually contained 5.0 (2)"
+                    )} throws AssertionError and message toContain both, at least: 3 and how many times it actually contained 5.1 (2)"
                 ) {
                     expect {
-                        expect(oneToSeven()).toContainAtLeastButAtMostFun(3, 4, 5.0, 4.0)
+                        expect(oneToSeven()).toContainAtLeastButAtMostFun(3, 4, 5.1, 4.1)
                     }.toThrow<AssertionError> {
                         message {
                             toContain(
                                 "$rootBulletPoint$toContainInAnyOrder: $separator",
-                                "$anElementWhichEquals: 5.0",
+                                "$anElementWhichEquals: 5.1",
                                 "$numberOfSuchElements: 2$separator"
                             )
                             toEndWith("$atLeastDescr: 3")
-                            notToContain(atMostDescr, "$anElementWhichEquals: 4.0")
+                            notToContain(atMostDescr, "$anElementWhichEquals: 4.1")
                         }
                     }
                 }

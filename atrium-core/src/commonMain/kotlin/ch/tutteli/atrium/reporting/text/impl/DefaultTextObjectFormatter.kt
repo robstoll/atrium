@@ -14,7 +14,7 @@ expect class DefaultTextObjectFormatter(translator: Translator) : TextObjectForm
 /**
  * Base class for the platform specific implementation of [DefaultTextObjectFormatter].
  *
- * It cannot format Java's `Class`, this has to be done in the JVM module. Moreover it requires a platform specific
+ * It cannot format Java's `Class`, this has to be done in the JVM module. Moreover, it requires a platform specific
  * implementation of [identityHash] and [format] a [KClass].
  */
 abstract class TextObjectFormatterCommon(

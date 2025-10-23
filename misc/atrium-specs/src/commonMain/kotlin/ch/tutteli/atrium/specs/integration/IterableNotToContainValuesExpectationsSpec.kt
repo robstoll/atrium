@@ -39,15 +39,15 @@ abstract class IterableNotToContainValuesExpectationsSpec(
 
         context("empty collection") {
 
-            it("4.0 throws AssertionError") {
+            it("4.1 throws AssertionError") {
                 expect {
-                    expect(fluentEmpty()).notToContainFun(4.0)
+                    expect(fluentEmpty()).notToContainFun(4.1)
                 }.toThrow<AssertionError> {
                     message {
                         toContainRegex(
                             "$hasANextElement$separator" +
                                 "$indentRootBulletPoint\\Q$explanatoryBulletPoint\\E$notToContainDescr: $separator" +
-                                "$indentListBulletPoint$anElementWhichIsWithIndent: 4.0.*",
+                                "$indentListBulletPoint$anElementWhichIsWithIndent: 4.1.*",
                             "$hintBulletPoint${
                                 DescriptionIterableLikeExpectation.USE_NOT_TO_HAVE_ELEMENTS_OR_NONE.getDefault()
                                     .format(notToHaveElementsOrNoneFunName)
@@ -61,68 +61,68 @@ abstract class IterableNotToContainValuesExpectationsSpec(
         context("iterable ${oneToSeven().toList()}") {
 
             context("happy case") {
-                it("1.1 does not throw") {
-                    expect(oneToSeven()).notToContainFun(1.1)
+                it("1.2 does not throw") {
+                    expect(oneToSeven()).notToContainFun(1.2)
                 }
-                it("1.1, 2.2, 3.3 does not throw") {
-                    expect(oneToSeven()).notToContainFun(1.1, 2.2, 3.3)
+                it("1.2, 2.2, 3.3 does not throw") {
+                    expect(oneToSeven()).notToContainFun(1.2, 2.2, 3.3)
                 }
-                it("3.3, 1.1, 2.2 does not throw") {
-                    expect(oneToSeven()).notToContainFun(3.3, 1.1, 2.2)
+                it("3.3, 1.2, 2.2 does not throw") {
+                    expect(oneToSeven()).notToContainFun(3.3, 1.2, 2.2)
                 }
             }
 
             context("failing cases; search string at different positions") {
-                it("4.0 throws AssertionError") {
+                it("4.1 throws AssertionError") {
                     expect {
-                        expect(oneToSeven()).notToContainFun(4.0)
+                        expect(oneToSeven()).notToContainFun(4.1)
                     }.toThrow<AssertionError> {
                         message {
                             toContainRegex(
                                 "\\Q$rootBulletPoint\\E$notToContainDescr: $separator" +
-                                    "$anElementWhichIsWithIndent: 4.0.*$separator" +
+                                    "$anElementWhichIsWithIndent: 4.1.*$separator" +
                                     "$afterExplanatoryIndent\\Q$warningBulletPoint$mismatches:\\E $separator" +
-                                    "$afterMismatchedWarning${mismatchedIndex(2, "4.0")}.*$separator" +
-                                    "$afterMismatchedWarning${mismatchedIndex(3, "4.0")}.*$separator" +
-                                    "$afterMismatchedWarning${mismatchedIndex(8, "4.0")}.*"
+                                    "$afterMismatchedWarning${mismatchedIndex(2, "4.1")}.*$separator" +
+                                    "$afterMismatchedWarning${mismatchedIndex(3, "4.1")}.*$separator" +
+                                    "$afterMismatchedWarning${mismatchedIndex(8, "4.1")}.*"
                             )
                         }
                     }
                 }
-                it("1.0, 4.0 throws AssertionError") {
+                it("1.1, 4.1 throws AssertionError") {
                     expect {
-                        expect(oneToSeven()).notToContainFun(1.0, 4.0)
+                        expect(oneToSeven()).notToContainFun(1.1, 4.1)
                     }.toThrow<AssertionError> {
                         message {
                             toContainRegex(
                                 "\\Q$rootBulletPoint\\E$notToContainDescr: $separator" +
-                                    "$anElementWhichIsWithIndent: 1.0.*$separator" +
+                                    "$anElementWhichIsWithIndent: 1.1.*$separator" +
                                     "$afterExplanatoryIndent\\Q$warningBulletPoint$mismatches:\\E $separator" +
-                                    "$afterMismatchedWarning${mismatchedIndex(0, "1.0")}.*$separator" +
-                                    "$anElementWhichIsWithIndent: 4.0.*$separator" +
+                                    "$afterMismatchedWarning${mismatchedIndex(0, "1.1")}.*$separator" +
+                                    "$anElementWhichIsWithIndent: 4.1.*$separator" +
                                     "$afterExplanatoryIndent\\Q$warningBulletPoint$mismatches:\\E $separator" +
-                                    "$afterMismatchedWarning${mismatchedIndex(2, "4.0")}.*$separator" +
-                                    "$afterMismatchedWarning${mismatchedIndex(3, "4.0")}.*$separator" +
-                                    "$afterMismatchedWarning${mismatchedIndex(8, "4.0")}.*"
+                                    "$afterMismatchedWarning${mismatchedIndex(2, "4.1")}.*$separator" +
+                                    "$afterMismatchedWarning${mismatchedIndex(3, "4.1")}.*$separator" +
+                                    "$afterMismatchedWarning${mismatchedIndex(8, "4.1")}.*"
                             )
                         }
                     }
                 }
-                it("4.0, 1.1 throws AssertionError") {
+                it("4.1, 1.1 throws AssertionError") {
                     expect {
-                        expect(oneToSeven()).notToContainFun(4.0, 1.0)
+                        expect(oneToSeven()).notToContainFun(4.1, 1.1)
                     }.toThrow<AssertionError> {
                         message {
                             toContainRegex(
                                 "\\Q$rootBulletPoint\\E$notToContainDescr: $separator" +
-                                    "$anElementWhichIsWithIndent: 4.0.*$separator" +
+                                    "$anElementWhichIsWithIndent: 4.1.*$separator" +
                                     "$afterExplanatoryIndent\\Q$warningBulletPoint$mismatches:\\E $separator" +
-                                    "$afterMismatchedWarning${mismatchedIndex(2, "4.0")}.*$separator" +
-                                    "$afterMismatchedWarning${mismatchedIndex(3, "4.0")}.*$separator" +
-                                    "$afterMismatchedWarning${mismatchedIndex(8, "4.0")}.*$separator" +
-                                    "$anElementWhichIsWithIndent: 1.0.*$separator" +
+                                    "$afterMismatchedWarning${mismatchedIndex(2, "4.1")}.*$separator" +
+                                    "$afterMismatchedWarning${mismatchedIndex(3, "4.1")}.*$separator" +
+                                    "$afterMismatchedWarning${mismatchedIndex(8, "4.1")}.*$separator" +
+                                    "$anElementWhichIsWithIndent: 1.1.*$separator" +
                                     "$afterExplanatoryIndent\\Q$warningBulletPoint$mismatches:\\E $separator" +
-                                    "$afterMismatchedWarning${mismatchedIndex(0, "1.0")}.*"
+                                    "$afterMismatchedWarning${mismatchedIndex(0, "1.1")}.*"
                             )
                         }
                     }
@@ -156,9 +156,9 @@ abstract class IterableNotToContainValuesExpectationsSpec(
                     }
                 }
 
-                it("1.1, null throws AssertionError mentioning only null") {
+                it("1.2, null throws AssertionError mentioning only null") {
                     expect {
-                        expect(oneToSevenNullable()).notToContainNullableFun(1.1, null)
+                        expect(oneToSevenNullable()).notToContainNullableFun(1.2, null)
                     }.toThrow<AssertionError> {
                         message {
                             toContainRegex(
@@ -168,7 +168,7 @@ abstract class IterableNotToContainValuesExpectationsSpec(
                                     "$afterMismatchedWarning${mismatchedIndex(1, "null")}.*$separator" +
                                     "$afterMismatchedWarning${mismatchedIndex(5, "null")}.*"
                             )
-                            notToContain("$notToContainDescr: 1.1")
+                            notToContain("$notToContainDescr: 1.2")
                         }
                     }
                 }

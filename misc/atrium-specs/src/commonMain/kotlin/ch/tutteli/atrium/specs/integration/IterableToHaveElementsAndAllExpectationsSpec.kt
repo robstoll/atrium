@@ -45,32 +45,32 @@ abstract class IterableToHaveElementsAndAllExpectationsSpec(
         context("empty collection") {
             it("throws AssertionError as there needs to be at least one element") {
                 expect {
-                    expect(fluentEmpty()).toHaveElementsAndAllFun { toBeLessThan(1.0) }
+                    expect(fluentEmpty()).toHaveElementsAndAllFun { toBeLessThan(1.1) }
                 }.toThrow<AssertionError> {
                     message.toContainRegex(
                         hasANextElement,
                         "$explanatoryBulletPoint$allElementsDescr: ",
-                        "$explanatoryPointWithIndent$toBeLessThanDescr: 1.0"
+                        "$explanatoryPointWithIndent$toBeLessThanDescr: 1.1"
                     )
                 }
             }
         }
 
         context("iterable ${oneToSeven().toList()}") {
-            context("all are $toBeGreaterThanFun(2.5) and $toBeLessThanFun(7.0)") {
+            context("all are $toBeGreaterThanFun(2.5) and $toBeLessThanFun(7.1)") {
                 it("throws AssertionError containing both assumptions in one assertion") {
                     expect {
-                        expect(oneToSeven()).toHaveElementsAndAllFun { toBeGreaterThan(2.5); toBeLessThan(7.0) }
+                        expect(oneToSeven()).toHaveElementsAndAllFun { toBeGreaterThan(2.5); toBeLessThan(7.1) }
                     }.toThrow<AssertionError> {
                         message {
                             toContain.exactly(1).values(
                                 "$rootBulletPoint$allElementsDescr: $separator",
                                 "$explanatoryPointWithIndent$toBeGreaterThanDescr: 2.5",
-                                "$explanatoryPointWithIndent$toBeLessThanDescr: 7.0",
+                                "$explanatoryPointWithIndent$toBeLessThanDescr: 7.1",
                                 "$warningBulletPoint$mismatches:",
-                                "${index(0)}: 1.0",
-                                "${index(1)}: 2.0",
-                                "${index(9)}: 7.0"
+                                "${index(0)}: 1.1",
+                                "${index(1)}: 2.1",
+                                "${index(9)}: 7.1"
                             )
                         }
                     }

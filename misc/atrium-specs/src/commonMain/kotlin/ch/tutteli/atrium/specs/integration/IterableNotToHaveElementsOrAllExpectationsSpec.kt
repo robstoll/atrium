@@ -44,25 +44,25 @@ abstract class IterableNotToHaveElementsOrAllExpectationsSpec(
 
         context("empty collection") {
             it("does not throw") {
-                expect(fluentEmpty()).notToHaveElementsOrAllFun { toBeLessThan(1.0) }
+                expect(fluentEmpty()).notToHaveElementsOrAllFun { toBeLessThan(1.1) }
             }
         }
 
         context("iterable ${oneToSeven().toList()}") {
-            context("all need $toBeGreaterThanFun(2.5) and $toBeLessThanFun(7.0)") {
+            context("all need $toBeGreaterThanFun(2.5) and $toBeLessThanFun(7.1)") {
                 it("throws AssertionError containing both assumptions in one assertion") {
                     expect {
-                        expect(oneToSeven()).notToHaveElementsOrAllFun { toBeGreaterThan(2.5); toBeLessThan(7.0) }
+                        expect(oneToSeven()).notToHaveElementsOrAllFun { toBeGreaterThan(2.5); toBeLessThan(7.1) }
                     }.toThrow<AssertionError> {
                         message {
                             toContain.exactly(1).values(
                                 "$rootBulletPoint$allElementsDescr: $separator",
                                 "$explanatoryPointWithIndent$toBeGreaterThanDescr: 2.5",
-                                "$explanatoryPointWithIndent$toBeLessThanDescr: 7.0",
+                                "$explanatoryPointWithIndent$toBeLessThanDescr: 7.1",
                                 "$warningBulletPoint$mismatches:",
-                                "${index(0)}: 1.0",
-                                "${index(1)}: 2.0",
-                                "${index(9)}: 7.0"
+                                "${index(0)}: 1.1",
+                                "${index(1)}: 2.1",
+                                "${index(9)}: 7.1"
                             )
                         }
                     }

@@ -21,11 +21,11 @@ abstract class IterableNotToHaveElementsOrNoneExpectationsSpec(
 
     include(object : AssertionCreatorSpec<Iterable<Double>>(
         describePrefix, oneToSeven().toList().asIterable(),
-        notToHaveElementsOrNone.forExpectationCreatorTest("$toBeGreaterThanDescr: 10.0") { toBeGreaterThan(10.0) }
+        notToHaveElementsOrNone.forExpectationCreatorTest("$toBeGreaterThanDescr: 10.1") { toBeGreaterThan(10.1) }
     ) {})
     include(object : AssertionCreatorSpec<Iterable<Double?>>(
         "$describePrefix[nullable Element] ", oneToSeven().toList().asIterable(),
-        notToHaveElementsOrNoneNullable.forExpectationCreatorTest("$toBeGreaterThanDescr: 10.0") { toBeGreaterThan(10.0) }
+        notToHaveElementsOrNoneNullable.forExpectationCreatorTest("$toBeGreaterThanDescr: 10.1") { toBeGreaterThan(10.1) }
     ) {})
 
     val notToHaveElementsOrNoneDescr = DescriptionIterableLikeExpectation.NOT_TO_HAVE_ELEMENTS_OR_NONE.getDefault()
@@ -44,32 +44,32 @@ abstract class IterableNotToHaveElementsOrNoneExpectationsSpec(
 
         context("empty collection") {
             it("does not throw") {
-                expect(fluentEmpty()).notToHaveElementsOrNoneFun { toBeLessThan(1.0) }
+                expect(fluentEmpty()).notToHaveElementsOrNoneFun { toBeLessThan(1.1) }
             }
         }
 
         context("iterable ${oneToSeven().toList()}") {
             context("happy case") {
-                listOf(1.1, 2.2, 3.3).forEach {
+                listOf(1.2, 2.2, 3.3).forEach {
                     it("$toEqualDescr($it) does not throw") {
-                        expect(oneToSeven()).notToHaveElementsOrNoneFun { toEqual(1.1) }
+                        expect(oneToSeven()).notToHaveElementsOrNoneFun { toEqual(it) }
                     }
                 }
             }
 
             context("failing cases; search string at different positions") {
-                it("$toEqualDescr(4.0) throws AssertionError") {
+                it("$toEqualDescr(4.1) throws AssertionError") {
                     expect {
-                        expect(oneToSeven()).notToHaveElementsOrNoneFun { toEqual(4.0) }
+                        expect(oneToSeven()).notToHaveElementsOrNoneFun { toEqual(4.1) }
                     }.toThrow<AssertionError> {
                         message {
                             toContainRegex(
                                 "\\Q$rootBulletPoint\\E$notToHaveElementsOrNoneDescr: $separator" +
-                                    "$indentRootBulletPoint$indentListBulletPoint\\Q$explanatoryBulletPoint\\E$toEqualDescr: 4.0.*$separator" +
+                                    "$indentRootBulletPoint$indentListBulletPoint\\Q$explanatoryBulletPoint\\E$toEqualDescr: 4.1.*$separator" +
                                     "$indentRootBulletPoint$indentListBulletPoint\\Q$warningBulletPoint$mismatches:\\E $separator" +
-                                    "${mismatch(2, "4.0")}.*$separator" +
-                                    "${mismatch(3, "4.0")}.*$separator" +
-                                    "${mismatch(8, "4.0")}.*"
+                                    "${mismatch(2, "4.1")}.*$separator" +
+                                    "${mismatch(3, "4.1")}.*$separator" +
+                                    "${mismatch(8, "4.1")}.*"
                             )
                         }
                     }
@@ -103,16 +103,16 @@ abstract class IterableNotToHaveElementsOrNoneExpectationsSpec(
                     }
                 }
 
-                it("1.0 throws AssertionError") {
+                it("1.1 throws AssertionError") {
                     expect {
-                        expect(oneToSevenNullable()).notToHaveElementsOrNoneFun { toEqual(1.0) }
+                        expect(oneToSevenNullable()).notToHaveElementsOrNoneFun { toEqual(1.1) }
                     }.toThrow<AssertionError> {
                         message {
                             toContainRegex(
                                 "\\Q$rootBulletPoint\\E$notToHaveElementsOrNoneDescr: $separator" +
-                                    "$indentRootBulletPoint$indentListBulletPoint\\Q$explanatoryBulletPoint\\E$toEqualDescr: 1.0.*$separator" +
+                                    "$indentRootBulletPoint$indentListBulletPoint\\Q$explanatoryBulletPoint\\E$toEqualDescr: 1.1.*$separator" +
                                     "$indentRootBulletPoint$indentListBulletPoint\\Q$warningBulletPoint$mismatches:\\E $separator" +
-                                    "${mismatch(0, "1.0")}.*"
+                                    "${mismatch(0, "1.1")}.*"
                             )
                         }
                     }
