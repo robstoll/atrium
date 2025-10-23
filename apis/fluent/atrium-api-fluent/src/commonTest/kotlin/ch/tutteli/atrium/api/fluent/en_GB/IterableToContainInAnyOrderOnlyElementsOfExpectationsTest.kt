@@ -1,28 +1,27 @@
 package ch.tutteli.atrium.api.fluent.en_GB
 
+import ch.tutteli.atrium.api.verbs.expect
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic.creating.iterablelike.contains.reporting.InAnyOrderOnlyReportingOptions
+import ch.tutteli.atrium.specs.integration.AbstractIterableToContainInAnyOrderOnlyValuesExpectationsTest
 import ch.tutteli.atrium.specs.integration.IterableToContainSpecBase.Companion.emptyInAnyOrderOnlyReportOptions
-import ch.tutteli.atrium.specs.notImplemented
+import ch.tutteli.atrium.specs.integration.utils.iterableLikeToIterableTestFactory
 import ch.tutteli.atrium.specs.withNullableSuffix
-import org.spekframework.spek2.Spek
+import ch.tutteli.atrium.testfactories.TestFactory
+import kotlin.test.Test
 import ch.tutteli.atrium.api.fluent.en_GB.IterableToContainInAnyOrderOnlyElementsOfExpectationsTest.Companion as C
 
-class IterableToContainInAnyOrderOnlyElementsOfExpectationsTest : Spek({
-    //include(BuilderSpec)
-    include(BuilderIterableLikeToIterableSpec)
-}) {
-    object BuilderSpec : ch.tutteli.atrium.specs.integration.AbstractIterableToContainInAnyOrderOnlyValuesExpectationsTest(
+class IterableToContainInAnyOrderOnlyElementsOfExpectationsTest :
+    AbstractIterableToContainInAnyOrderOnlyValuesExpectationsTest(
         functionDescription to C::toContainElementsOf,
         (functionDescription to C::toContainElementsOfNullable).withNullableSuffix()
-    )
+    ) {
 
-    object BuilderIterableLikeToIterableSpec :
-        ch.tutteli.atrium.specs.integration.IterableLikeToIterableSpec<List<Int>>(
-            functionDescription,
-            listOf(1, 2),
-            { input -> toContain.inAnyOrder.only.elementsOf(input) }
-        )
+    @TestFactory
+    fun iterableLikeToIterableTest() = iterableLikeToIterableTestFactory<List<Int>>(
+        listOf(1, 2),
+        functionDescription to { input -> toContain.inAnyOrder.only.elementsOf(input) }
+    )
 
     companion object : IterableToContainSpecBase() {
         val functionDescription = "$toContain.$inAnyOrder.$only.$elementsOf"
@@ -48,27 +47,28 @@ class IterableToContainInAnyOrderOnlyElementsOfExpectationsTest : Spek({
             } else expect.toContain.inAnyOrder.only.elementsOf(listOf(a, *aX), report = report)
     }
 
-    @Suppress("unused", "UNUSED_VALUE")
-    private fun ambiguityTest() {
-        var list: Expect<List<Number>> = notImplemented()
-        var nList: Expect<Set<Number?>> = notImplemented()
-        var subList: Expect<ArrayList<Number>> = notImplemented()
-        var star: Expect<Collection<*>> = notImplemented()
+    @Suppress("AssignedValueIsNeverRead", "UNUSED_VARIABLE", "UNUSED_VALUE")
+    @Test
+    fun ambiguityTest() {
+        var list: Expect<List<Number>> = expect(listOf(1, 1.2))
+        var nSet: Expect<Set<Number?>> = expect(setOf(1, 1.2))
+        var nCollection: Expect<Set<Number?>> = expect(setOf(null, 1.2))
+        var subList: Expect<ArrayList<Number>> = expect(arrayListOf(1, 1.2))
+        var starSet: Expect<Set<*>> = expect(setOf(1, 1.2, "asdf"))
+        var starCollection: Expect<Collection<*>> = expect(listOf(1, null, "asdf"))
 
-        list = list.toContain.inAnyOrder.only.elementsOf(emptyList<Int>())
-        nList = nList.toContain.inAnyOrder.only.elementsOf(emptyList<Int>())
-        subList = subList.toContain.inAnyOrder.only.elementsOf(emptyList<Int>())
-        star = star.toContain.inAnyOrder.only.elementsOf(emptyList<Int>())
+        list = list.toContain.inAnyOrder.only.elementsOf(listOf(1, 1.2))
+        nSet = nSet.toContain.inAnyOrder.only.elementsOf(listOf(1, 1.2))
+        nCollection = nCollection.toContain.inAnyOrder.only.elementsOf(listOf(null, 1.2))
+        subList = subList.toContain.inAnyOrder.only.elementsOf(listOf(1, 1.2))
+        starSet = starSet.toContain.inAnyOrder.only.elementsOf(listOf(1, 1.2, "asdf"))
+        starCollection = starCollection.toContain.inAnyOrder.only.elementsOf(listOf(1, null, "asdf"))
 
-        list = list.toContain.inAnyOrder.only.elementsOf(emptyList<Int>(), report = {})
-        nList = nList.toContain.inAnyOrder.only.elementsOf(emptyList<Int>(), report = {})
-        subList = subList.toContain.inAnyOrder.only.elementsOf(emptyList<Int>(), report = {})
-        star = star.toContain.inAnyOrder.only.elementsOf(emptyList<Int>(), report = {})
-
-        nList = nList.toContain.inAnyOrder.only.elementsOf(emptyList<Int?>())
-        star = star.toContain.inAnyOrder.only.elementsOf(emptyList<Int?>())
-
-        list = list.toContain.inAnyOrder.only.elementsOf(emptyList<Int?>(), report = {})
-        star = star.toContain.inAnyOrder.only.elementsOf(emptyList<Int?>(), report = {})
+        list = list.toContain.inAnyOrder.only.elementsOf(listOf(1, 1.2), report = {})
+        nSet = nSet.toContain.inAnyOrder.only.elementsOf(listOf(1, 1.2), report = {})
+        subList = subList.toContain.inAnyOrder.only.elementsOf(listOf(1, 1.2), report = {})
+        nCollection = nCollection.toContain.inAnyOrder.only.elementsOf(listOf(null, 1.2), report = {})
+        starSet = starSet.toContain.inAnyOrder.only.elementsOf(listOf(1, 1.2, "asdf"), report = {})
+        starCollection = starCollection.toContain.inAnyOrder.only.elementsOf(listOf(1, null, "asdf"), report = {})
     }
 }
