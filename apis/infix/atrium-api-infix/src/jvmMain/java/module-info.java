@@ -2,6 +2,7 @@ module ch.tutteli.atrium.api.infix.en_GB {
     requires transitive ch.tutteli.atrium.core.api;
     requires            ch.tutteli.atrium.logic;
     requires            kotlin.stdlib;
+    requires            kotlin.reflect;
     requires            ch.tutteli.kbox;
 
     exports ch.tutteli.atrium.api.infix.en_GB;
