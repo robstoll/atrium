@@ -2,12 +2,12 @@ package ch.tutteli.atrium.specs.integration
 
 import ch.tutteli.atrium.api.verbs.internal.testfactories.ExpectTestExecutableForTests
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.specs.SpecPair
+import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.specs.integration.utils.*
 import ch.tutteli.atrium.specs.lambda
 import ch.tutteli.atrium.specs.name
-import ch.tutteli.atrium.testfactories.DynamicNodeContainer
-import ch.tutteli.atrium.testfactories.DynamicNodeLike
+import ch.tutteli.atrium.testfactories.PlatformTestNodeContainer
+import ch.tutteli.atrium.testfactories.PlatformTestNode
 import ch.tutteli.atrium.testfactories.TestFactoryBuilder
 import ch.tutteli.kbox.forElementAndForEachIn
 
@@ -16,43 +16,43 @@ expect abstract class ExpectationFunctionBaseTest() {
     protected fun <T> testFactory(
         specPair: SpecPair<T>,
         setup: TestFactoryBuilder<ExpectTestExecutableForTests>.(T) -> Unit,
-    ): DynamicNodeContainer<DynamicNodeLike>
+    ): PlatformTestNodeContainer<PlatformTestNode>
 
     protected fun testFactory(
         specPair: SpecPair<*>,
         otherSpecPair: SpecPair<*>,
         vararg otherSpecPairs: SpecPair<*>,
         setup: TestFactoryBuilder<ExpectTestExecutableForTests>.() -> Unit,
-    ): DynamicNodeContainer<DynamicNodeLike>
+    ): PlatformTestNodeContainer<PlatformTestNode>
 
     protected fun <SubjectT> subjectLessTestFactory(
         expectationCreator: SpecPair<Expect<SubjectT>.() -> Unit>,
         vararg otherExpectationCreators: SpecPair<Expect<SubjectT>.() -> Unit>,
         groupPrefix: String? = null
-    ): DynamicNodeContainer<DynamicNodeLike>
+    ): PlatformTestNodeContainer<PlatformTestNode>
 
     protected fun subjectLessTestFactory(
         testData: SubjectLessTestData<*>,
         vararg otherTestData: SubjectLessTestData<*>,
-    ): DynamicNodeContainer<DynamicNodeLike>
+    ): PlatformTestNodeContainer<PlatformTestNode>
 
     protected fun <SubjectT> expectationCreatorTestFactory(
         subject: SubjectT,
         assertionCreator: ExpectationCreatorTriple<SubjectT>,
         vararg otherAssertionCreators: ExpectationCreatorTriple<SubjectT>,
         groupPrefix: String? = null
-    ): DynamicNodeContainer<DynamicNodeLike>
+    ): PlatformTestNodeContainer<PlatformTestNode>
 
     protected fun expectationCreatorTestFactory(
         testData: ExpectationCreatorTestData<*>,
         vararg otherTestData: ExpectationCreatorTestData<*>,
-    ): DynamicNodeContainer<DynamicNodeLike>
+    ): PlatformTestNodeContainer<PlatformTestNode>
 
     protected fun <T : Any> nonNullableCases(
         nonNullableSpecPair: SpecPair<T>,
         nullableSpecPair: Any,
         testExecutable: ExpectTestExecutableForTests.(T) -> Unit,
-    ): DynamicNodeContainer<DynamicNodeLike>
+    ): PlatformTestNodeContainer<PlatformTestNode>
 }
 
 fun TestFactoryBuilder<ExpectTestExecutableForTests>.applySubjectLessTestSetup(

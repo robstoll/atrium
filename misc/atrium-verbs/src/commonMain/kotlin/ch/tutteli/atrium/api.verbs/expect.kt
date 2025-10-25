@@ -3,14 +3,16 @@ package ch.tutteli.atrium.api.verbs
 import ch.tutteli.atrium.api.verbs.AssertionVerb.EXPECT
 import ch.tutteli.atrium.api.verbs.factory.DefaultExpectationVerbs
 import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
-import ch.tutteli.atrium.creating.*
+import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.creating.ExpectGrouping
+import ch.tutteli.atrium.creating.FeatureExpect
+import ch.tutteli.atrium.creating.RootExpect
 import ch.tutteli.atrium.logic.*
 import ch.tutteli.atrium.logic.creating.RootExpectBuilder
 import ch.tutteli.atrium.reporting.Text
 import ch.tutteli.atrium.testfactories.*
 import ch.tutteli.atrium.testfactories.expect.ExpectTestExecutable
 import ch.tutteli.atrium.testfactories.expect.createExpectTestExecutableFactory
-
 import ch.tutteli.atrium.api.verbs.expect as atriumVerb
 
 /**
@@ -146,23 +148,23 @@ fun ExpectGrouping.expectGrouped(
  * Creates a test factory which can be used in conjunction with Atrium's [TestFactory] annotation and uses Atrium's
  * default expectation verbs.
  *
- * @return The platform specific test factory.
+ * @return The platform specific test nodes.
  * @since 1.3.0
  */
 fun testFactory(
     setup: TestFactoryBuilder<ExpectTestExecutable>.() -> Unit,
-    expectationVerbs: ExpectationVerbs = DefaultExpectationVerbs
-): Any = testFactoryTemplate(setup, createExpectTestExecutableFactory(expectationVerbs))
+): PlatformTestNodeContainer<PlatformTestNode> =
+    testFactoryTemplate(setup, createExpectTestExecutableFactory(DefaultExpectationVerbs))
 
 /**
  * Creates a test factory which can be used in conjunction with Atrium's [TestFactory] annotation and uses Atrium's
  * default expectation verbs.
  *
- * @return The platform specific test factory.
+ * @return The platform specific test nodes.
  * @since 1.3.0
  */
 fun testFactory(
     setup: TestFactoryBuilder<ExpectTestExecutable>.() -> Unit,
     vararg otherSetups: TestFactoryBuilder<ExpectTestExecutable>.() -> Unit,
-    expectationVerbs: ExpectationVerbs = DefaultExpectationVerbs
-): Any = testFactoryTemplate(setup, otherSetups, createExpectTestExecutableFactory(expectationVerbs))
+): PlatformTestNodeContainer<PlatformTestNode> =
+    testFactoryTemplate(setup, otherSetups, createExpectTestExecutableFactory(DefaultExpectationVerbs))

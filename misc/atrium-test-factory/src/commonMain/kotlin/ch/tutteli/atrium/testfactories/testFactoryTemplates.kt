@@ -7,7 +7,7 @@ import ch.tutteli.kbox.glue
  *
  * See sample for how to use it.
  *
- * @return The platform specific test factory.
+ * @return The platform specific test nodes.
  * @sample ch.tutteli.atrium.testfactories.samples.TestFactorySample.testFactoryTemplate
  *
  * @since 1.3.0
@@ -15,7 +15,7 @@ import ch.tutteli.kbox.glue
 fun <TestExecutableT : TestExecutable> testFactoryTemplate(
     setup: TestFactoryBuilder<TestExecutableT>.() -> Unit,
     testExecutableFactory: () -> TestExecutableT
-): DynamicNodeContainer<DynamicNodeLike> =
+): PlatformTestNodeContainer<PlatformTestNode> =
     turnTestNodesIntoPlatformSpecificTestFactory(buildTestNodes(setup), testExecutableFactory)
 
 /**
@@ -23,7 +23,7 @@ fun <TestExecutableT : TestExecutable> testFactoryTemplate(
  *
  * See sample for how to use it.
  *
- * @return The platform specific test factories.
+ * @return The platform specific test nodes.
  * @sample ch.tutteli.atrium.testfactories.samples.TestFactorySample.testFactoryTemplateVarag
  *
  * @since 1.3.0
@@ -32,6 +32,6 @@ fun <TestExecutableT : TestExecutable> testFactoryTemplate(
     setup: TestFactoryBuilder<TestExecutableT>.() -> Unit,
     otherSetups: Array<out TestFactoryBuilder<TestExecutableT>.() -> Unit>,
     testExecutableFactory: () -> TestExecutableT
-): DynamicNodeContainer<DynamicNodeLike> = turnTestNodesIntoPlatformSpecificTestFactory(
+): PlatformTestNodeContainer<PlatformTestNode> = turnTestNodesIntoPlatformSpecificTestFactory(
     (setup glue otherSetups).flatMap(::buildTestNodes), testExecutableFactory
 )

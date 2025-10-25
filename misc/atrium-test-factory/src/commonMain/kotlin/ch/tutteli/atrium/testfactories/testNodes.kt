@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.testfactories
 
 /**
- * Marker interface for test nodes.
+ * Represents a platform agnostic test node.
  *
  * @since 1.3.0
  */
@@ -10,7 +10,7 @@ sealed class TestNode(
 )
 
 /**
- * A leaf test node consisting of a [displayName] and the [executable] which represents the Test as such
+ * A leaf test node consisting of a [displayName] and the [executable] which represents the test as such.
  *
  * @since 1.3.0
  */

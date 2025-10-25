@@ -47,10 +47,8 @@ abstract class AbstractCharSequenceToContainNotToContainExpectationsTest(
 
     @TestFactory
     fun notToContain__subject_empty_string() = testFactory(notToContainSpec) {
-        val fluentEmptyString = expect("" as CharSequence)
-
         it("${notToContainSpec.name} 'Hello' does not throw") {
-            fluentEmptyString.notToContainFun("Hello")
+            expect("" as CharSequence).notToContainFun("Hello")
         }
     }
 
