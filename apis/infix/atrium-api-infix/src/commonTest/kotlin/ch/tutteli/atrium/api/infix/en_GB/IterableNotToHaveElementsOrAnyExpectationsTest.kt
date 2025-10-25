@@ -1,11 +1,11 @@
-package ch.tutteli.atrium.api.fluent.en_GB
+package ch.tutteli.atrium.api.infix.en_GB
 
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.fun1
 import ch.tutteli.atrium.specs.notImplemented
 import ch.tutteli.atrium.specs.withNullableSuffix
 
-class IterableNotToHaveElementsOrAnyExpectationsSpec : ch.tutteli.atrium.specs.integration.IterableNotToHaveElementsOrAnyExpectationsSpec(
+class IterableNotToHaveElementsOrAnyExpectationsTest : ch.tutteli.atrium.specs.integration.AbstractIterableNotToHaveElementsOrAnyExpectationsTest(
     fun1(Expect<Iterable<Double>>::notToHaveElementsOrAny),
     fun1(Expect<Iterable<Double?>>::notToHaveElementsOrAny).withNullableSuffix()
 ) {
@@ -17,13 +17,13 @@ class IterableNotToHaveElementsOrAnyExpectationsSpec : ch.tutteli.atrium.specs.i
         var subList: Expect<ArrayList<out Number>> = notImplemented()
         var star: Expect<Collection<*>> = notImplemented()
 
-        list = list.notToHaveElementsOrAny {}
-        nList = nList.notToHaveElementsOrAny {}
-        subList = subList.notToHaveElementsOrAny {}
-        star = star.notToHaveElementsOrAny {}
+        list = list notToHaveElementsOrAny {}
+        nList = nList notToHaveElementsOrAny {}
+        subList = subList notToHaveElementsOrAny {}
+        star = star notToHaveElementsOrAny {}
 
-        nList = nList.notToHaveElementsOrAny(null)
-        subList = subList.notToHaveElementsOrAny(null)
-        star = star.notToHaveElementsOrAny(null)
+        nList = nList notToHaveElementsOrAny null
+        subList = subList notToHaveElementsOrAny null
+        star = star notToHaveElementsOrAny null
     }
 }
