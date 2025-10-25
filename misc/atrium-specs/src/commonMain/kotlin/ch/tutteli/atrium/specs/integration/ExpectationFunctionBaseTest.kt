@@ -10,6 +10,7 @@ import ch.tutteli.atrium.testfactories.PlatformTestNodeContainer
 import ch.tutteli.atrium.testfactories.PlatformTestNode
 import ch.tutteli.atrium.testfactories.TestFactoryBuilder
 import ch.tutteli.kbox.forElementAndForEachIn
+import kotlin.jvm.JvmName
 
 expect abstract class ExpectationFunctionBaseTest() {
 
@@ -23,6 +24,18 @@ expect abstract class ExpectationFunctionBaseTest() {
         otherSpecPair: SpecPair<*>,
         vararg otherSpecPairs: SpecPair<*>,
         setup: TestFactoryBuilder<ExpectTestExecutableForTests>.() -> Unit,
+    ): PlatformTestNodeContainer<PlatformTestNode>
+
+    protected fun <T, R> testFactoryForFeatureNonFeature(
+        f0: Feature0<T, R>,
+        f1: Feature1<T, Expect<R>.() -> Unit, R>,
+        setup: TestFactoryBuilder<ExpectTestExecutableForTests>.(name: String, Expect<T>.(Expect<R>.() -> Unit) -> Expect<R>, hasExtraHints: Boolean) -> Unit,
+    ): PlatformTestNodeContainer<PlatformTestNode>
+
+    protected fun <T, A1, R> testFactoryForFeatureNonFeature(
+        f0: Feature1<T, A1, R>,
+        f1: Feature2<T, A1, Expect<R>.() -> Unit, R>,
+        setup: TestFactoryBuilder<ExpectTestExecutableForTests>.(name: String, Expect<T>.(A1, Expect<R>.() -> Unit) -> Expect<R>, hasExtraHints: Boolean) -> Unit,
     ): PlatformTestNodeContainer<PlatformTestNode>
 
     protected fun <SubjectT> subjectLessTestFactory(

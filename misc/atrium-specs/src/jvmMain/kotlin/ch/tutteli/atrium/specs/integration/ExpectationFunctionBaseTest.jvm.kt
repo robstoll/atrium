@@ -2,13 +2,19 @@ package ch.tutteli.atrium.specs.integration
 
 import ch.tutteli.atrium.api.verbs.internal.testfactories.ExpectTestExecutableForTests
 import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.specs.Feature0
+import ch.tutteli.atrium.specs.Feature1
+import ch.tutteli.atrium.specs.Feature2
 import ch.tutteli.atrium.specs.SpecPair
 import ch.tutteli.atrium.specs.integration.utils.ExpectationCreatorTestData
 import ch.tutteli.atrium.specs.integration.utils.SubjectLessTestData
 import ch.tutteli.atrium.specs.integration.utils.expectationCreatorTestSetup
 import ch.tutteli.atrium.specs.integration.utils.subjectLessTestSetup
 import ch.tutteli.atrium.specs.uncheckedToNonNullable
+import ch.tutteli.atrium.specs.lambda
+import ch.tutteli.atrium.specs.name
 import ch.tutteli.atrium.testfactories.TestFactoryBuilder
+import ch.tutteli.kbox.joinToString
 import ch.tutteli.atrium.api.verbs.internal.testFactory as internalTestFactory
 
 actual abstract class ExpectationFunctionBaseTest {
@@ -26,8 +32,43 @@ actual abstract class ExpectationFunctionBaseTest {
         vararg otherSpecPairs: SpecPair<*>,
         setup: TestFactoryBuilder<ExpectTestExecutableForTests>.() -> Unit,
     ) = internalTestFactory {
-        describe("_") {
+        describe(
+            "fun `${
+                (listOf(specPair, otherSpecPair) + otherSpecPairs).joinToString(
+                    separator = ", ",
+                    lastSeparator = " and "
+                ) { pair, sb -> sb.append("`").append(pair.name).append("`") }
+            }"
+        ) {
             setup()
+        }
+    }
+
+    @JvmName("testFactoryForFeature0NonFeature1")
+    protected actual fun <T, R> testFactoryForFeatureNonFeature(
+        f0: Feature0<T, R>,
+        f1: Feature1<T, Expect<R>.() -> Unit, R>,
+        setup: TestFactoryBuilder<ExpectTestExecutableForTests>.(name: String, Expect<T>.(Expect<R>.() -> Unit) -> Expect<R>, hasExtraHints: Boolean) -> Unit,
+    ) = internalTestFactory {
+        describe("fun `${f0.name}` and `${f1.name}`") {
+            val f0WithSubAssertion: Expect<T>.(Expect<R>.() -> Unit) -> Expect<R> =
+                { f: Expect<R>.() -> Unit -> (f0.lambda)().apply(f) }
+            this.setup(f0.name, f0WithSubAssertion, false)
+            this.setup(f1.name, f1.lambda, true)
+        }
+    }
+
+    @JvmName("testFactoryForFeature1NonFeature2")
+    protected actual fun <T, A1, R> testFactoryForFeatureNonFeature(
+        f0: Feature1<T, A1, R>,
+        f1: Feature2<T, A1, Expect<R>.() -> Unit, R>,
+        setup: TestFactoryBuilder<ExpectTestExecutableForTests>.(name: String, Expect<T>.(A1, Expect<R>.() -> Unit) -> Expect<R>, hasExtraHints: Boolean) -> Unit,
+    ) = internalTestFactory {
+        describe("fun `${f0.name}` and `${f1.name}`") {
+            val f0WithSubAssertion: Expect<T>.(A1, Expect<R>.() -> Unit) -> Expect<R> =
+                { a1, f: Expect<R>.() -> Unit -> (f0.lambda)(a1).apply(f) }
+            this.setup(f0.name, f0WithSubAssertion, false)
+            this.setup(f1.name, f1.lambda, true)
         }
     }
 

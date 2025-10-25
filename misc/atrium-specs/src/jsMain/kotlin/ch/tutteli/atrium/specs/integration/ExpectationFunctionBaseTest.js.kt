@@ -4,6 +4,9 @@ import ch.tutteli.atrium.api.verbs.internal.factories.InternalExpectationVerbs
 import ch.tutteli.atrium.api.verbs.internal.testfactories.ExpectTestExecutableForTests
 import ch.tutteli.atrium.api.verbs.internal.testfactories.impl.ExpectGroupedBasedExpectTestExecutableForTestsImpl
 import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.specs.Feature0
+import ch.tutteli.atrium.specs.Feature1
+import ch.tutteli.atrium.specs.Feature2
 import ch.tutteli.atrium.specs.SpecPair
 import ch.tutteli.atrium.specs.integration.utils.ExpectationCreatorTestData
 import ch.tutteli.atrium.specs.integration.utils.SubjectLessTestData
@@ -45,6 +48,32 @@ actual abstract class ExpectationFunctionBaseTest {
             (listOf(specPair, otherSpecPair) + otherSpecPairs).joinToString(", ") { "`${it.name}`" }
         }) {
             setup()
+        }
+    }
+
+    protected actual fun <T, R> testFactoryForFeatureNonFeature(
+        f0: Feature0<T, R>,
+        f1: Feature1<T, Expect<R>.() -> Unit, R>,
+        setup: TestFactoryBuilder<ExpectTestExecutableForTests>.(name: String, Expect<T>.(Expect<R>.() -> Unit) -> Expect<R>, hasExtraHints: Boolean) -> Unit
+    ): PlatformTestNodeContainer<PlatformTestNode> = internalTestFactory {
+        describe(getDescribeText { "fun `${f0.name}` and `${f1.name}`" }) {
+            val f0WithSubAssertion: Expect<T>.(Expect<R>.() -> Unit) -> Expect<R> =
+                { f: Expect<R>.() -> Unit -> (f0.lambda)().apply(f) }
+            this.setup(f0.name, f0WithSubAssertion, false)
+            this.setup(f1.name, f1.lambda, true)
+        }
+    }
+
+    protected actual fun <T, A1, R> testFactoryForFeatureNonFeature(
+        f0: Feature1<T, A1, R>,
+        f1: Feature2<T, A1, Expect<R>.() -> Unit, R>,
+        setup: TestFactoryBuilder<ExpectTestExecutableForTests>.(name: String, Expect<T>.(A1, Expect<R>.() -> Unit) -> Expect<R>, hasExtraHints: Boolean) -> Unit,
+    ): PlatformTestNodeContainer<PlatformTestNode> = internalTestFactory {
+        describe(getDescribeText { "fun `${f0.name}` and `${f1.name}`" }) {
+            val f0WithSubAssertion: Expect<T>.(A1, Expect<R>.() -> Unit) -> Expect<R> =
+                { a1, f: Expect<R>.() -> Unit -> (f0.lambda)(a1).apply(f) }
+            this.setup(f0.name, f0WithSubAssertion, false)
+            this.setup(f1.name, f1.lambda, true)
         }
     }
 
