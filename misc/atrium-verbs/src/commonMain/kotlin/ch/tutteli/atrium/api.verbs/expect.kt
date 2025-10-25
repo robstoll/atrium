@@ -168,3 +168,19 @@ fun testFactory(
     vararg otherSetups: TestFactoryBuilder<ExpectTestExecutable>.() -> Unit,
 ): PlatformTestNodeContainer<PlatformTestNode> =
     testFactoryTemplate(setup, otherSetups, createExpectTestExecutableFactory(DefaultExpectationVerbs))
+
+/**
+ * Template method intended for providers of expectation verbs.
+ *
+ * See sample for how to use it.
+ *
+ * @return The platform specific test nodes.
+ * @sample ch.tutteli.atrium.testfactories.samples.TestFactorySample.testFactoryTemplateList
+ *
+ * @since 1.3.0
+ */
+fun testFactory(
+    setups: List<TestFactoryBuilder<ExpectTestExecutable>.() -> Unit>,
+): PlatformTestNodeContainer<PlatformTestNode> =
+    testFactoryTemplate(setups, createExpectTestExecutableFactory(DefaultExpectationVerbs))
+

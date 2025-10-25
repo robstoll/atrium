@@ -10,7 +10,7 @@ import kotlin.test.Test
 class BasicJsTest {
 
     @TestFactory
-    fun group() = testFactory {
+    fun group1() = testFactory {
         describe("some context") {
             it("calculates correctly") {
                 expect(1).toEqual(1)
@@ -23,6 +23,31 @@ class BasicJsTest {
             }
         }
     }
+
+
+    @TestFactory
+    fun group2() = testFactory({
+        describe("some context in the first factory") {
+            it("calculates correctly") {
+                expect(1).toEqual(1)
+            }
+            it("and another group") {
+                expect(2) {
+                    toBeLessThan(3)
+                    toBeGreaterThan(1)
+                }
+            }
+        }
+    }, {
+        describe("some context in the second factory") {
+            it("calculates correctly") {
+                expect(1).toEqual(1)
+            }
+            it("and another group") {
+                expect(2).toBeLessThan(3).toBeGreaterThan(1)
+            }
+        }
+    })
 
     @Test
     fun can_still_define_simple_test() {

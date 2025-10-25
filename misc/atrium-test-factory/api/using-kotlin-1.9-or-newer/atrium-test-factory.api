@@ -35,6 +35,7 @@ public final class ch/tutteli/atrium/testfactories/TestFactoryBuilderKt {
 }
 
 public final class ch/tutteli/atrium/testfactories/TestFactoryTemplatesKt {
+	public static final fun testFactoryTemplate (Ljava/util/List;Lkotlin/jvm/functions/Function0;)Lch/tutteli/atrium/testfactories/IterableDynamicNodeWrapper;
 	public static final fun testFactoryTemplate (Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function0;)Lch/tutteli/atrium/testfactories/IterableDynamicNodeWrapper;
 	public static final fun testFactoryTemplate (Lkotlin/jvm/functions/Function1;[Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function0;)Lch/tutteli/atrium/testfactories/IterableDynamicNodeWrapper;
 }

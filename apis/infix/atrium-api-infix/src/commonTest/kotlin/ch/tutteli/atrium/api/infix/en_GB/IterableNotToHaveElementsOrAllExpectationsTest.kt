@@ -13,7 +13,7 @@ class IterableNotToHaveElementsOrAllExpectationsTest :
     ) {
 
 
-    @Suppress("AssignedValueIsNeverRead")
+    @Suppress("AssignedValueIsNeverRead", "UNUSED_VALUE")
     @Test
     fun ambiguityTest() {
         var list: Expect<List<Number>> = expect(listOf(1, 1.2))

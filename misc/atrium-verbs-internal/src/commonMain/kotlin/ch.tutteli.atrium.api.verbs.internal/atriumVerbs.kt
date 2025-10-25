@@ -81,6 +81,10 @@ fun testFactory(
     vararg otherSetups: TestFactoryBuilder<ExpectTestExecutableForTests>.() -> Unit
 ) = testFactoryTemplate(setup, otherSetups, createExpectTestExecutableForTestsFactory())
 
+fun testFactory(
+    setups: List<TestFactoryBuilder<ExpectTestExecutableForTests>.() -> Unit>,
+) = testFactoryTemplate(setups, createExpectTestExecutableForTestsFactory())
+
 private fun createExpectTestExecutableForTestsFactory(
     expectationVerbs: ExpectationVerbs = InternalExpectationVerbs
 ): () -> ExpectTestExecutableForTests = {

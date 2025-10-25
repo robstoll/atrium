@@ -39,9 +39,11 @@ private fun splitStackLines(stack: String): List<String> {
     val hasCutColumnNumberOffBug = stack.contains("KotlinTestTeamCityConsoleAdapter")
 
     val cleanedStack = filteredStack.map { stackFrame ->
+        // in order that intellij renders the link correctly we prefix it with the file name
         if (stackFrame.startsWith("/")) {
-            // in order that intellij renders the link correctly we prefix it with the file name
             stackFrame.substringAfterLast("/").substringBeforeLast(".kt") + " (" + stackFrame + ")"
+        } else if (stackFrame.matches(windowsPathRegex)) {
+            stackFrame.substringAfterLast("\\").substringBeforeLast(".kt") + " (" + stackFrame + ")"
         } else {
             stackFrame
         }
@@ -65,5 +67,6 @@ private fun splitStackLines(stack: String): List<String> {
     return cleanedStack.toList()
 }
 
+private val windowsPathRegex = Regex("""[A-Z]:\\.*""")
 private val nameRegex = Regex("""(.*\.)protoOf\.(.*?)_[0-9a-z]+(?:_[a-z]\$)?(\s+\(.*)""")
 private val numberRegex = Regex("""(.*\.(kt|js):\d+:\d+)\)(.*)""")

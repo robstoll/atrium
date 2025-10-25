@@ -12,7 +12,7 @@ class IterableNotToHaveElementsOrAllExpectationsTest :
         fun1(Expect<Iterable<Double?>>::notToHaveElementsOrAll).withNullableSuffix()
     ) {
 
-    @Suppress("AssignedValueIsNeverRead")
+    @Suppress("AssignedValueIsNeverRead", "UNUSED_VALUE")
     @Test
     fun ambiguityTest() {
         var list: Expect<List<Number>> = expect(listOf(2.1))

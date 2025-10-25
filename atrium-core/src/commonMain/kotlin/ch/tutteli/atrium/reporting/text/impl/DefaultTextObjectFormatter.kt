@@ -7,7 +7,7 @@ import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.reporting.translating.Translator
 import kotlin.reflect.KClass
 
-expect class DefaultTextObjectFormatter(translator: Translator) : TextObjectFormatter{
+expect class DefaultTextObjectFormatter(translator: Translator) : TextObjectFormatter {
     override fun format(value: Any?): String
 }
 
@@ -58,7 +58,9 @@ abstract class TextObjectFormatterCommon(
     }
 
     private fun format(string: String) = "\"${limitRepresentation(string)}\"" + identityHash(INDENT, string)
-    private fun format(charSequence: CharSequence) = "\"${limitRepresentation(charSequence.toString())}\"" + classNameAndIdentity(charSequence)
+    private fun format(charSequence: CharSequence) =
+        "\"${limitRepresentation(charSequence.toString())}\"" + classNameAndIdentity(charSequence)
+
     private fun format(enum: Enum<*>) =
         limitRepresentation(enum.toString()) + INDENT + "(" + (enum::class.fullName) + ")"
 
