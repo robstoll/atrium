@@ -7,7 +7,7 @@ import org.junit.jupiter.api.DynamicTest.dynamicTest
 fun <TestExecutableT : TestExecutable> turnIntoJunitDynamicNodes(
     testNodes: List<TestNode>,
     testExecutableFactory: () -> TestExecutableT
-): DynamicNodeContainer<DynamicNodeLike> = DefaultIterableDynamicNodeWrapper(
+): PlatformTestNodeContainer<PlatformTestNode> = DefaultIterableDynamicNodeWrapper(
     testNodes.map { node ->
         when (node) {
             is BranchTestNode -> dynamicContainer(

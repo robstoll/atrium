@@ -4,8 +4,8 @@ import ch.tutteli.atrium.testfactories.junit.turnIntoJunitDynamicNodes
 import org.junit.jupiter.api.DynamicNode
 
 actual typealias TestFactory = org.junit.jupiter.api.TestFactory
-actual typealias DynamicNodeContainer<T> = IterableDynamicNodeWrapper<T>
-actual typealias DynamicNodeLike = DynamicNode
+actual typealias PlatformTestNodeContainer<T> = IterableDynamicNodeWrapper<T>
+actual typealias PlatformTestNode = DynamicNode
 
 interface IterableDynamicNodeWrapper<T : DynamicNode> : Iterable<DynamicNode>
 
@@ -15,4 +15,4 @@ class DefaultIterableDynamicNodeWrapper<T : DynamicNode>(list: List<DynamicNode>
 actual fun <TestExecutableT : TestExecutable> turnTestNodesIntoPlatformSpecificTestFactory(
     testNodes: List<TestNode>,
     testExecutableFactory: () -> TestExecutableT
-): DynamicNodeContainer<DynamicNodeLike> = turnIntoJunitDynamicNodes(testNodes, testExecutableFactory)
+): PlatformTestNodeContainer<PlatformTestNode> = turnIntoJunitDynamicNodes(testNodes, testExecutableFactory)

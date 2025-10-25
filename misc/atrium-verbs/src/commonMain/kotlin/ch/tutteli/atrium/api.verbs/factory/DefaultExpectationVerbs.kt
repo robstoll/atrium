@@ -5,6 +5,7 @@ import ch.tutteli.atrium.creating.ExpectationVerbs
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.creating.ExpectGrouping
 import ch.tutteli.atrium.api.verbs.expect as defaultExpect
+import ch.tutteli.atrium.api.verbs.expectGrouped as defaultExpectGrouped
 
 /**
  * Represents a facade to all the default expectation verb functions.
@@ -22,10 +23,7 @@ object DefaultExpectationVerbs : ExpectationVerbs {
         get() = AssertionVerb.EXPECT_GROUPED.getDefault()
 
     override fun expectGrouped(description: String, groupingActions: ExpectGrouping.() -> Unit): ExpectGrouping =
-        ch.tutteli.atrium.api.verbs.expectGrouped(
-            description = description,
-            groupingActions = groupingActions
-        )
+        defaultExpectGrouped(description = description, groupingActions = groupingActions)
 
     override fun <T> expectInExpectGrouped(expectGrouping: ExpectGrouping, subject: T): Expect<T> =
         expectGrouping.defaultExpect(subject)

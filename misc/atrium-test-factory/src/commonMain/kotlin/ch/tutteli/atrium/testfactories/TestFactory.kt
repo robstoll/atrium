@@ -13,24 +13,24 @@ expect annotation class TestFactory()
 
 /**
  * Note, we only have a type parameter because Kotlin does not allow yet to have a generic type with a fixed type parameter
- * on the RHS of an actual typealias such as `actual typealias DynamicNodeContainer = Iterable<DynamicNode>` and
+ * on the RHS of an actual typealias such as `actual typealias PlatformTestNodeContainer = Iterable<DynamicNode>` and
  * because JUnits compatibility check at runtime requires a ParameterizedType.
- * This is also the reason why we need [DynamicNodeLike]
+ * This is also the reason why we need [PlatformTestNode]
  *
  * @since 1.3.0
  */
-expect interface DynamicNodeContainer<T : DynamicNodeLike>
+expect interface PlatformTestNodeContainer<T : PlatformTestNode>
 
 /**
  * Note, this type only exists  because Kotlin does not allow yet to have a generic type with a fixed type parameter
- * on the RHS of an actual typealias such as `actual typealias DynamicNodeContainer = Iterable<DynamicNode>` and
+ * on the RHS of an actual typealias such as `actual typealias PlatformTestNodeContainer = Iterable<DynamicNode>` and
  * because JUnits compatibility check at runtime requires a ParameterizedType. If JUnit would not require it
- * but instead check if a supertype is compliant, then we could just use DynamicNodeContainer and type alias it to
+ * but instead check if a supertype is compliant, then we could just use PlatformTestNodeContainer and type alias it to
  * IterableDynamicNodeWrapper in jvm.
  *
  * @since 1.3.0
  */
-expect abstract class DynamicNodeLike
+expect abstract class PlatformTestNode
 
 /**
  * Turns the given [testNodes] into a platform specific representation such as JUnit's DynamicNode.
@@ -42,5 +42,5 @@ expect abstract class DynamicNodeLike
 expect fun <TestExecutableT : TestExecutable> turnTestNodesIntoPlatformSpecificTestFactory(
     testNodes: List<TestNode>,
     testExecutableFactory: () -> TestExecutableT
-): DynamicNodeContainer<DynamicNodeLike>
+): PlatformTestNodeContainer<PlatformTestNode>
 

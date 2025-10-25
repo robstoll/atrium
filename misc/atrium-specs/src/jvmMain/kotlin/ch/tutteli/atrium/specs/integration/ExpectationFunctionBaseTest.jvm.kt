@@ -1,7 +1,6 @@
 package ch.tutteli.atrium.specs.integration
 
 import ch.tutteli.atrium.api.verbs.internal.testfactories.ExpectTestExecutableForTests
-import ch.tutteli.atrium.api.verbs.internal.testFactory as internalTestFactory
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.SpecPair
 import ch.tutteli.atrium.specs.integration.utils.ExpectationCreatorTestData
@@ -10,7 +9,7 @@ import ch.tutteli.atrium.specs.integration.utils.expectationCreatorTestSetup
 import ch.tutteli.atrium.specs.integration.utils.subjectLessTestSetup
 import ch.tutteli.atrium.specs.uncheckedToNonNullable
 import ch.tutteli.atrium.testfactories.TestFactoryBuilder
-
+import ch.tutteli.atrium.api.verbs.internal.testFactory as internalTestFactory
 
 actual abstract class ExpectationFunctionBaseTest {
 

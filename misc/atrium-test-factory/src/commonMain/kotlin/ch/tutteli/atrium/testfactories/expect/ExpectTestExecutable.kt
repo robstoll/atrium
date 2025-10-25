@@ -38,7 +38,6 @@ interface ExpectTestExecutable : TestExecutable, TestExecutableImplContract {
      */
     fun <T> expect(subject: T, expectationCreator: Expect<T>.() -> Unit): Expect<T>
 
-
     /**
      * Creates an [ExpectGrouping] which can be used to group multiple unrelated subjects.
      *

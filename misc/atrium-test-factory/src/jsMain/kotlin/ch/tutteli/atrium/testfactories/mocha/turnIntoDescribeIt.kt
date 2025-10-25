@@ -12,7 +12,7 @@ fun <TestExecutableT : TestExecutable> turnIntoDescribeIt(
     testNodes: List<TestNode>,
     testExecutableFactory: () -> TestExecutableT,
     isFirstDescribe: Boolean
-): DynamicNodeContainer<DynamicNodeLike> = UnitDynamicNodeContainer.also {
+): PlatformTestNodeContainer<PlatformTestNode> = UnitPlatformTestNodeContainer.also {
     testNodes.forEach { node ->
         when (node) {
             is BranchTestNode ->

@@ -31,7 +31,7 @@ actual abstract class ExpectationFunctionBaseTest {
     protected actual fun <T> testFactory(
         specPair: SpecPair<T>,
         setup: TestFactoryBuilder<ExpectTestExecutableForTests>.(T) -> Unit
-    ): DynamicNodeContainer<DynamicNodeLike> = internalTestFactory {
+    ): PlatformTestNodeContainer<PlatformTestNode> = internalTestFactory {
         describe(getDescribeText { specPair.name }) { setup(specPair.lambda) }
     }
 
@@ -40,7 +40,7 @@ actual abstract class ExpectationFunctionBaseTest {
         otherSpecPair: SpecPair<*>,
         vararg otherSpecPairs: SpecPair<*>,
         setup: TestFactoryBuilder<ExpectTestExecutableForTests>.() -> Unit,
-    ): DynamicNodeContainer<DynamicNodeLike> = internalTestFactory {
+    ): PlatformTestNodeContainer<PlatformTestNode> = internalTestFactory {
         describe(getDescribeText {
             (listOf(specPair, otherSpecPair) + otherSpecPairs).joinToString(", ") { "`${it.name}`" }
         }) {
@@ -52,14 +52,14 @@ actual abstract class ExpectationFunctionBaseTest {
         expectationCreator: SpecPair<Expect<SubjectT>.() -> Unit>,
         vararg otherExpectationCreators: SpecPair<Expect<SubjectT>.() -> Unit>,
         groupPrefix: String?
-    ): DynamicNodeContainer<DynamicNodeLike> = subjectLessTestFactory(
+    ): PlatformTestNodeContainer<PlatformTestNode> = subjectLessTestFactory(
         SubjectLessTestData(expectationCreator, *otherExpectationCreators, groupPrefix = groupPrefix)
     )
 
     protected actual fun subjectLessTestFactory(
         testData: SubjectLessTestData<*>,
         vararg otherTestData: SubjectLessTestData<*>,
-    ): DynamicNodeContainer<DynamicNodeLike> = internalTestFactory {
+    ): PlatformTestNodeContainer<PlatformTestNode> = internalTestFactory {
         describe(getDescribeText { "subjectLess" }) {
             applySubjectLessTestSetup(testData, otherTestData)
         }
@@ -70,7 +70,7 @@ actual abstract class ExpectationFunctionBaseTest {
         assertionCreator: Triple<String, String, Pair<Expect<SubjectT>.() -> Expect<SubjectT>, Expect<SubjectT>.() -> Expect<SubjectT>>>,
         vararg otherAssertionCreators: Triple<String, String, Pair<Expect<SubjectT>.() -> Expect<SubjectT>, Expect<SubjectT>.() -> Expect<SubjectT>>>,
         groupPrefix: String?
-    ): DynamicNodeContainer<DynamicNodeLike> = expectationCreatorTestFactory(
+    ): PlatformTestNodeContainer<PlatformTestNode> = expectationCreatorTestFactory(
         ExpectationCreatorTestData(
             subject,
             assertionCreator,
@@ -82,7 +82,7 @@ actual abstract class ExpectationFunctionBaseTest {
     protected actual fun expectationCreatorTestFactory(
         testData: ExpectationCreatorTestData<*>,
         vararg otherTestData: ExpectationCreatorTestData<*>,
-    ): DynamicNodeContainer<DynamicNodeLike> = internalTestFactory {
+    ): PlatformTestNodeContainer<PlatformTestNode> = internalTestFactory {
         describe(getDescribeText { "expectationCreatorTest" }) {
             applyExpectationCreatorTestSetup(testData, otherTestData)
         }
@@ -92,7 +92,7 @@ actual abstract class ExpectationFunctionBaseTest {
         nonNullableSpecPair: SpecPair<T>,
         nullableSpecPair: Any,
         testExecutable: ExpectTestExecutableForTests.(T) -> Unit
-    ): DynamicNodeContainer<DynamicNodeLike> = UnitDynamicNodeContainer.also {
+    ): PlatformTestNodeContainer<PlatformTestNode> = UnitPlatformTestNodeContainer.also {
         turnTestNodesIntoExpectGrouping(
             buildTestNodes<ExpectTestExecutableForTests> {
                 uncheckedToNonNullable(nonNullableSpecPair, nullableSpecPair).forEach { specPair ->

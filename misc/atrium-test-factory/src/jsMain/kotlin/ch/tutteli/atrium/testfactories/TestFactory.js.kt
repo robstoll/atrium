@@ -4,11 +4,11 @@ import ch.tutteli.atrium.testfactories.mocha.turnIntoDescribeIt
 
 actual typealias TestFactory = kotlin.test.Test
 
-actual interface DynamicNodeContainer<T : DynamicNodeLike>
-actual abstract class DynamicNodeLike
-object UnitDynamicNodeContainer : DynamicNodeContainer<DynamicNodeLike>
+actual interface PlatformTestNodeContainer<T : PlatformTestNode>
+actual abstract class PlatformTestNode
+object UnitPlatformTestNodeContainer : PlatformTestNodeContainer<PlatformTestNode>
 
 actual fun <TestExecutableT : TestExecutable> turnTestNodesIntoPlatformSpecificTestFactory(
     testNodes: List<TestNode>,
     testExecutableFactory: () -> TestExecutableT
-): DynamicNodeContainer<DynamicNodeLike> = turnIntoDescribeIt(testNodes, testExecutableFactory, isFirstDescribe = true)
+): PlatformTestNodeContainer<PlatformTestNode> = turnIntoDescribeIt(testNodes, testExecutableFactory, isFirstDescribe = true)
