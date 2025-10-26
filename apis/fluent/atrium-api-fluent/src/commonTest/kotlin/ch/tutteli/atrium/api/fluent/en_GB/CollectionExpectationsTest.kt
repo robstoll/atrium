@@ -11,43 +11,36 @@ class CollectionExpectationsTest : ch.tutteli.atrium.specs.integration.AbstractC
     property<Collection<Int>, Int>(Expect<Collection<Int>>::size),
     fun1<Collection<Int>, Expect<Int>.() -> Unit>(Expect<Collection<Int>>::size)
 ) {
-    @Suppress("AssignedValueIsNeverRead")
+    @Suppress("AssignedValueIsNeverRead", "UNUSED_VARIABLE", "UNUSED_VALUE", "unused")
     @Test
     fun ambiguityTest() {
-        var a1: Expect<List<Int>> = expect(emptyList())
-        var a1b: Expect<List<Int>> = expect(listOf(1, 2))
-        var a2: Expect<Set<Int?>> = expect(emptySet())
-        var a2b: Expect<Set<Int?>> = expect(setOf(1, 2))
+        var a1a: Expect<List<Int>> = expect(emptyList())
+        var a1b: Expect<List<Int>> = expect(listOf(1))
+        var a2a: Expect<Set<Int?>> = expect(emptySet())
+        var a2b: Expect<Set<Int?>> = expect(setOf(1))
 
-        var star: Expect<Collection<Any?>> = expect(emptyList())
-        var star2: Expect<Collection<*>> = expect(listOf(1, 2))
+        var starA: Expect<Collection<Any?>> = expect(emptyList())
+        var starB: Expect<Collection<*>> = expect(listOf(1))
 
-        a1.toBeEmpty()
-        a1b.notToBeEmpty()
+        a1a = a1a.toBeEmpty()
+        a1b = a1b.notToBeEmpty()
 
-        a2.toBeEmpty()
-        a2b.notToBeEmpty()
+        a2a = a2a.toBeEmpty()
+        a2b = a2b.notToBeEmpty()
 
-        star.toBeEmpty()
-        star2.notToBeEmpty()
+        starA = starA.toBeEmpty()
+        starB = starB.notToBeEmpty()
 
-        a1b.toHaveSize(2)
-        a2b.toHaveSize(2)
-        star2.toHaveSize(2)
+        val i1: Expect<Int> = a1a.size
+        a1a = a1a.size { this.toEqual(0) }
 
-        a1.size
-        a1 = a1.size {
-            this.toBeEqualComparingTo(0)
-        }
+        val i2: Expect<Int> = a1b.size
+        a1b = a1b.size { this.toEqual(1) }
 
-        a1b.size
-        a1b = a1b.size {
-            this.toBeEqualComparingTo(2)
-        }
+        val i3: Expect<Int> = starA.size
+        starA = starA.size { this.toEqual(0) }
 
-        star.size
-        star = star.size {
-            this.toBeEqualComparingTo(0)
-        }
+        val i4: Expect<Int> = starB.size
+        starA = starB.size { this.toEqual(1) }
     }
 }

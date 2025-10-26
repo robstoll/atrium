@@ -17,40 +17,37 @@ class CollectionExpectationsTest : ch.tutteli.atrium.specs.integration.AbstractC
 
     }
 
-    @Suppress("AssignedValueIsNeverRead")
+    @Suppress("AssignedValueIsNeverRead", "UNUSED_VARIABLE", "UNUSED_VALUE", "unused")
     @Test
     fun ambiguityTest() {
-        var a1: Expect<List<Int>> = expect(emptyList())
+        var a1a: Expect<List<Int>> = expect(emptyList())
         var a1b: Expect<List<Int>> = expect(listOf(1))
-        var a2: Expect<Set<Int?>> = expect(emptySet())
+        var a2a: Expect<Set<Int?>> = expect(emptySet())
         var a2b: Expect<Set<Int?>> = expect(setOf(1))
 
-        var star: Expect<Collection<Any?>> = expect(emptyList())
-        var star2: Expect<Collection<*>> = expect(listOf(1))
+        var starA: Expect<Collection<Any?>> = expect(emptyList())
+        var starB: Expect<Collection<*>> = expect(listOf(1))
 
-        a1 toBe empty
-        a1b notToBe empty
+        a1a = a1a toBe empty
+        a1b = a1b notToBe empty
 
-        a2 toBe empty
-        a2b notToBe empty
+        a2a = a2a toBe empty
+        a2b = a2b notToBe empty
 
-        star toBe empty
-        star2 notToBe empty
+        starA = starA toBe empty
+        starB = starB notToBe empty
 
-        a1.size
-        a1 = a1 size {
-            it toBeEqualComparingTo 0
-        }
+        val i1: Expect<Int> = a1a.size
+        a1a = a1a size { it toEqual 0 }
 
-        a1b.size
-        a1b = a1b size {
-            it toBeEqualComparingTo 1
-        }
+        val i2: Expect<Int> = a1b.size
+        a1b = a1b size { it toEqual 1 }
 
-        star.size
-        star = star size {
-            it toBeEqualComparingTo 0
-        }
+        val i3: Expect<Int> = starA.size
+        starA = starA size { it toEqual 0 }
+
+        val i4: Expect<Int> = starB.size
+        starA = starB size { it toEqual 1 }
     }
 }
 
