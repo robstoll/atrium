@@ -5,7 +5,7 @@ import ch.tutteli.atrium.specs.fun1
 import ch.tutteli.atrium.specs.notImplemented
 import ch.tutteli.atrium.specs.withNullableSuffix
 
-class IterableNotToHaveElementsOrNoneExpectationsSpec : ch.tutteli.atrium.specs.integration.IterableNotToHaveElementsOrNoneExpectationsSpec(
+class IterableNotToHaveElementsOrNoneExpectationsTest : ch.tutteli.atrium.specs.integration.AbstractIterableNotToHaveElementsOrNoneExpectationsTest(
     fun1(Expect<Iterable<Double>>::notToHaveElementsOrNone),
     fun1(Expect<Iterable<Double?>>::notToHaveElementsOrNone).withNullableSuffix()
 ) {
