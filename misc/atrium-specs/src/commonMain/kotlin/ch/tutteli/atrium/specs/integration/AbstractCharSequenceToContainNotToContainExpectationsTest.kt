@@ -1,14 +1,13 @@
 package ch.tutteli.atrium.specs.integration
 
 import ch.tutteli.atrium.api.fluent.en_GB.*
-import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic._logic
 import ch.tutteli.atrium.specs.*
+import ch.tutteli.atrium.specs.integration.CharSequenceToContainSpecBase.Companion.helloMyNameIsRobert
+import ch.tutteli.atrium.specs.integration.CharSequenceToContainSpecBase.Companion.noMatchFoundDescr
 import ch.tutteli.atrium.testfactories.TestFactory
 import ch.tutteli.atrium.translations.DescriptionCharSequenceExpectation
-import ch.tutteli.atrium.specs.integration.CharSequenceToContainSpecBase.Companion.text
-import ch.tutteli.atrium.specs.integration.CharSequenceToContainSpecBase.Companion.noMatchFoundDescr
 
 @Suppress("FunctionName")
 abstract class AbstractCharSequenceToContainNotToContainExpectationsTest(
@@ -29,12 +28,10 @@ abstract class AbstractCharSequenceToContainNotToContainExpectationsTest(
     val valueWithIndent = "$indentRootBulletPoint$listBulletPoint$value"
 
     @TestFactory
-    fun toContain__subject_empty_string() = testFactory(toContainSpec) {
-        val fluentEmptyString = expect("" as CharSequence)
-
-        it("${toContainSpec.name} 'Hello' throws AssertionError") {
+    fun toContain_notToContain__empty_string() = testFactory(toContainSpec, notToContainSpec) {
+        itFun(toContainSpec, "'Hello' throws AssertionError") {
             expect {
-                fluentEmptyString.toContainFun("Hello")
+                expect("" as CharSequence).toContainFun("Hello")
             }.toThrow<AssertionError> {
                 messageToContain(
                     "$rootBulletPoint$toContainDescr: $separator" +
@@ -43,160 +40,130 @@ abstract class AbstractCharSequenceToContainNotToContainExpectationsTest(
                 )
             }
         }
-    }
 
-    @TestFactory
-    fun notToContain__subject_empty_string() = testFactory(notToContainSpec) {
-        it("${notToContainSpec.name} 'Hello' does not throw") {
+        itFun(notToContainSpec, "'Hello' does not throw") {
             expect("" as CharSequence).notToContainFun("Hello")
         }
     }
 
     @TestFactory
-    fun toContain__subject_text_search_for_Hello() = testFactory(toContainSpec) {
-        it("${toContainSpec.name} 'Hello' does not throw") {
-            expect(text).toContainFun("Hello")
-        }
-    }
+    fun toContain_notToContain() = testFactory(toContainSpec, notToContainSpec) {
+        describe("text '$helloMyNameIsRobert'") {
+            itFun(toContainSpec, "'Hello' does not throw") {
+                expect(helloMyNameIsRobert).toContainFun("Hello")
+            }
+            itFun(notToContainSpec, "'Hello' throws AssertionError") {
+                expect {
+                    expect(helloMyNameIsRobert).notToContainFun("Hello")
+                }.toThrow<AssertionError> { messageToContain(notToContainDescr, "$valueWithIndent: \"Hello\"") }
+            }
 
-    @TestFactory
-    fun toContain__subject_text_search_for_Hello_and_Robert() = testFactory(toContainSpec) {
-        it("${toContainSpec.name} 'Hello' and 'Robert' does not throw") {
-            expect(text).toContainFun("Hello", "Robert")
-        }
-        it("${toContainSpec.name} 'hello' and 'robert' throws AssertionError") {
-            expect {
-                expect(text).toContainFun("hello", "robert")
-            }.toThrow<AssertionError> {
-                message {
-                    this.toContain.exactly(2).value(
-                        noMatchFoundDescr
+            itFun(toContainSpec, "'Hello' and 'Robert' does not throw") {
+                expect(helloMyNameIsRobert).toContainFun("Hello", "Robert")
+            }
+            itFun(notToContainSpec, "'Hello' and 'Robert' throws AssertionError") {
+                expect {
+                    expect(helloMyNameIsRobert).notToContainFun("Hello", "Robert")
+                }.toThrow<AssertionError> {
+                    messageToContain(
+                        notToContainDescr,
+                        "$valueWithIndent: \"Hello\"",
+                        "$valueWithIndent: \"Robert\""
                     )
-                    this.toContain.exactly(1).values(
-                        "$rootBulletPoint$toContainDescr: $separator",
-                        "$valueWithIndent: \"hello\"",
-                        "$valueWithIndent: \"robert\""
+                }
+            }
+
+            itFun(toContainSpec, "'hello' and 'robert' throws AssertionError") {
+                expect {
+                    expect(helloMyNameIsRobert).toContainFun("hello", "robert")
+                }.toThrow<AssertionError> {
+                    message {
+                        this.toContain.exactly(2).value(
+                            noMatchFoundDescr
+                        )
+                        this.toContain.exactly(1).values(
+                            "$rootBulletPoint$toContainDescr: $separator",
+                            "$valueWithIndent: \"hello\"",
+                            "$valueWithIndent: \"robert\""
+                        )
+                    }
+                }
+            }
+            itFun(notToContainSpec, "'hello' and 'robert' does not throw") {
+                expect(helloMyNameIsRobert).notToContainFun("hello", "robert")
+            }
+
+            itFun(toContainSpec, "'notInThere' throws AssertionError") {
+                expect {
+                    expect(helloMyNameIsRobert).toContainFun("notInThere")
+                }.toThrow<AssertionError> { messageToContain(toContainDescr, "$valueWithIndent: \"notInThere\"") }
+            }
+            itFun(notToContainSpec, "'notInThere' does not throw") {
+                expect(helloMyNameIsRobert).notToContainFun("notInThere")
+            }
+
+            itFun(toContainSpec, "'notInThere' and 'neitherInThere' throws AssertionError") {
+                expect {
+                    expect(helloMyNameIsRobert).toContainFun("notInThere", "neitherInThere")
+                }.toThrow<AssertionError> {
+                    messageToContain(
+                        toContainDescr,
+                        "$valueWithIndent: \"notInThere\"",
+                        "$valueWithIndent: \"neitherInThere\""
                     )
                 }
             }
-        }
-    }
-
-    @TestFactory
-    fun notToContain__subject_text_search_for_Hello() = testFactory(notToContainSpec) {
-        it("${notToContainSpec.name} 'Hello' throws AssertionError") {
-            expect {
-                expect(text).notToContainFun("Hello")
-            }.toThrow<AssertionError> { messageToContain(notToContainDescr, "$valueWithIndent: \"Hello\"") }
-        }
-    }
-
-    @TestFactory
-    fun notToContain__subject_text_search_for_Hello_and_Robert() = testFactory(notToContainSpec) {
-        it("${notToContainSpec.name} 'Hello' and 'Robert' throws AssertionError") {
-            expect {
-                expect(text).notToContainFun("Hello", "Robert")
-            }.toThrow<AssertionError> {
-                messageToContain(
-                    notToContainDescr,
-                    "$valueWithIndent: \"Hello\"",
-                    "$valueWithIndent: \"Robert\""
-                )
+            itFun(notToContainSpec, "'notInThere' and 'neitherInThere' does not throw") {
+                expect(helloMyNameIsRobert).notToContainFun("notInThere", "neitherInThere")
             }
-        }
-        it("${notToContainSpec.name} 'hello' and 'robert' does not throw") {
-            expect(text).notToContainFun("hello", "robert")
-        }
-    }
 
-    @TestFactory
-    fun toContain__subject_text_search_for_notInThere_and_neitherInThere() = testFactory(toContainSpec) {
-        it("${toContainSpec.name} 'notInThere' and 'neitherInThere' throws AssertionError") {
-            expect {
-                expect(text).toContainFun("notInThere", "neitherInThere")
-            }.toThrow<AssertionError> {
-                messageToContain(
-                    toContainDescr,
-                    "$valueWithIndent: \"notInThere\"",
-                    "$valueWithIndent: \"neitherInThere\""
-                )
+            itFun(toContainSpec, "'Hello' and 'notInThere' throws AssertionError mentioning only 'Hello'") {
+                expect {
+                    expect(helloMyNameIsRobert).toContainFun("Hello", "notInThere")
+                }.toThrow<AssertionError> {
+                    message {
+                        toContain(toContainDescr, "$valueWithIndent: \"notInThere\"")
+                        notToContain("$valueWithIndent: \"Hello\"")
+                    }
+                }
             }
-        }
-    }
-
-    @TestFactory
-    fun notToContain__subject_text_search_for_notInThere_and_neitherInThere() = testFactory(notToContainSpec) {
-        it("${notToContainSpec.name} 'notInThere' and 'neitherInThere' does not throw") {
-            expect(text).notToContainFun("notInThere", "neitherInThere")
-        }
-    }
-
-    @TestFactory
-    fun toContain__subject_text_search_for_notInThere() = testFactory(toContainSpec) {
-        it("${toContainSpec.name} 'notInThere' throws AssertionError") {
-            expect {
-                expect(text).toContainFun("notInThere")
-            }.toThrow<AssertionError> { messageToContain(toContainDescr, "$valueWithIndent: \"notInThere\"") }
-        }
-    }
-
-    @TestFactory
-    fun toContain__subject_text_search_for_Hello_and_notInThere() = testFactory(toContainSpec) {
-        it("${toContainSpec.name} 'Hello' and 'notInThere' throws AssertionError mentioning only 'Hello'") {
-            expect {
-                expect(text).toContainFun("Hello", "notInThere")
-            }.toThrow<AssertionError> {
-                message {
-                    toContain(toContainDescr, "$valueWithIndent: \"notInThere\"")
-                    notToContain("$valueWithIndent: \"Hello\"")
+            itFun(notToContainSpec, "'Hello' and 'notInThere' throws AssertionError mentioning only 'notInThere'") {
+                expect {
+                    expect(helloMyNameIsRobert).notToContainFun("Hello", "notInThere")
+                }.toThrow<AssertionError> {
+                    message {
+                        toContain(notToContainDescr, "$valueWithIndent: \"Hello\"")
+                        notToContain("$valueWithIndent: \"notInThere\"")
+                    }
                 }
             }
         }
     }
 
+
     @TestFactory
-    fun notToContain__subject_text_search_for_notInThere() = testFactory(notToContainSpec) {
-        it("${notToContainSpec.name} 'notInThere' does not throw") {
-            expect(text).notToContainFun("notInThere")
+    fun toContain_notToContain__search_twice_for_the_same_search_string() = testFactory(
+        toContainSpec, notToContainSpec
+    ) {
+        itFun(toContainSpec, "'Hello' and 'Hello' does not throw") {
+            expect(helloMyNameIsRobert).toContainFun("Hello", "Hello")
+        }
+
+        itFun(notToContainSpec, "'notInThere' and 'notInThere' does not throw") {
+            expect(helloMyNameIsRobert).notToContainFun("notInThere", "notInThere")
         }
     }
 
     @TestFactory
-    fun notToContain__subject_text_search_for_Hello_and_notInThere() = testFactory(notToContainSpec) {
-        it("${notToContainSpec.name} 'Hello' and 'notInThere' throws AssertionError mentioning only 'notInThere'") {
-            expect {
-                expect(text).notToContainFun("Hello", "notInThere")
-            }.toThrow<AssertionError> {
-                message {
-                    toContain(notToContainDescr, "$valueWithIndent: \"Hello\"")
-                    notToContain("$valueWithIndent: \"notInThere\"")
-                }
-            }
-        }
-    }
-
-    @TestFactory
-    fun toContain__subject_text_search_for_Hello_and_Hello() = testFactory(toContainSpec) {
-        it("${toContainSpec.name} 'Hello' and 'Hello' (searching twice in the same assertion) does not throw") {
-            expect(text).toContainFun("Hello", "Hello")
-        }
-    }
-
-    @TestFactory
-    fun notToContain__subject_text_search_for_notInThere_and_notInThere() = testFactory(notToContainSpec) {
-        it("${notToContainSpec.name} 'notInThere' and 'notInThere' does not throw") {
-            expect(text).notToContainFun("notInThere", "notInThere")
-        }
-    }
-
-    @TestFactory
-    fun toContain__error_message_feature_assertion_about_a_persons_name() = testFactory(toContainSpec) {
+    fun toContain_notToContain__err_msg_feature_assertion_about_a_persons_name() = testFactory(
+        toContainSpec, notToContainSpec
+    ) {
         data class Person(val name: CharSequence)
 
         val person = Person("Robert Stoll")
-
         val nameWithArrow = "${featureArrow}name"
-        it("${toContainSpec.name} 'treboR' and 'llotS' - error message toContain '$nameWithArrow' exactly once") {
+
+        itFun(toContainSpec, "'treboR' and 'llotS' - error message toContain '$nameWithArrow' exactly once") {
             expect {
                 expect(person)._logic.appendAsGroup {
                     feature(Person::name).toContainFun("treboR", "llotS")
@@ -205,16 +172,8 @@ abstract class AbstractCharSequenceToContainNotToContainExpectationsTest(
                 message { this.toContain.exactly(1).value(nameWithArrow) }
             }
         }
-    }
 
-    @TestFactory
-    fun notToContain__error_message_feature_assertion_about_a_persons_name() = testFactory(notToContainSpec) {
-        data class Person(val name: CharSequence)
-
-        val person = Person("Robert Stoll")
-
-        val nameWithArrow = "${featureArrow}name"
-        it("${notToContainSpec.name} 'Robert' and 'Stoll' - error message toContain '$nameWithArrow' exactly once") {
+        itFun(notToContainSpec, "'Robert' and 'Stoll' - error message toContain '$nameWithArrow' exactly once") {
             expect {
                 expect(person)._logic.appendAsGroup {
                     feature(Person::name).notToContainFun("Robert", "Stoll")

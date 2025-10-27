@@ -8,8 +8,8 @@ import kotlin.test.Test
 class CollectionExpectationsTest : ch.tutteli.atrium.specs.integration.AbstractCollectionExpectationsTest(
     "toBe ${empty::class.simpleName}" to Companion::isEmpty,
     "notToBe ${empty::class.simpleName}" to Companion::isNotEmpty,
-    property<Collection<Int>, Int>(Expect<Collection<Int>>::size),
-    fun1<Collection<Int>, Expect<Int>.() -> Unit>(Expect<Collection<Int>>::size)
+    property(Expect<Collection<Int>>::size),
+    fun1(Expect<Collection<Int>>::size)
 ) {
     companion object {
         private fun isEmpty(expect: Expect<Collection<Int>>) = expect toBe empty

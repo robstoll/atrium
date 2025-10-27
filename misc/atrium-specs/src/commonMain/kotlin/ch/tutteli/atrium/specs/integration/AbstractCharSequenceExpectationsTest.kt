@@ -5,9 +5,11 @@ import ch.tutteli.atrium.api.fluent.en_GB.messageToContain
 import ch.tutteli.atrium.api.fluent.en_GB.toEndWith
 import ch.tutteli.atrium.api.fluent.en_GB.toThrow
 import ch.tutteli.atrium.specs.*
-import ch.tutteli.atrium.translations.DescriptionCharSequenceExpectation.*
+import ch.tutteli.atrium.specs.integration.CharSequenceToContainSpecBase.Companion.helloMyNameIsRobert
 import ch.tutteli.atrium.testfactories.TestFactory
+import ch.tutteli.atrium.translations.DescriptionCharSequenceExpectation.*
 
+@Suppress("FunctionName")
 abstract class AbstractCharSequenceExpectationsTest(
     private val toBeEmptySpec: Fun0<CharSequence>,
     private val notToBeEmptySpec: Fun0<CharSequence>,
@@ -41,49 +43,51 @@ abstract class AbstractCharSequenceExpectationsTest(
     val blankStringBuilder: CharSequence = StringBuilder(blankString)
     val notBlankStringBuilder: CharSequence = StringBuilder("not blank string")
 
-    val text: CharSequence = "Hello my name is Robert"
-
     @TestFactory
-    fun toBeEmpty() = testFactory(toBeEmptySpec) { toBeEmptyFun ->
-        it("empty string - does not throw") {
-            expect(emptyString).toBeEmptyFun()
-            expect(emptyStringBuilder).toBeEmptyFun()
+    fun toBeEmpty_notToBeEmpty() = testFactory(toBeEmptySpec, notToBeEmptySpec) { toBeEmptyFun, notToBeEmptyFun ->
+        describe("empty String") {
+            itFun(toBeEmptySpec, "does not throw") {
+                expect(emptyString).toBeEmptyFun()
+                expect(emptyStringBuilder).toBeEmptyFun()
+            }
+            itFun(notToBeEmptySpec, "throws") {
+                expect {
+                    expect(emptyString).notToBeEmptyFun()
+                }.toThrow<AssertionError> { message { toEndWith("$notToBeDescr: empty") } }
+                expect {
+                    expect(emptyStringBuilder).notToBeEmptyFun()
+                }.toThrow<AssertionError> { message { toEndWith("$notToBeDescr: empty") } }
+            }
         }
-        it("blank string - throws") {
-            expect {
-                expect(blankString).toBeEmptyFun()
-            }.toThrow<AssertionError> { message { toEndWith("$toBeDescr: empty") } }
-            expect {
-                expect(blankStringBuilder).toBeEmptyFun()
-            }.toThrow<AssertionError> { message { toEndWith("$toBeDescr: empty") } }
-        }
-        it("non-blank string - throws") {
-            expect {
-                expect(notBlankString).toBeEmptyFun()
-            }.toThrow<AssertionError> { message { toEndWith("$toBeDescr: empty") } }
-            expect {
-                expect(notBlankStringBuilder).toBeEmptyFun()
-            }.toThrow<AssertionError> { message { toEndWith("$toBeDescr: empty") } }
-        }
-    }
 
-    @TestFactory
-    fun notToBeEmpty() = testFactory(notToBeEmptySpec) { notToBeEmptyFun ->
-        it("empty string - throws") {
-            expect {
-                expect(emptyString).notToBeEmptyFun()
-            }.toThrow<AssertionError> { message { toEndWith("$notToBeDescr: empty") } }
-            expect {
-                expect(emptyStringBuilder).notToBeEmptyFun()
-            }.toThrow<AssertionError> { message { toEndWith("$notToBeDescr: empty") } }
+        describe("blank String") {
+            itFun(toBeEmptySpec, "throws") {
+                expect {
+                    expect(blankString).toBeEmptyFun()
+                }.toThrow<AssertionError> { message { toEndWith("$toBeDescr: empty") } }
+                expect {
+                    expect(blankStringBuilder).toBeEmptyFun()
+                }.toThrow<AssertionError> { message { toEndWith("$toBeDescr: empty") } }
+            }
+            itFun(notToBeEmptySpec, "does not throw") {
+                expect(blankString).notToBeEmptyFun()
+                expect(blankStringBuilder).notToBeEmptyFun()
+            }
         }
-        it("blank string - does not throw") {
-            expect(blankString).notToBeEmptyFun()
-            expect(blankStringBuilder).notToBeEmptyFun()
-        }
-        it("non-blank string - does not throw") {
-            expect(notBlankString).notToBeEmptyFun()
-            expect(notBlankStringBuilder).notToBeEmptyFun()
+
+        describe("non-blank string") {
+            itFun(toBeEmptySpec, "throws") {
+                expect {
+                    expect(notBlankString).toBeEmptyFun()
+                }.toThrow<AssertionError> { message { toEndWith("$toBeDescr: empty") } }
+                expect {
+                    expect(notBlankStringBuilder).toBeEmptyFun()
+                }.toThrow<AssertionError> { message { toEndWith("$toBeDescr: empty") } }
+            }
+            itFun(notToBeEmptySpec, "does not throw") {
+                expect(notBlankString).notToBeEmptyFun()
+                expect(notBlankStringBuilder).notToBeEmptyFun()
+            }
         }
     }
 
@@ -97,6 +101,7 @@ abstract class AbstractCharSequenceExpectationsTest(
                 expect(emptyStringBuilder).notToBeBlankFun()
             }.toThrow<AssertionError> { message { toEndWith("$notToBeDescr: blank") } }
         }
+
         it("blank string - throws") {
             expect {
                 expect(blankString).notToBeBlankFun()
@@ -105,6 +110,7 @@ abstract class AbstractCharSequenceExpectationsTest(
                 expect(blankStringBuilder).notToBeBlankFun()
             }.toThrow<AssertionError> { message { toEndWith("$notToBeDescr: blank") } }
         }
+
         it("non-blank string - does not throw") {
             expect(notBlankString).notToBeBlankFun()
             expect(notBlankStringBuilder).notToBeBlankFun()
@@ -112,74 +118,81 @@ abstract class AbstractCharSequenceExpectationsTest(
     }
 
     @TestFactory
-    fun toStartWith() = testFactory(toStartWithSpec) { toStartWithFun ->
-        it("'$text' ${toStartWithSpec.name} 'Hello' - does not throw") {
-            expect(text).toStartWithFun("Hello")
-        }
-        it("'$text' ${toStartWithSpec.name} 'Robert' - throws") {
-            expect {
-                expect(text).toStartWithFun("Robert")
-            }.toThrow<AssertionError> { messageToContain(TO_START_WITH.getDefault()) }
+    fun toStartWith_notToStartWith() = testFactory(
+        toStartWithSpec, notToStartWithSpec
+    ) { toStartWithFun, notToStartWithFun ->
+        describe("text '$helloMyNameIsRobert'") {
+            itFun(toStartWithSpec, "'Hello' - does not throw") {
+                expect(helloMyNameIsRobert).toStartWithFun("Hello")
+            }
+            itFun(notToStartWithSpec, "'Robert' - does not throw") {
+                expect(helloMyNameIsRobert).notToStartWithFun("Robert")
+            }
+
+            itFun(toStartWithSpec, "'Robert' - throws") {
+                expect {
+                    expect(helloMyNameIsRobert).toStartWithFun("Robert")
+                }.toThrow<AssertionError> { messageToContain(TO_START_WITH.getDefault()) }
+            }
+            itFun(notToStartWithSpec, "'Hello' - throws") {
+                expect {
+                    expect(helloMyNameIsRobert).notToStartWithFun("Hello")
+                }.toThrow<AssertionError> { messageToContain(NOT_TO_START_WITH.getDefault()) }
+            }
         }
     }
 
     @TestFactory
-    fun notToStartWith() = testFactory(notToStartWithSpec) { notToStartWithFun ->
-        it("'$text' ${notToStartWithSpec.name} 'Robert' - does not throw") {
-            expect(text).notToStartWithFun("Robert")
-        }
-        it("'$text' ${notToStartWithSpec.name} 'Hello' - throws") {
-            expect {
-                expect(text).notToStartWithFun("Hello")
-            }.toThrow<AssertionError> { messageToContain(NOT_TO_START_WITH.getDefault()) }
-        }
-    }
+    fun toEndWith_notToEndWith() = testFactory(toEndWithSpec, notToEndWithSpec) { toEndWithFun, notToEndWithFun ->
+        describe("text '$helloMyNameIsRobert'") {
+            itFun(toEndWithSpec, "'Robert' - does not throw") {
+                expect(helloMyNameIsRobert).toEndWithFun("Robert")
+            }
+            itFun(notToEndWithSpec, "'Robert' - throws") {
+                expect {
+                    expect(helloMyNameIsRobert).notToEndWithFun("Robert")
+                }.toThrow<AssertionError> { messageToContain(NOT_TO_END_WITH.getDefault()) }
+            }
 
-    @TestFactory
-    fun toEndWith() = testFactory(toEndWithSpec) { toEndWithFun ->
-        it("'$text' ${toEndWithSpec.name} 'Robert' - does not throw") {
-            expect(text).toEndWithFun("Robert")
-        }
-        it("'$text' ${toEndWithSpec.name} 'Hello' - throws") {
-            expect {
-                expect(text).toEndWithFun("Hello")
-            }.toThrow<AssertionError> { messageToContain(TO_END_WITH.getDefault()) }
-        }
-    }
-
-    @TestFactory
-    fun notToEndWith() = testFactory(notToEndWithSpec) { notToEndWithFun ->
-        it("'$text' ${notToEndWithSpec.name} 'Hello' - does not throw") {
-            expect(text).notToEndWithFun("Hello")
-        }
-        it("'$text' ${notToEndWithSpec.name} 'Robert' - throws") {
-            expect {
-                expect(text).notToEndWithFun("Robert")
-            }.toThrow<AssertionError> { messageToContain(NOT_TO_END_WITH.getDefault()) }
+            itFun(toEndWithSpec, "'Hello' - throws") {
+                expect {
+                    expect(helloMyNameIsRobert).toEndWithFun("Hello")
+                }.toThrow<AssertionError> { messageToContain(TO_END_WITH.getDefault()) }
+            }
+            itFun(notToEndWithSpec, "'Hello' - does not throw") {
+                expect(helloMyNameIsRobert).notToEndWithFun("Hello")
+            }
         }
     }
 
     @TestFactory
     fun toMatch() = testFactory(toMatchSpec) { toMatchFun ->
-        it("'$text' ${toMatchSpec.name} '^Hello.+' - does not throw") {
-            expect(text).toMatchFun(Regex("^Hello.+"))
-        }
-        it("'$text' ${toMatchSpec.name} 'Hello' - throws") {
-            expect {
-                expect(text).toMatchFun(Regex("Hello"))
-            }.toThrow<AssertionError> { messageToContain(TO_MATCH.getDefault()) }
+        describe("text '$helloMyNameIsRobert'") {
+            it("'^Hello.+' - does not throw") {
+                expect(helloMyNameIsRobert).toMatchFun(Regex("^Hello.+"))
+            }
+
+            it("'Hello' - throws") {
+                expect {
+                    expect(helloMyNameIsRobert).toMatchFun(Regex("Hello"))
+                }.toThrow<AssertionError> { messageToContain(TO_MATCH.getDefault()) }
+            }
         }
     }
 
+
     @TestFactory
     fun notToMatch() = testFactory(notToMatchSpec) { notToMatchFun ->
-        it("'$text' ${notToMatchSpec.name} 'Hello' - does not throw") {
-            expect(text).notToMatchFun(Regex("Hello"))
-        }
-        it("'$text' ${notToMatchSpec.name} 'Hello my name is Robert' - throws") {
-            expect {
-                expect(text).notToMatchFun(Regex("Hello my name is Robert"))
-            }.toThrow<AssertionError> { messageToContain(NOT_TO_MATCH.getDefault()) }
+        describe("text '$helloMyNameIsRobert'") {
+            it("'Hello' - does not throw") {
+                expect(helloMyNameIsRobert).notToMatchFun(Regex("Hello"))
+            }
+
+            it("'Hello my name is Robert' - throws") {
+                expect {
+                    expect(helloMyNameIsRobert).notToMatchFun(Regex("Hello my name is Robert"))
+                }.toThrow<AssertionError> { messageToContain(NOT_TO_MATCH.getDefault()) }
+            }
         }
     }
 }

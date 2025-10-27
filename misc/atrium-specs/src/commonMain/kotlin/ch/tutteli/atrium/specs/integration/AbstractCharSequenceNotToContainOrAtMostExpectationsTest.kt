@@ -4,7 +4,7 @@ import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.specs.integration.CharSequenceToContainSpecBase.Companion.helloWorld
-import ch.tutteli.atrium.specs.integration.CharSequenceToContainSpecBase.Companion.text
+import ch.tutteli.atrium.specs.integration.CharSequenceToContainSpecBase.Companion.helloMyNameIsRobert
 import ch.tutteli.atrium.testfactories.TestFactory
 import ch.tutteli.atrium.translations.DescriptionCharSequenceExpectation
 
@@ -33,111 +33,118 @@ abstract class AbstractCharSequenceNotToContainOrAtMostExpectationsTest(
     private val valueWithIndent = "$indentRootBulletPoint$listBulletPoint$value"
 
     @TestFactory
-    fun notToContainOrAtMost__illegal_subject__throws_IllegalArgumentException() =
-        testFactory(notToContainOrAtMostSpec) {
-            val (notToContain, errorMsgContainsNot) = notToContainPair
+    fun notToContainOrAtMost__illegal_subject__throws_an_IllegalArgumentException() = testFactoryDescribeSameBehaviour(
+        notToContainOrAtMostSpec, notToContainOrAtMostIgnoringCaseSpec
+    ) { notToContainOrAtMostSameBehaviourFun ->
+        val (notToContain, errorMsgContainsNot) = notToContainPair
 
-            it("for not at all or at most -1 -- only positive numbers") {
-                expect {
-                    expect(text).notToContainOrAtMostFun(-1, "")
-                }.toThrow<IllegalArgumentException> { messageToContain("positive number", -1) }
-            }
-            it("for not at all or at most 0 -- points to $notToContain") {
-                expect {
-                    expect(text).notToContainOrAtMostFun(0, "")
-                }.toThrow<IllegalArgumentException> { message { toEqual(errorMsgContainsNot(0)) } }
-            }
-            it("if an object is passed as first expected") {
-                expect {
-                    expect(text).notToContainOrAtMostFun(1, expect(text))
-                }.toThrow<IllegalArgumentException> { messageToContain("CharSequence", "Number", "Char") }
-            }
-            it("if an object is passed as second expected") {
-                expect {
-                    expect(text).notToContainOrAtMostFun(1, "that's fine", expect(text))
-                }.toThrow<IllegalArgumentException> { messageToContain("CharSequence", "Number", "Char") }
-            }
+        it("for not at all or at most -1 -- only positive numbers") {
+            expect {
+                expect(helloMyNameIsRobert).notToContainOrAtMostSameBehaviourFun(-1, "", emptyArray())
+            }.toThrow<IllegalArgumentException> { messageToContain("positive number", -1) }
         }
 
-    @TestFactory
-    fun notToContainOrAtMost__helloWorld__happy_cases() = testFactory(notToContainOrAtMostSpec) {
-        it("${notToContainOrAtMostPair.first("'H'", "once")} does not throw") {
-            expect(helloWorld).notToContainOrAtMostFun(1, 'H')
+        it("for not at all or at most 0 -- points to $notToContain") {
+            expect {
+                expect(helloMyNameIsRobert).notToContainOrAtMostSameBehaviourFun(0, "", emptyArray())
+            }.toThrow<IllegalArgumentException> { message { toEqual(errorMsgContainsNot(0)) } }
         }
-        it("${notToContainOrAtMostPair.first("'H' and 'e' and 'W'", "once")} does not throw") {
-            expect(helloWorld).notToContainOrAtMostFun(1, 'H', 'e', 'W')
+
+        it("if an object is passed as first expected") {
+            expect {
+                expect(helloMyNameIsRobert).notToContainOrAtMostSameBehaviourFun(1, expect(helloMyNameIsRobert), emptyArray())
+            }.toThrow<IllegalArgumentException> { messageToContain("CharSequence", "Number", "Char") }
         }
-        it("${notToContainOrAtMostPair.first("'W' and 'H' and 'e'", "once")} does not throw") {
-            expect(helloWorld).notToContainOrAtMostFun(1, 'W', 'H', 'e')
-        }
-        it("${notToContainOrAtMostPair.first("'x' and 'y' and 'z'", "twice")} does not throw") {
-            expect(helloWorld).notToContainOrAtMostFun(2, 'x', 'y', 'z')
+
+        it("if an object is passed as second expected") {
+            expect {
+                expect(helloMyNameIsRobert).notToContainOrAtMostSameBehaviourFun(
+                    1, "that's fine", arrayOf(expect(helloMyNameIsRobert))
+                )
+            }.toThrow<IllegalArgumentException> { messageToContain("CharSequence", "Number", "Char") }
         }
     }
 
     @TestFactory
-    fun notToContainOrAtMostIgnoringCase__helloWorld__happy_cases() =
-        testFactory(notToContainOrAtMostIgnoringCaseSpec) {
+    fun notToContainOrAtMost__notToContainOrAtMostIgnoringCase__happy_cases() = testFactory(
+        notToContainOrAtMostSpec, notToContainOrAtMostIgnoringCaseSpec
+    ) {
+        describe("text '$helloWorld'") {
+            it("${notToContainOrAtMostPair.first("'H'", "once")} does not throw") {
+                expect(helloWorld).notToContainOrAtMostFun(1, 'H')
+            }
+
+            it("${notToContainOrAtMostPair.first("'H' and 'e' and 'W'", "once")} does not throw") {
+                expect(helloWorld).notToContainOrAtMostFun(1, 'H', 'e', 'W')
+            }
+
+            it("${notToContainOrAtMostPair.first("'W' and 'H' and 'e'", "once")} does not throw") {
+                expect(helloWorld).notToContainOrAtMostFun(1, 'W', 'H', 'e')
+            }
+
+            it("${notToContainOrAtMostPair.first("'x' and 'y' and 'z'", "twice")} does not throw") {
+                expect(helloWorld).notToContainOrAtMostFun(2, 'x', 'y', 'z')
+            }
             it("${notToContainOrAtMostIgnoringCasePair.first("'x' and 'y' and 'z'", "twice")} does not throw") {
                 expect(helloWorld).notToContainOrAtMostIgnoringCaseFun(2, 'x', 'y', 'z')
             }
         }
+    }
+
 
     @TestFactory
-    fun notToContainOrAtMost__helloWorld__failing_cases__search_string_at_different_positions() =
-        testFactory(notToContainOrAtMostSpec) {
-            it("${notToContainOrAtMostPair.first("'l'", "once")} throws AssertionError") {
-                expect {
-                    expect(helloWorld).notToContainOrAtMostFun(1, 'l')
-                }.toThrow<AssertionError> { messageToContain("$atMost: 1", "$valueWithIndent: 'l'") }
-            }
-            it("${notToContainOrAtMostPair.first("'H', 'l'", "once")} throws AssertionError mentioning only 'l'") {
-                expect {
-                    expect(helloWorld).notToContainOrAtMostFun(1, 'H', 'l')
-                }.toThrow<AssertionError> {
-                    message {
-                        toContain("$atMost: 1", "$valueWithIndent: 'l'")
-                        notToContain(atLeast, "$valueWithIndent: 'H'")
-                    }
-                }
-            }
-            it("${notToContainOrAtMostPair.first("'l', 'H'", "once")} throws AssertionError mentioning only 'l'") {
-                expect {
-                    expect(helloWorld).notToContainOrAtMostFun(1, 'l', 'H')
-                }.toThrow<AssertionError> {
-                    message {
-                        toContain("$atMost: 1", "$valueWithIndent: 'l'")
-                        notToContain(atLeast, "$valueWithIndent: 'H'")
-                    }
+    fun notToContainOrAtMost_notToContainOrAtMostIgnoringCaseSpec__failing_cases() = testFactory(
+        notToContainOrAtMostSpec, notToContainOrAtMostIgnoringCaseSpec
+    ) {
+        it("${notToContainOrAtMostPair.first("'l'", "once")} throws AssertionError") {
+            expect {
+                expect(helloWorld).notToContainOrAtMostFun(1, 'l')
+            }.toThrow<AssertionError> { messageToContain("$atMost: 1", "$valueWithIndent: 'l'") }
+        }
+
+        it("${notToContainOrAtMostPair.first("'H', 'l'", "once")} throws AssertionError mentioning only 'l'") {
+            expect {
+                expect(helloWorld).notToContainOrAtMostFun(1, 'H', 'l')
+            }.toThrow<AssertionError> {
+                message {
+                    toContain("$atMost: 1", "$valueWithIndent: 'l'")
+                    notToContain(atLeast, "$valueWithIndent: 'H'")
                 }
             }
         }
 
-    @TestFactory
-    fun notToContainOrAtMostIgnoringCase__helloWorld__failing_cases__search_string_at_different_positions() =
-        testFactory(notToContainOrAtMostIgnoringCaseSpec) {
-            it(
-                "${
-                    notToContainOrAtMostPair.first(
-                        "'o', 'E', 'W', 'l'",
-                        "once"
-                    )
-                } throws AssertionError mentioning 'l' and 'o'"
-            ) {
-                expect {
-                    expect(helloWorld).notToContainOrAtMostIgnoringCaseFun(1, 'o', 'E', 'W', 'l')
-                }.toThrow<AssertionError> {
-                    message {
-                        toContain("$atMost: 1", "$valueWithIndent: 'l'", "$valueWithIndent: 'o'")
-                        notToContain(atLeast, "$valueWithIndent: 'E'", "$valueWithIndent: 'W'")
-                    }
+        it("${notToContainOrAtMostPair.first("'l', 'H'", "once")} throws AssertionError mentioning only 'l'") {
+            expect {
+                expect(helloWorld).notToContainOrAtMostFun(1, 'l', 'H')
+            }.toThrow<AssertionError> {
+                message {
+                    toContain("$atMost: 1", "$valueWithIndent: 'l'")
+                    notToContain(atLeast, "$valueWithIndent: 'H'")
                 }
             }
         }
 
+        it(
+            "${
+                notToContainOrAtMostIgnoringCasePair.first("'o', 'E', 'W', 'l'", "once")
+            } throws AssertionError mentioning 'l' and 'o'"
+        ) {
+            expect {
+                expect(helloWorld).notToContainOrAtMostIgnoringCaseFun(1, 'o', 'E', 'W', 'l')
+            }.toThrow<AssertionError> {
+                message {
+                    toContain("$atMost: 1", "$valueWithIndent: 'l'", "$valueWithIndent: 'o'")
+                    notToContain(atLeast, "$valueWithIndent: 'E'", "$valueWithIndent: 'W'")
+                }
+            }
+        }
+    }
+
     @TestFactory
-    fun notToContainOrAtMost__helloWorld__multiple_occurrences_of_the_search_string() =
-        testFactory(notToContainOrAtMostSpec) {
+    fun notToContainOrAtMost_notToContainOrAtMostIgnoringCase__multiple_occurrences_of_the_search_string() =
+        testFactory(
+            notToContainOrAtMostSpec, notToContainOrAtMostIgnoringCaseSpec
+        ) {
             it(
                 "${notToContainOrAtMostPair.first("'o'", "once")} throws AssertionError and " +
                     "message contains both, how many times we expected (1) and how many times it actually contained 'o' (2)"
@@ -159,10 +166,16 @@ abstract class AbstractCharSequenceNotToContainOrAtMostExpectationsTest(
             it("${notToContainOrAtMostPair.first("'o'", "twice")} does not throw") {
                 expect(helloWorld).notToContainOrAtMostFun(2, 'o')
             }
+            it("${notToContainOrAtMostIgnoringCasePair.first("'o'", "twice")} throws AssertionError") {
+                expect {
+                    expect(helloWorld).notToContainOrAtMostIgnoringCaseFun(2, 'o')
+                }.toThrow<AssertionError> { messageToContain(atMost) }
+            }
 
             it("${notToContainOrAtMostPair.first("'o'", "3 times")} does not throw") {
                 expect(helloWorld).notToContainOrAtMostFun(3, 'o')
             }
+
             it(
                 "${notToContainOrAtMostPair.first("'o' and 'l'", "twice")} throws AssertionError " +
                     "and message contains both, how many times we expected (2) and how many times it actually contained 'l' (3)"
@@ -181,21 +194,13 @@ abstract class AbstractCharSequenceNotToContainOrAtMostExpectationsTest(
                     }
                 }
             }
+
             it("${notToContainOrAtMostPair.first("'l'", "3 times")} does not throw") {
                 expect(helloWorld).notToContainOrAtMostFun(3, 'l')
             }
+
             it("${notToContainOrAtMostPair.first("'o' and 'l'", "3 times")} does not throw") {
                 expect(helloWorld).notToContainOrAtMostFun(3, 'o', 'l')
-            }
-        }
-
-    @TestFactory
-    fun notToContainOrAtMostIgnoringCase__helloWorld__multiple_occurrences_of_the_search_string() =
-        testFactory(notToContainOrAtMostIgnoringCaseSpec) {
-            it("${notToContainOrAtMostIgnoringCasePair.first("'o'", "twice")} throws AssertionError") {
-                expect {
-                    expect(helloWorld).notToContainOrAtMostIgnoringCaseFun(2, 'o')
-                }.toThrow<AssertionError> { messageToContain(atMost) }
             }
         }
 

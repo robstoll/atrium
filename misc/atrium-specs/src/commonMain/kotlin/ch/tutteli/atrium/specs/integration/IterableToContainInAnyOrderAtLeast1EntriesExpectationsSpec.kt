@@ -55,7 +55,7 @@ abstract class IterableToContainInAnyOrderAtLeast1EntriesExpectationsSpec(
         context("empty collection") {
             it("$toBeLessThanFun(1.1) throws AssertionError") {
                 expect {
-                    expect(fluentEmpty()).toContainEntriesFun({ toBeLessThan(1.1) })
+                    expect(emptyIterable()).toContainEntriesFun({ toBeLessThan(1.1) })
                 }.toThrow<AssertionError> {
                     message {
                         toContain.exactly(1).values(
@@ -69,7 +69,7 @@ abstract class IterableToContainInAnyOrderAtLeast1EntriesExpectationsSpec(
             }
             it("$toBeLessThanFun(1.1) and $toBeGreaterThanFun(2.1) throws AssertionError") {
                 expect {
-                    expect(fluentEmpty()).toContainEntriesFun({ toBeLessThan(1.1) }, { toBeGreaterThan(2.1) })
+                    expect(emptyIterable()).toContainEntriesFun({ toBeLessThan(1.1) }, { toBeGreaterThan(2.1) })
                 }.toThrow<AssertionError> {
                     message {
                         toContain.exactly(2).values(

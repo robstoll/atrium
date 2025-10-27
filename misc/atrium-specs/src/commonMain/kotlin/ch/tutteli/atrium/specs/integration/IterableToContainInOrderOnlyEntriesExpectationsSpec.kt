@@ -79,7 +79,7 @@ abstract class IterableToContainInOrderOnlyEntriesExpectationsSpec(
         context("empty collection") {
             it("$toBeLessThanFun(1.1) throws AssertionError") {
                 expect {
-                    expect(fluentEmpty()).toContainEntriesFun({ toBeLessThan(1.1) })
+                    expect(emptyIterable()).toContainEntriesFun({ toBeLessThan(1.1) })
                 }.toThrow<AssertionError> {
                     message {
                         toContain("$rootBulletPoint$toContainInOrderOnly:")
@@ -91,7 +91,7 @@ abstract class IterableToContainInOrderOnlyEntriesExpectationsSpec(
             }
             it("$toBeLessThanFun(1.1) and $toBeGreaterThanFun(4.1) throws AssertionError") {
                 expect {
-                    expect(fluentEmpty()).toContainEntriesFun({ toBeLessThan(1.1) }, { toBeGreaterThan(4.1) })
+                    expect(emptyIterable()).toContainEntriesFun({ toBeLessThan(1.1) }, { toBeGreaterThan(4.1) })
                 }.toThrow<AssertionError> {
                     message {
                         toContain.exactly(1).value("$rootBulletPoint$toContainInOrderOnly:")

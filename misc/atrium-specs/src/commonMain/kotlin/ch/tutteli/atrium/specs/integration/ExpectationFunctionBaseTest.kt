@@ -4,19 +4,23 @@ import ch.tutteli.atrium.api.verbs.internal.testfactories.ExpectTestExecutableFo
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.specs.integration.utils.*
-import ch.tutteli.atrium.specs.lambda
-import ch.tutteli.atrium.specs.name
-import ch.tutteli.atrium.testfactories.PlatformTestNodeContainer
 import ch.tutteli.atrium.testfactories.PlatformTestNode
+import ch.tutteli.atrium.testfactories.PlatformTestNodeContainer
 import ch.tutteli.atrium.testfactories.TestFactoryBuilder
 import ch.tutteli.kbox.forElementAndForEachIn
-import kotlin.jvm.JvmName
+import kotlin.reflect.KProperty0
 
 expect abstract class ExpectationFunctionBaseTest() {
 
     protected fun <T> testFactory(
         specPair: SpecPair<T>,
         setup: TestFactoryBuilder<ExpectTestExecutableForTests>.(T) -> Unit,
+    ): PlatformTestNodeContainer<PlatformTestNode>
+
+    protected fun <T> testFactory(
+        specPair: SpecPair<T>,
+        otherSpecPair: SpecPair<T>,
+        setup: TestFactoryBuilder<ExpectTestExecutableForTests>.(fun1: T, fun2: T) -> Unit,
     ): PlatformTestNodeContainer<PlatformTestNode>
 
     protected fun testFactory(
@@ -26,16 +30,43 @@ expect abstract class ExpectationFunctionBaseTest() {
         setup: TestFactoryBuilder<ExpectTestExecutableForTests>.() -> Unit,
     ): PlatformTestNodeContainer<PlatformTestNode>
 
+    /**
+     * Executes twice the given [setup] once with [specPair] and once with [otherSpecPair].
+     */
+    protected fun <T> testFactoryDescribeSameBehaviour(
+        specPair: SpecPair<T>,
+        otherSpecPair: SpecPair<T>,
+        setup: TestFactoryBuilder<ExpectTestExecutableForTests>.(bothFun: T) -> Unit,
+    ): PlatformTestNodeContainer<PlatformTestNode>
+
+    protected fun <T, R> testFactoryForFeatureNonFeature(
+        f0: Feature0<T, R>,
+        f1: Fun1<T, Expect<R>.() -> Unit>,
+        setup: TestFactoryBuilder<ExpectTestExecutableForTests>.(name: String, Expect<T>.(Expect<R>.() -> Unit) -> Expect<T>, hasExtraHint: Boolean) -> Unit,
+    ): PlatformTestNodeContainer<PlatformTestNode>
+
+    protected fun <T, A1, R> testFactoryForFeatureNonFeature(
+        f0: Feature1<T, A1, R>,
+        f1: Fun2<T, A1, Expect<R>.() -> Unit>,
+        setup: TestFactoryBuilder<ExpectTestExecutableForTests>.(name: String, Expect<T>.(A1, Expect<R>.() -> Unit) -> Expect<T>, hasExtraHint: Boolean) -> Unit,
+    ): PlatformTestNodeContainer<PlatformTestNode>
+
     protected fun <T, R> testFactoryForFeatureNonFeature(
         f0: Feature0<T, R>,
         f1: Feature1<T, Expect<R>.() -> Unit, R>,
-        setup: TestFactoryBuilder<ExpectTestExecutableForTests>.(name: String, Expect<T>.(Expect<R>.() -> Unit) -> Expect<R>, hasExtraHints: Boolean) -> Unit,
+        setup: TestFactoryBuilder<ExpectTestExecutableForTests>.(name: String, Expect<T>.(Expect<R>.() -> Unit) -> Expect<R>, hasExtraHint: Boolean) -> Unit,
     ): PlatformTestNodeContainer<PlatformTestNode>
 
     protected fun <T, A1, R> testFactoryForFeatureNonFeature(
         f0: Feature1<T, A1, R>,
         f1: Feature2<T, A1, Expect<R>.() -> Unit, R>,
-        setup: TestFactoryBuilder<ExpectTestExecutableForTests>.(name: String, Expect<T>.(A1, Expect<R>.() -> Unit) -> Expect<R>, hasExtraHints: Boolean) -> Unit,
+        setup: TestFactoryBuilder<ExpectTestExecutableForTests>.(name: String, Expect<T>.(A1, Expect<R>.() -> Unit) -> Expect<R>, hasExtraHint: Boolean) -> Unit,
+    ): PlatformTestNodeContainer<PlatformTestNode>
+
+    protected fun <T : Any> testFactoryNonNullable(
+        nonNullableSpecPair: SpecPair<T>,
+        nullableSpecPair: SpecPair<*>,
+        setup: TestFactoryBuilder<ExpectTestExecutableForTests>.(T) -> Unit
     ): PlatformTestNodeContainer<PlatformTestNode>
 
     protected fun <SubjectT> subjectLessTestFactory(
@@ -61,11 +92,6 @@ expect abstract class ExpectationFunctionBaseTest() {
         vararg otherTestData: ExpectationCreatorTestData<*>,
     ): PlatformTestNodeContainer<PlatformTestNode>
 
-    protected fun <T : Any> nonNullableCases(
-        nonNullableSpecPair: SpecPair<T>,
-        nullableSpecPair: Any,
-        testExecutable: ExpectTestExecutableForTests.(T) -> Unit,
-    ): PlatformTestNodeContainer<PlatformTestNode>
 }
 
 fun TestFactoryBuilder<ExpectTestExecutableForTests>.applySubjectLessTestSetup(
@@ -77,7 +103,7 @@ fun TestFactoryBuilder<ExpectTestExecutableForTests>.applySubjectLessTestSetup(
             @Suppress("UNCHECKED_CAST") val e = data.expectationCreator as SpecPair<Expect<Any?>.() -> Unit>
             @Suppress("UNCHECKED_CAST") val oE =
                 data.otherExpectationCreators as Array<out SpecPair<Expect<Any?>.() -> Unit>>
-            this.apply(subjectLessTestSetup(e, oE))
+            apply(subjectLessTestSetup(e, oE))
         }
     }
 }
@@ -91,7 +117,7 @@ fun TestFactoryBuilder<ExpectTestExecutableForTests>.applyExpectationCreatorTest
             @Suppress("UNCHECKED_CAST") val e = data.expectationCreator as ExpectationCreatorTriple<Any?>
             @Suppress("UNCHECKED_CAST") val oE =
                 data.otherExpectationCreators as Array<out ExpectationCreatorTriple<Any?>>
-            this.apply(expectationCreatorTestSetup(data.subject, e, oE))
+            apply(expectationCreatorTestSetup(data.subject, e, oE))
         }
     }
 }
@@ -122,3 +148,7 @@ fun <T> TestFactoryBuilder<ExpectTestExecutableForTests>.itFun(
     setup(specPair.lambda)
 }
 
+expect fun  TestFactoryBuilder<ExpectTestExecutableForTests>.describeIterable(
+    iterableProvider: KProperty0<Function0<Iterable<*>>>,
+    setup: TestFactoryBuilder<ExpectTestExecutableForTests>.() -> Unit
+)

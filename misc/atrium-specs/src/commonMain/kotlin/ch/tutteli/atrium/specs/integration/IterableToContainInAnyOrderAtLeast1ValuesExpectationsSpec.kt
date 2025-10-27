@@ -36,7 +36,7 @@ abstract class IterableToContainInAnyOrderAtLeast1ValuesExpectationsSpec(
         context("empty collection") {
             it("1.1 throws AssertionError") {
                 expect {
-                    expect(fluentEmpty()).toContainFun(1.1)
+                    expect(emptyIterable()).toContainFun(1.1)
                 }.toThrow<AssertionError> {
                     messageToContain(
                         "$rootBulletPoint$toContainInAnyOrder: $separator",

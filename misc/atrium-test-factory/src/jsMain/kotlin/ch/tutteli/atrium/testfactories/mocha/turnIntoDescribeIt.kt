@@ -39,13 +39,6 @@ fun <TestExecutableT : TestExecutable> turnIntoDescribeIt(
     }
 }
 
-private fun cleanedDisplayName(node: TestNode): String {
-    // that's a workaround for intellij's test view which treats . as separate groups
-    // (they probably parse the output of mocha)
-    // replace full stop by one dot leader
-    return node.displayName.replace(".", "․")
-}
-
 /**
  * Collects the display names of all BranchTestNode and create one single [it] with the descriptions.
  * This function mainly exists for the shortcomings of the JS -> Gradle -> Intellij interplay. At some stage the

@@ -3,8 +3,10 @@ package ch.tutteli.atrium.specs.integration
 import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
+import ch.tutteli.atrium.specs.integration.IterableToContainEntriesSpecBase.Companion.toBeGreaterThanFun
+import ch.tutteli.atrium.specs.integration.IterableToContainEntriesSpecBase.Companion.toBeLessThanFun
 import ch.tutteli.atrium.specs.integration.IterableToContainEntriesSpecBase.Companion.toEqualFun
-import ch.tutteli.atrium.specs.integration.IterableToContainSpecBase.Companion.fluentEmpty
+import ch.tutteli.atrium.specs.integration.IterableToContainSpecBase.Companion.emptyIterable
 import ch.tutteli.atrium.specs.integration.IterableToContainSpecBase.Companion.oneToSeven
 import ch.tutteli.atrium.specs.integration.IterableToContainSpecBase.Companion.oneToSevenNullable
 import ch.tutteli.atrium.specs.integration.IterableToContainSpecBase.Companion.separator
@@ -50,67 +52,70 @@ abstract class AbstractIterableNotToHaveElementsOrAnyExpectationsTest(
 
 
     @TestFactory
-    fun empty_collection__does_not_throw() = nonNullableCases(
+    fun empty_collection__does_not_throw() = testFactoryNonNullable(
         notToHaveElementsOrAnySpec,
         notToHaveElementsOrAnyNullableSpec
     ) { notToHaveElementsOrAnyFun ->
-        expect(fluentEmpty()).notToHaveElementsOrAnyFun { toBeLessThan(1.1) }
-    }
-
-    @TestFactory
-    fun one_to_7__throws() = nonNullableCases(
-        notToHaveElementsOrAnySpec,
-        notToHaveElementsOrAnyNullableSpec
-    ) { notToHaveElementsOrAnyFun ->
-        expect {
-            expect(oneToSeven()).notToHaveElementsOrAnyFun { toBeGreaterThan(1.1); toBeLessThan(2.1) }
-        }.toThrow<AssertionError> {
-            messageToContain(
-                "$rootBulletPoint$notToHaveElementsOrAnyDescr: $separator",
-                "$toBeGreaterThanDescr: 1.1",
-                "$toBeLessThanDescr: 2.1",
-                noSuchElementDescr
-            )
+        it("does not throw") {
+            expect(emptyIterable()).notToHaveElementsOrAnyFun { toBeLessThan(1.1) }
         }
     }
 
     @TestFactory
-    fun one_to_7__does_not_throw() = nonNullableCases(
+    fun one_to_seven() = testFactoryNonNullable(
         notToHaveElementsOrAnySpec,
         notToHaveElementsOrAnyNullableSpec
     ) { notToHaveElementsOrAnyFun ->
-        expect(oneToSeven()).notToHaveElementsOrAnyFun { toBeGreaterThan(1.1); toBeLessThan(2.2) }
+        it("search for entry which needs $toBeGreaterThanFun(1.0) and $toBeLessThanFun(2.0) - throws") {
+            expect {
+                expect(oneToSeven()).notToHaveElementsOrAnyFun { toBeGreaterThan(1.1); toBeLessThan(2.1) }
+            }.toThrow<AssertionError> {
+                messageToContain(
+                    "$rootBulletPoint$notToHaveElementsOrAnyDescr: $separator",
+                    "$toBeGreaterThanDescr: 1.1",
+                    "$toBeLessThanDescr: 2.1",
+                    noSuchElementDescr
+                )
+            }
+        }
+
+        it("search for entry which $toBeGreaterThanFun(1.0) and $toBeLessThanFun(2.1)") {
+            expect(oneToSeven()).notToHaveElementsOrAnyFun { toBeGreaterThan(1.1); toBeLessThan(2.2) }
+        }
     }
 
 
     @TestFactory
     fun nullable_cases() = testFactory(notToHaveElementsOrAnyNullableSpec) { notToHaveElementsOrAnyFun ->
-        describe("iterable ${oneToSevenNullable().toList().joinToString(",")}") {
+        describeIterable(::oneToSevenNullable) {
             describe("happy cases (do not throw)") {
-                it("$toEqualFun(1.1)") {
+                it("$toEqualFun(1.1) - does not throw") {
                     expect(oneToSevenNullable()).notToHaveElementsOrAnyFun { toEqual(1.1) }
                 }
                 it("null") {
                     expect(oneToSevenNullable()).notToHaveElementsOrAnyFun(null)
                 }
             }
-        }
-        describe("failing cases") {
-            it("$toEqualFun(2.1)") {
-                expect {
-                    expect(oneToSevenNullable()).notToHaveElementsOrAnyFun { toEqual(2.1) }
-                }.toThrow<AssertionError> {
-                    message {
-                        toContain.exactly(1).values(
-                            "$rootBulletPoint$notToHaveElementsOrAnyDescr: $separator",
-                            "$toEqualDescr: 2.1",
-                            noSuchElementDescr
-                        )
+
+
+            describe("failing cases") {
+                it("$toEqualFun(2.1)") {
+                    expect {
+                        expect(oneToSevenNullable()).notToHaveElementsOrAnyFun { toEqual(2.1) }
+                    }.toThrow<AssertionError> {
+                        message {
+                            toContain.exactly(1).values(
+                                "$rootBulletPoint$notToHaveElementsOrAnyDescr: $separator",
+                                "$toEqualDescr: 2.1",
+                                noSuchElementDescr
+                            )
+                        }
                     }
                 }
             }
         }
-        describe("iterable ${oneToSeven().toList().joinToString(",")}") {
+
+        describeIterable(::oneToSeven) {
             it("null, throws an AssertionError") {
                 expect {
                     expect(oneToSeven() as Iterable<Double?>).notToHaveElementsOrAnyFun(null)
