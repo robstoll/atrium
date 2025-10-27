@@ -44,3 +44,10 @@ expect fun <TestExecutableT : TestExecutable> turnTestNodesIntoPlatformSpecificT
     testExecutableFactory: () -> TestExecutableT
 ): PlatformTestNodeContainer<PlatformTestNode>
 
+
+fun cleanedDisplayName(node: TestNode): String {
+    // that's a workaround for intellij's test view which treats . as separate groups
+    // (they probably parse the output of gradle)
+    // replace full stop by one dot leader
+    return node.displayName.replace(".", "․")
+}

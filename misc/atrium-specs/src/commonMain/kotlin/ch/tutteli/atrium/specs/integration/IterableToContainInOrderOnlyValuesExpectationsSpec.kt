@@ -74,7 +74,7 @@ abstract class IterableToContainInOrderOnlyValuesExpectationsSpec(
         context("empty collection") {
             it("1.1 throws AssertionError") {
                 expect {
-                    expect(fluentEmpty()).toContainFun(1.1)
+                    expect(emptyIterable()).toContainFun(1.1)
                 }.toThrow<AssertionError> {
                     message {
                         toContain("$rootBulletPoint$toContainInOrderOnly:")
@@ -86,7 +86,7 @@ abstract class IterableToContainInOrderOnlyValuesExpectationsSpec(
             }
             it("1.1 and 4.1 throws AssertionError") {
                 expect {
-                    expect(fluentEmpty()).toContainFun(1.1, 4.1)
+                    expect(emptyIterable()).toContainFun(1.1, 4.1)
                 }.toThrow<AssertionError> {
                     message {
                         toContain("$rootBulletPoint$toContainInOrderOnly:")

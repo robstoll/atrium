@@ -57,7 +57,7 @@ abstract class IterableToContainSpecBase(spec: Root.() -> Unit) : Spek(spec) {
         val atLeastDescr = DescriptionIterableLikeExpectation.AT_LEAST.getDefault()
         val atMostDescr = DescriptionIterableLikeExpectation.AT_MOST.getDefault()
 
-        val fluentEmpty = { sequenceOf<Double>().constrainOnce().asIterable() }
+        val emptyIterable = { sequenceOf<Double>().constrainOnce().asIterable() }
         val illegalArgumentException = IllegalArgumentException::class.simpleName
         val separator = lineSeparator
 

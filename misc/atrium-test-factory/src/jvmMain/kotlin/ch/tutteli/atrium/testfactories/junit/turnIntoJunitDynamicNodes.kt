@@ -11,14 +11,14 @@ fun <TestExecutableT : TestExecutable> turnIntoJunitDynamicNodes(
     testNodes.map { node ->
         when (node) {
             is BranchTestNode -> dynamicContainer(
-                node.displayName,
+                cleanedDisplayName(node),
                 // I doubt we will run into stack-overflow issues as the nesting is normally very limited.
                 // If we should run into stack-overflow issues, then we could turn this into a tailrec function
                 // using an own stack
                 turnIntoJunitDynamicNodes(node.nodes, testExecutableFactory)
             )
 
-            is LeafTestNode<*> -> dynamicTest(node.displayName) {
+            is LeafTestNode<*> -> dynamicTest(cleanedDisplayName(node)) {
                 testExecutableFactory().execute(node)
             }
         }

@@ -220,7 +220,7 @@ abstract class IterableToContainInOrderOnlyGroupedValuesExpectationsSpec(
         context("empty collection") {
             it("(1.1), (1.2) throws AssertionError") {
                 expect {
-                    expect(fluentEmpty()).toContainFun(context(1.1), context(1.2))
+                    expect(emptyIterable()).toContainFun(context(1.1), context(1.2))
                 }.toThrow<AssertionError> {
                     message {
                         toContainSize(0, 2)

@@ -8,8 +8,8 @@ import kotlin.test.Test
 class CollectionExpectationsTest : ch.tutteli.atrium.specs.integration.AbstractCollectionExpectationsTest(
     fun0(Expect<Collection<Int>>::toBeEmpty),
     fun0(Expect<Collection<Int>>::notToBeEmpty),
-    property<Collection<Int>, Int>(Expect<Collection<Int>>::size),
-    fun1<Collection<Int>, Expect<Int>.() -> Unit>(Expect<Collection<Int>>::size)
+    property(Expect<Collection<Int>>::size),
+    fun1(Expect<Collection<Int>>::size)
 ) {
     @Suppress("AssignedValueIsNeverRead", "UNUSED_VARIABLE", "UNUSED_VALUE", "unused")
     @Test

@@ -1,7 +1,9 @@
 package ch.tutteli.atrium.specs.integration
 
-import ch.tutteli.atrium.api.fluent.en_GB.*
-import ch.tutteli.atrium.api.verbs.internal.expect
+import ch.tutteli.atrium.api.fluent.en_GB.message
+import ch.tutteli.atrium.api.fluent.en_GB.notToContain
+import ch.tutteli.atrium.api.fluent.en_GB.toContainRegex
+import ch.tutteli.atrium.api.fluent.en_GB.toThrow
 import ch.tutteli.atrium.core.polyfills.format
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
@@ -10,7 +12,7 @@ import ch.tutteli.atrium.specs.integration.IterableToContainEntriesSpecBase.Comp
 import ch.tutteli.atrium.specs.integration.IterableToContainEntriesSpecBase.Companion.hasANextElement
 import ch.tutteli.atrium.specs.integration.IterableToContainEntriesSpecBase.Companion.mismatchedIndex
 import ch.tutteli.atrium.specs.integration.IterableToContainSpecBase.Companion.anElementWhichEquals
-import ch.tutteli.atrium.specs.integration.IterableToContainSpecBase.Companion.fluentEmpty
+import ch.tutteli.atrium.specs.integration.IterableToContainSpecBase.Companion.emptyIterable
 import ch.tutteli.atrium.specs.integration.IterableToContainSpecBase.Companion.mismatches
 import ch.tutteli.atrium.specs.integration.IterableToContainSpecBase.Companion.notToContainDescr
 import ch.tutteli.atrium.specs.integration.IterableToContainSpecBase.Companion.oneToSeven
@@ -19,6 +21,7 @@ import ch.tutteli.atrium.specs.integration.IterableToContainSpecBase.Companion.s
 import ch.tutteli.atrium.specs.integration.utils.SubjectLessTestData
 import ch.tutteli.atrium.testfactories.TestFactory
 import ch.tutteli.atrium.translations.DescriptionIterableLikeExpectation
+import kotlin.reflect.KProperty
 
 @Suppress("FunctionName")
 abstract class AbstractIterableNotToContainValuesExpectationsTest(
@@ -41,93 +44,25 @@ abstract class AbstractIterableNotToContainValuesExpectationsTest(
 
 
     @TestFactory
-    fun empty_collection__throws() = nonNullableCases(
-        notToContainValuesSpec,
-        notToContainNullableValuesSpec
-    ) { notToContainValuesFun ->
-        expect {
-            expect(fluentEmpty()).notToContainValuesFun(4.1, emptyArray())
-        }.toThrow<AssertionError> {
-            message {
-                toContainRegex(
-                    "$hasANextElement$separator" +
-                        "$indentRootBulletPoint\\Q$explanatoryBulletPoint\\E$notToContainDescr: $separator" +
-                        "$indentListBulletPoint$anElementWhichIsWithIndent: 4.1.*",
-                    "$hintBulletPoint${
-                        DescriptionIterableLikeExpectation.USE_NOT_TO_HAVE_ELEMENTS_OR_NONE.getDefault()
-                            .format(notToHaveElementsOrNoneFunNameSpec)
-                    }"
-                )
-            }
-        }
-    }
+    fun empty_collection__throws() = testFactoryNonNullable(
+        notToContainValuesSpec, notToContainNullableValuesSpec
+    ) { notToContainValuesFunArr ->
+        fun Expect<Iterable<Double>>.notToContainFun(a: Double, vararg aX: Double) =
+            notToContainValuesFunArr(a, aX.toTypedArray())
 
-    @TestFactory
-    fun happy_cases__do_not_throw() = testFactory(notToContainValuesSpec) { notToContainFun ->
-
-        it("1.2 does not throw") {
-            expect(oneToSeven()).notToContainFun(1.2, arrayOf())
-        }
-        it("1.2, 2.2, 3.3 does not throw") {
-            expect(oneToSeven()).notToContainFun(1.2, arrayOf(2.2, 3.3))
-        }
-        it("3.3, 1.2, 2.2 does not throw") {
-            expect(oneToSeven()).notToContainFun(3.3, arrayOf(1.2, 2.2))
-        }
-    }
-
-    @TestFactory
-    fun failing_cases__throw() = testFactory(notToContainValuesSpec) { notToContainFun ->
-        it("4.1 throws AssertionError") {
+        it("always throws as it implicitly check that it is not empty") {
             expect {
-                expect(oneToSeven()).notToContainFun(4.1, arrayOf())
+                expect(emptyIterable()).notToContainFun(4.1)
             }.toThrow<AssertionError> {
                 message {
                     toContainRegex(
-                        "\\Q$rootBulletPoint\\E$notToContainDescr: $separator" +
-                            "$anElementWhichIsWithIndent: 4.1.*$separator" +
-                            "$afterExplanatoryIndent\\Q$warningBulletPoint$mismatches:\\E $separator" +
-                            "$afterMismatchedWarning${mismatchedIndex(2, "4.1")}.*$separator" +
-                            "$afterMismatchedWarning${mismatchedIndex(3, "4.1")}.*$separator" +
-                            "$afterMismatchedWarning${mismatchedIndex(8, "4.1")}.*"
-                    )
-                }
-            }
-        }
-        it("1.1, 4.1 throws AssertionError") {
-            expect {
-                expect(oneToSeven()).notToContainFun(1.1, arrayOf(4.1))
-            }.toThrow<AssertionError> {
-                message {
-                    toContainRegex(
-                        "\\Q$rootBulletPoint\\E$notToContainDescr: $separator" +
-                            "$anElementWhichIsWithIndent: 1.1.*$separator" +
-                            "$afterExplanatoryIndent\\Q$warningBulletPoint$mismatches:\\E $separator" +
-                            "$afterMismatchedWarning${mismatchedIndex(0, "1.1")}.*$separator" +
-                            "$anElementWhichIsWithIndent: 4.1.*$separator" +
-                            "$afterExplanatoryIndent\\Q$warningBulletPoint$mismatches:\\E $separator" +
-                            "$afterMismatchedWarning${mismatchedIndex(2, "4.1")}.*$separator" +
-                            "$afterMismatchedWarning${mismatchedIndex(3, "4.1")}.*$separator" +
-                            "$afterMismatchedWarning${mismatchedIndex(8, "4.1")}.*"
-                    )
-                }
-            }
-        }
-        it("4.1, 1.1 throws AssertionError") {
-            expect {
-                expect(oneToSeven()).notToContainFun(4.1, arrayOf(1.1))
-            }.toThrow<AssertionError> {
-                message {
-                    toContainRegex(
-                        "\\Q$rootBulletPoint\\E$notToContainDescr: $separator" +
-                            "$anElementWhichIsWithIndent: 4.1.*$separator" +
-                            "$afterExplanatoryIndent\\Q$warningBulletPoint$mismatches:\\E $separator" +
-                            "$afterMismatchedWarning${mismatchedIndex(2, "4.1")}.*$separator" +
-                            "$afterMismatchedWarning${mismatchedIndex(3, "4.1")}.*$separator" +
-                            "$afterMismatchedWarning${mismatchedIndex(8, "4.1")}.*$separator" +
-                            "$anElementWhichIsWithIndent: 1.1.*$separator" +
-                            "$afterExplanatoryIndent\\Q$warningBulletPoint$mismatches:\\E $separator" +
-                            "$afterMismatchedWarning${mismatchedIndex(0, "1.1")}.*"
+                        "$hasANextElement$separator" +
+                            "$indentRootBulletPoint\\Q$explanatoryBulletPoint\\E$notToContainDescr: $separator" +
+                            "$indentListBulletPoint$anElementWhichIsWithIndent: 4.1.*",
+                        "$hintBulletPoint${
+                            DescriptionIterableLikeExpectation.USE_NOT_TO_HAVE_ELEMENTS_OR_NONE.getDefault()
+                                .format(notToHaveElementsOrNoneFunNameSpec)
+                        }"
                     )
                 }
             }
@@ -135,38 +70,125 @@ abstract class AbstractIterableNotToContainValuesExpectationsTest(
     }
 
     @TestFactory
-    fun nullable_cases() = testFactory(notToContainNullableValuesSpec) { notToContainNullableFun ->
-        it("null does not throw") {
-            expect(oneToSeven() as Iterable<Double?>).notToContainNullableFun(null, arrayOf())
-        }
-        it("null throws AssertionError") {
-            expect {
-                expect(oneToSevenNullable()).notToContainNullableFun(null, arrayOf())
-            }.toThrow<AssertionError> {
-                message {
-                    toContainRegex(
-                        "\\Q$rootBulletPoint\\E$notToContainDescr: $separator" +
-                            "$anElementWhichIsWithIndent: null$separator" +
-                            "$afterExplanatoryIndent\\Q$warningBulletPoint$mismatches:\\E $separator" +
-                            "$afterMismatchedWarning${mismatchedIndex(1, "null")}.*$separator" +
-                            "$afterMismatchedWarning${mismatchedIndex(5, "null")}.*"
-                    )
+    fun one_to_seven() = testFactoryNonNullable(
+        notToContainValuesSpec, notToContainNullableValuesSpec
+    ) { notToContainValuesFunArr ->
+        fun Expect<Iterable<Double>>.notToContainFun(a: Double, vararg aX: Double) =
+            notToContainValuesFunArr(a, aX.toTypedArray())
+
+        describeIterable(::oneToSeven) {
+            describe("happy cases") {
+                it("1.2 does not throw") {
+                    expect(oneToSeven()).notToContainFun(1.2)
+                }
+                it("1.2, 2.2, 3.3 does not throw") {
+                    expect(oneToSeven()).notToContainFun(1.2, 2.2, 3.3)
+                }
+                it("3.3, 1.2, 2.2 does not throw") {
+                    expect(oneToSeven()).notToContainFun(3.3, 1.2, 2.2)
+                }
+            }
+
+            describe("failing cases") {
+
+                it("4.1 throws AssertionError") {
+                    expect {
+                        expect(oneToSeven()).notToContainFun(4.1)
+                    }.toThrow<AssertionError> {
+                        message {
+                            toContainRegex(
+                                "\\Q$rootBulletPoint\\E$notToContainDescr: $separator" +
+                                    "$anElementWhichIsWithIndent: 4.1.*$separator" +
+                                    "$afterExplanatoryIndent\\Q$warningBulletPoint$mismatches:\\E $separator" +
+                                    "$afterMismatchedWarning${mismatchedIndex(2, "4.1")}.*$separator" +
+                                    "$afterMismatchedWarning${mismatchedIndex(3, "4.1")}.*$separator" +
+                                    "$afterMismatchedWarning${mismatchedIndex(8, "4.1")}.*"
+                            )
+                        }
+                    }
+                }
+                it("1.1, 4.1 throws AssertionError") {
+                    expect {
+                        expect(oneToSeven()).notToContainFun(1.1, 4.1)
+                    }.toThrow<AssertionError> {
+                        message {
+                            toContainRegex(
+                                "\\Q$rootBulletPoint\\E$notToContainDescr: $separator" +
+                                    "$anElementWhichIsWithIndent: 1.1.*$separator" +
+                                    "$afterExplanatoryIndent\\Q$warningBulletPoint$mismatches:\\E $separator" +
+                                    "$afterMismatchedWarning${mismatchedIndex(0, "1.1")}.*$separator" +
+                                    "$anElementWhichIsWithIndent: 4.1.*$separator" +
+                                    "$afterExplanatoryIndent\\Q$warningBulletPoint$mismatches:\\E $separator" +
+                                    "$afterMismatchedWarning${mismatchedIndex(2, "4.1")}.*$separator" +
+                                    "$afterMismatchedWarning${mismatchedIndex(3, "4.1")}.*$separator" +
+                                    "$afterMismatchedWarning${mismatchedIndex(8, "4.1")}.*"
+                            )
+                        }
+                    }
+                }
+                it("4.1, 1.1 throws AssertionError") {
+                    expect {
+                        expect(oneToSeven()).notToContainFun(4.1, 1.1)
+                    }.toThrow<AssertionError> {
+                        message {
+                            toContainRegex(
+                                "\\Q$rootBulletPoint\\E$notToContainDescr: $separator" +
+                                    "$anElementWhichIsWithIndent: 4.1.*$separator" +
+                                    "$afterExplanatoryIndent\\Q$warningBulletPoint$mismatches:\\E $separator" +
+                                    "$afterMismatchedWarning${mismatchedIndex(2, "4.1")}.*$separator" +
+                                    "$afterMismatchedWarning${mismatchedIndex(3, "4.1")}.*$separator" +
+                                    "$afterMismatchedWarning${mismatchedIndex(8, "4.1")}.*$separator" +
+                                    "$anElementWhichIsWithIndent: 1.1.*$separator" +
+                                    "$afterExplanatoryIndent\\Q$warningBulletPoint$mismatches:\\E $separator" +
+                                    "$afterMismatchedWarning${mismatchedIndex(0, "1.1")}.*"
+                            )
+                        }
+                    }
                 }
             }
         }
-        it("1.2, null throws AssertionError mentioning only null") {
-            expect {
-                expect(oneToSevenNullable()).notToContainNullableFun(1.2, arrayOf<Double?>(null))
-            }.toThrow<AssertionError> {
-                message {
-                    toContainRegex(
-                        "\\Q$rootBulletPoint\\E$notToContainDescr: $separator" +
-                            "$anElementWhichIsWithIndent: null$separator" +
-                            "$afterExplanatoryIndent\\Q$warningBulletPoint$mismatches:\\E $separator" +
-                            "$afterMismatchedWarning${mismatchedIndex(1, "null")}.*$separator" +
-                            "$afterMismatchedWarning${mismatchedIndex(5, "null")}.*"
-                    )
-                    notToContain("$notToContainDescr: 1.2")
+    }
+
+    @TestFactory
+    fun nullable_cases() = testFactory(notToContainNullableValuesSpec) { notToContainNullableValuesFunArr ->
+        fun Expect<Iterable<Double?>>.notToContainNullableFun(a: Double?, vararg aX: Double?) =
+            notToContainNullableValuesFunArr(this, a, aX)
+
+        describeIterable(::oneToSeven) {
+            it("null does not throw") {
+                expect(oneToSeven() as Iterable<Double?>).notToContainNullableFun(null)
+            }
+        }
+        describeIterable(::oneToSevenNullable) {
+            it("null throws AssertionError") {
+                expect {
+                    expect(oneToSevenNullable()).notToContainNullableFun(null)
+                }.toThrow<AssertionError> {
+                    message {
+                        toContainRegex(
+                            "\\Q$rootBulletPoint\\E$notToContainDescr: $separator" +
+                                "$anElementWhichIsWithIndent: null$separator" +
+                                "$afterExplanatoryIndent\\Q$warningBulletPoint$mismatches:\\E $separator" +
+                                "$afterMismatchedWarning${mismatchedIndex(1, "null")}.*$separator" +
+                                "$afterMismatchedWarning${mismatchedIndex(5, "null")}.*"
+                        )
+                    }
+                }
+            }
+            it("1.2, null throws AssertionError mentioning only null") {
+                expect {
+                    expect(oneToSevenNullable()).notToContainNullableFun(1.2, null)
+                }.toThrow<AssertionError> {
+                    message {
+                        toContainRegex(
+                            "\\Q$rootBulletPoint\\E$notToContainDescr: $separator" +
+                                "$anElementWhichIsWithIndent: null$separator" +
+                                "$afterExplanatoryIndent\\Q$warningBulletPoint$mismatches:\\E $separator" +
+                                "$afterMismatchedWarning${mismatchedIndex(1, "null")}.*$separator" +
+                                "$afterMismatchedWarning${mismatchedIndex(5, "null")}.*"
+                        )
+                        notToContain("$notToContainDescr: 1.2")
+                    }
                 }
             }
         }

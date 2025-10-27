@@ -37,16 +37,21 @@ abstract class AbstractExtractSubjectTest(
     )
 
     @TestFactory
-    fun subject_defined__extraction_successful() =
-        nonNullableCases(extractSubjectSpec, extractSubjectNullableSpec) { extractSubjectFun ->
+    fun subject_defined__extraction_successful() = testFactoryNonNullable(
+        extractSubjectSpec, extractSubjectNullableSpec
+    ) { extractSubjectFun ->
+        it("extraction successful") {
             expect(1).extractSubjectFun("failure desc irrelevant") { subject ->
                 feature("extracted subject") { subject }.toEqual(1)
             }
         }
+    }
 
     @TestFactory
-    fun subject_not_defined__shows_the_default_failure_description_if_null_passed() =
-        nonNullableCases(extractSubjectSpec, extractSubjectNullableSpec) { extractSubjectFun ->
+    fun subject_not_defined() = testFactoryNonNullable(
+        extractSubjectSpec, extractSubjectNullableSpec
+    ) { extractSubjectFun ->
+        it("shows the default failure description if null passed") {
             expect {
                 expect(null as Int?).notToEqualNull {
                     extractSubjectFun(null) { _ ->
@@ -62,9 +67,7 @@ abstract class AbstractExtractSubjectTest(
             }
         }
 
-    @TestFactory
-    fun subject_not_defined__shows_the_given_failure_description() =
-        nonNullableCases(extractSubjectSpec, extractSubjectNullableSpec) { extractSubjectFun ->
+        it("shows given failure description") {
             val failureDescription = "failure description shown in reporting"
             expect {
                 expect(null as Int?).notToEqualNull {
@@ -80,6 +83,7 @@ abstract class AbstractExtractSubjectTest(
                 }
             }
         }
+    }
 
     @Test
     fun subject_null__extraction_also_successful() {

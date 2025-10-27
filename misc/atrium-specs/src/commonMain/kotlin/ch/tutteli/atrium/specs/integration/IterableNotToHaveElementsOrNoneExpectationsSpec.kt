@@ -44,7 +44,7 @@ abstract class IterableNotToHaveElementsOrNoneExpectationsSpec(
 
         context("empty collection") {
             it("does not throw") {
-                expect(fluentEmpty()).notToHaveElementsOrNoneFun { toBeLessThan(1.1) }
+                expect(emptyIterable()).notToHaveElementsOrNoneFun { toBeLessThan(1.1) }
             }
         }
 

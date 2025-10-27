@@ -9,7 +9,7 @@ import org.spekframework.spek2.dsl.Root
 abstract class CharSequenceToContainSpecBase(spec: Root.() -> Unit) : Spek(spec) {
 
     companion object {
-        val text: CharSequence = "Hello my name is Robert"
+        val helloMyNameIsRobert: CharSequence = "Hello my name is Robert"
         val helloWorld: CharSequence = "Hello World, I am Oskar"
 
         val toContainDescr = DescriptionCharSequenceExpectation.TO_CONTAIN.getDefault()

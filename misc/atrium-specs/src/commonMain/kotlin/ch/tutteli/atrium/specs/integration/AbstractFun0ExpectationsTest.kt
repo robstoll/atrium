@@ -115,7 +115,6 @@ abstract class AbstractFun0ExpectationsTest(
     fun toThrow__exception_occurs() = testFactoryForFeatureNonFeature(
         toThrowFeatureSpec, toThrowSpec
     ) { name, toThrowFun, hasExtraHint ->
-
         it("$name - allows to define expectations for the Throwable if the correct exception is thrown") {
             expect<() -> Any?> {
                 throw IllegalArgumentException("hello")
@@ -202,7 +201,6 @@ abstract class AbstractFun0ExpectationsTest(
             }
         }
     }
-
 
     @TestFactory
     fun toThrow__exception_occurs_with_a_nested_cause() = testFactoryForFeatureNonFeature(

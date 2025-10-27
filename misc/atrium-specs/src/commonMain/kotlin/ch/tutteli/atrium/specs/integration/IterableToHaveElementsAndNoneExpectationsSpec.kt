@@ -39,7 +39,7 @@ abstract class IterableToHaveElementsAndNoneExpectationsSpec(
         context("empty collection") {
             it("throws AssertionError as there needs to be at least one element") {
                 expect {
-                    expect(fluentEmpty()).toHaveElementsAndNoneFun { toBeLessThan(1.1) }
+                    expect(emptyIterable()).toHaveElementsAndNoneFun { toBeLessThan(1.1) }
                 }.toThrow<AssertionError> {
                     message {
                         toContainRegex(

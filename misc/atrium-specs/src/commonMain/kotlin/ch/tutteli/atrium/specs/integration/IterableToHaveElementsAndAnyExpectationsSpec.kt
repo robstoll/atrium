@@ -40,7 +40,7 @@ abstract class IterableToHaveElementsAndAnyExpectationsSpec(
         context("empty collection") {
             it("throws AssertionError as there needs to be at least one element") {
                 expect {
-                    expect(fluentEmpty()).toHaveElementsAndAnyFun { toBeLessThan(1.1) }
+                    expect(emptyIterable()).toHaveElementsAndAnyFun { toBeLessThan(1.1) }
                 }.toThrow<AssertionError> {
                     messageToContain(
                         "$rootBulletPoint$toContainInAnyOrder: $separator",
