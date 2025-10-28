@@ -32,5 +32,10 @@ class IterableNotToHaveElementsOrAnyExpectationsTest :
         star = star.notToHaveElementsOrAny {
             notToEqual(2.1)
         }
+
+        list = list.notToHaveElementsOrNone(null)
+        subList = subList.notToHaveElementsOrNone(null)
+        star = star.notToHaveElementsOrNone(null)
+
     }
 }
