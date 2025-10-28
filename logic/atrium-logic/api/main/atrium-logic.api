@@ -46,6 +46,7 @@ public abstract interface class ch/tutteli/atrium/logic/CharSequenceAssertions {
 	public abstract fun isEmpty (Lch/tutteli/atrium/creating/AssertionContainer;)Lch/tutteli/atrium/assertions/Assertion;
 	public abstract fun isNotBlank (Lch/tutteli/atrium/creating/AssertionContainer;)Lch/tutteli/atrium/assertions/Assertion;
 	public abstract fun isNotEmpty (Lch/tutteli/atrium/creating/AssertionContainer;)Lch/tutteli/atrium/assertions/Assertion;
+	public abstract fun length (Lch/tutteli/atrium/creating/AssertionContainer;)Lch/tutteli/atrium/logic/creating/transformers/FeatureExtractorBuilder$ExecutionStep;
 	public abstract fun matches (Lch/tutteli/atrium/creating/AssertionContainer;Lkotlin/text/Regex;)Lch/tutteli/atrium/assertions/Assertion;
 	public abstract fun mismatches (Lch/tutteli/atrium/creating/AssertionContainer;Lkotlin/text/Regex;)Lch/tutteli/atrium/assertions/Assertion;
 	public abstract fun startsNotWith (Lch/tutteli/atrium/creating/AssertionContainer;Ljava/lang/CharSequence;)Lch/tutteli/atrium/assertions/Assertion;
@@ -60,6 +61,7 @@ public final class ch/tutteli/atrium/logic/CharSequenceKt {
 	public static final fun isEmpty (Lch/tutteli/atrium/creating/AssertionContainer;)Lch/tutteli/atrium/assertions/Assertion;
 	public static final fun isNotBlank (Lch/tutteli/atrium/creating/AssertionContainer;)Lch/tutteli/atrium/assertions/Assertion;
 	public static final fun isNotEmpty (Lch/tutteli/atrium/creating/AssertionContainer;)Lch/tutteli/atrium/assertions/Assertion;
+	public static final fun length (Lch/tutteli/atrium/creating/AssertionContainer;)Lch/tutteli/atrium/logic/creating/transformers/FeatureExtractorBuilder$ExecutionStep;
 	public static final fun matches (Lch/tutteli/atrium/creating/AssertionContainer;Lkotlin/text/Regex;)Lch/tutteli/atrium/assertions/Assertion;
 	public static final fun mismatches (Lch/tutteli/atrium/creating/AssertionContainer;Lkotlin/text/Regex;)Lch/tutteli/atrium/assertions/Assertion;
 	public static final fun startsNotWith (Lch/tutteli/atrium/creating/AssertionContainer;Ljava/lang/CharSequence;)Lch/tutteli/atrium/assertions/Assertion;
@@ -1943,6 +1945,7 @@ public final class ch/tutteli/atrium/logic/impl/DefaultCharSequenceAssertions : 
 	public fun isEmpty (Lch/tutteli/atrium/creating/AssertionContainer;)Lch/tutteli/atrium/assertions/Assertion;
 	public fun isNotBlank (Lch/tutteli/atrium/creating/AssertionContainer;)Lch/tutteli/atrium/assertions/Assertion;
 	public fun isNotEmpty (Lch/tutteli/atrium/creating/AssertionContainer;)Lch/tutteli/atrium/assertions/Assertion;
+	public fun length (Lch/tutteli/atrium/creating/AssertionContainer;)Lch/tutteli/atrium/logic/creating/transformers/FeatureExtractorBuilder$ExecutionStep;
 	public fun matches (Lch/tutteli/atrium/creating/AssertionContainer;Lkotlin/text/Regex;)Lch/tutteli/atrium/assertions/Assertion;
 	public fun mismatches (Lch/tutteli/atrium/creating/AssertionContainer;Lkotlin/text/Regex;)Lch/tutteli/atrium/assertions/Assertion;
 	public fun startsNotWith (Lch/tutteli/atrium/creating/AssertionContainer;Ljava/lang/CharSequence;)Lch/tutteli/atrium/assertions/Assertion;

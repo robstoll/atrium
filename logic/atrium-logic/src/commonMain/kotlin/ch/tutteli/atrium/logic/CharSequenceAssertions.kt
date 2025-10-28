@@ -6,6 +6,7 @@ import ch.tutteli.atrium.logic.creating.charsequence.contains.CharSequenceContai
 import ch.tutteli.atrium.logic.creating.charsequence.contains.searchbehaviours.NoOpSearchBehaviour
 import ch.tutteli.atrium.logic.creating.charsequence.contains.searchbehaviours.NotSearchBehaviour
 import ch.tutteli.atrium.logic.creating.charsequence.contains.steps.NotCheckerStep
+import ch.tutteli.atrium.logic.creating.transformers.FeatureExtractorBuilder
 
 /**
  * Collection of assertion functions and builders which are applicable to subjects with a [CharSequence] type.
@@ -37,4 +38,5 @@ interface CharSequenceAssertions {
 
     fun <T : CharSequence> matches(container: AssertionContainer<T>, expected: Regex): Assertion
     fun <T : CharSequence> mismatches(container: AssertionContainer<T>, expected: Regex): Assertion
+    fun <T : CharSequence> length(container: AssertionContainer<T>): FeatureExtractorBuilder.ExecutionStep<T, Int>
 }
