@@ -5,17 +5,17 @@ import ch.tutteli.atrium.specs.notImplemented
 import org.spekframework.spek2.Spek
 import kotlin.reflect.KFunction2
 
-class IterableToContainInAnyOrderAtLeast1EntriesExpectationsSpec : Spek({
+class IterableToContainInAnyOrderAtLeast1EntriesExpectationsTest : Spek({
     include(BuilderSpec)
     include(ShortcutSpec)
 }) {
-    object BuilderSpec : ch.tutteli.atrium.specs.integration.IterableToContainInAnyOrderAtLeast1EntriesExpectationsSpec(
+    object BuilderSpec : ch.tutteli.atrium.specs.integration.AbstractIterableToContainInAnyOrderAtLeast1EntriesExpectationsTest(
         getToContainPair(),
         getToContainNullablePair(),
         "[Atrium][Builder] "
     )
 
-    object ShortcutSpec : ch.tutteli.atrium.specs.integration.IterableToContainInAnyOrderAtLeast1EntriesExpectationsSpec(
+    object ShortcutSpec : ch.tutteli.atrium.specs.integration.AbstractIterableToContainInAnyOrderAtLeast1EntriesExpectationsTest(
         getToContainShortcutPair(),
         getToContainNullableShortcutPair(),
         "[Atrium][Shortcut] "

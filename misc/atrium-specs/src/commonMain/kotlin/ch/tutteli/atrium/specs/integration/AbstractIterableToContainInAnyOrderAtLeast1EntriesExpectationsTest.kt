@@ -6,7 +6,7 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic.utils.expectLambda
 import ch.tutteli.atrium.specs.*
 
-abstract class IterableToContainInAnyOrderAtLeast1EntriesExpectationsSpec(
+abstract class AbstractIterableToContainInAnyOrderAtLeast1EntriesExpectationsTest(
     toContainInAnyOrderEntries: Fun2<Iterable<Double>, Expect<Double>.() -> Unit, Array<out Expect<Double>.() -> Unit>>,
     toContainInAnyOrderNullableEntries: Fun2<Iterable<Double?>, (Expect<Double>.() -> Unit)?, Array<out (Expect<Double>.() -> Unit)?>>,
     describePrefix: String = "[Atrium] "
