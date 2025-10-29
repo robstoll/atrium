@@ -44,7 +44,13 @@ class ExpectationCreatorTestData<SubjectT>(
     val expectationCreator: ExpectationCreatorTriple<SubjectT>,
     vararg val otherExpectationCreators: ExpectationCreatorTriple<SubjectT>,
     val groupPrefix: String? = null
-)
+) {
+    constructor(
+        subject: SubjectT,
+        expectationCreators: Pair<ExpectationCreatorTriple<SubjectT>, ExpectationCreatorTriple<SubjectT>>,
+        groupPrefix: String? = null
+    ) : this(subject, expectationCreators.first, expectationCreators.second, groupPrefix = groupPrefix)
+}
 
 typealias ExpectationCreatorTriple<SubjectT> = Triple<String, String, Pair<Expect<SubjectT>.() -> Expect<SubjectT>, Expect<SubjectT>.() -> Expect<SubjectT>>>
 

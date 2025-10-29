@@ -24,14 +24,14 @@ abstract class IterableToContainInOrderOnlyEntriesExpectationsSpec(
 
     include(object : AssertionCreatorSpec<Iterable<Double>>(
         describePrefix, listOf(1.2, 2.1),
-        *toContainInOrderOnlyEntries.forExpectationCreatorTest(
+        toContainInOrderOnlyEntries.forExpectationCreatorTest(
             "$toEqualDescr: 1.2", "$toEqualDescr: 2.1",
             { toEqual(1.2) }, arrayOf(expectLambda { toEqual(2.1) }), emptyInOrderOnlyReportOptions
         )
     ) {})
     include(object : AssertionCreatorSpec<Iterable<Double?>>(
         "$describePrefix[nullable] ", listOf(1.2, 2.1) as Iterable<Double?>,
-        *toContainInOrderOnlyNullableEntries.forExpectationCreatorTest(
+        toContainInOrderOnlyNullableEntries.forExpectationCreatorTest(
             "$toEqualDescr: 1.2", "$toEqualDescr: 2.1",
             { toEqual(1.2) }, arrayOf(expectLambda { toEqual(2.1) }), emptyInOrderOnlyReportOptions
         )

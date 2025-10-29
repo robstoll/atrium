@@ -13,7 +13,7 @@ import kotlin.reflect.*
 
 typealias SpecPair<T> = Pair<String, T>
 
-inline val SpecPair<out Any?>.name get(): String = this.first
+inline val SpecPair<*>.name get(): String = this.first
 inline val <T> SpecPair<T>.lambda get(): T = this.second
 inline fun <T> SpecPair<T>.withFeatureSuffix(): SpecPair<T> = "$name (feature)" to lambda
 inline fun <T> SpecPair<T>.withNullableSuffix(): SpecPair<T> = "$name nullable" to lambda
@@ -57,7 +57,10 @@ inline fun <T, R> Feature0<T, R>.forSubjectLessTest(): Pair<String, Expect<T>.()
 inline fun <T, A1, R> Feature1<T, A1, R>.forSubjectLessTest(a1: A1): Pair<String, Expect<T>.() -> Unit> =
     this.name to expectLambda { this@forSubjectLessTest.invoke(this, a1) }
 
-inline fun <T, A1, A2, R> Feature2<T, A1, A2, R>.forSubjectLessTest(a1: A1, a2: A2): Pair<String, Expect<T>.() -> Unit> =
+inline fun <T, A1, A2, R> Feature2<T, A1, A2, R>.forSubjectLessTest(
+    a1: A1,
+    a2: A2
+): Pair<String, Expect<T>.() -> Unit> =
     this.name to expectLambda { this@forSubjectLessTest.invoke(this, a1, a2) }
 
 inline fun <T, A1, A2, A3, R> Feature3<T, A1, A2, A3, R>.forSubjectLessTest(
@@ -66,7 +69,8 @@ inline fun <T, A1, A2, A3, R> Feature3<T, A1, A2, A3, R>.forSubjectLessTest(
 
 inline fun <T, A1, A2, A3, A4, R> Feature4<T, A1, A2, A3, A4, R>.forSubjectLessTest(
     a1: A1, a2: A2, a3: A3, a4: A4
-): Pair<String, Expect<T>.() -> Unit> = this.name to expectLambda { this@forSubjectLessTest.invoke(this, a1, a2, a3, a4) }
+): Pair<String, Expect<T>.() -> Unit> =
+    this.name to expectLambda { this@forSubjectLessTest.invoke(this, a1, a2, a3, a4) }
 
 inline fun <T, A1, A2, A3, A4, A5, R> Feature5<T, A1, A2, A3, A4, A5, R>.forSubjectLessTest(
     a1: A1, a2: A2, a3: A3, a4: A4, a5: A5
@@ -100,7 +104,7 @@ inline fun <T, R> Fun2<T, Expect<R>.() -> Unit, Array<out Expect<R>.() -> Unit>>
     containsNot2: String,
     noinline subAssert: Expect<R>.() -> Unit,
     subAsserts: Array<out Expect<R>.() -> Unit>
-): Array<out ExpectationCreatorTriple<T>> = arrayOf(
+): Pair<ExpectationCreatorTriple<T>, ExpectationCreatorTriple<T>> = Pair(
     ExpectationCreatorTriple(
         this.name + " - first empty",
         containsNot1,
@@ -121,7 +125,7 @@ inline fun <T, R, A1> Fun3<T, Expect<R>.() -> Unit, Array<out Expect<R>.() -> Un
     noinline subAssert: Expect<R>.() -> Unit,
     subAsserts: Array<out Expect<R>.() -> Unit>,
     a1: A1
-): Array<ExpectationCreatorTriple<T>> = arrayOf(
+): Pair<ExpectationCreatorTriple<T>, ExpectationCreatorTriple<T>> = Pair(
     ExpectationCreatorTriple(
         this.name + " - first empty",
         containsNot1,
