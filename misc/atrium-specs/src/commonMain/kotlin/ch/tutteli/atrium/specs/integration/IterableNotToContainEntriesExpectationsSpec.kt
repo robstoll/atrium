@@ -26,7 +26,7 @@ abstract class IterableNotToContainEntriesExpectationsSpec(
 
     include(object : AssertionCreatorSpec<Iterable<Double>>(
         describePrefix, oneToSeven().toList().asIterable(),
-        *notToContainEntries.forExpectationCreatorTest(
+        notToContainEntries.forExpectationCreatorTest(
             "$toBeGreaterThanDescr: 8.1",
             "$toBeGreaterThanDescr: 10.1",
             { toBeGreaterThan(8.1) }, arrayOf(expectLambda { toBeGreaterThan(10.1) })
@@ -34,7 +34,7 @@ abstract class IterableNotToContainEntriesExpectationsSpec(
     ) {})
     include(object : AssertionCreatorSpec<Iterable<Double?>>(
         "$describePrefix[nullable Element] ", oneToSeven().toList().asIterable(),
-        *notToContainNullableEntries.forExpectationCreatorTest(
+        notToContainNullableEntries.forExpectationCreatorTest(
             "$toBeGreaterThanDescr: 8.1",
             "$toBeGreaterThanDescr: 10.1",
             { toBeGreaterThan(8.1) }, arrayOf(expectLambda { toBeGreaterThan(10.1) })

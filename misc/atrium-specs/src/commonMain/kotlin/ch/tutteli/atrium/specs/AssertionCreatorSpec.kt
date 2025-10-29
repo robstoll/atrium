@@ -4,18 +4,19 @@ import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.creating.ErrorMessages
+import ch.tutteli.atrium.specs.integration.utils.ExpectationCreatorTriple
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.describe
 
 abstract class AssertionCreatorSpec<T>(
     groupPrefix: String,
     subject: T,
-    vararg assertionCreator: Triple<String, String, Pair<Expect<T>.() -> Expect<T>, Expect<T>.() -> Expect<T>>>
+    vararg assertionCreators: ExpectationCreatorTriple<T>
 ) : Spek({
 
     describe("${groupPrefix}specifying two assertionCreator-lambda, one is empty") {
 
-        assertionCreator.forEach { (name, stringNotInMessage, lambdas) ->
+        assertionCreators.forEach { (name, stringNotInMessage, lambdas) ->
             val (createAssertionOk, createAssertionFail) = lambdas
             describe("fun `$name`") {
                 it("throws and only reports the lambda which was empty") {
@@ -37,4 +38,10 @@ abstract class AssertionCreatorSpec<T>(
             }
         }
     }
-})
+}) {
+    constructor(
+        groupPrefix: String,
+        subject: T,
+        assertionCreators: Pair<ExpectationCreatorTriple<T>, ExpectationCreatorTriple<T>>
+    ) : this(groupPrefix, subject, assertionCreators.first, assertionCreators.second)
+}
