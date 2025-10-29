@@ -70,7 +70,7 @@ abstract class AbstractIterableToContainInAnyOrderAtLeast1EntriesExpectationsTes
 
         it("$toBeLessThanFun(1.1) throws AssertionError") {
             expect {
-                expect(emptyIterable()).toContainInAnyOrderEntriesFun({ toBeLessThan(1.1) })
+                expect(emptyIterable()).toContainInAnyOrderEntriesFun({ toBeLessThan(1.1) }, arrayOf())
             }.toThrow<AssertionError> {
                 message {
                     toContain.exactly(1).values(
@@ -84,7 +84,10 @@ abstract class AbstractIterableToContainInAnyOrderAtLeast1EntriesExpectationsTes
         }
         it("$toBeLessThanFun(1.1) and $toBeGreaterThanFun(2.1) throws AssertionError") {
             expect {
-                expect(emptyIterable()).toContainInAnyOrderEntriesFun({ toBeLessThan(1.1) }, { toBeGreaterThan(2.1) })
+                expect(emptyIterable()).toContainInAnyOrderEntriesFun(
+                    { toBeLessThan(1.1); toBeGreaterThan(2.1) },
+                    arrayOf()
+                )
             }.toThrow<AssertionError> {
                 message {
                     toContain.exactly(2).values(
@@ -108,8 +111,11 @@ abstract class AbstractIterableToContainInAnyOrderAtLeast1EntriesExpectationsTes
     ) { toContainInAnyOrderEntriesFun ->
         describe("search for entry which $toBeGreaterThanFun(1.1) and $toBeLessThanFun(2.1)") {
             it("throws AssertionError containing both assumptions in one assertion") {
-                ch.tutteli.atrium.api.verbs.internal.expect {
-                    expect(oneToSeven()).toContainInAnyOrderEntriesFun({ toBeGreaterThan(1.1); toBeLessThan(2.1) })
+                expect {
+                    expect(oneToSeven()).toContainInAnyOrderEntriesFun(
+                        { toBeGreaterThan(1.1); toBeLessThan(2.1) },
+                        arrayOf()
+                    )
                 }.toThrow<AssertionError> {
                     message {
                         toContain.exactly(1).values(
@@ -125,17 +131,20 @@ abstract class AbstractIterableToContainInAnyOrderAtLeast1EntriesExpectationsTes
         }
         describe("search for entry which $toBeGreaterThanFun(1.1) and $toBeLessThanFun(2.2)") {
             it("does not throw an exception") {
-                ch.tutteli.atrium.api.verbs.internal.expect(oneToSeven())
-                    .toContainInAnyOrderEntriesFun({ toBeGreaterThan(1.1); toBeLessThan(2.2) })
+                expect(oneToSeven())
+                    .toContainInAnyOrderEntriesFun({ toBeGreaterThan(1.1); toBeLessThan(2.2) }, arrayOf())
             }
         }
 
         describe("search for entry which $toBeGreaterThanFun(1.1) and $toBeLessThanFun(2.2) and another entry which is $toBeLessThanFun(2.1)") {
             it("does not throw an exception") {
                 //finds twice the entry 1.1 but that is fine since we do not search for unique entries in this case
-                ch.tutteli.atrium.api.verbs.internal.expect(oneToSeven()).toContainInAnyOrderEntriesFun(
-                    { toBeGreaterThan(1.1).toBeLessThan(2.2) },
-                    { toBeLessThan(2.1) })
+                expect(oneToSeven()).toContainInAnyOrderEntriesFun(
+                    {
+                        toBeGreaterThan(1.1).toBeLessThan(2.2)
+                        toBeLessThan(2.1)
+                    }, arrayOf()
+                )
             }
         }
     }
