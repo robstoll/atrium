@@ -1,27 +1,17 @@
 package ch.tutteli.atrium.api.fluent.en_GB
 
+import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.fun2
-import ch.tutteli.atrium.specs.notImplemented
+import ch.tutteli.atrium.specs.integration.AbstractIterableToContainInAnyOrderAtLeast1EntriesExpectationsTest
 import ch.tutteli.atrium.specs.withNullableSuffix
-import org.spekframework.spek2.Spek
-import ch.tutteli.atrium.api.fluent.en_GB.IterableToContainInAnyOrderAtLeast1EntriesExpectationsTest.Companion as C
+import kotlin.test.Test
 
-class IterableToContainInAnyOrderAtLeast1EntriesExpectationsTest : Spek({
-    include(BuilderSpec)
-    include(ShortcutSpec)
-}) {
-    object BuilderSpec : ch.tutteli.atrium.specs.integration.AbstractIterableToContainInAnyOrderAtLeast1EntriesExpectationsTest(
-        functionDescription to C::toContainInAnyOrderEntries,
-        (functionDescription to C::toContainNullableEntries).withNullableSuffix(),
-        "[Atrium][Builder] "
-    )
-
-    object ShortcutSpec : ch.tutteli.atrium.specs.integration.AbstractIterableToContainInAnyOrderAtLeast1EntriesExpectationsTest(
+class IterableToContainInAnyOrderAtLeast1EntriesExpectationsShortcutTest :
+    AbstractIterableToContainInAnyOrderAtLeast1EntriesExpectationsTest(
         fun2<Iterable<Double>, Expect<Double>.() -> Unit, Array<out Expect<Double>.() -> Unit>>(Expect<Iterable<Double>>::toContain),
         fun2<Iterable<Double?>, (Expect<Double>.() -> Unit)?, Array<out (Expect<Double>.() -> Unit)?>>(Expect<Iterable<Double?>>::toContain).withNullableSuffix(),
-        "[Atrium][Shortcut] "
-    )
+    ) {
 
     companion object : IterableToContainSpecBase() {
         val functionDescription = "$toContain.$inAnyOrder.$atLeast(1).$entry/$entries"
@@ -43,17 +33,26 @@ class IterableToContainInAnyOrderAtLeast1EntriesExpectationsTest : Spek({
             else expect.toContain.inAnyOrder.atLeast(1).entries(a, *aX)
     }
 
-    @Suppress("unused", "UNUSED_VALUE")
-    private fun ambiguityTest() {
-        var list: Expect<List<Number>> = notImplemented()
-        var nList: Expect<Set<Number?>> = notImplemented()
-        var subList: Expect<ArrayList<Number>> = notImplemented()
-        var star: Expect<Collection<*>> = notImplemented()
+    @Suppress("AssignedValueIsNeverRead", "unused", "UNUSED_VALUE")
+    @Test
+    fun ambiguityTest() {
+        var list: Expect<List<Number>> = expect(listOf(1))
+        var nList: Expect<Set<Number?>> = expect(setOf(1))
+        var subList: Expect<ArrayList<Number>> = expect(arrayListOf(1))
+        var star: Expect<Collection<*>> = expect(listOf(1))
 
-        list = list.toContain.inAnyOrder.atLeast(1).entry {}
-        nList = nList.toContain.inAnyOrder.atLeast(1).entry {}
-        subList = subList.toContain.inAnyOrder.atLeast(1).entry {}
-        star = star.toContain.inAnyOrder.atLeast(1).entry {}
+        list = list.toContain.inAnyOrder.atLeast(1).entry {
+            this.toEqual(1)
+        }
+        nList = nList.toContain.inAnyOrder.atLeast(1).entry {
+            this.toEqual(1)
+        }
+        subList = subList.toContain.inAnyOrder.atLeast(1).entry {
+            this.toEqual(1)
+        }
+        star = star.toContain.inAnyOrder.atLeast(1).entry {
+            this.toEqual(1)
+        }
 
         nList = nList.toContain.inAnyOrder.atLeast(1).entry(null)
         star = star.toContain.inAnyOrder.atLeast(1).entry(null)
@@ -82,4 +81,5 @@ class IterableToContainInAnyOrderAtLeast1EntriesExpectationsTest : Spek({
         nList = nList.toContain(null, {}, null)
         star = star.toContain(null, {}, null)
     }
+
 }
