@@ -1,26 +1,16 @@
 package ch.tutteli.atrium.api.infix.en_GB
 
+import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
+import ch.tutteli.atrium.specs.integration.AbstractIterableToContainInAnyOrderAtLeast1EntriesExpectationsTest
 import ch.tutteli.atrium.specs.notImplemented
-import org.spekframework.spek2.Spek
 import kotlin.reflect.KFunction2
 
-class IterableToContainInAnyOrderAtLeast1EntriesExpectationsTest : Spek({
-    include(BuilderSpec)
-    include(ShortcutSpec)
-}) {
-    object BuilderSpec : ch.tutteli.atrium.specs.integration.AbstractIterableToContainInAnyOrderAtLeast1EntriesExpectationsTest(
-        getToContainPair(),
-        getToContainNullablePair(),
-        "[Atrium][Builder] "
-    )
-
-    object ShortcutSpec : ch.tutteli.atrium.specs.integration.AbstractIterableToContainInAnyOrderAtLeast1EntriesExpectationsTest(
+class IterableToContainInAnyOrderAtLeast1EntriesExpectationsShortcutTest :
+    AbstractIterableToContainInAnyOrderAtLeast1EntriesExpectationsTest(
         getToContainShortcutPair(),
-        getToContainNullableShortcutPair(),
-        "[Atrium][Shortcut] "
-    )
-
+        getToContainNullableShortcutPair()
+    ) {
     companion object : IterableToContainSpecBase() {
         fun getToContainPair() =
             "$toContain $filler $inAnyOrder $atLeast 1 $inAnyOrderEntries" to Companion::toContainInAnyOrderEntries
@@ -32,18 +22,6 @@ class IterableToContainInAnyOrderAtLeast1EntriesExpectationsTest : Spek({
         ): Expect<Iterable<Double>> =
             if (aX.isEmpty()) expect toContain o inAny order atLeast 1 entry a
             else expect toContain o inAny order atLeast 1 the entries(a, *aX)
-
-        fun getToContainNullablePair() =
-            "$toContain $filler $inAnyOrder $atLeast 1 $inAnyOrderEntries" to Companion::toContainNullableEntries
-
-        private fun toContainNullableEntries(
-            expect: Expect<Iterable<Double?>>,
-            a: (Expect<Double>.() -> Unit)?,
-            aX: Array<out (Expect<Double>.() -> Unit)?>
-        ): Expect<Iterable<Double?>> =
-            if (aX.isEmpty()) expect toContain o inAny order atLeast 1 entry a
-            else expect toContain o inAny order atLeast 1 the entries(a, *aX)
-
 
         private val toContainShortcutFun: KFunction2<Expect<Iterable<Double>>, Expect<Double>.() -> Unit, Expect<Iterable<Double>>> =
             Expect<Iterable<Double>>::toContain
@@ -72,18 +50,25 @@ class IterableToContainInAnyOrderAtLeast1EntriesExpectationsTest : Spek({
             else expect toContain entries(a, *aX)
     }
 
+    @Suppress("AssignedValueIsNeverRead", "unused", "UNUSED_VALUE")
+    fun ambiguityTest() {
+        var list: Expect<List<Number>> = expect(listOf(1))
+        var nList: Expect<Set<Number?>> = expect(setOf(1))
+        var subList: Expect<ArrayList<Number>> = expect(arrayListOf(1))
+        var star: Expect<Collection<*>> = expect(listOf(1))
 
-    @Suppress("unused", "UNUSED_VALUE")
-    private fun ambiguityTest() {
-        var list: Expect<List<Number>> = notImplemented()
-        var nList: Expect<Set<Number?>> = notImplemented()
-        var subList: Expect<ArrayList<Number>> = notImplemented()
-        var star: Expect<Collection<*>> = notImplemented()
-
-        list = list toContain o inAny order atLeast 1 entry {}
-        nList = nList toContain o inAny order atLeast 1 entry {}
-        subList = subList toContain o inAny order atLeast 1 entry {}
-        star = star toContain o inAny order atLeast 1 entry {}
+        list = list toContain o inAny order atLeast 1 entry {
+            it toEqual 1
+        }
+        nList = nList toContain o inAny order atLeast 1 entry {
+            it toEqual 1
+        }
+        subList = subList toContain o inAny order atLeast 1 entry {
+            it toEqual 1
+        }
+        star = star toContain o inAny order atLeast 1 entry {
+            it toEqual 1
+        }
 
         nList = nList toContain o inAny order atLeast 1 entry null
         star = star toContain o inAny order atLeast 1 entry null
