@@ -40,18 +40,10 @@ class IterableToContainInAnyOrderAtLeast1EntriesExpectationsBuilderTest :
         var subList: Expect<ArrayList<Number>> = expect(arrayListOf(1))
         var star: Expect<Collection<*>> = expect(listOf(1))
 
-        list = list.toContain.inAnyOrder.atLeast(1).entry {
-            this.toEqual(1)
-        }
-        nList = nList.toContain.inAnyOrder.atLeast(1).entry {
-            this.toEqual(1)
-        }
-        subList = subList.toContain.inAnyOrder.atLeast(1).entry {
-            this.toEqual(1)
-        }
-        star = star.toContain.inAnyOrder.atLeast(1).entry {
-            this.toEqual(1)
-        }
+        list = list.toContain.inAnyOrder.atLeast(1).entry { toEqual(1) }
+        nList = nList.toContain.inAnyOrder.atLeast(1).entry { toEqual(1) }
+        subList = subList.toContain.inAnyOrder.atLeast(1).entry { toEqual(1) }
+        star = star.toContain.inAnyOrder.atLeast(1).entry { toEqual(1) }
 
         nList = nList.toContain.inAnyOrder.atLeast(1).entry(null)
         star = star.toContain.inAnyOrder.atLeast(1).entry(null)
