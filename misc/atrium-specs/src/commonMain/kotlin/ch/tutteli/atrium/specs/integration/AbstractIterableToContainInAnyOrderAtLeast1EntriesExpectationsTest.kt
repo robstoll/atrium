@@ -85,8 +85,7 @@ abstract class AbstractIterableToContainInAnyOrderAtLeast1EntriesExpectationsTes
         it("$toBeLessThanFun(1.1) and $toBeGreaterThanFun(2.1) throws AssertionError") {
             expect {
                 expect(emptyIterable()).toContainInAnyOrderEntriesFun(
-                    { toBeLessThan(1.1); toBeGreaterThan(2.1) },
-                    arrayOf()
+                    { toBeLessThan(1.1) }, arrayOf({ toBeGreaterThan(2.1) })
                 )
             }.toThrow<AssertionError> {
                 message {
@@ -113,8 +112,7 @@ abstract class AbstractIterableToContainInAnyOrderAtLeast1EntriesExpectationsTes
             it("throws AssertionError containing both assumptions in one assertion") {
                 expect {
                     expect(oneToSeven()).toContainInAnyOrderEntriesFun(
-                        { toBeGreaterThan(1.1); toBeLessThan(2.1) },
-                        arrayOf()
+                        { toBeGreaterThan(1.1) }, arrayOf({ toBeLessThan(2.1) })
                     )
                 }.toThrow<AssertionError> {
                     message {
@@ -132,7 +130,7 @@ abstract class AbstractIterableToContainInAnyOrderAtLeast1EntriesExpectationsTes
         describe("search for entry which $toBeGreaterThanFun(1.1) and $toBeLessThanFun(2.2)") {
             it("does not throw an exception") {
                 expect(oneToSeven())
-                    .toContainInAnyOrderEntriesFun({ toBeGreaterThan(1.1); toBeLessThan(2.2) }, arrayOf())
+                    .toContainInAnyOrderEntriesFun({ toBeGreaterThan(1.1) }, arrayOf({ toBeLessThan(2.2) }))
             }
         }
 
@@ -142,8 +140,9 @@ abstract class AbstractIterableToContainInAnyOrderAtLeast1EntriesExpectationsTes
                 expect(oneToSeven()).toContainInAnyOrderEntriesFun(
                     {
                         toBeGreaterThan(1.1).toBeLessThan(2.2)
+                    }, arrayOf({
                         toBeLessThan(2.1)
-                    }, arrayOf()
+                    })
                 )
             }
         }
