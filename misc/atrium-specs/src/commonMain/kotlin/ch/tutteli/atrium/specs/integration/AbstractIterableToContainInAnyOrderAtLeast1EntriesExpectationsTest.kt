@@ -38,7 +38,7 @@ abstract class AbstractIterableToContainInAnyOrderAtLeast1EntriesExpectationsTes
     fun expectationCreatorTest() = expectationCreatorTestFactory(
         ExpectationCreatorTestData(
             listOf(1.2, 2.1),
-            *toContainInAnyOrderEntriesSpec.forExpectationCreatorTest(
+            toContainInAnyOrderEntriesSpec.forExpectationCreatorTest(
                 "$toEqualDescr: 1.2",
                 "$toEqualDescr: 2.1",
                 { toEqual(1.2) },
@@ -48,7 +48,7 @@ abstract class AbstractIterableToContainInAnyOrderAtLeast1EntriesExpectationsTes
         ),
         ExpectationCreatorTestData(
             listOf(1.2, 2.1),
-            *toContainInAnyOrderNullableEntriesSpec.forExpectationCreatorTest(
+            toContainInAnyOrderNullableEntriesSpec.forExpectationCreatorTest(
                 "$toEqualDescr: 1.2",
                 "$toEqualDescr: 2.1",
                 { toEqual(1.2) },
