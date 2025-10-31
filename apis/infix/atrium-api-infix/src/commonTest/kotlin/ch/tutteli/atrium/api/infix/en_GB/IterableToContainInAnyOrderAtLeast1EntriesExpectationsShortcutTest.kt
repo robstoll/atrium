@@ -4,6 +4,7 @@ import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.integration.AbstractIterableToContainInAnyOrderAtLeast1EntriesExpectationsTest
 import kotlin.reflect.KFunction2
+import kotlin.test.Test
 
 class IterableToContainInAnyOrderAtLeast1EntriesExpectationsShortcutTest :
     AbstractIterableToContainInAnyOrderAtLeast1EntriesExpectationsTest(
@@ -11,17 +12,6 @@ class IterableToContainInAnyOrderAtLeast1EntriesExpectationsShortcutTest :
         getToContainNullableShortcutPair()
     ) {
     companion object : IterableToContainSpecBase() {
-        fun getToContainPair() =
-            "$toContain $filler $inAnyOrder $atLeast 1 $inAnyOrderEntries" to Companion::toContainInAnyOrderEntries
-
-        private fun toContainInAnyOrderEntries(
-            expect: Expect<Iterable<Double>>,
-            a: Expect<Double>.() -> Unit,
-            aX: Array<out Expect<Double>.() -> Unit>
-        ): Expect<Iterable<Double>> =
-            if (aX.isEmpty()) expect toContain o inAny order atLeast 1 entry a
-            else expect toContain o inAny order atLeast 1 the entries(a, *aX)
-
         private val toContainShortcutFun: KFunction2<Expect<Iterable<Double>>, Expect<Double>.() -> Unit, Expect<Iterable<Double>>> =
             Expect<Iterable<Double>>::toContain
 
@@ -32,7 +22,7 @@ class IterableToContainInAnyOrderAtLeast1EntriesExpectationsShortcutTest :
             a: Expect<Double>.() -> Unit,
             aX: Array<out Expect<Double>.() -> Unit>
         ): Expect<Iterable<Double>> =
-            if (aX.isEmpty()) expect toContain a
+            if (aX.isEmpty()) expect toContain (a)
             else expect toContain entries(a, *aX)
 
         private val toContainEntriesFun: KFunction2<Expect<Iterable<Double?>>, (Expect<Double>.() -> Unit)?, Expect<Iterable<Double?>>> =
@@ -45,11 +35,12 @@ class IterableToContainInAnyOrderAtLeast1EntriesExpectationsShortcutTest :
             a: (Expect<Double>.() -> Unit)?,
             aX: Array<out (Expect<Double>.() -> Unit)?>
         ): Expect<Iterable<Double?>> =
-            if (aX.isEmpty()) expect.toContain(a)
-            else expect.toContain(entries(a, *aX))
+            if (aX.isEmpty()) expect toContain (a)
+            else expect toContain (entries(a, *aX))
     }
 
     @Suppress("AssignedValueIsNeverRead", "unused", "UNUSED_VALUE")
+    @Test
     fun ambiguityTest() {
         var list: Expect<List<Number>> = expect(listOf(1))
         var nList: Expect<Set<Number?>> = expect(setOf(1, null))
