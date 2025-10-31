@@ -9,30 +9,9 @@ import kotlin.test.Test
 
 class IterableToContainInAnyOrderAtLeast1EntriesExpectationsShortcutTest :
     AbstractIterableToContainInAnyOrderAtLeast1EntriesExpectationsTest(
-        fun2<Iterable<Double>, Expect<Double>.() -> Unit, Array<out Expect<Double>.() -> Unit>>(Expect<Iterable<Double>>::toContain),
-        fun2<Iterable<Double?>, (Expect<Double>.() -> Unit)?, Array<out (Expect<Double>.() -> Unit)?>>(Expect<Iterable<Double?>>::toContain).withNullableSuffix(),
+        fun2(Expect<Iterable<Double>>::toContain),
+        fun2(Expect<Iterable<Double?>>::toContain).withNullableSuffix(),
     ) {
-
-    companion object : IterableToContainSpecBase() {
-        val functionDescription = "$toContain.$inAnyOrder.$atLeast(1).$entry/$entries"
-
-        private fun toContainInAnyOrderEntries(
-            expect: Expect<Iterable<Double>>,
-            a: Expect<Double>.() -> Unit,
-            aX: Array<out Expect<Double>.() -> Unit>
-        ): Expect<Iterable<Double>> =
-            if (aX.isEmpty()) expect.toContain.inAnyOrder.atLeast(1).entry(a)
-            else expect.toContain.inAnyOrder.atLeast(1).entries(a, *aX)
-
-        private fun toContainNullableEntries(
-            expect: Expect<Iterable<Double?>>,
-            a: (Expect<Double>.() -> Unit)?,
-            aX: Array<out (Expect<Double>.() -> Unit)?>
-        ): Expect<Iterable<Double?>> =
-            if (aX.isEmpty()) expect.toContain.inAnyOrder.atLeast(1).entry(a)
-            else expect.toContain.inAnyOrder.atLeast(1).entries(a, *aX)
-    }
-
     @Suppress("AssignedValueIsNeverRead", "unused", "UNUSED_VALUE")
     @Test
     fun ambiguityTest() {
