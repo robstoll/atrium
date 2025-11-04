@@ -1,11 +1,14 @@
 package ch.tutteli.atrium.api.fluent.en_GB
 
-import ch.tutteli.atrium.api.verbs.internal.expect
+import ch.tutteli.atrium.api.verbs.expect
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.specs.*
+import ch.tutteli.atrium.specs.feature0
+import ch.tutteli.atrium.specs.fun0
+import ch.tutteli.atrium.specs.fun1
+import ch.tutteli.atrium.specs.property
 import kotlin.test.Test
 
-object IterableExpectationsTest : ch.tutteli.atrium.specs.integration.AbstractIterableExpectationsTest(
+class IterableExpectationsTest : ch.tutteli.atrium.specs.integration.AbstractIterableExpectationsTest(
     fun0(Expect<Iterable<Int>>::toHaveElements),
     fun0(Expect<Iterable<Int>>::notToHaveElements),
     feature0(Expect<Iterable<Int>>::min),
@@ -18,32 +21,37 @@ object IterableExpectationsTest : ch.tutteli.atrium.specs.integration.AbstractIt
 ) {
 
     @Test
+    @Suppress("AssignedValueIsNeverRead", "UNUSED_VARIABLE", "UNUSED_VALUE", "unused")
     fun ambiguityTest() {
-        val a1 = expect(listOf(1.0, 2.0))
-        val a1b = expect(setOf(1.0, 2.0, null))
-        val star = expect(listOf(1, 2, 3) as Collection<*>)
+        var list: Expect<List<Double>> = expect(listOf(1.2, 4.3))
+        var listEmpty: Expect<List<Double>> = expect(emptyList())
+        var nSet: Expect<Set<Double?>> = expect(setOf(1.2, null))
+        var nSetEmpty: Expect<Set<Double?>> = expect(emptySet())
+        var star: Expect<Collection<*>> = expect(listOf(1.2, 1.3))
+        var starEmpty: Expect<Collection<*>> = expect(emptySet<Any?>())
 
-        a1.toHaveElements()
-        a1.notToHaveElements()
-        a1.toHaveElementsAndNoDuplicates()
+        list = list.toHaveElements()
+        list = list.toHaveElementsAndNoDuplicates()
+        listEmpty = listEmpty.notToHaveElements()
 
-        a1b.toHaveElements()
-        a1b.notToHaveElements()
-        a1b.toHaveElementsAndNoDuplicates()
+        nSet = nSet.toHaveElements()
+        nSet = nSet.toHaveElementsAndNoDuplicates()
+        nSetEmpty = nSetEmpty.notToHaveElements()
 
-        star.toHaveElements()
-        star.notToHaveElements()
-        star.toHaveElementsAndNoDuplicates()
 
-        //nullable not supported by min/max or rather T : Comparable<T> does not exist for T? (one cannot implement an interface for the nullable type)
-        //same for Iterable<*>
-        a1.min()
-        a1.max()
+        star = star.toHaveElements()
+        star = star.toHaveElementsAndNoDuplicates()
+        starEmpty = starEmpty.notToHaveElements()
 
-        a1.min { }
-        a1.max { }
+        // nullable not supported by min/max or rather T : Comparable<T> does not exist for T?
+        // (one cannot implement an interface for the nullable type) same for Iterable<*>
+        val l1: Expect<Double> = list.min()
+        val l2: Expect<Double> = list.max()
 
-        a1.last
-        a1.last { }
+        list = list.min { toBeLessThan(1.3) }
+        list = list.max { toBeGreaterThan(4.1) }
+
+        val l3: Expect<Double> = list.last
+        list.last { toEqual(4.3) }
     }
 }

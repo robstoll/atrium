@@ -10,6 +10,7 @@ import ch.tutteli.atrium.translations.DescriptionBasic
 import ch.tutteli.atrium.translations.DescriptionIterableLikeExpectation
 
 
+@Suppress("FunctionName")
 abstract class AbstractIterableExpectationsTest(
     private val toHaveElementsSpec: Fun0<Iterable<Int>>,
     private val notToHaveElementsSpec: Fun0<Iterable<Int>>,
@@ -20,7 +21,6 @@ abstract class AbstractIterableExpectationsTest(
     private val toHaveElementsAndNoDuplicatesSpec: Fun0<Iterable<Int>>,
     private val lastFeatureSpec: Feature0<Iterable<Int>, Int>,
     private val lastSpec: Fun1<Iterable<Int>, Expect<Int>.() -> Unit>,
-    describePrefix: String = "[Atrium] "
 ) : ExpectationFunctionBaseTest() {
 
     @TestFactory
@@ -76,58 +76,57 @@ abstract class AbstractIterableExpectationsTest(
         }
     }
 
-    @TestFactory
-    fun minAndMax() = testFactory(minFeatureSpec, minSpec, maxFeatureSpec, maxSpec) { spec ->
-        val minFunctions = unifySignatures(minFeatureSpec, minSpec)
-        val maxFunctions = unifySignatures(maxFeatureSpec, maxSpec)
+    val iterableWith4And3 = { listOf(4, 3) as Iterable<Int> }
 
-        describe("list with 4 and 3") {
-            val iterableWith4And3 = listOf(4, 3) as Iterable<Int>
-            minFunctions.forEach { (name, minFun, _) ->
-                it("$name - is greater than 2 holds") {
-                    expect(iterableWith4And3).minFun { toBeGreaterThan(2) }
-                }
-                it("$name - is less than 2 fails") {
-                    expect {
-                        expect(iterableWith4And3).minFun { toBeLessThan(2) }
-                    }.toThrow<AssertionError> {
-                        messageToContain("min(): 3")
-                    }
-                }
+    @TestFactory
+    fun min() = testFactoryForFeatureNonFeature(minFeatureSpec, minSpec) { name, minFun, _ ->
+        describeIterable(::iterableWith4And3) {
+            it("$name - ${toBeGreaterThanDescr}(2) holds") {
+                expect(iterableWith4And3()).minFun { toBeGreaterThan(2) }
             }
-            maxFunctions.forEach { (name, maxFun, _) ->
-                it("$name - toBe(4) holds") {
-                    expect(iterableWith4And3).maxFun { toEqual(4) }
-                }
-                it("$name - $toEqualDescr(3) fails") {
-                    expect {
-                        expect(iterableWith4And3).maxFun { toEqual(3) }
-                    }.toThrow<AssertionError> {
-                        messageToContain("max(): 4")
-                    }
+            it("$name - ${toBeLessThanDescr}(2) throws") {
+                expect {
+                    expect(iterableWith4And3()).minFun { toBeLessThan(2) }
+                }.toThrow<AssertionError> {
+                    messageToContain("min(): 3")
                 }
             }
         }
+    }
+
+    @TestFactory
+    fun max() = testFactoryForFeatureNonFeature(maxFeatureSpec, maxSpec) { name, maxFun, _ ->
+        describeIterable(::iterableWith4And3) {
+            it("$name - $toEqualDescr(4) holds") {
+                expect(iterableWith4And3()).maxFun { toEqual(4) }
+            }
+            it("$name - $toEqualDescr(3) fails") {
+                expect {
+                    expect(iterableWith4And3()).maxFun { toEqual(3) }
+                }.toThrow<AssertionError> {
+                    messageToContain("max(): 4")
+                }
+            }
+        }
+    }
+
+    @TestFactory
+    fun min_max__empty_list() = testFactory(minFeatureSpec, minSpec, maxFeatureSpec, maxSpec) {
+        val functions = unifySignatures(minFeatureSpec, minSpec) + unifySignatures(maxFeatureSpec, maxSpec)
 
         describe("empty list") {
             val emptyIterable = expect(emptyList<Int>() as Iterable<Int>)
             val noElementsDescr = DescriptionIterableLikeExpectation.NO_ELEMENTS.getDefault()
 
-            minFunctions.forEach { (name, minFun, _) ->
-                it("$name - fails warning about empty iterable") {
+            functions.forEach { (name, minFun, hasExtraHint) ->
+                it("$name - fails warning about empty iterable" + showsSubExpectationIf(hasExtraHint)) {
                     expect {
                         emptyIterable.minFun { toEqual(1) }
                     }.toThrow<AssertionError> {
-                        messageToContain(noElementsDescr)
-                    }
-                }
-            }
-            maxFunctions.forEach { (name, maxFun, _) ->
-                it("$name - fails warning about empty iterable") {
-                    expect {
-                        emptyIterable.maxFun { toEqual(1) }
-                    }.toThrow<AssertionError> {
-                        messageToContain(noElementsDescr)
+                        message {
+                            toContain(noElementsDescr)
+                            if (hasExtraHint) toContain("$toEqualDescr: 1")
+                        }
                     }
                 }
             }
@@ -135,7 +134,9 @@ abstract class AbstractIterableExpectationsTest(
     }
 
     @TestFactory
-    fun toHaveElementsAndNoDuplicates() = testFactory(toHaveElementsAndNoDuplicatesSpec) { toHaveElementsAndNoDuplicatesFun ->
+    fun toHaveElementsAndNoDuplicates() = testFactory(
+        toHaveElementsAndNoDuplicatesSpec
+    ) { toHaveElementsAndNoDuplicatesFun ->
         describe("empty collection") {
             it("throws AssertionError as there needs to be at least one element") {
                 expect {
@@ -159,7 +160,9 @@ abstract class AbstractIterableExpectationsTest(
 
         describe("list with duplicates") {
             it("throws AssertionError with details of duplicate indices") {
-                fun index(i: Int, element: Int) = DescriptionIterableLikeExpectation.INDEX.getDefault().format("$i: $element")
+                fun index(i: Int, element: Int) =
+                    DescriptionIterableLikeExpectation.INDEX.getDefault().format("$i: $element")
+
                 fun duplicatedBy(vararg elements: Int) =
                     DescriptionIterableLikeExpectation.DUPLICATED_BY.getDefault().format(elements.joinToString(", "))
 
@@ -178,33 +181,26 @@ abstract class AbstractIterableExpectationsTest(
         }
     }
 
+    val oneThreeFour = { listOf(1, 3, 4) as Iterable<Int> }
+
     @TestFactory
-    fun last() = testFactory(lastFeatureSpec, lastSpec) { spec ->
-        val lastFunctions = unifySignatures(lastFeatureSpec, lastSpec)
-        val listNullable = listOf(1, 3, 4) as Iterable<Int>
-        val fluentNullable = expect(listNullable)
-        
-        describe("list $listNullable") {
-            lastFunctions.forEach { (name, lastFun, _) ->
-                it("$name - can perform sub-assertion on last element with value") {
-                    fluentNullable.lastFun { toEqual(4) }
-                }
+    fun last() = testFactoryForFeatureNonFeature(lastFeatureSpec, lastSpec) { name, lastFun, hasExtraHint ->
+
+        describeIterable(::oneThreeFour) {
+            it("$name - can perform sub-assertion on last element with value") {
+                expect(oneThreeFour()).lastFun { toEqual(4) }
             }
         }
 
-        val emptyList = emptyList<Int>() as Iterable<Int>
-        val fluentEmptyList = expect(emptyList)
         val listIsEmptyDescr = DescriptionIterableLikeExpectation.NO_ELEMENTS.getDefault()
 
-        describe("list $emptyList") {
-            lastFunctions.forEach { (name, lastFun, hasExtraHint) ->
-                it("$name - empty list throws" + showsSubExpectationIf(hasExtraHint)) {
-                    expect {
-                        fluentEmptyList.lastFun { toEqual(3) }
-                    }.toThrow<AssertionError> {
-                        messageToContain("last(): $listIsEmptyDescr")
-                        if (hasExtraHint) messageToContain("$toEqualDescr: 3")
-                    }
+        describe("empty list") {
+            it("$name - empty list throws" + showsSubExpectationIf(hasExtraHint)) {
+                expect {
+                    expect(emptyList<Int>() as Iterable<Int>).lastFun { toEqual(3) }
+                }.toThrow<AssertionError> {
+                    messageToContain("last(): $listIsEmptyDescr")
+                    if (hasExtraHint) messageToContain("$toEqualDescr: 3")
                 }
             }
         }
