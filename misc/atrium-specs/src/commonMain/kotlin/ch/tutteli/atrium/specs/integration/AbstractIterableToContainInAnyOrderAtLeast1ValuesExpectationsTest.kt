@@ -6,7 +6,7 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.translations.DescriptionIterableLikeExpectation.TO_CONTAIN
 
-abstract class IterableToContainInAnyOrderAtLeast1ValuesExpectationsSpec(
+abstract class AbstractIterableToContainInAnyOrderAtLeast1ValuesExpectationsTest(
     toContainInAnyOrderValues: Fun2<Iterable<Double>, Double, Array<out Double>>,
     toContainInAnyOrderNullableValues: Fun2<Iterable<Double?>, Double?, Array<out Double?>>,
     describePrefix: String = "[Atrium] "
