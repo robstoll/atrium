@@ -6,7 +6,6 @@ import ch.tutteli.atrium.specs.fun0
 import ch.tutteli.atrium.specs.fun1
 import ch.tutteli.atrium.specs.withFeatureSuffix
 import ch.tutteli.atrium.specs.integration.AbstractCharSequenceExpectationsTest
-import ch.tutteli.atrium.specs.property
 import kotlin.test.Test
 
 class CharSequenceExpectationsTest : AbstractCharSequenceExpectationsTest(
@@ -52,7 +51,7 @@ class CharSequenceExpectationsTest : AbstractCharSequenceExpectationsTest(
         a1 = a1.toMatch(Regex(".+Robert"))
         a1 = a1.notToMatch(Regex("a"))
 
-        a1 = a1.length { toEqual(23) }
-        a2 = a2.length { toEqual(0) }
+        val l1: Expect<Int> = a1.length
+        val l2: Expect<Int> = a2.length
     }
 }
