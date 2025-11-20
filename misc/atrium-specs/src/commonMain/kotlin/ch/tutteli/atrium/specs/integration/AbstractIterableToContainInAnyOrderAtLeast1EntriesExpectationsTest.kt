@@ -149,7 +149,7 @@ abstract class AbstractIterableToContainInAnyOrderAtLeast1EntriesExpectationsTes
     }
 
     @TestFactory
-    fun nullable_cases() = testFactory(toContainInAnyOrderNullableEntriesSpec) { toContainInAnyOrderEntriesFun ->
+    fun nullable_cases() = testFactory(toContainInAnyOrderNullableEntriesSpec) {
         describeIterable(::oneToSevenNullable) {
             describe("happy cases (do not throw)") {
                 it("$toEqualFun(1.1)") {

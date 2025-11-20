@@ -76,7 +76,7 @@ abstract class AbstractIterableExpectationsTest(
         }
     }
 
-    val iterableWith4And3 = { listOf(4, 3) as Iterable<Int> }
+    val iterableWith4And3: () -> Iterable<Int> = { listOf(4, 3) }
 
     @TestFactory
     fun min() = testFactoryForFeatureNonFeature(minFeatureSpec, minSpec) { name, minFun, _ ->
@@ -181,7 +181,7 @@ abstract class AbstractIterableExpectationsTest(
         }
     }
 
-    val oneThreeFour = { listOf(1, 3, 4) as Iterable<Int> }
+    val oneThreeFour: () -> Iterable<Int> = { listOf(1, 3, 4) }
 
     @TestFactory
     fun last() = testFactoryForFeatureNonFeature(lastFeatureSpec, lastSpec) { name, lastFun, hasExtraHint ->

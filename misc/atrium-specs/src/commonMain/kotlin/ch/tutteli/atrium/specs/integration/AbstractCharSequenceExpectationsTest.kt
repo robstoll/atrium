@@ -1,10 +1,6 @@
 package ch.tutteli.atrium.specs.integration
 
-import ch.tutteli.atrium.api.fluent.en_GB.message
-import ch.tutteli.atrium.api.fluent.en_GB.messageToContain
-import ch.tutteli.atrium.api.fluent.en_GB.toBeLessThan
-import ch.tutteli.atrium.api.fluent.en_GB.toEndWith
-import ch.tutteli.atrium.api.fluent.en_GB.toThrow
+import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.specs.integration.CharSequenceToContainSpecBase.Companion.helloMyNameIsRobert
@@ -23,7 +19,7 @@ abstract class AbstractCharSequenceExpectationsTest(
     private val toMatchSpec: Fun1<CharSequence, Regex>,
     private val notToMatchSpec: Fun1<CharSequence, Regex>,
     private val lengthFeatureSpec: Feature0<CharSequence, Int>,
-    private val lengthSpec: Feature1<CharSequence, Expect<Int>.() -> Unit, Int>,
+    private val lengthSpec: Fun1<CharSequence, Expect<Int>.() -> Unit>
 ) : ExpectationFunctionBaseTest() {
 
     @TestFactory
@@ -36,23 +32,30 @@ abstract class AbstractCharSequenceExpectationsTest(
         toEndWithSpec.forSubjectLessTest(""),
         notToEndWithSpec.forSubjectLessTest(""),
         toMatchSpec.forSubjectLessTest(Regex("")),
-        notToMatchSpec.forSubjectLessTest(Regex(""))
+        notToMatchSpec.forSubjectLessTest(Regex("")),
+        lengthFeatureSpec.forSubjectLessTest(),
+        lengthSpec.forSubjectLessTest { toBeLessThan(1) }
+    )
+
+    @TestFactory
+    fun expectationCreatorTest() = expectationCreatorTestFactory(
+        "hello",
+        lengthSpec.forExpectationCreatorTest("$toEqualDescr: 5") { toEqual(5) }
     )
 
     @TestFactory
     fun length_feature_and_function() = testFactoryForFeatureNonFeature(
         lengthFeatureSpec,
         lengthSpec
-    ) { name, lengthFun, hasExtraHint ->
-        it("$name - passes" + showsSubExpectationIf(hasExtraHint)) {
+    ) { name, lengthFun, _ ->
+        it("$name - passes") {
             expect("Hello" as CharSequence).lengthFun { toBeLessThan(30) }
         }
-        it("$name - fails" + showsSubExpectationIf(hasExtraHint)) {
+        it("$name - fails") {
             expect {
                 expect("Hi" as CharSequence).lengthFun { toBeLessThan(2) }
             }.toThrow<AssertionError> {
-                messageToContain(toBeLessThanDescr)
-                if (hasExtraHint) messageToContain("length")
+                messageToContain("length: 2", "$toBeLessThanDescr: 2")
             }
         }
     }
