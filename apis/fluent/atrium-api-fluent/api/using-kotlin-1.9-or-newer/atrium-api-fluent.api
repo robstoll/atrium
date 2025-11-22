@@ -48,8 +48,10 @@ public final class ch/tutteli/atrium/api/fluent/en_GB/BigDecimalExpectationsKt {
 }
 
 public final class ch/tutteli/atrium/api/fluent/en_GB/CharSequenceExpectationsKt {
+	public static final fun getLength (Lch/tutteli/atrium/creating/Expect;)Lch/tutteli/atrium/creating/Expect;
 	public static final fun getNotToContain (Lch/tutteli/atrium/creating/Expect;)Lch/tutteli/atrium/logic/creating/charsequence/contains/steps/NotCheckerStep;
 	public static final fun getToContain (Lch/tutteli/atrium/creating/Expect;)Lch/tutteli/atrium/logic/creating/charsequence/contains/CharSequenceContains$EntryPointStep;
+	public static final fun length (Lch/tutteli/atrium/creating/Expect;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/creating/Expect;
 	public static final fun notToBeBlank (Lch/tutteli/atrium/creating/Expect;)Lch/tutteli/atrium/creating/Expect;
 	public static final fun notToBeEmpty (Lch/tutteli/atrium/creating/Expect;)Lch/tutteli/atrium/creating/Expect;
 	public static final fun notToContain (Lch/tutteli/atrium/creating/Expect;Ljava/lang/Object;[Ljava/lang/Object;)Lch/tutteli/atrium/creating/Expect;
