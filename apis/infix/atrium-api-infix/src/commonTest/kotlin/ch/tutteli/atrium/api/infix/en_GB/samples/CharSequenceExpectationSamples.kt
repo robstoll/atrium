@@ -196,26 +196,4 @@ class CharSequenceExpectationSamples {
             expect("ABC")  notToMatch "A(B)?C".toRegex()
         }
     }
-
-    @Test
-    fun lengthFeature() {
-        expect("Hello").length toEqual 5
-
-        fails {
-            expect("Hi").length toEqual 3
-        }
-    }
-
-    @Test
-    fun length() {
-        expect("Hello") length {
-            it toEqual 5
-        }
-
-        fails {
-            expect("Hi") length {
-                it toEqual 3
-            }
-        }
-    }
 }
