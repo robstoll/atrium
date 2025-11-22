@@ -4,7 +4,7 @@ import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic._logic
 import ch.tutteli.atrium.logic.length
 
-class charSequenceFeatureExtractors {
+class CharSequenceFeatureExtractors {
 
     /**
      * Creates an [Expect] for the property [CharSequence.length] of the subject of `this` expectation,
