@@ -64,7 +64,7 @@ abstract class ThrowableExpectationsSpec(
             it("${messageToContain.name} - throws an AssertionError which shows intended sub assertion") {
 
                 expect {
-                    expect(throwable).messageContainsFun(1, arrayOf(2.3, 'z', "hello"))
+                    expect(throwable).messageContainsFun(1, arrayOf<Any>(2.3, 'z', "hello"))
                 }.toThrow<AssertionError> {
                     messageToContain(
                         notToEqualNullButToBeInstanceOfDescr, String::class.fullName,
@@ -147,7 +147,7 @@ abstract class ThrowableExpectationsSpec(
                 }.toThrow<AssertionError> { messageToContain("$valueDescr: \"nada\"") }
             }
             it("${messageToContain.name} - does not throw if the assertion holds") {
-                expect(throwable).messageContainsFun(1, arrayOf(2.3, 'z', "hello"))
+                expect(throwable).messageContainsFun(1, arrayOf<Any>(2.3, 'z', "hello"))
             }
         }
 

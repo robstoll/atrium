@@ -15,7 +15,7 @@ import ch.tutteli.atrium.creating.Expect
  * @since 1.2.0
  */
 //TODO 2.0.0 remove data?
-data class FailureDescriptionWithCreator<T> internal constructor(
+data class FailureDescriptionWithCreator<T> (
     val failureDescription: String,
     val assertionCreator: Expect<T>.(T) -> Unit
 )

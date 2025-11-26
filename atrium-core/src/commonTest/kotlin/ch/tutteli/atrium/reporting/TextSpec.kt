@@ -5,19 +5,20 @@ import ch.tutteli.atrium.api.infix.en_GB.toThrow
 import ch.tutteli.atrium.api.verbs.internal.expect
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.describe
+import kotlin.test.Test
 
-class TextSpec : Spek({
-    describe("creating a Text") {
-        it("empty string; throws IllegalArgumentException") {
-            expect{
-                Text("")
-            }.toThrow<IllegalArgumentException> {
-                messageToContain("use Text.Empty instead")
-            }
-        }
-
-        it("blank string; does not throw") {
-            Text("  ")
+class TextSpec {
+    @Test
+    fun empty_string_throws() {
+        expect {
+            Text("")
+        }.toThrow<IllegalArgumentException> {
+            messageToContain("use Text.Empty instead")
         }
     }
-})
+
+    @Test
+    fun blank_string_does_not_throw() {
+        Text("  ")
+    }
+}

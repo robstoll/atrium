@@ -69,11 +69,10 @@ class DefaultAnyAssertions : AnyAssertions {
         .build()
 
 
-    @Suppress("BOUNDS_NOT_ALLOWED_IF_BOUNDED_BY_TYPE_PARAMETER")
     override fun <T, SubTypeOfT> isA(
         container: AssertionContainer<T>,
         subType: KClass<SubTypeOfT>
-    ): SubjectChangerBuilder.ExecutionStep<T, SubTypeOfT> where SubTypeOfT : Any, SubTypeOfT : T =
+    ): SubjectChangerBuilder.ExecutionStep<T, SubTypeOfT> where SubTypeOfT : T & Any =
         container.changeSubject.reportBuilder()
             .downCastTo(subType)
             .build()

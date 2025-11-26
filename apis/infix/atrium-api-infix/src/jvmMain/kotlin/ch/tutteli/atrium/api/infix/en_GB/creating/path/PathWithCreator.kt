@@ -11,4 +11,4 @@ import ch.tutteli.atrium.creating.Expect
  *  @since 0.12.0
  */
 //TODO 2.0.0 remove data?
-data class PathWithCreator<E> internal constructor(val path: String, val assertionCreator: Expect<E>.() -> Unit)
+data class PathWithCreator<E> constructor(val path: String, val assertionCreator: Expect<E>.() -> Unit)

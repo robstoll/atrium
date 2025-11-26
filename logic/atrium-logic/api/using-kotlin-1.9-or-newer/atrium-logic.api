@@ -398,7 +398,9 @@ public abstract interface class ch/tutteli/atrium/logic/PathAssertions {
 	public abstract fun endsNotWith (Lch/tutteli/atrium/creating/AssertionContainer;Ljava/nio/file/Path;)Lch/tutteli/atrium/assertions/Assertion;
 	public abstract fun endsWith (Lch/tutteli/atrium/creating/AssertionContainer;Ljava/nio/file/Path;)Lch/tutteli/atrium/assertions/Assertion;
 	public abstract fun exists (Lch/tutteli/atrium/creating/AssertionContainer;Ljava/nio/file/LinkOption;)Lch/tutteli/atrium/assertions/Assertion;
+	public static synthetic fun exists$default (Lch/tutteli/atrium/logic/PathAssertions;Lch/tutteli/atrium/creating/AssertionContainer;Ljava/nio/file/LinkOption;ILjava/lang/Object;)Lch/tutteli/atrium/assertions/Assertion;
 	public abstract fun existsNot (Lch/tutteli/atrium/creating/AssertionContainer;Ljava/nio/file/LinkOption;)Lch/tutteli/atrium/assertions/Assertion;
+	public static synthetic fun existsNot$default (Lch/tutteli/atrium/logic/PathAssertions;Lch/tutteli/atrium/creating/AssertionContainer;Ljava/nio/file/LinkOption;ILjava/lang/Object;)Lch/tutteli/atrium/assertions/Assertion;
 	public abstract fun extension (Lch/tutteli/atrium/creating/AssertionContainer;)Lch/tutteli/atrium/logic/creating/transformers/FeatureExtractorBuilder$ExecutionStep;
 	public abstract fun fileName (Lch/tutteli/atrium/creating/AssertionContainer;)Lch/tutteli/atrium/logic/creating/transformers/FeatureExtractorBuilder$ExecutionStep;
 	public abstract fun fileNameWithoutExtension (Lch/tutteli/atrium/creating/AssertionContainer;)Lch/tutteli/atrium/logic/creating/transformers/FeatureExtractorBuilder$ExecutionStep;
@@ -537,8 +539,8 @@ public final class ch/tutteli/atrium/logic/assertions/impl/LazyThreadUnsafeAsser
 public abstract interface class ch/tutteli/atrium/logic/creating/FeatureExpectOptionsChooser {
 	public static final field Companion Lch/tutteli/atrium/logic/creating/FeatureExpectOptionsChooser$Companion;
 	public abstract fun withDescription (Lch/tutteli/atrium/reporting/translating/Translatable;)V
-	public abstract fun withDescription (Ljava/lang/String;)V
-	public abstract fun withRepresentation (Ljava/lang/String;)V
+	public fun withDescription (Ljava/lang/String;)V
+	public fun withRepresentation (Ljava/lang/String;)V
 	public abstract fun withRepresentation (Lkotlin/jvm/functions/Function1;)V
 }
 
@@ -566,7 +568,7 @@ public final class ch/tutteli/atrium/logic/creating/RootExpectBuilder$Companion 
 public abstract interface class ch/tutteli/atrium/logic/creating/RootExpectBuilder$ExpectationVerbStep {
 	public abstract fun getSubject ()Ljava/lang/Object;
 	public abstract fun withVerb (Lch/tutteli/atrium/reporting/translating/Translatable;)Lch/tutteli/atrium/logic/creating/RootExpectBuilder$OptionsStep;
-	public abstract fun withVerb (Ljava/lang/String;)Lch/tutteli/atrium/logic/creating/RootExpectBuilder$OptionsStep;
+	public fun withVerb (Ljava/lang/String;)Lch/tutteli/atrium/logic/creating/RootExpectBuilder$OptionsStep;
 }
 
 public final class ch/tutteli/atrium/logic/creating/RootExpectBuilder$ExpectationVerbStep$DefaultImpls {
@@ -589,11 +591,11 @@ public abstract interface class ch/tutteli/atrium/logic/creating/RootExpectBuild
 	public static final field Companion Lch/tutteli/atrium/logic/creating/RootExpectBuilder$OptionsChooser$Companion;
 	public abstract fun prependChainedComponents (Lkotlin/reflect/KClass;Lkotlin/sequences/Sequence;)V
 	public abstract fun withComponent (Lkotlin/reflect/KClass;Lkotlin/jvm/functions/Function1;)V
-	public abstract fun withRepresentation (Ljava/lang/String;)V
+	public fun withRepresentation (Ljava/lang/String;)V
 	public abstract fun withRepresentation (Lkotlin/jvm/functions/Function1;)V
 	public abstract fun withSingletonComponent (Lkotlin/reflect/KClass;Lkotlin/jvm/functions/Function1;)V
 	public abstract fun withVerb (Lch/tutteli/atrium/reporting/translating/Translatable;)V
-	public abstract fun withVerb (Ljava/lang/String;)V
+	public fun withVerb (Ljava/lang/String;)V
 }
 
 public final class ch/tutteli/atrium/logic/creating/RootExpectBuilder$OptionsChooser$Companion {
@@ -610,7 +612,7 @@ public abstract interface class ch/tutteli/atrium/logic/creating/RootExpectBuild
 	public abstract fun getExpectationVerb ()Lch/tutteli/atrium/reporting/translating/Translatable;
 	public abstract fun getSubject ()Ljava/lang/Object;
 	public abstract fun withOptions (Lch/tutteli/atrium/creating/RootExpectOptions;)Lch/tutteli/atrium/logic/creating/RootExpectBuilder$FinalStep;
-	public abstract fun withOptions (Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/logic/creating/RootExpectBuilder$FinalStep;
+	public fun withOptions (Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/logic/creating/RootExpectBuilder$FinalStep;
 	public abstract fun withoutOptions ()Lch/tutteli/atrium/logic/creating/RootExpectBuilder$FinalStep;
 }
 
@@ -823,7 +825,7 @@ public abstract interface class ch/tutteli/atrium/logic/creating/charsequence/co
 }
 
 public abstract interface class ch/tutteli/atrium/logic/creating/charsequence/contains/searchbehaviours/NoOpSearchBehaviour : ch/tutteli/atrium/logic/creating/charsequence/contains/CharSequenceContains$SearchBehaviour {
-	public abstract fun decorateDescription (Lch/tutteli/atrium/reporting/translating/Translatable;)Lch/tutteli/atrium/reporting/translating/Translatable;
+	public fun decorateDescription (Lch/tutteli/atrium/reporting/translating/Translatable;)Lch/tutteli/atrium/reporting/translating/Translatable;
 }
 
 public final class ch/tutteli/atrium/logic/creating/charsequence/contains/searchbehaviours/NoOpSearchBehaviour$DefaultImpls {
@@ -1084,7 +1086,7 @@ public final class ch/tutteli/atrium/logic/creating/iterable/contains/IterableLi
 
 public abstract interface class ch/tutteli/atrium/logic/creating/iterable/contains/IterableLikeContains$EntryPointStepLogic : ch/tutteli/atrium/logic/creating/basic/contains/Contains$EntryPointStepLogic {
 	public abstract fun getConverter ()Lkotlin/jvm/functions/Function1;
-	public abstract fun withSearchBehaviour (Lch/tutteli/atrium/logic/creating/iterable/contains/IterableLikeContains$SearchBehaviour;)Lch/tutteli/atrium/logic/creating/iterable/contains/IterableLikeContains$EntryPointStep;
+	public fun withSearchBehaviour (Lch/tutteli/atrium/logic/creating/iterable/contains/IterableLikeContains$SearchBehaviour;)Lch/tutteli/atrium/logic/creating/iterable/contains/IterableLikeContains$EntryPointStep;
 }
 
 public final class ch/tutteli/atrium/logic/creating/iterable/contains/IterableLikeContains$EntryPointStepLogic$DefaultImpls {
@@ -1250,7 +1252,7 @@ public final class ch/tutteli/atrium/logic/creating/iterable/contains/creators/i
 }
 
 public abstract interface class ch/tutteli/atrium/logic/creating/iterable/contains/creators/impl/InOrderOnlyMatcher {
-	public abstract fun addSingleEntryAssertion (Lch/tutteli/atrium/creating/AssertionContainer;ILjava/lang/Object;Lch/tutteli/atrium/translations/DescriptionIterableLikeExpectation;)V
+	public fun addSingleEntryAssertion (Lch/tutteli/atrium/creating/AssertionContainer;ILjava/lang/Object;Lch/tutteli/atrium/translations/DescriptionIterableLikeExpectation;)V
 	public abstract fun elementAssertionCreator (Lch/tutteli/atrium/creating/AssertionContainer;Lch/tutteli/atrium/core/Option;Ljava/lang/Object;)Lch/tutteli/atrium/assertions/Assertion;
 }
 
@@ -1295,7 +1297,7 @@ public abstract interface class ch/tutteli/atrium/logic/creating/iterable/contai
 }
 
 public abstract interface class ch/tutteli/atrium/logic/creating/iterable/contains/searchbehaviours/NoOpSearchBehaviour : ch/tutteli/atrium/logic/creating/iterable/contains/IterableLikeContains$SearchBehaviour {
-	public abstract fun decorateDescription (Lch/tutteli/atrium/reporting/translating/Translatable;)Lch/tutteli/atrium/reporting/translating/Translatable;
+	public fun decorateDescription (Lch/tutteli/atrium/reporting/translating/Translatable;)Lch/tutteli/atrium/reporting/translating/Translatable;
 }
 
 public final class ch/tutteli/atrium/logic/creating/iterable/contains/searchbehaviours/NoOpSearchBehaviour$DefaultImpls {
@@ -1424,8 +1426,8 @@ public final class ch/tutteli/atrium/logic/creating/iterablelike/contains/report
 
 public abstract interface class ch/tutteli/atrium/logic/creating/iterablelike/contains/reporting/OnlyReportingOptions {
 	public abstract fun getMaxNumberOfExpectedElementsForSummary ()I
-	public abstract fun showAlwaysSummary ()V
-	public abstract fun showOnlyFailing ()V
+	public fun showAlwaysSummary ()V
+	public fun showOnlyFailing ()V
 	public abstract fun showOnlyFailingIfMoreExpectedElementsThan (I)V
 }
 
@@ -1452,7 +1454,7 @@ public final class ch/tutteli/atrium/logic/creating/maplike/contains/MapLikeCont
 
 public abstract interface class ch/tutteli/atrium/logic/creating/maplike/contains/MapLikeContains$EntryPointStepLogic : ch/tutteli/atrium/logic/creating/basic/contains/Contains$EntryPointStepLogic {
 	public abstract fun getConverter ()Lkotlin/jvm/functions/Function1;
-	public abstract fun withSearchBehaviour (Lch/tutteli/atrium/logic/creating/maplike/contains/MapLikeContains$SearchBehaviour;)Lch/tutteli/atrium/logic/creating/maplike/contains/MapLikeContains$EntryPointStep;
+	public fun withSearchBehaviour (Lch/tutteli/atrium/logic/creating/maplike/contains/MapLikeContains$SearchBehaviour;)Lch/tutteli/atrium/logic/creating/maplike/contains/MapLikeContains$EntryPointStep;
 }
 
 public final class ch/tutteli/atrium/logic/creating/maplike/contains/MapLikeContains$EntryPointStepLogic$DefaultImpls {
@@ -1503,7 +1505,7 @@ public abstract interface class ch/tutteli/atrium/logic/creating/maplike/contain
 }
 
 public abstract interface class ch/tutteli/atrium/logic/creating/maplike/contains/searchbehaviours/NoOpSearchBehaviour : ch/tutteli/atrium/logic/creating/maplike/contains/MapLikeContains$SearchBehaviour {
-	public abstract fun decorateDescription (Lch/tutteli/atrium/reporting/translating/Translatable;)Lch/tutteli/atrium/reporting/translating/Translatable;
+	public fun decorateDescription (Lch/tutteli/atrium/reporting/translating/Translatable;)Lch/tutteli/atrium/reporting/translating/Translatable;
 }
 
 public final class ch/tutteli/atrium/logic/creating/maplike/contains/searchbehaviours/NoOpSearchBehaviour$DefaultImpls {
@@ -1570,9 +1572,9 @@ public final class ch/tutteli/atrium/logic/creating/transformers/FeatureExtracto
 public abstract interface class ch/tutteli/atrium/logic/creating/transformers/FeatureExtractorBuilder$DescriptionStep {
 	public static final field Companion Lch/tutteli/atrium/logic/creating/transformers/FeatureExtractorBuilder$DescriptionStep$Companion;
 	public abstract fun getContainer ()Lch/tutteli/atrium/creating/AssertionContainer;
-	public abstract fun methodCall (Ljava/lang/String;[Ljava/lang/Object;)Lch/tutteli/atrium/logic/creating/transformers/FeatureExtractorBuilder$RepresentationInCaseOfFailureStep;
+	public fun methodCall (Ljava/lang/String;[Ljava/lang/Object;)Lch/tutteli/atrium/logic/creating/transformers/FeatureExtractorBuilder$RepresentationInCaseOfFailureStep;
 	public abstract fun withDescription (Lch/tutteli/atrium/reporting/translating/Translatable;)Lch/tutteli/atrium/logic/creating/transformers/FeatureExtractorBuilder$RepresentationInCaseOfFailureStep;
-	public abstract fun withDescription (Ljava/lang/String;)Lch/tutteli/atrium/logic/creating/transformers/FeatureExtractorBuilder$RepresentationInCaseOfFailureStep;
+	public fun withDescription (Ljava/lang/String;)Lch/tutteli/atrium/logic/creating/transformers/FeatureExtractorBuilder$RepresentationInCaseOfFailureStep;
 }
 
 public final class ch/tutteli/atrium/logic/creating/transformers/FeatureExtractorBuilder$DescriptionStep$Companion {
@@ -1621,7 +1623,7 @@ public abstract interface class ch/tutteli/atrium/logic/creating/transformers/Fe
 	public abstract fun getFeatureExtraction ()Lkotlin/jvm/functions/Function1;
 	public abstract fun getFeatureExtractionStep ()Lch/tutteli/atrium/logic/creating/transformers/FeatureExtractorBuilder$FeatureExtractionStep;
 	public abstract fun withOptions (Lch/tutteli/atrium/creating/FeatureExpectOptions;)Lch/tutteli/atrium/logic/creating/transformers/FeatureExtractorBuilder$FinalStep;
-	public abstract fun withOptions (Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/logic/creating/transformers/FeatureExtractorBuilder$FinalStep;
+	public fun withOptions (Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/logic/creating/transformers/FeatureExtractorBuilder$FinalStep;
 	public abstract fun withoutOptions ()Lch/tutteli/atrium/logic/creating/transformers/FeatureExtractorBuilder$FinalStep;
 }
 
@@ -1638,7 +1640,7 @@ public abstract interface class ch/tutteli/atrium/logic/creating/transformers/Fe
 	public abstract fun getContainer ()Lch/tutteli/atrium/creating/AssertionContainer;
 	public abstract fun getDescription ()Lch/tutteli/atrium/reporting/translating/Translatable;
 	public abstract fun withRepresentationForFailure (Ljava/lang/Object;)Lch/tutteli/atrium/logic/creating/transformers/FeatureExtractorBuilder$FeatureExtractionStep;
-	public abstract fun withRepresentationForFailure (Lkotlin/jvm/functions/Function0;)Lch/tutteli/atrium/logic/creating/transformers/FeatureExtractorBuilder$FeatureExtractionStep;
+	public fun withRepresentationForFailure (Lkotlin/jvm/functions/Function0;)Lch/tutteli/atrium/logic/creating/transformers/FeatureExtractorBuilder$FeatureExtractionStep;
 }
 
 public final class ch/tutteli/atrium/logic/creating/transformers/FeatureExtractorBuilder$RepresentationInCaseOfFailureStep$Companion {
@@ -1678,10 +1680,10 @@ public final class ch/tutteli/atrium/logic/creating/transformers/SubjectChangerB
 
 public abstract interface class ch/tutteli/atrium/logic/creating/transformers/SubjectChangerBuilder$DescriptionRepresentationStep {
 	public static final field Companion Lch/tutteli/atrium/logic/creating/transformers/SubjectChangerBuilder$DescriptionRepresentationStep$Companion;
-	public abstract fun downCastTo (Lkotlin/reflect/KClass;)Lch/tutteli/atrium/logic/creating/transformers/SubjectChangerBuilder$FailureHandlerStep;
+	public fun downCastTo (Lkotlin/reflect/KClass;)Lch/tutteli/atrium/logic/creating/transformers/SubjectChangerBuilder$FailureHandlerStep;
 	public abstract fun getContainer ()Lch/tutteli/atrium/creating/AssertionContainer;
 	public abstract fun withDescriptionAndRepresentation (Lch/tutteli/atrium/reporting/translating/Translatable;Ljava/lang/Object;)Lch/tutteli/atrium/logic/creating/transformers/SubjectChangerBuilder$TransformationStep;
-	public abstract fun withDescriptionAndRepresentation (Ljava/lang/String;Ljava/lang/Object;)Lch/tutteli/atrium/logic/creating/transformers/SubjectChangerBuilder$TransformationStep;
+	public fun withDescriptionAndRepresentation (Ljava/lang/String;Ljava/lang/Object;)Lch/tutteli/atrium/logic/creating/transformers/SubjectChangerBuilder$TransformationStep;
 }
 
 public final class ch/tutteli/atrium/logic/creating/transformers/SubjectChangerBuilder$DescriptionRepresentationStep$Companion {
@@ -1703,12 +1705,12 @@ public final class ch/tutteli/atrium/logic/creating/transformers/SubjectChangerB
 
 public abstract interface class ch/tutteli/atrium/logic/creating/transformers/SubjectChangerBuilder$FailureHandlerStep {
 	public static final field Companion Lch/tutteli/atrium/logic/creating/transformers/SubjectChangerBuilder$FailureHandlerStep$Companion;
-	public abstract fun build ()Lch/tutteli/atrium/logic/creating/transformers/SubjectChangerBuilder$ExecutionStep;
+	public fun build ()Lch/tutteli/atrium/logic/creating/transformers/SubjectChangerBuilder$ExecutionStep;
 	public abstract fun getTransformation ()Lkotlin/jvm/functions/Function1;
 	public abstract fun getTransformationStep ()Lch/tutteli/atrium/logic/creating/transformers/SubjectChangerBuilder$TransformationStep;
 	public abstract fun withDefaultFailureHandler ()Lch/tutteli/atrium/logic/creating/transformers/SubjectChangerBuilder$FinalStep;
 	public abstract fun withFailureHandler (Lch/tutteli/atrium/logic/creating/transformers/SubjectChanger$FailureHandler;)Lch/tutteli/atrium/logic/creating/transformers/SubjectChangerBuilder$FinalStep;
-	public abstract fun withFailureHandlerAdapter (Lch/tutteli/atrium/logic/creating/transformers/SubjectChanger$FailureHandler;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/logic/creating/transformers/SubjectChangerBuilder$FinalStep;
+	public fun withFailureHandlerAdapter (Lch/tutteli/atrium/logic/creating/transformers/SubjectChanger$FailureHandler;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/logic/creating/transformers/SubjectChangerBuilder$FinalStep;
 }
 
 public final class ch/tutteli/atrium/logic/creating/transformers/SubjectChangerBuilder$FailureHandlerStep$Companion {
@@ -1735,7 +1737,7 @@ public final class ch/tutteli/atrium/logic/creating/transformers/SubjectChangerB
 public abstract interface class ch/tutteli/atrium/logic/creating/transformers/SubjectChangerBuilder$KindStep {
 	public abstract fun getContainer ()Lch/tutteli/atrium/creating/AssertionContainer;
 	public abstract fun reportBuilder ()Lch/tutteli/atrium/logic/creating/transformers/SubjectChangerBuilder$DescriptionRepresentationStep;
-	public abstract fun unreported (Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/creating/Expect;
+	public fun unreported (Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/creating/Expect;
 }
 
 public final class ch/tutteli/atrium/logic/creating/transformers/SubjectChangerBuilder$KindStep$DefaultImpls {
@@ -2228,9 +2230,9 @@ public final class ch/tutteli/atrium/logic/utils/NullableKt {
 
 public abstract interface class ch/tutteli/atrium/logic/utils/VarArgHelper {
 	public abstract fun getExpected ()Ljava/lang/Object;
-	public abstract fun getMapArguments ()Lch/tutteli/atrium/logic/utils/ArgumentMapperBuilder;
+	public fun getMapArguments ()Lch/tutteli/atrium/logic/utils/ArgumentMapperBuilder;
 	public abstract fun getOtherExpected ()[Ljava/lang/Object;
-	public abstract fun toList ()Ljava/util/List;
+	public fun toList ()Ljava/util/List;
 }
 
 public final class ch/tutteli/atrium/logic/utils/VarArgHelper$DefaultImpls {

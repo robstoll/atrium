@@ -16,7 +16,7 @@ import kotlin.reflect.KProperty1
  * @since 0.16.0
  */
 //TODO 2.0.0 remove data?
-data class ExtractorWithCreator<T, R> internal constructor(
+data class ExtractorWithCreator<T, R> (
     val extractor: (T) -> R,
     val assertionCreator: Expect<R>.() -> Unit
 )

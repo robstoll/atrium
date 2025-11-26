@@ -11,4 +11,4 @@ import ch.tutteli.atrium.creating.Expect
  *  @since 0.12.0
  */
 //TODO 2.0.0 remove data?
-data class PresentWithCreator<E> internal constructor(val assertionCreator: Expect<E>.() -> Unit)
+data class PresentWithCreator<E> constructor(val assertionCreator: Expect<E>.() -> Unit)

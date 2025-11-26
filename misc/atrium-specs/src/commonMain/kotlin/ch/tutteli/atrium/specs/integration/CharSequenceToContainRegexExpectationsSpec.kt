@@ -125,21 +125,21 @@ abstract class CharSequenceToContainRegexExpectationsSpec(
             it("${toContainAtLeastPair.first("'$hello' and '$roberto'", "once")} does not throw") {
                 expect(text).toContainAtLeastFun(1, hello, roberto)
             }
-            it("${toContainAtLeastPair.first("'${roberto.toLowerCase()}'", "once")} throws AssertionError") {
+            it("${toContainAtLeastPair.first("'${roberto.lowercase()}'", "once")} throws AssertionError") {
                 expect {
-                    expect(text).toContainAtLeastFun(1, roberto.toLowerCase())
+                    expect(text).toContainAtLeastFun(1, roberto.lowercase())
                 }.toThrow<AssertionError> {
                     message {
                         toContain(
                             "$rootBulletPoint$toContainDescr: $separator" +
-                                "$regexWithIndent: ${roberto.toLowerCase()}",
+                                "$regexWithIndent: ${roberto.lowercase()}",
                             noMatchFoundDescr
                         )
                     }
                 }
             }
-            it("${toContainAtLeastIgnoringCasePair.first("'${roberto.toLowerCase()}'", "once")} does not throw") {
-                expect(text).toContainAtLeastIgnoringCaseFun(1, roberto.toLowerCase())
+            it("${toContainAtLeastIgnoringCasePair.first("'${roberto.lowercase()}'", "once")} does not throw") {
+                expect(text).toContainAtLeastIgnoringCaseFun(1, roberto.lowercase())
             }
 
             it("${toContainShortcutPair.first("'$hello'", "once")} does not throw") {

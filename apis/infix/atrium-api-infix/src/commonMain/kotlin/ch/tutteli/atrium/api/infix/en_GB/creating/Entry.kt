@@ -17,7 +17,7 @@ import ch.tutteli.atrium.logic.utils.Group
  *   In case it is defined as `null`, then an entry is identified if it is `null` as well.
  */
 //TODO 2.0.0 remove data?
-data class Entry<T : Any> internal constructor(
+data class Entry<T : Any> constructor(
     val assertionCreatorOrNull: (Expect<T>.() -> Unit)?
 ) : Group<(Expect<T>.() -> Unit)?> {
 

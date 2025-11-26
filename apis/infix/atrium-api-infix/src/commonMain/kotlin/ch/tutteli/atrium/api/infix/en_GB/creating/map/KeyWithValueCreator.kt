@@ -9,7 +9,7 @@ import ch.tutteli.atrium.creating.Expect
  * Use the function `keyValue(x) { ... }` to create this representation.
  */
 //TODO 2.0.0 remove data?
-data class KeyWithValueCreator<out K, V : Any> internal constructor(
+data class KeyWithValueCreator<out K, V : Any> (
     val key: K,
     val valueAssertionCreatorOrNull: (Expect<V>.() -> Unit)?
 ) {

@@ -16,7 +16,7 @@ import ch.tutteli.atrium.logic.creating.feature.MetaFeature
  * @since 0.12.0
  */
 //TODO 2.0.0 remove data?
-data class MetaFeatureOptionWithCreator<T, R> internal constructor(
+data class MetaFeatureOptionWithCreator<T, R> (
     val provider: MetaFeatureOption<T>.(T) -> MetaFeature<R>,
     val assertionCreator: Expect<R>.() -> Unit
 )

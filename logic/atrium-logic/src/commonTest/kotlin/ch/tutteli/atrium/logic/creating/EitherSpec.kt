@@ -101,7 +101,7 @@ sealed class Either<out A, out B> {
 }
 
 @Suppress("DataClassPrivateConstructor")
-data class Left<out A, out B> private constructor(val a: A) : Either<A, B>() {
+data class Left<out A, out B> (val a: A) : Either<A, B>() {
     override fun isLeft() = true
     override fun isRight() = false
 
@@ -112,7 +112,7 @@ data class Left<out A, out B> private constructor(val a: A) : Either<A, B>() {
 }
 
 @Suppress("DataClassPrivateConstructor")
-data class Right<out A, out B> private constructor(val b: B) : Either<A, B>() {
+data class Right<out A, out B> (val b: B) : Either<A, B>() {
     override fun isLeft() = false
     override fun isRight() = true
 

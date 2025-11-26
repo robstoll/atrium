@@ -13,6 +13,7 @@ import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.reporting.translating.Untranslatable
 import ch.tutteli.atrium.translations.DescriptionAnyExpectation
 import kotlin.reflect.KClass
+import kotlin.reflect.cast
 
 /**
  * Helps in using [SubjectChanger] by providing a guide to set the different parameters in form of a fluent builder.
@@ -75,8 +76,7 @@ interface SubjectChangerBuilder {
          * the given [subType] as representation and tries to perform a down-cast of [container]'s
          * [AssertionContainer.maybeSubject] to the given type [SubTypeOfSubjectT]
          */
-        @Suppress("BOUNDS_NOT_ALLOWED_IF_BOUNDED_BY_TYPE_PARAMETER")
-        fun <SubTypeOfSubjectT> downCastTo(subType: KClass<SubTypeOfSubjectT>): FailureHandlerStep<SubjectT, SubTypeOfSubjectT> where SubTypeOfSubjectT : Any, SubTypeOfSubjectT : SubjectT =
+        fun <SubTypeOfSubjectT> downCastTo(subType: KClass<SubTypeOfSubjectT>): FailureHandlerStep<SubjectT, SubTypeOfSubjectT> where SubTypeOfSubjectT : SubjectT & Any =
             withDescriptionAndRepresentation(DescriptionAnyExpectation.TO_BE_AN_INSTANCE_OF, subType)
                 .withTransformation {
                     Option.someIf(subType.isInstance(it)) { subType.cast(it) }

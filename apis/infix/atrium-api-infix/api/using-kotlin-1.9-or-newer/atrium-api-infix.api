@@ -628,6 +628,7 @@ public final class ch/tutteli/atrium/api/infix/en_GB/creating/Entries : ch/tutte
 }
 
 public final class ch/tutteli/atrium/api/infix/en_GB/creating/Entry : ch/tutteli/atrium/logic/utils/Group {
+	public fun <init> (Lkotlin/jvm/functions/Function1;)V
 	public final fun component1 ()Lkotlin/jvm/functions/Function1;
 	public final fun copy (Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/api/infix/en_GB/creating/Entry;
 	public static synthetic fun copy$default (Lch/tutteli/atrium/api/infix/en_GB/creating/Entry;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lch/tutteli/atrium/api/infix/en_GB/creating/Entry;
@@ -639,6 +640,7 @@ public final class ch/tutteli/atrium/api/infix/en_GB/creating/Entry : ch/tutteli
 }
 
 public final class ch/tutteli/atrium/api/infix/en_GB/creating/IndexWithCreator {
+	public fun <init> (ILkotlin/jvm/functions/Function1;)V
 	public final fun component1 ()I
 	public final fun component2 ()Lkotlin/jvm/functions/Function1;
 	public final fun copy (ILkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/api/infix/en_GB/creating/IndexWithCreator;
@@ -651,6 +653,7 @@ public final class ch/tutteli/atrium/api/infix/en_GB/creating/IndexWithCreator {
 }
 
 public final class ch/tutteli/atrium/api/infix/en_GB/creating/KeyWithCreator {
+	public fun <init> (Ljava/lang/Object;Lkotlin/jvm/functions/Function1;)V
 	public final fun component1 ()Ljava/lang/Object;
 	public final fun component2 ()Lkotlin/jvm/functions/Function1;
 	public final fun copy (Ljava/lang/Object;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/api/infix/en_GB/creating/KeyWithCreator;
@@ -672,6 +675,7 @@ public final class ch/tutteli/atrium/api/infix/en_GB/creating/Pairs : ch/tutteli
 }
 
 public final class ch/tutteli/atrium/api/infix/en_GB/creating/PresentWithCreator {
+	public fun <init> (Lkotlin/jvm/functions/Function1;)V
 	public final fun component1 ()Lkotlin/jvm/functions/Function1;
 	public final fun copy (Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/api/infix/en_GB/creating/PresentWithCreator;
 	public static synthetic fun copy$default (Lch/tutteli/atrium/api/infix/en_GB/creating/PresentWithCreator;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lch/tutteli/atrium/api/infix/en_GB/creating/PresentWithCreator;
@@ -691,6 +695,7 @@ public final class ch/tutteli/atrium/api/infix/en_GB/creating/RegexPatterns : ch
 }
 
 public final class ch/tutteli/atrium/api/infix/en_GB/creating/SuccessWithCreator {
+	public fun <init> (Lkotlin/jvm/functions/Function1;)V
 	public final fun component1 ()Lkotlin/jvm/functions/Function1;
 	public final fun copy (Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/api/infix/en_GB/creating/SuccessWithCreator;
 	public static synthetic fun copy$default (Lch/tutteli/atrium/api/infix/en_GB/creating/SuccessWithCreator;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lch/tutteli/atrium/api/infix/en_GB/creating/SuccessWithCreator;
@@ -710,6 +715,7 @@ public final class ch/tutteli/atrium/api/infix/en_GB/creating/Types : ch/tutteli
 }
 
 public final class ch/tutteli/atrium/api/infix/en_GB/creating/Value : ch/tutteli/atrium/logic/utils/Group {
+	public fun <init> (Ljava/lang/Object;)V
 	public final fun component1 ()Ljava/lang/Object;
 	public final fun copy (Ljava/lang/Object;)Lch/tutteli/atrium/api/infix/en_GB/creating/Value;
 	public static synthetic fun copy$default (Lch/tutteli/atrium/api/infix/en_GB/creating/Value;Ljava/lang/Object;ILjava/lang/Object;)Lch/tutteli/atrium/api/infix/en_GB/creating/Value;
@@ -728,6 +734,7 @@ public final class ch/tutteli/atrium/api/infix/en_GB/creating/Values : ch/tuttel
 }
 
 public final class ch/tutteli/atrium/api/infix/en_GB/creating/feature/ExtractorWithCreator {
+	public fun <init> (Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;)V
 	public final fun component1 ()Lkotlin/jvm/functions/Function1;
 	public final fun component2 ()Lkotlin/jvm/functions/Function1;
 	public final fun copy (Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/api/infix/en_GB/creating/feature/ExtractorWithCreator;
@@ -740,6 +747,7 @@ public final class ch/tutteli/atrium/api/infix/en_GB/creating/feature/ExtractorW
 }
 
 public final class ch/tutteli/atrium/api/infix/en_GB/creating/feature/FailureDescriptionWithCreator {
+	public fun <init> (Ljava/lang/String;Lkotlin/jvm/functions/Function2;)V
 	public final fun component1 ()Ljava/lang/String;
 	public final fun component2 ()Lkotlin/jvm/functions/Function2;
 	public final fun copy (Ljava/lang/String;Lkotlin/jvm/functions/Function2;)Lch/tutteli/atrium/api/infix/en_GB/creating/feature/FailureDescriptionWithCreator;
@@ -752,6 +760,7 @@ public final class ch/tutteli/atrium/api/infix/en_GB/creating/feature/FailureDes
 }
 
 public final class ch/tutteli/atrium/api/infix/en_GB/creating/feature/Feature {
+	public fun <init> (Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;)V
 	public final fun component1 ()Lkotlin/jvm/functions/Function1;
 	public final fun component2 ()Lkotlin/jvm/functions/Function1;
 	public final fun copy (Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/api/infix/en_GB/creating/feature/Feature;
@@ -764,6 +773,7 @@ public final class ch/tutteli/atrium/api/infix/en_GB/creating/feature/Feature {
 }
 
 public final class ch/tutteli/atrium/api/infix/en_GB/creating/feature/FeatureWithCreator {
+	public fun <init> (Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;)V
 	public final fun component1 ()Lkotlin/jvm/functions/Function1;
 	public final fun component2 ()Lkotlin/jvm/functions/Function1;
 	public final fun component3 ()Lkotlin/jvm/functions/Function1;
@@ -796,6 +806,7 @@ public final class ch/tutteli/atrium/api/infix/en_GB/creating/feature/MetaFeatur
 }
 
 public final class ch/tutteli/atrium/api/infix/en_GB/creating/feature/MetaFeatureOptionWithCreator {
+	public fun <init> (Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function1;)V
 	public final fun component1 ()Lkotlin/jvm/functions/Function2;
 	public final fun component2 ()Lkotlin/jvm/functions/Function1;
 	public final fun copy (Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/api/infix/en_GB/creating/feature/MetaFeatureOptionWithCreator;
@@ -850,6 +861,7 @@ public final class ch/tutteli/atrium/api/infix/en_GB/creating/map/KeyValues : ch
 }
 
 public final class ch/tutteli/atrium/api/infix/en_GB/creating/map/KeyWithValueCreator {
+	public fun <init> (Ljava/lang/Object;Lkotlin/jvm/functions/Function1;)V
 	public final fun component1 ()Ljava/lang/Object;
 	public final fun component2 ()Lkotlin/jvm/functions/Function1;
 	public final fun copy (Ljava/lang/Object;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/api/infix/en_GB/creating/map/KeyWithValueCreator;
@@ -873,6 +885,7 @@ public final class ch/tutteli/atrium/api/infix/en_GB/creating/path/DirectoryEntr
 }
 
 public final class ch/tutteli/atrium/api/infix/en_GB/creating/path/PathWithCreator {
+	public fun <init> (Ljava/lang/String;Lkotlin/jvm/functions/Function1;)V
 	public final fun component1 ()Ljava/lang/String;
 	public final fun component2 ()Lkotlin/jvm/functions/Function1;
 	public final fun copy (Ljava/lang/String;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/api/infix/en_GB/creating/path/PathWithCreator;
@@ -885,6 +898,7 @@ public final class ch/tutteli/atrium/api/infix/en_GB/creating/path/PathWithCreat
 }
 
 public final class ch/tutteli/atrium/api/infix/en_GB/creating/path/PathWithEncoding {
+	public fun <init> (Ljava/nio/file/Path;Ljava/nio/charset/Charset;Ljava/nio/charset/Charset;)V
 	public final fun component1 ()Ljava/nio/file/Path;
 	public final fun component2 ()Ljava/nio/charset/Charset;
 	public final fun component3 ()Ljava/nio/charset/Charset;
@@ -899,6 +913,7 @@ public final class ch/tutteli/atrium/api/infix/en_GB/creating/path/PathWithEncod
 }
 
 public final class ch/tutteli/atrium/api/infix/en_GB/creating/thirdparty/DescriptionRepresentationWithExecutor {
+	public fun <init> (Ljava/lang/String;Ljava/lang/Object;Lkotlin/jvm/functions/Function1;)V
 	public final fun component1 ()Ljava/lang/String;
 	public final fun component2 ()Ljava/lang/Object;
 	public final fun component3 ()Lkotlin/jvm/functions/Function1;

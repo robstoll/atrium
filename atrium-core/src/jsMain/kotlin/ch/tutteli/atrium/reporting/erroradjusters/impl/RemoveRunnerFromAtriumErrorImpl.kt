@@ -14,7 +14,7 @@ actual class RemoveRunnerFromAtriumErrorImpl : FilterAtriumErrorAdjuster(), Remo
                 // kotlin 1.3
                 """([\\|/]node_modules[\\|/](mocha|jasmine|jest)[\\|/])|""" +
                 // intellij specific
-                """(node_modules[\\|/]src[\\|/]KotlinTestTeamCityConsoleAdapter\.ts)"""
+                """(node_modules[\\|/].*[\\|/]src[\\|/]KotlinTestTeamCityConsoleAdapter\.ts)"""
         )
     }
 }

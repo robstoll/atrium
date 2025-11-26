@@ -38,7 +38,7 @@ abstract class TextMethodCallFormatterSpec(
 
             context("two arguments of type Int and Float") {
                 it("returns the name of the method, followed by the first and second argument in parentheses and separated by a comma") {
-                    val result = testee.formatCall("withArg2", arrayOf(1, 1.2))
+                    val result = testee.formatCall("withArg2", arrayOf<Any>(1, 1.2))
                     expect(result).toEqual("withArg2(1, 1.2)")
                 }
             }

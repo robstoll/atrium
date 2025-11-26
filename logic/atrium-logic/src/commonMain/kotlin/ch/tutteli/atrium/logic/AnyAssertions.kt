@@ -25,11 +25,10 @@ interface AnyAssertions {
         subType: KClass<T>
     ): SubjectChangerBuilder.ExecutionStep<T?, T>
 
-    @Suppress("BOUNDS_NOT_ALLOWED_IF_BOUNDED_BY_TYPE_PARAMETER")
     fun <T, SubTypeOfT> isA(
         container: AssertionContainer<T>,
         subType: KClass<SubTypeOfT>
-    ): SubjectChangerBuilder.ExecutionStep<T, SubTypeOfT> where SubTypeOfT : Any, SubTypeOfT : T
+    ): SubjectChangerBuilder.ExecutionStep<T, SubTypeOfT> where SubTypeOfT : T & Any
 
     fun <T> isNotIn(container: AssertionContainer<T>, expected: Iterable<T>): Assertion
 

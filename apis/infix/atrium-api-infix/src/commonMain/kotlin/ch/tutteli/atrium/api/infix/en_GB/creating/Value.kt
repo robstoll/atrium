@@ -8,6 +8,6 @@ import ch.tutteli.atrium.logic.utils.Group
  * Use the function `value(t)` to create this representation.
  */
 //TODO 2.0.0 remove data?
-data class Value<out T> internal constructor(val expected: T) : Group<T> {
+data class Value<out T> (val expected: T) : Group<T> {
     override fun toList() = listOf(expected)
 }

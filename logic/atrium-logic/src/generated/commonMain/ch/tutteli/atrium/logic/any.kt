@@ -23,8 +23,7 @@ fun <T : Any> AssertionContainer<T?>.toBeNullIfNullGivenElse(assertionCreatorOrN
 
 fun <T : Any> AssertionContainer<T?>.notToBeNullButOfType(subType: KClass<T>): SubjectChangerBuilder.ExecutionStep<T?, T> = impl.notToBeNullButOfType(this, subType)
 
-    @Suppress("BOUNDS_NOT_ALLOWED_IF_BOUNDED_BY_TYPE_PARAMETER")
-fun <T, SubTypeOfT> AssertionContainer<T>.isA(subType: KClass<SubTypeOfT>): SubjectChangerBuilder.ExecutionStep<T, SubTypeOfT> where SubTypeOfT : Any, SubTypeOfT : T = impl.isA(this, subType)
+fun <T, SubTypeOfT> AssertionContainer<T>.isA(subType: KClass<SubTypeOfT>): SubjectChangerBuilder.ExecutionStep<T, SubTypeOfT> where SubTypeOfT : T & Any = impl.isA(this, subType)
 
 fun <T> AssertionContainer<T>.isNotIn(expected: Iterable<T>): Assertion = impl.isNotIn(this, expected)
 

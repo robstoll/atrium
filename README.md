@@ -345,7 +345,7 @@ expect {
 ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/main/misc/tools/readme-examples/src/test/kotlin/readme/examples/ToThrowExamples.kt#L15)</sub> ↓ <sub>[Output](#ex-toThrow1)</sub>
 <a name="ex-toThrow1"></a>
 ```text
-I expected subject: () -> kotlin.Nothing        (readme.examples.ToThrowExamples$ex-toThrow1$1 <1234789>)
+I expected subject: readme.examples.ToThrowExamples$ex-toThrow1$1@126f428e        (readme.examples.ToThrowExamples$ex-toThrow1$1 <1234789>)
 ◆ ▶ thrown exception when called: java.lang.IllegalArgumentException
     ◾ to be an instance of type: IllegalStateException (java.lang.IllegalStateException)
     ℹ Properties of the unexpected IllegalArgumentException
@@ -387,7 +387,7 @@ expect {
 ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/main/misc/tools/readme-examples/src/test/kotlin/readme/examples/ToThrowExamples.kt#L23)</sub> ↓ <sub>[Output](#ex-toThrow2)</sub>
 <a name="ex-toThrow2"></a>
 ```text
-I expected subject: () -> kotlin.Nothing        (readme.examples.ToThrowExamples$ex-toThrow2$1 <1234789>)
+I expected subject: readme.examples.ToThrowExamples$ex-toThrow2$1@7e4f5062        (readme.examples.ToThrowExamples$ex-toThrow2$1 <1234789>)
 ◆ ▶ thrown exception when called: java.lang.IllegalArgumentException
     ◾ ▶ message: null
         ◾ not to equal: null but to be an instance of: String (kotlin.String) -- Class: java.lang.String
@@ -408,7 +408,7 @@ expect {
 ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/main/misc/tools/readme-examples/src/test/kotlin/readme/examples/ToThrowExamples.kt#L32)</sub> ↓ <sub>[Output](#ex-toThrow3)</sub>
 <a name="ex-toThrow3"></a>
 ```text
-I expected subject: () -> kotlin.Nothing        (readme.examples.ToThrowExamples$ex-toThrow3$1 <1234789>)
+I expected subject: readme.examples.ToThrowExamples$ex-toThrow3$1@71702d3f        (readme.examples.ToThrowExamples$ex-toThrow3$1 <1234789>)
 ◆ ▶ thrown exception when called: java.lang.IllegalArgumentException
     ◾ ▶ message: null
         ◾ not to equal: null but to be an instance of: String (kotlin.String) -- Class: java.lang.String
@@ -431,7 +431,7 @@ expect {
 ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/main/misc/tools/readme-examples/src/test/kotlin/readme/examples/ToThrowExamples.kt#L39)</sub> ↓ <sub>[Output](#ex-notToThrow)</sub>
 <a name="ex-notToThrow"></a>
 ```text
-I expected subject: () -> kotlin.Nothing        (readme.examples.ToThrowExamples$ex-notToThrow$1 <1234789>)
+I expected subject: readme.examples.ToThrowExamples$ex-notToThrow$1@751f445a        (readme.examples.ToThrowExamples$ex-notToThrow$1 <1234789>)
 ◆ ▶ invoke(): ❗❗ threw java.lang.IllegalArgumentException
     ℹ Properties of the unexpected IllegalArgumentException
       » message: "name is empty"        <1234789>
@@ -1769,8 +1769,7 @@ to be greater than or equal to:
   0
 "        <1234789>
     » stacktrace: 
-      ⚬ readme.examples.ThirdPartyExamples$ex-third-party-2$notToBeNegative$1.invoke(ThirdPartyExamples.kt:38)
-      ⚬ readme.examples.ThirdPartyExamples$ex-third-party-2$notToBeNegative$1.invoke(ThirdPartyExamples.kt:36)
+      ⚬ readme.examples.ThirdPartyExamples.ex_third_party_2$notToBeNegative$lambda$0(ThirdPartyExamples.kt:38)
       ⚬ readme.examples.ThirdPartyExamples.ex_third_party_2$notToBeNegative(ThirdPartyExamples.kt:36)
       ⚬ readme.examples.ThirdPartyExamples.ex-third-party-2(ThirdPartyExamples.kt:48)
       ⚬ java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
@@ -2101,7 +2100,7 @@ expect {
 ↑ <sub>[Example](https://github.com/robstoll/atrium/tree/main/misc/tools/readme-examples/src/test/kotlin/readme/examples/MostExamples.kt#L112)</sub> ↓ <sub>[Output](#ex-add-info-3)</sub>
 <a name="ex-add-info-3"></a>
 ```text
-I expected subject: () -> kotlin.Nothing        (readme.examples.MostExamples$ex-add-info-3$1 <1234789>)
+I expected subject: readme.examples.MostExamples$ex-add-info-3$1@644eed73        (readme.examples.MostExamples$ex-add-info-3$1 <1234789>)
 ◆ ▶ thrown exception when called: java.lang.IllegalArgumentException
     ◾ to be an instance of type: IllegalStateException (java.lang.IllegalStateException)
       » ▶ message: 
@@ -2310,8 +2309,7 @@ I expected subject: MyDomainModel(alpha1=1204)        (readme.examples.ThirdPart
     » message: "threshold value for alpha1 exceeded, expected <= 1000, was 1204"        <1234789>
     » stacktrace: 
       ⚬ readme.examples.ThirdPartyExamples.validateMaxThreshold(ThirdPartyExamples.kt:75)
-      ⚬ readme.examples.ThirdPartyExamples$ex-third-party-10$toComplyValidation$1.invoke(ThirdPartyExamples.kt:83)
-      ⚬ readme.examples.ThirdPartyExamples$ex-third-party-10$toComplyValidation$1.invoke(ThirdPartyExamples.kt:81)
+      ⚬ readme.examples.ThirdPartyExamples.ex_third_party_10$toComplyValidation$lambda$0(ThirdPartyExamples.kt:83)
       ⚬ readme.examples.ThirdPartyExamples.ex_third_party_10$toComplyValidation(ThirdPartyExamples.kt:81)
       ⚬ readme.examples.ThirdPartyExamples.ex-third-party-10(ThirdPartyExamples.kt:87)
       ⚬ java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
