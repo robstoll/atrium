@@ -5,7 +5,7 @@
 //  \__/\__/\_, /\___/_//_/\_,_/_/         It is licensed under Apache License 2.0
 //         /___/                           Please report bugs and contribute back your improvements
 //
-//                                         Version: v4.2.0
+//                                         Version: v5.0.2
 //##################################
 // adapted version of https://github.com/vlsi/github-actions-random-matrix/blob/main/examples/matrix.js
 // licensed under Apache License 2.0
@@ -32,7 +32,7 @@ const javaDistributionAxis = {
 	]
 };
 
-const javaVersionAxis = javaVersionAxisBuilder(['11', '17', '21']);
+const javaVersionAxis = javaVersionAxisBuilder(['11', '17', '21', '25']);
 
 function javaVersionAxisBuilder(values){
 	return {
@@ -83,19 +83,12 @@ function configureJavaDefaults(matrix, distributionAxis = javaDistributionAxis, 
 	generateUbuntuWindowsRows(matrix);
 }
 
-function configureKotlinDefaults(matrix) {
-	const kotlinJavaDistributionAxis = {
-		...javaDistributionAxis,
-		values: javaDistributionAxis.values.filter ( x =>
-			// seems to have problems with kotlin https://youtrack.jetbrains.com/issue/KT-61836
-			x != 'semeru'
-		)
-	};
-	configureJavaDefaults(matrix, kotlinJavaDistributionAxis);
+function configureKotlinDefaults(matrix, distributionAxis = javaDistributionAxis, versionAxis = javaVersionAxis, operatingSystemAxis = osAxis) {
+	configureJavaDefaults(matrix, distributionAxis, versionAxis, operatingSystemAxis);
 }
 
-function configureScalaDefaults(matrix) {
-	configureJavaDefaults(matrix);
+function configureScalaDefaults(matrix, distributionAxis = javaDistributionAxis, versionAxis = javaVersionAxis, operatingSystemAxis = osAxis) {
+	configureJavaDefaults(matrix, distributionAxis, versionAxis, operatingSystemAxis);
 }
 
 // see https://github.com/actions/toolkit/issues/1218
