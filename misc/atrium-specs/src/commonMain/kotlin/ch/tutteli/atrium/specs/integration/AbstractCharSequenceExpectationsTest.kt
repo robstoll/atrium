@@ -2,8 +2,11 @@ package ch.tutteli.atrium.specs.integration
 
 import ch.tutteli.atrium.api.fluent.en_GB.message
 import ch.tutteli.atrium.api.fluent.en_GB.messageToContain
+import ch.tutteli.atrium.api.fluent.en_GB.toBeLessThan
 import ch.tutteli.atrium.api.fluent.en_GB.toEndWith
 import ch.tutteli.atrium.api.fluent.en_GB.toThrow
+import ch.tutteli.atrium.api.verbs.internal.expect
+import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.specs.integration.CharSequenceToContainSpecBase.Companion.helloMyNameIsRobert
 import ch.tutteli.atrium.testfactories.TestFactory
@@ -20,6 +23,8 @@ abstract class AbstractCharSequenceExpectationsTest(
     private val notToEndWithSpec: Fun1<CharSequence, CharSequence>,
     private val toMatchSpec: Fun1<CharSequence, Regex>,
     private val notToMatchSpec: Fun1<CharSequence, Regex>,
+    private val lengthFeatureSpec: Feature0<CharSequence, Int>,
+    private val lengthSpec: Fun1<CharSequence, Expect<Int>.() -> Unit>
 ) : ExpectationFunctionBaseTest() {
 
     @TestFactory
@@ -32,8 +37,27 @@ abstract class AbstractCharSequenceExpectationsTest(
         toEndWithSpec.forSubjectLessTest(""),
         notToEndWithSpec.forSubjectLessTest(""),
         toMatchSpec.forSubjectLessTest(Regex("")),
-        notToMatchSpec.forSubjectLessTest(Regex(""))
+        notToMatchSpec.forSubjectLessTest(Regex("")),
+        lengthFeatureSpec.forSubjectLessTest(),
+        lengthSpec.forSubjectLessTest { toBeLessThan(1) }
     )
+
+    @TestFactory
+    fun length_feature_and_function() = testFactoryForFeatureNonFeature(
+        lengthFeatureSpec,
+        lengthSpec
+    ) { name: String, lengthFun, hasExtraHint ->
+        it("$name - passes") {
+            expect("Hello" as CharSequence).lengthFun { toBeLessThan(30) }
+        }
+        it("$name - fails") {
+            expect {
+                expect("Hi" as CharSequence).lengthFun { toBeLessThan(2) }
+            }.toThrow<AssertionError> {
+                messageToContain("length: 2", "$toBeLessThanDescr: 2")
+            }
+        }
+    }
 
     val emptyString: CharSequence = ""
     val blankString: CharSequence = "   "

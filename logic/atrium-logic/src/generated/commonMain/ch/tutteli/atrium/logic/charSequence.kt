@@ -13,6 +13,7 @@ import ch.tutteli.atrium.logic.creating.charsequence.contains.searchbehaviours.N
 import ch.tutteli.atrium.logic.creating.charsequence.contains.searchbehaviours.NotSearchBehaviour
 import ch.tutteli.atrium.logic.creating.charsequence.contains.steps.NotCheckerStep
 import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
+import ch.tutteli.atrium.logic.creating.transformers.FeatureExtractorBuilder
 import ch.tutteli.atrium.logic.impl.DefaultCharSequenceAssertions
 
 
@@ -37,6 +38,7 @@ fun <T : CharSequence> AssertionContainer<T>.isNotBlank(): Assertion = impl.isNo
 
 fun <T : CharSequence> AssertionContainer<T>.matches(expected: Regex): Assertion = impl.matches(this, expected)
 fun <T : CharSequence> AssertionContainer<T>.mismatches(expected: Regex): Assertion = impl.mismatches(this, expected)
+fun <T : CharSequence> AssertionContainer<T>.length(): FeatureExtractorBuilder.ExecutionStep<T, Int> = impl.length(this)
 
 @OptIn(ExperimentalNewExpectTypes::class)
 private inline val <T> AssertionContainer<T>.impl: CharSequenceAssertions
