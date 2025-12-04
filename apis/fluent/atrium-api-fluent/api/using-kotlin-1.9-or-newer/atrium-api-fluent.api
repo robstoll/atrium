@@ -65,6 +65,11 @@ public final class ch/tutteli/atrium/api/fluent/en_GB/CharSequenceExpectationsKt
 	public static final fun toStartWith (Lch/tutteli/atrium/creating/Expect;Ljava/lang/CharSequence;)Lch/tutteli/atrium/creating/Expect;
 }
 
+public final class ch/tutteli/atrium/api/fluent/en_GB/CharSequenceFeatureExtractorsKt {
+	public static final fun getLength (Lch/tutteli/atrium/creating/Expect;)Lch/tutteli/atrium/creating/Expect;
+	public static final fun length (Lch/tutteli/atrium/creating/Expect;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/creating/Expect;
+}
+
 public final class ch/tutteli/atrium/api/fluent/en_GB/CharSequenceToContainCheckersKt {
 	public static final fun atLeast (Lch/tutteli/atrium/logic/creating/charsequence/contains/CharSequenceContains$EntryPointStep;I)Lch/tutteli/atrium/logic/creating/charsequence/contains/steps/AtLeastCheckerStep;
 	public static final fun atMost (Lch/tutteli/atrium/logic/creating/charsequence/contains/CharSequenceContains$EntryPointStep;I)Lch/tutteli/atrium/logic/creating/charsequence/contains/steps/AtMostCheckerStep;

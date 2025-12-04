@@ -6,6 +6,7 @@ import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.logic.CharSequenceAssertions
 import ch.tutteli.atrium.logic._logic
 import ch.tutteli.atrium.logic.createDescriptiveAssertion
+import ch.tutteli.atrium.logic.creating.transformers.FeatureExtractorBuilder
 import ch.tutteli.atrium.logic.creating.charsequence.contains.CharSequenceContains
 import ch.tutteli.atrium.logic.creating.charsequence.contains.searchbehaviours.NoOpSearchBehaviour
 import ch.tutteli.atrium.logic.creating.charsequence.contains.searchbehaviours.NotSearchBehaviour
@@ -14,6 +15,7 @@ import ch.tutteli.atrium.logic.creating.charsequence.contains.searchbehaviours.i
 import ch.tutteli.atrium.logic.creating.charsequence.contains.steps.NotCheckerStep
 import ch.tutteli.atrium.logic.creating.charsequence.contains.steps.impl.EntryPointStepImpl
 import ch.tutteli.atrium.logic.creating.charsequence.contains.steps.notCheckerStep
+import ch.tutteli.atrium.logic.property
 import ch.tutteli.atrium.translations.DescriptionBasic.NOT_TO_BE
 import ch.tutteli.atrium.translations.DescriptionBasic.TO_BE
 import ch.tutteli.atrium.translations.DescriptionCharSequenceExpectation.*
@@ -55,4 +57,7 @@ class DefaultCharSequenceAssertions : CharSequenceAssertions {
 
     override fun <T : CharSequence> mismatches(container: AssertionContainer<T>, expected: Regex): Assertion =
         container.createDescriptiveAssertion(NOT_TO_MATCH, expected) { !it.matches(expected) }
+
+    override fun <T : CharSequence> length(container: AssertionContainer<T>): FeatureExtractorBuilder.ExecutionStep<T, Int> =
+        container.property(CharSequence::length)
 }

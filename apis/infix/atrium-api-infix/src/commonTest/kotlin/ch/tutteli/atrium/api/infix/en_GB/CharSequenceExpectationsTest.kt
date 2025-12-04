@@ -4,6 +4,7 @@ import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.fun1
 import ch.tutteli.atrium.specs.integration.AbstractCharSequenceExpectationsTest
+import ch.tutteli.atrium.specs.property
 import kotlin.test.Test
 
 class CharSequenceExpectationsTest : AbstractCharSequenceExpectationsTest(
@@ -15,15 +16,18 @@ class CharSequenceExpectationsTest : AbstractCharSequenceExpectationsTest(
     fun1(Expect<CharSequence>::toEndWith),
     fun1(Expect<CharSequence>::notToEndWith),
     fun1(Expect<CharSequence>::toMatch),
-    fun1(Expect<CharSequence>::notToMatch)
+    fun1(Expect<CharSequence>::notToMatch),
+    property(Expect<CharSequence>::length),
+    fun1(Expect<CharSequence>::length)
 ) {
+
     companion object {
         private fun toBeEmpty(expect: Expect<CharSequence>) = expect toBe empty
         private fun notToBeEmpty(expect: Expect<CharSequence>) = expect notToBe empty
         private fun notToBeBlank(expect: Expect<CharSequence>) = expect notToBe blank
     }
 
-    @Suppress("AssignedValueIsNeverRead", "UNUSED_VALUE")
+    @Suppress("UNUSED_VARIABLE", "UNUSED_VALUE", "unused")
     @Test
     fun ambiguityTest() {
         var a1: Expect<String> = expect("Hello my name is Robert")
@@ -41,5 +45,11 @@ class CharSequenceExpectationsTest : AbstractCharSequenceExpectationsTest(
 
         a1 = a1 toMatch Regex(".+Robert")
         a1 = a1 notToMatch Regex("a")
+
+        a1 = a1 length { it toEqual 23 }
+        a2 = a2 length { it toEqual 0 }
+
+        val l1: Expect<Int> = a1.length
+        val l2: Expect<Int> = a2.length
     }
 }
