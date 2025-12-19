@@ -3,8 +3,8 @@ package ch.tutteli.atrium.api.infix.en_GB
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.notImplemented
 
-class IterableToContainInAnyOrderNotOrAtMostValuesExpectationsSpec :
-    ch.tutteli.atrium.specs.integration.IterableToContainInAnyOrderNotOrAtMostValuesExpectationsSpec(
+class IterableToContainInAnyOrderNotOrAtMostValuesExpectationsTest :
+    ch.tutteli.atrium.specs.integration.AbstractIterableToContainInAnyOrderNotOrAtMostValuesExpectationsTest(
         getNotOrAtMostTriple(),
         getNotToContainPair()
     ) {
