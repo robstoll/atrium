@@ -1,10 +1,11 @@
 package ch.tutteli.atrium.api.infix.en_GB
 
+import ch.tutteli.atrium.api.verbs.expect
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.specs.notImplemented
+import kotlin.test.Test
 
-class IterableToContainInAnyOrderNotOrAtMostValuesExpectationsSpec :
-    ch.tutteli.atrium.specs.integration.IterableToContainInAnyOrderNotOrAtMostValuesExpectationsSpec(
+class IterableToContainInAnyOrderNotOrAtMostValuesExpectationsTest :
+    ch.tutteli.atrium.specs.integration.AbstractIterableToContainInAnyOrderNotOrAtMostValuesExpectationsTest(
         getNotOrAtMostTriple(),
         getNotToContainPair()
     ) {
@@ -30,21 +31,21 @@ class IterableToContainInAnyOrderNotOrAtMostValuesExpectationsSpec :
     }
 
     @Suppress("unused", "UNUSED_VALUE")
-    private fun ambiguityTest() {
-        var list: Expect<List<Number>> = notImplemented()
-        var nList: Expect<Set<Number?>> = notImplemented()
-        var subList: Expect<ArrayList<Number>> = notImplemented()
-        var star: Expect<Collection<*>> = notImplemented()
+    @Test
+    fun ambiguityTest() {
+        var list: Expect<List<Number>> = expect(listOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10))
+        var nList: Expect<Set<Number?>> = expect(setOf(1, 2, null, 6))
+        var subList: Expect<ArrayList<Number>> = expect(ArrayList(listOf(1, 2)))
+        var star: Expect<Collection<*>> = expect(listOf(1, "two", 3, 4.0))
 
         list = list toContain o inAny order notOrAtMost 1 value 1
         nList = nList toContain o inAny order notOrAtMost 1 value 1
         subList = subList toContain o inAny order notOrAtMost 1 value 1
         star = star toContain o inAny order notOrAtMost 1 value 1
 
-        //TODO type parameter should not be necessary, check with Kotlin 1.4
-        list = list toContain o inAny order notOrAtMost 1 the values<Number>(1, 1.2)
-        nList = nList toContain o inAny order notOrAtMost 1 the values<Number>(1, 1.2)
-        subList = subList toContain o inAny order notOrAtMost 1 the values<Number>(1, 2.2)
+        list = list toContain o inAny order notOrAtMost 1 the values(1, 1.2)
+        nList = nList toContain o inAny order notOrAtMost 1 the values(1, 1.2)
+        subList = subList toContain o inAny order notOrAtMost 1 the values(1, 2.2)
         star = star toContain o inAny order notOrAtMost 1 the values(1, 1.2, "asdf")
     }
 }
