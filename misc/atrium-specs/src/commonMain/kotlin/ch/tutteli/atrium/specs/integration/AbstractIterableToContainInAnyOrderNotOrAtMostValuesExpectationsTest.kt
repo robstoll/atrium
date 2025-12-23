@@ -31,7 +31,7 @@ abstract class AbstractIterableToContainInAnyOrderNotOrAtMostValuesExpectationsT
     val errorMsgContainsNot = notToContainPair.second
 
     @TestFactory
-    fun test_throws_an_illegalArgumentException() = testFactory(notToContainOrAtMostSpec) {
+    fun illegalAtMost__throws() = testFactory(notToContainOrAtMostSpec) {
         it ("for not at all or at most -1 -- only positive numbers") {
             expect {
                 expect(oneToSeven()).notToContainOrAtMostFun(-1, 0.1)
@@ -45,25 +45,25 @@ abstract class AbstractIterableToContainInAnyOrderNotOrAtMostValuesExpectationsT
     }
 
     @TestFactory
-    fun test_happy_case() = testFactory(notToContainOrAtMostSpec) {
+    fun one_to_seven__happy_cases() = testFactory(notToContainOrAtMostSpec) {
         it("${notToContainOrAtMostPairSpec.first("1.1", "once")} does not throw") {
-            ch.tutteli.atrium.api.verbs.internal.expect(oneToSeven()).notToContainOrAtMostFun(1, 1.1)
+            expect(oneToSeven()).notToContainOrAtMostFun(1, 1.1)
         }
         it("${notToContainOrAtMostPairSpec.first("1.1 and 2.1 and 3.1", "once")} does not throw") {
-            ch.tutteli.atrium.api.verbs.internal.expect(oneToSeven()).notToContainOrAtMostFun(1, 1.1, 2.1, 3.1)
+            expect(oneToSeven()).notToContainOrAtMostFun(1, 1.1, 2.1, 3.1)
         }
         it("${notToContainOrAtMostPairSpec.first("3.1 and 1.1 and 2.1", "once")} does not throw") {
-            ch.tutteli.atrium.api.verbs.internal.expect(oneToSeven()).notToContainOrAtMostFun(1, 3.1, 1.1, 2.1)
+            expect(oneToSeven()).notToContainOrAtMostFun(1, 3.1, 1.1, 2.1)
         }
         it("${notToContainOrAtMostPairSpec.first("21.1 and 34.1 and 11.23", "twice")}  does not throw") {
-            ch.tutteli.atrium.api.verbs.internal.expect(oneToSeven()).notToContainOrAtMostFun(2, 21.1, 34.1, 11.23)
+            expect(oneToSeven()).notToContainOrAtMostFun(2, 21.1, 34.1, 11.23)
         }
     }
 
     @TestFactory
-    fun test_failure_cases() = testFactory(notToContainOrAtMostSpec) {
+    fun one_to_seven__failure_cases() = testFactory(notToContainOrAtMostSpec) {
         it("${notToContainOrAtMostPairSpec.first("4.1", "once")} throws AssertionError") {
-            ch.tutteli.atrium.api.verbs.internal.expect {
+            expect {
                 expect(oneToSeven()).notToContainOrAtMostFun(1, 4.1)
             }.toThrow<AssertionError> { messageToContain("$atMostDescr: 1", "$anElementWhichEquals: 4.1") }
         }
@@ -78,10 +78,12 @@ abstract class AbstractIterableToContainInAnyOrderNotOrAtMostValuesExpectationsT
             }
         }
         it(
-            "${notToContainOrAtMostPairSpec.first(
-                "4.1, 1.1",
-                "once"
-            )} once throws AssertionError mentioning only 4.1"
+            "${
+                notToContainOrAtMostPairSpec.first(
+                    "4.1, 1.1",
+                    "once"
+                )
+            } once throws AssertionError mentioning only 4.1"
         ) {
             expect {
                 expect(oneToSeven()).notToContainOrAtMostFun(1, 4.1, 1.1)
@@ -110,13 +112,17 @@ abstract class AbstractIterableToContainInAnyOrderNotOrAtMostValuesExpectationsT
                 }
             }
         }
+    }
+
+    @TestFactory
+    fun one_to_seven__multiple_occurrences_of_the_search_string() = testFactory(notToContainOrAtMostSpec) {
         it(
             "${notToContainOrAtMostPairSpec.first(
                 "5.1",
                 "once"
             )} throws AssertionError and message contains both, how many times we expected (1) and how many times it actually contained 5.1 (2)"
         ) {
-            ch.tutteli.atrium.api.verbs.internal.expect {
+            expect {
                 expect(oneToSeven()).notToContainOrAtMostFun(1, 5.1)
             }.toThrow<AssertionError> {
                 message {
