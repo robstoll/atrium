@@ -43,10 +43,9 @@ class IterableToContainInAnyOrderNotOrAtMostValuesExpectationsTest :
         subList = subList toContain o inAny order notOrAtMost 1 value 1
         star = star toContain o inAny order notOrAtMost 1 value 1
 
-        //TODO type parameter should not be necessary, check with Kotlin 1.4
-        list = list toContain o inAny order notOrAtMost 1 the values<Number>(1, 1.2)
-        nList = nList toContain o inAny order notOrAtMost 1 the values<Number>(1, 1.2)
-        subList = subList toContain o inAny order notOrAtMost 1 the values<Number>(1, 2.2)
+        list = list toContain o inAny order notOrAtMost 1 the values(1, 1.2)
+        nList = nList toContain o inAny order notOrAtMost 1 the values(1, 1.2)
+        subList = subList toContain o inAny order notOrAtMost 1 the values(1, 2.2)
         star = star toContain o inAny order notOrAtMost 1 the values(1, 1.2, "asdf")
     }
 }
