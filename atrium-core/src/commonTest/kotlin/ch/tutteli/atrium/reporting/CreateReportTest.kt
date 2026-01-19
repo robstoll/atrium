@@ -765,6 +765,41 @@ class CreateReportTest {
     }
 
     @Test
+    fun proofExplanation_With_UsageHint() {
+        val builder = buildRootGroup {
+            proofGroup(Text("not to contain"), Text.EMPTY) {
+                invisibleFailingProofGroup {
+                    proofExplanation {
+                        simpleProof(Text("to be greater than"), 2) { false }
+                        usageHintGroup {
+                            add(ErrorMessages.FORGOT_DO_DEFINE_EXPECTATION)
+                            addAll(defaultHintsAtLeastOneExpectationDefined)
+                        }
+                    }
+                }
+            }
+        }
+
+        expectForReporterWithoutAnsi(
+            builder,
+            """
+        |a verb : "representation"
+        |(f) not to contain       :${' '}
+        |    » to be greater than : 2
+        """.trimMargin()
+        )
+
+        expectForReporterWithAnsi(
+            builder,
+            """
+        |a verb : "representation"
+        |$x not to contain       :${' '}
+        |   » to be greater than : 2
+        """.trimMargin()
+        )
+    }
+
+    @Test
     fun row_withIconAndWithoutBorder() {
         val builder = buildRootGroup {
             simpleProof(Text("to equal"), 0) { false }
