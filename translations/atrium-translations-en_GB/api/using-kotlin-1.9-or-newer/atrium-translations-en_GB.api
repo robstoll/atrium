@@ -9,7 +9,6 @@ public final class ch/tutteli/atrium/translations/DescriptionAnyExpectation : ja
 	public static final field TO_BE_THE_INSTANCE Lch/tutteli/atrium/translations/DescriptionAnyExpectation;
 	public static final field TO_EQUAL Lch/tutteli/atrium/translations/DescriptionAnyExpectation;
 	public fun getDefault ()Ljava/lang/String;
-	public static fun getEntries ()Lkotlin/enums/EnumEntries;
 	public fun getId ()Ljava/lang/String;
 	public synthetic fun getName ()Ljava/lang/String;
 	public fun getString ()Ljava/lang/String;
@@ -28,7 +27,6 @@ public final class ch/tutteli/atrium/translations/DescriptionBasic : java/lang/E
 	public static final field TO_HAVE Lch/tutteli/atrium/translations/DescriptionBasic;
 	public static final field WAS Lch/tutteli/atrium/translations/DescriptionBasic;
 	public fun getDefault ()Ljava/lang/String;
-	public static fun getEntries ()Lkotlin/enums/EnumEntries;
 	public fun getId ()Ljava/lang/String;
 	public synthetic fun getName ()Ljava/lang/String;
 	public fun getString ()Ljava/lang/String;
@@ -44,7 +42,6 @@ public final class ch/tutteli/atrium/translations/DescriptionBigDecimalAssertion
 	public static final field IS_NOT_NUMERICALLY_EQUAL_TO Lch/tutteli/atrium/translations/DescriptionBigDecimalAssertion;
 	public static final field IS_NUMERICALLY_EQUAL_TO Lch/tutteli/atrium/translations/DescriptionBigDecimalAssertion;
 	public fun getDefault ()Ljava/lang/String;
-	public static fun getEntries ()Lkotlin/enums/EnumEntries;
 	public fun getId ()Ljava/lang/String;
 	public synthetic fun getName ()Ljava/lang/String;
 	public fun getString ()Ljava/lang/String;
@@ -74,7 +71,6 @@ public final class ch/tutteli/atrium/translations/DescriptionCharSequenceExpecta
 	public static final field TO_START_WITH Lch/tutteli/atrium/translations/DescriptionCharSequenceExpectation;
 	public static final field VALUE Lch/tutteli/atrium/translations/DescriptionCharSequenceExpectation;
 	public fun getDefault ()Ljava/lang/String;
-	public static fun getEntries ()Lkotlin/enums/EnumEntries;
 	public fun getId ()Ljava/lang/String;
 	public synthetic fun getName ()Ljava/lang/String;
 	public fun getString ()Ljava/lang/String;
@@ -87,7 +83,6 @@ public final class ch/tutteli/atrium/translations/DescriptionCollectionExpectati
 	public static final field EMPTY Lch/tutteli/atrium/translations/DescriptionCollectionExpectation;
 	public static final field SIZE Lch/tutteli/atrium/translations/DescriptionCollectionExpectation;
 	public fun getDefault ()Ljava/lang/String;
-	public static fun getEntries ()Lkotlin/enums/EnumEntries;
 	public fun getId ()Ljava/lang/String;
 	public synthetic fun getName ()Ljava/lang/String;
 	public fun getString ()Ljava/lang/String;
@@ -105,7 +100,6 @@ public final class ch/tutteli/atrium/translations/DescriptionComparableExpectati
 	public static final field TO_BE_LESS_THAN Lch/tutteli/atrium/translations/DescriptionComparableExpectation;
 	public static final field TO_BE_LESS_THAN_OR_EQUAL_TO Lch/tutteli/atrium/translations/DescriptionComparableExpectation;
 	public fun getDefault ()Ljava/lang/String;
-	public static fun getEntries ()Lkotlin/enums/EnumEntries;
 	public fun getId ()Ljava/lang/String;
 	public synthetic fun getName ()Ljava/lang/String;
 	public fun getString ()Ljava/lang/String;
@@ -126,7 +120,6 @@ public final class ch/tutteli/atrium/translations/DescriptionDateTimeLikeExpecta
 	public static final field TO_BE_THE_SAME_POINT_IN_TIME_AS Lch/tutteli/atrium/translations/DescriptionDateTimeLikeExpectation;
 	public static final field YEAR Lch/tutteli/atrium/translations/DescriptionDateTimeLikeExpectation;
 	public fun getDefault ()Ljava/lang/String;
-	public static fun getEntries ()Lkotlin/enums/EnumEntries;
 	public fun getId ()Ljava/lang/String;
 	public synthetic fun getName ()Ljava/lang/String;
 	public fun getString ()Ljava/lang/String;
@@ -140,7 +133,6 @@ public final class ch/tutteli/atrium/translations/DescriptionFloatingPointExcept
 	public static final field TO_EQUAL_WITH_ERROR_TOLERANCE Lch/tutteli/atrium/translations/DescriptionFloatingPointException;
 	public static final field TO_EQUAL_WITH_ERROR_TOLERANCE_EXPLAINED Lch/tutteli/atrium/translations/DescriptionFloatingPointException;
 	public fun getDefault ()Ljava/lang/String;
-	public static fun getEntries ()Lkotlin/enums/EnumEntries;
 	public fun getId ()Ljava/lang/String;
 	public synthetic fun getName ()Ljava/lang/String;
 	public fun getString ()Ljava/lang/String;
@@ -154,7 +146,6 @@ public final class ch/tutteli/atrium/translations/DescriptionFunLikeExpectation 
 	public static final field THREW Lch/tutteli/atrium/translations/DescriptionFunLikeExpectation;
 	public static final field THROWN_EXCEPTION_WHEN_CALLED Lch/tutteli/atrium/translations/DescriptionFunLikeExpectation;
 	public fun getDefault ()Ljava/lang/String;
-	public static fun getEntries ()Lkotlin/enums/EnumEntries;
 	public fun getId ()Ljava/lang/String;
 	public synthetic fun getName ()Ljava/lang/String;
 	public fun getString ()Ljava/lang/String;
@@ -197,7 +188,6 @@ public final class ch/tutteli/atrium/translations/DescriptionIterableLikeExpecta
 	public static final field WARNING_MISMATCHES Lch/tutteli/atrium/translations/DescriptionIterableLikeExpectation;
 	public static final field WARNING_MISMATCHES_ADDITIONAL_ELEMENTS Lch/tutteli/atrium/translations/DescriptionIterableLikeExpectation;
 	public fun getDefault ()Ljava/lang/String;
-	public static fun getEntries ()Lkotlin/enums/EnumEntries;
 	public fun getId ()Ljava/lang/String;
 	public synthetic fun getName ()Ljava/lang/String;
 	public fun getString ()Ljava/lang/String;
@@ -209,7 +199,6 @@ public final class ch/tutteli/atrium/translations/DescriptionIterableLikeExpecta
 public final class ch/tutteli/atrium/translations/DescriptionListLikeExpectation : java/lang/Enum, ch/tutteli/atrium/reporting/translating/StringBasedTranslatable {
 	public static final field INDEX_OUT_OF_BOUNDS Lch/tutteli/atrium/translations/DescriptionListLikeExpectation;
 	public fun getDefault ()Ljava/lang/String;
-	public static fun getEntries ()Lkotlin/enums/EnumEntries;
 	public fun getId ()Ljava/lang/String;
 	public synthetic fun getName ()Ljava/lang/String;
 	public fun getString ()Ljava/lang/String;
@@ -230,7 +219,6 @@ public final class ch/tutteli/atrium/translations/DescriptionMapLikeExpectation 
 	public static final field TO_CONTAIN_KEY Lch/tutteli/atrium/translations/DescriptionMapLikeExpectation;
 	public static final field WARNING_ADDITIONAL_ENTRIES Lch/tutteli/atrium/translations/DescriptionMapLikeExpectation;
 	public fun getDefault ()Ljava/lang/String;
-	public static fun getEntries ()Lkotlin/enums/EnumEntries;
 	public fun getId ()Ljava/lang/String;
 	public synthetic fun getName ()Ljava/lang/String;
 	public fun getString ()Ljava/lang/String;
@@ -244,7 +232,6 @@ public final class ch/tutteli/atrium/translations/DescriptionOptionalAssertion :
 	public static final field GET Lch/tutteli/atrium/translations/DescriptionOptionalAssertion;
 	public static final field IS_NOT_PRESENT Lch/tutteli/atrium/translations/DescriptionOptionalAssertion;
 	public fun getDefault ()Ljava/lang/String;
-	public static fun getEntries ()Lkotlin/enums/EnumEntries;
 	public fun getId ()Ljava/lang/String;
 	public synthetic fun getName ()Ljava/lang/String;
 	public fun getString ()Ljava/lang/String;
@@ -291,7 +278,6 @@ public final class ch/tutteli/atrium/translations/DescriptionPathAssertion : jav
 	public static final field STARTS_WITH Lch/tutteli/atrium/translations/DescriptionPathAssertion;
 	public static final field WRITABLE Lch/tutteli/atrium/translations/DescriptionPathAssertion;
 	public fun getDefault ()Ljava/lang/String;
-	public static fun getEntries ()Lkotlin/enums/EnumEntries;
 	public fun getId ()Ljava/lang/String;
 	public synthetic fun getName ()Ljava/lang/String;
 	public fun getString ()Ljava/lang/String;
@@ -306,7 +292,6 @@ public final class ch/tutteli/atrium/translations/DescriptionResultExpectation :
 	public static final field IS_NOT_SUCCESS Lch/tutteli/atrium/translations/DescriptionResultExpectation;
 	public static final field VALUE Lch/tutteli/atrium/translations/DescriptionResultExpectation;
 	public fun getDefault ()Ljava/lang/String;
-	public static fun getEntries ()Lkotlin/enums/EnumEntries;
 	public fun getId ()Ljava/lang/String;
 	public synthetic fun getName ()Ljava/lang/String;
 	public fun getString ()Ljava/lang/String;
@@ -324,7 +309,6 @@ public final class ch/tutteli/atrium/translations/DescriptionThrowableExpectatio
 	public static final field OCCURRED_EXCEPTION_STACKTRACE Lch/tutteli/atrium/translations/DescriptionThrowableExpectation;
 	public static final field OCCURRED_EXCEPTION_SUPPRESSED Lch/tutteli/atrium/translations/DescriptionThrowableExpectation;
 	public fun getDefault ()Ljava/lang/String;
-	public static fun getEntries ()Lkotlin/enums/EnumEntries;
 	public fun getId ()Ljava/lang/String;
 	public synthetic fun getName ()Ljava/lang/String;
 	public fun getString ()Ljava/lang/String;
@@ -337,7 +321,6 @@ public final class ch/tutteli/atrium/translations/ErrorMessages : java/lang/Enum
 	public static final field DESCRIPTION_BASED_ON_SUBJECT Lch/tutteli/atrium/translations/ErrorMessages;
 	public static final field REPRESENTATION_BASED_ON_SUBJECT_NOT_DEFINED Lch/tutteli/atrium/translations/ErrorMessages;
 	public fun getDefault ()Ljava/lang/String;
-	public static fun getEntries ()Lkotlin/enums/EnumEntries;
 	public fun getId ()Ljava/lang/String;
 	public synthetic fun getName ()Ljava/lang/String;
 	public fun getString ()Ljava/lang/String;

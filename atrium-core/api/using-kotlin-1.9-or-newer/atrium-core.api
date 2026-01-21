@@ -1,3 +1,10 @@
+public final class ch/tutteli/atrium/CoreCharSequenceToContainKt {
+	public static final fun _coreAppend (Lch/tutteli/atrium/creating/proofs/charsequence/contains/CharSequenceToContain$CheckerStep;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/creating/Expect;
+	public static final fun get_core (Lch/tutteli/atrium/creating/proofs/charsequence/contains/CharSequenceToContain$CheckerStep;)Lch/tutteli/atrium/creating/proofs/charsequence/contains/CharSequenceToContain$CheckerStepCore;
+	public static final fun get_core (Lch/tutteli/atrium/creating/proofs/charsequence/contains/CharSequenceToContain$EntryPointStep;)Lch/tutteli/atrium/creating/proofs/charsequence/contains/CharSequenceToContain$EntryPointStepCore;
+	public static final fun get_core (Lch/tutteli/atrium/creating/proofs/charsequence/contains/steps/WithTimesCheckerStep;)Lch/tutteli/atrium/creating/proofs/charsequence/contains/steps/WithTimesCheckerStepCore;
+}
+
 public final class ch/tutteli/atrium/CoreKt {
 	public static final fun _coreAppend (Lch/tutteli/atrium/creating/Expect;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/creating/Expect;
 	public static final fun _coreAppend (Lch/tutteli/atrium/creating/ExpectGrouping;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/creating/ExpectGrouping;
@@ -761,7 +768,6 @@ public final class ch/tutteli/atrium/creating/ErrorMessages : java/lang/Enum, ch
 	public static final field FORGOT_DO_DEFINE_EXPECTATION Lch/tutteli/atrium/creating/ErrorMessages;
 	public static final field HINT_AT_LEAST_ONE_EXPECTATION_DEFINED Lch/tutteli/atrium/creating/ErrorMessages;
 	public fun getDefault ()Ljava/lang/String;
-	public static fun getEntries ()Lkotlin/enums/EnumEntries;
 	public fun getId ()Ljava/lang/String;
 	public synthetic fun getName ()Ljava/lang/String;
 	public fun getString ()Ljava/lang/String;
@@ -784,6 +790,10 @@ public final class ch/tutteli/atrium/creating/ExpectInternal$DefaultImpls {
 	public static fun createAndAppend (Lch/tutteli/atrium/creating/ExpectInternal;Ljava/lang/String;Ljava/lang/Object;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/creating/Expect;
 }
 
+public final class ch/tutteli/atrium/creating/ExpectationCreatorKt {
+	public static final fun expectationCreator (Lkotlin/jvm/functions/Function1;)Lkotlin/jvm/functions/Function1;
+}
+
 public final class ch/tutteli/atrium/creating/ExpectationCreatorWithUsageHints {
 	public fun <init> (Ljava/util/List;Lkotlin/jvm/functions/Function1;)V
 	public final fun component1 ()Ljava/util/List;
@@ -792,7 +802,7 @@ public final class ch/tutteli/atrium/creating/ExpectationCreatorWithUsageHints {
 	public static synthetic fun copy$default (Lch/tutteli/atrium/creating/ExpectationCreatorWithUsageHints;Ljava/util/List;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lch/tutteli/atrium/creating/ExpectationCreatorWithUsageHints;
 	public fun equals (Ljava/lang/Object;)Z
 	public final fun getExpectationCreator ()Lkotlin/jvm/functions/Function1;
-	public final fun getusageHintsAlternativeWithoutExpectationCreator ()Ljava/util/List;
+	public final fun getUsageHintsAlternativeWithoutExpectationCreator ()Ljava/util/List;
 	public fun hashCode ()I
 	public fun toString ()Ljava/lang/String;
 }
@@ -825,18 +835,32 @@ public final class ch/tutteli/atrium/creating/FeatureExpect$Companion {
 
 public final class ch/tutteli/atrium/creating/FeatureExpectOptions {
 	public fun <init> ()V
-	public fun <init> (Lch/tutteli/atrium/reporting/translating/Translatable;Lkotlin/jvm/functions/Function1;)V
-	public synthetic fun <init> (Lch/tutteli/atrium/reporting/translating/Translatable;Lkotlin/jvm/functions/Function1;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public final fun component1 ()Lch/tutteli/atrium/reporting/translating/Translatable;
+	public fun <init> (Lch/tutteli/atrium/reporting/reportables/InlineElement;Lkotlin/jvm/functions/Function1;)V
+	public synthetic fun <init> (Lch/tutteli/atrium/reporting/reportables/InlineElement;Lkotlin/jvm/functions/Function1;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public final fun component1 ()Lch/tutteli/atrium/reporting/reportables/InlineElement;
 	public final fun component2 ()Lkotlin/jvm/functions/Function1;
-	public final fun copy (Lch/tutteli/atrium/reporting/translating/Translatable;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/creating/FeatureExpectOptions;
-	public static synthetic fun copy$default (Lch/tutteli/atrium/creating/FeatureExpectOptions;Lch/tutteli/atrium/reporting/translating/Translatable;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lch/tutteli/atrium/creating/FeatureExpectOptions;
+	public final fun copy (Lch/tutteli/atrium/reporting/reportables/InlineElement;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/creating/FeatureExpectOptions;
+	public static synthetic fun copy$default (Lch/tutteli/atrium/creating/FeatureExpectOptions;Lch/tutteli/atrium/reporting/reportables/InlineElement;Lkotlin/jvm/functions/Function1;ILjava/lang/Object;)Lch/tutteli/atrium/creating/FeatureExpectOptions;
 	public fun equals (Ljava/lang/Object;)Z
-	public final fun getDescription ()Lch/tutteli/atrium/reporting/translating/Translatable;
+	public final fun getDescription ()Lch/tutteli/atrium/reporting/reportables/InlineElement;
 	public final fun getRepresentationInsteadOfFeature ()Lkotlin/jvm/functions/Function1;
 	public fun hashCode ()I
 	public final fun merge (Lch/tutteli/atrium/creating/FeatureExpectOptions;)Lch/tutteli/atrium/creating/FeatureExpectOptions;
 	public fun toString ()Ljava/lang/String;
+}
+
+public abstract interface class ch/tutteli/atrium/creating/FeatureExpectOptionsChooser {
+	public static final field Companion Lch/tutteli/atrium/creating/FeatureExpectOptionsChooser$Companion;
+	public abstract fun withDescription (Lch/tutteli/atrium/reporting/reportables/InlineElement;)V
+	public abstract fun withRepresentationIfSubjectDefined (Lkotlin/jvm/functions/Function1;)V
+}
+
+public final class ch/tutteli/atrium/creating/FeatureExpectOptionsChooser$Companion {
+	public final fun invoke (Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/creating/FeatureExpectOptions;
+}
+
+public final class ch/tutteli/atrium/creating/FeatureExpectOptionsChooserKt {
+	public static final fun FeatureExpectOptions (Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/creating/FeatureExpectOptions;
 }
 
 public final class ch/tutteli/atrium/creating/PleaseUseReplacementException : java/lang/Exception {
@@ -859,6 +883,7 @@ public final class ch/tutteli/atrium/creating/ProofContainer$DefaultImpls {
 public final class ch/tutteli/atrium/creating/ProofContainerKt {
 	public static final fun toExpect (Lch/tutteli/atrium/creating/ProofContainer;)Lch/tutteli/atrium/creating/Expect;
 	public static final fun toExpectGrouping (Lch/tutteli/atrium/creating/Expect;)Lch/tutteli/atrium/creating/ExpectGrouping;
+	public static final fun toExpectationCreator (Lkotlin/jvm/functions/Function1;)Lkotlin/jvm/functions/Function1;
 	public static final fun toProofContainer (Lch/tutteli/atrium/creating/Expect;)Lch/tutteli/atrium/creating/ProofContainer;
 }
 
@@ -889,7 +914,7 @@ public final class ch/tutteli/atrium/creating/RootExpectOptions {
 
 public final class ch/tutteli/atrium/creating/UtilsCollectKt {
 	public static final fun collect (Lch/tutteli/atrium/creating/ProofContainer;Lch/tutteli/atrium/creating/ExpectationCreatorWithUsageHints;)Lch/tutteli/atrium/creating/proofs/Proof;
-	public static final fun collectAndDomainAppend (Lch/tutteli/atrium/creating/transformers/TransformationExecutionStep;Ljava/util/List;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/creating/Expect;
+	public static final fun collectAndCoreAppend (Lch/tutteli/atrium/creating/transformers/TransformationExecutionStep;Ljava/util/List;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/creating/Expect;
 	public static final fun collectBasedOnGivenSubject (Lch/tutteli/atrium/creating/ProofContainer;Lch/tutteli/atrium/core/Option;Lch/tutteli/atrium/creating/ExpectationCreatorWithUsageHints;)Lch/tutteli/atrium/creating/proofs/Proof;
 	public static final fun collectForComposition (Lch/tutteli/atrium/creating/ProofContainer;Lch/tutteli/atrium/creating/ExpectationCreatorWithUsageHints;)Lkotlin/Pair;
 	public static final fun collectForCompositionBasedOnGivenSubject (Lch/tutteli/atrium/creating/ProofContainer;Lch/tutteli/atrium/core/Option;Lch/tutteli/atrium/creating/ExpectationCreatorWithUsageHints;)Lkotlin/Pair;
@@ -898,6 +923,7 @@ public final class ch/tutteli/atrium/creating/UtilsCollectKt {
 
 public final class ch/tutteli/atrium/creating/UtilsKt {
 	public static final fun getChangeSubject (Lch/tutteli/atrium/creating/ProofContainer;)Lch/tutteli/atrium/creating/transformers/SubjectChangerBuilder$KindStep;
+	public static final fun getExtractFeature (Lch/tutteli/atrium/creating/ProofContainer;)Lch/tutteli/atrium/creating/transformers/FeatureExtractorBuilder$DescriptionStep;
 }
 
 public abstract interface annotation class ch/tutteli/atrium/creating/feature/ExperimentalFeatureInfo : java/lang/annotation/Annotation {
@@ -930,7 +956,15 @@ public final class ch/tutteli/atrium/creating/impl/BaseExpectImpl$Companion {
 	public final fun determineRepresentation (Lkotlin/jvm/functions/Function1;Lch/tutteli/atrium/core/Option;)Ljava/lang/Object;
 }
 
+public final class ch/tutteli/atrium/creating/impl/FeatureExpectOptionsChooserImpl : ch/tutteli/atrium/creating/FeatureExpectOptionsChooser {
+	public fun <init> ()V
+	public final fun build ()Lch/tutteli/atrium/creating/FeatureExpectOptions;
+	public fun withDescription (Lch/tutteli/atrium/reporting/reportables/InlineElement;)V
+	public fun withRepresentationIfSubjectDefined (Lkotlin/jvm/functions/Function1;)V
+}
+
 public final class ch/tutteli/atrium/creating/proofs/AnyKt {
+	public static final fun notToBeAnInstanceOf (Lch/tutteli/atrium/creating/ProofContainer;Ljava/util/List;)Lch/tutteli/atrium/creating/proofs/Proof;
 	public static final fun notToBeTheInstance (Lch/tutteli/atrium/creating/ProofContainer;Ljava/lang/Object;)Lch/tutteli/atrium/creating/proofs/Proof;
 	public static final fun notToEqual (Lch/tutteli/atrium/creating/ProofContainer;Ljava/lang/Object;)Lch/tutteli/atrium/creating/proofs/Proof;
 	public static final fun notToEqualNullButToBeAnInstanceOf (Lch/tutteli/atrium/creating/ProofContainer;Lkotlin/reflect/KClass;)Lch/tutteli/atrium/creating/transformers/SubjectChangerBuilder$ExecutionStep;
@@ -938,9 +972,11 @@ public final class ch/tutteli/atrium/creating/proofs/AnyKt {
 	public static final fun toBeAnInstanceOf (Lch/tutteli/atrium/creating/ProofContainer;Lkotlin/reflect/KClass;)Lch/tutteli/atrium/creating/transformers/SubjectChangerBuilder$ExecutionStep;
 	public static final fun toBeTheInstance (Lch/tutteli/atrium/creating/ProofContainer;Ljava/lang/Object;)Lch/tutteli/atrium/creating/proofs/Proof;
 	public static final fun toEqual (Lch/tutteli/atrium/creating/ProofContainer;Ljava/lang/Object;)Lch/tutteli/atrium/creating/proofs/Proof;
+	public static final fun toEqualNullIfNullGivenElse (Lch/tutteli/atrium/creating/ProofContainer;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/creating/proofs/Proof;
 }
 
 public abstract interface class ch/tutteli/atrium/creating/proofs/AnyProofs {
+	public abstract fun notToBeAnInstanceOf (Lch/tutteli/atrium/creating/ProofContainer;Ljava/util/List;)Lch/tutteli/atrium/creating/proofs/Proof;
 	public abstract fun notToBeTheInstance (Lch/tutteli/atrium/creating/ProofContainer;Ljava/lang/Object;)Lch/tutteli/atrium/creating/proofs/Proof;
 	public abstract fun notToEqual (Lch/tutteli/atrium/creating/ProofContainer;Ljava/lang/Object;)Lch/tutteli/atrium/creating/proofs/Proof;
 	public abstract fun notToEqualNullButToBeAnInstanceOf (Lch/tutteli/atrium/creating/ProofContainer;Lkotlin/reflect/KClass;)Lch/tutteli/atrium/creating/transformers/SubjectChangerBuilder$ExecutionStep;
@@ -948,6 +984,67 @@ public abstract interface class ch/tutteli/atrium/creating/proofs/AnyProofs {
 	public abstract fun toBeAnInstanceOf (Lch/tutteli/atrium/creating/ProofContainer;Lkotlin/reflect/KClass;)Lch/tutteli/atrium/creating/transformers/SubjectChangerBuilder$ExecutionStep;
 	public abstract fun toBeTheInstance (Lch/tutteli/atrium/creating/ProofContainer;Ljava/lang/Object;)Lch/tutteli/atrium/creating/proofs/Proof;
 	public abstract fun toEqual (Lch/tutteli/atrium/creating/ProofContainer;Ljava/lang/Object;)Lch/tutteli/atrium/creating/proofs/Proof;
+	public abstract fun toEqualNullIfNullGivenElse (Lch/tutteli/atrium/creating/ProofContainer;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/creating/proofs/Proof;
+}
+
+public final class ch/tutteli/atrium/creating/proofs/CharSequenceKt {
+	public static final fun notToBeBlank (Lch/tutteli/atrium/creating/ProofContainer;)Lch/tutteli/atrium/creating/proofs/Proof;
+	public static final fun notToBeEmpty (Lch/tutteli/atrium/creating/ProofContainer;)Lch/tutteli/atrium/creating/proofs/Proof;
+	public static final fun notToContainBuilder (Lch/tutteli/atrium/creating/ProofContainer;)Lch/tutteli/atrium/creating/proofs/charsequence/contains/steps/NotCheckerStep;
+	public static final fun notToEndWith (Lch/tutteli/atrium/creating/ProofContainer;Ljava/lang/CharSequence;)Lch/tutteli/atrium/creating/proofs/Proof;
+	public static final fun notToMatch (Lch/tutteli/atrium/creating/ProofContainer;Lkotlin/text/Regex;)Lch/tutteli/atrium/creating/proofs/Proof;
+	public static final fun notToStartWith (Lch/tutteli/atrium/creating/ProofContainer;Ljava/lang/CharSequence;)Lch/tutteli/atrium/creating/proofs/Proof;
+	public static final fun toBeEmpty (Lch/tutteli/atrium/creating/ProofContainer;)Lch/tutteli/atrium/creating/proofs/Proof;
+	public static final fun toContainBuilder (Lch/tutteli/atrium/creating/ProofContainer;)Lch/tutteli/atrium/creating/proofs/charsequence/contains/CharSequenceToContain$EntryPointStep;
+	public static final fun toEndWith (Lch/tutteli/atrium/creating/ProofContainer;Ljava/lang/CharSequence;)Lch/tutteli/atrium/creating/proofs/Proof;
+	public static final fun toMatch (Lch/tutteli/atrium/creating/ProofContainer;Lkotlin/text/Regex;)Lch/tutteli/atrium/creating/proofs/Proof;
+	public static final fun toStartWith (Lch/tutteli/atrium/creating/ProofContainer;Ljava/lang/CharSequence;)Lch/tutteli/atrium/creating/proofs/Proof;
+}
+
+public abstract interface class ch/tutteli/atrium/creating/proofs/CharSequenceProofs {
+	public abstract fun notToBeBlank (Lch/tutteli/atrium/creating/ProofContainer;)Lch/tutteli/atrium/creating/proofs/Proof;
+	public abstract fun notToBeEmpty (Lch/tutteli/atrium/creating/ProofContainer;)Lch/tutteli/atrium/creating/proofs/Proof;
+	public abstract fun notToContainBuilder (Lch/tutteli/atrium/creating/ProofContainer;)Lch/tutteli/atrium/creating/proofs/charsequence/contains/steps/NotCheckerStep;
+	public abstract fun notToEndWith (Lch/tutteli/atrium/creating/ProofContainer;Ljava/lang/CharSequence;)Lch/tutteli/atrium/creating/proofs/Proof;
+	public abstract fun notToMatch (Lch/tutteli/atrium/creating/ProofContainer;Lkotlin/text/Regex;)Lch/tutteli/atrium/creating/proofs/Proof;
+	public abstract fun notToStartWith (Lch/tutteli/atrium/creating/ProofContainer;Ljava/lang/CharSequence;)Lch/tutteli/atrium/creating/proofs/Proof;
+	public abstract fun toBeEmpty (Lch/tutteli/atrium/creating/ProofContainer;)Lch/tutteli/atrium/creating/proofs/Proof;
+	public abstract fun toContainBuilder (Lch/tutteli/atrium/creating/ProofContainer;)Lch/tutteli/atrium/creating/proofs/charsequence/contains/CharSequenceToContain$EntryPointStep;
+	public abstract fun toEndWith (Lch/tutteli/atrium/creating/ProofContainer;Ljava/lang/CharSequence;)Lch/tutteli/atrium/creating/proofs/Proof;
+	public abstract fun toMatch (Lch/tutteli/atrium/creating/ProofContainer;Lkotlin/text/Regex;)Lch/tutteli/atrium/creating/proofs/Proof;
+	public abstract fun toStartWith (Lch/tutteli/atrium/creating/ProofContainer;Ljava/lang/CharSequence;)Lch/tutteli/atrium/creating/proofs/Proof;
+}
+
+public final class ch/tutteli/atrium/creating/proofs/CollectionLikeKt {
+	public static final fun notToBeEmpty (Lch/tutteli/atrium/creating/ProofContainer;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/creating/proofs/Proof;
+	public static final fun size (Lch/tutteli/atrium/creating/ProofContainer;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/creating/transformers/FeatureExtractorBuilder$ExecutionStep;
+	public static final fun toBeEmpty (Lch/tutteli/atrium/creating/ProofContainer;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/creating/proofs/Proof;
+}
+
+public abstract interface class ch/tutteli/atrium/creating/proofs/CollectionLikeProofs {
+	public abstract fun notToBeEmpty (Lch/tutteli/atrium/creating/ProofContainer;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/creating/proofs/Proof;
+	public abstract fun size (Lch/tutteli/atrium/creating/ProofContainer;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/creating/transformers/FeatureExtractorBuilder$ExecutionStep;
+	public abstract fun toBeEmpty (Lch/tutteli/atrium/creating/ProofContainer;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/creating/proofs/Proof;
+}
+
+public final class ch/tutteli/atrium/creating/proofs/ComparableKt {
+	public static final fun notToBeGreaterThan (Lch/tutteli/atrium/creating/ProofContainer;Ljava/lang/Object;)Lch/tutteli/atrium/creating/proofs/Proof;
+	public static final fun notToBeLessThan (Lch/tutteli/atrium/creating/ProofContainer;Ljava/lang/Object;)Lch/tutteli/atrium/creating/proofs/Proof;
+	public static final fun toBeEqualComparingTo (Lch/tutteli/atrium/creating/ProofContainer;Ljava/lang/Object;)Lch/tutteli/atrium/creating/proofs/Proof;
+	public static final fun toBeGreaterThan (Lch/tutteli/atrium/creating/ProofContainer;Ljava/lang/Object;)Lch/tutteli/atrium/creating/proofs/Proof;
+	public static final fun toBeGreaterThanOrEqualTo (Lch/tutteli/atrium/creating/ProofContainer;Ljava/lang/Object;)Lch/tutteli/atrium/creating/proofs/Proof;
+	public static final fun toBeLessThan (Lch/tutteli/atrium/creating/ProofContainer;Ljava/lang/Object;)Lch/tutteli/atrium/creating/proofs/Proof;
+	public static final fun toBeLessThanOrEqualTo (Lch/tutteli/atrium/creating/ProofContainer;Ljava/lang/Object;)Lch/tutteli/atrium/creating/proofs/Proof;
+}
+
+public abstract interface class ch/tutteli/atrium/creating/proofs/ComparableProofs {
+	public abstract fun notToBeGreaterThan (Lch/tutteli/atrium/creating/ProofContainer;Ljava/lang/Object;)Lch/tutteli/atrium/creating/proofs/Proof;
+	public abstract fun notToBeLessThan (Lch/tutteli/atrium/creating/ProofContainer;Ljava/lang/Object;)Lch/tutteli/atrium/creating/proofs/Proof;
+	public abstract fun toBeEqualComparingTo (Lch/tutteli/atrium/creating/ProofContainer;Ljava/lang/Object;)Lch/tutteli/atrium/creating/proofs/Proof;
+	public abstract fun toBeGreaterThan (Lch/tutteli/atrium/creating/ProofContainer;Ljava/lang/Object;)Lch/tutteli/atrium/creating/proofs/Proof;
+	public abstract fun toBeGreaterThanOrEqualTo (Lch/tutteli/atrium/creating/ProofContainer;Ljava/lang/Object;)Lch/tutteli/atrium/creating/proofs/Proof;
+	public abstract fun toBeLessThan (Lch/tutteli/atrium/creating/ProofContainer;Ljava/lang/Object;)Lch/tutteli/atrium/creating/proofs/Proof;
+	public abstract fun toBeLessThanOrEqualTo (Lch/tutteli/atrium/creating/ProofContainer;Ljava/lang/Object;)Lch/tutteli/atrium/creating/proofs/Proof;
 }
 
 public abstract interface class ch/tutteli/atrium/creating/proofs/DocumentationUtils {
@@ -956,6 +1053,36 @@ public abstract interface class ch/tutteli/atrium/creating/proofs/DocumentationU
 
 public final class ch/tutteli/atrium/creating/proofs/DocumentationUtilsKt {
 	public static final fun because (Lch/tutteli/atrium/creating/ProofContainer;Lch/tutteli/atrium/reporting/reportables/InlineElement;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/creating/proofs/Proof;
+}
+
+public abstract interface class ch/tutteli/atrium/creating/proofs/FeatureExtractors {
+	public abstract fun extractSubject (Lch/tutteli/atrium/creating/ProofContainer;Lch/tutteli/atrium/reporting/reportables/InlineElement;Ljava/util/List;Lkotlin/jvm/functions/Function2;)Lch/tutteli/atrium/creating/Expect;
+	public abstract fun f0 (Lch/tutteli/atrium/creating/ProofContainer;Lkotlin/reflect/KFunction;)Lch/tutteli/atrium/creating/transformers/FeatureExtractorBuilder$ExecutionStep;
+	public abstract fun f1 (Lch/tutteli/atrium/creating/ProofContainer;Lkotlin/reflect/KFunction;Ljava/lang/Object;)Lch/tutteli/atrium/creating/transformers/FeatureExtractorBuilder$ExecutionStep;
+	public abstract fun f2 (Lch/tutteli/atrium/creating/ProofContainer;Lkotlin/reflect/KFunction;Ljava/lang/Object;Ljava/lang/Object;)Lch/tutteli/atrium/creating/transformers/FeatureExtractorBuilder$ExecutionStep;
+	public abstract fun f3 (Lch/tutteli/atrium/creating/ProofContainer;Lkotlin/reflect/KFunction;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;)Lch/tutteli/atrium/creating/transformers/FeatureExtractorBuilder$ExecutionStep;
+	public abstract fun f4 (Lch/tutteli/atrium/creating/ProofContainer;Lkotlin/reflect/KFunction;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;)Lch/tutteli/atrium/creating/transformers/FeatureExtractorBuilder$ExecutionStep;
+	public abstract fun f5 (Lch/tutteli/atrium/creating/ProofContainer;Lkotlin/reflect/KFunction;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;)Lch/tutteli/atrium/creating/transformers/FeatureExtractorBuilder$ExecutionStep;
+	public abstract fun featureBasedOnMetaFeature (Lch/tutteli/atrium/creating/ProofContainer;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/creating/transformers/FeatureExtractorBuilder$ExecutionStep;
+	public abstract fun manualFeature (Lch/tutteli/atrium/creating/ProofContainer;Lch/tutteli/atrium/reporting/reportables/InlineElement;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/creating/transformers/FeatureExtractorBuilder$ExecutionStep;
+	public abstract fun property (Lch/tutteli/atrium/creating/ProofContainer;Lkotlin/reflect/KProperty1;)Lch/tutteli/atrium/creating/transformers/FeatureExtractorBuilder$ExecutionStep;
+}
+
+public final class ch/tutteli/atrium/creating/proofs/FeatureExtractorsExensionsKt {
+	public static final fun genericSubjectBasedFeature (Lch/tutteli/atrium/creating/ProofContainer;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/creating/transformers/FeatureExtractorBuilder$ExecutionStep;
+}
+
+public final class ch/tutteli/atrium/creating/proofs/FeatureExtractorsKt {
+	public static final fun extractSubject (Lch/tutteli/atrium/creating/ProofContainer;Lch/tutteli/atrium/reporting/reportables/InlineElement;Ljava/util/List;Lkotlin/jvm/functions/Function2;)Lch/tutteli/atrium/creating/Expect;
+	public static final fun f0 (Lch/tutteli/atrium/creating/ProofContainer;Lkotlin/reflect/KFunction;)Lch/tutteli/atrium/creating/transformers/FeatureExtractorBuilder$ExecutionStep;
+	public static final fun f1 (Lch/tutteli/atrium/creating/ProofContainer;Lkotlin/reflect/KFunction;Ljava/lang/Object;)Lch/tutteli/atrium/creating/transformers/FeatureExtractorBuilder$ExecutionStep;
+	public static final fun f2 (Lch/tutteli/atrium/creating/ProofContainer;Lkotlin/reflect/KFunction;Ljava/lang/Object;Ljava/lang/Object;)Lch/tutteli/atrium/creating/transformers/FeatureExtractorBuilder$ExecutionStep;
+	public static final fun f3 (Lch/tutteli/atrium/creating/ProofContainer;Lkotlin/reflect/KFunction;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;)Lch/tutteli/atrium/creating/transformers/FeatureExtractorBuilder$ExecutionStep;
+	public static final fun f4 (Lch/tutteli/atrium/creating/ProofContainer;Lkotlin/reflect/KFunction;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;)Lch/tutteli/atrium/creating/transformers/FeatureExtractorBuilder$ExecutionStep;
+	public static final fun f5 (Lch/tutteli/atrium/creating/ProofContainer;Lkotlin/reflect/KFunction;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;)Lch/tutteli/atrium/creating/transformers/FeatureExtractorBuilder$ExecutionStep;
+	public static final fun featureBasedOnMetaFeature (Lch/tutteli/atrium/creating/ProofContainer;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/creating/transformers/FeatureExtractorBuilder$ExecutionStep;
+	public static final fun manualFeature (Lch/tutteli/atrium/creating/ProofContainer;Lch/tutteli/atrium/reporting/reportables/InlineElement;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/creating/transformers/FeatureExtractorBuilder$ExecutionStep;
+	public static final fun property (Lch/tutteli/atrium/creating/ProofContainer;Lkotlin/reflect/KProperty1;)Lch/tutteli/atrium/creating/transformers/FeatureExtractorBuilder$ExecutionStep;
 }
 
 public abstract interface class ch/tutteli/atrium/creating/proofs/FeatureProofGroup : ch/tutteli/atrium/creating/proofs/ProofGroupWithDesignation {
@@ -1033,6 +1160,10 @@ public final class ch/tutteli/atrium/creating/proofs/ProofGroupWithDesignation$D
 	public static fun holds (Lch/tutteli/atrium/creating/proofs/ProofGroupWithDesignation;)Z
 }
 
+public abstract interface class ch/tutteli/atrium/creating/proofs/RepresentationOnlyProof : ch/tutteli/atrium/creating/proofs/Proof {
+	public abstract fun getRepresentation ()Ljava/lang/Object;
+}
+
 public abstract interface class ch/tutteli/atrium/creating/proofs/RootProofGroup : ch/tutteli/atrium/creating/proofs/ProofGroupWithDesignation {
 }
 
@@ -1049,6 +1180,96 @@ public final class ch/tutteli/atrium/creating/proofs/UtilsKt {
 	public static final fun unwrapInvisibleGroupIfSingleElement (Ljava/util/List;)Ljava/util/List;
 }
 
+public abstract interface class ch/tutteli/atrium/creating/proofs/basic/contains/ToContain {
+}
+
+public abstract interface class ch/tutteli/atrium/creating/proofs/basic/contains/ToContain$Checker {
+	public abstract fun createProof (I)Lch/tutteli/atrium/creating/proofs/Proof;
+}
+
+public abstract interface class ch/tutteli/atrium/creating/proofs/basic/contains/ToContain$CheckerStep {
+}
+
+public abstract interface class ch/tutteli/atrium/creating/proofs/basic/contains/ToContain$CheckerStepCore {
+	public abstract fun getCheckers ()Ljava/util/List;
+	public abstract fun getEntryPointStepCore ()Lch/tutteli/atrium/creating/proofs/basic/contains/ToContain$EntryPointStepCore;
+}
+
+public abstract interface class ch/tutteli/atrium/creating/proofs/basic/contains/ToContain$Creator {
+	public abstract fun createProofGroup (Lch/tutteli/atrium/creating/ProofContainer;Ljava/util/List;)Lch/tutteli/atrium/creating/proofs/ProofGroup;
+}
+
+public abstract interface class ch/tutteli/atrium/creating/proofs/basic/contains/ToContain$EntryPointStep {
+}
+
+public abstract interface class ch/tutteli/atrium/creating/proofs/basic/contains/ToContain$EntryPointStepCore {
+	public abstract fun getContainer ()Lch/tutteli/atrium/creating/ProofContainer;
+	public abstract fun getSearchBehaviour ()Lch/tutteli/atrium/creating/proofs/basic/contains/ToContain$SearchBehaviour;
+}
+
+public abstract interface class ch/tutteli/atrium/creating/proofs/basic/contains/ToContain$SearchBehaviour {
+	public abstract fun decorateDescription (Lch/tutteli/atrium/reporting/reportables/Description;)Lch/tutteli/atrium/reporting/reportables/TextElement;
+}
+
+public abstract interface class ch/tutteli/atrium/creating/proofs/basic/contains/checkers/AtLeastChecker : ch/tutteli/atrium/creating/proofs/basic/contains/checkers/WithTimesChecker {
+	public abstract fun getAtLeastCall ()Lkotlin/jvm/functions/Function1;
+	public abstract fun getNameNotToContainFun ()Ljava/lang/String;
+}
+
+public abstract interface class ch/tutteli/atrium/creating/proofs/basic/contains/checkers/AtMostChecker : ch/tutteli/atrium/creating/proofs/basic/contains/checkers/WithTimesChecker {
+	public abstract fun getAtMostCall ()Lkotlin/jvm/functions/Function1;
+	public abstract fun getNameNotToContainFun ()Ljava/lang/String;
+}
+
+public abstract interface class ch/tutteli/atrium/creating/proofs/basic/contains/checkers/ExactlyChecker : ch/tutteli/atrium/creating/proofs/basic/contains/checkers/WithTimesChecker {
+	public abstract fun getExactlyCall ()Lkotlin/jvm/functions/Function1;
+	public abstract fun getNameNotToContainFun ()Ljava/lang/String;
+}
+
+public abstract interface class ch/tutteli/atrium/creating/proofs/basic/contains/checkers/NotChecker : ch/tutteli/atrium/creating/proofs/basic/contains/ToContain$Checker {
+}
+
+public final class ch/tutteli/atrium/creating/proofs/basic/contains/checkers/TimesValidatorsKt {
+	public static final fun validateAtMost (ILkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;)V
+	public static final fun validateButAtMost (IILkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;)V
+}
+
+public abstract interface class ch/tutteli/atrium/creating/proofs/basic/contains/checkers/WithTimesChecker : ch/tutteli/atrium/creating/proofs/basic/contains/ToContain$Checker {
+	public abstract fun getTimes ()I
+}
+
+public abstract class ch/tutteli/atrium/creating/proofs/basic/contains/checkers/impl/ToContainChecker : ch/tutteli/atrium/creating/proofs/basic/contains/ToContain$Checker {
+	public fun <init> (ILjava/lang/String;Lkotlin/jvm/functions/Function1;)V
+	public final fun getTimes ()I
+}
+
+public abstract class ch/tutteli/atrium/creating/proofs/basic/contains/creators/impl/ToContainObjectsProofCreator : ch/tutteli/atrium/creating/proofs/basic/contains/creators/impl/ToContainProofCreator {
+	public fun <init> (Lch/tutteli/atrium/creating/proofs/basic/contains/ToContain$SearchBehaviour;Ljava/util/List;)V
+	protected abstract fun getDescriptionNumberOfOccurrences ()Lch/tutteli/atrium/reporting/reportables/Description;
+	protected abstract fun getGroupDescription ()Lch/tutteli/atrium/reporting/reportables/Description;
+	protected fun mismatchesForNotSearchBehaviour (Lch/tutteli/atrium/creating/ProofContainer;Ljava/lang/Object;)Ljava/util/List;
+	protected abstract fun search (Lch/tutteli/atrium/creating/ProofContainer;Ljava/lang/Object;)I
+	protected fun searchAndCreateProof (Lch/tutteli/atrium/creating/ProofContainer;Ljava/lang/Object;Lkotlin/jvm/functions/Function3;)Lch/tutteli/atrium/creating/proofs/Proof;
+}
+
+public abstract class ch/tutteli/atrium/creating/proofs/basic/contains/creators/impl/ToContainProofCreator : ch/tutteli/atrium/creating/proofs/basic/contains/ToContain$Creator {
+	public fun <init> (Lch/tutteli/atrium/creating/proofs/basic/contains/ToContain$SearchBehaviour;Ljava/util/List;)V
+	public final fun createProofGroup (Lch/tutteli/atrium/creating/ProofContainer;Ljava/util/List;)Lch/tutteli/atrium/creating/proofs/ProofGroup;
+	protected fun decorateInAnyOrderAssertion (Lch/tutteli/atrium/creating/proofs/ProofGroup;Lch/tutteli/atrium/creating/ProofContainer;)Lch/tutteli/atrium/creating/proofs/ProofGroup;
+	protected abstract fun getDescriptionNotFound ()Lch/tutteli/atrium/reporting/reportables/Description;
+	protected abstract fun getDescriptionNumberOfElementsFound ()Lch/tutteli/atrium/reporting/translating/Translatable;
+	protected abstract fun getDescriptionToContain ()Lch/tutteli/atrium/reporting/reportables/Description;
+	protected final fun getSearchBehaviour ()Lch/tutteli/atrium/creating/proofs/basic/contains/ToContain$SearchBehaviour;
+	protected abstract fun makeSubjectMultipleTimesConsumable (Lch/tutteli/atrium/creating/ProofContainer;)Lch/tutteli/atrium/creating/ProofContainer;
+	protected abstract fun searchAndCreateProof (Lch/tutteli/atrium/creating/ProofContainer;Ljava/lang/Object;Lkotlin/jvm/functions/Function3;)Lch/tutteli/atrium/creating/proofs/Proof;
+}
+
+public abstract class ch/tutteli/atrium/creating/proofs/basic/contains/steps/impl/EntryPointStepImpl : ch/tutteli/atrium/creating/proofs/basic/contains/ToContain$EntryPointStepCore {
+	public fun <init> (Lch/tutteli/atrium/creating/ProofContainer;Lch/tutteli/atrium/creating/proofs/basic/contains/ToContain$SearchBehaviour;)V
+	public fun getContainer ()Lch/tutteli/atrium/creating/ProofContainer;
+	public fun getSearchBehaviour ()Lch/tutteli/atrium/creating/proofs/basic/contains/ToContain$SearchBehaviour;
+}
+
 public final class ch/tutteli/atrium/creating/proofs/builders/DebugGroupBuilder : ch/tutteli/atrium/creating/proofs/builders/impl/BaseSubGroupBuilder {
 	public fun <init> (Lch/tutteli/atrium/creating/ProofContainer;Lch/tutteli/atrium/reporting/reportables/InlineElement;)V
 }
@@ -1057,11 +1278,26 @@ public final class ch/tutteli/atrium/creating/proofs/builders/DiagnosticGroupBui
 	public fun <init> (Lch/tutteli/atrium/creating/ProofContainer;Lch/tutteli/atrium/reporting/reportables/InlineElement;Ljava/lang/Object;)V
 }
 
+public final class ch/tutteli/atrium/creating/proofs/builders/EntryPointDiagnosticBuilder : ch/tutteli/atrium/creating/proofs/builders/impl/BaseBuilder, ch/tutteli/atrium/creating/proofs/builders/impl/DiagnosticBuilder {
+	public fun <init> (Lch/tutteli/atrium/creating/ProofContainer;Lch/tutteli/atrium/creating/proofs/builders/impl/DiagnosticBuilderDelegate;)V
+	public synthetic fun build (Ljava/util/List;)Lch/tutteli/atrium/reporting/reportables/Reportable;
+	public fun debugGroup (Lch/tutteli/atrium/reporting/reportables/InlineElement;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/reporting/reportables/Diagnostic;
+	public fun diagnosticGroup (Lch/tutteli/atrium/reporting/reportables/InlineElement;Ljava/lang/Object;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/reporting/reportables/Diagnostic;
+	public fun failureExplanationGroup (Lch/tutteli/atrium/reporting/reportables/InlineElement;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/reporting/reportables/Diagnostic;
+	public fun informationGroup (Lch/tutteli/atrium/reporting/reportables/InlineElement;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/reporting/reportables/Diagnostic;
+	public fun inlineGroup ([Lch/tutteli/atrium/reporting/reportables/InlineElement;)Lch/tutteli/atrium/reporting/reportables/InlineElement;
+	public fun proofExplanation (Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/reporting/reportables/Diagnostic;
+	public fun row (Lch/tutteli/atrium/reporting/reportables/Icon;ZLkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/reporting/reportables/Diagnostic;
+	public fun text (Ljava/lang/String;)Lch/tutteli/atrium/reporting/reportables/Diagnostic;
+	public fun usageHintGroup (Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/reporting/reportables/Diagnostic;
+}
+
 public final class ch/tutteli/atrium/creating/proofs/builders/EntryPointProofBuilder : ch/tutteli/atrium/creating/proofs/builders/impl/BaseGroupBuilder {
 	public synthetic fun build (Ljava/util/List;)Lch/tutteli/atrium/reporting/reportables/Reportable;
 }
 
 public final class ch/tutteli/atrium/creating/proofs/builders/EntryPointProofBuilderKt {
+	public static final fun buildDiagnostic (Lch/tutteli/atrium/creating/ProofContainer;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/reporting/reportables/Diagnostic;
 	public static final fun buildProof (Lch/tutteli/atrium/creating/ProofContainer;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/creating/proofs/Proof;
 	public static final fun buildSimpleProof (Lch/tutteli/atrium/creating/ProofContainer;Lch/tutteli/atrium/reporting/reportables/InlineElement;Ljava/lang/Object;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/creating/proofs/Proof;
 	public static final fun toTestFunction (Lch/tutteli/atrium/creating/ProofContainer;Lkotlin/jvm/functions/Function1;)Lkotlin/jvm/functions/Function0;
@@ -1200,8 +1436,269 @@ public abstract interface class ch/tutteli/atrium/creating/proofs/builders/impl/
 	public abstract fun getProofContainer ()Lch/tutteli/atrium/creating/ProofContainer;
 }
 
+public abstract interface class ch/tutteli/atrium/creating/proofs/charsequence/contains/CharSequenceToContain {
+}
+
+public abstract interface class ch/tutteli/atrium/creating/proofs/charsequence/contains/CharSequenceToContain$Checker : ch/tutteli/atrium/creating/proofs/basic/contains/ToContain$Checker {
+}
+
+public abstract interface class ch/tutteli/atrium/creating/proofs/charsequence/contains/CharSequenceToContain$CheckerStep : ch/tutteli/atrium/creating/proofs/basic/contains/ToContain$CheckerStep {
+}
+
+public abstract interface class ch/tutteli/atrium/creating/proofs/charsequence/contains/CharSequenceToContain$CheckerStepCore : ch/tutteli/atrium/creating/proofs/basic/contains/ToContain$CheckerStepCore {
+}
+
+public abstract interface class ch/tutteli/atrium/creating/proofs/charsequence/contains/CharSequenceToContain$CheckerStepInternal : ch/tutteli/atrium/creating/proofs/charsequence/contains/CharSequenceToContain$CheckerStep, ch/tutteli/atrium/creating/proofs/charsequence/contains/CharSequenceToContain$CheckerStepCore {
+}
+
+public abstract interface class ch/tutteli/atrium/creating/proofs/charsequence/contains/CharSequenceToContain$Creator : ch/tutteli/atrium/creating/proofs/basic/contains/ToContain$Creator {
+}
+
+public abstract interface class ch/tutteli/atrium/creating/proofs/charsequence/contains/CharSequenceToContain$EntryPointStep : ch/tutteli/atrium/creating/proofs/basic/contains/ToContain$EntryPointStep {
+}
+
+public abstract interface class ch/tutteli/atrium/creating/proofs/charsequence/contains/CharSequenceToContain$EntryPointStepCore : ch/tutteli/atrium/creating/proofs/basic/contains/ToContain$EntryPointStepCore {
+}
+
+public abstract interface class ch/tutteli/atrium/creating/proofs/charsequence/contains/CharSequenceToContain$EntryPointStepInternal : ch/tutteli/atrium/creating/proofs/charsequence/contains/CharSequenceToContain$EntryPointStep, ch/tutteli/atrium/creating/proofs/charsequence/contains/CharSequenceToContain$EntryPointStepCore {
+}
+
+public abstract interface class ch/tutteli/atrium/creating/proofs/charsequence/contains/CharSequenceToContain$SearchBehaviour : ch/tutteli/atrium/creating/proofs/basic/contains/ToContain$SearchBehaviour {
+}
+
+public abstract interface class ch/tutteli/atrium/creating/proofs/charsequence/contains/CharSequenceToContain$Searcher {
+	public abstract fun search (Ljava/lang/CharSequence;Ljava/lang/Object;)I
+}
+
+public abstract interface class ch/tutteli/atrium/creating/proofs/charsequence/contains/checkers/AtLeastChecker : ch/tutteli/atrium/creating/proofs/basic/contains/checkers/AtLeastChecker, ch/tutteli/atrium/creating/proofs/charsequence/contains/CharSequenceToContain$Checker {
+}
+
+public abstract interface class ch/tutteli/atrium/creating/proofs/charsequence/contains/checkers/AtMostChecker : ch/tutteli/atrium/creating/proofs/basic/contains/checkers/AtMostChecker, ch/tutteli/atrium/creating/proofs/charsequence/contains/CharSequenceToContain$Checker {
+}
+
+public abstract interface class ch/tutteli/atrium/creating/proofs/charsequence/contains/checkers/ExactlyChecker : ch/tutteli/atrium/creating/proofs/basic/contains/checkers/ExactlyChecker, ch/tutteli/atrium/creating/proofs/charsequence/contains/CharSequenceToContain$Checker {
+}
+
+public abstract interface class ch/tutteli/atrium/creating/proofs/charsequence/contains/checkers/NotChecker : ch/tutteli/atrium/creating/proofs/basic/contains/checkers/NotChecker, ch/tutteli/atrium/creating/proofs/charsequence/contains/CharSequenceToContain$Checker {
+}
+
+public final class ch/tutteli/atrium/creating/proofs/charsequence/contains/checkers/impl/DefaultAtLeastChecker : ch/tutteli/atrium/creating/proofs/basic/contains/checkers/impl/ToContainChecker, ch/tutteli/atrium/creating/proofs/charsequence/contains/checkers/AtLeastChecker {
+	public fun <init> (ILjava/lang/String;Lkotlin/jvm/functions/Function1;)V
+	public fun createProof (I)Lch/tutteli/atrium/creating/proofs/Proof;
+	public fun getAtLeastCall ()Lkotlin/jvm/functions/Function1;
+	public fun getNameNotToContainFun ()Ljava/lang/String;
+}
+
+public final class ch/tutteli/atrium/creating/proofs/charsequence/contains/checkers/impl/DefaultAtMostChecker : ch/tutteli/atrium/creating/proofs/basic/contains/checkers/impl/ToContainChecker, ch/tutteli/atrium/creating/proofs/charsequence/contains/checkers/AtMostChecker {
+	public fun <init> (ILjava/lang/String;Lkotlin/jvm/functions/Function1;)V
+	public fun createProof (I)Lch/tutteli/atrium/creating/proofs/Proof;
+	public fun getAtMostCall ()Lkotlin/jvm/functions/Function1;
+	public fun getNameNotToContainFun ()Ljava/lang/String;
+}
+
+public final class ch/tutteli/atrium/creating/proofs/charsequence/contains/checkers/impl/DefaultExactlyChecker : ch/tutteli/atrium/creating/proofs/basic/contains/checkers/impl/ToContainChecker, ch/tutteli/atrium/creating/proofs/charsequence/contains/checkers/ExactlyChecker {
+	public fun <init> (ILjava/lang/String;Lkotlin/jvm/functions/Function1;)V
+	public fun createProof (I)Lch/tutteli/atrium/creating/proofs/Proof;
+	public fun getExactlyCall ()Lkotlin/jvm/functions/Function1;
+	public fun getNameNotToContainFun ()Ljava/lang/String;
+}
+
+public final class ch/tutteli/atrium/creating/proofs/charsequence/contains/checkers/impl/DefaultNotChecker : ch/tutteli/atrium/creating/proofs/charsequence/contains/checkers/NotChecker {
+	public fun <init> ()V
+	public fun createProof (I)Lch/tutteli/atrium/creating/proofs/Proof;
+}
+
+public final class ch/tutteli/atrium/creating/proofs/charsequence/contains/creators/CharSequenceToContainKt {
+	public static final fun regex (Lch/tutteli/atrium/creating/proofs/charsequence/contains/CharSequenceToContain$CheckerStepCore;Ljava/util/List;)Lch/tutteli/atrium/creating/proofs/ProofGroup;
+	public static final fun regexIgnoringCase (Lch/tutteli/atrium/creating/proofs/charsequence/contains/CharSequenceToContain$CheckerStepCore;Ljava/util/List;)Lch/tutteli/atrium/creating/proofs/ProofGroup;
+	public static final fun values (Lch/tutteli/atrium/creating/proofs/charsequence/contains/CharSequenceToContain$CheckerStepCore;Ljava/util/List;)Lch/tutteli/atrium/creating/proofs/ProofGroup;
+	public static final fun valuesIgnoringCase (Lch/tutteli/atrium/creating/proofs/charsequence/contains/CharSequenceToContain$CheckerStepCore;Ljava/util/List;)Lch/tutteli/atrium/creating/proofs/ProofGroup;
+}
+
+public abstract interface class ch/tutteli/atrium/creating/proofs/charsequence/contains/creators/CharSequenceToContainProofs {
+	public abstract fun regex (Lch/tutteli/atrium/creating/proofs/charsequence/contains/CharSequenceToContain$CheckerStepCore;Ljava/util/List;)Lch/tutteli/atrium/creating/proofs/ProofGroup;
+	public abstract fun regexIgnoringCase (Lch/tutteli/atrium/creating/proofs/charsequence/contains/CharSequenceToContain$CheckerStepCore;Ljava/util/List;)Lch/tutteli/atrium/creating/proofs/ProofGroup;
+	public abstract fun values (Lch/tutteli/atrium/creating/proofs/charsequence/contains/CharSequenceToContain$CheckerStepCore;Ljava/util/List;)Lch/tutteli/atrium/creating/proofs/ProofGroup;
+	public abstract fun valuesIgnoringCase (Lch/tutteli/atrium/creating/proofs/charsequence/contains/CharSequenceToContain$CheckerStepCore;Ljava/util/List;)Lch/tutteli/atrium/creating/proofs/ProofGroup;
+}
+
+public final class ch/tutteli/atrium/creating/proofs/charsequence/contains/creators/StringRegexKt {
+	public static final fun regex (Lch/tutteli/atrium/creating/proofs/charsequence/contains/CharSequenceToContain$CheckerStepCore;Ljava/util/List;)Lch/tutteli/atrium/creating/proofs/ProofGroup;
+}
+
+public final class ch/tutteli/atrium/creating/proofs/charsequence/contains/creators/impl/CharSequenceToContainProofCreator : ch/tutteli/atrium/creating/proofs/basic/contains/creators/impl/ToContainObjectsProofCreator, ch/tutteli/atrium/creating/proofs/charsequence/contains/CharSequenceToContain$Creator {
+	public fun <init> (Lch/tutteli/atrium/creating/proofs/charsequence/contains/CharSequenceToContain$SearchBehaviour;Lch/tutteli/atrium/creating/proofs/charsequence/contains/CharSequenceToContain$Searcher;Ljava/util/List;Lch/tutteli/atrium/reporting/reportables/Description;)V
+}
+
+public final class ch/tutteli/atrium/creating/proofs/charsequence/contains/creators/impl/DefaultCharSequenceToContainProofs : ch/tutteli/atrium/creating/proofs/charsequence/contains/creators/CharSequenceToContainProofs {
+	public fun <init> ()V
+	public fun regex (Lch/tutteli/atrium/creating/proofs/charsequence/contains/CharSequenceToContain$CheckerStepCore;Ljava/util/List;)Lch/tutteli/atrium/creating/proofs/ProofGroup;
+	public fun regexIgnoringCase (Lch/tutteli/atrium/creating/proofs/charsequence/contains/CharSequenceToContain$CheckerStepCore;Ljava/util/List;)Lch/tutteli/atrium/creating/proofs/ProofGroup;
+	public fun values (Lch/tutteli/atrium/creating/proofs/charsequence/contains/CharSequenceToContain$CheckerStepCore;Ljava/util/List;)Lch/tutteli/atrium/creating/proofs/ProofGroup;
+	public fun valuesIgnoringCase (Lch/tutteli/atrium/creating/proofs/charsequence/contains/CharSequenceToContain$CheckerStepCore;Ljava/util/List;)Lch/tutteli/atrium/creating/proofs/ProofGroup;
+}
+
+public abstract interface class ch/tutteli/atrium/creating/proofs/charsequence/contains/searchbehaviours/IgnoringCaseSearchBehaviour : ch/tutteli/atrium/creating/proofs/charsequence/contains/CharSequenceToContain$SearchBehaviour {
+}
+
+public abstract interface class ch/tutteli/atrium/creating/proofs/charsequence/contains/searchbehaviours/NoOpSearchBehaviour : ch/tutteli/atrium/creating/proofs/charsequence/contains/CharSequenceToContain$SearchBehaviour {
+	public abstract fun decorateDescription (Lch/tutteli/atrium/reporting/reportables/Description;)Lch/tutteli/atrium/reporting/reportables/Description;
+}
+
+public final class ch/tutteli/atrium/creating/proofs/charsequence/contains/searchbehaviours/NoOpSearchBehaviour$DefaultImpls {
+	public static fun decorateDescription (Lch/tutteli/atrium/creating/proofs/charsequence/contains/searchbehaviours/NoOpSearchBehaviour;Lch/tutteli/atrium/reporting/reportables/Description;)Lch/tutteli/atrium/reporting/reportables/Description;
+}
+
+public abstract interface class ch/tutteli/atrium/creating/proofs/charsequence/contains/searchbehaviours/NotSearchBehaviour : ch/tutteli/atrium/creating/proofs/charsequence/contains/searchbehaviours/NoOpSearchBehaviour {
+}
+
+public final class ch/tutteli/atrium/creating/proofs/charsequence/contains/searchbehaviours/NotSearchBehaviour$DefaultImpls {
+	public static fun decorateDescription (Lch/tutteli/atrium/creating/proofs/charsequence/contains/searchbehaviours/NotSearchBehaviour;Lch/tutteli/atrium/reporting/reportables/Description;)Lch/tutteli/atrium/reporting/reportables/Description;
+}
+
+public final class ch/tutteli/atrium/creating/proofs/charsequence/contains/searchbehaviours/impl/IgnoringCaseSearchBehaviourImpl : ch/tutteli/atrium/creating/proofs/charsequence/contains/searchbehaviours/IgnoringCaseSearchBehaviour {
+	public fun <init> (Lch/tutteli/atrium/creating/proofs/charsequence/contains/searchbehaviours/NoOpSearchBehaviour;)V
+	public fun decorateDescription (Lch/tutteli/atrium/reporting/reportables/Description;)Lch/tutteli/atrium/reporting/reportables/Description;
+	public synthetic fun decorateDescription (Lch/tutteli/atrium/reporting/reportables/Description;)Lch/tutteli/atrium/reporting/reportables/TextElement;
+}
+
+public final class ch/tutteli/atrium/creating/proofs/charsequence/contains/searchbehaviours/impl/NoOpSearchBehaviourImpl : ch/tutteli/atrium/creating/proofs/charsequence/contains/searchbehaviours/NoOpSearchBehaviour {
+	public fun <init> ()V
+	public fun decorateDescription (Lch/tutteli/atrium/reporting/reportables/Description;)Lch/tutteli/atrium/reporting/reportables/Description;
+	public synthetic fun decorateDescription (Lch/tutteli/atrium/reporting/reportables/Description;)Lch/tutteli/atrium/reporting/reportables/TextElement;
+}
+
+public final class ch/tutteli/atrium/creating/proofs/charsequence/contains/searchbehaviours/impl/NotSearchBehaviourImpl : ch/tutteli/atrium/creating/proofs/charsequence/contains/searchbehaviours/NotSearchBehaviour {
+	public fun <init> ()V
+	public fun decorateDescription (Lch/tutteli/atrium/reporting/reportables/Description;)Lch/tutteli/atrium/reporting/reportables/Description;
+	public synthetic fun decorateDescription (Lch/tutteli/atrium/reporting/reportables/Description;)Lch/tutteli/atrium/reporting/reportables/TextElement;
+}
+
+public final class ch/tutteli/atrium/creating/proofs/charsequence/contains/searchers/impl/IgnoringCaseIndexSearcher : ch/tutteli/atrium/creating/proofs/charsequence/contains/CharSequenceToContain$Searcher {
+	public fun <init> ()V
+	public fun search (Ljava/lang/CharSequence;Ljava/lang/Object;)I
+}
+
+public final class ch/tutteli/atrium/creating/proofs/charsequence/contains/searchers/impl/IgnoringCaseRegexSearcher : ch/tutteli/atrium/creating/proofs/charsequence/contains/CharSequenceToContain$Searcher {
+	public fun <init> ()V
+	public synthetic fun search (Ljava/lang/CharSequence;Ljava/lang/Object;)I
+	public fun search (Ljava/lang/CharSequence;Ljava/lang/String;)I
+}
+
+public final class ch/tutteli/atrium/creating/proofs/charsequence/contains/searchers/impl/IndexSearcher : ch/tutteli/atrium/creating/proofs/charsequence/contains/CharSequenceToContain$Searcher {
+	public fun <init> ()V
+	public fun search (Ljava/lang/CharSequence;Ljava/lang/Object;)I
+}
+
+public final class ch/tutteli/atrium/creating/proofs/charsequence/contains/searchers/impl/RegexSearcher : ch/tutteli/atrium/creating/proofs/charsequence/contains/CharSequenceToContain$Searcher {
+	public fun <init> ()V
+	public synthetic fun search (Ljava/lang/CharSequence;Ljava/lang/Object;)I
+	public fun search (Ljava/lang/CharSequence;Lkotlin/text/Regex;)I
+}
+
+public abstract interface class ch/tutteli/atrium/creating/proofs/charsequence/contains/steps/AtLeastCheckerStep : ch/tutteli/atrium/creating/proofs/charsequence/contains/steps/WithTimesCheckerStep {
+}
+
+public abstract interface class ch/tutteli/atrium/creating/proofs/charsequence/contains/steps/AtMostCheckerStep : ch/tutteli/atrium/creating/proofs/charsequence/contains/steps/WithTimesCheckerStep {
+}
+
+public abstract interface class ch/tutteli/atrium/creating/proofs/charsequence/contains/steps/ButAtMostCheckerStep : ch/tutteli/atrium/creating/proofs/charsequence/contains/steps/WithTimesCheckerStep {
+}
+
+public abstract interface class ch/tutteli/atrium/creating/proofs/charsequence/contains/steps/ExactlyCheckerStep : ch/tutteli/atrium/creating/proofs/charsequence/contains/steps/WithTimesCheckerStep {
+}
+
+public final class ch/tutteli/atrium/creating/proofs/charsequence/contains/steps/ImplsKt {
+	public static final fun atLeastCheckerStep (Lch/tutteli/atrium/creating/proofs/charsequence/contains/CharSequenceToContain$EntryPointStepCore;ILjava/lang/String;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/creating/proofs/charsequence/contains/steps/AtLeastCheckerStep;
+	public static final fun atMostCheckerStep (Lch/tutteli/atrium/creating/proofs/charsequence/contains/CharSequenceToContain$EntryPointStepCore;ILjava/lang/String;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/creating/proofs/charsequence/contains/steps/AtMostCheckerStep;
+	public static final fun butAtMostCheckerStep (Lch/tutteli/atrium/creating/proofs/charsequence/contains/steps/WithTimesCheckerStepCore;ILjava/lang/String;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/creating/proofs/charsequence/contains/steps/ButAtMostCheckerStep;
+	public static final fun exactlyCheckerStep (Lch/tutteli/atrium/creating/proofs/charsequence/contains/CharSequenceToContain$EntryPointStepCore;ILjava/lang/String;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/creating/proofs/charsequence/contains/steps/ExactlyCheckerStep;
+	public static final fun getIgnoringCase (Lch/tutteli/atrium/creating/proofs/charsequence/contains/CharSequenceToContain$EntryPointStepCore;)Lch/tutteli/atrium/creating/proofs/charsequence/contains/CharSequenceToContain$EntryPointStep;
+	public static final fun notCheckerStep (Lch/tutteli/atrium/creating/proofs/charsequence/contains/CharSequenceToContain$EntryPointStepCore;)Lch/tutteli/atrium/creating/proofs/charsequence/contains/steps/NotCheckerStep;
+	public static final fun notOrAtMostCheckerStep (Lch/tutteli/atrium/creating/proofs/charsequence/contains/CharSequenceToContain$EntryPointStepCore;ILjava/lang/String;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/creating/proofs/charsequence/contains/steps/NotOrAtMostCheckerStep;
+}
+
+public abstract interface class ch/tutteli/atrium/creating/proofs/charsequence/contains/steps/NotCheckerStep : ch/tutteli/atrium/creating/proofs/charsequence/contains/CharSequenceToContain$CheckerStep {
+}
+
+public abstract interface class ch/tutteli/atrium/creating/proofs/charsequence/contains/steps/NotOrAtMostCheckerStep : ch/tutteli/atrium/creating/proofs/charsequence/contains/CharSequenceToContain$CheckerStep {
+}
+
+public abstract interface class ch/tutteli/atrium/creating/proofs/charsequence/contains/steps/WithTimesCheckerStep : ch/tutteli/atrium/creating/proofs/charsequence/contains/CharSequenceToContain$CheckerStep {
+}
+
+public abstract interface class ch/tutteli/atrium/creating/proofs/charsequence/contains/steps/WithTimesCheckerStepCore : ch/tutteli/atrium/creating/proofs/charsequence/contains/CharSequenceToContain$CheckerStepCore {
+	public abstract fun getTimes ()I
+}
+
+public abstract interface class ch/tutteli/atrium/creating/proofs/charsequence/contains/steps/WithTimesCheckerStepInternal : ch/tutteli/atrium/creating/proofs/charsequence/contains/CharSequenceToContain$CheckerStepInternal, ch/tutteli/atrium/creating/proofs/charsequence/contains/steps/WithTimesCheckerStep, ch/tutteli/atrium/creating/proofs/charsequence/contains/steps/WithTimesCheckerStepCore {
+}
+
+public final class ch/tutteli/atrium/creating/proofs/charsequence/contains/steps/impl/AtMostCheckerStepImpl : ch/tutteli/atrium/creating/proofs/charsequence/contains/CharSequenceToContain$CheckerStepInternal, ch/tutteli/atrium/creating/proofs/charsequence/contains/steps/AtMostCheckerStep {
+	public fun <init> (ILjava/lang/String;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;Lch/tutteli/atrium/creating/proofs/charsequence/contains/CharSequenceToContain$EntryPointStepCore;)V
+	public fun getCheckers ()Ljava/util/List;
+	public synthetic fun getEntryPointStepCore ()Lch/tutteli/atrium/creating/proofs/basic/contains/ToContain$EntryPointStepCore;
+	public fun getEntryPointStepCore ()Lch/tutteli/atrium/creating/proofs/charsequence/contains/CharSequenceToContain$EntryPointStepCore;
+}
+
+public final class ch/tutteli/atrium/creating/proofs/charsequence/contains/steps/impl/ButAtMostCheckerStepImpl : ch/tutteli/atrium/creating/proofs/charsequence/contains/CharSequenceToContain$CheckerStepInternal, ch/tutteli/atrium/creating/proofs/charsequence/contains/steps/ButAtMostCheckerStep {
+	public fun <init> (ILch/tutteli/atrium/creating/proofs/charsequence/contains/steps/WithTimesCheckerStepCore;Ljava/lang/String;Lkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/functions/Function1;Lch/tutteli/atrium/creating/proofs/charsequence/contains/CharSequenceToContain$EntryPointStepCore;)V
+	public fun getCheckers ()Ljava/util/List;
+	public synthetic fun getEntryPointStepCore ()Lch/tutteli/atrium/creating/proofs/basic/contains/ToContain$EntryPointStepCore;
+	public fun getEntryPointStepCore ()Lch/tutteli/atrium/creating/proofs/charsequence/contains/CharSequenceToContain$EntryPointStepCore;
+}
+
+public final class ch/tutteli/atrium/creating/proofs/charsequence/contains/steps/impl/EntryPointStepImpl : ch/tutteli/atrium/creating/proofs/basic/contains/steps/impl/EntryPointStepImpl, ch/tutteli/atrium/creating/proofs/charsequence/contains/CharSequenceToContain$EntryPointStepInternal {
+	public fun <init> (Lch/tutteli/atrium/creating/ProofContainer;Lch/tutteli/atrium/creating/proofs/charsequence/contains/CharSequenceToContain$SearchBehaviour;)V
+}
+
+public final class ch/tutteli/atrium/creating/proofs/charsequence/contains/steps/impl/GenericTimesCheckerStep : ch/tutteli/atrium/creating/proofs/charsequence/contains/steps/AtLeastCheckerStep, ch/tutteli/atrium/creating/proofs/charsequence/contains/steps/ButAtMostCheckerStep, ch/tutteli/atrium/creating/proofs/charsequence/contains/steps/ExactlyCheckerStep, ch/tutteli/atrium/creating/proofs/charsequence/contains/steps/WithTimesCheckerStepInternal {
+	public fun <init> (ILch/tutteli/atrium/creating/proofs/charsequence/contains/CharSequenceToContain$EntryPointStepCore;Ljava/util/List;)V
+	public fun getCheckers ()Ljava/util/List;
+	public synthetic fun getEntryPointStepCore ()Lch/tutteli/atrium/creating/proofs/basic/contains/ToContain$EntryPointStepCore;
+	public fun getEntryPointStepCore ()Lch/tutteli/atrium/creating/proofs/charsequence/contains/CharSequenceToContain$EntryPointStepCore;
+	public fun getTimes ()I
+}
+
+public final class ch/tutteli/atrium/creating/proofs/charsequence/contains/steps/impl/NotCheckerStepImpl : ch/tutteli/atrium/creating/proofs/charsequence/contains/CharSequenceToContain$CheckerStepInternal, ch/tutteli/atrium/creating/proofs/charsequence/contains/steps/NotCheckerStep {
+	public fun <init> (Lch/tutteli/atrium/creating/proofs/charsequence/contains/CharSequenceToContain$EntryPointStepCore;)V
+	public fun getCheckers ()Ljava/util/List;
+	public synthetic fun getEntryPointStepCore ()Lch/tutteli/atrium/creating/proofs/basic/contains/ToContain$EntryPointStepCore;
+	public fun getEntryPointStepCore ()Lch/tutteli/atrium/creating/proofs/charsequence/contains/CharSequenceToContain$EntryPointStepCore;
+}
+
+public final class ch/tutteli/atrium/creating/proofs/charsequence/contains/steps/impl/NotOrAtMostCheckerStepImpl : ch/tutteli/atrium/creating/proofs/charsequence/contains/CharSequenceToContain$CheckerStepInternal, ch/tutteli/atrium/creating/proofs/charsequence/contains/steps/NotOrAtMostCheckerStep {
+	public fun <init> (ILjava/lang/String;Lkotlin/jvm/functions/Function1;Lch/tutteli/atrium/creating/proofs/charsequence/contains/CharSequenceToContain$EntryPointStepCore;)V
+	public fun getCheckers ()Ljava/util/List;
+	public synthetic fun getEntryPointStepCore ()Lch/tutteli/atrium/creating/proofs/basic/contains/ToContain$EntryPointStepCore;
+	public fun getEntryPointStepCore ()Lch/tutteli/atrium/creating/proofs/charsequence/contains/CharSequenceToContain$EntryPointStepCore;
+}
+
+public final class ch/tutteli/atrium/creating/proofs/charsequence/contains/steps/impl/SharedCheckersKt {
+	public static final fun atLeastChecker (Lch/tutteli/atrium/creating/ProofContainer;ILjava/lang/String;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/creating/proofs/charsequence/contains/checkers/AtLeastChecker;
+	public static final fun atMostChecker (Lch/tutteli/atrium/creating/ProofContainer;ILjava/lang/String;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/creating/proofs/charsequence/contains/checkers/AtMostChecker;
+}
+
+public final class ch/tutteli/atrium/creating/proofs/feature/MetaFeature {
+	public fun <init> (Lch/tutteli/atrium/reporting/reportables/InlineElement;Ljava/lang/Object;Lch/tutteli/atrium/core/Option;)V
+	public fun <init> (Ljava/lang/String;Ljava/lang/Object;)V
+	public fun <init> (Ljava/lang/String;Ljava/lang/Object;Lch/tutteli/atrium/core/Option;)V
+	public final fun component1 ()Lch/tutteli/atrium/reporting/reportables/InlineElement;
+	public final fun component2 ()Ljava/lang/Object;
+	public final fun component3 ()Lch/tutteli/atrium/core/Option;
+	public final fun copy (Lch/tutteli/atrium/reporting/reportables/InlineElement;Ljava/lang/Object;Lch/tutteli/atrium/core/Option;)Lch/tutteli/atrium/creating/proofs/feature/MetaFeature;
+	public static synthetic fun copy$default (Lch/tutteli/atrium/creating/proofs/feature/MetaFeature;Lch/tutteli/atrium/reporting/reportables/InlineElement;Ljava/lang/Object;Lch/tutteli/atrium/core/Option;ILjava/lang/Object;)Lch/tutteli/atrium/creating/proofs/feature/MetaFeature;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getDescription ()Lch/tutteli/atrium/reporting/reportables/InlineElement;
+	public final fun getMaybeSubject ()Lch/tutteli/atrium/core/Option;
+	public final fun getRepresentation ()Ljava/lang/Object;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
 public final class ch/tutteli/atrium/creating/proofs/impl/DefaultAnyProofs : ch/tutteli/atrium/creating/proofs/AnyProofs {
 	public fun <init> ()V
+	public fun notToBeAnInstanceOf (Lch/tutteli/atrium/creating/ProofContainer;Ljava/util/List;)Lch/tutteli/atrium/creating/proofs/Proof;
 	public fun notToBeTheInstance (Lch/tutteli/atrium/creating/ProofContainer;Ljava/lang/Object;)Lch/tutteli/atrium/creating/proofs/Proof;
 	public fun notToEqual (Lch/tutteli/atrium/creating/ProofContainer;Ljava/lang/Object;)Lch/tutteli/atrium/creating/proofs/Proof;
 	public fun notToEqualNullButToBeAnInstanceOf (Lch/tutteli/atrium/creating/ProofContainer;Lkotlin/reflect/KClass;)Lch/tutteli/atrium/creating/transformers/SubjectChangerBuilder$ExecutionStep;
@@ -1209,11 +1706,59 @@ public final class ch/tutteli/atrium/creating/proofs/impl/DefaultAnyProofs : ch/
 	public fun toBeAnInstanceOf (Lch/tutteli/atrium/creating/ProofContainer;Lkotlin/reflect/KClass;)Lch/tutteli/atrium/creating/transformers/SubjectChangerBuilder$ExecutionStep;
 	public fun toBeTheInstance (Lch/tutteli/atrium/creating/ProofContainer;Ljava/lang/Object;)Lch/tutteli/atrium/creating/proofs/Proof;
 	public fun toEqual (Lch/tutteli/atrium/creating/ProofContainer;Ljava/lang/Object;)Lch/tutteli/atrium/creating/proofs/Proof;
+	public fun toEqualNullIfNullGivenElse (Lch/tutteli/atrium/creating/ProofContainer;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/creating/proofs/Proof;
+}
+
+public final class ch/tutteli/atrium/creating/proofs/impl/DefaultCharSequenceProofs : ch/tutteli/atrium/creating/proofs/CharSequenceProofs {
+	public fun <init> ()V
+	public fun notToBeBlank (Lch/tutteli/atrium/creating/ProofContainer;)Lch/tutteli/atrium/creating/proofs/Proof;
+	public fun notToBeEmpty (Lch/tutteli/atrium/creating/ProofContainer;)Lch/tutteli/atrium/creating/proofs/Proof;
+	public fun notToContainBuilder (Lch/tutteli/atrium/creating/ProofContainer;)Lch/tutteli/atrium/creating/proofs/charsequence/contains/steps/NotCheckerStep;
+	public fun notToEndWith (Lch/tutteli/atrium/creating/ProofContainer;Ljava/lang/CharSequence;)Lch/tutteli/atrium/creating/proofs/Proof;
+	public fun notToMatch (Lch/tutteli/atrium/creating/ProofContainer;Lkotlin/text/Regex;)Lch/tutteli/atrium/creating/proofs/Proof;
+	public fun notToStartWith (Lch/tutteli/atrium/creating/ProofContainer;Ljava/lang/CharSequence;)Lch/tutteli/atrium/creating/proofs/Proof;
+	public fun toBeEmpty (Lch/tutteli/atrium/creating/ProofContainer;)Lch/tutteli/atrium/creating/proofs/Proof;
+	public fun toContainBuilder (Lch/tutteli/atrium/creating/ProofContainer;)Lch/tutteli/atrium/creating/proofs/charsequence/contains/CharSequenceToContain$EntryPointStep;
+	public fun toEndWith (Lch/tutteli/atrium/creating/ProofContainer;Ljava/lang/CharSequence;)Lch/tutteli/atrium/creating/proofs/Proof;
+	public fun toMatch (Lch/tutteli/atrium/creating/ProofContainer;Lkotlin/text/Regex;)Lch/tutteli/atrium/creating/proofs/Proof;
+	public fun toStartWith (Lch/tutteli/atrium/creating/ProofContainer;Ljava/lang/CharSequence;)Lch/tutteli/atrium/creating/proofs/Proof;
+}
+
+public final class ch/tutteli/atrium/creating/proofs/impl/DefaultCollectionLikeProofs : ch/tutteli/atrium/creating/proofs/CollectionLikeProofs {
+	public fun <init> ()V
+	public fun notToBeEmpty (Lch/tutteli/atrium/creating/ProofContainer;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/creating/proofs/Proof;
+	public fun size (Lch/tutteli/atrium/creating/ProofContainer;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/creating/transformers/FeatureExtractorBuilder$ExecutionStep;
+	public fun toBeEmpty (Lch/tutteli/atrium/creating/ProofContainer;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/creating/proofs/Proof;
+}
+
+public final class ch/tutteli/atrium/creating/proofs/impl/DefaultComparableProofs : ch/tutteli/atrium/creating/proofs/ComparableProofs {
+	public fun <init> ()V
+	public fun notToBeGreaterThan (Lch/tutteli/atrium/creating/ProofContainer;Ljava/lang/Object;)Lch/tutteli/atrium/creating/proofs/Proof;
+	public fun notToBeLessThan (Lch/tutteli/atrium/creating/ProofContainer;Ljava/lang/Object;)Lch/tutteli/atrium/creating/proofs/Proof;
+	public fun toBeEqualComparingTo (Lch/tutteli/atrium/creating/ProofContainer;Ljava/lang/Object;)Lch/tutteli/atrium/creating/proofs/Proof;
+	public fun toBeGreaterThan (Lch/tutteli/atrium/creating/ProofContainer;Ljava/lang/Object;)Lch/tutteli/atrium/creating/proofs/Proof;
+	public fun toBeGreaterThanOrEqualTo (Lch/tutteli/atrium/creating/ProofContainer;Ljava/lang/Object;)Lch/tutteli/atrium/creating/proofs/Proof;
+	public fun toBeLessThan (Lch/tutteli/atrium/creating/ProofContainer;Ljava/lang/Object;)Lch/tutteli/atrium/creating/proofs/Proof;
+	public fun toBeLessThanOrEqualTo (Lch/tutteli/atrium/creating/ProofContainer;Ljava/lang/Object;)Lch/tutteli/atrium/creating/proofs/Proof;
 }
 
 public final class ch/tutteli/atrium/creating/proofs/impl/DefaultDocumentationUtils : ch/tutteli/atrium/creating/proofs/DocumentationUtils {
 	public fun <init> ()V
 	public fun because (Lch/tutteli/atrium/creating/ProofContainer;Lch/tutteli/atrium/reporting/reportables/InlineElement;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/creating/proofs/Proof;
+}
+
+public final class ch/tutteli/atrium/creating/proofs/impl/DefaultFeatureExtractors : ch/tutteli/atrium/creating/proofs/FeatureExtractors {
+	public fun <init> ()V
+	public fun extractSubject (Lch/tutteli/atrium/creating/ProofContainer;Lch/tutteli/atrium/reporting/reportables/InlineElement;Ljava/util/List;Lkotlin/jvm/functions/Function2;)Lch/tutteli/atrium/creating/Expect;
+	public fun f0 (Lch/tutteli/atrium/creating/ProofContainer;Lkotlin/reflect/KFunction;)Lch/tutteli/atrium/creating/transformers/FeatureExtractorBuilder$ExecutionStep;
+	public fun f1 (Lch/tutteli/atrium/creating/ProofContainer;Lkotlin/reflect/KFunction;Ljava/lang/Object;)Lch/tutteli/atrium/creating/transformers/FeatureExtractorBuilder$ExecutionStep;
+	public fun f2 (Lch/tutteli/atrium/creating/ProofContainer;Lkotlin/reflect/KFunction;Ljava/lang/Object;Ljava/lang/Object;)Lch/tutteli/atrium/creating/transformers/FeatureExtractorBuilder$ExecutionStep;
+	public fun f3 (Lch/tutteli/atrium/creating/ProofContainer;Lkotlin/reflect/KFunction;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;)Lch/tutteli/atrium/creating/transformers/FeatureExtractorBuilder$ExecutionStep;
+	public fun f4 (Lch/tutteli/atrium/creating/ProofContainer;Lkotlin/reflect/KFunction;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;)Lch/tutteli/atrium/creating/transformers/FeatureExtractorBuilder$ExecutionStep;
+	public fun f5 (Lch/tutteli/atrium/creating/ProofContainer;Lkotlin/reflect/KFunction;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;Ljava/lang/Object;)Lch/tutteli/atrium/creating/transformers/FeatureExtractorBuilder$ExecutionStep;
+	public fun featureBasedOnMetaFeature (Lch/tutteli/atrium/creating/ProofContainer;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/creating/transformers/FeatureExtractorBuilder$ExecutionStep;
+	public fun manualFeature (Lch/tutteli/atrium/creating/ProofContainer;Lch/tutteli/atrium/reporting/reportables/InlineElement;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/creating/transformers/FeatureExtractorBuilder$ExecutionStep;
+	public fun property (Lch/tutteli/atrium/creating/ProofContainer;Lkotlin/reflect/KProperty1;)Lch/tutteli/atrium/creating/transformers/FeatureExtractorBuilder$ExecutionStep;
 }
 
 public final class ch/tutteli/atrium/creating/transformers/FailureHandlerAdapter : ch/tutteli/atrium/creating/transformers/SubjectChanger$FailureHandler {
@@ -1280,11 +1825,16 @@ public abstract interface class ch/tutteli/atrium/creating/transformers/FeatureE
 	public abstract fun getFeatureExtraction ()Lkotlin/jvm/functions/Function1;
 	public abstract fun getFeatureExtractionStep ()Lch/tutteli/atrium/creating/transformers/FeatureExtractorBuilder$FeatureExtractionStep;
 	public abstract fun withOptions (Lch/tutteli/atrium/creating/FeatureExpectOptions;)Lch/tutteli/atrium/creating/transformers/FeatureExtractorBuilder$FinalStep;
+	public abstract fun withOptions (Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/creating/transformers/FeatureExtractorBuilder$FinalStep;
 	public abstract fun withoutOptions ()Lch/tutteli/atrium/creating/transformers/FeatureExtractorBuilder$FinalStep;
 }
 
 public final class ch/tutteli/atrium/creating/transformers/FeatureExtractorBuilder$OptionsStep$Companion {
 	public final fun invoke (Lch/tutteli/atrium/creating/transformers/FeatureExtractorBuilder$FeatureExtractionStep;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/creating/transformers/FeatureExtractorBuilder$OptionsStep;
+}
+
+public final class ch/tutteli/atrium/creating/transformers/FeatureExtractorBuilder$OptionsStep$DefaultImpls {
+	public static fun withOptions (Lch/tutteli/atrium/creating/transformers/FeatureExtractorBuilder$OptionsStep;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/creating/transformers/FeatureExtractorBuilder$FinalStep;
 }
 
 public abstract interface class ch/tutteli/atrium/creating/transformers/FeatureExtractorBuilder$RepresentationInCaseOfFailureStep {
@@ -1310,7 +1860,7 @@ public final class ch/tutteli/atrium/creating/transformers/ImplsKt {
 
 public final class ch/tutteli/atrium/creating/transformers/PropertiesOfThrowableKt {
 	public static final fun addChildHint (Lch/tutteli/atrium/creating/proofs/builders/impl/BaseGroupBuilder;Ljava/lang/Throwable;Ljava/lang/Throwable;Lch/tutteli/atrium/reporting/reportables/InlineElement;)V
-	public static final fun propertiesOfThrowable (Lch/tutteli/atrium/creating/ProofContainer;Ljava/lang/Throwable;)Lch/tutteli/atrium/reporting/reportables/Reportable;
+	public static final fun propertiesOfThrowable (Lch/tutteli/atrium/creating/ProofContainer;Ljava/lang/Throwable;)Lch/tutteli/atrium/reporting/reportables/Diagnostic;
 }
 
 public abstract interface class ch/tutteli/atrium/creating/transformers/SubjectChanger {
@@ -1477,6 +2027,7 @@ public final class ch/tutteli/atrium/creating/transformers/impl/builders/feature
 	public fun getFeatureExtraction ()Lkotlin/jvm/functions/Function1;
 	public fun getFeatureExtractionStep ()Lch/tutteli/atrium/creating/transformers/FeatureExtractorBuilder$FeatureExtractionStep;
 	public fun withOptions (Lch/tutteli/atrium/creating/FeatureExpectOptions;)Lch/tutteli/atrium/creating/transformers/FeatureExtractorBuilder$FinalStep;
+	public fun withOptions (Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/creating/transformers/FeatureExtractorBuilder$FinalStep;
 	public fun withoutOptions ()Lch/tutteli/atrium/creating/transformers/FeatureExtractorBuilder$FinalStep;
 }
 
@@ -1528,6 +2079,73 @@ public final class ch/tutteli/atrium/creating/transformers/impl/builders/subject
 	public fun getDescription ()Lch/tutteli/atrium/reporting/reportables/InlineElement;
 	public fun getRepresentation ()Ljava/lang/Object;
 	public fun withTransformation (Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/creating/transformers/SubjectChangerBuilder$FailureHandlerStep;
+}
+
+public final class ch/tutteli/atrium/creating/typeutils/ImplsKt {
+	public static final fun getIterableLikeToIterableTransformer (Lch/tutteli/atrium/creating/ProofContainer;)Lch/tutteli/atrium/creating/typeutils/IterableLikeToIterableTransformer;
+	public static final fun getMapLikeToMapTransformer (Lch/tutteli/atrium/creating/ProofContainer;)Lch/tutteli/atrium/creating/typeutils/MapLikeToIterablePairTransformer;
+}
+
+public abstract interface class ch/tutteli/atrium/creating/typeutils/IterableLikeToIterableTransformer {
+	public abstract fun supportedTypes ()Ljava/util/List;
+	public abstract fun unsafeTransform (Ljava/lang/Object;)Ljava/lang/Iterable;
+}
+
+public abstract interface class ch/tutteli/atrium/creating/typeutils/MapLikeToIterablePairTransformer {
+	public abstract fun supportedTypes ()Ljava/util/List;
+	public abstract fun unsafeTransform (Ljava/lang/Object;)Ljava/util/List;
+}
+
+public final class ch/tutteli/atrium/creating/typeutils/impl/DefaultIterableLikeToIterableTransformer : ch/tutteli/atrium/creating/typeutils/IterableLikeToIterableTransformer {
+	public fun <init> ()V
+	public fun supportedTypes ()Ljava/util/List;
+	public fun unsafeTransform (Ljava/lang/Object;)Ljava/lang/Iterable;
+}
+
+public final class ch/tutteli/atrium/creating/typeutils/impl/DefaultMapLikeToIterablePairTransformer : ch/tutteli/atrium/creating/typeutils/MapLikeToIterablePairTransformer {
+	public fun <init> (Lch/tutteli/atrium/creating/ProofContainer;)V
+	public fun supportedTypes ()Ljava/util/List;
+	public fun unsafeTransform (Ljava/lang/Object;)Ljava/util/List;
+}
+
+public abstract interface class ch/tutteli/atrium/creating/utils/Group {
+	public abstract fun toList ()Ljava/util/List;
+}
+
+public final class ch/tutteli/atrium/creating/utils/GroupsToListKt {
+	public static final fun groupsToList (Lch/tutteli/atrium/creating/utils/Group;Lch/tutteli/atrium/creating/utils/Group;[Lch/tutteli/atrium/creating/utils/Group;)Ljava/util/List;
+}
+
+public final class ch/tutteli/atrium/creating/utils/NullableKt {
+	public static final fun nullable (Ljava/lang/Object;)Ljava/lang/Object;
+	public static final fun nullable (Lkotlin/reflect/KFunction;)Lkotlin/reflect/KFunction;
+	public static final fun nullable1 (Lkotlin/reflect/KFunction;)Lkotlin/reflect/KFunction;
+	public static final fun nullable2 (Lkotlin/reflect/KFunction;)Lkotlin/reflect/KFunction;
+	public static final fun nullable3 (Lkotlin/reflect/KFunction;)Lkotlin/reflect/KFunction;
+	public static final fun nullable4 (Lkotlin/reflect/KFunction;)Lkotlin/reflect/KFunction;
+	public static final fun nullable5 (Lkotlin/reflect/KFunction;)Lkotlin/reflect/KFunction;
+	public static final fun nullableContainer (Ljava/lang/Iterable;)Ljava/lang/Iterable;
+	public static final fun nullableContainer ([Ljava/lang/Object;)[Ljava/lang/Object;
+	public static final fun nullableKeyMap (Ljava/util/Map;)Ljava/util/Map;
+	public static final fun nullableKeyValueMap (Ljava/util/Map;)Ljava/util/Map;
+	public static final fun nullableValueMap (Ljava/util/Map;)Ljava/util/Map;
+}
+
+public abstract interface class ch/tutteli/atrium/creating/utils/VarArgHelper {
+	public abstract fun getExpected ()Ljava/lang/Object;
+	public abstract fun getOtherExpected ()[Ljava/lang/Object;
+	public abstract fun toList ()Ljava/util/List;
+}
+
+public final class ch/tutteli/atrium/creating/utils/VarArgHelper$DefaultImpls {
+	public static fun toList (Lch/tutteli/atrium/creating/utils/VarArgHelper;)Ljava/util/List;
+}
+
+public final class ch/tutteli/atrium/creating/utils/VarArgHelpersKt {
+	public static final fun iterableLikeToIterable (Lch/tutteli/atrium/creating/ProofContainer;Ljava/lang/Object;)Ljava/lang/Iterable;
+	public static final fun iterableLikeToIterableWithoutCheckForElements (Lch/tutteli/atrium/creating/ProofContainer;Ljava/lang/Object;)Ljava/lang/Iterable;
+	public static final fun mapLikeToIterablePair (Lch/tutteli/atrium/creating/ProofContainer;Ljava/lang/Object;)Ljava/util/List;
+	public static final fun mapLikeToVarArgPairs (Lch/tutteli/atrium/creating/ProofContainer;Ljava/lang/Object;)Lkotlin/Pair;
 }
 
 public abstract interface class ch/tutteli/atrium/reporting/AssertionFormatter {
@@ -1635,7 +2253,6 @@ public final class ch/tutteli/atrium/reporting/HorizontalAlignment : java/lang/E
 	public static final field Companion Lch/tutteli/atrium/reporting/HorizontalAlignment$Companion;
 	public static final field LEFT Lch/tutteli/atrium/reporting/HorizontalAlignment;
 	public static final field RIGHT Lch/tutteli/atrium/reporting/HorizontalAlignment;
-	public static fun getEntries ()Lkotlin/enums/EnumEntries;
 	public static fun valueOf (Ljava/lang/String;)Lch/tutteli/atrium/reporting/HorizontalAlignment;
 	public static fun values ()[Lch/tutteli/atrium/reporting/HorizontalAlignment;
 }
@@ -1922,6 +2539,7 @@ public final class ch/tutteli/atrium/reporting/reportables/Diagnostic$Companion 
 	public final fun informationGroup (Lch/tutteli/atrium/reporting/reportables/InlineElement;Ljava/util/List;)Lch/tutteli/atrium/reporting/reportables/InformationGroup;
 	public final fun inlineGroup (Ljava/util/List;)Lch/tutteli/atrium/reporting/reportables/InlineGroup;
 	public final fun inlineGroupOrSingleElement (Ljava/util/List;)Lch/tutteli/atrium/reporting/reportables/InlineElement;
+	public final fun invisibleGroup (Ljava/util/List;)Lch/tutteli/atrium/reporting/reportables/Diagnostic;
 	public final fun proofExplanation (Lch/tutteli/atrium/creating/proofs/Proof;)Lch/tutteli/atrium/reporting/reportables/ProofExplanation;
 	public final fun representation (Ljava/lang/Object;)Lch/tutteli/atrium/reporting/reportables/Representation;
 	public final fun row (Lch/tutteli/atrium/reporting/reportables/Icon;ZLjava/util/List;)Lch/tutteli/atrium/reporting/reportables/Row;
@@ -1940,14 +2558,19 @@ public abstract interface class ch/tutteli/atrium/reporting/reportables/Diagnost
 
 public final class ch/tutteli/atrium/reporting/reportables/ErrorMessages : java/lang/Enum, ch/tutteli/atrium/reporting/reportables/TextElement {
 	public static final field AT_LEAST_ONE_EXPECTATION_DEFINED Lch/tutteli/atrium/reporting/reportables/ErrorMessages;
-	public static final field DEFAULT_HINT_AT_LEAST_ONE_EXPECTATION_DEFINED Lch/tutteli/atrium/reporting/reportables/ErrorMessages;
 	public static final field DESCRIPTION_BASED_ON_SUBJECT Lch/tutteli/atrium/reporting/reportables/ErrorMessages;
+	public static final field FEATURE_EXTRACTION_NOT_POSSIBLE Lch/tutteli/atrium/reporting/reportables/ErrorMessages;
 	public static final field FORGOT_DO_DEFINE_EXPECTATION Lch/tutteli/atrium/reporting/reportables/ErrorMessages;
 	public static final field REPRESENTATION_BASED_ON_SUBJECT_NOT_DEFINED Lch/tutteli/atrium/reporting/reportables/ErrorMessages;
-	public static fun getEntries ()Lkotlin/enums/EnumEntries;
 	public fun getString ()Ljava/lang/String;
 	public static fun valueOf (Ljava/lang/String;)Lch/tutteli/atrium/reporting/reportables/ErrorMessages;
 	public static fun values ()[Lch/tutteli/atrium/reporting/reportables/ErrorMessages;
+}
+
+public final class ch/tutteli/atrium/reporting/reportables/ErrorMessagesKt {
+	public static final field defaultSuffixForUsageHintWithoutLambda Ljava/lang/String;
+	public static final fun getDefaultHintsAtLeastOneExpectationDefined ()Ljava/util/List;
+	public static final fun useAlternativeUsageHint (Ljava/lang/String;)Ljava/util/List;
 }
 
 public abstract interface class ch/tutteli/atrium/reporting/reportables/FailureExplanationGroup : ch/tutteli/atrium/reporting/reportables/DiagnosticGroupWithDescription {
@@ -1968,7 +2591,6 @@ public final class ch/tutteli/atrium/reporting/reportables/Icon : java/lang/Enum
 	public static final field PROOF_EXPLANATION_BULLET_POINT Lch/tutteli/atrium/reporting/reportables/Icon;
 	public static final field ROOT_BULLET_POINT Lch/tutteli/atrium/reporting/reportables/Icon;
 	public static final field SUCCESS Lch/tutteli/atrium/reporting/reportables/Icon;
-	public static fun getEntries ()Lkotlin/enums/EnumEntries;
 	public static fun valueOf (Ljava/lang/String;)Lch/tutteli/atrium/reporting/reportables/Icon;
 	public static fun values ()[Lch/tutteli/atrium/reporting/reportables/Icon;
 }
@@ -1981,6 +2603,12 @@ public abstract interface class ch/tutteli/atrium/reporting/reportables/InlineEl
 
 public abstract interface class ch/tutteli/atrium/reporting/reportables/InlineGroup : ch/tutteli/atrium/reporting/reportables/InlineElement {
 	public abstract fun getInlineElements ()Ljava/util/List;
+}
+
+public abstract interface class ch/tutteli/atrium/reporting/reportables/InvisibleDiagnosticGroup : ch/tutteli/atrium/reporting/reportables/InvisibleLikeDiagnosticGroup {
+}
+
+public abstract interface class ch/tutteli/atrium/reporting/reportables/InvisibleLikeDiagnosticGroup : ch/tutteli/atrium/reporting/reportables/DiagnosticGroup {
 }
 
 public abstract interface class ch/tutteli/atrium/reporting/reportables/ProofExplanation : ch/tutteli/atrium/reporting/reportables/DiagnosticGroup {
@@ -2035,7 +2663,6 @@ public final class ch/tutteli/atrium/reporting/reportables/descriptions/Descript
 	public static final field TO_BE_THE_INSTANCE Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionAnyProof;
 	public static final field TO_EQUAL Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionAnyProof;
 	public fun getDefault ()Ljava/lang/String;
-	public static fun getEntries ()Lkotlin/enums/EnumEntries;
 	public fun getString ()Ljava/lang/String;
 	public static fun valueOf (Ljava/lang/String;)Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionAnyProof;
 	public static fun values ()[Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionAnyProof;
@@ -2050,7 +2677,6 @@ public final class ch/tutteli/atrium/reporting/reportables/descriptions/Descript
 	public static final field TO_HAVE Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionBasic;
 	public static final field WAS Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionBasic;
 	public fun getDefault ()Ljava/lang/String;
-	public static fun getEntries ()Lkotlin/enums/EnumEntries;
 	public fun getString ()Ljava/lang/String;
 	public static fun valueOf (Ljava/lang/String;)Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionBasic;
 	public static fun values ()[Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionBasic;
@@ -2063,7 +2689,6 @@ public final class ch/tutteli/atrium/reporting/reportables/descriptions/Descript
 	public static final field IS_NOT_NUMERICALLY_EQUAL_TO Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionBigDecimalProof;
 	public static final field IS_NUMERICALLY_EQUAL_TO Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionBigDecimalProof;
 	public fun getDefault ()Ljava/lang/String;
-	public static fun getEntries ()Lkotlin/enums/EnumEntries;
 	public fun getString ()Ljava/lang/String;
 	public static fun valueOf (Ljava/lang/String;)Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionBigDecimalProof;
 	public static fun values ()[Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionBigDecimalProof;
@@ -2089,7 +2714,6 @@ public final class ch/tutteli/atrium/reporting/reportables/descriptions/Descript
 	public static final field TO_START_WITH Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionCharSequenceProof;
 	public static final field VALUE Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionCharSequenceProof;
 	public fun getDefault ()Ljava/lang/String;
-	public static fun getEntries ()Lkotlin/enums/EnumEntries;
 	public fun getString ()Ljava/lang/String;
 	public static fun valueOf (Ljava/lang/String;)Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionCharSequenceProof;
 	public static fun values ()[Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionCharSequenceProof;
@@ -2103,7 +2727,6 @@ public final class ch/tutteli/atrium/reporting/reportables/descriptions/Descript
 	public static final field EMPTY Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionCollectionProof;
 	public static final field SIZE Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionCollectionProof;
 	public fun getDefault ()Ljava/lang/String;
-	public static fun getEntries ()Lkotlin/enums/EnumEntries;
 	public fun getString ()Ljava/lang/String;
 	public static fun valueOf (Ljava/lang/String;)Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionCollectionProof;
 	public static fun values ()[Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionCollectionProof;
@@ -2118,7 +2741,6 @@ public final class ch/tutteli/atrium/reporting/reportables/descriptions/Descript
 	public static final field TO_BE_LESS_THAN Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionComparableProof;
 	public static final field TO_BE_LESS_THAN_OR_EQUAL_TO Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionComparableProof;
 	public fun getDefault ()Ljava/lang/String;
-	public static fun getEntries ()Lkotlin/enums/EnumEntries;
 	public fun getString ()Ljava/lang/String;
 	public static fun valueOf (Ljava/lang/String;)Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionComparableProof;
 	public static fun values ()[Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionComparableProof;
@@ -2136,7 +2758,6 @@ public final class ch/tutteli/atrium/reporting/reportables/descriptions/Descript
 	public static final field TO_BE_THE_SAME_POINT_IN_TIME_AS Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionDateTimeLikeProof;
 	public static final field YEAR Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionDateTimeLikeProof;
 	public fun getDefault ()Ljava/lang/String;
-	public static fun getEntries ()Lkotlin/enums/EnumEntries;
 	public fun getString ()Ljava/lang/String;
 	public static fun valueOf (Ljava/lang/String;)Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionDateTimeLikeProof;
 	public static fun values ()[Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionDateTimeLikeProof;
@@ -2145,7 +2766,6 @@ public final class ch/tutteli/atrium/reporting/reportables/descriptions/Descript
 public final class ch/tutteli/atrium/reporting/reportables/descriptions/DescriptionDocumentationUtil : java/lang/Enum, ch/tutteli/atrium/reporting/reportables/Description {
 	public static final field BECAUSE Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionDocumentationUtil;
 	public fun getDefault ()Ljava/lang/String;
-	public static fun getEntries ()Lkotlin/enums/EnumEntries;
 	public fun getString ()Ljava/lang/String;
 	public static fun valueOf (Ljava/lang/String;)Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionDocumentationUtil;
 	public static fun values ()[Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionDocumentationUtil;
@@ -2156,7 +2776,6 @@ public final class ch/tutteli/atrium/reporting/reportables/descriptions/Descript
 	public static final field TO_EQUAL_WITH_ERROR_TOLERANCE Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionFloatingPointProof;
 	public static final field TO_EQUAL_WITH_ERROR_TOLERANCE_EXPLAINED Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionFloatingPointProof;
 	public fun getDefault ()Ljava/lang/String;
-	public static fun getEntries ()Lkotlin/enums/EnumEntries;
 	public fun getString ()Ljava/lang/String;
 	public static fun valueOf (Ljava/lang/String;)Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionFloatingPointProof;
 	public static fun values ()[Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionFloatingPointProof;
@@ -2167,7 +2786,6 @@ public final class ch/tutteli/atrium/reporting/reportables/descriptions/Descript
 	public static final field THREW Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionFunLikeProof;
 	public static final field THROWN_EXCEPTION_WHEN_CALLED Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionFunLikeProof;
 	public fun getDefault ()Ljava/lang/String;
-	public static fun getEntries ()Lkotlin/enums/EnumEntries;
 	public fun getString ()Ljava/lang/String;
 	public static fun valueOf (Ljava/lang/String;)Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionFunLikeProof;
 	public static fun values ()[Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionFunLikeProof;
@@ -2207,7 +2825,6 @@ public final class ch/tutteli/atrium/reporting/reportables/descriptions/Descript
 	public static final field WARNING_MISMATCHES Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionIterableLikeProof;
 	public static final field WARNING_MISMATCHES_ADDITIONAL_ELEMENTS Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionIterableLikeProof;
 	public fun getDefault ()Ljava/lang/String;
-	public static fun getEntries ()Lkotlin/enums/EnumEntries;
 	public fun getString ()Ljava/lang/String;
 	public static fun valueOf (Ljava/lang/String;)Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionIterableLikeProof;
 	public static fun values ()[Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionIterableLikeProof;
@@ -2216,7 +2833,6 @@ public final class ch/tutteli/atrium/reporting/reportables/descriptions/Descript
 public final class ch/tutteli/atrium/reporting/reportables/descriptions/DescriptionListLikeProof : java/lang/Enum, ch/tutteli/atrium/reporting/reportables/Description {
 	public static final field INDEX_OUT_OF_BOUNDS Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionListLikeProof;
 	public fun getDefault ()Ljava/lang/String;
-	public static fun getEntries ()Lkotlin/enums/EnumEntries;
 	public fun getString ()Ljava/lang/String;
 	public static fun valueOf (Ljava/lang/String;)Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionListLikeProof;
 	public static fun values ()[Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionListLikeProof;
@@ -2234,7 +2850,6 @@ public final class ch/tutteli/atrium/reporting/reportables/descriptions/Descript
 	public static final field TO_CONTAIN_KEY Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionMapLikeProof;
 	public static final field WARNING_ADDITIONAL_ENTRIES Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionMapLikeProof;
 	public fun getDefault ()Ljava/lang/String;
-	public static fun getEntries ()Lkotlin/enums/EnumEntries;
 	public fun getId ()Ljava/lang/String;
 	public synthetic fun getName ()Ljava/lang/String;
 	public fun getString ()Ljava/lang/String;
@@ -2247,7 +2862,6 @@ public final class ch/tutteli/atrium/reporting/reportables/descriptions/Descript
 	public static final field EMPTY Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionOptionalProof;
 	public static final field IS_NOT_PRESENT Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionOptionalProof;
 	public fun getDefault ()Ljava/lang/String;
-	public static fun getEntries ()Lkotlin/enums/EnumEntries;
 	public fun getString ()Ljava/lang/String;
 	public static fun valueOf (Ljava/lang/String;)Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionOptionalProof;
 	public static fun values ()[Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionOptionalProof;
@@ -2291,7 +2905,6 @@ public final class ch/tutteli/atrium/reporting/reportables/descriptions/Descript
 	public static final field STARTS_WITH Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionPathProof;
 	public static final field WRITABLE Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionPathProof;
 	public fun getDefault ()Ljava/lang/String;
-	public static fun getEntries ()Lkotlin/enums/EnumEntries;
 	public fun getString ()Ljava/lang/String;
 	public static fun valueOf (Ljava/lang/String;)Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionPathProof;
 	public static fun values ()[Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionPathProof;
@@ -2303,7 +2916,6 @@ public final class ch/tutteli/atrium/reporting/reportables/descriptions/Descript
 	public static final field IS_NOT_SUCCESS Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionResultProof;
 	public static final field VALUE Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionResultProof;
 	public fun getDefault ()Ljava/lang/String;
-	public static fun getEntries ()Lkotlin/enums/EnumEntries;
 	public fun getString ()Ljava/lang/String;
 	public static fun valueOf (Ljava/lang/String;)Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionResultProof;
 	public static fun values ()[Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionResultProof;
@@ -2318,7 +2930,6 @@ public final class ch/tutteli/atrium/reporting/reportables/descriptions/Descript
 	public static final field OCCURRED_EXCEPTION_STACKTRACE Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionThrowableProof;
 	public static final field OCCURRED_EXCEPTION_SUPPRESSED Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionThrowableProof;
 	public fun getDefault ()Ljava/lang/String;
-	public static fun getEntries ()Lkotlin/enums/EnumEntries;
 	public fun getString ()Ljava/lang/String;
 	public static fun valueOf (Ljava/lang/String;)Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionThrowableProof;
 	public static fun values ()[Lch/tutteli/atrium/reporting/reportables/descriptions/DescriptionThrowableProof;
@@ -2535,7 +3146,6 @@ public final class ch/tutteli/atrium/reporting/theming/text/Style : java/lang/En
 	public static final field INFORMATION_SOURCE Lch/tutteli/atrium/reporting/theming/text/Style;
 	public static final field SUCCESS Lch/tutteli/atrium/reporting/theming/text/Style;
 	public static final field USAGE_HINT Lch/tutteli/atrium/reporting/theming/text/Style;
-	public static fun getEntries ()Lkotlin/enums/EnumEntries;
 	public final fun getStyleId ()Ljava/lang/String;
 	public static fun valueOf (Ljava/lang/String;)Lch/tutteli/atrium/reporting/theming/text/Style;
 	public static fun values ()[Lch/tutteli/atrium/reporting/theming/text/Style;

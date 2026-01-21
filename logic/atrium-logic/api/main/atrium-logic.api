@@ -622,7 +622,7 @@ public final class ch/tutteli/atrium/logic/creating/RootExpectOptionsKt {
 	public static final fun RootExpectOptions (Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/creating/RootExpectOptions;
 }
 
-public abstract interface class ch/tutteli/atrium/logic/creating/basic/contains/Contains {
+public abstract interface class ch/tutteli/atrium/logic/creating/basic/contains/Contains : ch/tutteli/atrium/creating/proofs/basic/contains/ToContain {
 }
 
 public abstract interface class ch/tutteli/atrium/logic/creating/basic/contains/Contains$Checker {
