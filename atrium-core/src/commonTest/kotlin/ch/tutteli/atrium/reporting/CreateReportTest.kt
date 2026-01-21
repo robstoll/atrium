@@ -798,6 +798,38 @@ class CreateReportTest {
         """.trimMargin()
         )
     }
+    @Test
+    fun proofExplanation_With_UsageHint_Not_As_Direct_Child() {
+
+        val builder = buildRootGroup {
+
+            proofGroup(Text("Elements need all"), Text.EMPTY){
+                invisibleFailingProofGroup {
+                    proofExplanation {
+                        feature(Text("password"), Text("should not be shown")) {
+                            simpleProof(Text("not to equal"), "qwerty") { false }
+                            usageHintGroup {
+                                add(ErrorMessages.FORGOT_DO_DEFINE_EXPECTATION)
+                                addAll(defaultHintsAtLeastOneExpectationDefined)
+                            }
+
+
+                        }
+                    }
+                }
+            }
+        }
+        expectForReporterWithoutAnsi(
+            builder,
+            """
+        |a verb : "representation"
+        |(f) Elements need all :${' '}
+        |    » > password       :${' '}
+        |        • not to equal : "qwerty"
+             """.trimMargin()
+
+        )
+    }
 
     @Test
     fun row_withIconAndWithoutBorder() {

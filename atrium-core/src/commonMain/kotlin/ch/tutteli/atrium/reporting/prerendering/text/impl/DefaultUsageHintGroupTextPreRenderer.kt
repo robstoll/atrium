@@ -12,6 +12,7 @@ internal class DefaultUsageHintGroupTextPreRenderer : TypedTextPreRenderer<Usage
         reportable: UsageHintGroup,
         controlObject: TextPreRenderControlObject
     ): List<OutputNode> {
+        if (controlObject.explainsProof) return emptyList()
         val newControlObject = controlObject.copy(prefix = Icon.BULB, indentLevel = controlObject.indentLevel + 1)
         return OutputNode.singleWithoutColumnsNotOwnLevel(children = reportable.children.flatMap { child ->
             controlObject.transformChildIncludingIndentationAndPrefix(child, newControlObject)
