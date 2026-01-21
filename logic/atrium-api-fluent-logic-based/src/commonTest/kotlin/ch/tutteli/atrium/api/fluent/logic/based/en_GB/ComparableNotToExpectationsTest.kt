@@ -19,8 +19,8 @@ class ComparableNotToExpectationsTest : AbstractComparableExpectationsTest(
     fun1(Expect<DiffEqualsCompareTo>::toBeEqualComparingTo),
     fun1(Expect<DiffEqualsCompareTo>::notToBeLessThan),
 
-    DescriptionComparableProof.NOT_TO_BE_GREATER_THAN.getDefault(),
-    NOT_TO_BE_LESS_THAN.getDefault(),
+    DescriptionComparableProof.NOT_TO_BE_GREATER_THAN,
+    DescriptionComparableProof.NOT_TO_BE_LESS_THAN,
 ) {
     @Test
     fun trigger_run_gutter() = 1

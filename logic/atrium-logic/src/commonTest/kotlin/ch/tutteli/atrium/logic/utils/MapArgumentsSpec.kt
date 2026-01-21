@@ -3,7 +3,6 @@ package ch.tutteli.atrium.logic.utils
 import ch.tutteli.atrium._core
 import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.internal.expect
-import ch.tutteli.atrium.creating.expectationCreator
 import ch.tutteli.atrium.logic.changeSubject
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.describe
@@ -29,13 +28,9 @@ object MapArgumentsSpec : Spek({
                     .second.asList().toContainExactly("b.", "c.")
             }
 
-            inline fun <reified R> mapVararg(element: Int, others: IntArray, mapper: (Int) -> R): Pair<R, Array<out R>> =
-                mapper(element) to others.map(mapper).toTypedArray()
-
             it("toExpect") {
                 fun it(i: String, vararg iX: String) =
-                    mapVararg(i, iX){ expectationCreator { toStartWith(it) } }
-//                    mapArguments(i, iX).toExpect<String> { toStartWith(it) }
+                    mapArguments(i, iX).toExpect<String> { toStartWith(it) }
 
                 val (first, others) = it("a", "b", "c")
                 expect("apple").first()
