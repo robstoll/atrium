@@ -812,8 +812,6 @@ class CreateReportTest {
                                 add(ErrorMessages.FORGOT_DO_DEFINE_EXPECTATION)
                                 addAll(defaultHintsAtLeastOneExpectationDefined)
                             }
-
-
                         }
                     }
                 }
@@ -828,6 +826,96 @@ class CreateReportTest {
         |        • not to equal : "qwerty"
              """.trimMargin()
 
+        )
+
+        expectForReporterWithAnsi(
+            builder,
+            """
+        |a verb : "representation"
+        |$x Elements need all :${' '}
+        |   » $f password       :${' '}
+        |       • not to equal : "qwerty"
+                """.trimMargin()
+        )
+    }
+
+    @Test
+    fun proofExplanation_With_DebugGroup() {
+        val builder = buildRootGroup {
+            proofGroup(Text("not to contain"), Text.EMPTY) {
+                invisibleFailingProofGroup {
+                    proofExplanation {
+                        simpleProof(Text("to be greater than"), 2) { false }
+                        debugGroup(Text("Debug Info")) {
+                            row {
+                                column(Text("info"))
+                                column(Diagnostic.representation("some debug info"))
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        expectForReporterWithoutAnsi(
+            builder,
+            """
+        |a verb : "representation"
+        |(f) not to contain       :${' '}
+        |    » to be greater than : 2
+            """.trimMargin()
+        )
+
+        expectForReporterWithAnsi(
+            builder,
+            """
+        |a verb : "representation"
+        |$x not to contain       :${' '}
+        |   » to be greater than : 2
+            """.trimMargin()
+        )
+    }
+
+    @Test
+    fun proofExplanation_With_DebugGroup_Not_As_Direct_Child() {
+
+        val builder = buildRootGroup {
+
+            proofGroup(Text("Elements need all"), Text.EMPTY){
+                invisibleFailingProofGroup {
+                    proofExplanation {
+                        feature(Text("password"), Text("should not be shown")) {
+                            simpleProof(Text("not to equal"), "qwerty") { false }
+                            debugGroup(Text("Debug Info")) {
+                                row {
+                                    column(Text("info"))
+                                    column(Diagnostic.representation("some debug info"))
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        expectForReporterWithoutAnsi(
+            builder,
+            """
+        |a verb : "representation"
+        |(f) Elements need all :${' '}
+        |    » > password       :${' '}
+        |        • not to equal : "qwerty"
+             """.trimMargin()
+
+        )
+
+        expectForReporterWithAnsi(
+            builder,
+            """
+        |a verb : "representation"
+        |$x Elements need all :${' '}
+        |   » $f password       :${' '}
+        |       • not to equal : "qwerty"
+                """.trimMargin()
         )
     }
 
