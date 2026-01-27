@@ -26,4 +26,4 @@ vlsi-gradle = { module = "com.github.vlsi.gradle-extensions:com.github.vlsi.grad
 dokka = ["dokka-base", "dokka-plugin"]
 
 [plugins]
-build-parameters = { id = "org.gradlex.build-parameters", version = "1.4.4" }
+build-parameters = { id = "org.gradlex.build-parameters", version = "1.4.5" }
