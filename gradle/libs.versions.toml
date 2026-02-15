@@ -5,7 +5,7 @@ niok = "1.5.0"
 # testing
 assertJ = "3.27.7"
 junit = "5.14.2"
-junitPlatform = "1.14.2"
+junitPlatform = "1.14.3"
 spek = "2.0.12"
 spekExtensions = "1.2.1"
 mockk = "1.12.5"
