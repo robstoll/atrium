@@ -2578,7 +2578,7 @@ Besides, the `assertionBuilder` allows to create different kinds of Assertions
 (see [AssertionBuilder](https://docs.atriumlib.org/latest#/kdoc/atrium-core/ch.tutteli.atrium.assertions.builders/-assertion-builder/index.html) for more information)
 which can be used to create very specific expectation functions. 
 
-You can find an example in [floatingPointAssertions](https://github.com/robstoll/atrium/tree/main/logic/atrium-logic-common/src/main/kotlin/ch/tutteli/atrium/logic/impl/DefaultFloatingPointAssertions.kt#L72)
+You can find an example in [floatingPointAssertions](https://github.com/robstoll/atrium/blob/main/logic/atrium-logic/src/commonMain/kotlin/ch/tutteli/atrium/logic/impl/DefaultFloatingPointAssertions.kt#L69)
 which makes use of explanatory assertions as well as providing a failure hint.
 
 Unfortunately we do not have the time to cover all cases, so let us know if you want to know more
