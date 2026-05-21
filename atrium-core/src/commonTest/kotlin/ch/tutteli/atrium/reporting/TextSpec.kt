@@ -12,7 +12,7 @@ class TextSpec : Spek({
             expect{
                 Text("")
             }.toThrow<IllegalArgumentException> {
-                messageToContain("use Text.Empty instead")
+                messageToContain("use Text.EMPTY instead")
             }
         }
 
