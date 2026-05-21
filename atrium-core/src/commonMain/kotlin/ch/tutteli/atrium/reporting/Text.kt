@@ -22,7 +22,7 @@ data class Text private constructor(val string: String) {
     companion object {
 
         operator fun invoke(string: String): Text {
-            require(string.isNotEmpty()) { "use Text.Empty instead" }
+            require(string.isNotEmpty()) { "use Text.EMPTY instead" }
             return Text(string)
         }
 
