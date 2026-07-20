@@ -15,7 +15,7 @@ jobs:
 
       - name: Generate matrix
         id: set-matrix
-        run: node .github/workflows/matrix.js
+        run: node .github/workflows/matrix.mjs
 
   build-and-test:
     needs: generate-matrix
