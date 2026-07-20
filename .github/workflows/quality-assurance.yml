@@ -91,7 +91,9 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        kotlin_version: [ '1.5', '1.6', '1.7', '1.8', '1.9', '2.0' ]
+        # reducing forward compatibility checks to 2.0, there won't be changes to 1.5 and co any more.
+        #kotlin_version: [ '1.5', '1.6', '1.7', '1.8', '1.9', '2.0' ]
+        kotlin_version: [ '2.0' ]
     steps:
       - uses: actions/checkout@v7
       - name: Set up JDK 17
