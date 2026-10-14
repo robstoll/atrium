@@ -467,6 +467,26 @@ public final class ch/tutteli/atrium/api/fluent/en_GB/MapSubjectChangersKt {
 	public static final fun asEntries (Lch/tutteli/atrium/creating/Expect;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/creating/Expect;
 }
 
+public final class ch/tutteli/atrium/api/fluent/en_GB/OffsetDateTimeExpectationsKt {
+	public static final fun notToBeGreaterThan (Lch/tutteli/atrium/creating/Expect;Ljava/time/OffsetDateTime;)Ljava/lang/Void;
+	public static final fun notToBeLessThan (Lch/tutteli/atrium/creating/Expect;Ljava/time/OffsetDateTime;)Ljava/lang/Void;
+	public static final fun toBeAfter (Lch/tutteli/atrium/creating/Expect;Ljava/lang/String;)Lch/tutteli/atrium/creating/Expect;
+	public static final fun toBeAfter (Lch/tutteli/atrium/creating/Expect;Ljava/time/OffsetDateTime;)Lch/tutteli/atrium/creating/Expect;
+	public static final fun toBeAfterOrTheSamePointInTimeAs (Lch/tutteli/atrium/creating/Expect;Ljava/lang/String;)Lch/tutteli/atrium/creating/Expect;
+	public static final fun toBeAfterOrTheSamePointInTimeAs (Lch/tutteli/atrium/creating/Expect;Ljava/time/OffsetDateTime;)Lch/tutteli/atrium/creating/Expect;
+	public static final fun toBeBefore (Lch/tutteli/atrium/creating/Expect;Ljava/lang/String;)Lch/tutteli/atrium/creating/Expect;
+	public static final fun toBeBefore (Lch/tutteli/atrium/creating/Expect;Ljava/time/OffsetDateTime;)Lch/tutteli/atrium/creating/Expect;
+	public static final fun toBeBeforeOrTheSamePointInTimeAs (Lch/tutteli/atrium/creating/Expect;Ljava/lang/String;)Lch/tutteli/atrium/creating/Expect;
+	public static final fun toBeBeforeOrTheSamePointInTimeAs (Lch/tutteli/atrium/creating/Expect;Ljava/time/OffsetDateTime;)Lch/tutteli/atrium/creating/Expect;
+	public static final fun toBeEqualComparingTo (Lch/tutteli/atrium/creating/Expect;Ljava/time/OffsetDateTime;)Ljava/lang/Void;
+	public static final fun toBeGreaterThan (Lch/tutteli/atrium/creating/Expect;Ljava/time/OffsetDateTime;)Ljava/lang/Void;
+	public static final fun toBeGreaterThanOrEqualTo (Lch/tutteli/atrium/creating/Expect;Ljava/time/OffsetDateTime;)Ljava/lang/Void;
+	public static final fun toBeLessThan (Lch/tutteli/atrium/creating/Expect;Ljava/time/OffsetDateTime;)Ljava/lang/Void;
+	public static final fun toBeLessThanOrEqualTo (Lch/tutteli/atrium/creating/Expect;Ljava/time/OffsetDateTime;)Ljava/lang/Void;
+	public static final fun toBeTheSamePointInTimeAs (Lch/tutteli/atrium/creating/Expect;Ljava/lang/String;)Lch/tutteli/atrium/creating/Expect;
+	public static final fun toBeTheSamePointInTimeAs (Lch/tutteli/atrium/creating/Expect;Ljava/time/OffsetDateTime;)Lch/tutteli/atrium/creating/Expect;
+}
+
 public final class ch/tutteli/atrium/api/fluent/en_GB/OptionalExpectationsKt {
 	public static final fun toBeEmpty (Lch/tutteli/atrium/creating/Expect;)Lch/tutteli/atrium/creating/Expect;
 	public static final fun toBePresent (Lch/tutteli/atrium/creating/Expect;)Lch/tutteli/atrium/creating/Expect;

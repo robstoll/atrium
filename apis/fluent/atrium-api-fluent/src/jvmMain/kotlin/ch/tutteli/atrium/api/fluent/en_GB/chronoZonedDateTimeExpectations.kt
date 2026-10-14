@@ -283,7 +283,7 @@ fun <T : ChronoZonedDateTime<T>> Expect<T>.toBeLessThan(expected: T): Nothing =
  */
 @Suppress("UNUSED_PARAMETER", "UnusedReceiverParameter")
 @Deprecated(
-    "'toBeLessThanOrEqualTo is deprecated in favour of 'toBeBeforeOrTheSamePointInTimeAs' which is based on ChronoZonedDateTime.isBefore and ChronoZonedDateTime.isEqual instead of compareTo",
+    "'toBeLessThanOrEqualTo' is deprecated in favour of 'toBeBeforeOrTheSamePointInTimeAs' which is based on ChronoZonedDateTime.isBefore and ChronoZonedDateTime.isEqual instead of compareTo",
     ReplaceWith("toBeBeforeOrTheSamePointInTimeAs(expected)")
 )
 fun <T : ChronoZonedDateTime<T>> Expect<T>.toBeLessThanOrEqualTo(expected: T): Nothing =
@@ -292,7 +292,7 @@ fun <T : ChronoZonedDateTime<T>> Expect<T>.toBeLessThanOrEqualTo(expected: T): N
     )
 
 /**
- * Deprecated overload which shall help users to use [notToBeGreaterThan] instead.
+ * Deprecated overload which shall help users to use [toBeBeforeOrTheSamePointInTimeAs] instead.
  *
  * @since 1.0.0
  */
@@ -365,4 +365,3 @@ fun <T : ChronoZonedDateTime<T>> Expect<T>.toBeGreaterThan(expected: T): Nothing
     throw PleaseUseReplacementException(
         "'toBeGreaterThan' is deprecated in favour of 'toBeAfter', use a feature extractor if you want to base your expectation on compareTo"
     )
-
