@@ -3,7 +3,10 @@ package ch.tutteli.atrium.logic.impl
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.assertions.builders.assertionBuilder
 import ch.tutteli.atrium.assertions.builders.invisibleGroup
-import ch.tutteli.atrium.core.*
+import ch.tutteli.atrium.core.None
+import ch.tutteli.atrium.core.Option
+import ch.tutteli.atrium.core.Some
+import ch.tutteli.atrium.core.falseProvider
 import ch.tutteli.atrium.core.polyfills.cast
 import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.creating.Expect
@@ -60,13 +63,13 @@ class DefaultAnyAssertions : AnyAssertions {
     override fun <T : Any> notToBeNullButOfType(
         container: AssertionContainer<T?>,
         subType: KClass<T>
-    ): SubjectChangerBuilder.ExecutionStep<T?, T>
-     = container.changeSubject.reportBuilder()
-        .withDescriptionAndRepresentation(description = NOT_TO_EQUAL_NULL_TO_BE_AN_INSTANCE_OF, representation = subType)
-        .withTransformation {
-            Option.someIf(subType.isInstance(it)) { subType.cast(it) }
-        }
-        .build()
+    ): SubjectChangerBuilder.ExecutionStep<T?, T> =
+        container.changeSubject.reportBuilder()
+            .withDescriptionAndRepresentation(NOT_TO_EQUAL_NULL_TO_BE_AN_INSTANCE_OF, subType)
+            .withTransformation {
+                Option.someIf(subType.isInstance(it)) { subType.cast(it) }
+            }
+            .build()
 
 
     @Suppress("BOUNDS_NOT_ALLOWED_IF_BOUNDED_BY_TYPE_PARAMETER")
@@ -78,6 +81,7 @@ class DefaultAnyAssertions : AnyAssertions {
             .downCastTo(subType)
             .build()
 
+    @Deprecated("use notToBeIn", replaceWith = ReplaceWith("notToBeIn(expected)"))
     override fun <T> isNotIn(container: AssertionContainer<T>, expected: Iterable<T>): Assertion {
         val assertions = expected.map { value ->
             assertionBuilder.representationOnly
@@ -90,6 +94,13 @@ class DefaultAnyAssertions : AnyAssertions {
             .withAssertions(assertions)
             .build()
     }
+
+    override fun <T> toBeIn(container: AssertionContainer<T>, expected: Iterable<T>): Assertion =
+        container.createDescriptiveAssertion(TO_BE_IN, expected) { it in expected }
+
+    override fun <T> notToBeIn(container: AssertionContainer<T>, expected: Iterable<T>): Assertion =
+        container.createDescriptiveAssertion(NOT_TO_BE_IN, expected) { it !in expected }
+
 
     override fun <T> because(
         container: AssertionContainer<T>,

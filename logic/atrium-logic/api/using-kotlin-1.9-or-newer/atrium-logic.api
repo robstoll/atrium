@@ -6,8 +6,10 @@ public abstract interface class ch/tutteli/atrium/logic/AnyAssertions {
 	public abstract fun isSameAs (Lch/tutteli/atrium/creating/AssertionContainer;Ljava/lang/Object;)Lch/tutteli/atrium/assertions/Assertion;
 	public abstract fun notToBe (Lch/tutteli/atrium/creating/AssertionContainer;Ljava/lang/Object;)Lch/tutteli/atrium/assertions/Assertion;
 	public abstract fun notToBeAnInstanceOf (Lch/tutteli/atrium/creating/AssertionContainer;Ljava/util/List;)Lch/tutteli/atrium/assertions/Assertion;
+	public abstract fun notToBeIn (Lch/tutteli/atrium/creating/AssertionContainer;Ljava/lang/Iterable;)Lch/tutteli/atrium/assertions/Assertion;
 	public abstract fun notToBeNullButOfType (Lch/tutteli/atrium/creating/AssertionContainer;Lkotlin/reflect/KClass;)Lch/tutteli/atrium/logic/creating/transformers/SubjectChangerBuilder$ExecutionStep;
 	public abstract fun toBe (Lch/tutteli/atrium/creating/AssertionContainer;Ljava/lang/Object;)Lch/tutteli/atrium/assertions/Assertion;
+	public abstract fun toBeIn (Lch/tutteli/atrium/creating/AssertionContainer;Ljava/lang/Iterable;)Lch/tutteli/atrium/assertions/Assertion;
 	public abstract fun toBeNullIfNullGivenElse (Lch/tutteli/atrium/creating/AssertionContainer;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/assertions/Assertion;
 }
 
@@ -19,8 +21,10 @@ public final class ch/tutteli/atrium/logic/AnyKt {
 	public static final fun isSameAs (Lch/tutteli/atrium/creating/AssertionContainer;Ljava/lang/Object;)Lch/tutteli/atrium/assertions/Assertion;
 	public static final fun notToBe (Lch/tutteli/atrium/creating/AssertionContainer;Ljava/lang/Object;)Lch/tutteli/atrium/assertions/Assertion;
 	public static final fun notToBeAnInstanceOf (Lch/tutteli/atrium/creating/AssertionContainer;Ljava/util/List;)Lch/tutteli/atrium/assertions/Assertion;
+	public static final fun notToBeIn (Lch/tutteli/atrium/creating/AssertionContainer;Ljava/lang/Iterable;)Lch/tutteli/atrium/assertions/Assertion;
 	public static final fun notToBeNullButOfType (Lch/tutteli/atrium/creating/AssertionContainer;Lkotlin/reflect/KClass;)Lch/tutteli/atrium/logic/creating/transformers/SubjectChangerBuilder$ExecutionStep;
 	public static final fun toBe (Lch/tutteli/atrium/creating/AssertionContainer;Ljava/lang/Object;)Lch/tutteli/atrium/assertions/Assertion;
+	public static final fun toBeIn (Lch/tutteli/atrium/creating/AssertionContainer;Ljava/lang/Iterable;)Lch/tutteli/atrium/assertions/Assertion;
 	public static final fun toBeNullIfNullGivenElse (Lch/tutteli/atrium/creating/AssertionContainer;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/assertions/Assertion;
 }
 
@@ -1923,8 +1927,10 @@ public final class ch/tutteli/atrium/logic/impl/DefaultAnyAssertions : ch/tuttel
 	public fun isSameAs (Lch/tutteli/atrium/creating/AssertionContainer;Ljava/lang/Object;)Lch/tutteli/atrium/assertions/Assertion;
 	public fun notToBe (Lch/tutteli/atrium/creating/AssertionContainer;Ljava/lang/Object;)Lch/tutteli/atrium/assertions/Assertion;
 	public fun notToBeAnInstanceOf (Lch/tutteli/atrium/creating/AssertionContainer;Ljava/util/List;)Lch/tutteli/atrium/assertions/Assertion;
+	public fun notToBeIn (Lch/tutteli/atrium/creating/AssertionContainer;Ljava/lang/Iterable;)Lch/tutteli/atrium/assertions/Assertion;
 	public fun notToBeNullButOfType (Lch/tutteli/atrium/creating/AssertionContainer;Lkotlin/reflect/KClass;)Lch/tutteli/atrium/logic/creating/transformers/SubjectChangerBuilder$ExecutionStep;
 	public fun toBe (Lch/tutteli/atrium/creating/AssertionContainer;Ljava/lang/Object;)Lch/tutteli/atrium/assertions/Assertion;
+	public fun toBeIn (Lch/tutteli/atrium/creating/AssertionContainer;Ljava/lang/Iterable;)Lch/tutteli/atrium/assertions/Assertion;
 	public fun toBeNullIfNullGivenElse (Lch/tutteli/atrium/creating/AssertionContainer;Lkotlin/jvm/functions/Function1;)Lch/tutteli/atrium/assertions/Assertion;
 }
 

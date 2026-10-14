@@ -2,9 +2,9 @@ package ch.tutteli.atrium.api.fluent.en_GB
 
 import ch.tutteli.atrium.creating.AssertionContainer
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.logic.creating.typeutils.IterableLike
 import ch.tutteli.atrium.logic.*
 import ch.tutteli.atrium.logic.creating.transformers.SubjectChangerBuilder
+import ch.tutteli.atrium.logic.creating.typeutils.IterableLike
 import ch.tutteli.atrium.logic.utils.iterableLikeToIterable
 import ch.tutteli.atrium.reporting.Reporter
 import ch.tutteli.kbox.glue
@@ -118,7 +118,8 @@ inline fun <reified T : Any> Expect<T?>.notToEqualNull(noinline assertionCreator
  *
  * @since 0.17.0
  */
-inline fun <reified SubTypeOfSubjectT : Any> Expect<*>.toBeAnInstanceOf(): Expect<SubTypeOfSubjectT> = toBeAnInstanceOf(SubTypeOfSubjectT::class).transform()
+inline fun <reified SubTypeOfSubjectT : Any> Expect<*>.toBeAnInstanceOf(): Expect<SubTypeOfSubjectT> =
+    toBeAnInstanceOf(SubTypeOfSubjectT::class).transform()
 
 @PublishedApi // in order that _logic does not become part of the API we have this extra function
 internal fun <SubTypeOfSubjectT : Any> Expect<*>.toBeAnInstanceOf(
@@ -228,8 +229,16 @@ fun <T> Expect<T>.notToBeAnInstanceOf(type: KClass<*>, vararg otherTypes: KClass
  *
  * @since 0.17.0
  */
+@Deprecated(
+    "Use notToBeIn instead, will be removed with 2.0.0 at the latest",
+    ReplaceWith(
+        "this.notToBeIn(expected glue otherValues)",
+        "ch.tutteli.atrium.api.fluent.en_GB.notToBeIn",
+        "ch.tutteli.kbox.glue"
+    )
+)
 fun <T> Expect<T>.notToEqualOneOf(expected: T, vararg otherValues: T): Expect<T> =
-    _logicAppend { isNotIn(expected glue otherValues) }
+    notToEqualOneIn(expected glue otherValues)
 
 /**
  * Expects that the subject of `this` expectation is not equal to any value of [expected].
@@ -244,8 +253,49 @@ fun <T> Expect<T>.notToEqualOneOf(expected: T, vararg otherValues: T): Expect<T>
  *
  * @since 0.17.0
  */
+@Deprecated(
+    "Use notToBeIn instead (write us if you really need strict equality checking), will be removed with 2.0.0 at the latest",
+    ReplaceWith(
+        "this.notToBeIn(expected)",
+        "ch.tutteli.atrium.api.fluent.en_GB.notToBeIn"
+    )
+)
 fun <T> Expect<T>.notToEqualOneIn(expected: IterableLike): Expect<T> =
     _logicAppend { isNotIn(iterableLikeToIterable(expected)) }
+
+/**
+ * Expects that the subject of `this` expectation is in [expected].
+ *
+ * Notice that a runtime check applies which assures that only [Iterable], [Sequence] or one of the [Array] types
+ * are passed. This function expects [IterableLike] (which is a typealias for [Any]) to avoid cluttering the API.
+ *
+ * @return an [Expect] for the subject of `this` expectation.
+ * @throws IllegalArgumentException in case the iterable is empty.
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.AnyExpectationSamples.toBeIn
+ *
+ * @since 1.3.0
+ */
+fun <T> Expect<T>.toBeIn(expected: IterableLike): Expect<T> =
+    _logicAppend { toBeIn(iterableLikeToIterable(expected)) }
+
+
+/**
+ * Expects that the subject of `this` expectation is not in [expected].
+ *
+ * Notice that a runtime check applies which assures that only [Iterable], [Sequence] or one of the [Array] types
+ * are passed. This function expects [IterableLike] (which is a typealias for [Any]) to avoid cluttering the API.
+ *
+ * @return an [Expect] for the subject of `this` expectation.
+ * @throws IllegalArgumentException in case the iterable is empty.
+ *
+ * @sample ch.tutteli.atrium.api.fluent.en_GB.samples.AnyExpectationSamples.notToBeIn
+ *
+ * @since 1.3.0
+ */
+fun <T> Expect<T>.notToBeIn(expected: IterableLike): Expect<T> =
+    _logicAppend { notToBeIn(iterableLikeToIterable(expected)) }
+
 
 /**
  * Can be used to separate single assertions.

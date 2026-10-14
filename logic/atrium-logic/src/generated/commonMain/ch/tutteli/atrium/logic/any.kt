@@ -26,7 +26,16 @@ fun <T : Any> AssertionContainer<T?>.notToBeNullButOfType(subType: KClass<T>): S
     @Suppress("BOUNDS_NOT_ALLOWED_IF_BOUNDED_BY_TYPE_PARAMETER")
 fun <T, SubTypeOfT> AssertionContainer<T>.isA(subType: KClass<SubTypeOfT>): SubjectChangerBuilder.ExecutionStep<T, SubTypeOfT> where SubTypeOfT : Any, SubTypeOfT : T = impl.isA(this, subType)
 
+    //TODO should have been named notToEqualOneIn as it uses `equals` and not `contains` (which many times uses equals but not always)
+    // I actually think the reporting is too much (list every entry). It is enough to just use notToBeIn
+    @Deprecated("use notToBeIn", ReplaceWith("notToBeIn(expected)"))
 fun <T> AssertionContainer<T>.isNotIn(expected: Iterable<T>): Assertion = impl.isNotIn(this, expected)
+
+    /** @since 1.3.0 */
+fun <T> AssertionContainer<T>.toBeIn(expected: Iterable<T>): Assertion = impl.toBeIn(this, expected)
+
+    /** @since 1.3.0 */
+fun <T> AssertionContainer<T>.notToBeIn(expected: Iterable<T>): Assertion = impl.notToBeIn(this, expected)
 
 fun <T> AssertionContainer<T>.because(reason: String, assertionCreator: (Expect<T>.() -> Unit)): Assertion =
     impl.because(this, reason, assertionCreator)
