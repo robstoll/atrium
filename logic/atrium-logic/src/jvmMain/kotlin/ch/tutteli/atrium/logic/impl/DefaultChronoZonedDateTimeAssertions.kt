@@ -71,60 +71,63 @@ class DefaultChronoZonedDateTimeAssertions : ChronoZonedDateTimeAssertions {
         expected: String
     ): Assertion = container.isEqual(parseZonedDateTime(expected))
 
-    private fun parseZonedDateTime(data: String): ZonedDateTime {
-        val formatter = DateTimeFormatterBuilder()
-            .parseCaseSensitive()
-            .append(DateTimeFormatter.ISO_LOCAL_DATE)
-            .optionalStart().appendLiteral('T').append(DateTimeFormatter.ISO_LOCAL_TIME).optionalEnd()
-            .appendOffsetId()
-            .toFormatter()
+    companion object {
+        fun parseZonedDateTime(data: String): ZonedDateTime {
+            val formatter = DateTimeFormatterBuilder()
+                .parseCaseSensitive()
+                .append(DateTimeFormatter.ISO_LOCAL_DATE)
+                .optionalStart().appendLiteral('T').append(DateTimeFormatter.ISO_LOCAL_TIME).optionalEnd()
+                .appendOffsetId()
+                .toFormatter()
 
-        val parsed = formatter.parseBest(
-            data,
-            TemporalQuery { temporal -> ZonedDateTime.from(temporal) },
-            TemporalQuery { temporal -> LocalDateTime.from(temporal) },
-            TemporalQuery { temporal -> LocalDate.from(temporal) }
-        )
+            val parsed = formatter.parseBest(
+                data,
+                TemporalQuery { temporal -> ZonedDateTime.from(temporal) },
+                TemporalQuery { temporal -> LocalDateTime.from(temporal) },
+                TemporalQuery { temporal -> LocalDate.from(temporal) }
+            )
 
-        return when (parsed) {
-            is LocalDate -> {
-                when {
-                    /**
-                     * Covers the input: yyyy-mm-ddZ
-                     */
-                    "Z" in data -> {
-                        parsed.atStartOfDay(ZoneOffset.UTC)
+            return when (parsed) {
+                is LocalDate -> {
+                    when {
+                        /**
+                         * Covers the input: yyyy-mm-ddZ
+                         */
+                        "Z" in data -> {
+                            parsed.atStartOfDay(ZoneOffset.UTC)
+                        }
+                        /**
+                         * Covers the input: yyyy-mm-dd+hh:mm
+                         */
+                        "+" in data -> {
+                            val parts = data.split("+")
+                            parsed.atStartOfDay(ZoneOffset.of("+${parts.last()}"))
+                        }
+                        /**
+                         * Covers the input: yyyy-mm-dd-hh:mm
+                         */
+                        "-" in data -> {
+                            val parts = data.split("-")
+                            parsed.atStartOfDay(ZoneOffset.of("-${parts.last()}"))
+                        }
+                        /**
+                         * Generate an appropriate exception if the zone offset is not known
+                         */
+                        else -> ZonedDateTime.parse(data)
                     }
-                    /**
-                     * Covers the input: yyyy-mm-dd+hh:mm
-                     */
-                    "+" in data -> {
-                        val parts = data.split("+")
-                        parsed.atStartOfDay(ZoneOffset.of("+${parts.last()}"))
-                    }
-                    /**
-                     * Covers the input: yyyy-mm-dd-hh:mm
-                     */
-                    "-" in data -> {
-                        val parts = data.split("-")
-                        parsed.atStartOfDay(ZoneOffset.of("-${parts.last()}"))
-                    }
-                    /**
-                     * Generate an appropriate exception if the zone offset is not known
-                     */
-                    else -> ZonedDateTime.parse(data)
                 }
+
+                is LocalDateTime -> parsed.atZone(ZoneOffset.UTC)
+                is ZonedDateTime -> parsed
+                /**
+                 * If neither case should match, then we can still try to parse the [data]
+                 * with the native implementation to generate an exception which is more descriptive.
+                 *
+                 * In reality this case won't be invoked, because [DateTimeFormatter.parseBest]
+                 * would throw a [java.time.format.DateTimeParseException] either way and stop the execution flow at this point.
+                 */
+                else -> ZonedDateTime.parse(data)
             }
-            is LocalDateTime -> parsed.atZone(ZoneOffset.UTC)
-            is ZonedDateTime -> parsed
-            /**
-             * If neither case should match, than we can still try to parse the [data]
-             * with the native implementation to generate an exception which is more descriptive.
-             *
-             * In reality this case won't be invoked, because [DateTimeFormatter.parseBest]
-             * would throw a [java.time.format.DateTimeParseException] either way and stop the execution flow at this point.
-             */
-            else -> ZonedDateTime.parse(data)
         }
     }
 }

@@ -380,6 +380,32 @@ public final class ch/tutteli/atrium/logic/MapLikeKt {
 	public static final fun getExisting (Lch/tutteli/atrium/creating/AssertionContainer;Lkotlin/jvm/functions/Function1;Ljava/lang/Object;)Lch/tutteli/atrium/logic/creating/transformers/FeatureExtractorBuilder$ExecutionStep;
 }
 
+public abstract interface class ch/tutteli/atrium/logic/OffsetDateTimeAssertions {
+	public abstract fun toBeAfter (Lch/tutteli/atrium/creating/AssertionContainer;Ljava/lang/String;)Lch/tutteli/atrium/assertions/Assertion;
+	public abstract fun toBeAfter (Lch/tutteli/atrium/creating/AssertionContainer;Ljava/time/OffsetDateTime;)Lch/tutteli/atrium/assertions/Assertion;
+	public abstract fun toBeAfterOrTheSamePointInTimeAs (Lch/tutteli/atrium/creating/AssertionContainer;Ljava/lang/String;)Lch/tutteli/atrium/assertions/Assertion;
+	public abstract fun toBeAfterOrTheSamePointInTimeAs (Lch/tutteli/atrium/creating/AssertionContainer;Ljava/time/OffsetDateTime;)Lch/tutteli/atrium/assertions/Assertion;
+	public abstract fun toBeBefore (Lch/tutteli/atrium/creating/AssertionContainer;Ljava/lang/String;)Lch/tutteli/atrium/assertions/Assertion;
+	public abstract fun toBeBefore (Lch/tutteli/atrium/creating/AssertionContainer;Ljava/time/OffsetDateTime;)Lch/tutteli/atrium/assertions/Assertion;
+	public abstract fun toBeBeforeOrTheSamePointInTimeAs (Lch/tutteli/atrium/creating/AssertionContainer;Ljava/lang/String;)Lch/tutteli/atrium/assertions/Assertion;
+	public abstract fun toBeBeforeOrTheSamePointInTimeAs (Lch/tutteli/atrium/creating/AssertionContainer;Ljava/time/OffsetDateTime;)Lch/tutteli/atrium/assertions/Assertion;
+	public abstract fun toBeEqual (Lch/tutteli/atrium/creating/AssertionContainer;Ljava/lang/String;)Lch/tutteli/atrium/assertions/Assertion;
+	public abstract fun toBeEqual (Lch/tutteli/atrium/creating/AssertionContainer;Ljava/time/OffsetDateTime;)Lch/tutteli/atrium/assertions/Assertion;
+}
+
+public final class ch/tutteli/atrium/logic/OffsetDateTimeKt {
+	public static final fun toBeAfter (Lch/tutteli/atrium/creating/AssertionContainer;Ljava/lang/String;)Lch/tutteli/atrium/assertions/Assertion;
+	public static final fun toBeAfter (Lch/tutteli/atrium/creating/AssertionContainer;Ljava/time/OffsetDateTime;)Lch/tutteli/atrium/assertions/Assertion;
+	public static final fun toBeAfterOrTheSamePointInTimeAs (Lch/tutteli/atrium/creating/AssertionContainer;Ljava/lang/String;)Lch/tutteli/atrium/assertions/Assertion;
+	public static final fun toBeAfterOrTheSamePointInTimeAs (Lch/tutteli/atrium/creating/AssertionContainer;Ljava/time/OffsetDateTime;)Lch/tutteli/atrium/assertions/Assertion;
+	public static final fun toBeBefore (Lch/tutteli/atrium/creating/AssertionContainer;Ljava/lang/String;)Lch/tutteli/atrium/assertions/Assertion;
+	public static final fun toBeBefore (Lch/tutteli/atrium/creating/AssertionContainer;Ljava/time/OffsetDateTime;)Lch/tutteli/atrium/assertions/Assertion;
+	public static final fun toBeBeforeOrTheSamePointInTimeAs (Lch/tutteli/atrium/creating/AssertionContainer;Ljava/lang/String;)Lch/tutteli/atrium/assertions/Assertion;
+	public static final fun toBeBeforeOrTheSamePointInTimeAs (Lch/tutteli/atrium/creating/AssertionContainer;Ljava/time/OffsetDateTime;)Lch/tutteli/atrium/assertions/Assertion;
+	public static final fun toBeEqual (Lch/tutteli/atrium/creating/AssertionContainer;Ljava/lang/String;)Lch/tutteli/atrium/assertions/Assertion;
+	public static final fun toBeEqual (Lch/tutteli/atrium/creating/AssertionContainer;Ljava/time/OffsetDateTime;)Lch/tutteli/atrium/assertions/Assertion;
+}
+
 public abstract interface class ch/tutteli/atrium/logic/OptionalAssertions {
 	public abstract fun isEmpty (Lch/tutteli/atrium/creating/AssertionContainer;)Lch/tutteli/atrium/assertions/Assertion;
 	public abstract fun isPresent (Lch/tutteli/atrium/creating/AssertionContainer;)Lch/tutteli/atrium/logic/creating/transformers/FeatureExtractorBuilder$ExecutionStep;
@@ -1987,6 +2013,7 @@ public final class ch/tutteli/atrium/logic/impl/DefaultChronoLocalDateTimeAssert
 }
 
 public final class ch/tutteli/atrium/logic/impl/DefaultChronoZonedDateTimeAssertions : ch/tutteli/atrium/logic/ChronoZonedDateTimeAssertions {
+	public static final field Companion Lch/tutteli/atrium/logic/impl/DefaultChronoZonedDateTimeAssertions$Companion;
 	public fun <init> ()V
 	public fun isAfter (Lch/tutteli/atrium/creating/AssertionContainer;Ljava/lang/String;)Lch/tutteli/atrium/assertions/Assertion;
 	public fun isAfter (Lch/tutteli/atrium/creating/AssertionContainer;Ljava/time/chrono/ChronoZonedDateTime;)Lch/tutteli/atrium/assertions/Assertion;
@@ -1998,6 +2025,10 @@ public final class ch/tutteli/atrium/logic/impl/DefaultChronoZonedDateTimeAssert
 	public fun isBeforeOrEqual (Lch/tutteli/atrium/creating/AssertionContainer;Ljava/time/chrono/ChronoZonedDateTime;)Lch/tutteli/atrium/assertions/Assertion;
 	public fun isEqual (Lch/tutteli/atrium/creating/AssertionContainer;Ljava/lang/String;)Lch/tutteli/atrium/assertions/Assertion;
 	public fun isEqual (Lch/tutteli/atrium/creating/AssertionContainer;Ljava/time/chrono/ChronoZonedDateTime;)Lch/tutteli/atrium/assertions/Assertion;
+}
+
+public final class ch/tutteli/atrium/logic/impl/DefaultChronoZonedDateTimeAssertions$Companion {
+	public final fun parseZonedDateTime (Ljava/lang/String;)Ljava/time/ZonedDateTime;
 }
 
 public final class ch/tutteli/atrium/logic/impl/DefaultCollectionLikeAssertions : ch/tutteli/atrium/logic/CollectionLikeAssertions {
@@ -2111,6 +2142,20 @@ public final class ch/tutteli/atrium/logic/impl/DefaultMapLikeAssertions : ch/tu
 	public fun containsKey (Lch/tutteli/atrium/creating/AssertionContainer;Lkotlin/jvm/functions/Function1;Ljava/lang/Object;)Lch/tutteli/atrium/assertions/Assertion;
 	public fun containsNotKey (Lch/tutteli/atrium/creating/AssertionContainer;Lkotlin/jvm/functions/Function1;Ljava/lang/Object;)Lch/tutteli/atrium/assertions/Assertion;
 	public fun getExisting (Lch/tutteli/atrium/creating/AssertionContainer;Lkotlin/jvm/functions/Function1;Ljava/lang/Object;)Lch/tutteli/atrium/logic/creating/transformers/FeatureExtractorBuilder$ExecutionStep;
+}
+
+public final class ch/tutteli/atrium/logic/impl/DefaultOffsetDateTimeAssertions : ch/tutteli/atrium/logic/OffsetDateTimeAssertions {
+	public fun <init> ()V
+	public fun toBeAfter (Lch/tutteli/atrium/creating/AssertionContainer;Ljava/lang/String;)Lch/tutteli/atrium/assertions/Assertion;
+	public fun toBeAfter (Lch/tutteli/atrium/creating/AssertionContainer;Ljava/time/OffsetDateTime;)Lch/tutteli/atrium/assertions/Assertion;
+	public fun toBeAfterOrTheSamePointInTimeAs (Lch/tutteli/atrium/creating/AssertionContainer;Ljava/lang/String;)Lch/tutteli/atrium/assertions/Assertion;
+	public fun toBeAfterOrTheSamePointInTimeAs (Lch/tutteli/atrium/creating/AssertionContainer;Ljava/time/OffsetDateTime;)Lch/tutteli/atrium/assertions/Assertion;
+	public fun toBeBefore (Lch/tutteli/atrium/creating/AssertionContainer;Ljava/lang/String;)Lch/tutteli/atrium/assertions/Assertion;
+	public fun toBeBefore (Lch/tutteli/atrium/creating/AssertionContainer;Ljava/time/OffsetDateTime;)Lch/tutteli/atrium/assertions/Assertion;
+	public fun toBeBeforeOrTheSamePointInTimeAs (Lch/tutteli/atrium/creating/AssertionContainer;Ljava/lang/String;)Lch/tutteli/atrium/assertions/Assertion;
+	public fun toBeBeforeOrTheSamePointInTimeAs (Lch/tutteli/atrium/creating/AssertionContainer;Ljava/time/OffsetDateTime;)Lch/tutteli/atrium/assertions/Assertion;
+	public fun toBeEqual (Lch/tutteli/atrium/creating/AssertionContainer;Ljava/lang/String;)Lch/tutteli/atrium/assertions/Assertion;
+	public fun toBeEqual (Lch/tutteli/atrium/creating/AssertionContainer;Ljava/time/OffsetDateTime;)Lch/tutteli/atrium/assertions/Assertion;
 }
 
 public final class ch/tutteli/atrium/logic/impl/DefaultOptionalAssertions : ch/tutteli/atrium/logic/OptionalAssertions {
