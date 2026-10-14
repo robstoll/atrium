@@ -31,6 +31,12 @@ enum class DescriptionAnyExpectation(override val value: String) : StringBasedTr
     /** @since 0.18.0 */
     NOT_TO_EQUAL_ONE_IN("not to equal one in"),
 
+    /** @since 1.3.0 */
+    TO_BE_IN("to be in"),
+
+    /** @since 1.3.0 */
+    NOT_TO_BE_IN("not to be in"),
+
     /** @since 0.18.0 */
     BECAUSE("because"),
 }

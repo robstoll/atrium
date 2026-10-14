@@ -1,11 +1,13 @@
 public final class ch/tutteli/atrium/translations/DescriptionAnyExpectation : java/lang/Enum, ch/tutteli/atrium/reporting/translating/StringBasedTranslatable {
 	public static final field BECAUSE Lch/tutteli/atrium/translations/DescriptionAnyExpectation;
 	public static final field NOT_TO_BE_AN_INSTANCE_OF Lch/tutteli/atrium/translations/DescriptionAnyExpectation;
+	public static final field NOT_TO_BE_IN Lch/tutteli/atrium/translations/DescriptionAnyExpectation;
 	public static final field NOT_TO_BE_THE_INSTANCE Lch/tutteli/atrium/translations/DescriptionAnyExpectation;
 	public static final field NOT_TO_EQUAL Lch/tutteli/atrium/translations/DescriptionAnyExpectation;
 	public static final field NOT_TO_EQUAL_NULL_TO_BE_AN_INSTANCE_OF Lch/tutteli/atrium/translations/DescriptionAnyExpectation;
 	public static final field NOT_TO_EQUAL_ONE_IN Lch/tutteli/atrium/translations/DescriptionAnyExpectation;
 	public static final field TO_BE_AN_INSTANCE_OF Lch/tutteli/atrium/translations/DescriptionAnyExpectation;
+	public static final field TO_BE_IN Lch/tutteli/atrium/translations/DescriptionAnyExpectation;
 	public static final field TO_BE_THE_INSTANCE Lch/tutteli/atrium/translations/DescriptionAnyExpectation;
 	public static final field TO_EQUAL Lch/tutteli/atrium/translations/DescriptionAnyExpectation;
 	public fun getDefault ()Ljava/lang/String;

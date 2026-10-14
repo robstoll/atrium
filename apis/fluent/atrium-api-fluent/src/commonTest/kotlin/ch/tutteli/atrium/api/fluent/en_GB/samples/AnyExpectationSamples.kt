@@ -194,6 +194,7 @@ class AnyExpectationSamples {
         }
     }
 
+    @Suppress("DEPRECATION")
     @Test
     fun notToEqualOneOf() {
         expect(99).notToEqualOneOf(1, 2, 3, 4)
@@ -203,12 +204,31 @@ class AnyExpectationSamples {
         }
     }
 
+    @Suppress("DEPRECATION")
     @Test
     fun notToEqualOneIn() {
         expect(99).notToEqualOneIn(listOf(1, 2, 3, 4))
 
         fails {
             expect(1).notToEqualOneIn(listOf(1, 2, 3, 4))
+        }
+    }
+
+    @Test
+    fun toBeIn() {
+        expect(1).toBeIn(setOf(1, 2, 3, 4))
+
+        fails {
+            expect(99).toBeIn(setOf(1, 2, 3, 4))
+        }
+    }
+
+    @Test
+    fun notToBeIn() {
+        expect(99).notToBeIn(setOf(1, 2, 3, 4))
+
+        fails {
+            expect(1).notToBeIn(setOf(1, 2, 3, 4))
         }
     }
 

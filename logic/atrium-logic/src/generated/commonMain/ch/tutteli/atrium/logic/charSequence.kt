@@ -12,8 +12,8 @@ import ch.tutteli.atrium.logic.creating.charsequence.contains.CharSequenceContai
 import ch.tutteli.atrium.logic.creating.charsequence.contains.searchbehaviours.NoOpSearchBehaviour
 import ch.tutteli.atrium.logic.creating.charsequence.contains.searchbehaviours.NotSearchBehaviour
 import ch.tutteli.atrium.logic.creating.charsequence.contains.steps.NotCheckerStep
-import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
 import ch.tutteli.atrium.logic.creating.transformers.FeatureExtractorBuilder
+import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
 import ch.tutteli.atrium.logic.impl.DefaultCharSequenceAssertions
 
 

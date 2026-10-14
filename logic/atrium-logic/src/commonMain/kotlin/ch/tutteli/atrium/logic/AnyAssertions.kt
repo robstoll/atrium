@@ -31,7 +31,16 @@ interface AnyAssertions {
         subType: KClass<SubTypeOfT>
     ): SubjectChangerBuilder.ExecutionStep<T, SubTypeOfT> where SubTypeOfT : Any, SubTypeOfT : T
 
+    //TODO should have been named notToEqualOneIn as it uses `equals` and not `contains` (which many times uses equals but not always)
+    // I actually think the reporting is too much (list every entry). It is enough to just use notToBeIn
+    @Deprecated("use notToBeIn", ReplaceWith("notToBeIn(expected)"))
     fun <T> isNotIn(container: AssertionContainer<T>, expected: Iterable<T>): Assertion
+
+    /** @since 1.3.0 */
+    fun <T> toBeIn(container: AssertionContainer<T>, expected: Iterable<T>): Assertion
+
+    /** @since 1.3.0 */
+    fun <T> notToBeIn(container: AssertionContainer<T>, expected: Iterable<T>): Assertion
 
     fun <T> because(
         container: AssertionContainer<T>,
