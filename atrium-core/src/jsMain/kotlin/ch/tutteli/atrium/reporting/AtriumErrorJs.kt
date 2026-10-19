@@ -3,6 +3,10 @@ package ch.tutteli.atrium.reporting
 import ch.tutteli.atrium.assertions.Assertion
 import ch.tutteli.atrium.core.polyfills.stackBacktrace
 
+actual typealias AssertionErrorLikeIntermediate = AssertionError
+
+actual open class AssertionErrorLike(message: String) : AssertionErrorLikeIntermediate(message)
+
 /**
  * Indicates that an assertion made by Atrium failed.
  *
@@ -18,11 +22,9 @@ actual class AtriumError private constructor(
     private val internalMessage: String,
     actual val rootAssertion: Assertion,
     @Suppress("UNUSED_PARAMETER") dummyUnit: Unit
-) : AssertionError(internalMessage) {
+) : AssertionErrorLike(internalMessage) {
 
     internal actual constructor(message: String, rootAssertion: Assertion) : this(message, rootAssertion, Unit)
-
-
 
     override val message: String?
         get() {
