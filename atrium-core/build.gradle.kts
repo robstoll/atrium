@@ -19,6 +19,11 @@ kotlin {
                 implementation(prefixedProject("specs"))
             }
         }
+        jvmMain {
+            dependencies {
+                api("org.opentest4j:opentest4j:1.3.0")
+            }
+        }
     }
 }
 

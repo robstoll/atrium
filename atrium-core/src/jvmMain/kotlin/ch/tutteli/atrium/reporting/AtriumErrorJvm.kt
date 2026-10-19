@@ -1,8 +1,14 @@
 package ch.tutteli.atrium.reporting
 
 import ch.tutteli.atrium.assertions.Assertion
+import ch.tutteli.atrium.assertions.AssertionGroup
+import ch.tutteli.atrium.assertions.RootAssertionGroupType
 import ch.tutteli.atrium.core.polyfills.fullName
-import ch.tutteli.atrium.reporting.AtriumError.Companion
+import ch.tutteli.kbox.takeIf
+import org.opentest4j.AssertionFailedError
+
+actual typealias AssertionErrorLikeIntermediate = java.lang.AssertionError
+actual typealias AssertionErrorLike = AssertionFailedError
 
 /**
  * Indicates that an assertion made by Atrium failed.
@@ -16,7 +22,7 @@ import ch.tutteli.atrium.reporting.AtriumError.Companion
 actual class AtriumError internal actual constructor(
     message: String,
     actual val rootAssertion: Assertion
-) : AssertionError(message, null) {
+) : AssertionFailedError(message, extractExpected(rootAssertion), extractActual(rootAssertion), null) {
 
     /**
      * Usually the error message but an empty string in case of certain test-runners.
@@ -69,4 +75,41 @@ actual class AtriumError internal actual constructor(
             atriumErrorAdjuster: AtriumErrorAdjuster
         ): AtriumError = createAtriumError(message, rootAssertion, atriumErrorAdjuster)
     }
+}
+
+fun extractExpected(rootAssertion: Assertion): String = extractRepresentation(rootAssertion) { _, first ->
+    first.representation
+}
+
+fun extractActual(rootAssertion: Assertion): String = extractRepresentation(rootAssertion) { root, _ ->
+    root.representation
+}
+
+private fun extractRepresentation(
+    rootAssertion: Assertion,
+    representationProvider: (rootAssertionGroup: AssertionGroup, first: ch.tutteli.atrium.assertions.BasicDescriptiveAssertion) -> Any
+): String {
+    val expectedRepresentation = if (rootAssertion is AssertionGroup && rootAssertion.type == RootAssertionGroupType) {
+        rootAssertion.assertions.singleOrNull()?.let { first ->
+            if (first is ch.tutteli.atrium.assertions.BasicDescriptiveAssertion) {
+                takeIf(first.description.getDefault() == "to equal") {
+                    representationProvider(rootAssertion, first)
+                }
+            } else null
+        }?.let { representation ->
+            //TODO 1.5.0 we should use the ObjectFormatter here, good enough for now but should be improved
+            val stringRepresentation = when (representation) {
+                is Text -> representation.string
+                else -> representation.toString()
+            }
+            stringRepresentation + """
+                |
+                |
+                |===================== powered by Atrium:
+                |type full name: ${representation::class.fullName(representation)}
+                """
+                .trimMargin()
+        }
+    } else null
+    return expectedRepresentation ?: "please take a look at the exception message, no diff supported for this type of expectation for now"
 }

@@ -923,7 +923,7 @@ public abstract interface class ch/tutteli/atrium/reporting/AssertionPairFormatt
 	public abstract fun formatGroupHeader (Lch/tutteli/atrium/reporting/AssertionFormatterParameterObject;Lch/tutteli/atrium/assertions/AssertionGroup;Lch/tutteli/atrium/reporting/AssertionFormatterParameterObject;)V
 }
 
-public final class ch/tutteli/atrium/reporting/AtriumError : java/lang/AssertionError {
+public final class ch/tutteli/atrium/reporting/AtriumError : org/opentest4j/AssertionFailedError {
 	public static final field Companion Lch/tutteli/atrium/reporting/AtriumError$Companion;
 	public fun getLocalizedMessage ()Ljava/lang/String;
 	public fun getMessage ()Ljava/lang/String;
@@ -942,6 +942,11 @@ public abstract interface class ch/tutteli/atrium/reporting/AtriumErrorAdjuster 
 public abstract interface class ch/tutteli/atrium/reporting/AtriumErrorAdjusterCommon {
 	public abstract fun adjust (Ljava/lang/Throwable;)V
 	public abstract fun adjustOtherThanStacks (Ljava/lang/Throwable;)V
+}
+
+public final class ch/tutteli/atrium/reporting/AtriumErrorJvmKt {
+	public static final fun extractActual (Lch/tutteli/atrium/assertions/Assertion;)Ljava/lang/String;
+	public static final fun extractExpected (Lch/tutteli/atrium/assertions/Assertion;)Ljava/lang/String;
 }
 
 public final class ch/tutteli/atrium/reporting/ConstantsKt {
