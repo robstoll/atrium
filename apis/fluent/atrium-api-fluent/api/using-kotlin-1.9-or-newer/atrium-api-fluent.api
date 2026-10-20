@@ -539,9 +539,9 @@ public final class ch/tutteli/atrium/api/fluent/en_GB/PathFeatureExtractorsKt {
 }
 
 public final class ch/tutteli/atrium/api/fluent/en_GB/RangeExpectationsKt {
-	public static final fun toBeInRange (Lch/tutteli/atrium/creating/Expect;Lkotlin/ranges/CharRange;)Lch/tutteli/atrium/creating/Expect;
-	public static final fun toBeInRange (Lch/tutteli/atrium/creating/Expect;Lkotlin/ranges/IntRange;)Lch/tutteli/atrium/creating/Expect;
-	public static final fun toBeInRange (Lch/tutteli/atrium/creating/Expect;Lkotlin/ranges/LongRange;)Lch/tutteli/atrium/creating/Expect;
+	public static final fun toBeIn (Lch/tutteli/atrium/creating/Expect;Lkotlin/ranges/CharRange;)Lch/tutteli/atrium/creating/Expect;
+	public static final fun toBeIn (Lch/tutteli/atrium/creating/Expect;Lkotlin/ranges/IntRange;)Lch/tutteli/atrium/creating/Expect;
+	public static final fun toBeIn (Lch/tutteli/atrium/creating/Expect;Lkotlin/ranges/LongRange;)Lch/tutteli/atrium/creating/Expect;
 }
 
 public final class ch/tutteli/atrium/api/fluent/en_GB/ResultExpectationsKt {

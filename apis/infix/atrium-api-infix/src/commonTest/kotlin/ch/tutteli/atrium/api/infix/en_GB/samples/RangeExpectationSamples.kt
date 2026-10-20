@@ -1,34 +1,36 @@
 package ch.tutteli.atrium.api.infix.en_GB.samples
 
-import ch.tutteli.atrium.api.infix.en_GB.toBeInRange
+import ch.tutteli.atrium.api.infix.en_GB.toBeIn
 import kotlin.test.Test
 import ch.tutteli.atrium.api.verbs.expect
 
 class RangeExpectationSamples {
+
     @Test
-    fun rangeExpectationSampleInt() {
-        expect(3) toBeInRange 1..5
+    fun toBeInCharRange() {
+        expect('c') toBeIn 'a'..'f'
 
         fails {
-            expect(0) toBeInRange 1..5
+            expect('A') toBeIn 'a'..'f'
         }
     }
 
     @Test
-    fun rangeExpectationSampleLong() {
-        expect(100L) toBeInRange 50L..150L
+    fun toBeInIntRange() {
+        expect(3) toBeIn 1..5
 
         fails {
-            expect(0L) toBeInRange 50L..150L
+            expect(0) toBeIn 1..5
         }
     }
 
     @Test
-    fun rangeExpectationSampleChar() {
-        expect('c') toBeInRange 'a'..'f'
+    fun toBeInLongRange() {
+        expect(100L) toBeIn 50L..150L
 
         fails {
-            expect('A') toBeInRange 'a'..'f'
+            expect(0L) toBeIn 50L..150L
         }
     }
+
 }

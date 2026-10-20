@@ -7,19 +7,19 @@ import ch.tutteli.atrium.specs.fun1
 import kotlin.test.Test
 
 class RangeExpectationsTest : AbstractRangeExpectationsTest(
-    fun1(Expect<Int>::toBeInRange),
-    fun1(Expect<Long>::toBeInRange),
-    fun1(Expect<Char>::toBeInRange)
+    fun1(Expect<Int>::toBeIn),
+    fun1(Expect<Long>::toBeIn),
+    fun1(Expect<Char>::toBeIn)
 ){
     @Test
     fun ambiguityTest() {
         val intExpect = expect(10)
-        intExpect.toBeInRange(1..20)
+        intExpect.toBeIn(1..20)
 
         val longExpect = expect(100L)
-        longExpect.toBeInRange(50L..150L)
+        longExpect.toBeIn(50L..150L)
 
         val charExpect = expect('f')
-        charExpect.toBeInRange('a'..'z')
+        charExpect.toBeIn('a'..'z')
     }
 }
