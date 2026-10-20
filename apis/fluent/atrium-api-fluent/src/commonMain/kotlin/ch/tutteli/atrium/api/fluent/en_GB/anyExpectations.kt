@@ -238,6 +238,7 @@ fun <T> Expect<T>.notToBeAnInstanceOf(type: KClass<*>, vararg otherTypes: KClass
     )
 )
 fun <T> Expect<T>.notToEqualOneOf(expected: T, vararg otherValues: T): Expect<T> =
+    @Suppress("DEPRECATION")
     notToEqualOneIn(expected glue otherValues)
 
 /**
@@ -261,7 +262,10 @@ fun <T> Expect<T>.notToEqualOneOf(expected: T, vararg otherValues: T): Expect<T>
     )
 )
 fun <T> Expect<T>.notToEqualOneIn(expected: IterableLike): Expect<T> =
-    _logicAppend { isNotIn(iterableLikeToIterable(expected)) }
+    _logicAppend {
+        @Suppress("DEPRECATION")
+        isNotIn(iterableLikeToIterable(expected))
+    }
 
 /**
  * Expects that the subject of `this` expectation is in [expected].
