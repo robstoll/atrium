@@ -9,11 +9,11 @@ import ch.tutteli.atrium.logic.toBeInRange
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
- * @sample ch.tutteli.atrium.api.infix.en_GB.samples.RangeExpectationSamples.rangeExpectationSampleInt
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.RangeExpectationSamples.toBeInCharRange
  *
  * @since 1.3.0
  */
-infix fun Expect<Char>.toBeInRange(expected: CharRange): Expect<Char> =
+infix fun Expect<Char>.toBeIn(expected: CharRange): Expect<Char> =
     _logicAppend { toBeInRange(expected) }
 
 /**
@@ -21,11 +21,11 @@ infix fun Expect<Char>.toBeInRange(expected: CharRange): Expect<Char> =
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
- * @sample ch.tutteli.atrium.api.infix.en_GB.samples.RangeExpectationSamples.rangeExpectationSampleInt
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.RangeExpectationSamples.toBeInIntRange
  *
  * @since 1.3.0
  */
-infix fun Expect<Int>.toBeInRange(expected: IntRange): Expect<Int> =
+infix fun Expect<Int>.toBeIn(expected: IntRange): Expect<Int> =
     _logicAppend { toBeInRange(expected) }
 
 /**
@@ -33,9 +33,9 @@ infix fun Expect<Int>.toBeInRange(expected: IntRange): Expect<Int> =
  *
  * @return an [Expect] for the subject of `this` expectation.
  *
- * @sample ch.tutteli.atrium.api.infix.en_GB.samples.RangeExpectationSamples.rangeExpectationSampleInt
+ * @sample ch.tutteli.atrium.api.infix.en_GB.samples.RangeExpectationSamples.toBeInLongRange
  *
  * @since 1.3.0
  */
-infix fun Expect<Long>.toBeInRange(expected: LongRange): Expect<Long> =
+infix fun Expect<Long>.toBeIn(expected: LongRange): Expect<Long> =
     _logicAppend { toBeInRange(expected) }
