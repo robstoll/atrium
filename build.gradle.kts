@@ -111,12 +111,12 @@ Assumes you have a atrium-gh-pages folder on the same level as atrium where the 
 Either use the following commands or the manual steps below (assuming ATRIUM_PREVIOUS_VERSION and ATRIUM_VERSION
 is already set from commands above)
 
-Increment ATRIUM_GH_PAGES_VERSIONS_JS_VERSION_NEXT
+Increment ATRIUM_GH_PAGES_VERSIONS_JS_VERSION and ATRIUM_GH_PAGES_VERSIONS_JS_VERSION_NEXT
 
 export ATRIUM_GH_PAGES_LOGO_CSS_VERSION="1.3"
 export ATRIUM_GH_PAGES_ALERT_CSS_VERSION="1.1"
-export ATRIUM_GH_PAGES_VERSIONS_JS_VERSION="1.3.0"
-export ATRIUM_GH_PAGES_VERSIONS_JS_VERSION_NEXT="1.4.0"
+export ATRIUM_GH_PAGES_VERSIONS_JS_VERSION="1.4.0"
+export ATRIUM_GH_PAGES_VERSIONS_JS_VERSION_NEXT="1.5.0"
 
 PUB=true gr dokkaHtmlMultiModule
 
@@ -172,9 +172,9 @@ alternatively the manual steps:
 
 3. deploy to sonatype central portal:
 (assumes you have an alias named gr pointing to ./gradlew)
-    a) java -version 2>&1 | grep "version \"11" && PUB=true CI=true gr clean pubToMaLo && \
-       tmpDir=$(mktemp -d -t "atrium-release-$ATRIUM_VERSION-XXXXXXXXXX")
-       find "$HOME/.m2/repository/ch/tutteli/atrium" -type -d name "$ATRIUM_VERSION" -print0 |
+    a) java -version 2>&1 | grep "version \"11" || { echo "please switch the jdk version, is currently not 11"; return 1; } && PUB=true CI=true gr clean pubToMaLo &&
+       tmpDir=$(mktemp -d -t "atrium-release-$ATRIUM_VERSION-XXXXXXXXXX") &&
+       find "$HOME/.m2/repository/ch/tutteli/atrium" -type d -name "*$ATRIUM_VERSION" -print0 |
          while read -r -d $'\0' versionDir; do
            find "$versionDir" -type f -print0 | while read -r -d $'\0' file; do
               relPath="${file#"$HOME/.m2/repository/"}"
@@ -182,19 +182,21 @@ alternatively the manual steps:
               cp "$file" "$tmpDir/$relPath"
            done
          done &&
-       find . -type f -not -name "*.md5" -not -name "*.sha1" -not -name "*.asc" -print0 |
+       find "$tmpDir" -type f -not -name "*.md5" -not -name "*.sha1" -not -name "*.asc" -print0 |
          while read -r -d $'\0' file; do
            base=$(basename "$file");
            md5sum "$file" | awk '{ print $1 }' > "${file}.md5"
            sha1sum "$file" | awk '{ print $1 }' > "$file.sha1"
        done &&
-       zip -r "atrium-$ATRIUM_VERSION.zip" "$tmpDir"
-    b) Log into https://central.sonatype.com/publishing/deployments
+       (cd "$tmpDir" && zip -r "atrium-$ATRIUM_VERSION.zip" .) &&
+       find "$tmpDir" -name "*.jar" | head -n 1 | xargs -I {} gpg --verify "{}.asc" "{}" &&
+       echo "verify the correct gpg key was used (see above) and you might want to check the release in file://$tmpDir"
+    b) Log into https://central.sonatype.com/publishing
     c) click on publish component and upload zip
     d) click on publish once verification is done
 
 4. publish release on github
-    1) Log in to github and publish draft
+    1) Log in to github and publish the release draft
 
 Prepare next dev cycle
 -----------------------
