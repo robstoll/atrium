@@ -23,7 +23,7 @@ data class Text private constructor(val string: String) {
 
         operator fun invoke(string: String): Text {
             require(string.isNotEmpty()) {
-                "use ${Text::class.simpleName}.${Text::EMPTY.name} instead"
+                "use ${Text::class.simpleName}.${Companion::EMPTY.name} instead"
             }
             return Text(string)
         }
