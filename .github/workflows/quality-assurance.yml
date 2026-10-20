@@ -47,7 +47,7 @@ jobs:
           env_vars: JAVA_VERSION
 
       - name: Composite build atrium-samples-test
-        run: ./gradlew build
+        run: ./gradlew -I include-atrium-for-js.init.gradle.kts build
         working-directory: misc/tools/atrium-samples-test
 
   dexer:
