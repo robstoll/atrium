@@ -54,7 +54,7 @@ class DefaultFeatureExtractor : FeatureExtractor {
                 val subAssertions = maybeSubAssertions.fold({
                     emptyList()
                 }) { assertionCreator ->
-                    // TODO 1.3.0: factor out in common pattern, should not be the concern of the average expectation
+                    // TODO 2.1.0 factor out in common pattern, should not be the concern of the average expectation
                     // function writer
                     container.maybeSubject.fold({
                         // already in an explanatory expectation-group, no need to wrap again

@@ -31,7 +31,7 @@ inline val <T> Expect<T>._logic: AssertionContainer<T>
  *
  * @since 1.1.0
  */
-//TODO deprecate with 1.3.0 and move toProofContainer to core
+//TODO deprecate with 2.1.0 and move toProofContainer to core
 inline fun ExpectGrouping._logicAppend(assertionCreator: AssertionContainer<*>.() -> Assertion): ExpectGrouping =
     _logic.run { append(assertionCreator()) }.toExpectGrouping()
 
@@ -40,7 +40,7 @@ inline fun ExpectGrouping._logicAppend(assertionCreator: AssertionContainer<*>.(
  *
  * @since 1.1.0
  */
-//TODO deprecate with 1.3.0 and move toProofContainer to core
+//TODO deprecate with 2.1.0 and move toProofContainer to core
 inline val ExpectGrouping._logic: AssertionContainer<*>
     get() = when (this) {
         is ExpectInternal<*> -> this

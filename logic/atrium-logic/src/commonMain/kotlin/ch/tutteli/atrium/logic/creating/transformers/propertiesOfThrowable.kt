@@ -16,7 +16,7 @@ import ch.tutteli.atrium.reporting.Text
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.translations.DescriptionThrowableExpectation.*
 
-//TODO 1.3.0 deprecate
+//TODO 2.1.0 deprecate
 /**
  * Returns an [AssertionGroup] with an [ExplanatoryAssertionGroupType] containing properties
  * of the given [throwable].

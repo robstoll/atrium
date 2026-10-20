@@ -16,7 +16,7 @@ expect fun String.format(locale: Locale, arg: Any, vararg otherArgs: Any): Strin
  */
 expect fun String.format(arg: Any, vararg otherArgs: Any): String
 
-//TODO remove again before 1.3.0 => move to atrium-specs
+//TODO remove again 2.0.0 => move to atrium-specs ?
 /**
  * No backward compatibility guarantees
  */

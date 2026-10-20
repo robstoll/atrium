@@ -13,15 +13,3 @@ import kotlin.reflect.KClass
 @Suppress("FunctionName")
 fun <T> RootExpectOptions(configuration: RootExpectBuilder.OptionsChooser<T>.() -> Unit): RootExpectOptions<T> =
     RootExpectBuilder.OptionsChooser(configuration)
-
-/**
- * Convenience function which infers the [KClass] usually required for [RootExpectBuilder.OptionsChooser.withComponent].
- */
-@ExperimentalComponentFactoryContainer
-// TODO 1.3.0 remove
-@Deprecated("will be removed with Atrium 1.3.0, use the overload which requires a KClass -- this doesn't realy help as it infers a concrete type instead of an interface",
-    ReplaceWith("withComponent(I::class, factory)")
-)
-inline fun <reified I : Any, T> RootExpectBuilder.OptionsChooser<T>.withComponent(
-    noinline factory: (ComponentFactoryContainer) -> I
-) = withComponent(I::class, factory)

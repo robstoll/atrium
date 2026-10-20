@@ -62,7 +62,7 @@ private fun ExpectGrouping.processNodes(testNodes: List<TestNode>, testExecutabl
 }
 
 
-//TODO 1.3.0 rename once we append Proofs -- also, catching exceptions should be a standard behaviour for expectation
+//TODO 2.1.0 rename once we append Proofs -- also, catching exceptions should be a standard behaviour for expectation
 // groups, that's still something we should improve. I think then this method wouldn't be necessary
 private fun ExpectGrouping.executeAndAppendExceptionAsAssertion(executable: () -> Unit) =
     try {
@@ -74,7 +74,7 @@ private fun ExpectGrouping.executeAndAppendExceptionAsAssertion(executable: () -
     } catch (e: Throwable) {
         val rootAssertion = (e as? AtriumError)?.rootAssertion
         if (rootAssertion != null) {
-            // TODO 1.3.0 append a hint that a top-level expect was used within an expectGrouped instead of using
+            // TODO 2.1.0 append a hint that a top-level expect was used within an expectGrouped instead of using
             //  the expect (or whatever verb is used) of the ExpectGrouping
             _logic.append(rootAssertion)
         } else {

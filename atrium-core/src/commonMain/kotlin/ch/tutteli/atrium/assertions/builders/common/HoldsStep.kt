@@ -34,7 +34,7 @@ interface HoldsStep<R> {
      *
      * @return `true` in case [SubjectProvider.maybeSubject] is None or the result of [test] passing the subject.
      */
-    //TODO 1.3.0 if we introduce Record or something else as replacement for Assertion then not but if we keep Assertion
+    //TODO 2.1.0 if we introduce Record or something else as replacement for Assertion then not but if we keep Assertion
     // then move to logic and expect ProofContainer
     fun <T> withTest(
         expect: Expect<T>,

@@ -28,7 +28,7 @@ kotlin {
 }
 
 ifIsPublishing {
-// TODO 1.3.0 some bug in dokka, maybe fixed in a never version? We should be able to suppress jvmMain for js and common
+// TODO 2.0.0 some bug in dokka, maybe fixed in a never version? We should be able to suppress jvmMain for js and common
 // see https://github.com/Kotlin/dokka/issues/3209
     project.afterEvaluate {
         tasks.named<DokkaTask>("dokkaHtmlJs") {

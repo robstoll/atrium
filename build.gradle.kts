@@ -22,7 +22,39 @@ subprojects {
     version = rootProject.version
 }
 
-//TODO 1.3.0 add a relocation publication for translations-de_CH which points to translations-en_GB
+listOf(
+    "atrium-translations-de_CH" to "atrium-translations-en_GB",
+).forEach { (oldArtifactId, projectName) ->
+    val newPubName = if(oldArtifactId.endsWith("-common")) "kotlinMultiplatform"
+    else if(oldArtifactId.endsWith("-js")) "js"
+    else if(oldArtifactId.endsWith("-android")) "jvm"
+    else "jvm"
+
+    configure(listOf(project(":$projectName"))) {
+        configure<PublishingExtension> {
+            val pub = publications.getByName(newPubName) as MavenPublication
+            publications.register<MavenPublication>("${oldArtifactId}-to-${pub.artifactId}-relocation") {
+                pom {
+                    // Old artifact coordinates
+                    groupId = pub.groupId
+                    artifactId = oldArtifactId
+                    version = pub.version
+
+                    distributionManagement {
+                        relocation {
+                            // New artifact coordinates
+                            groupId.set(pub.groupId)
+                            artifactId.set(pub.artifactId)
+                            version.set(pub.version)
+                            message.set("artifactId has changed")
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
 nexusPublishing {
     repositories {
         sonatype()

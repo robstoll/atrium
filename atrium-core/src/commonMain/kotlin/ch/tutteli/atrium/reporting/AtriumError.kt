@@ -19,7 +19,7 @@ expect open class AssertionErrorLike : AssertionErrorLikeIntermediate
  */
 expect class AtriumError internal constructor(message: String, rootAssertion: Assertion) : AssertionErrorLike {
 
-    //TODO 1.3.0 replace with rootProof
+    //TODO 2.1.0 replace with rootProof
     /**
      * Represents the [Assertion] which lead to this AtriumError.
      *
