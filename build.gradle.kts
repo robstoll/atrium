@@ -22,31 +22,37 @@ subprojects {
     version = rootProject.version
 }
 
-listOf(
-    "atrium-translations-de_CH" to "atrium-translations-en_GB",
-).forEach { (oldArtifactId, projectName) ->
-    val newPubName = if(oldArtifactId.endsWith("-common")) "kotlinMultiplatform"
-    else if(oldArtifactId.endsWith("-js")) "js"
-    else if(oldArtifactId.endsWith("-android")) "jvm"
-    else "jvm"
+//TODO 2.0.0 add a relocation from api-infix to api-fluent
+ifIsPublishing {
+    listOf(
+        "atrium-translations-de_CH" to "atrium-translations-en_GB",
+        "atrium-translations-de_CH-jvm" to "atrium-translations-en_GB",
+        "atrium-translations-de_CH-js" to "atrium-translations-en_GB",
+    ).forEach { (oldArtifactId, projectName) ->
+        val newPubName = if (oldArtifactId.endsWith("-js")) "js"
+        else if (oldArtifactId.endsWith("-jvm")) "jvm"
+        else "kotlinMultiplatform"
 
-    configure(listOf(project(":$projectName"))) {
-        configure<PublishingExtension> {
-            val pub = publications.getByName(newPubName) as MavenPublication
-            publications.register<MavenPublication>("${oldArtifactId}-to-${pub.artifactId}-relocation") {
-                pom {
-                    // Old artifact coordinates
-                    groupId = pub.groupId
-                    artifactId = oldArtifactId
-                    version = pub.version
+        configure(listOf(project(":$projectName"))) {
+            afterEvaluate {
+                configure<PublishingExtension> {
+                    val pub = publications.getByName(newPubName) as MavenPublication
+                    publications.register<MavenPublication>("${oldArtifactId}-to-${pub.artifactId}-relocation") {
+                        pom {
+                            // Old artifact coordinates
+                            groupId = pub.groupId
+                            artifactId = oldArtifactId
+                            version = pub.version
 
-                    distributionManagement {
-                        relocation {
-                            // New artifact coordinates
-                            groupId.set(pub.groupId)
-                            artifactId.set(pub.artifactId)
-                            version.set(pub.version)
-                            message.set("artifactId has changed")
+                            distributionManagement {
+                                relocation {
+                                    // New artifact coordinates
+                                    groupId.set(pub.groupId)
+                                    artifactId.set(pub.artifactId)
+                                    version.set(pub.version)
+                                    message.set("artifactId has changed")
+                                }
+                            }
                         }
                     }
                 }
