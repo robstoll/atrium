@@ -31,7 +31,7 @@ Following the things you need to do:
 - [ ] extend it in atrium-api-fluent -> commonTest, name it XyExpectationsTest
 - [ ] add samples to XyExpectationSamples.kt  (see YzExpectationSamples.kt as guideline -- try to provide the reason why an expectation fails)
 - [ ] add `@sample` with link to your sample method to the two functions in xYExpectations.kt
-- [ ] add `@since 1.3.0` (adapt to current [milestone](https://github.com/robstoll/atrium/milestones)) to KDOC of the two functions in xYExpectations.kt
+- [ ] add `@since 2.0.0` (adapt to current [milestone](https://github.com/robstoll/atrium/milestones)) to KDOC of the two functions in xYExpectations.kt
 - [ ] execute `./gradlew apiDump & KOTLIN_VERSION=1.9 ./gradlew apiDump`
 
 *api-infix*
@@ -40,7 +40,7 @@ Following the things you need to do:
 - [ ] extend AbstractXyExpectationsTest also in atrium-api-infix -> commonTest, name it XyExpectationsTest
 - [ ] add samples to XyExpectationSamples.kt  (see YzExpectationSamples.kt as guideline -- try to provide the reason why an expectation fails)
 - [ ] add `@sample` with link to your sample method to the two functions in xYExpectations.kt
-- [ ] add `@since 1.3.0` (adapt to current [milestone](https://github.com/robstoll/atrium/milestones)) to KDOC of the two functions in xYExpectations.kt
+- [ ] add `@since 2.0.0` (adapt to current [milestone](https://github.com/robstoll/atrium/milestones)) to KDOC of the two functions in xYExpectations.kt
 - [ ] execute `./gradlew apiDump & KOTLIN_VERSION=1.9 ./gradlew apiDump`
 
 ## Non-Code related feature

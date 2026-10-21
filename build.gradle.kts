@@ -1,7 +1,7 @@
 buildscript {
     // needs to be defined in here so that the tutteli publish plugin can set up conventions based on the group
     // (if defined in regular scope of build.gradle.kts then the tutteli plugin would not see it when applied)
-    rootProject.version = "1.3.0"
+    rootProject.version = "2.0.0-SNAPSHOT"
     rootProject.group = "ch.tutteli.atrium"
 }
 
@@ -76,7 +76,7 @@ Release & deploy a commit
 Either use the following commands or the manual steps below
 
 export ATRIUM_PREVIOUS_VERSION=1.3.0
-export ATRIUM_VERSION=1.3.0
+export ATRIUM_VERSION=2.0.0
 find ./ -name "*.md" | xargs perl -0777 -i \
    -pe "s@$ATRIUM_PREVIOUS_VERSION@$ATRIUM_VERSION@g;" \
    -pe "s@tree/main@tree/v$ATRIUM_VERSION@g;" \
@@ -197,9 +197,10 @@ alternatively the manual steps:
        (cd "$tmpDir" && zip -r "atrium-$ATRIUM_VERSION.zip" .) &&
        find "$tmpDir" -name "*.jar" | head -n 1 | xargs -I {} gpg --verify "{}.asc" "{}" &&
        echo "verify the correct gpg key was used (see above) and you might want to check the release in file://$tmpDir"
-    b) Log into https://central.sonatype.com/publishing
-    c) click on publish component and upload zip
-    d) click on publish once verification is done
+    b) Log into https://central.sonatype.com/
+    c) click on Publish in the top menu
+    d) click on the publish component button and upload the zip
+    e) click on publish once verification is done
 
 4. publish release on github
     1) Log in to github and publish the release draft
@@ -211,7 +212,7 @@ Prepare next dev cycle
 Either use the following commands or the manual steps below
 
 export ATRIUM_VERSION=1.3.0
-export ATRIUM_NEXT_VERSION=1.3.0
+export ATRIUM_NEXT_VERSION=2.0.0
 find ./ -name "*.md" | xargs perl -0777 -i \
    -pe "s@tree/v$ATRIUM_VERSION@tree/main@g;" \
    -pe "s@$ATRIUM_VERSION/kdoc@latest#/kdoc@g;" \
