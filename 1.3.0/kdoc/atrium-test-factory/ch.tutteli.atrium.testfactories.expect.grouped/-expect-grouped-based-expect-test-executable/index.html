@@ -1,0 +1,168 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>ExpectGroupedBasedExpectTestExecutable</title>
+<link href="../../../images/logo-icon.svg" rel="icon" type="image/svg">    <script>var pathToRoot = "../../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
+<script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../styles/style.css" rel="Stylesheet">
+<link href="../../../styles/main.css" rel="Stylesheet">
+<link href="../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
+<body>
+    <div class="root">
+<nav class="navigation" id="navigation-wrapper">
+    <div class="navigation--inner">
+        <div class="navigation-title">
+            <button class="menu-toggle" id="menu-toggle" type="button">toggle menu</button>
+            <div class="library-name">
+<a class="library-name--link" href="../../../index.html">
+                            Atrium
+                    </a>            </div>
+            <div class="library-version">1.3.0
+            </div>
+        </div>
+        <div class="filter-section" id="filter-section">
+                <button class="platform-tag platform-selector common-like" data-active="" data-filter=":atrium-test-factory:dokkaHtmlPartial/commonMain">common</button>
+        </div>
+    </div>
+    <div class="navigation-controls">
+        <button class="navigation-controls--btn navigation-controls--theme" id="theme-toggle-button" type="button">switch theme</button>
+        <div class="navigation-controls--btn navigation-controls--search" id="searchBar" role="button">search in API</div>
+    </div>
+</nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="sidebar--inner" id="sideMenu"></div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageids="atrium-test-factory::ch.tutteli.atrium.testfactories.expect.grouped/ExpectGroupedBasedExpectTestExecutable///PointingToDeclaration//479036971">
+  <div class="breadcrumbs"><a href="../../index.html">atrium-test-factory</a><span class="delimiter">/</span><a href="../index.html">ch.tutteli.atrium.testfactories.expect.grouped</a><span class="delimiter">/</span><span class="current">ExpectGroupedBasedExpectTestExecutable</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Expect</span><wbr><span>Grouped</span><wbr><span>Based</span><wbr><span>Expect</span><wbr><span>Test</span><wbr><span><span>Executable</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":atrium-test-factory:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword">class </span><a href="index.html">ExpectGroupedBasedExpectTestExecutable</a><span class="token operator">&lt;</span><a href="index.html">ExpectTestExecutableT</a><span class="token operator"> : </span><a href="../../ch.tutteli.atrium.testfactories.expect/-expect-test-executable/index.html">ExpectTestExecutable</a><span class="token operator">&gt;</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>expectationVerbs<span class="token operator">: </span><a href="../../../atrium-core/ch.tutteli.atrium.creating/-expectation-verbs/index.html">ExpectationVerbs</a></span></span><span class="token punctuation">)</span> : <a href="../-grouping-based-test-executable/index.html">GroupingBasedTestExecutable</a><span class="token operator">&lt;</span><a href="index.html">ExpectTestExecutableT</a><span class="token operator">&gt; </span>, <a href="../../ch.tutteli.atrium.testfactories.expect/-expect-test-executable/index.html">ExpectTestExecutable</a><span class="clearfix"><span class="floating-right">(<a href="https://github.com/robstoll/atrium/tree/v1.3.0/misc/atrium-test-factory/src/commonMain/kotlin/ch/tutteli/atrium/testfactories/expect/grouped/ExpectGroupedBasedExpectTestExecutable.kt#L15">source</a>)</span></span></div><p class="paragraph">Defines a <a href="../../ch.tutteli.atrium.testfactories/-test-executable/index.html">TestExecutable</a> which will create an <a href="../../../atrium-core/ch.tutteli.atrium.creating/-expect-grouping/index.html">ExpectGrouping</a> for the top branch node and provides <code class="lang-kotlin">expect</code> as expectation verb, i.e. works on <a href="../../ch.tutteli.atrium.testfactories.expect/-expect-test-executable/index.html">ExpectTestExecutable</a>.</p><span class="kdoc-tag"><h4 class="">Since</h4><p class="paragraph">1.3.0</p></span><h4 class="">Inheritors</h4><div class="table"><div class="table-row" data-filterable-current=":atrium-test-factory:dokkaHtmlPartial/commonMain" data-filterable-set=":atrium-test-factory:dokkaHtmlPartial/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="../../ch.tutteli.atrium.testfactories.expect.grouped.impl/-expect-grouped-based-expect-test-executable-impl/index.html">ExpectGroupedBasedExpectTestExecutableImpl</a></div></span></div><div></div></div></div></div></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="CONSTRUCTOR">
+        <h2 class="">Constructors</h2>
+        <div class="table"><a data-name="-291220987%2FConstructors%2F479036971" anchor-label="ExpectGroupedBasedExpectTestExecutable" id="-291220987%2FConstructors%2F479036971" data-filterable-set=":atrium-test-factory:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-togglable="CONSTRUCTOR" data-filterable-current=":atrium-test-factory:dokkaHtmlPartial/commonMain" data-filterable-set=":atrium-test-factory:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-expect-grouped-based-expect-test-executable.html"><span>Expect</span><wbr><span>Grouped</span><wbr><span>Based</span><wbr><span>Expect</span><wbr><span>Test</span><wbr><span><span>Executable</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-291220987%2FConstructors%2F479036971"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":atrium-test-factory:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">expectationVerbs<span class="token operator">: </span><a href="../../../atrium-core/ch.tutteli.atrium.creating/-expectation-verbs/index.html">ExpectationVerbs</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="">Properties</h2>
+        <div class="table"><a data-name="1208664177%2FProperties%2F479036971" anchor-label="expectationVerbs" id="1208664177%2FProperties%2F479036971" data-filterable-set=":atrium-test-factory:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":atrium-test-factory:dokkaHtmlPartial/commonMain" data-filterable-set=":atrium-test-factory:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="expectation-verbs.html"><span>expectation</span><wbr><span><span>Verbs</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1208664177%2FProperties%2F479036971"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":atrium-test-factory:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">val </span><a href="expectation-verbs.html">expectationVerbs</a><span class="token operator">: </span><a href="../../../atrium-core/ch.tutteli.atrium.creating/-expectation-verbs/index.html">ExpectationVerbs</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="">Functions</h2>
+        <div class="table"><a data-name="-919120410%2FFunctions%2F479036971" anchor-label="expect" id="-919120410%2FFunctions%2F479036971" data-filterable-set=":atrium-test-factory:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":atrium-test-factory:dokkaHtmlPartial/commonMain" data-filterable-set=":atrium-test-factory:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="expect.html"><span><span>expect</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-919120410%2FFunctions%2F479036971"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":atrium-test-factory:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="expect.html">T</a><span class="token operator">&gt; </span><a href="expect.html"><span class="token function">expect</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">subject<span class="token operator">: </span><a href="expect.html">T</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><a href="expect.html">T</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Creates an <a href="../../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the given <a href="expect.html">subject</a>.</p></div><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="expect.html">T</a><span class="token operator">&gt; </span><a href="expect.html"><span class="token function">expect</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">subject<span class="token operator">: </span><a href="expect.html">T</a><span class="token punctuation">, </span></span><span class="parameter ">expectationCreator<span class="token operator">: </span><a href="../../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><a href="expect.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a><span class="token operator">&lt;</span><a href="expect.html">T</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Creates an <a href="../../../atrium-core/ch.tutteli.atrium.creating/-expect/index.html">Expect</a> for the given <a href="expect.html">subject</a> and appends the expectations the given <a href="expect.html">expectationCreator</a>-lambda creates as group to it.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-80458270%2FFunctions%2F479036971" anchor-label="expectGrouped" id="-80458270%2FFunctions%2F479036971" data-filterable-set=":atrium-test-factory:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":atrium-test-factory:dokkaHtmlPartial/commonMain" data-filterable-set=":atrium-test-factory:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="expect-grouped.html"><span>expect</span><wbr><span><span>Grouped</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-80458270%2FFunctions%2F479036971"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":atrium-test-factory:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="expect-grouped.html"><span class="token function">expectGrouped</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">description<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">groupingActions<span class="token operator">: </span><a href="../../../atrium-core/ch.tutteli.atrium.creating/-expect-grouping/index.html">ExpectGrouping</a><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../../atrium-core/ch.tutteli.atrium.creating/-expect-grouping/index.html">ExpectGrouping</a></div><div class="brief "><p class="paragraph">Creates an <a href="../../../atrium-core/ch.tutteli.atrium.creating/-expect-grouping/index.html">ExpectGrouping</a> which can be used to group multiple unrelated subjects.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-640271161%2FFunctions%2F479036971" anchor-label="testFactory" id="-640271161%2FFunctions%2F479036971" data-filterable-set=":atrium-test-factory:dokkaHtmlPartial/commonMain"></a>
+          <div class="table-row" data-filterable-current=":atrium-test-factory:dokkaHtmlPartial/commonMain" data-filterable-set=":atrium-test-factory:dokkaHtmlPartial/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-grouping-based-test-executable/test-factory.html"><span>test</span><wbr><span><span>Factory</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-640271161%2FFunctions%2F479036971"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":atrium-test-factory:dokkaHtmlPartial/commonMain"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword">fun </span><a href="../-grouping-based-test-executable/test-factory.html"><span class="token function">testFactory</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">expectGrouping<span class="token operator">: </span><a href="../../../atrium-core/ch.tutteli.atrium.creating/-expect-grouping/index.html">ExpectGrouping</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">ExpectTestExecutableT</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      <div class="footer">
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>Atrium © Copyright Robert Stoll &lt;rstoll@tutteli.ch&gt;</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+      </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
