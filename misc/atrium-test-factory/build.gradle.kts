@@ -7,7 +7,7 @@ kotlin {
     sourceSets {
         commonMain {
             dependencies {
-                api(kotlin("test"))
+                compileOnly(kotlin("test"))
                 api(prefixedProject("core"))
                 api(prefixedProject("logic"))
             }
@@ -25,5 +25,11 @@ kotlin {
                 api(libs.junit.jupiter.api)
             }
         }
+    }
+}
+
+dependencies {
+    constraints {
+        add("commonMainApi", "org.jetbrains.kotlin:kotlin-test:${kotlin.coreLibrariesVersion}")
     }
 }
