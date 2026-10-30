@@ -26,6 +26,10 @@ kotlin {
     }
 }
 
+dependencies {
+    testImplementation(kotlin("test"))
+}
+
 tasks.test.configure {
     doFirst {
         val version = rootProject.version.toString()
