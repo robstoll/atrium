@@ -3,11 +3,11 @@
 
 import org.gradle.api.tasks.testing.logging.TestExceptionFormat
 
-val atriumVersion = "1.2.0"
+val atriumVersion = "1.3.0"
 val testNGVersion = "7.12.0"
 
 plugins {
-    kotlin("jvm") version "2.4.10"
+    kotlin("jvm") version "2.4.21"
 }
 
 group = "org.atriumlib.samples"
