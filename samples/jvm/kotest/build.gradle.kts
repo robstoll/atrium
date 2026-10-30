@@ -2,13 +2,12 @@
 // For more information on how to set up Atrium for a JVM project -> https://github.com/robstoll/atrium#jvm
 
 import org.gradle.api.tasks.testing.logging.TestExceptionFormat
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
-val atriumVersion = "1.2.0"
+val atriumVersion = "1.3.0"
 val kotestVersion = "5.9.1"
 
 plugins {
-    kotlin("jvm") version "2.4.10"
+    kotlin("jvm") version "2.4.21"
 }
 
 group = "org.atriumlib.samples"

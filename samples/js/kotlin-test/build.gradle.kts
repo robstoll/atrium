@@ -5,22 +5,21 @@ import org.gradle.api.tasks.testing.logging.TestExceptionFormat
 
 // for infix-api -> change to 'atrium-infix-js'
 val atriumApi = "atrium-fluent-js"
-val atriumVersion = "1.2.0"
+val atriumVersion = "1.3.0"
 
 repositories {
     mavenCentral()
 }
 
 plugins {
-    kotlin("multiplatform") version "2.2.0"
+    kotlin("multiplatform") version "2.4.21"
 }
 
 group = "org.atriumlib.samples"
 version = "0.0.1"
 
 kotlin {
-    // atrium only supports IR
-    js(IR) {
+    js {
         nodejs {
             // optional: not related to Atrium, might be handy for you as well :)
             testTask {
