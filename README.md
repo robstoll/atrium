@@ -100,7 +100,10 @@ repositories {
     mavenCentral()
 }
 dependencies {
-    testImplementation("ch.tutteli.atrium:atrium-fluent:1.3.0")
+    testImplementation("ch.tutteli.atrium:atrium-fluent:1.3.0") {
+        // exclude in case you run into compatibility issues in JS regarding Kotlin/JS kotlin-test ABI version
+        exclude(group = "ch.tutteli.atrium", module = "atrium-test-factory")
+    }
 }
 ```
 

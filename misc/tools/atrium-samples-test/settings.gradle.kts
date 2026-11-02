@@ -10,6 +10,9 @@ includeBuild("../../../samples/multiplatform/kotlin-test") {
 includeBuild("../../../samples/js/kotlin-test") {
     name = "js-kotlin-test"
 }
+includeBuild("../../../samples/js/kotest") {
+    name = "js-kotest"
+}
 
 pluginManagement {
     repositories {

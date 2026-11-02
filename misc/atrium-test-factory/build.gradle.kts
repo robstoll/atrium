@@ -7,7 +7,7 @@ kotlin {
     sourceSets {
         commonMain {
             dependencies {
-                api(kotlin("test"))
+                implementation(kotlin("test"))
                 api(prefixedProject("core"))
                 api(prefixedProject("logic"))
             }
