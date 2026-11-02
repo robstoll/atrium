@@ -1,4 +1,4 @@
-val jsSamples = setOf("atrium-js-kotlin-test-mocha", "atrium-multiplatform-kotlin-test")
+val jsSamples = setOf("atrium-js-kotlin-test-mocha", "atrium-multiplatform-kotlin-test", "atrium-js-kotest")
 
 gradle.settingsEvaluated {
     if (rootProject.name in jsSamples) {

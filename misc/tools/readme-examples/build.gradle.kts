@@ -9,6 +9,7 @@ kotlin {
         main {
             dependencies {
                 implementation(libs.junit.platform.console)
+                implementation(kotlin("test"))
                 runtimeOnly(kotlin("reflect"))
 
                 implementation(prefixedProject("fluent"))
