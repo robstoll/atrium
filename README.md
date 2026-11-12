@@ -146,6 +146,7 @@ I have other problems: please take a look at the [Sample Projects](#sample-proje
 Have a look into the [samples](https://github.com/robstoll/atrium/tree/main/samples)
 folder, it currently contains sample projects for
 - [js - kotlin-test](https://github.com/robstoll/atrium/tree/main/samples/js/kotlin-test)
+- [js - kotest](https://github.com/robstoll/atrium/tree/main/samples/js/kotest)
 - [jvm -- junit5](https://github.com/robstoll/atrium/tree/main/samples/jvm/junit5)
 - [jvm -- maven](https://github.com/robstoll/atrium/tree/main/samples/jvm/maven/)
 - [jvm -- kotest](https://github.com/robstoll/atrium/tree/main/samples/jvm/kotest)
