@@ -1,15 +1,19 @@
 package ch.tutteli.atrium.api.infix.en_GB
 
 import ch.tutteli.atrium.creating.Expect
+import kotlin.test.Test
 
 class IterableToContainInAnyOrderAtLeastValuesExpectationsTest :
-    ch.tutteli.atrium.specs.integration.IterableToContainInAnyOrderAtLeastValuesExpectationsSpec(
+    ch.tutteli.atrium.specs.integration.AbstractIterableToContainInAnyOrderAtLeastValuesExpectationsTest(
         getAtLeastTriple(),
         getAtLeastButAtMostTriple(),
         getNotToContainPair(),
         getExactlyPair(),
         Companion::getErrorMsgAtLeastButAtMost
     ) {
+
+    @Test
+    fun trigger_run_gutter() = Unit
 
     companion object : IterableToContainSpecBase() {
 
