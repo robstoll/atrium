@@ -1,10 +1,12 @@
 package ch.tutteli.atrium.api.infix.en_GB
 
+import ch.tutteli.atrium.api.verbs.expect
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.specs.notImplemented
+import ch.tutteli.atrium.specs.integration.AbstractIterableToContainInAnyOrderAtMostValuesExpectationsTest
+import kotlin.test.Test
 
-class IterableToContainInAnyOrderAtMostValuesExpectationsSpec :
-    ch.tutteli.atrium.specs.integration.IterableToContainInAnyOrderAtMostValuesExpectationsSpec(
+class IterableToContainInAnyOrderAtMostValuesExpectationsTest :
+    AbstractIterableToContainInAnyOrderAtMostValuesExpectationsTest(
         getAtMostTriple(),
         getNotToContainPair(),
         getExactlyPair()
@@ -17,7 +19,7 @@ class IterableToContainInAnyOrderAtMostValuesExpectationsSpec :
                 ("$toContain $filler $inAnyOrder $atMost" to Companion::toContainAtMost)
 
         private fun toContainAtMost(expect: Expect<Iterable<Double>>, atMost: Int, a: Double, aX: Array<out Double>) =
-            if(aX.isEmpty()) expect toContain o inAny order atMost atMost value a
+            if (aX.isEmpty()) expect toContain o inAny order atMost atMost value a
             else expect toContain o inAny order atMost atMost the values(a, *aX)
 
 
@@ -32,21 +34,21 @@ class IterableToContainInAnyOrderAtMostValuesExpectationsSpec :
     }
 
     @Suppress("unused", "UNUSED_VALUE")
-    private fun ambiguityTest() {
-        var list: Expect<List<Number>> = notImplemented()
-        var nList: Expect<Set<Number?>> = notImplemented()
-        var subList: Expect<ArrayList<Number>> = notImplemented()
-        var star: Expect<Collection<*>> = notImplemented()
+    @Test
+    fun ambiguityTest() {
+        var list: Expect<List<Number>> = expect(listOf<Number>(1, 1.2, 2))
+        var nList: Expect<Set<Number?>> = expect(setOf<Number?>(1, 1.2, null))
+        var subList: Expect<ArrayList<Number>> = expect(ArrayList(listOf<Number>(1, 2.2)))
+        var star: Expect<Collection<*>> = expect(listOf(1, 1.2, "asdf"))
 
-        list = list toContain o inAny order atMost 2 value(1)
-        nList = nList toContain o inAny order atMost 2 value(1)
-        subList = subList toContain o inAny order atMost 2 value(1)
-        star = star toContain o inAny order atMost 2 value(1)
+        list = list toContain o inAny order atMost 2 value 1
+        nList = nList toContain o inAny order atMost 2 value 1
+        subList = subList toContain o inAny order atMost 2 value 1
+        star = star toContain o inAny order atMost 2 value 1
 
-        //TODO type parameter should not be necessary, check with Kotlin 1.4
-        list = list toContain o inAny order atMost 2 the values<Number>(1, 1.2)
-        nList = nList toContain o inAny order atMost 2 the values<Number>(1, 1.2)
-        subList = subList toContain o inAny order atMost 2 the values<Number>(1, 2.2)
+        list = list toContain o inAny order atMost 2 the values(1, 1.2)
+        nList = nList toContain o inAny order atMost 2 the values(1, 1.2)
+        subList = subList toContain o inAny order atMost 2 the values(1, 2.2)
         star = star toContain o inAny order atMost 2 the values(1, 1.2, "asdf")
     }
 }

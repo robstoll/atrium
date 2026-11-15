@@ -1,10 +1,12 @@
 package ch.tutteli.atrium.api.fluent.en_GB
 
+import ch.tutteli.atrium.api.verbs.expect
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.specs.notImplemented
+import ch.tutteli.atrium.specs.integration.AbstractIterableToContainInAnyOrderAtMostValuesExpectationsTest
+import kotlin.test.Test
 
-class IterableToContainInAnyOrderAtMostValuesExpectationsSpec :
-    ch.tutteli.atrium.specs.integration.IterableToContainInAnyOrderAtMostValuesExpectationsSpec(
+class IterableToContainInAnyOrderAtMostValuesExpectationsTest :
+    AbstractIterableToContainInAnyOrderAtMostValuesExpectationsTest(
         getAtMostTriple(),
         getNotToContainPair(),
         getExactlyPair()
@@ -31,11 +33,12 @@ class IterableToContainInAnyOrderAtMostValuesExpectationsSpec :
     }
 
     @Suppress("unused", "UNUSED_VALUE")
-    private fun ambiguityTest() {
-        var list: Expect<List<Number>> = notImplemented()
-        var nList: Expect<Set<Number?>> = notImplemented()
-        var subList: Expect<ArrayList<Number>> = notImplemented()
-        var star: Expect<Collection<*>> = notImplemented()
+    @Test
+    fun ambiguityTest() {
+        var list: Expect<List<Number>> = expect(listOf<Number>(1, 1.2, 2))
+        var nList: Expect<Set<Number?>> = expect(setOf<Number?>(1, 1.2, null))
+        var subList: Expect<ArrayList<Number>> = expect(ArrayList(listOf<Number>(1, 2.2)))
+        var star: Expect<Collection<*>> = expect(listOf(1, 1.2, "asdf"))
 
         list = list.toContain.inAnyOrder.atMost(2).value(1)
         nList = nList.toContain.inAnyOrder.atMost(2).value(1)
