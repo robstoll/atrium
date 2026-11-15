@@ -31,7 +31,7 @@ import ch.tutteli.atrium.translations.DescriptionIterableLikeExpectation
 
 @Suppress("FunctionName")
 abstract class AbstractIterableToContainInOrderOnlyGroupedValuesExpectationsTest(
-    private val toContainInOrderOnlyGroupedValues: Fun5<
+    private val toContainInOrderOnlyGroupedValuesSpec: Fun5<
         Iterable<Double>, Group<Double>,
         Group<Double>,
         Array<out Group<Double>>,
@@ -39,7 +39,7 @@ abstract class AbstractIterableToContainInOrderOnlyGroupedValuesExpectationsTest
         InAnyOrderOnlyReportingOptions.() -> Unit
         >,
     private val groupFactory: (Array<out Double>) -> Group<Double>,
-    private val toContainInOrderOnlyGroupedNullableValues: Fun5<
+    private val toContainInOrderOnlyGroupedNullableValuesSpec: Fun5<
         Iterable<Double?>,
         Group<Double?>,
         Group<Double?>,
@@ -56,7 +56,7 @@ abstract class AbstractIterableToContainInOrderOnlyGroupedValuesExpectationsTest
     @TestFactory
     fun subjectLessTest() = subjectLessTestFactory(
         SubjectLessTestData(
-            toContainInOrderOnlyGroupedValues.forSubjectLessTest(
+            toContainInOrderOnlyGroupedValuesSpec.forSubjectLessTest(
                 context(2.5),
                 context(4.1),
                 arrayOf(),
@@ -65,7 +65,7 @@ abstract class AbstractIterableToContainInOrderOnlyGroupedValuesExpectationsTest
             )
         ),
         SubjectLessTestData(
-            toContainInOrderOnlyGroupedNullableValues.forSubjectLessTest(
+            toContainInOrderOnlyGroupedNullableValuesSpec.forSubjectLessTest(
                 nullableGroup(2.5),
                 nullableGroup(4.1),
                 arrayOf(),
@@ -98,7 +98,7 @@ abstract class AbstractIterableToContainInOrderOnlyGroupedValuesExpectationsTest
     )
 
     private fun Expect<String>.notToContainIndex(from: Int, to: Int) =
-        notToContain.regex("\\Q${DescriptionIterableLikeExpectation.INDEX.getDefault().format("$from..$to")}")
+        notToContain.regex("\\Q${DescriptionIterableLikeExpectation.INDEX.getDefault().format("$from..$to")}\\E")
 
     private fun <T> mismatchesWarning(msg: String, values: Array<out T>, act: (T) -> String) =
         "$afterFail\\Q$warningBulletPoint$msg\\E: $separator" +
@@ -202,8 +202,8 @@ abstract class AbstractIterableToContainInOrderOnlyGroupedValuesExpectationsTest
 
     @TestFactory
     fun empty_group__throws() = testFactoryNonNullable(
-        toContainInOrderOnlyGroupedValues,
-        toContainInOrderOnlyGroupedNullableValues
+        toContainInOrderOnlyGroupedValuesSpec,
+        toContainInOrderOnlyGroupedNullableValuesSpec
     ) { toContainFunArr ->
         fun Expect<Iterable<Double>>.toContainFun(
             t1: Group<Double>,
@@ -237,8 +237,8 @@ abstract class AbstractIterableToContainInOrderOnlyGroupedValuesExpectationsTest
 
     @TestFactory
     fun empty_collection() = testFactoryNonNullable(
-        toContainInOrderOnlyGroupedValues,
-        toContainInOrderOnlyGroupedNullableValues
+        toContainInOrderOnlyGroupedValuesSpec,
+        toContainInOrderOnlyGroupedNullableValuesSpec
     ) { toContainFunArr ->
         fun Expect<Iterable<Double>>.toContainFun(
             t1: Group<Double>,
@@ -265,8 +265,8 @@ abstract class AbstractIterableToContainInOrderOnlyGroupedValuesExpectationsTest
 
     @TestFactory
     fun happy_cases() = testFactoryNonNullable(
-        toContainInOrderOnlyGroupedValues,
-        toContainInOrderOnlyGroupedNullableValues
+        toContainInOrderOnlyGroupedValuesSpec,
+        toContainInOrderOnlyGroupedNullableValuesSpec
     ) { toContainFunArr ->
         fun Expect<Iterable<Double>>.toContainFun(
             t1: Group<Double>,
@@ -292,8 +292,8 @@ abstract class AbstractIterableToContainInOrderOnlyGroupedValuesExpectationsTest
 
     @TestFactory
     fun error_cases() = testFactoryNonNullable(
-        toContainInOrderOnlyGroupedValues,
-        toContainInOrderOnlyGroupedNullableValues
+        toContainInOrderOnlyGroupedValuesSpec,
+        toContainInOrderOnlyGroupedNullableValuesSpec
     ) { toContainFunArr ->
         fun Expect<Iterable<Double>>.toContainFun(
             t1: Group<Double>,
@@ -404,8 +404,8 @@ abstract class AbstractIterableToContainInOrderOnlyGroupedValuesExpectationsTest
 
     @TestFactory
     fun report_options() = testFactoryNonNullable(
-        toContainInOrderOnlyGroupedValues,
-        toContainInOrderOnlyGroupedNullableValues
+        toContainInOrderOnlyGroupedValuesSpec,
+        toContainInOrderOnlyGroupedNullableValuesSpec
     ) { toContainFunArr ->
         fun Expect<Iterable<Double>>.toContainFun(
             t1: Group<Double>,
@@ -737,14 +737,14 @@ abstract class AbstractIterableToContainInOrderOnlyGroupedValuesExpectationsTest
     }
 
     @TestFactory
-    fun nullable_happy_cases() = testFactory(toContainInOrderOnlyGroupedNullableValues) {
+    fun nullable_happy_cases() = testFactory(toContainInOrderOnlyGroupedNullableValuesSpec) {
         fun Expect<Iterable<Double?>>.toContainInOrderOnlyGroupedNullableValuesFun(
             t1: Group<Double?>,
             t2: Group<Double?>,
             vararg tX: Group<Double?>,
             report: InOrderOnlyReportingOptions.() -> Unit = emptyInOrderOnlyReportOptions,
             reportInGroup: InAnyOrderOnlyReportingOptions.() -> Unit = emptyInAnyOrderOnlyReportOptions
-        ) = toContainInOrderOnlyGroupedNullableValues(this, t1, t2, tX, report, reportInGroup)
+        ) = toContainInOrderOnlyGroupedNullableValuesSpec(this, t1, t2, tX, report, reportInGroup)
 
         it("[1.1, null], [null, 3.1]") {
             expect(null1null3()).toContainInOrderOnlyGroupedNullableValuesFun(
@@ -761,14 +761,14 @@ abstract class AbstractIterableToContainInOrderOnlyGroupedValuesExpectationsTest
     }
 
     @TestFactory
-    fun nullable_error_cases() = testFactory(toContainInOrderOnlyGroupedNullableValues) {
+    fun nullable_error_cases() = testFactory(toContainInOrderOnlyGroupedNullableValuesSpec) {
         fun Expect<Iterable<Double?>>.toContainInOrderOnlyGroupedNullableValuesFun(
             t1: Group<Double?>,
             t2: Group<Double?>,
             vararg tX: Group<Double?>,
             report: InOrderOnlyReportingOptions.() -> Unit = emptyInOrderOnlyReportOptions,
             reportInGroup: InAnyOrderOnlyReportingOptions.() -> Unit = emptyInAnyOrderOnlyReportOptions
-        ) = toContainInOrderOnlyGroupedNullableValues(this, t1, t2, tX, report, reportInGroup)
+        ) = toContainInOrderOnlyGroupedNullableValuesSpec(this, t1, t2, tX, report, reportInGroup)
 
         it("[null, null], [3.1, 1.1] -- wrong order") {
             expect {
