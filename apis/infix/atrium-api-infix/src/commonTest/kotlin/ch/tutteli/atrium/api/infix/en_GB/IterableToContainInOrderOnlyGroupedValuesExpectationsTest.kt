@@ -1,18 +1,21 @@
 package ch.tutteli.atrium.api.infix.en_GB
 
+import ch.tutteli.atrium.api.verbs.expect
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic.creating.iterablelike.contains.reporting.InAnyOrderOnlyReportingOptions
 import ch.tutteli.atrium.logic.creating.iterablelike.contains.reporting.InOrderOnlyReportingOptions
 import ch.tutteli.atrium.logic.utils.Group
-import ch.tutteli.atrium.specs.notImplemented
+import ch.tutteli.atrium.specs.integration.AbstractIterableToContainInOrderOnlyGroupedValuesExpectationsTest
+import ch.tutteli.atrium.specs.integration.IterableToContainSpecBase.Companion.emptyInAnyOrderOnlyReportOptions
+import ch.tutteli.atrium.specs.integration.IterableToContainSpecBase.Companion.emptyInOrderOnlyReportOptions
+import kotlin.test.Test
 
-class IterableToContainInOrderOnlyGroupedValuesExpectationsSpec :
-    ch.tutteli.atrium.specs.integration.IterableToContainInOrderOnlyGroupedValuesExpectationsSpec(
+class IterableToContainInOrderOnlyGroupedValuesExpectationsTest :
+    AbstractIterableToContainInOrderOnlyGroupedValuesExpectationsTest(
         getContainsPair(),
         Companion::groupFactory,
         getContainsNullablePair(),
-        Companion::nullableGroupFactory,
-        "[Atrium][Builder] "
+        Companion::nullableGroupFactory
     ) {
     companion object : IterableToContainSpecBase() {
         fun getContainsPair() =
@@ -89,11 +92,12 @@ class IterableToContainInOrderOnlyGroupedValuesExpectationsSpec :
     }
 
     @Suppress("unused", "UNUSED_VALUE")
-    private fun ambiguityTest() {
-        var list: Expect<List<Number>> = notImplemented()
-        var nList: Expect<Set<Number?>> = notImplemented()
-        var subList: Expect<ArrayList<Number>> = notImplemented()
-        var star: Expect<Collection<*>> = notImplemented()
+    @Test
+    fun ambiguityTest() {
+        var list: Expect<List<Number>> = expect(listOf(1, 1, 2.2))
+        var nList: Expect<Set<Number?>> = expect(setOf(1, 1.2, 2))
+        var subList: Expect<ArrayList<Number>> = expect(arrayListOf(1, 1, 2.2))
+        var star: Expect<Collection<*>> = expect(listOf(1, 1, 2))
 
         list = list toContain o inGiven order and only grouped entries within group inAny order(
             value(1),
@@ -101,7 +105,7 @@ class IterableToContainInOrderOnlyGroupedValuesExpectationsSpec :
         )
         nList = nList toContain o inGiven order and only grouped entries within group inAny order(
             value(1),
-            values(1, 2.2)
+            values(1.2, 2)
         )
         subList = subList toContain o inGiven order and only grouped entries within group inAny order(
             value(1),
@@ -109,22 +113,22 @@ class IterableToContainInOrderOnlyGroupedValuesExpectationsSpec :
         )
         star = star toContain o inGiven order and only grouped entries within group inAny order(
             value(1),
-            values(1, 2.2)
+            values(1, 2)
         )
 
         list = list toContain o inGiven order and only grouped entries within group inAny order(
             value(1),
-            values(1, 2),
+            values(1, 2.2),
             report = {}
         )
         nList = nList toContain o inGiven order and only grouped entries within group inAny order(
             value(1),
-            values(1, 2),
+            values(1.2, 2),
             report = {}
         )
         subList = subList toContain o inGiven order and only grouped entries within group inAny order(
             value(1),
-            values(1, 2),
+            values(1, 2.2),
             report = {}
         )
         star = star toContain o inGiven order and only grouped entries within group inAny order(
@@ -135,17 +139,17 @@ class IterableToContainInOrderOnlyGroupedValuesExpectationsSpec :
 
         list = list toContain o inGiven order and only grouped entries within group inAny order(
             value(1),
-            values(1, 2),
+            values(1, 2.2),
             reportInGroup = {}
         )
         nList = nList toContain o inGiven order and only grouped entries within group inAny order(
             value(1),
-            values(1, 2),
+            values(1.2, 2),
             reportInGroup = {}
         )
         subList = subList toContain o inGiven order and only grouped entries within group inAny order(
             value(1),
-            values(1, 2),
+            values(1, 2.2),
             reportInGroup = {}
         )
         star = star toContain o inGiven order and only grouped entries within group inAny order(
@@ -156,19 +160,19 @@ class IterableToContainInOrderOnlyGroupedValuesExpectationsSpec :
 
         list = list toContain o inGiven order and only grouped entries within group inAny order(
             value(1),
-            values(1, 2),
+            values(1, 2.2),
             report = {},
             reportInGroup = {}
         )
         nList = nList toContain o inGiven order and only grouped entries within group inAny order(
             value(1),
-            values(1, 2),
+            values(1.2, 2),
             report = {},
             reportInGroup = {}
         )
         subList = subList toContain o inGiven order and only grouped entries within group inAny order(
             value(1),
-            values(1, 2),
+            values(1, 2.2),
             report = {},
             reportInGroup = {}
         )
@@ -179,45 +183,51 @@ class IterableToContainInOrderOnlyGroupedValuesExpectationsSpec :
             reportInGroup = {}
         )
 
-        nList = nList toContain o inGiven order and only grouped entries within group inAny order(
+        var nListNullable: Expect<Set<Number?>> = expect(setOf(null, 1, 2))
+        var starNullable: Expect<Collection<*>> = expect(listOf(null, null, 2))
+
+        nListNullable = nListNullable toContain o inGiven order and only grouped entries within group inAny order(
             value(null),
-            values(1, null),
-            values(1.2, null)
+            values(1),
+            values(2)
         )
-        star = star toContain o inGiven order and only grouped entries within group inAny order(
+        starNullable = starNullable toContain o inGiven order and only grouped entries within group inAny order(
             value(null),
-            values(null, 2, 1.2)
+            values(null, 2)
         )
 
-        nList = nList toContain o inGiven order and only grouped entries within group inAny order(
+        nListNullable = nListNullable toContain o inGiven order and only grouped entries within group inAny order(
             value(null),
-            values(1, null),
+            values(1),
+            values(2),
             report = {}
         )
-        star = star toContain o inGiven order and only grouped entries within group inAny order(
+        starNullable = starNullable toContain o inGiven order and only grouped entries within group inAny order(
             value(null),
             values(null, 2),
             report = {}
         )
 
-        nList = nList toContain o inGiven order and only grouped entries within group inAny order(
+        nListNullable = nListNullable toContain o inGiven order and only grouped entries within group inAny order(
             value(null),
-            values(1, null),
+            values(1),
+            values(2),
             reportInGroup = {}
         )
-        star = star toContain o inGiven order and only grouped entries within group inAny order(
+        starNullable = starNullable toContain o inGiven order and only grouped entries within group inAny order(
             value(null),
             values(null, 2),
             reportInGroup = {}
         )
 
-        nList = nList toContain o inGiven order and only grouped entries within group inAny order(
+        nListNullable = nListNullable toContain o inGiven order and only grouped entries within group inAny order(
             value(null),
-            values(1, null),
+            values(1),
+            values(2),
             report = {},
             reportInGroup = {}
         )
-        star = star toContain o inGiven order and only grouped entries within group inAny order(
+        starNullable = starNullable toContain o inGiven order and only grouped entries within group inAny order(
             value(null),
             values(null, 2),
             report = {},
