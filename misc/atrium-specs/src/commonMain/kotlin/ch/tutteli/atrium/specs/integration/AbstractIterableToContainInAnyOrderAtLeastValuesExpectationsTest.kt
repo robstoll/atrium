@@ -95,13 +95,13 @@ abstract class AbstractIterableToContainInAnyOrderAtLeastValuesExpectationsTest(
     fun happy_cases() = testFactory(toContainAtLeastSpec) {
         describeIterable(::oneToSeven) {
             describe("happy cases") {
-                it("one value succeeds") {
+                it("${toContainAtLeastPairSpec.first("1.1", "once")} does not throw") {
                     expect(oneToSeven()).toContainAtLeastFun(1, 1.1)
                 }
-                it("multiple values succeed") {
+                it("${toContainAtLeastPairSpec.first("1.1 and 2.1 and 3.1", "once")} does not throw") {
                     expect(oneToSeven()).toContainAtLeastFun(1, 1.1, 2.1, 3.1)
                 }
-                it("reordered values succeed") {
+                it("${toContainAtLeastPairSpec.first("3.1 and 1.1 and 2.1", "once")} does not throw") {
                     expect(oneToSeven()).toContainAtLeastFun(1, 3.1, 1.1, 2.1)
                 }
             }
@@ -112,12 +112,12 @@ abstract class AbstractIterableToContainInAnyOrderAtLeastValuesExpectationsTest(
     fun failure_cases() = testFactory(toContainAtLeastSpec) {
         describeIterable(::oneToSeven) {
             describe("failure cases") {
-                it("one missing value fails") {
+                it("${toContainAtLeastPairSpec.first("1.2", "once")} throws AssertionError") {
                     expect {
                         expect(oneToSeven()).toContainAtLeastFun(1, 1.2)
                     }.toThrow<AssertionError> { messageToContain(noSuchValueDescr, "$anElementWhichEquals: 1.2") }
                 }
-                it("reports only the missing value") {
+                it("${toContainAtLeastPairSpec.first("1.2, 2.3", "once")} throws AssertionError mentioning only 2.3") {
                     expect {
                         expect(oneToSeven()).toContainAtLeastFun(1, 1.2, 2.3)
                     }.toThrow<AssertionError> {
@@ -127,7 +127,7 @@ abstract class AbstractIterableToContainInAnyOrderAtLeastValuesExpectationsTest(
                         }
                     }
                 }
-                it("reports missing value when reordered") {
+                it("${toContainAtLeastPairSpec.first("2.3, 1.1", "once")} throws AssertionError mentioning only 2.3") {
                     expect {
                         expect(oneToSeven()).toContainAtLeastFun(1, 2.3, 1.1)
                     }.toThrow<AssertionError> {
@@ -137,7 +137,7 @@ abstract class AbstractIterableToContainInAnyOrderAtLeastValuesExpectationsTest(
                         }
                     }
                 }
-                it("reports multiple missing values") {
+                it("${toContainAtLeastPairSpec.first("1.1, 2.3, 3.2 and 6.1", "once")} throws AssertionError") {
                     expect {
                         expect(oneToSeven()).toContainAtLeastFun(1, 1.1, 2.3, 3.2, 6.1)
                     }.toThrow<AssertionError> {
@@ -161,15 +161,13 @@ abstract class AbstractIterableToContainInAnyOrderAtLeastValuesExpectationsTest(
     fun multiple_occurrences() = testFactory(toContainAtLeastSpec) {
         describeIterable(::oneToSeven) {
             describe("multiple occurrences") {
-                it("one occurrence succeeds") {
+                it("${toContainAtLeastPairSpec.first("5.1", "once")} does not throw") {
                     expect(oneToSeven()).toContainAtLeastFun(1, 5.1)
                 }
-                it("two occurrences succeed") {
+                it("${toContainAtLeastPairSpec.first("5.1", "twice")} does not throw") {
                     expect(oneToSeven()).toContainAtLeastFun(2, 5.1)
                 }
-                it(
-                    "insufficient occurrences fail"
-                ) {
+                it("at least 3 occurrences of 5.1, but found only 2") {
                     expect {
                         expect(oneToSeven()).toContainAtLeastFun(3, 5.1)
                     }.toThrow<AssertionError> {
@@ -183,15 +181,13 @@ abstract class AbstractIterableToContainInAnyOrderAtLeastValuesExpectationsTest(
                         }
                     }
                 }
-                it("both values occur twice") {
+                it("${toContainAtLeastPairSpec.first("5.1 and 4.1", "twice")} does not throw") {
                     expect(oneToSeven()).toContainAtLeastFun(2, 5.1, 4.1)
                 }
-                it("three occurrences succeed") {
+                it("${toContainAtLeastPairSpec.first("4.1", "3 times")} does not throw") {
                     expect(oneToSeven()).toContainAtLeastFun(3, 4.1)
                 }
-                it(
-                    "insufficient count for first value fails"
-                ) {
+                it("at least 3 occurrences of 5.1 and 4.1, but found only 2 of 5.1") {
                     expect {
                         expect(oneToSeven()).toContainAtLeastFun(3, 5.1, 4.1)
                     }.toThrow<AssertionError> {
@@ -214,12 +210,10 @@ abstract class AbstractIterableToContainInAnyOrderAtLeastValuesExpectationsTest(
     fun bounded_occurrences() = testFactory(toContainAtLeastButAtMostSpec) {
         describeIterable(::oneToSeven) {
             describe("bounded occurrences") {
-                it("within bounds succeeds") {
+                it("${toContainAtLeastButAtMostPairSpec.first("5.1", "once", "twice")} does not throw") {
                     expect(oneToSeven()).toContainAtLeastButAtMostFun(1, 2, 5.1)
                 }
-                it(
-                    "exceeding maximum fails"
-                ) {
+                it("at most 2 occurrences of 4.1, but found 3") {
                     expect {
                         expect(oneToSeven()).toContainAtLeastButAtMostFun(1, 2, 5.1, 4.1)
                     }.toThrow<AssertionError> {
@@ -234,12 +228,10 @@ abstract class AbstractIterableToContainInAnyOrderAtLeastValuesExpectationsTest(
                         }
                     }
                 }
-                it("both values within bounds succeed") {
+                it("${toContainAtLeastButAtMostPairSpec.first("5.1 and 4.1", "twice", "3 times")} does not throw") {
                     expect(oneToSeven()).toContainAtLeastButAtMostFun(2, 3, 5.1, 4.1)
                 }
-                it(
-                    "below minimum fails"
-                ) {
+                it("at least 3 occurrences of 5.1 and 4.1, but found only 2 of 5.1") {
                     expect {
                         expect(oneToSeven()).toContainAtLeastButAtMostFun(3, 4, 5.1, 4.1)
                     }.toThrow<AssertionError> {
