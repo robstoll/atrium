@@ -64,4 +64,11 @@ enum class DescriptionCharSequenceExpectation(override val value: String) : Stri
 
     /** @since 0.18.0 */
     VALUE("value"),
+
+    /** @since 2.0.0 */
+    WARNING_DIFFERENT_LINE_SEPARATORS(
+        "Atrium detected that your expectation would have been met if you had used `\\r\\n` instead of `\\n` " +
+            "in the expected string. Consider using `System.lineSeparator` if your test runs on " +
+            "different operating systems."
+    ),
 }

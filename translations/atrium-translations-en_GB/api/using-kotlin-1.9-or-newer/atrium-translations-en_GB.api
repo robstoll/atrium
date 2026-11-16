@@ -72,6 +72,7 @@ public final class ch/tutteli/atrium/translations/DescriptionCharSequenceExpecta
 	public static final field TO_MATCH Lch/tutteli/atrium/translations/DescriptionCharSequenceExpectation;
 	public static final field TO_START_WITH Lch/tutteli/atrium/translations/DescriptionCharSequenceExpectation;
 	public static final field VALUE Lch/tutteli/atrium/translations/DescriptionCharSequenceExpectation;
+	public static final field WARNING_DIFFERENT_LINE_SEPARATORS Lch/tutteli/atrium/translations/DescriptionCharSequenceExpectation;
 	public fun getDefault ()Ljava/lang/String;
 	public static fun getEntries ()Lkotlin/enums/EnumEntries;
 	public fun getId ()Ljava/lang/String;
