@@ -7,7 +7,8 @@ import kotlin.test.Test
 class CharSequenceToContainLineSeparatorsHintTest : AbstractCharSequenceToContainLineSeparatorsHintTest(
     getToContainPair(),
     getToContainIgnoringCasePair(),
-    getNotToContainPair()
+    getNotToContainPair(),
+    getToContainRegexPair()
 ) {
     @Test
     fun trigger_run_gutter() = Unit
@@ -41,5 +42,13 @@ class CharSequenceToContainLineSeparatorsHintTest : AbstractCharSequenceToContai
         private fun notToContainFun(expect: Expect<CharSequence>, a: Any, aX: Array<out Any>): Expect<CharSequence> =
             if (aX.isEmpty()) expect notToContain o value a
             else expect notToContain o the values(a, *aX)
+
+        private fun getToContainRegexPair() =
+            { what: String -> "$toContain $what" } to
+                ("$toContain o $atLeast $regex" to Companion::toContainRegexFun)
+
+        private fun toContainRegexFun(expect: Expect<CharSequence>, a: Any, aX: Array<out Any>): Expect<CharSequence> =
+            if (aX.isEmpty()) expect toContain o atLeast 1 regex a.toString()
+            else expect toContain o atLeast 1 the regexPatterns(a.toString(), *aX.map { it.toString() }.toTypedArray())
     }
 }

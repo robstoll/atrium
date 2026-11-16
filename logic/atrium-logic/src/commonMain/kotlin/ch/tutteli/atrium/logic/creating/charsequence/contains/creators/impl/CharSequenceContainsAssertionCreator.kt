@@ -102,13 +102,11 @@ class CharSequenceContainsAssertionCreator<T : CharSequence, in SC : Any, S : Se
 /**
  * Replaces every `\n` which is not preceded by a `\r` with `\r\n`.
  */
-internal fun String.replaceLfWithCrLf(): String {
+private fun String.replaceLfWithCrLf(): String {
     val sb = StringBuilder(length)
-    var index = 0
-    while (index < length) {
-        val ch = this[index]
-        sb.append(if (ch == '\n' && (index == 0 || this[index - 1] != '\r')) "\r\n" else ch)
-        ++index
+    forEachIndexed { index, char ->
+        if (char == '\n' && (index == 0 || this[index - 1] != '\r')) sb.append("\r\n")
+        else sb.append(char)
     }
     return sb.toString()
 }
