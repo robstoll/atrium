@@ -1,9 +1,10 @@
-package ch.tutteli.atrium.api.infix.en_GB
+package ch.tutteli.atrium.api.fluent.en_GB
 
 import ch.tutteli.atrium.creating.Expect
+import kotlin.test.Test
 
-class IterableToContainInAnyOrderAtLeastValuesExpectationsSpec :
-    ch.tutteli.atrium.specs.integration.IterableToContainInAnyOrderAtLeastValuesExpectationsSpec(
+class IterableToContainInAnyOrderAtLeastValuesExpectationsTest :
+    ch.tutteli.atrium.specs.integration.AbstractIterableToContainInAnyOrderAtLeastValuesExpectationsTest(
         getAtLeastTriple(),
         getAtLeastButAtMostTriple(),
         getNotToContainPair(),
@@ -11,11 +12,14 @@ class IterableToContainInAnyOrderAtLeastValuesExpectationsSpec :
         Companion::getErrorMsgAtLeastButAtMost
     ) {
 
+    @Test
+    fun trigger_run_gutter() = Unit
+
     companion object : IterableToContainSpecBase() {
 
         internal fun getAtLeastTriple() =
             { what: String, times: String -> "$toContain $what in any order $atLeast $times" } to
-                ("$toContain $filler $inAnyOrder $atLeast" to Companion::toContainAtLeast)
+                ("$toContain.$inAnyOrder.$atLeast" to Companion::toContainAtLeast)
 
         private fun toContainAtLeast(
             expect: Expect<Iterable<Double>>,
@@ -23,13 +27,13 @@ class IterableToContainInAnyOrderAtLeastValuesExpectationsSpec :
             a: Double,
             aX: Array<out Double>
         ): Expect<Iterable<Double>> =
-            if (aX.isEmpty()) expect toContain o inAny order atLeast atLeast value a
-            else expect toContain o inAny order atLeast atLeast the values(a, *aX)
+            if (aX.isEmpty()) expect.toContain.inAnyOrder.atLeast(atLeast).value(a)
+            else expect.toContain.inAnyOrder.atLeast(atLeast).values(a, *aX)
 
 
         private fun getAtLeastButAtMostTriple() =
             { what: String, timesAtLeast: String, timesAtMost: String -> "$toContain $what $atLeast $timesAtLeast $butAtMost $timesAtMost" } to
-                ("$toContain $filler $atLeast $butAtMost" to Companion::toContainAtLeastButAtMost)
+                ("$toContain.$atLeast.$butAtMost" to Companion::toContainAtLeastButAtMost)
 
         private fun toContainAtLeastButAtMost(
             expect: Expect<Iterable<Double>>,
@@ -37,18 +41,19 @@ class IterableToContainInAnyOrderAtLeastValuesExpectationsSpec :
             butAtMost: Int,
             a: Double,
             aX: Array<out Double>
-        ) = expect toContain o inAny order atLeast atLeast butAtMost butAtMost the values(a, *aX)
+        ) = expect.toContain.inAnyOrder.atLeast(atLeast).butAtMost(butAtMost).values(a, *aX)
 
         private fun getNotToContainPair() = notToContain to Companion::getErrorMsgNotToContain
 
-        private fun getErrorMsgNotToContain(times: Int) = "use `$notToContain` instead of `$atLeast $times`"
+        private fun getErrorMsgNotToContain(times: Int) = "use $notToContain instead of $atLeast($times)"
 
         private fun getExactlyPair() = exactly to Companion::getErrorMsgExactly
 
         private fun getErrorMsgExactly(times: Int) =
-            "use `$exactly $times` instead of `$atLeast $times $butAtMost $times`"
+            "use $exactly($times) instead of $atLeast($times).$butAtMost($times)"
 
         internal fun getErrorMsgAtLeastButAtMost(timesAtLeast: Int, timesButAtMost: Int) =
-            "specifying `$butAtMost $timesButAtMost` does not make sense if `$atLeast $timesAtLeast` was used before"
+            "specifying $butAtMost($timesButAtMost) does not make sense if $atLeast($timesAtLeast) was used before"
     }
+
 }
