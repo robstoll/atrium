@@ -1,13 +1,33 @@
 package ch.tutteli.atrium.api.infix.en_GB
 
+import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.specs.notImplemented
+import kotlin.test.Test
 
 class IterableToContainInAnyOrderExactlyValuesExpectationsTest :
     ch.tutteli.atrium.specs.integration.AbstractIterableToContainInAnyOrderExactlyValuesExpectationsTest(
         getExactlyTriple(),
         getNotToContainPair()
     ) {
+
+    @Suppress("AssignedValueIsNeverRead", "UNUSED_VALUE")
+    @Test
+    fun ambiguityTest() {
+        var list: Expect<List<Number>> = expect(listOf(1, 1, 1.2, 1.2))
+        var nList: Expect<Set<Number?>> = expect(setOf<Number?>(1, 1.2))
+        var subList: Expect<ArrayList<Number>> = expect(arrayListOf<Number>(1, 1, 1.2, 1.2))
+        var star: Expect<Collection<*>> = expect(listOf(1, 1, 1.2, 1.2, "asdf", "asdf"))
+
+        list = list toContain o inAny order exactly 2 value 1
+        nList = nList toContain o inAny order exactly 1 value 1
+        subList = subList toContain o inAny order exactly 2 value 1
+        star = star toContain o inAny order exactly 2 value 1
+
+        list = list toContain o inAny order exactly 2 the values(1, 1.2)
+        nList = nList toContain o inAny order exactly 1 the values(1, 1.2)
+        subList = subList toContain o inAny order exactly 2 the values(1, 1.2)
+        star = star toContain o inAny order exactly 2 the values(1, 1.2, "asdf")
+    }
 
     companion object : IterableToContainSpecBase() {
 
@@ -27,25 +47,5 @@ class IterableToContainInAnyOrderExactlyValuesExpectationsTest :
         private fun getNotToContainPair() = notToContain to Companion::getErrorMsgNotToContain
 
         private fun getErrorMsgNotToContain(times: Int) = "use `$notToContain` instead of `$exactly $times`"
-    }
-
-
-    @Suppress("unused", "UNUSED_VALUE")
-    private fun ambiguityTest() {
-        var list: Expect<List<Number>> = notImplemented()
-        var nList: Expect<Set<Number?>> = notImplemented()
-        var subList: Expect<ArrayList<Number>> = notImplemented()
-        var star: Expect<Collection<*>> = notImplemented()
-
-        list = list toContain o inAny order exactly 2 value 1
-        nList = nList toContain o inAny order exactly 2 value 1
-        subList = subList toContain o inAny order exactly 2 value 1
-        star = star toContain o inAny order exactly 2 value 1
-
-        //TODO type parameter should not be necessary, check with Kotlin 1.4
-        list = list toContain o inAny order exactly 2 the values<Number>(1, 1.2)
-        nList = nList toContain o inAny order exactly 2 the values<Number>(1, 1.2)
-        subList = subList toContain o inAny order exactly 2 the values<Number>(1, 2.2)
-        star = star toContain o inAny order exactly 2 the values(1, 1.2, "asdf")
     }
 }
