@@ -7,7 +7,7 @@ import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.translations.DescriptionIterableLikeExpectation.EXACTLY
 import org.spekframework.spek2.style.specification.Suite
 
-abstract class IterableToContainInAnyOrderExactlyValuesExpectationsSpec(
+abstract class AbstractIterableToContainInAnyOrderExactlyValuesExpectationsTest(
     toContainExactlyPair: Pair<(String, String) -> String, Fun3<Iterable<Double>, Int, Double, Array<out Double>>>,
     notToContainPair: Pair<String, (Int) -> String>,
     describePrefix: String = "[Atrium] "
