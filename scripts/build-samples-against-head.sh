@@ -32,3 +32,12 @@ for sample in samples/*/*/; do
   echo "building ${sample}"
   ./gradlew -p "$sample" -I "$script_dir/maven-local.init.gradle.kts" build
 done
+
+# the maven sample resolves atrium from maven local as well (its pom pins the version via atrium.version)
+maven_sample="samples/jvm/maven"
+echo "building ${maven_sample}"
+sed -i.bak \
+  -e "s/<atrium\.version>[^<]*<\/atrium\.version>/<atrium.version>$version<\/atrium.version>/" \
+  "${maven_sample}/pom.xml"
+rm "${maven_sample}/pom.xml.bak"
+(cd "$maven_sample" && ./mvnw -B test)
