@@ -40,7 +40,7 @@ jobs:
           token: ${{ secrets.CODECOV_TOKEN }}
           disable_search: true
           files: "**/build/reports/jacoco/report.xml"
-          flags: ${{ matrix.os == 'windows-latest' && 'jvm,current_windows' || 'jvm,current' }}
+          flags: jvm_${{ runner.os }}
           env_vars: JAVA_VERSION
 
       - name: Upload JS (Node) code coverage
@@ -50,7 +50,7 @@ jobs:
           token: ${{ secrets.CODECOV_TOKEN }}
           disable_search: true
           files: "**/build/reports/coverage/js/lcov.info"
-          flags: ${{ matrix.os == 'windows-latest' && 'js,current_windows' || 'js,current' }}
+          flags: js_${{ runner.os }}
 
       - name: Build samples against current
         #TODO https://github.com/robstoll/atrium/issues/2224 remove this if again
