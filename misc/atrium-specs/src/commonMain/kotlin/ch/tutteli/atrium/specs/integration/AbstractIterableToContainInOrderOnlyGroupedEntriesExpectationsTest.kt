@@ -13,7 +13,7 @@ import ch.tutteli.atrium.translations.DescriptionCollectionExpectation
 import ch.tutteli.atrium.translations.DescriptionIterableLikeExpectation
 import org.spekframework.spek2.style.specification.Suite
 
-abstract class IterableToContainInOrderOnlyGroupedEntriesExpectationsSpec(
+abstract class AbstractIterableToContainInOrderOnlyGroupedEntriesExpectationsTest(
     toContainInOrderOnlyGroupedEntries: Fun5<
         Iterable<Double?>,
         Group<(Expect<Double>.() -> Unit)?>,

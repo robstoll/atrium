@@ -6,8 +6,8 @@ import ch.tutteli.atrium.logic.creating.iterablelike.contains.reporting.InOrderO
 import ch.tutteli.atrium.logic.utils.Group
 import ch.tutteli.atrium.specs.notImplemented
 
-class IterableToContainInOrderOnlyGroupedEntriesExpectationsSpec :
-    ch.tutteli.atrium.specs.integration.IterableToContainInOrderOnlyGroupedEntriesExpectationsSpec(
+class IterableToContainInOrderOnlyGroupedEntriesExpectationsTest :
+    ch.tutteli.atrium.specs.integration.AbstractIterableToContainInOrderOnlyGroupedEntriesExpectationsTest(
         functionDescription to Companion::toContainInOrderOnlyGroupedInAnyOrderEntries,
         Companion::groupFactory,
         "[Atrium][Builder] "
