@@ -21,7 +21,7 @@ spek {
     }
 }
 
-//TODO 1.4.0 remove once we moved away from spec to kotlin-test
+//TODO 2.1.0 remove once we moved away from spec to kotlin-test
 if (name == "atrium-logic" || name == "atrium-verbs" || name == "atrium-verbs-internal") {
     the<ch.tutteli.gradle.plugins.junitjacoco.JunitJacocoPluginExtension>()
         .allowedTestTasksWithoutTests.set(listOf("jsNodeTest"))
@@ -43,7 +43,7 @@ kotlin {
         }
 
         nodejs {
-            //TODO 1.5.0 remove Action again once ambiguous deprecated overload is removed in Kotlin
+            //TODO 2.1.0 remove Action again once ambiguous deprecated overload is removed in Kotlin
             testTask(Action {
                 useMocha {
                     // timeout in milliseconds,
