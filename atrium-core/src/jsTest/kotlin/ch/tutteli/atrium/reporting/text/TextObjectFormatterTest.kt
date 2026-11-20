@@ -1,6 +1,6 @@
 package ch.tutteli.atrium.reporting.text
 
-import ch.tutteli.atrium.api.infix.en_GB.*
+import ch.tutteli.atrium.api.fluent.en_GB.toStartWith
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.api.verbs.internal.expectGrouped
 import ch.tutteli.atrium.core.polyfills.objClass
@@ -13,12 +13,12 @@ class TextObjectFormatterTest {
     val testee = DefaultTextObjectFormatter(UsingDefaultTranslator())
 
     @Test
-    fun anonymous_class_interface(){
+    fun anonymous_class_interface() {
         expectGrouped {
-            expect(testee.format(objInterface)) toStartWith  "[object Object]"
+            expect(testee.format(objInterface)).toStartWith("[object Object]")
             // should work but does not, see https://youtrack.jetbrains.com/issue/KT-64184
 //            expect(objClass as Any) feature { f(it::toString) } toEqual "[object Object]"
-            expect(testee.format(objClass)) toStartWith  "null []"
+            expect(testee.format(objClass)).toStartWith("null []")
         }
     }
 }

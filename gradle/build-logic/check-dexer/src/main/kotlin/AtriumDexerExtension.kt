@@ -35,9 +35,7 @@ abstract class AtriumDexerExtension @Inject constructor(objects: ObjectFactory) 
             "logic",
             "translations-en_GB",
             "api-fluent",
-            "api-infix",
             "fluent",
-            "infix",
             "verbs",
             "verbs-internal"
         )

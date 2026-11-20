@@ -3,9 +3,8 @@ Please choose the appropriate template and fill in all sections
 # Bug Report
 
 *Affected Version*:
-*API* (fluent, infix):
-*Platform* (jvm, js):
-*Extension* (none, kotlin 1.3): none
+*Platform* (all, jvm, js):
+
 
 ## How to reproduce the problem  
 Consider the following code snippet
@@ -25,7 +24,6 @@ A clear and concise description of what you expected to happen.
 # Feature Request
 
 *Platform* (all, jvm, js): all
-*Extension* (none, kotlin 1.3): none
 
 ## Code related feature
 ```

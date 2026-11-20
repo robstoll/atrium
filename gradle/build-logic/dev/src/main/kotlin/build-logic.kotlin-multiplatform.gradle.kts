@@ -60,7 +60,7 @@ kotlin {
 
 
 // the bundles don't rely on atrium-specs and thus don't have the spek2-atrium engine
-if (name != "atrium-fluent" && name != "atrium-infix") {
+if (name != "atrium-fluent") {
     // need to do it afterEvaluate as the spek plugin adds spek and we don't want it
     // also the reason why we don't addIncludeEngines but set it
     project.afterEvaluate {

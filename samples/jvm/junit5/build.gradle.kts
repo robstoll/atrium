@@ -22,7 +22,6 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 
     // setup for Atrium:
-    // for infix-api -> change artifact-id to 'atrium-infix'
     testImplementation("ch.tutteli.atrium:atrium-fluent:$atriumVersion")
 
     // setup for junit5

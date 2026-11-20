@@ -17,7 +17,7 @@
 
 # <img src="https://raw.githubusercontent.com/robstoll/atrium/gh-pages/images/logo.svg?sanitize=true" alt="Atrium" title="Atrium"/>
 Atrium is an open-source multiplatform expectation/assertion library for Kotlin with support for JVM, JS and Android.
-It is designed to support multiple [APIs](#api-styles), focuses on helping developers to understand what went wrong and prevents common pitfalls. 
+It focuses on helping developers to understand what went wrong and prevents common pitfalls. 
 The project was inspired by AssertJ at first but moved on and provides now more 
 flexibility, features and hints to its users (so to you 😉).
 
@@ -68,7 +68,6 @@ Please have a look at the README of the corresponding release/git tag. Latest ve
     - [Own Sophisticated Expectation Builders](#own-sophisticated-expectation-builders)
 - [Use own Expectation Verb](#use-own-expectation-verb)
   - [Use own Components](#use-own-components)
-- [API Styles](#api-styles)
 - [Java Interoperability](#java-interoperability)
 - [KDoc - Code Documentation](#kdoc---code-documentation)
 - [FAQ](#faq)
@@ -122,10 +121,7 @@ kotlin {
 }
 ```
 
-Exchange `fluent` with `infix` depending on your taste (see [API styles](#api-styles) for more information).
-
 That is all, you are all set. Jump to [Examples](#examples) which shows how to use Atrium.
-
 
 <a name="installation-prior-to-kotlin-1.5"></a>
 <details>
@@ -160,9 +156,6 @@ We are using the API provided by the bundle module
 [atrium-fluent](https://github.com/robstoll/atrium/tree/main/bundles/fluent/atrium-fluent/build.gradle.kts)
 in the following examples. 
 It provides a pure fluent API for the JVM platform.
-Have a look at 
-[apis/differences.md](https://github.com/robstoll/atrium/tree/main/apis/differences.md)
-to see how the infix API looks like, how they differ respectively.
 
 ## Your First Expectation
 See also [AnyExpectationSamples](https://github.com/robstoll/atrium/blob/main/apis/fluent/atrium-api-fluent/src/commonTest/kotlin/ch/tutteli/atrium/api/fluent/en_GB/samples/AnyExpectationSamples.kt)
@@ -2008,9 +2001,6 @@ Take a look at the sample files which are used i.a. in the KDOC of the correspon
 - [Samples api-fluent common](https://github.com/robstoll/atrium/tree/main/apis/fluent/atrium-api-fluent/src/commonTest/kotlin/ch/tutteli/atrium/api/fluent/en_GB/samples/)
 - [Samples api-fluent jvm](https://github.com/robstoll/atrium/tree/main/apis/fluent/atrium-api-fluent/src/jvmTest/kotlin/ch/tutteli/atrium/api/fluent/en_GB/samples/)
 
-+ [Samples api-infix common](https://github.com/robstoll/atrium/tree/main/apis/infix/atrium-api-infix/src/commonTest/kotlin/ch/tutteli/atrium/api/infix/en_GB/samples/)
-+ [Samples api-infix jvm](https://github.com/robstoll/atrium/tree/main/apis/infix/atrium-api-infix/src/jvmTest/kotlin/ch/tutteli/atrium/api/infix/en_GB/samples/)
-
 # How is Atrium different from other Expectation/Assertion Libraries
 
 The following subsections shall give you a quick overview how Atrium differs from other assertion libraries. 
@@ -2180,16 +2170,8 @@ I expected subject: [1]        (java.util.Collections.SingletonList <1234789>)
 Another design goal of Atrium was to give you the flexibility needed but still adhere to a concise design. 
 First and most importantly, Atrium does not enforce a certain style on your code base. 
 Quite the contrary, it gives you the flexibility to [choose a desired name for the expectation verb](#use-own-expectation-verb), 
-it continues by providing the possibility to configure the [reporting style](#use-own-components), 
-goes on that you can choose from different [API Styles](#api-styles) 
+it continues by providing the possibility to configure the [reporting style](#use-own-components)
 and ends that you can [replace almost all components](#use-own-components) by other implementations and hook into existing.
-
-So for instance, if you like to use an `infix` API, then use the bundle `atrium-infix`. 
-You prefer pure fluent and do not even want to see infix style in your code, 
-then use `atrium-fluent` which provides a pure fluent style API. 
-
-You are free to choose what fits best without introducing ambiguity etc.
-You could even mix up different API-styles if needed (but not without losing conciseness -- but hey, it is your decision 😉). 
 
 ## Migration of Deprecated Functionality
 Atrium follows [Semantic Versioning](https://semver.org/) and tries to be binary backward compatible within a major version (since 0.6.0).
@@ -2698,28 +2680,6 @@ There are more options to choose from. Take a look at the
 [DefaultComponentFactoryContainer](https://github.com/robstoll/atrium/tree/main/atrium-core/src/commonMain/kotlin/ch/tutteli/atrium/creating/impl/ComponentFactoryContainerImpl.kt#L118)
 to see the default configuration.
 
-
-
-<a name="apis"></a>
-# API Styles
-Atrium supports currently two API styles: pure `fluent` and `infix`.
-Both have their design focus on interoperability with code completion functionality of your IDE 
--- so that you can let your IDE do some of the work.
-
-Atrium is 
-[built up by different modules](https://docs.atriumlib.org/latest#/kdoc/) 
-and it is your choice which implementation you want to use. 
-However, this is more intended for advanced user with special requirements.
-Atrium provides bundle modules which bundle API, logic, core, translation as well as predefined expectation verbs,
-so that you just have to have a dependency on one of those bundles:
-
-- [atrium-fluent](https://github.com/robstoll/atrium/tree/main/bundles/fluent/atrium-fluent/build.gradle.kts)
-- [atrium-infix](https://github.com/robstoll/atrium/tree/main/bundles/infix/atrium-infix/build.gradle.kts)
-
-Have a look at 
-[apis/differences.md](https://github.com/robstoll/atrium/tree/main/apis/differences.md)
-for more information and to see how the API styles differ.
-
 # Java Interoperability
 Atrium provides some helper functions in case you have to deal with Java Code where not all types are non-nullable. 
 [Platform types](https://kotlinlang.org/docs/java-interop.html#null-safety-and-platform-types)
@@ -2843,14 +2803,10 @@ See [DateSubjectChangerSamples](https://github.com/robstoll/atrium/tree/main/api
 
 Atrium provides KDoc for all APIs - have a look at their KDoc:
 - [atrium-api-fluent](https://docs.atriumlib.org/latest#/kdoc/atrium-api-fluent)
-- [atrium-api-infix](https://docs.atriumlib.org/latest#/kdoc/atrium-api-infix)
 
 A good alternative is to have a look at the sample files:
 - [Samples api-fluent common](https://github.com/robstoll/atrium/tree/main/apis/fluent/atrium-api-fluent/src/commonTest/kotlin/ch/tutteli/atrium/api/fluent/en_GB/samples/)
 - [Samples api-fluent jvm](https://github.com/robstoll/atrium/tree/main/apis/fluent/atrium-api-fluent/src/jvmTest/kotlin/ch/tutteli/atrium/api/fluent/en_GB/samples/)
-
-+ [Samples api-infix common](https://github.com/robstoll/atrium/tree/main/apis/infix/atrium-api-infix/src/commonTest/kotlin/ch/tutteli/atrium/api/infix/en_GB/samples/)
-+ [Samples api-infix jvm](https://github.com/robstoll/atrium/tree/main/apis/infix/atrium-api-infix/src/jvmTest/kotlin/ch/tutteli/atrium/api/infix/en_GB/samples/)
 
 # Roadmap
 

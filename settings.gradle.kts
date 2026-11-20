@@ -25,7 +25,7 @@ plugins {
 }
 
 
-listOf("fluent", "infix").forEach { apiName ->
+listOf("fluent").forEach { apiName ->
     include("bundles/$apiName", "atrium-$apiName")
     include("bundles/$apiName/smoke-tests", "atrium-$apiName-smoke-test")
     include("apis/$apiName", "atrium-api-$apiName")

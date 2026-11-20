@@ -4,7 +4,6 @@
 import org.gradle.api.tasks.testing.logging.TestExceptionFormat
 import org.gradle.api.tasks.testing.logging.TestLogEvent
 
-// for infix-api -> change to 'atrium-infix'
 val atriumApi = "atrium-fluent"
 val atriumVersion = "1.3.0"
 val junitVersion = "5.9.3"

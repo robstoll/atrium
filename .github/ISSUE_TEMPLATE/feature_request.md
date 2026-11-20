@@ -5,7 +5,6 @@ about: Suggest an idea for this project
 ---
 
 *Platform* (all, jvm, js): all
-*Extension* (none, kotlin 1.3): none
 
 ## Code related feature
 ```kotlin

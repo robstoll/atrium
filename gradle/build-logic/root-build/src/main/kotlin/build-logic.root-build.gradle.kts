@@ -83,10 +83,8 @@ apiValidation {
         listOf(
             // bundles
             "atrium-fluent",
-            "atrium-infix",
             // smoke-tests
             "atrium-fluent-smoke-test",
-            "atrium-infix-smoke-test",
             //misc not relevant for bc
             "atrium-specs",
             "atrium-verbs-internal",
