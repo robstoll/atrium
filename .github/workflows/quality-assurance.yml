@@ -42,10 +42,8 @@ jobs:
           env_vars: JAVA_VERSION
 
       - name: Build samples against current
-        #TODO https://github.com/robstoll/atrium/issues/2224 remove this if again
-        if: ${{ matrix.os != 'macos-latest' }}
-        run: ./gradlew -I include-atrium-for-js.init.gradle.kts build
-        working-directory: misc/tools/atrium-samples-test
+        run: ./scripts/build-samples-against-head.sh
+        shell: bash
 
   dexer:
     runs-on: ubuntu-latest
