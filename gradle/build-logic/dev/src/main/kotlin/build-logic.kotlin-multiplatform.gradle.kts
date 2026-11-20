@@ -110,6 +110,7 @@ val jsCoverageReportDir = layout.buildDirectory.dir("reports/coverage/js")
 
 tasks.withType<KotlinJsTest>().matching { it.name == "jsNodeTest" }.configureEach {
     environment("NODE_V8_COVERAGE", jsV8CoverageDir.get().asFile.absolutePath)
+    outputs.dir(jsV8CoverageDir)
     // node appends one dump per process, drop the dumps of previous runs before the tests start
     doFirst {
         val dir = jsV8CoverageDir.get().asFile
