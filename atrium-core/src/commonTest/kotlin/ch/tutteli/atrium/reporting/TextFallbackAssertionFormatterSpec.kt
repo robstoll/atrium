@@ -1,6 +1,6 @@
 package ch.tutteli.atrium.reporting
 
-import ch.tutteli.atrium.api.infix.en_GB.toEqual
+import ch.tutteli.atrium.api.fluent.en_GB.toEqual
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.assertions.AssertionGroup
 import ch.tutteli.atrium.assertions.BulletPointIdentifier
@@ -61,10 +61,11 @@ class TextFallbackAssertionFormatterSpec : Spek({
                 }
                 expect(mapOf("1" to 2).entries)
                 facade.format(assertionGroup, sb, alwaysTrueAssertionFilter)
-                expect(sb.toString()) toEqual
+                expect(sb.toString()).toEqual(
                         "${TRANSLATION_KEY.getDefault()}: subject$lineSeparator" +
                         "$squarePoint $toEqualDescr: bli$lineSeparator" +
                         "$squarePoint ${NOT_TO_EQUAL.getDefault()}: bye"
+                )
             }
         }
     }

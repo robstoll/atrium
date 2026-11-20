@@ -15,7 +15,7 @@ kotlin {
         }
         commonTest {
             dependencies {
-                implementation(prefixedProject("api-infix"))
+                implementation(prefixedProject("api-fluent"))
                 implementation(prefixedProject("specs"))
             }
         }

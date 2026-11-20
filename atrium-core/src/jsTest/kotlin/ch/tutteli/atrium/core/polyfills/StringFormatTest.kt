@@ -1,9 +1,10 @@
 package ch.tutteli.atrium.core.polyfills
 
-import ch.tutteli.atrium.api.infix.en_GB.*
-import ch.tutteli.atrium.reporting.translating.Locale
+import ch.tutteli.atrium.api.fluent.en_GB.group
+import ch.tutteli.atrium.api.fluent.en_GB.toEqual
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.api.verbs.internal.expectGrouped
+import ch.tutteli.atrium.reporting.translating.Locale
 import kotlin.test.Test
 
 class StringFormatTest {
@@ -26,10 +27,10 @@ class StringFormatTest {
                 Triple("Welcome %s %s here at %s", threeArgs, "Welcome robert stoll here at the Atrium")
             ).forEach { (string, args, expected) ->
                 group("$string / $args") {
-                    expect(string.format(args.first(), *args.drop(1).toTypedArray())) toEqual expected
+                    expect(string.format(args.first(), *args.drop(1).toTypedArray())).toEqual(expected)
                 }
                 group("Using Locale de: $string / $args") {
-                    expect(string.format(Locale("de"), args.first(), *args.drop(1).toTypedArray())) toEqual expected
+                    expect(string.format(Locale("de"), args.first(), *args.drop(1).toTypedArray())).toEqual(expected)
                 }
             }
         }

@@ -1,6 +1,6 @@
 package ch.tutteli.atrium.reporting.erroradjusters
 
-import ch.tutteli.atrium.api.infix.en_GB.*
+import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.core.ExperimentalNewExpectTypes
 import ch.tutteli.atrium.core.polyfills.stackBacktrace
@@ -18,7 +18,7 @@ class AdjustStackTest {
     @OptIn(ExperimentalWithOptions::class, ExperimentalComponentFactoryContainer::class)
     private fun <T> expectWithNoOpErrorAdjuster(subject: T) =
         expect(subject).withOptions {
-            withComponent(AtriumErrorAdjuster::class ) { _ -> NoOpAtriumErrorAdjuster }
+            withComponent(AtriumErrorAdjuster::class) { _ -> NoOpAtriumErrorAdjuster }
         }
 
     private fun <T> expectWithNoOpErrorAdjuster(subject: T, assertionCreator: Expect<T>.() -> Unit): Expect<T> =
@@ -27,11 +27,11 @@ class AdjustStackTest {
     @Test
     fun noOp_containsMochaAndAtrium() {
         expectWithNoOpErrorAdjuster {
-            assertNoOp(1) toEqual 2
+            assertNoOp(1).toEqual(2)
         }.toThrow<AssertionError> {
-            feature(AssertionError::stackBacktrace) toContain entries(
-                { it toContain Regex("""[\\|/]node_modules[\\|/]mocha[\\|/]""") },
-                { it toContain "createAtriumError" }
+            feature(AssertionError::stackBacktrace).toContain(
+                { toContainRegex(Regex("""[\\|/]node_modules[\\|/]mocha[\\|/]""")) },
+                { toContain("createAtriumError") }
             )
         }
     }
@@ -40,26 +40,26 @@ class AdjustStackTest {
     fun noOp_makeSureStackBacktraceIsInOutput_issue1383() {
         expectWithNoOpErrorAdjuster {
             expectWithNoOpErrorAdjuster {
-                assertNoOp(1) toEqual 2
+                assertNoOp(1).toEqual(2)
             }.toThrow<AssertionError> {
-                feature(AssertionError::stackBacktrace) toContain entries(
-                    { it toContain "createAtriumError2" }
+                feature(AssertionError::stackBacktrace).toContain(
+                    { toContain("createAtriumError2") }
                 )
             }
         }.toThrow<AssertionError> {
-            it messageToContain "stackBacktrace"
+            messageToContain("stackBacktrace")
         }
     }
 
     @Test
     fun removeRunner_containsAtriumButNotMocha() {
         expectWithNoOpErrorAdjuster {
-            assertRemoveRunner(1) toEqual 2
+            assertRemoveRunner(1).toEqual(2)
         }.toThrow<AssertionError> {
-            it feature of(AssertionError::stackBacktrace) {
-                it notToContain o entry { it toContain "mocha" }
-                it notToContain o entry { it toContain "KotlinTestTeamCityConsoleAdapter" }
-                it toContain { it toContain "createAtriumError" }
+            feature(AssertionError::stackBacktrace) {
+                notToContain.entry { toContain("mocha") }
+                notToContain.entry { toContain("KotlinTestTeamCityConsoleAdapter") }
+                toContain { toContain("createAtriumError") }
             }
         }
     }
@@ -70,10 +70,10 @@ class AdjustStackTest {
             throw IllegalArgumentException("hello", UnsupportedOperationException("world"))
         }.toThrow<IllegalArgumentException> {
             cause<UnsupportedOperationException> {
-                it feature of(UnsupportedOperationException::stackBacktrace) {
-                    it notToContain o entry { it toContain "mocha" }
-                    it notToContain o entry { it toContain "KotlinTestTeamCityConsoleAdapter" }
-                    it toContain { it toContain Regex("""atrium[\\|/].*[\\|/]src[\\|/].*[\\|/]ch[\\|/]tutteli[\\|/]atrium""") }
+                feature(UnsupportedOperationException::stackBacktrace) {
+                    notToContain.entry { toContain("mocha") }
+                    notToContain.entry { toContain("KotlinTestTeamCityConsoleAdapter") }
+                    toContain { toContainRegex(Regex("""atrium[\\|/].*[\\|/]src[\\|/].*[\\|/]ch[\\|/]tutteli[\\|/]atrium""")) }
                 }
             }
         }
@@ -82,11 +82,15 @@ class AdjustStackTest {
     @Test
     fun removeAtrium_containsMochaButNotAtrium() {
         expectWithNoOpErrorAdjuster {
-            assertRemoveAtrium(1) toEqual 2
+            assertRemoveAtrium(1).toEqual(2)
         }.toThrow<AssertionError> {
-            it feature of(AssertionError::stackBacktrace) {
-                it toContain { it toContain "mocha" }
-                it notToContain { it toContain Regex("""atrium[\\|/].*[\\|/]src[\\|/].*[\\|/]ch[\\|/]tutteli[\\|/]atrium""") }
+            feature(AssertionError::stackBacktrace) {
+                toContain { toContain("mocha") }
+                notToContain.entry {
+                    toContainRegex("""atrium[\\|/].*[\\|/]src[\\|/].*[\\|/]ch[\\|/]tutteli[\\|/]atrium""")
+                    // this will show up in the stacktrace and also have the atrium path, hence we exclude it
+                    notToStartWith("AdjustStackTest")
+                }
             }
         }
     }
@@ -99,10 +103,8 @@ class AdjustStackTest {
         val throwable = IllegalArgumentException("hello", UnsupportedOperationException("world"))
         adjuster.adjust(throwable)
         expectWithNoOpErrorAdjuster(throwable.cause!!.stackBacktrace) {
-            it toContain (fun Expect<String>.() {
-                it toContain "mocha"
-            })
-            it notToContain o entry { it toContain "atrium-core-js" }
+            toContain { toContain("mocha") }
+            notToContain.entry { toContain("atrium-core-js") }
         }
     }
 

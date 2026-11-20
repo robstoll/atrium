@@ -34,15 +34,6 @@ Following the things you need to do:
 - [ ] add `@since 2.0.0` (adapt to current [milestone](https://github.com/robstoll/atrium/milestones)) to KDOC of the two functions in xYExpectations.kt
 - [ ] execute `./gradlew apiDump & KOTLIN_VERSION=1.9 ./gradlew apiDump`
 
-*api-infix*
-- [ ] provide a val which returns `Expect<T>` in xYExpectations.kt (see yzExpectations.kt as a guideline)
-- [ ] provide a fun which expects an `assertionCreator`-lambda and returns `Expect<AB>` in xyExpectations.kt (see yzExpectations.kt as a guideline)
-- [ ] extend AbstractXyExpectationsTest also in atrium-api-infix -> commonTest, name it XyExpectationsTest
-- [ ] add samples to XyExpectationSamples.kt  (see YzExpectationSamples.kt as guideline -- try to provide the reason why an expectation fails)
-- [ ] add `@sample` with link to your sample method to the two functions in xYExpectations.kt
-- [ ] add `@since 2.0.0` (adapt to current [milestone](https://github.com/robstoll/atrium/milestones)) to KDOC of the two functions in xYExpectations.kt
-- [ ] execute `./gradlew apiDump & KOTLIN_VERSION=1.9 ./gradlew apiDump`
-
 ## Non-Code related feature
 **Is your feature request related to a problem? Please describe.**
 A clear and concise description of what the problem is. Ex. I'm always frustrated when [...]

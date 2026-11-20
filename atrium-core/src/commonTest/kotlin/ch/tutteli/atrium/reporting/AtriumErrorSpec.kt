@@ -1,7 +1,7 @@
 package ch.tutteli.atrium.reporting
 
-import ch.tutteli.atrium.api.infix.en_GB.feature
-import ch.tutteli.atrium.api.infix.en_GB.toEqual
+import ch.tutteli.atrium.api.fluent.en_GB.feature
+import ch.tutteli.atrium.api.fluent.en_GB.toEqual
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.assertions.BasicDescriptiveAssertion
 import ch.tutteli.atrium.core.falseProvider
@@ -18,7 +18,7 @@ class AtriumErrorSpec : Spek({
                 BasicDescriptiveAssertion(Untranslatable("no really the reason"), 1, falseProvider),
                 NoOpAtriumErrorAdjuster
             )
-            expect(e).feature(Throwable::cause) toEqual null
+            expect(e).feature(Throwable::cause).toEqual(null)
         }
     }
 })

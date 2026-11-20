@@ -1,6 +1,6 @@
 package ch.tutteli.atrium.core.polyfills
 
-import ch.tutteli.atrium.api.infix.en_GB.*
+import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.api.verbs.internal.expectGrouped
 import ch.tutteli.atrium.assertions.Assertion
@@ -88,18 +88,18 @@ class KClassCastTest {
             group("cast to primitive") {
                 expect {
                     Int::class.cast(null)
-                }.toThrow<ClassCastException> { message toEqual "Cannot cast null to Int." }
+                }.toThrow<ClassCastException> { message.toEqual("Cannot cast null to Int.") }
 
                 expect {
                     Int::class.cast(1L)
-                }.toThrow<ClassCastException> { message toEqual "Cannot cast Long to Int." }
+                }.toThrow<ClassCastException> { message.toEqual("Cannot cast Long to Int.") }
             }
 
             group("cast to class") {
                 expect {
                     Translatable::class.cast(objInterface)
                 }.toThrow<ClassCastException> {
-                    its messageToContain values(
+                    messageToContain(
                         // looks like the IR backend no longer carries the interface names in proto.constructor.$metadata$
                         // hence we cannot figure out the class/interface the object implemented
 //                        "`object: ${Assertion::class.fullName}` (js: objInterface",
@@ -128,17 +128,17 @@ class KClassCastTest {
             expect {
                 val f1: (Int) -> Int = { it }
                 f1::class.cast({ "a" })
-            }.toThrow<ClassCastException> { this messageToContain values(" Function0", " Function1") }
+            }.toThrow<ClassCastException> { messageToContain(" Function0", " Function1") }
 
             expect {
                 type<(Int) -> Int>().cast({ "a" })
-            }.toThrow<ClassCastException> { this messageToContain values(" Function0", " Function1") }
+            }.toThrow<ClassCastException> { messageToContain(" Function0", " Function1") }
         }
     }
 
     private fun ExpectGrouping.castAndStaysSame(): (Pair<Any, KClass<*>>) -> Unit = { (value, kClass) ->
         group("$value cast to ${kClass.simpleName} remains the same instance") {
-            expect(kClass.cast(value)) toBeTheInstance value
+            expect(kClass.cast(value)).toBeTheInstance(value)
         }
     }
 }

@@ -12,20 +12,6 @@ expectation verb (e.g. `Expect<IterableLike>.toContainExactly(...)`) whereas fun
 are behind a sophisticated builder such as `Expect<IterableLike>.toContain` and offer all available functions. For 
 instance: `Expect<IterableLik>.toContain.inOrder.only.grouped.within.inAnyOrder(...)`
 
-# Module atrium-api-infix
-
-Provides an expectation function API in English in an infix style.
-
-The main focus of this API's design is put on ease of use/compatibility with code completion functionality of an IDE.
-
-Every expectation function starts with `to..`, feature extractors such as `Expect<List<...>>.get(...)` do not start
-with `to..` where mixtures of feature extractor and expectation function such as `toThrow` are exceptions.
-
-Expectation functions which you use often, will usually have a shortcut function, right at the fingertips after the
-expectation verb (e.g. `Expect<IterableLike> toContainExactly ...`) whereas functionality which are not that often use
-are behind a sophisticated builder such as `Expect<IterableLike> toContain o` and offer all available functions. For
-instance: `Expect<IterableLik> toContain o inGiven order and only grouped entries within group inAny order(...)`
-
 # Module atrium-core
 
 Defines core contracts of Atrium and contains default implementation.
@@ -52,31 +38,6 @@ in conjunction with code completion.
 # Package ch.tutteli.atrium.api.fluent.en_GB.creating.feature
 
 Contains helper classes/functions etc. in conjunction with feature extractors.
-
-<!--  Infix API  ------------------------------------------------------------------------------------------------ -->
-
-# Package ch.tutteli.atrium.api.infix.en_GB
-Contains API which provides an infix API in English and which has its design focus on usability
-in conjunction with code completion.
-
-# Package ch.tutteli.atrium.api.infix.en_GB.creating
-Contains parameter objects which help out in case Atrium requires more than one argument.
-
-# Package ch.tutteli.atrium.api.infix.en_GB.creating.feature
-Contains parameter objects related to feature extraction.
-
-# Package ch.tutteli.atrium.api.infix.en_GB.creating.iterable
-Contains parameter objects related to `Iterable`.
-
-# Package ch.tutteli.atrium.api.infix.en_GB.creating.map
-Contains parameter objects related to `Map`.
-
-# Package ch.tutteli.atrium.api.infix.en_GB.creating.path
-Contains parameter objects related to `Path`.
-
-# Package ch.tutteli.atrium.api.infix.en_GB.workaround
-Contains functions necessary for the infix API to work properly due to Kotlin related bugs / or insufficient type
-inference capabilities.
 
 <!--  core ------------------------------------------------------------------------------------------------ -->
 

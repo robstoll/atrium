@@ -1,6 +1,8 @@
 package ch.tutteli.atrium.core.polyfills
 
-import ch.tutteli.atrium.api.infix.en_GB.*
+import ch.tutteli.atrium.api.fluent.en_GB.feature
+import ch.tutteli.atrium.api.fluent.en_GB.group
+import ch.tutteli.atrium.api.fluent.en_GB.toEqual
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.api.verbs.internal.expectGrouped
 import ch.tutteli.atrium.assertions.Assertion
@@ -27,14 +29,14 @@ class KClassFullNameTest {
                     1.0f to "Int", // should be "Float" but https://youtrack.jetbrains.com/issue/KT-32484
                     1.0 to "Int",  // should be "Double" but https://youtrack.jetbrains.com/issue/KT-32484
                 ).forEach { (subject, expected) ->
-                    expect(subject) feature { f("kclass.fullName", it::class.fullName) } toEqual expected
+                    expect(subject).feature("kclass.fullName") { this::class.fullName }.toEqual(expected)
                 }
 
                 // this works as expected because the type is always known (no intermediate step where Any is expected)
                 // see https://youtrack.jetbrains.com/issue/KT-32484
-                expect(1.toByte()) feature { f("kclass.fullName", it::class.fullName) } toEqual "Byte"
-                expect(1.0f) feature { f("kclass.fullName", it::class.fullName) } toEqual "Float"
-                expect(1.0) feature { f("kclass.fullName", it::class.fullName) } toEqual "Double"
+                expect(1.toByte()).feature("kclass.fullName") { this::class.fullName }.toEqual("Byte")
+                expect(1.0f).feature("kclass.fullName") { this::class.fullName }.toEqual("Float")
+                expect(1.0).feature("kclass.fullName") { this::class.fullName }.toEqual("Double")
             }
 
             group("types") {
@@ -131,10 +133,10 @@ class KClassFullNameTest {
     }
 
     private fun ExpectGrouping.fullNameFunIsExpected(): (Pair<Any, String>) -> Unit = { (value, expected) ->
-        expect(value) feature { f("kClass.fullName", it::class.fullName(it)) } toEqual expected
+        expect(value).feature("kClass.fullName") { this::class.fullName(this) }.toEqual(expected)
     }
 
     private fun ExpectGrouping.fullNameIsExpected(): (Pair<KClass<*>, String>) -> Unit = { (kClass, expected) ->
-        expect(kClass.fullName) toEqual expected
+        expect(kClass.fullName).toEqual(expected)
     }
 }
