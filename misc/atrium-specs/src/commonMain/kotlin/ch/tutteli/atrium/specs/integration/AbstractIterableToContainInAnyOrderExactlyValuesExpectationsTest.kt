@@ -55,16 +55,14 @@ abstract class AbstractIterableToContainInAnyOrderExactlyValuesExpectationsTest(
     @TestFactory
     fun one_to_seven__happy_cases() = testFactory(toContainExactlySpec) {
         describeIterable(::oneToSeven) {
-            describe("happy cases") {
-                it("${toContainExactlyPairSpec.first("1.1", "once")} does not throw") {
-                    expect(oneToSeven()).toContainExactlyFun(1, 1.1)
-                }
-                it("${toContainExactlyPairSpec.first("1.1 and 2.1 and 3.1", "once")} does not throw") {
-                    expect(oneToSeven()).toContainExactlyFun(1, 1.1, 2.1, 3.1)
-                }
-                it("${toContainExactlyPairSpec.first("3.1 and 1.1 and 2.1", "once")} does not throw") {
-                    expect(oneToSeven()).toContainExactlyFun(1, 3.1, 1.1, 2.1)
-                }
+            it("${toContainExactlyPairSpec.first("1.1", "once")} does not throw") {
+                expect(oneToSeven()).toContainExactlyFun(1, 1.1)
+            }
+            it("${toContainExactlyPairSpec.first("1.1 and 2.1 and 3.1", "once")} does not throw") {
+                expect(oneToSeven()).toContainExactlyFun(1, 1.1, 2.1, 3.1)
+            }
+            it("${toContainExactlyPairSpec.first("3.1 and 1.1 and 2.1", "once")} does not throw") {
+                expect(oneToSeven()).toContainExactlyFun(1, 3.1, 1.1, 2.1)
             }
         }
     }
@@ -72,53 +70,48 @@ abstract class AbstractIterableToContainInAnyOrderExactlyValuesExpectationsTest(
     @TestFactory
     fun one_to_seven__failure_cases() = testFactory(toContainExactlySpec) {
         describeIterable(::oneToSeven) {
-            describe("failure cases") {
-                it("${toContainExactlyPairSpec.first("4.1", "once")} throws AssertionError") {
-                    expect {
-                        expect(oneToSeven()).toContainExactlyFun(1, 4.1)
-                    }.toThrow<AssertionError> {
-                        messageToContain("$toBeExactlyDescr: 1", "$anElementWhichEquals: 4.1")
+            it("${toContainExactlyPairSpec.first("4.1", "once")} throws AssertionError") {
+                expect {
+                    expect(oneToSeven()).toContainExactlyFun(1, 4.1)
+                }.toThrow<AssertionError> {
+                    messageToContain("$toBeExactlyDescr: 1", "$anElementWhichEquals: 4.1")
+                }
+            }
+            it("${toContainExactlyPairSpec.first("1.1, 2.3", "once")} throws AssertionError mentioning only 2.3") {
+                expect {
+                    expect(oneToSeven()).toContainExactlyFun(1, 1.1, 2.3)
+                }.toThrow<AssertionError> {
+                    message {
+                        toContain("$toBeExactlyDescr: 1", "$anElementWhichEquals: 2.3")
+                        notToContain("$anElementWhichEquals: 1.1")
                     }
                 }
-
-                it("reports missing 2.3 when requested second") {
-                    expect {
-                        expect(oneToSeven()).toContainExactlyFun(1, 1.1, 2.3)
-                    }.toThrow<AssertionError> {
-                        message {
-                            toContain("$toBeExactlyDescr: 1", "$anElementWhichEquals: 2.3")
-                            notToContain("$anElementWhichEquals: 1.1")
-                        }
+            }
+            it("${toContainExactlyPairSpec.first("2.3, 1.1", "once")} throws AssertionError mentioning only 2.3") {
+                expect {
+                    expect(oneToSeven()).toContainExactlyFun(1, 2.3, 1.1)
+                }.toThrow<AssertionError> {
+                    message {
+                        toContain("$toBeExactlyDescr: 1", "$anElementWhichEquals: 2.3")
+                        notToContain("$anElementWhichEquals: 1.1")
                     }
                 }
-
-                it("reports missing 2.3 when requested first") {
-                    expect {
-                        expect(oneToSeven()).toContainExactlyFun(1, 2.3, 1.1)
-                    }.toThrow<AssertionError> {
-                        message {
-                            toContain("$toBeExactlyDescr: 1", "$anElementWhichEquals: 2.3")
-                            notToContain("$anElementWhichEquals: 1.1")
-                        }
-                    }
-                }
-
-                it("${toContainExactlyPairSpec.first("1.1 and 2.3 and 3.2", "once")} throws AssertionError") {
-                    expect {
-                        expect(oneToSeven()).toContainExactlyFun(1, 1.1, 2.3, 3.2)
-                    }.toThrow<AssertionError> {
-                        message {
-                            toContain(toBeExactlyDescr, 2.3, 3.2)
-                            toContain.exactly(2).values(
-                                "$numberOfSuchElements: 0",
-                                "$toBeExactlyDescr: 1"
-                            )
-                            toContain.exactly(1).values(
-                                "$rootBulletPoint$toContainInAnyOrder: $separator",
-                                "$anElementWhichEquals: 2.3",
-                                "$anElementWhichEquals: 3.2"
-                            )
-                        }
+            }
+            it("${toContainExactlyPairSpec.first("1.1 and 2.3 and 3.2", "once")} throws AssertionError") {
+                expect {
+                    expect(oneToSeven()).toContainExactlyFun(1, 1.1, 2.3, 3.2)
+                }.toThrow<AssertionError> {
+                    message {
+                        toContain(toBeExactlyDescr, 2.3, 3.2)
+                        toContain.exactly(2).values(
+                            "$numberOfSuchElements: 0",
+                            "$toBeExactlyDescr: 1"
+                        )
+                        toContain.exactly(1).values(
+                            "$rootBulletPoint$toContainInAnyOrder: $separator",
+                            "$anElementWhichEquals: 2.3",
+                            "$anElementWhichEquals: 3.2"
+                        )
                     }
                 }
             }
@@ -128,62 +121,58 @@ abstract class AbstractIterableToContainInAnyOrderExactlyValuesExpectationsTest(
     @TestFactory
     fun one_to_seven__multiple_occurrences() = testFactory(toContainExactlySpec) {
         describeIterable(::oneToSeven) {
-            describe("multiple occurrences of the search string") {
-                it("${toContainExactlyPairSpec.first("5.1", "once")} throws AssertionError") {
-                    expect {
-                        expect(oneToSeven()).toContainExactlyFun(1, 5.1)
-                    }.toThrow<AssertionError> { messageToContain(toBeExactlyDescr) }
-                }
-                it("${toContainExactlyPairSpec.first("5.1", "twice")} does not throw") {
-                    expect(oneToSeven()).toContainExactlyFun(2, 5.1)
-                }
-
-                it("exactly 3 occurrences of 5.1 expected, but only 2 found") {
-                    expect {
-                        expect(oneToSeven()).toContainExactlyFun(3, 5.1)
-                    }.toThrow<AssertionError> {
-                        message {
-                            toContain(
-                                "$rootBulletPoint$toContainInAnyOrder: $separator",
-                                "$anElementWhichEquals: 5.1",
-                                "$numberOfSuchElements: 2$separator"
-                            )
-                            toEndWith("$toBeExactlyDescr: 3")
-                        }
+            it("${toContainExactlyPairSpec.first("5.1", "once")} throws AssertionError") {
+                expect {
+                    expect(oneToSeven()).toContainExactlyFun(1, 5.1)
+                }.toThrow<AssertionError> { messageToContain(toBeExactlyDescr) }
+            }
+            it("${toContainExactlyPairSpec.first("5.1", "twice")} does not throw") {
+                expect(oneToSeven()).toContainExactlyFun(2, 5.1)
+            }
+            it("${toContainExactlyPairSpec.first("5.1", "3 times")} throws, shows expected and actual count") {
+                expect {
+                    expect(oneToSeven()).toContainExactlyFun(3, 5.1)
+                }.toThrow<AssertionError> {
+                    message {
+                        toContain(
+                            "$rootBulletPoint$toContainInAnyOrder: $separator",
+                            "$anElementWhichEquals: 5.1",
+                            "$numberOfSuchElements: 2$separator"
+                        )
+                        toEndWith("$toBeExactlyDescr: 3")
                     }
                 }
-
-                it("${toContainExactlyPairSpec.first("5.1 and 4.1", "twice")} throws AssertionError") {
-                    expect {
-                        expect(oneToSeven()).toContainExactlyFun(2, 5.1, 4.1)
-                    }.toThrow<AssertionError> {
-                        message {
-                            toContain(
-                                "$rootBulletPoint$toContainInAnyOrder: $separator",
-                                "$anElementWhichEquals: 4.1",
-                                "$numberOfSuchElements: 3$separator"
-                            )
-                            toEndWith("$toBeExactlyDescr: 2")
-                            notToContain("$anElementWhichEquals: 5.1")
-                        }
+            }
+            it("${toContainExactlyPairSpec.first("5.1 and 4.1", "twice")} throws AssertionError") {
+                expect {
+                    expect(oneToSeven()).toContainExactlyFun(2, 5.1, 4.1)
+                }.toThrow<AssertionError> {
+                    message {
+                        toContain(
+                            "$rootBulletPoint$toContainInAnyOrder: $separator",
+                            "$anElementWhichEquals: 4.1",
+                            "$numberOfSuchElements: 3$separator"
+                        )
+                        toEndWith("$toBeExactlyDescr: 2")
+                        notToContain("$anElementWhichEquals: 5.1")
                     }
                 }
-                it("${toContainExactlyPairSpec.first("4.1", "3 times")} does not throw") {
-                    expect(oneToSeven()).toContainExactlyFun(3, 4.1)
-                }
-                it("reports insufficient occurrences of 5.1") {
-                    expect {
-                        expect(oneToSeven()).toContainExactlyFun(3, 5.1, 4.1)
-                    }.toThrow<AssertionError> {
-                        message {
-                            toContain(
-                                "$rootBulletPoint$toContainInAnyOrder: $separator",
-                                "$anElementWhichEquals: 5.1",
-                                "$numberOfSuchElements: 2$separator"
-                            )
-                            toEndWith("$toBeExactlyDescr: 3")
-                            notToContain("$anElementWhichEquals: 4.1")
-                        }
+            }
+            it("${toContainExactlyPairSpec.first("4.1", "3 times")} does not throw") {
+                expect(oneToSeven()).toContainExactlyFun(3, 4.1)
+            }
+            it("${toContainExactlyPairSpec.first("5.1 and 4.1", "3 times")} throws, shows expected and actual count") {
+                expect {
+                    expect(oneToSeven()).toContainExactlyFun(3, 5.1, 4.1)
+                }.toThrow<AssertionError> {
+                    message {
+                        toContain(
+                            "$rootBulletPoint$toContainInAnyOrder: $separator",
+                            "$anElementWhichEquals: 5.1",
+                            "$numberOfSuchElements: 2$separator"
+                        )
+                        toEndWith("$toBeExactlyDescr: 3")
+                        notToContain("$anElementWhichEquals: 4.1")
                     }
                 }
             }
