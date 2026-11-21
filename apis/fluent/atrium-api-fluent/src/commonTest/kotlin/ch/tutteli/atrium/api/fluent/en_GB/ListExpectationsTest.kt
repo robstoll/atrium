@@ -1,10 +1,12 @@
 package ch.tutteli.atrium.api.fluent.en_GB
 
 import ch.tutteli.atrium.api.verbs.internal.expect
+import ch.tutteli.atrium.api.verbs.internal.testFactory
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.feature1
 import ch.tutteli.atrium.specs.fun2
 import ch.tutteli.atrium.specs.withNullableSuffix
+import ch.tutteli.atrium.testfactories.TestFactory
 import kotlin.test.Test
 
 class ListExpectationsTest : ch.tutteli.atrium.specs.integration.AbstractListExpectationsTest(
@@ -13,6 +15,37 @@ class ListExpectationsTest : ch.tutteli.atrium.specs.integration.AbstractListExp
     feature1(Expect<List<Int?>>::get).withNullableSuffix(),
     fun2(Expect<List<Int?>>::get).withNullableSuffix(),
 ) {
+
+    @TestFactory
+    fun asList() = testFactory {
+        describe("Narrow Iterable down to List") {
+            it("Containing the same List after narrowing down the type") {
+                val list = listOf(1, 2, 3)
+                expect(list as Iterable<Int>).asList().toEqual(list)
+            }
+
+            it("Containing the same List after narrowing down the type using the expectationCreator") {
+                val list = listOf(1, 2, 3)
+                expect(list as Iterable<Int>).asList {
+                    toEqual(list)
+                }
+            }
+        }
+
+        describe("Terminate Sequence by transforming it to a List") {
+            it("Containing the same sequence of values after transforming the Sequence to a List") {
+                val sequence = sequenceOf(1, 2, 3)
+                expect(sequence).asList().toEqual(listOf(1, 2, 3))
+            }
+
+            it("Containing the same sequence of values after transforming the Sequence to a List using the expectationCreator") {
+                val sequence = sequenceOf(1, 2, 3)
+                expect(sequence).asList {
+                    toEqual(listOf(1, 2, 3))
+                }
+            }
+        }
+    }
 
     @Suppress("UNUSED_VALUE", "UNUSED_VARIABLE", "unused", "AssignedValueIsNeverRead")
     @Test
