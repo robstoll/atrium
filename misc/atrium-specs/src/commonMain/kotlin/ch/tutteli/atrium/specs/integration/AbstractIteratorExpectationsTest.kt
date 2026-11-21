@@ -4,10 +4,12 @@ import ch.tutteli.atrium.api.fluent.en_GB.messageToContain
 import ch.tutteli.atrium.api.fluent.en_GB.toEqual
 import ch.tutteli.atrium.api.fluent.en_GB.toThrow
 import ch.tutteli.atrium.api.verbs.internal.expect
+import ch.tutteli.atrium.api.verbs.internal.testfactories.ExpectTestExecutableForTests
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.specs.integration.utils.ExpectationCreatorTestData
 import ch.tutteli.atrium.testfactories.TestFactory
+import ch.tutteli.atrium.testfactories.TestFactoryBuilder
 import ch.tutteli.atrium.translations.DescriptionBasic
 import ch.tutteli.atrium.translations.DescriptionIterableLikeExpectation
 
@@ -76,6 +78,14 @@ abstract class AbstractIteratorExpectationsTest(
     fun next() = testFactoryForFeatureNonFeature(
         nextFeatureSpec, nextSpec
     ) { name, nextFun, hasExtraHint ->
+        verifyNextNonNullable(name, nextFun, hasExtraHint)
+    }
+
+    private fun TestFactoryBuilder<ExpectTestExecutableForTests>.verifyNextNonNullable(
+        name: String,
+        nextFun: Expect<Iterator<Int>>.(Expect<Int>.() -> Unit) -> Expect<Iterator<Int>>,
+        hasExtraHint: Boolean
+    ) {
         it("$name - can perform sub-assertion if an iterator has next") {
             expect(listOf(1).iterator()).nextFun { toEqual(1) }
         }
@@ -94,18 +104,8 @@ abstract class AbstractIteratorExpectationsTest(
     fun next_nullable() = testFactoryForFeatureNonFeature(
         nextFeatureNullableSpec, nextNullableSpec
     ) { name, nextFun, hasExtraHint ->
-        it("$name - can perform sub-assertion if an iterator has next") {
-            expect(listOf<Int?>(1).iterator()).nextFun { toEqual(1) }
-        }
-
-        it("$name - throws an AssertionError if an iterator does not have next") {
-            expect {
-                expect(emptyList<Int?>().iterator()).nextFun { toEqual(1) }
-            }.toThrow<AssertionError> {
-                messageToContain(sizeExceededDescr)
-                if (hasExtraHint) messageToContain("$toEqualDescr: 1")
-            }
-        }
+        val nextFunNonNullable = uncheckedToNonNullable(nextSpec.second, nextFun)[1]
+        verifyNextNonNullable(name, nextFunNonNullable, hasExtraHint)
 
         it("$name - can perform sub-assertion if next value is null") {
             expect(listOf<Int?>(null).iterator()).nextFun { toEqual(null) }
