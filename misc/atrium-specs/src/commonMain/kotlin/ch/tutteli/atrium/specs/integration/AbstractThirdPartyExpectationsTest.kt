@@ -8,35 +8,32 @@ import ch.tutteli.atrium.creating.build
 import ch.tutteli.atrium.reporting.AssertionFormatterFacade
 import ch.tutteli.atrium.reporting.Reporter
 import ch.tutteli.atrium.specs.*
-import ch.tutteli.atrium.specs.integration.IterableToContainSpecBase.Companion.nonNullableCases
-import org.spekframework.spek2.Spek
-import org.spekframework.spek2.style.specification.Suite
+import ch.tutteli.atrium.testfactories.TestFactory
 
+@Suppress("FunctionName")
 @OptIn(ExperimentalComponentFactoryContainer::class, ExperimentalWithOptions::class)
-abstract class ThirdPartyExpectationsSpec(
+abstract class AbstractThirdPartyExpectationsTest(
+    private val toHoldThirdPartyExpectationSpec: Fun3<Int, String, Any?, (Int) -> Unit>,
+    private val toHoldThirdPartyExpectationNullableSpec: Fun3<Int?, String, Any?, (Int?) -> Unit>,
+) : ExpectationFunctionBaseTest() {
 
-    toHoldThirdPartyExpectation: Fun3<Int, String, Any?, (Int) -> Unit>,
-    toHoldThirdPartyExpectationNullable: Fun3<Int?, String, Any?, (Int?) -> Unit>,
-
-    describePrefix: String = "[Atrium] "
-) : Spek({
-
-    // we don't have an AssertionCreatorSpec as we don't expect that the third party expectation will
+    // we don't have an expectationCreatorTest as we don't expect that the third party expectation will
     // append anything but rather throw in case it is NOK or just do nothing
 
-    fun describeFun(vararg pairs: SpecPair<*>, body: Suite.() -> Unit) =
-        describeFunTemplate(describePrefix, pairs.map { it.name }.toTypedArray(), body = body)
-
     /* simulating a third party lib */
-    fun <T> assertThat(subject: T) = expect(subject)
+    private fun <T> assertThat(subject: T) = expect(subject)
 
-    nonNullableCases(
-        describePrefix,
-        toHoldThirdPartyExpectation,
-        toHoldThirdPartyExpectationNullable
+    // within `it`, expect(subject) refers to the function of the test executable which does not return a RootExpect,
+    // but we need a RootExpect in order to use withOptions
+    private fun <T> rootExpect(subject: T) = expect(subject)
+
+    @TestFactory
+    fun nonNullableCases() = testFactoryNonNullable(
+        toHoldThirdPartyExpectationSpec,
+        toHoldThirdPartyExpectationNullableSpec
     ) { toHoldThirdPartyExpectationFun ->
 
-        context("subject not defined") {
+        describe("subject not defined") {
             it("shows the intended third party expectation in reporting") {
                 expect {
                     expect(emptyList<Int>()).get(0) {
@@ -53,22 +50,23 @@ abstract class ThirdPartyExpectationsSpec(
             }
         }
 
-        context("subject is defined") {
+        describe("subject is defined") {
 
-            context("expectation holds") {
+            describe("expectation holds") {
                 it("shows the description and representation of the third party expectation in reporting") {
                     expect {
-                    expect(1).withOptions {
-                        withComponent(Reporter::class) { c ->
-                            val assertionFormatterFacade = c.build<AssertionFormatterFacade>()
-                            object : Reporter {
-                                override fun format(assertion: Assertion, sb: StringBuilder): Unit =
-                                    assertionFormatterFacade.format(assertion, sb, this::assertionFilter)
+                        rootExpect(1).withOptions {
+                            withComponent(Reporter::class) { c ->
+                                val assertionFormatterFacade = c.build<AssertionFormatterFacade>()
+                                object : Reporter {
+                                    override fun format(assertion: Assertion, sb: StringBuilder): Unit =
+                                        assertionFormatterFacade.format(assertion, sb, this::assertionFilter)
 
-                                private fun assertionFilter(@Suppress("UNUSED_PARAMETER") assertion: Assertion) = true
+                                    private fun assertionFilter(@Suppress("UNUSED_PARAMETER") assertion: Assertion) =
+                                        true
+                                }
                             }
-                        }
-                    }.toHoldThirdPartyExpectationFun("(assertJ) is equal to", 10) { subject ->
+                        }.toHoldThirdPartyExpectationFun("(assertJ) is equal to", 10) { subject ->
                             assertThat(subject + 9).toEqual(10)
                         } //fails, due to customer Reporter we should also see holding third party expectation from above
                             .toEqual(2)
@@ -84,7 +82,7 @@ abstract class ThirdPartyExpectationsSpec(
                 }
             }
 
-            context("expectation fails") {
+            describe("expectation fails") {
                 it("shows the third party expectation as well as the caught Throwable") {
                     expect {
                         expect(1).toHoldThirdPartyExpectationFun("(assertJ) is equal to", 9) { subject ->
@@ -97,7 +95,7 @@ abstract class ThirdPartyExpectationsSpec(
                                 "I expected subject: 10",
                                 "$toEqualDescr: 9",
                             )
-                            toContainRegex(Regex("""stacktrace:\s*\n.*ThirdPartyExpectationsSpec"""))
+                            toContainRegex(Regex("""stacktrace:\s*\n.*ThirdPartyExpectationsTest"""))
                         }
                     }
                 }
@@ -105,11 +103,10 @@ abstract class ThirdPartyExpectationsSpec(
         }
     }
 
-    describeFun(toHoldThirdPartyExpectationNullable) {
-        val toHoldThirdPartyExpectationFun = toHoldThirdPartyExpectationNullable.lambda
-
-        context("subject is defined") {
-            context("expectation holds") {
+    @TestFactory
+    fun nullableCases() = testFactory(toHoldThirdPartyExpectationNullableSpec) { toHoldThirdPartyExpectationFun ->
+        describe("subject is defined") {
+            describe("expectation holds") {
                 it("extracts the subject even if null") {
                     expect(null as Int?).toHoldThirdPartyExpectationFun("(assertJ) is equal to", null) { subject ->
                         assertThat(subject).toEqual(null)
@@ -118,4 +115,4 @@ abstract class ThirdPartyExpectationsSpec(
             }
         }
     }
-})
+}
