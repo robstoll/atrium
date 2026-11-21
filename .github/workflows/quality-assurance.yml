@@ -33,13 +33,22 @@ jobs:
       - name: Build using JDK ${{ matrix.java_version }}
         run: ./gradlew build
 
-      - name: Upload build code coverage
+      - name: Upload JVM code coverage
         uses: codecov/codecov-action@v7.1.1
         if: ${{ github.event_name == 'pull_request' || (github.event_name == 'push' && github.ref == 'refs/heads/main') }}
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-          flags: ${{ matrix.os == 'windows-latest' && 'current_windows' || 'current' }}
+          files: "**/build/reports/jacoco/report.xml"
+          flags: jvm_${{ runner.os }}
           env_vars: JAVA_VERSION
+
+      - name: Upload JS (Node) code coverage
+        uses: codecov/codecov-action@v7.1.1
+        if: ${{ github.event_name == 'pull_request' || (github.event_name == 'push' && github.ref == 'refs/heads/main') }}
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: "**/build/reports/coverage/js/lcov.info"
+          flags: js_${{ runner.os }}
 
       - name: Build samples against current
         #TODO https://github.com/robstoll/atrium/issues/2224 remove this if again
