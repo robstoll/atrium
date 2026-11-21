@@ -38,7 +38,6 @@ jobs:
         if: ${{ github.event_name == 'pull_request' || (github.event_name == 'push' && github.ref == 'refs/heads/main') }}
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-          disable_search: true
           files: "**/build/reports/jacoco/report.xml"
           flags: jvm_${{ runner.os }}
           env_vars: JAVA_VERSION
@@ -48,7 +47,6 @@ jobs:
         if: ${{ github.event_name == 'pull_request' || (github.event_name == 'push' && github.ref == 'refs/heads/main') }}
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-          disable_search: true
           files: "**/build/reports/coverage/js/lcov.info"
           flags: js_${{ runner.os }}
 
