@@ -29,14 +29,14 @@ class MapToContainInAnyOrderOnlyEntriesOfExpectationsSpec : Spek({
 
 
     object BuilderMapLikeToIterablePairSpec :
-        ch.tutteli.atrium.specs.integration.MapLikeToIterablePairSpec<Map<String, Int>>(
+        ch.tutteli.atrium.specs.integration.AbstractMapLikeToIterablePairTest<Map<String, Int>>(
             functionDescription,
             mapOf("a" to 1),
             { input -> toContain.inAnyOrder.only.entriesOf(input) }
         )
 
     object ShortcutMapLikeToIterablePairSpec :
-        ch.tutteli.atrium.specs.integration.MapLikeToIterablePairSpec<Map<String, Int>>(
+        ch.tutteli.atrium.specs.integration.AbstractMapLikeToIterablePairTest<Map<String, Int>>(
             toContainOnlyEntriesOf,
             mapOf("a" to 1),
             { input -> toContainOnlyEntriesOf(input) }

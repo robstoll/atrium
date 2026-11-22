@@ -20,7 +20,7 @@ class MapToContainInOrderOnlyEntriesOfExpectationsSpec : Spek({
     )
 
     object BuilderMapLikeToIterablePairSpec :
-        ch.tutteli.atrium.specs.integration.MapLikeToIterablePairSpec<Map<String, Int>>(
+        ch.tutteli.atrium.specs.integration.AbstractMapLikeToIterablePairTest<Map<String, Int>>(
             functionDescription,
             mapOf("a" to 1),
             { input -> toContain.inOrder.only.entriesOf(input) }

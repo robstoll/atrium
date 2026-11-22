@@ -9,7 +9,7 @@ import ch.tutteli.atrium.specs.iterableLikeTypesWithElement1
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.describe
 
-abstract class MapLikeToIterablePairSpec<T>(
+abstract class AbstractMapLikeToIterablePairTest<T>(
     description: String,
     subject: T,
     funMapLike: Expect<T>.(MapLike) -> Expect<T>,
