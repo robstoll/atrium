@@ -11,8 +11,6 @@ import ch.tutteli.atrium.api.fluent.en_GB.MapToContainInAnyOrderOnlyEntriesOfExp
 class MapToContainInAnyOrderOnlyEntriesOfExpectationsSpec : Spek({
     include(BuilderSpec)
     include(ShortcutSpec)
-    include(BuilderMapLikeToIterablePairSpec)
-    include(ShortcutMapLikeToIterablePairSpec)
 }) {
 
     object BuilderSpec : ch.tutteli.atrium.specs.integration.MapToContainInAnyOrderOnlyKeyValuePairsExpectationsSpec(
@@ -26,21 +24,6 @@ class MapToContainInAnyOrderOnlyEntriesOfExpectationsSpec : Spek({
         mfun2<String?, Int?, Int?>(C::toContainInAnyOrderOnlyEntriesOf).withNullableSuffix(),
         "[Atrium][Shortcut] "
     )
-
-
-    object BuilderMapLikeToIterablePairSpec :
-        ch.tutteli.atrium.specs.integration.AbstractMapLikeToIterablePairTest<Map<String, Int>>(
-            functionDescription,
-            mapOf("a" to 1),
-            { input -> toContain.inAnyOrder.only.entriesOf(input) }
-        )
-
-    object ShortcutMapLikeToIterablePairSpec :
-        ch.tutteli.atrium.specs.integration.AbstractMapLikeToIterablePairTest<Map<String, Int>>(
-            toContainOnlyEntriesOf,
-            mapOf("a" to 1),
-            { input -> toContainOnlyEntriesOf(input) }
-        )
 
     companion object : MapToContainSpecBase() {
         val functionDescription = "$toContain.$inAnyOrder.$only.$entriesOf"

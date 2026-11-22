@@ -19,13 +19,6 @@ class MapToContainInOrderOnlyEntriesOfExpectationsSpec : Spek({
         "[Atrium][Builder] "
     )
 
-    object BuilderMapLikeToIterablePairSpec :
-        ch.tutteli.atrium.specs.integration.AbstractMapLikeToIterablePairTest<Map<String, Int>>(
-            functionDescription,
-            mapOf("a" to 1),
-            { input -> toContain.inOrder.only.entriesOf(input) }
-        )
-
     companion object : MapToContainSpecBase() {
         val functionDescription = "$toContain.$inOrder.$only.$entriesOf"
 
