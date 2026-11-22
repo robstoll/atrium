@@ -1,26 +1,29 @@
 package ch.tutteli.atrium.api.fluent.en_GB
 
+import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.feature0
 import ch.tutteli.atrium.specs.fun1
-import ch.tutteli.atrium.specs.notImplemented
+import kotlin.test.Test
 
-object MapAsEntriesExpectationsSpec : ch.tutteli.atrium.specs.integration.MapAsEntriesExpectationsSpec(
-    feature0<Map<String, Int>, Set<Map.Entry<String, Int>>>(Expect<Map<String, Int>>::asEntries),
-    fun1<Map<String, Int>, Expect<Set<Map.Entry<String, Int>>>.() -> Unit>(Expect<Map<String, Int>>::asEntries)
+class MapAsEntriesExpectationsTest : ch.tutteli.atrium.specs.integration.AbstractMapAsEntriesExpectationsTest(
+    feature0(Expect<Map<String, Int>>::asEntries),
+    fun1(Expect<Map<String, Int>>::asEntries)
 ) {
 
-    @Suppress("unused", "UNUSED_VALUE")
-    private fun ambiguityTest() {
-        var map: Expect<Map<Number, CharSequence>> = notImplemented()
-        var subMap: Expect<LinkedHashMap<out Number, String>> = notImplemented()
-        var nullableKeyMap: Expect<Map<Number?, CharSequence>> = notImplemented()
-        var nullableValueMap: Expect<Map<Number, CharSequence?>> = notImplemented()
-        var nullableKeyValueMap: Expect<Map<Number?, CharSequence?>> = notImplemented()
-        var readOnlyNullableKeyValueMap: Expect<Map<out Number?, CharSequence?>> = notImplemented()
+    @Suppress("UNUSED_VALUE", "UNUSED_VARIABLE", "unused", "AssignedValueIsNeverRead")
+    @Test
+    fun ambiguityTest() {
+        var map: Expect<Map<Number, CharSequence>> = expect(mapOf<Number, CharSequence>(1 to "a"))
+        var subMap: Expect<LinkedHashMap<out Number, String>> = expect(linkedMapOf<Number, String>(1 to "a"))
+        var nullableKeyMap: Expect<Map<Number?, CharSequence>> = expect(mapOf<Number?, CharSequence>(1 to "a"))
+        var nullableValueMap: Expect<Map<Number, CharSequence?>> = expect(mapOf<Number, CharSequence?>(1 to "a"))
+        var nullableKeyValueMap: Expect<Map<Number?, CharSequence?>> = expect(mapOf<Number?, CharSequence?>(1 to "a"))
+        var readOnlyNullableKeyValueMap: Expect<Map<out Number?, CharSequence?>> =
+            expect(mapOf<Number?, CharSequence?>(1 to "a"))
 
-        var starKeyMap: Expect<Map<*, CharSequence?>> = notImplemented()
-        var starValueMap: Expect<Map<String, *>> = notImplemented()
+        var starKeyMap: Expect<Map<*, CharSequence?>> = expect(mapOf<Number, CharSequence?>(1 to "a"))
+        var starValueMap: Expect<Map<String, *>> = expect(mapOf<String, CharSequence?>("a" to null))
 
         map.asEntries()
         subMap.asEntries()
@@ -29,14 +32,14 @@ object MapAsEntriesExpectationsSpec : ch.tutteli.atrium.specs.integration.MapAsE
         nullableKeyValueMap.asEntries()
         readOnlyNullableKeyValueMap.asEntries()
 
-        map = map.asEntries {}
-        subMap = subMap.asEntries {}
-        nullableKeyMap = nullableKeyMap.asEntries {}
-        nullableValueMap = nullableValueMap.asEntries {}
-        nullableKeyValueMap = nullableKeyValueMap.asEntries {}
-        readOnlyNullableKeyValueMap = readOnlyNullableKeyValueMap.asEntries {}
+        map = map.asEntries { toHaveSize(1) }
+        subMap = subMap.asEntries { toHaveSize(1) }
+        nullableKeyMap = nullableKeyMap.asEntries { toHaveSize(1) }
+        nullableValueMap = nullableValueMap.asEntries { toHaveSize(1) }
+        nullableKeyValueMap = nullableKeyValueMap.asEntries { toHaveSize(1) }
+        readOnlyNullableKeyValueMap = readOnlyNullableKeyValueMap.asEntries { toHaveSize(1) }
 
-        starKeyMap = starKeyMap.asEntries {}
-        starValueMap = starValueMap.asEntries {}
+        starKeyMap = starKeyMap.asEntries { toHaveSize(1) }
+        starValueMap = starValueMap.asEntries { toHaveSize(1) }
     }
 }
