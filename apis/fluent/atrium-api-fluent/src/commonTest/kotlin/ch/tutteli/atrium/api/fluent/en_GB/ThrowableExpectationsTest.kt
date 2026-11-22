@@ -1,9 +1,11 @@
 package ch.tutteli.atrium.api.fluent.en_GB
 
+import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
+import kotlin.test.Test
 
-class ThrowableExpectationsSpec : ch.tutteli.atrium.specs.integration.ThrowableExpectationsSpec(
+class ThrowableExpectationsTest : ch.tutteli.atrium.specs.integration.AbstractThrowableExpectationsTest(
     property<Throwable, String>(Expect<Throwable>::message),
     fun1<Throwable, Expect<String>.() -> Unit>(Expect<Throwable>::message),
     fun2(Expect<Throwable>::messageToContain),
@@ -26,14 +28,16 @@ class ThrowableExpectationsSpec : ch.tutteli.atrium.specs.integration.ThrowableE
     }
 
     @Suppress("unused", "UNUSED_VALUE")
-    private fun ambiguityTest() {
-        var a1: Expect<ClassCastException> = notImplemented()
+    @Test
+    fun ambiguityTest() {
+        val cause = IllegalStateException("cause")
+        var a1: Expect<IllegalStateException> = expect(IllegalStateException("asdf", cause))
 
         a1.message
-        a1 = a1.message {}
+        a1 = a1.message { toEqual("asdf") }
         a1 = a1.messageToContain("asdf")
 
-        a1.cause<ClassCastException>()
-        a1.cause<ClassCastException> { }
+        a1.cause<IllegalStateException>()
+        a1.cause<IllegalStateException> { toEqual(cause) }
     }
 }

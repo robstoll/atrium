@@ -6,45 +6,48 @@ import ch.tutteli.atrium.core.polyfills.format
 import ch.tutteli.atrium.core.polyfills.fullName
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
+import ch.tutteli.atrium.specs.integration.utils.ExpectationCreatorTestData
+import ch.tutteli.atrium.specs.integration.utils.SubjectLessTestData
+import ch.tutteli.atrium.testfactories.TestFactory
 import ch.tutteli.atrium.translations.DescriptionCharSequenceExpectation
 import ch.tutteli.atrium.translations.DescriptionThrowableExpectation
 import ch.tutteli.atrium.translations.DescriptionThrowableExpectation.OCCURRED_EXCEPTION_PROPERTIES
-import org.spekframework.spek2.Spek
-import org.spekframework.spek2.style.specification.Suite
 
-abstract class ThrowableExpectationsSpec(
-    messageFeature: Feature0<Throwable, String>,
-    message: Fun1<Throwable, Expect<String>.() -> Unit>,
-    messageToContain: Fun2<Throwable, Any, Array<out Any>>,
+@Suppress("FunctionName")
+abstract class AbstractThrowableExpectationsTest(
+    private val messageFeatureSpec: Feature0<Throwable, String>,
+    private val messageSpec: Fun1<Throwable, Expect<String>.() -> Unit>,
+    private val messageToContainSpec: Fun2<Throwable, Any, Array<out Any>>,
 
-    causeFeature: Feature0<Throwable, IllegalArgumentException>,
-    cause: Feature1<Throwable, Expect<IllegalArgumentException>.() -> Unit, IllegalArgumentException>,
+    private val causeFeatureSpec: Feature0<Throwable, IllegalArgumentException>,
+    private val causeSpec: Feature1<Throwable, Expect<IllegalArgumentException>.() -> Unit, IllegalArgumentException>
+) : ExpectationFunctionBaseTest() {
 
-    describePrefix: String = "[Atrium] "
-) : Spek({
+    private val valueDescr = DescriptionCharSequenceExpectation.VALUE.getDefault()
 
-    include(object : SubjectLessSpec<Throwable>(
-        describePrefix,
-        messageFeature.forSubjectLessTest(),
-        message.forSubjectLessTest { toEqual("hello") },
-        messageToContain.forSubjectLessTest("hello", arrayOf())
-    ) {})
+    @TestFactory
+    fun subjectLessTest() = subjectLessTestFactory(
+        SubjectLessTestData(
+            messageFeatureSpec.forSubjectLessTest(),
+            messageSpec.forSubjectLessTest { toEqual("hello") },
+            messageToContainSpec.forSubjectLessTest("hello", arrayOf())
+        )
+    )
 
-    include(object : AssertionCreatorSpec<Throwable>(
-        describePrefix, RuntimeException("hello"),
-        message.forExpectationCreatorTest("$toEqualDescr: hello") { toEqual("hello") }
-    ) {})
+    @TestFactory
+    fun expectationCreatorTest() = expectationCreatorTestFactory(
+        ExpectationCreatorTestData(
+            RuntimeException("hello"),
+            messageSpec.forExpectationCreatorTest("$toEqualDescr: hello") { toEqual("hello") }
+        )
+    )
 
-    fun describeFun(vararg pairs: SpecPair<*>, body: Suite.() -> Unit) =
-        describeFunTemplate(describePrefix, pairs.map { it.name }.toTypedArray(), body = body)
+    @TestFactory
+    fun message_and_messageToContain() = testFactory(messageFeatureSpec, messageSpec, messageToContainSpec) {
+        val messageFunctions = unifySignatures(messageFeatureSpec, messageSpec)
+        val messageContainsFun = messageToContainSpec.lambda
 
-    val valueDescr = DescriptionCharSequenceExpectation.VALUE.getDefault()
-
-    describeFun(messageFeature, message, messageToContain) {
-        val messageFunctions = unifySignatures(messageFeature, message)
-        val messageContainsFun = messageToContain.lambda
-
-        context("Throwable.message is null") {
+        describe("Throwable.message is null") {
             val throwable: Throwable = IllegalArgumentException()
 
             messageFunctions.forEach { (name, messageFun, hasExtraHint) ->
@@ -61,7 +64,7 @@ abstract class ThrowableExpectationsSpec(
                 }
             }
 
-            it("${messageToContain.name} - throws an AssertionError which shows intended sub assertion") {
+            it("${messageToContainSpec.name} - throws an AssertionError which shows intended sub assertion") {
 
                 expect {
                     expect(throwable).messageContainsFun(1, arrayOf(2.3, 'z', "hello"))
@@ -78,7 +81,7 @@ abstract class ThrowableExpectationsSpec(
             }
         }
 
-        context("Throwable.message is empty") {
+        describe("Throwable.message is empty") {
             val throwable: Throwable = IllegalArgumentException("")
             messageFunctions.forEach { (name, messageFun, _) ->
                 it("$name - throws an AssertionError if the assertion does not hold") {
@@ -91,19 +94,19 @@ abstract class ThrowableExpectationsSpec(
                     expect(throwable).messageFun { toBeEmpty() }
                 }
             }
-            it("${messageToContain.name} - throws an AssertionError if the assertion does not hold") {
+            it("${messageToContainSpec.name} - throws an AssertionError if the assertion does not hold") {
                 expect {
                     expect(throwable).messageContainsFun("nada", arrayOf())
                 }.toThrow<AssertionError> { messageToContain("$valueDescr: \"nada\"") }
             }
-            it("${messageToContain.name} - throws IllegalArgumentException if empty string is passed") {
+            it("${messageToContainSpec.name} - throws IllegalArgumentException if empty string is passed") {
                 expect {
                     expect(throwable).messageContainsFun("", arrayOf())
                 }.toThrow<IllegalArgumentException>()
             }
         }
 
-        context("Throwable.message is blank") {
+        describe("Throwable.message is blank") {
             val throwable: Throwable = IllegalArgumentException("   ")
             messageFunctions.forEach { (name, messageFun, _) ->
                 it("$name - throws an AssertionError if the assertion does not hold") {
@@ -116,17 +119,17 @@ abstract class ThrowableExpectationsSpec(
                     expect(throwable).messageFun { toEqual("   ") }
                 }
             }
-            it("${messageToContain.name} - throws an AssertionError if the assertion does not hold") {
+            it("${messageToContainSpec.name} - throws an AssertionError if the assertion does not hold") {
                 expect {
                     expect(throwable).messageContainsFun("nada", arrayOf())
                 }.toThrow<AssertionError> { messageToContain("$valueDescr: \"nada\"") }
             }
-            it("${messageToContain.name} - does not throw if the assertion holds") {
+            it("${messageToContainSpec.name} - does not throw if the assertion holds") {
                 expect(throwable).messageContainsFun(" ", arrayOf())
             }
         }
 
-        context("Throwable.message is not empty/blank") {
+        describe("Throwable.message is not empty/blank") {
             val throwable: Throwable = IllegalArgumentException("1 and 2.3 with extra z results in hello")
 
             messageFunctions.forEach { (name, messageFun, _) ->
@@ -141,17 +144,17 @@ abstract class ThrowableExpectationsSpec(
                 }
             }
 
-            it("${messageToContain.name} - throws an AssertionError if the assertion does not hold") {
+            it("${messageToContainSpec.name} - throws an AssertionError if the assertion does not hold") {
                 expect {
                     expect(throwable).messageContainsFun("nada", arrayOf())
                 }.toThrow<AssertionError> { messageToContain("$valueDescr: \"nada\"") }
             }
-            it("${messageToContain.name} - does not throw if the assertion holds") {
+            it("${messageToContainSpec.name} - does not throw if the assertion holds") {
                 expect(throwable).messageContainsFun(1, arrayOf(2.3, 'z', "hello"))
             }
         }
 
-        it("${messageToContain.name} - throws an IllegalArgumentException if an object is passed") {
+        it("${messageToContainSpec.name} - throws an IllegalArgumentException if an object is passed") {
             val throwable: Throwable = IndexOutOfBoundsException()
             expect {
                 expect(throwable).messageContainsFun(Pair(1, 2), arrayOf())
@@ -159,64 +162,58 @@ abstract class ThrowableExpectationsSpec(
         }
     }
 
-    describeFun(causeFeature, cause) {
-        val causeFunctions = unifySignatures(causeFeature, cause)
-
-        context("Throwable.cause is not null") {
+    @TestFactory
+    fun cause() = testFactoryForFeatureNonFeature(causeFeatureSpec, causeSpec) { name, causeFun, _ ->
+        describe("Throwable.cause is not null") {
             val exceptionCause = IllegalArgumentException("Hello from the Clause")
             val throwable: Throwable =
                 RuntimeException("Outer exception message", exceptionCause)
 
-            causeFunctions.forEach { (name, causeFun) ->
-                it("$name - does not throw if the assertion holds") {
-                    expect(throwable).causeFun { toEqual(exceptionCause) }
-                }
+            it("$name - does not throw if the assertion holds") {
+                expect(throwable).causeFun { toEqual(exceptionCause) }
+            }
 
-                it("$name - throws an AssertionError") {
-                    expect {
-                        expect(throwable).causeFun { messageToContain("WRONG message") }
-                    }.toThrow<AssertionError> {
-                        messageToContain(
-                            DescriptionThrowableExpectation.OCCURRED_EXCEPTION_CAUSE.getDefault() + ": java.lang.IllegalArgumentException",
-                            "$valueDescr: \"WRONG message\""
-                        )
-                    }
+            it("$name - throws an AssertionError") {
+                expect {
+                    expect(throwable).causeFun { messageToContain("WRONG message") }
+                }.toThrow<AssertionError> {
+                    messageToContain(
+                        DescriptionThrowableExpectation.OCCURRED_EXCEPTION_CAUSE.getDefault() + ": " + IllegalArgumentException::class.fullName,
+                        "$valueDescr: \"WRONG message\""
+                    )
                 }
+            }
 
-                it("$name  - throws if wrong type is expected") {
-                    val throwableWithDifferentCauseType: Throwable =
-                        RuntimeException(
-                            "Outer exception message",
-                            UnsupportedOperationException("Cause exception: UNSUPPORTED OPERATION")
+            it("$name  - throws if wrong type is expected") {
+                val throwableWithDifferentCauseType: Throwable =
+                    RuntimeException(
+                        "Outer exception message",
+                        UnsupportedOperationException("Cause exception: UNSUPPORTED OPERATION")
+                    )
+                expect {
+                    expect(throwableWithDifferentCauseType).causeFun { messageToContain("Cause exception") }
+                }.toThrow<AssertionError> {
+                    messageToContain(
+                        OCCURRED_EXCEPTION_PROPERTIES.getDefault().format(
+                            UnsupportedOperationException::class.simpleName!!
                         )
-                    expect {
-                        expect(throwableWithDifferentCauseType).causeFun { messageToContain("Cause exception") }
-                    }.toThrow<AssertionError> {
-                        messageToContain(
-                            OCCURRED_EXCEPTION_PROPERTIES.getDefault().format(
-                                UnsupportedOperationException::class.simpleName!!
-                            )
-                        )
-                    }
+                    )
                 }
             }
         }
 
-        context("Throwable.cause is null") {
+        describe("Throwable.cause is null") {
             val throwable: Throwable = RuntimeException("Outer exception message")
-            causeFunctions.forEach { (name, causeFun) ->
-                it("$name - throws an AssertionError") {
-                    expect {
-                        expect(throwable).causeFun { messageToContain("Hello") }
-                    }.toThrow<AssertionError> {
-                        messageToContain(
-                            DescriptionThrowableExpectation.HAS_NO_CAUSE.getDefault(),
-                            IllegalArgumentException::class.fullName
-                        )
-                    }
+            it("$name - throws an AssertionError") {
+                expect {
+                    expect(throwable).causeFun { messageToContain("Hello") }
+                }.toThrow<AssertionError> {
+                    messageToContain(
+                        DescriptionThrowableExpectation.HAS_NO_CAUSE.getDefault(),
+                        IllegalArgumentException::class.fullName
+                    )
                 }
             }
         }
-
     }
-})
+}
