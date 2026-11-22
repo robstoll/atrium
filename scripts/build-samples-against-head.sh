@@ -15,6 +15,14 @@ script_dir="$(cd "$(dirname "$0")" && pwd)"
 
 cd "$script_dir/.."
 
+# fail fast if there are local changes instead of resetting them hard on exit,
+# so that nothing is lost if someone runs the script with uncommitted work
+if ! git diff --quiet || ! git diff --cached --quiet; then
+  echo >&2 "you have uncommitted changes, please commit (or stash) them first" \
+    "before running this script, since it resets the working tree hard on exit"
+  exit 1
+fi
+
 trap 'git reset --hard -q' EXIT
 
 PUB=true ./gradlew publishToMavenLocal -I "$script_dir/no-signing.init.gradle.kts"
