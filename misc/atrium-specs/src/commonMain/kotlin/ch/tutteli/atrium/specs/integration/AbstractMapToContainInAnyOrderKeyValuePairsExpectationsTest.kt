@@ -3,104 +3,101 @@ package ch.tutteli.atrium.specs.integration
 import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.specs.*
-import org.spekframework.spek2.style.specification.Suite
+import ch.tutteli.atrium.specs.integration.MapLikeToContainSpecBase.Companion.entry
+import ch.tutteli.atrium.specs.integration.MapLikeToContainSpecBase.Companion.keyDoesNotExist
+import ch.tutteli.atrium.specs.integration.MapLikeToContainSpecBase.Companion.map
+import ch.tutteli.atrium.specs.integration.MapLikeToContainSpecBase.Companion.nullableMap
+import ch.tutteli.atrium.specs.integration.utils.SubjectLessTestData
+import ch.tutteli.atrium.testfactories.TestFactory
 
+@Suppress("FunctionName")
+abstract class AbstractMapToContainInAnyOrderKeyValuePairsExpectationsTest(
+    private val keyValuePairsSpec: MFun2<String, Int, Int>,
+    private val keyValuePairsNullableSpec: MFun2<String?, Int?, Int?>
+) : ExpectationFunctionBaseTest() {
 
-abstract class MapToContainInAnyOrderKeyValuePairsExpectationsSpec(
-    keyValuePairs: MFun2<String, Int, Int>,
-    keyValuePairsNullable: MFun2<String?, Int?, Int?>,
-    describePrefix: String = "[Atrium] "
-) : MapLikeToContainSpecBase({
+    @TestFactory
+    fun subjectLessTest() = subjectLessTestFactory(
+        SubjectLessTestData(
+            keyValuePairsSpec.forSubjectLessTest("key" to 1, arrayOf())
+        ),
+        SubjectLessTestData(
+            keyValuePairsNullableSpec.forSubjectLessTest(null to 1, arrayOf("a" to null)),
+            groupPrefix = "[nullable Key] "
+        )
+    )
 
-    include(object : SubjectLessSpec<Map<out String, Int>>(
-        describePrefix,
-        keyValuePairs.forSubjectLessTest("key" to 1, arrayOf())
-    ) {})
+    @TestFactory
+    fun map_a_to_1_b_to_2() = testFactoryNonNullable(
+        keyValuePairsSpec, keyValuePairsNullableSpec
+    ) { toContainKeyValuePairsFun ->
+        listOf(
+            listOf("a" to 1),
+            listOf("b" to 2),
+            listOf("a" to 1, "b" to 2),
+            listOf("b" to 2, "a" to 1)
+        ).forEach { pairs ->
+            it("${pairs.joinToString()} does not throw") {
+                expect(map).toContainKeyValuePairsFun(pairs.first(), pairs.drop(1).toTypedArray())
+            }
+        }
 
-    include(object : SubjectLessSpec<Map<out String?, Int?>>(
-        "$describePrefix[nullable Key] ",
-        keyValuePairsNullable.forSubjectLessTest(null to 1, arrayOf("a" to null))
-    ) {})
+        it("a to 1 and a to 1 does not throw (no unique match)") {
+            expect(map).toContainKeyValuePairsFun("a" to 1, arrayOf("a" to 1))
+        }
 
-    fun describeFun(vararg pairs: SpecPair<*>, body: Suite.() -> Unit) =
-        describeFunTemplate(describePrefix, pairs.map { it.name }.toTypedArray(), body = body)
-
-    describeFun(keyValuePairs, keyValuePairsNullable) {
-        val toContainFunctions = uncheckedToNonNullable(keyValuePairs, keyValuePairsNullable)
-
-        context("map $map") {
-            toContainFunctions.forEach { (name, toContainFun) ->
-                listOf(
-                    listOf("a" to 1),
-                    listOf("b" to 2),
-                    listOf("a" to 1, "b" to 2),
-                    listOf("b" to 2, "a" to 1)
-                ).forEach {
-                    it("$name - $it does not throw") {
-                        expect(map).toContainFun(it.first(), it.drop(1).toTypedArray())
-                    }
-                }
-
-                it("$name - a to 1 and a to 1 does not throw (no unique match)") {
-                    expect(map).toContainFun("a" to 1, arrayOf("a" to 1))
-                }
-
-                it("$name - {a to 1, b to 3, c to 4} throws AssertionError, reports b and c") {
-                    expect {
-                        expect(map).toContainFun("a" to 1, arrayOf("b" to 3, "c" to 4))
-                    }.toThrow<AssertionError> {
-                        message {
-                            toContain(
-                                entry("b", 2),
-                                "$toEqualDescr: 3",
-                                entry("c", keyDoesNotExist),
-                                "$toEqualDescr: 4"
-                            )
-                            notToContain(entry("a"))
-                        }
-                    }
+        it("{a to 1, b to 3, c to 4} throws AssertionError, reports b and c") {
+            expect {
+                expect(map).toContainKeyValuePairsFun("a" to 1, arrayOf("b" to 3, "c" to 4))
+            }.toThrow<AssertionError> {
+                message {
+                    toContain(
+                        entry("b", 2),
+                        "$toEqualDescr: 3",
+                        entry("c", keyDoesNotExist),
+                        "$toEqualDescr: 4"
+                    )
+                    notToContain(entry("a"))
                 }
             }
         }
     }
 
-    describeFun(keyValuePairsNullable) {
-        val toContainNullableFun = keyValuePairsNullable.lambda
-        context("map $nullableMap") {
-            listOf(
-                listOf("a" to null),
-                listOf(null to 1),
-                listOf("b" to 2),
-                listOf("a" to null, "b" to 2),
-                listOf(null to 1, "b" to 2),
-                listOf(null to 1, "a" to null),
-                listOf(null to 1, "a" to null, "b" to 2),
-                listOf("b" to 2, null to 1, "a" to null)
-            ).forEach {
-                it("$it does not throw") {
-                    expect(nullableMap).toContainNullableFun(it.first(), it.drop(1).toTypedArray())
-                }
+    @TestFactory
+    fun nullable_map() = testFactory(keyValuePairsNullableSpec) { toContainNullableFun ->
+        listOf(
+            listOf("a" to null),
+            listOf(null to 1),
+            listOf("b" to 2),
+            listOf("a" to null, "b" to 2),
+            listOf(null to 1, "b" to 2),
+            listOf(null to 1, "a" to null),
+            listOf(null to 1, "a" to null, "b" to 2),
+            listOf("b" to 2, null to 1, "a" to null)
+        ).forEach { pairs ->
+            it("$pairs does not throw") {
+                expect(nullableMap).toContainNullableFun(pairs.first(), pairs.drop(1).toTypedArray())
             }
+        }
 
-            it("a to null and a to null does not throw (no unique match)") {
-                expect(nullableMap).toContainNullableFun("a" to null, arrayOf("a" to null))
-            }
+        it("a to null and a to null does not throw (no unique match)") {
+            expect(nullableMap).toContainNullableFun("a" to null, arrayOf("a" to null))
+        }
 
-            it("{a to null, null to 2, b to 3, c to 4} throws AssertionError, reports a, null, b and c") {
-                expect {
-                    expect(nullableMap).toContainNullableFun("a" to null, arrayOf(null to 2, "b" to 3, "c" to 4))
-                }.toThrow<AssertionError> {
-                    message {
-                        toContain(
-                            entry("b", 2),
-                            "$toEqualDescr: 3",
-                            entry("c", keyDoesNotExist),
-                            "$toEqualDescr: 4"
-                        )
-                        notToContain(entry("a"))
-                    }
+        it("{a to null, null to 2, b to 3, c to 4} throws AssertionError, reports a, null, b and c") {
+            expect {
+                expect(nullableMap).toContainNullableFun("a" to null, arrayOf(null to 2, "b" to 3, "c" to 4))
+            }.toThrow<AssertionError> {
+                message {
+                    toContain(
+                        entry("b", 2),
+                        "$toEqualDescr: 3",
+                        entry("c", keyDoesNotExist),
+                        "$toEqualDescr: 4"
+                    )
+                    notToContain(entry("a"))
                 }
             }
         }
     }
-})
+}
