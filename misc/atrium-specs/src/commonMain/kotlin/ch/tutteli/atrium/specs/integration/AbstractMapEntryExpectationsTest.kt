@@ -4,34 +4,37 @@ import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
-import org.spekframework.spek2.Spek
-import org.spekframework.spek2.style.specification.Suite
+import ch.tutteli.atrium.specs.integration.utils.SubjectLessTestData
+import ch.tutteli.atrium.specs.integration.utils.keyValueLikeTestFactory
+import ch.tutteli.atrium.testfactories.TestFactory
 
-abstract class MapEntryExpectationsSpec(
-    toEqualKeyValue: Fun2<Map.Entry<String, Int>, String, Int>,
-    toEqualKeyValueNullable: Fun2<Map.Entry<String?, Int?>, String?, Int?>,
-    keyFeature: Feature0<Map.Entry<String, Int>, String>,
-    key: Fun1<Map.Entry<String, Int>, Expect<String>.() -> Unit>,
-    valueFeature: Feature0<Map.Entry<String, Int>, Int>,
-    value: Fun1<Map.Entry<String, Int>, Expect<Int>.() -> Unit>,
-    nullableKeyFeature: Feature0<Map.Entry<String?, Int?>, String?>,
-    nullableKey: Fun1<Map.Entry<String?, Int?>, Expect<String?>.() -> Unit>,
-    nullableValueFeature: Feature0<Map.Entry<String?, Int?>, Int?>,
-    nullableValue: Fun1<Map.Entry<String?, Int?>, Expect<Int?>.() -> Unit>,
-    describePrefix: String = "[Atrium] "
-) : Spek({
+@Suppress("FunctionName")
+abstract class AbstractMapEntryExpectationsTest(
+    private val toEqualKeyValueSpec: Fun2<Map.Entry<String, Int>, String, Int>,
+    private val toEqualKeyValueNullableSpec: Fun2<Map.Entry<String?, Int?>, String?, Int?>,
+    private val keyFeature: Feature0<Map.Entry<String, Int>, String>,
+    private val key: Fun1<Map.Entry<String, Int>, Expect<String>.() -> Unit>,
+    private val valueFeature: Feature0<Map.Entry<String, Int>, Int>,
+    private val value: Fun1<Map.Entry<String, Int>, Expect<Int>.() -> Unit>,
+    private val nullableKeyFeature: Feature0<Map.Entry<String?, Int?>, String?>,
+    private val nullableKey: Fun1<Map.Entry<String?, Int?>, Expect<String?>.() -> Unit>,
+    private val nullableValueFeature: Feature0<Map.Entry<String?, Int?>, Int?>,
+    private val nullableValue: Fun1<Map.Entry<String?, Int?>, Expect<Int?>.() -> Unit>,
+) : ExpectationFunctionBaseTest() {
 
-    include(object : SubjectLessSpec<Map.Entry<String, Int>>(
-        describePrefix,
-        toEqualKeyValue.forSubjectLessTest("key", 1)
-    ) {})
+    @TestFactory
+    fun subjectLessTest() = subjectLessTestFactory(
+        SubjectLessTestData(
+            toEqualKeyValueSpec.forSubjectLessTest("key", 1)
+        ),
+        SubjectLessTestData<Map.Entry<String?, Int?>>(
+            toEqualKeyValueNullableSpec.forSubjectLessTest("key", 1),
+            groupPrefix = "[nullable]"
+        )
+    )
 
-    include(object : SubjectLessSpec<Map.Entry<String?, Int?>>(
-        "$describePrefix[nullable] ",
-        toEqualKeyValueNullable.forSubjectLessTest("key", 1)
-    ) {})
-
-    include(object : KeyValueLikeExpectationsSpec<Map.Entry<String, Int>, Map.Entry<String?, Int?>>(
+    @TestFactory
+    fun keyValueLikeTest() = keyValueLikeTestFactory(
         ::mapEntry,
         ::mapEntry,
         "key",
@@ -43,53 +46,47 @@ abstract class MapEntryExpectationsSpec(
         nullableKeyFeature,
         nullableKey,
         nullableValueFeature,
-        nullableValue,
-        describePrefix
-    ) {})
+        nullableValue
+    )
 
-    fun describeFun(vararg pairs: SpecPair<*>, body: Suite.() -> Unit) =
-        describeFunTemplate(describePrefix, pairs.map { it.name }.toTypedArray(), body = body)
+    @TestFactory
+    fun toEqualKeyValue() = testFactoryNonNullable(
+        toEqualKeyValueSpec, toEqualKeyValueNullableSpec
+    ) { toEqualKeyValueFun ->
+        val mapEntry = mapEntry("hello", 1)
+        describe("map $mapEntry") {
+            it("hello to 1 does not throw") {
+                expect(mapEntry).toEqualKeyValueFun("hello", 1)
+            }
 
-    val mapEntry = mapEntry("hello", 1)
-
-    describeFun(toEqualKeyValue, toEqualKeyValueNullable) {
-        val toEqualKeyValueFunctions = uncheckedToNonNullable(toEqualKeyValue, toEqualKeyValueNullable)
-
-        context("map $mapEntry") {
-            toEqualKeyValueFunctions.forEach { (name, toEqualKeyValueFun) ->
-                it("$name - hello to 1 does not throw") {
-                    expect(mapEntry).toEqualKeyValueFun("hello", 1)
-                }
-
-                it("$name - hello to 2 throws AssertionError") {
-                    expect {
-                        expect(mapEntry).toEqualKeyValueFun("hello", 2)
-                    }.toThrow<AssertionError> {
-                        message {
-                            toContain("value: 1", "$toEqualDescr: 2")
-                            notToContain("key")
-                        }
+            it("hello to 2 throws AssertionError") {
+                expect {
+                    expect(mapEntry).toEqualKeyValueFun("hello", 2)
+                }.toThrow<AssertionError> {
+                    message {
+                        toContain("value: 1", "$toEqualDescr: 2")
+                        notToContain("key")
                     }
                 }
-                it("$name - b to 1 throws AssertionError") {
-                    expect {
-                        expect(mapEntry).toEqualKeyValueFun("b", 1)
-                    }.toThrow<AssertionError> {
-                        message {
-                            toContain("key: \"hello\"", "$toEqualDescr: \"b\"")
-                            notToContain("value")
-                        }
+            }
+            it("b to 1 throws AssertionError") {
+                expect {
+                    expect(mapEntry).toEqualKeyValueFun("b", 1)
+                }.toThrow<AssertionError> {
+                    message {
+                        toContain("key: \"hello\"", "$toEqualDescr: \"b\"")
+                        notToContain("value")
                     }
                 }
             }
         }
     }
 
-    describeFun(toEqualKeyValueNullable) {
-        val toEqualKeyValueFun = toEqualKeyValueNullable.lambda
+    @TestFactory
+    fun toEqualKeyValueNullable() = testFactory(toEqualKeyValueNullableSpec) { toEqualKeyValueFun ->
         val mapEntryNullable2 = mapEntry(null as String?, null as Int?)
 
-        context("map $mapEntryNullable2") {
+        describe("map $mapEntryNullable2") {
             it("null to null does not throw") {
                 expect(mapEntryNullable2).toEqualKeyValueFun(null, null)
             }
@@ -116,5 +113,4 @@ abstract class MapEntryExpectationsSpec(
             }
         }
     }
-
-})
+}
