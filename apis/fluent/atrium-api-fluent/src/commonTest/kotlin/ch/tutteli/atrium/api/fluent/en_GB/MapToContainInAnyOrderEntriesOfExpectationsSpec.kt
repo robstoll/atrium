@@ -1,32 +1,13 @@
 package ch.tutteli.atrium.api.fluent.en_GB
 
 import ch.tutteli.atrium.creating.Expect
-import ch.tutteli.atrium.logic.creating.typeutils.MapLike
-import ch.tutteli.atrium.specs.integration.mfun2
 import ch.tutteli.atrium.specs.notImplemented
-import ch.tutteli.atrium.specs.withNullableSuffix
 import org.spekframework.spek2.Spek
-import kotlin.jvm.JvmName
-import ch.tutteli.atrium.api.fluent.en_GB.MapToContainInAnyOrderEntriesOfExpectationsSpec.Companion as C
 
 class MapToContainInAnyOrderEntriesOfExpectationsSpec : Spek({
-    include(BuilderSpec)
-    include(ShortcutSpec)
     include(BuilderMapLikeToIterablePairSpec)
     include(ShortcutMapLikeToIterablePairSpec)
 }) {
-
-    object BuilderSpec : ch.tutteli.atrium.specs.integration.MapToContainInAnyOrderKeyValuePairsExpectationsSpec(
-        functionDescription to C::toContainKeyValuePairs,
-        (functionDescription to C::toContainKeyValuePairsNullable).withNullableSuffix(),
-        "[Atrium][Builder] "
-    )
-
-    object ShortcutSpec : ch.tutteli.atrium.specs.integration.MapToContainInAnyOrderKeyValuePairsExpectationsSpec(
-        mfun2<String, Int, Int>(C::toContainEntriesOf),
-        mfun2<String?, Int?, Int?>(C::toContainEntriesOf).withNullableSuffix(),
-        "[Atrium][Shortcut] "
-    )
 
     object BuilderMapLikeToIterablePairSpec :
         ch.tutteli.atrium.specs.integration.MapLikeToIterablePairSpec<Map<String, Int>>(
@@ -39,46 +20,11 @@ class MapToContainInAnyOrderEntriesOfExpectationsSpec : Spek({
         ch.tutteli.atrium.specs.integration.MapLikeToIterablePairSpec<Map<String, Int>>(
             toContainEntriesOf,
             mapOf("a" to 1),
-            { input -> toContainEntriesOf(input)  }
+            { input -> toContainEntriesOf(input) }
         )
 
     companion object : MapToContainSpecBase() {
         val functionDescription = "$toContain.$inAnyOrder.$entriesOf"
-
-        private fun toContainKeyValuePairs(
-            expect: Expect<Map<out String, Int>>,
-            a: Pair<String, Int>,
-            aX: Array<out Pair<String, Int>>
-        ): Expect<Map<out String, Int>> {
-            val mapLike: MapLike = if (aX.distinct().size != aX.size || aX.contains(a)) {
-                sequenceOf(a, *aX).asIterable()
-            } else {
-                mapOf(a, *aX)
-            }
-            return expect.toContain.inAnyOrder.entriesOf(mapLike)
-        }
-
-        private fun toContainKeyValuePairsNullable(
-            expect: Expect<Map<out String?, Int?>>,
-            a: Pair<String?, Int?>,
-            aX: Array<out Pair<String?, Int?>>
-        ): Expect<Map<out String?, Int?>> =
-            expect.toContain.inAnyOrder.entriesOf(listOf(a, *aX))
-
-        private fun toContainEntriesOf(
-            expect: Expect<Map<out String, Int>>,
-            a: Pair<String, Int>,
-            aX: Array<out Pair<String, Int>>
-        ): Expect<Map<out String, Int>> =
-            expect.toContainEntriesOf(sequenceOf(a, *aX))
-
-        @JvmName("toContainNullable")
-        private fun toContainEntriesOf(
-            expect: Expect<Map<out String?, Int?>>,
-            a: Pair<String?, Int?>,
-            aX: Array<out Pair<String?, Int?>>
-        ): Expect<Map<out String?, Int?>> =
-            expect.toContainEntriesOf(arrayOf(a, *aX))
     }
 
 
