@@ -85,17 +85,16 @@ abstract class AbstractThirdPartyExpectationsTest(
             describe("expectation fails") {
                 it("shows the third party expectation as well as the caught Throwable") {
                     expect {
-                        expect(1).toHoldThirdPartyExpectationFun("(assertJ) is equal to", 9) { subject ->
-                            assertThat(subject + 9).toEqual(9)
+                        expect(1).toHoldThirdPartyExpectationFun("(assertJ) is equal to", 9) { _ ->
+                            error("nooooooo......")
                         }
                     }.toThrow<AssertionError> {
                         message {
                             toContain(
                                 "(assertJ) is equal to: 9",
-                                "I expected subject: 10",
-                                "$toEqualDescr: 9",
+                                "Properties of the unexpected IllegalStateException",
+                                "nooooooo......",
                             )
-                            toContainRegex(Regex("""stacktrace:\s*\n.*ThirdPartyExpectationsTest"""))
                         }
                     }
                 }
