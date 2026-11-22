@@ -1,54 +1,42 @@
 package ch.tutteli.atrium.api.fluent.en_GB
 
+import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.fun1
-import ch.tutteli.atrium.specs.notImplemented
 import ch.tutteli.atrium.specs.withNullableSuffix
-import org.spekframework.spek2.Spek
-import ch.tutteli.atrium.api.fluent.en_GB.IterableToHaveElementsAndNoneExpectationsSpec.Companion as C
+import kotlin.test.Test
 
-class IterableToHaveElementsAndNoneExpectationsSpec : Spek({
-    include(PredicateSpec)
-    include(BuilderSpec)
-}) {
-    object PredicateSpec : ch.tutteli.atrium.specs.integration.IterableToHaveElementsAndNoneExpectationsSpec(
+class IterableToHaveElementsAndNoneExpectationsPredicateTest :
+    ch.tutteli.atrium.specs.integration.AbstractIterableToHaveElementsAndNoneExpectationsTest(
         fun1(Expect<Iterable<Double>>::toHaveElementsAndNone),
-        fun1(Expect<Iterable<Double?>>::toHaveElementsAndNone).withNullableSuffix(),
-        "[Atrium][Predicate] "
-    )
+        fun1(Expect<Iterable<Double?>>::toHaveElementsAndNone).withNullableSuffix()
+    ) {
 
-    // TODO 2.1.0 #722 this will differ once we don't implement the same behaviour for notTContain and none
-    // that's fine and we can simply remove this test here
-    object BuilderSpec : ch.tutteli.atrium.specs.integration.IterableToHaveElementsAndNoneExpectationsSpec(
-        functionDescription to C::notToContainFun,
-        (functionDescription to C::notToContainNullableFun).withNullableSuffix(),
-        "[Atrium][Builder] "
-    )
+    @Suppress("AssignedValueIsNeverRead", "unused", "UNUSED_VALUE")
+    @Test
+    fun ambiguityTest() {
+        var list: Expect<List<Number>> = expect(listOf(2.1))
+        var nList: Expect<Set<Number?>> = expect(setOf(2.1))
+        var subList: Expect<ArrayList<out Number>> = expect(arrayListOf(2.1))
+        var star: Expect<Collection<*>> = expect(listOf(1.1, "asdf"))
 
-    companion object : IterableToContainSpecBase() {
-        val functionDescription = "$notToContain.$entry"
+        list = list.toHaveElementsAndNone {
+            toEqual(1.1)
+        }
+        nList = nList.toHaveElementsAndNone {
+            toEqual(1.1)
+        }
+        subList = subList.toHaveElementsAndNone {
+            toEqual(1.1)
+        }
+        star = star.toHaveElementsAndNone {
+            toEqual(2.1)
+        }
 
-        private fun notToContainFun(expect: Expect<Iterable<Double>>, a: Expect<Double>.() -> Unit) =
-            expect.notToContain.entry(a)
-
-        private fun notToContainNullableFun(expect: Expect<Iterable<Double?>>, a: (Expect<Double>.() -> Unit)?) =
-            expect.notToContain.entry(a)
-    }
-
-    @Suppress("unused", "UNUSED_VALUE")
-    private fun ambiguityTest() {
-        var list: Expect<List<Number>> = notImplemented()
-        var nList: Expect<Set<Number?>> = notImplemented()
-        var subList: Expect<ArrayList<out Number>> = notImplemented()
-        var star: Expect<Collection<*>> = notImplemented()
-
-        list = list.toHaveElementsAndNone {}
-        nList = nList.toHaveElementsAndNone {}
-        subList = subList.toHaveElementsAndNone {}
-        star = star.toHaveElementsAndNone {}
+        nList = expect(setOf<Double?>(2.1))
+        star = expect(setOf<Double?>(2.1))
 
         nList = nList.toHaveElementsAndNone(null)
-        subList = subList.toHaveElementsAndNone(null)
         star = star.toHaveElementsAndNone(null)
     }
 }
