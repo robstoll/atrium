@@ -17,7 +17,7 @@ import org.spekframework.spek2.dsl.Root
 import org.spekframework.spek2.style.specification.describe
 import kotlin.math.absoluteValue
 
-abstract class FloatingPointWithErrorToleranceExpectationsSpec(
+abstract class AbstractFloatingPointWithErrorToleranceExpectationsTest(
     toEqualWithErrorToleranceFloat: Fun2<Float, Float, Float>,
     toEqualWithErrorToleranceDouble: Fun2<Double, Double, Double>,
     describePrefix: String = "[Atrium] "
@@ -64,7 +64,7 @@ fun <T : Number> Root.checkFloatingPoint(
     pair: Fun2<T, T, T>,
     withFailureNotice: Boolean,
     absDiff: (T, T) -> T,
-    testData: List<FloatingPointWithErrorToleranceExpectationsSpec.TestData<T>>
+    testData: List<AbstractFloatingPointWithErrorToleranceExpectationsTest.TestData<T>>
 ) {
     val (name, toEqualWithErrorTolerance) = pair
 
