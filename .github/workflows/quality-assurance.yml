@@ -30,6 +30,15 @@ jobs:
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v6
 
+      # macOS comes with bash 3 only, build-samples-against-head.sh requires bash 5 though
+      - name: Install bash 5
+        if: ${{ runner.os == 'macOS' }}
+        run: |
+          brew install bash
+          echo "$(brew --prefix)/bin" >> "$GITHUB_PATH"
+        env:
+          HOMEBREW_NO_AUTO_UPDATE: 1
+
       - name: Build using JDK ${{ matrix.java_version }}
         run: ./gradlew build
 
@@ -51,10 +60,14 @@ jobs:
           flags: js_${{ runner.os }}
 
       - name: Build samples against current
-        #TODO https://github.com/robstoll/atrium/issues/2224 remove this if again
-        if: ${{ matrix.os != 'macos-latest' }}
-        run: ./gradlew -I include-atrium-for-js.init.gradle.kts build
-        working-directory: misc/tools/atrium-samples-test
+        # the build writes the output of the readme-examples (which is platform specific) into README.md and
+        # uploading the coverage leaves the codecov cli behind -- build-samples-against-head.sh requires a
+        # clean working tree (neither modifications nor untracked files) though
+        run: |
+          git checkout -- .
+          git clean -fd
+          ./scripts/build-samples-against-head.sh
+        shell: bash
 
   dexer:
     runs-on: ubuntu-latest
