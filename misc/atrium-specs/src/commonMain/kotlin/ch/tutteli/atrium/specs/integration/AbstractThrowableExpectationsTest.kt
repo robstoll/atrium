@@ -7,6 +7,7 @@ import ch.tutteli.atrium.core.polyfills.fullName
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.specs.integration.utils.ExpectationCreatorTestData
+import ch.tutteli.atrium.specs.integration.utils.ExpectationCreatorTriple
 import ch.tutteli.atrium.specs.integration.utils.SubjectLessTestData
 import ch.tutteli.atrium.testfactories.TestFactory
 import ch.tutteli.atrium.translations.DescriptionCharSequenceExpectation
@@ -39,6 +40,15 @@ abstract class AbstractThrowableExpectationsTest(
         ExpectationCreatorTestData(
             RuntimeException("hello"),
             messageSpec.forExpectationCreatorTest("$toEqualDescr: hello") { toEqual("hello") }
+        ),
+        ExpectationCreatorTestData<Throwable>(
+            RuntimeException("Outer exception message", IllegalArgumentException("Hello from the Clause")),
+            ExpectationCreatorTriple(
+                causeSpec.name,
+                "$valueDescr: \"Hello from the Clause\"",
+                { apply { causeSpec.invoke(this) { messageToContain("Hello from the Clause") } } },
+                { apply { causeSpec.invoke(this) {} } }
+            )
         )
     )
 
