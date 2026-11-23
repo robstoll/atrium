@@ -30,6 +30,15 @@ jobs:
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v6
 
+      # macOS comes with bash 3 only, build-samples-against-head.sh requires bash 5 though
+      - name: Install bash 5
+        if: ${{ runner.os == 'macOS' }}
+        run: |
+          brew install bash
+          echo "$(brew --prefix)/bin" >> "$GITHUB_PATH"
+        env:
+          HOMEBREW_NO_AUTO_UPDATE: 1
+
       - name: Build using JDK ${{ matrix.java_version }}
         run: ./gradlew build
 
