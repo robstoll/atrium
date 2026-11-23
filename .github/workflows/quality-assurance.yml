@@ -41,6 +41,12 @@ jobs:
           flags: ${{ matrix.os == 'windows-latest' && 'current_windows' || 'current' }}
           env_vars: JAVA_VERSION
 
+      # the build writes the output of the readme-examples (which is platform specific) into README.md,
+      # build-samples-against-head.sh requires a clean working tree though
+      - name: Revert changes made by the build
+        run: git checkout -- .
+        shell: bash
+
       - name: Build samples against current
         run: ./scripts/build-samples-against-head.sh
         shell: bash
