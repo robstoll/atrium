@@ -49,9 +49,7 @@ abstract class AbstractIterableToHaveElementsAndAllExpectationsTest(
         ExpectationCreatorTestData(
             oneToSeven().toList().asIterable(),
             toHaveElementsAndAllNullableSpec.forExpectationCreatorTest("$toBeGreaterThanDescr: 0.0") {
-                toBeGreaterThan(
-                    0.0
-                )
+                toBeGreaterThan(0.0)
             }
         )
     )
