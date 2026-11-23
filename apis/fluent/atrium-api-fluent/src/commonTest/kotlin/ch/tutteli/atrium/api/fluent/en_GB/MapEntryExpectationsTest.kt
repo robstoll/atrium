@@ -48,22 +48,22 @@ class MapEntryExpectationsTest : ch.tutteli.atrium.specs.integration.AbstractMap
         a4WithNullKeyAndValue.toEqualKeyValue(null, null)
         starWithNullKeyAndValue.toEqualKeyValue(null, null)
 
-        a1.key
-        a2.key
-        a3.key
-        a4.key
-        star.key
+        a1.key.toEqual("a")
+        a2.key.toEqual("a")
+        a3.key.toEqual("a")
+        a4.key.toEqual("a")
+        star.key.toEqual("a")
         a1 = a1.key { toEqual("a") }
         a2 = a2.key { toEqual("a") }
         a3 = a3.key { toEqual("a") }
         a4 = a4.key { toEqual("a") }
         star = star.key { toEqual("a") }
 
-        a1.value
-        a2.value
-        a3.value
-        a4.value
-        star.value
+        a1.value.toEqual(1)
+        a2.value.toEqual(1)
+        a3.value.toEqual(1)
+        a4.value.toEqual(1)
+        star.value.toEqual(1)
         a1 = a1.value { toEqual(1) }
         a2 = a2.value { toEqual(1) }
         a3 = a3.value { toEqual(1) }

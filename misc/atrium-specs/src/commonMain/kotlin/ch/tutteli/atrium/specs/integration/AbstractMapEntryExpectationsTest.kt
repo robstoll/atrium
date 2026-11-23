@@ -12,14 +12,14 @@ import ch.tutteli.atrium.testfactories.TestFactory
 abstract class AbstractMapEntryExpectationsTest(
     private val toEqualKeyValueSpec: Fun2<Map.Entry<String, Int>, String, Int>,
     private val toEqualKeyValueNullableSpec: Fun2<Map.Entry<String?, Int?>, String?, Int?>,
-    private val keyFeature: Feature0<Map.Entry<String, Int>, String>,
-    private val key: Fun1<Map.Entry<String, Int>, Expect<String>.() -> Unit>,
-    private val valueFeature: Feature0<Map.Entry<String, Int>, Int>,
-    private val value: Fun1<Map.Entry<String, Int>, Expect<Int>.() -> Unit>,
-    private val nullableKeyFeature: Feature0<Map.Entry<String?, Int?>, String?>,
-    private val nullableKey: Fun1<Map.Entry<String?, Int?>, Expect<String?>.() -> Unit>,
-    private val nullableValueFeature: Feature0<Map.Entry<String?, Int?>, Int?>,
-    private val nullableValue: Fun1<Map.Entry<String?, Int?>, Expect<Int?>.() -> Unit>,
+    private val keyFeatureSpec: Feature0<Map.Entry<String, Int>, String>,
+    private val keySpec: Fun1<Map.Entry<String, Int>, Expect<String>.() -> Unit>,
+    private val valueFeatureSpec: Feature0<Map.Entry<String, Int>, Int>,
+    private val valueSpec: Fun1<Map.Entry<String, Int>, Expect<Int>.() -> Unit>,
+    private val nullableKeyFeatureSpec: Feature0<Map.Entry<String?, Int?>, String?>,
+    private val nullableKeySpec: Fun1<Map.Entry<String?, Int?>, Expect<String?>.() -> Unit>,
+    private val nullableValueFeatureSpec: Feature0<Map.Entry<String?, Int?>, Int?>,
+    private val nullableValueSpec: Fun1<Map.Entry<String?, Int?>, Expect<Int?>.() -> Unit>,
 ) : ExpectationFunctionBaseTest() {
 
     @TestFactory
@@ -39,14 +39,14 @@ abstract class AbstractMapEntryExpectationsTest(
         ::mapEntry,
         "key",
         "value",
-        keyFeature,
-        key,
-        valueFeature,
-        value,
-        nullableKeyFeature,
-        nullableKey,
-        nullableValueFeature,
-        nullableValue
+        keyFeatureSpec,
+        keySpec,
+        valueFeatureSpec,
+        valueSpec,
+        nullableKeyFeatureSpec,
+        nullableKeySpec,
+        nullableValueFeatureSpec,
+        nullableValueSpec
     )
 
     @TestFactory

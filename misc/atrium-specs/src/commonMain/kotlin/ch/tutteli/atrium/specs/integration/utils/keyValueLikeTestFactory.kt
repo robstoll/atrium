@@ -17,14 +17,14 @@ fun <T : Any, TNullable : Any> keyValueLikeTestFactory(
     creatorNullable: (String?, Int?) -> TNullable,
     keyName: String,
     valueName: String,
-    keyFeature: Feature0<T, String>,
-    key: Fun1<T, Expect<String>.() -> Unit>,
-    valueFeature: Feature0<T, Int>,
-    value: Fun1<T, Expect<Int>.() -> Unit>,
-    keyFeatureNullable: Feature0<TNullable, String?>,
-    keyNullable: Fun1<TNullable, Expect<String?>.() -> Unit>,
-    valueFeatureNullable: Feature0<TNullable, Int?>,
-    valueNullable: Fun1<TNullable, Expect<Int?>.() -> Unit>,
+    keyFeatureSpec: Feature0<T, String>,
+    keySpec: Fun1<T, Expect<String>.() -> Unit>,
+    valueFeatureSpec: Feature0<T, Int>,
+    valueSpec: Fun1<T, Expect<Int>.() -> Unit>,
+    keyFeatureNullableSpec: Feature0<TNullable, String?>,
+    keyNullableSpec: Fun1<TNullable, Expect<String?>.() -> Unit>,
+    valueFeatureNullableSpec: Feature0<TNullable, Int?>,
+    valueNullableSpec: Fun1<TNullable, Expect<Int?>.() -> Unit>,
 ): PlatformTestNodeContainer<PlatformTestNode> = testFactory {
     val mapEntry = creator("hello", 1)
     val nullMapEntry = creatorNullable(null, null)
@@ -33,17 +33,17 @@ fun <T : Any, TNullable : Any> keyValueLikeTestFactory(
     describe("check expectation function can be used in a proof explanation without subject defined and does not throw") {
         applySubjectLessTestSetup(
             SubjectLessTestData(
-                keyFeature.forSubjectLessTest(),
-                key.forSubjectLessTest { toEndWith("a") },
-                valueFeature.forSubjectLessTest(),
-                value.forSubjectLessTest { toBeGreaterThan(2) }
+                keyFeatureSpec.forSubjectLessTest(),
+                keySpec.forSubjectLessTest { toEndWith("a") },
+                valueFeatureSpec.forSubjectLessTest(),
+                valueSpec.forSubjectLessTest { toBeGreaterThan(2) }
             ),
             arrayOf(
                 SubjectLessTestData(
-                    keyFeatureNullable.forSubjectLessTest(),
-                    keyNullable.forSubjectLessTest { toEqual(null) },
-                    valueFeatureNullable.forSubjectLessTest(),
-                    valueNullable.forSubjectLessTest { toEqual(null) },
+                    keyFeatureNullableSpec.forSubjectLessTest(),
+                    keyNullableSpec.forSubjectLessTest { toEqual(null) },
+                    valueFeatureNullableSpec.forSubjectLessTest(),
+                    valueNullableSpec.forSubjectLessTest { toEqual(null) },
                     groupPrefix = "[nullable]"
                 )
             )
@@ -53,14 +53,14 @@ fun <T : Any, TNullable : Any> keyValueLikeTestFactory(
         applyExpectationCreatorTestSetup(
             ExpectationCreatorTestData(
                 mapEntry,
-                key.forExpectationCreatorTest("$toEqualDescr: hello") { toEqual("hello") },
-                value.forExpectationCreatorTest("$toEqualDescr: 1") { toEqual(1) }
+                keySpec.forExpectationCreatorTest("$toEqualDescr: hello") { toEqual("hello") },
+                valueSpec.forExpectationCreatorTest("$toEqualDescr: 1") { toEqual(1) }
             ),
             arrayOf(
                 ExpectationCreatorTestData(
                     nullMapEntry,
-                    keyNullable.forExpectationCreatorTest("$toEqualDescr: null") { toEqual(null) },
-                    valueNullable.forExpectationCreatorTest("$toEqualDescr: null") { toEqual(null) },
+                    keyNullableSpec.forExpectationCreatorTest("$toEqualDescr: null") { toEqual(null) },
+                    valueNullableSpec.forExpectationCreatorTest("$toEqualDescr: null") { toEqual(null) },
                     groupPrefix = "[nullable]"
                 )
             )
@@ -68,11 +68,11 @@ fun <T : Any, TNullable : Any> keyValueLikeTestFactory(
     }
 
     val keyFunctions = uncheckedToNonNullable(
-        unifySignatures(keyFeature, key),
-        unifySignatures(keyFeatureNullable, keyNullable)
+        unifySignatures(keyFeatureSpec, keySpec),
+        unifySignatures(keyFeatureNullableSpec, keyNullableSpec)
     )
 
-    val valueFunctions = unifySignatures(valueFeature, value)
+    val valueFunctions = unifySignatures(valueFeatureSpec, valueSpec)
 
     describe("$mapEntry") {
         keyFunctions.forEach { (name, keyFun, _) ->
@@ -108,8 +108,8 @@ fun <T : Any, TNullable : Any> keyValueLikeTestFactory(
         }
     }
 
-    val nullableKeyFunctions = unifySignatures(keyFeatureNullable, keyNullable)
-    val nullableValueFunctions = unifySignatures(valueFeatureNullable, valueNullable)
+    val nullableKeyFunctions = unifySignatures(keyFeatureNullableSpec, keyNullableSpec)
+    val nullableValueFunctions = unifySignatures(valueFeatureNullableSpec, valueNullableSpec)
 
     describe("$nullableMapEntry") {
         nullableKeyFunctions.forEach { (name, nullableKeyFun, _) ->
