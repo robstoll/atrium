@@ -6,7 +6,6 @@ import ch.tutteli.atrium.logic.changeSubject
 import ch.tutteli.atrium.specs.integration.AbstractIterableToHaveElementsAndAnyExpectationsTest
 import ch.tutteli.atrium.specs.withNullableSuffix
 
-// TODO 2.0.0 move to own SequenceSpec if we really need this (maybe we can also just delete it?)
 class IterableToHaveElementsAndAnyExpectationsSequenceTest :
     AbstractIterableToHaveElementsAndAnyExpectationsTest(
         getToContainSequencePair(),
