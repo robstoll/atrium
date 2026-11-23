@@ -12,20 +12,20 @@ import ch.tutteli.atrium.translations.DescriptionMapLikeExpectation
 
 @Suppress("FunctionName")
 abstract class AbstractMapExpectationsTest(
-    private val toContainKey: Fun1<Map<out String, *>, String>,
-    private val toContainKeyNullable: Fun1<Map<out String?, *>, String?>,
-    private val notToContainKey: Fun1<Map<out String, *>, String>,
-    private val notToContainKeyNullable: Fun1<Map<out String?, *>, String?>,
-    private val getExistingFeature: Feature1<Map<out String, Int>, String, Int>,
-    private val getExisting: Fun2<Map<out String, Int>, String, Expect<Int>.() -> Unit>,
-    private val getExistingNullableFeature: Feature1<Map<out String?, Int?>, String?, Int?>,
-    private val getExistingNullable: Fun2<Map<out String?, Int?>, String?, Expect<Int?>.() -> Unit>,
-    private val toBeEmpty: Fun0<Map<*, *>>,
-    private val notToBeEmpty: Fun0<Map<*, *>>,
-    private val keys: Fun1<Map<out String, Int>, Expect<Set<String>>.() -> Unit>,
-    private val keysFeature: Feature0<Map<out String, Int>, Set<String>>,
-    private val valuesFeature: Feature0<Map<out String, Int>, Collection<Int>>,
-    private val values: Fun1<Map<out String, Int>, Expect<Collection<Int>>.() -> Unit>,
+    private val toContainKeySpec: Fun1<Map<out String, *>, String>,
+    private val toContainKeyNullableSpec: Fun1<Map<out String?, *>, String?>,
+    private val notToContainKeySpec: Fun1<Map<out String, *>, String>,
+    private val notToContainKeyNullableSpec: Fun1<Map<out String?, *>, String?>,
+    private val getExistingFeatureSpec: Feature1<Map<out String, Int>, String, Int>,
+    private val getExistingSpec: Fun2<Map<out String, Int>, String, Expect<Int>.() -> Unit>,
+    private val getExistingNullableFeatureSpec: Feature1<Map<out String?, Int?>, String?, Int?>,
+    private val getExistingNullableSpec: Fun2<Map<out String?, Int?>, String?, Expect<Int?>.() -> Unit>,
+    private val toBeEmptySpec: Fun0<Map<*, *>>,
+    private val notToBeEmptySpec: Fun0<Map<*, *>>,
+    private val keysSpec: Fun1<Map<out String, Int>, Expect<Set<String>>.() -> Unit>,
+    private val keysFeatureSpec: Feature0<Map<out String, Int>, Set<String>>,
+    private val valuesFeatureSpec: Feature0<Map<out String, Int>, Collection<Int>>,
+    private val valuesSpec: Fun1<Map<out String, Int>, Expect<Collection<Int>>.() -> Unit>,
 ) : ExpectationFunctionBaseTest() {
 
     @Suppress("UNCHECKED_CAST")
@@ -43,22 +43,22 @@ abstract class AbstractMapExpectationsTest(
     @TestFactory
     fun subjectLessTest() = subjectLessTestFactory(
         SubjectLessTestData(
-            toContainKey.forSubjectLessTest("a").unchecked1(),
-            notToContainKey.forSubjectLessTest("a").unchecked1(),
-            toBeEmpty.forSubjectLessTest().unchecked1(),
-            notToBeEmpty.forSubjectLessTest().unchecked1(),
-            keysFeature.forSubjectLessTest(),
-            keys.forSubjectLessTest { this.toBeEmpty() },
-            valuesFeature.forSubjectLessTest(),
-            values.forSubjectLessTest { this.toBeEmpty() },
-            getExistingFeature.forSubjectLessTest("a"),
-            getExisting.forSubjectLessTest("a") { toBeGreaterThan(1) }
+            toContainKeySpec.forSubjectLessTest("a").unchecked1(),
+            notToContainKeySpec.forSubjectLessTest("a").unchecked1(),
+            toBeEmptySpec.forSubjectLessTest().unchecked1(),
+            notToBeEmptySpec.forSubjectLessTest().unchecked1(),
+            keysFeatureSpec.forSubjectLessTest(),
+            keysSpec.forSubjectLessTest { this.toBeEmpty() },
+            valuesFeatureSpec.forSubjectLessTest(),
+            valuesSpec.forSubjectLessTest { this.toBeEmpty() },
+            getExistingFeatureSpec.forSubjectLessTest("a"),
+            getExistingSpec.forSubjectLessTest("a") { toBeGreaterThan(1) }
         ),
         SubjectLessTestData<Map<out String?, Int?>>(
-            toContainKeyNullable.forSubjectLessTest(null).unchecked1(),
-            notToContainKeyNullable.forSubjectLessTest(null).unchecked1(),
-            getExistingNullableFeature.forSubjectLessTest("a"),
-            getExistingNullable.forSubjectLessTest("a") { toEqual(null) },
+            toContainKeyNullableSpec.forSubjectLessTest(null).unchecked1(),
+            notToContainKeyNullableSpec.forSubjectLessTest(null).unchecked1(),
+            getExistingNullableFeatureSpec.forSubjectLessTest("a"),
+            getExistingNullableSpec.forSubjectLessTest("a") { toEqual(null) },
             groupPrefix = "[nullable Key]"
         )
     )
@@ -67,23 +67,23 @@ abstract class AbstractMapExpectationsTest(
     fun expectationCreatorTest() = expectationCreatorTestFactory(
         ExpectationCreatorTestData(
             map,
-            keys.forExpectationCreatorTest("$toEqualDescr: a") { toContainExactly({ toEqual("a") }, { toEqual("b") }) },
-            values.forExpectationCreatorTest("$toEqualDescr: 1") { toContainExactly({ toEqual(1) }, { toEqual(2) }) },
-            getExisting.forExpectationCreatorTest("$toEqualDescr: 2", "b") { toEqual(2) }
+            keysSpec.forExpectationCreatorTest("$toEqualDescr: a") { toContainExactly({ toEqual("a") }, { toEqual("b") }) },
+            valuesSpec.forExpectationCreatorTest("$toEqualDescr: 1") { toContainExactly({ toEqual(1) }, { toEqual(2) }) },
+            getExistingSpec.forExpectationCreatorTest("$toEqualDescr: 2", "b") { toEqual(2) }
         ),
         ExpectationCreatorTestData<Map<out String?, Int?>>(
             mapOf("a" to 1, "b" to null),
-            getExistingNullable.forExpectationCreatorTest("$toEqualDescr: 2", "b") { toEqual(null) },
+            getExistingNullableSpec.forExpectationCreatorTest("$toEqualDescr: 2", "b") { toEqual(null) },
             groupPrefix = "[nullable]"
         )
     )
 
     @TestFactory
     fun toContainKey_and_notToContainKey() = testFactory(
-        toContainKey, toContainKeyNullable, notToContainKey, notToContainKeyNullable
+        toContainKeySpec, toContainKeyNullableSpec, notToContainKeySpec, notToContainKeyNullableSpec
     ) {
-        val toContainKeyFunctions = uncheckedToNonNullable(toContainKey, toContainKeyNullable)
-        val notToContainKeyFunctions = uncheckedToNonNullable(notToContainKey, notToContainKeyNullable)
+        val toContainKeyFunctions = uncheckedToNonNullable(toContainKeySpec, toContainKeyNullableSpec)
+        val notToContainKeyFunctions = uncheckedToNonNullable(notToContainKeySpec, notToContainKeyNullableSpec)
 
         val fluent2 = expect(map as Map<out String, *>)
 
@@ -120,15 +120,15 @@ abstract class AbstractMapExpectationsTest(
 
     @TestFactory
     fun toContainKeyNullable_and_notToContainKeyNullable() = testFactory(
-        toContainKeyNullable, notToContainKeyNullable
+        toContainKeyNullableSpec, notToContainKeyNullableSpec
     ) { toContainNullableKeyFun, notToContainNullableKeyFun ->
         val map2: Map<out String?, *> = mapOf("a" to 1, null to 2)
         describe("$map2") {
-            it("${toContainKeyNullable.name} - does not throw if the map toContain the key") {
+            it("${toContainKeyNullableSpec.name} - does not throw if the map toContain the key") {
                 expect(map2).toContainNullableKeyFun(null)
             }
 
-            it("${notToContainKeyNullable.name} - throws an AssertionError if the map toContain the key") {
+            it("${notToContainKeyNullableSpec.name} - throws an AssertionError if the map toContain the key") {
                 expect {
                     expect(map2).notToContainNullableKeyFun(null)
                 }.toThrow<AssertionError> { messageToContain("$notToContainKeyDescr: null") }
@@ -137,46 +137,46 @@ abstract class AbstractMapExpectationsTest(
 
         val map3: Map<out String?, *> = mapOf("a" to 1, "b" to 2)
         describe("$map3") {
-            it("${toContainKeyNullable.name} - throws an AssertionError if the map does not contain the key") {
+            it("${toContainKeyNullableSpec.name} - throws an AssertionError if the map does not contain the key") {
                 expect {
                     expect(map3).toContainNullableKeyFun(null)
                 }.toThrow<AssertionError> { messageToContain("$toContainKeyDescr: null") }
             }
 
-            it("${notToContainKeyNullable.name} - does not throw if the map does not contain the key") {
+            it("${notToContainKeyNullableSpec.name} - does not throw if the map does not contain the key") {
                 expect(map3).notToContainNullableKeyFun(null)
             }
         }
     }
 
     @TestFactory
-    fun toBeEmpty_notToBeEmpty() = testFactory(toBeEmpty, notToBeEmpty) { toBeEmptyFun, notToBeEmptyFun ->
+    fun toBeEmpty_notToBeEmpty() = testFactory(toBeEmptySpec, notToBeEmptySpec) { toBeEmptyFun, notToBeEmptyFun ->
         val map2: Map<*, *> = mapOf<String, Int>()
         describe("empty Map") {
-            it("${toBeEmpty.name} - does not throw") {
+            it("${toBeEmptySpec.name} - does not throw") {
                 expect(map2).toBeEmptyFun()
             }
 
-            it("${notToBeEmpty.name} - throws an AssertionError") {
+            it("${notToBeEmptySpec.name} - throws an AssertionError") {
                 expect {
                     expect(map2).notToBeEmptyFun()
                 }.toThrow<AssertionError> { messageToContain("$notToBeDescr: $empty") }
             }
         }
         describe("$map") {
-            it("${toBeEmpty.name} - throws an AssertionError") {
+            it("${toBeEmptySpec.name} - throws an AssertionError") {
                 expect {
                     expect(map as Map<*, *>).toBeEmptyFun()
                 }.toThrow<AssertionError> { messageToContain("$toBeDescr: $empty") }
             }
-            it("${notToBeEmpty.name} - does not throw") {
+            it("${notToBeEmptySpec.name} - does not throw") {
                 expect(map as Map<*, *>).notToBeEmptyFun()
             }
         }
     }
 
     @TestFactory
-    fun keys() = testFactoryForFeatureNonFeature(keysFeature, keys) { name, keysFun, _ ->
+    fun keys() = testFactoryForFeatureNonFeature(keysFeatureSpec, keysSpec) { name, keysFun, _ ->
         describe("map with two entries") {
             it("$name - toHaveSize(2) holds") {
                 expect(map).keysFun { toHaveSize(2) }
@@ -192,7 +192,7 @@ abstract class AbstractMapExpectationsTest(
     }
 
     @TestFactory
-    fun values() = testFactoryForFeatureNonFeature(valuesFeature, values) { name, valuesFun, _ ->
+    fun values() = testFactoryForFeatureNonFeature(valuesFeatureSpec, valuesSpec) { name, valuesFun, _ ->
         describe("map with two entries") {
             it("$name - toHaveSize(2) holds") {
                 expect(map).valuesFun { toHaveSize(2) }
@@ -208,7 +208,7 @@ abstract class AbstractMapExpectationsTest(
     }
 
     @TestFactory
-    fun getExisting() = testFactoryForFeatureNonFeature(getExistingFeature, getExisting) { name, getExistingFun, hasExtraHint ->
+    fun getExisting() = testFactoryForFeatureNonFeature(getExistingFeatureSpec, getExistingSpec) { name, getExistingFun, hasExtraHint ->
         describe("map $map") {
             it("$name - can perform sub-assertion on existing key") {
                 expect(map).getExistingFun("a") { toEqual(1) }
@@ -225,7 +225,7 @@ abstract class AbstractMapExpectationsTest(
     }
 
     @TestFactory
-    fun getExistingNullable() = testFactoryForFeatureNonFeature(getExistingNullableFeature, getExistingNullable) { name, getExistingFun, hasExtraHint ->
+    fun getExistingNullable() = testFactoryForFeatureNonFeature(getExistingNullableFeatureSpec, getExistingNullableSpec) { name, getExistingFun, hasExtraHint ->
         describe("map $nullableMap") {
             it("$name - can perform sub-assertion on existing key") {
                 expect(nullableMap).getExistingFun("a") { toEqual(null) }
