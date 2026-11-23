@@ -51,10 +51,12 @@ jobs:
           env_vars: JAVA_VERSION
 
       - name: Build samples against current
-        # the build writes the output of the readme-examples (which is platform specific) into README.md,
-        # build-samples-against-head.sh requires a clean working tree though
+        # the build writes the output of the readme-examples (which is platform specific) into README.md and
+        # uploading the coverage leaves the codecov cli behind -- build-samples-against-head.sh requires a
+        # clean working tree (neither modifications nor untracked files) though
         run: |
           git checkout -- .
+          git clean -fd
           ./scripts/build-samples-against-head.sh
         shell: bash
 
