@@ -6,6 +6,7 @@ import ch.tutteli.atrium.specs.notImplemented
 import ch.tutteli.atrium.specs.property
 import java.time.DayOfWeek
 import java.time.LocalDateTime
+import kotlin.test.Test
 
 class LocalDateTimeExpectationsTest : ch.tutteli.atrium.specs.integration.AbstractLocalDateTimeExpectationsTest(
     property<LocalDateTime, Int>(Expect<LocalDateTime>::year),
@@ -18,7 +19,8 @@ class LocalDateTimeExpectationsTest : ch.tutteli.atrium.specs.integration.Abstra
     fun1<LocalDateTime, Expect<DayOfWeek>.() -> Unit>(Expect<LocalDateTime>::dayOfWeek)
 ) {
     @Suppress("unused", "UNUSED_VALUE")
-    private fun ambiguityTest() {
+    @Test
+    fun ambiguityTest() {
         var a1: Expect<LocalDateTime> = notImplemented()
 
         a1.year
