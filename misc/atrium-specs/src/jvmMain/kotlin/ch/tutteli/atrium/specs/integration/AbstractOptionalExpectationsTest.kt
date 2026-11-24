@@ -6,39 +6,50 @@ import ch.tutteli.atrium.api.fluent.en_GB.toThrow
 import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
+import ch.tutteli.atrium.specs.integration.utils.ExpectationCreatorTestData
+import ch.tutteli.atrium.specs.integration.utils.SubjectLessTestData
+import ch.tutteli.atrium.testfactories.TestFactory
 import ch.tutteli.atrium.translations.DescriptionOptionalAssertion
-import org.spekframework.spek2.Spek
-import org.spekframework.spek2.style.specification.Suite
 import java.util.*
 
-abstract class OptionalExpectationsSpec(
-    toBeEmpty: Fun0<Optional<Int>>,
-    toBePresentFeature: Feature0<Optional<Int>, Int>,
-    toBePresent: Fun1<Optional<Int>, Expect<Int>.() -> Unit>,
-    describePrefix: String = "[Atrium] "
-) : Spek({
+@Suppress("FunctionName")
+abstract class AbstractOptionalExpectationsTest(
+    private val toBeEmptySpec: Fun0<Optional<Int>>,
+    private val toBePresentFeatureSpec: Feature0<Optional<Int>, Int>,
+    private val toBePresentSpec: Fun1<Optional<Int>, Expect<Int>.() -> Unit>,
+) : ExpectationFunctionBaseTest() {
 
-    include(object : SubjectLessSpec<Optional<Int>>(
-        "$describePrefix[Path] ",
-        toBeEmpty.forSubjectLessTest(),
-        toBePresentFeature.forSubjectLessTest(),
-        toBePresent.forSubjectLessTest { toEqual(1) }
-    ) {})
-    include(object : AssertionCreatorSpec<Optional<Int>>(
-        describePrefix, Optional.of(2),
-        toBePresent.forExpectationCreatorTest("$toEqualDescr: 2") { toEqual(2) }
-    ) {})
+    private val emptyValue: Optional<Int> = Optional.empty()
+    private val presentValue: Optional<Int> = Optional.of(2)
 
-    fun describeFun(vararg pairs: SpecPair<*>, body: Suite.() -> Unit) =
-        describeFunTemplate(describePrefix, pairs.map { it.name }.toTypedArray(), body = body)
+    @TestFactory
+    fun subjectLessTest() = subjectLessTestFactory(
+        SubjectLessTestData(
+            toBeEmptySpec.forSubjectLessTest(),
+            toBePresentFeatureSpec.forSubjectLessTest(),
+            toBePresentSpec.forSubjectLessTest { toEqual(1) }
+        )
+    )
 
-    describeFun(toBeEmpty, toBePresentFeature, toBePresent) {
-        val toBeEmptyFun = toBeEmpty.lambda
-        val toBePresentFunctions = unifySignatures(toBePresentFeature, toBePresent)
+    @TestFactory
+    fun expectationCreatorTest() = expectationCreatorTestFactory(
+        ExpectationCreatorTestData(
+            Optional.of(2),
+            toBePresentSpec.forExpectationCreatorTest("$toEqualDescr: 2") { toEqual(2) }
+        )
+    )
 
-        val emptyValue = Optional.empty<Int>()
-        context("$emptyValue") {
-            it("${toBeEmpty.name} - does not throw") {
+    @TestFactory
+    fun toBeEmpty_and_toBePresent() = testFactory(
+        toBeEmptySpec,
+        toBePresentFeatureSpec,
+        toBePresentSpec
+    ) {
+        val toBeEmptyFun = toBeEmptySpec.lambda
+        val toBePresentFunctions = unifySignatures(toBePresentFeatureSpec, toBePresentSpec)
+
+        describe("subject is $emptyValue") {
+            it("${toBeEmptySpec.name} - does not throw") {
                 expect(emptyValue).toBeEmptyFun()
             }
             toBePresentFunctions.forEach { (name, toBePresentFun, hasExtraHint) ->
@@ -53,9 +64,8 @@ abstract class OptionalExpectationsSpec(
             }
         }
 
-        val presentValue: Optional<Int> = Optional.of(2)
-        context("$presentValue") {
-            it("${toBeEmpty.name} - throws an AssertionError") {
+        describe("subject is $presentValue") {
+            it("${toBeEmptySpec.name} - throws an AssertionError") {
                 expect {
                     expect(presentValue).toBeEmptyFun()
                 }.toThrow<AssertionError> {
@@ -70,4 +80,4 @@ abstract class OptionalExpectationsSpec(
             }
         }
     }
-})
+}
