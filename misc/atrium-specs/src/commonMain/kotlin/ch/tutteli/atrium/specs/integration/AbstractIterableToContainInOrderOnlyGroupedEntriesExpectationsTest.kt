@@ -18,6 +18,7 @@ import ch.tutteli.atrium.specs.integration.IterableToContainSpecBase.Companion.e
 import ch.tutteli.atrium.specs.integration.IterableToContainSpecBase.Companion.emptyInOrderOnlyReportOptions
 import ch.tutteli.atrium.specs.integration.IterableToContainSpecBase.Companion.emptyIterable
 import ch.tutteli.atrium.specs.integration.IterableToContainSpecBase.Companion.elementWithIndex
+import ch.tutteli.atrium.specs.integration.IterableToContainSpecBase.Companion.index
 import ch.tutteli.atrium.specs.integration.IterableToContainSpecBase.Companion.mismatches
 import ch.tutteli.atrium.specs.integration.IterableToContainSpecBase.Companion.oneToEleven
 import ch.tutteli.atrium.specs.integration.IterableToContainSpecBase.Companion.oneToFour
@@ -141,7 +142,7 @@ abstract class AbstractIterableToContainInOrderOnlyGroupedEntriesExpectationsTes
                         this,
                         context({ toEqual(1.2) }),
                         context({ toEqual(2.1) }),
-                        arrayOf(context({})),
+                        arrayOf(context({ toEqual(3.1) })),
                         emptyInOrderOnlyReportOptions,
                         emptyInAnyOrderOnlyReportOptions
                     )
@@ -262,7 +263,7 @@ abstract class AbstractIterableToContainInOrderOnlyGroupedEntriesExpectationsTes
 
 
     fun Expect<String>.notToContainIndex(from: Int, to: Int) =
-        notToContain.regex("\\Q${DescriptionIterableLikeExpectation.INDEX.getDefault().format("$from..$to")}\\E")
+        notToContain(DescriptionIterableLikeExpectation.INDEX.getDefault().format("$from..$to"))
 
     val additionalElementsFail = "$indentRootBulletPoint$indentFailingBulletPoint"
 
@@ -294,9 +295,9 @@ abstract class AbstractIterableToContainInOrderOnlyGroupedEntriesExpectationsTes
         element(afterSuccess, failingBulletPoint, indentFailingBulletPoint, expected)
 
 
-    fun Expect<String>.indexSuccess(index: Int, actual: Any, expected: String): Expect<String> {
+    fun Expect<String>.indexSuccess(elementIndex: Int, actual: Any, expected: String): Expect<String> {
         return this.toContain.exactly(1).regex(
-            "\\Q$successfulBulletPoint$featureArrow${IterableToContainSpecBase.index(index)}: $actual\\E.*$separator" +
+            "\\Q$successfulBulletPoint$featureArrow${index(elementIndex)}: $actual\\E.*$separator" +
                 "$indentRootBulletPoint$indentSuccessfulBulletPoint$indentFeatureArrow$featureBulletPoint$expected"
         )
     }
@@ -309,7 +310,7 @@ abstract class AbstractIterableToContainInOrderOnlyGroupedEntriesExpectationsTes
         vararg expected: String
     ): Expect<String> {
         return this.toContain.exactly(1).regex(
-            "\\Q$successfulBulletPoint$featureArrow${IterableToContainSpecBase.index(fromIndex, toIndex)}: $actual\\E.*$separator" +
+            "\\Q$successfulBulletPoint$featureArrow${index(fromIndex, toIndex)}: $actual\\E.*$separator" +
                 "$sizeCheck.*$separator" +
                 "$indentRootBulletPoint$indentFailingBulletPoint$indentFeatureArrow$featureBulletPoint$toContainInAnyOrderOnly: $separator" +
                 expected.joinToString(".*$separator")
@@ -318,13 +319,13 @@ abstract class AbstractIterableToContainInOrderOnlyGroupedEntriesExpectationsTes
     }
 
     fun Expect<String>.indexFail(
-        index: Int,
+        elementIndex: Int,
         actual: Any,
         expected: String,
         withBulletPoint: Boolean = true
     ): Expect<String> {
         return this.toContain.exactly(1).regex(
-            "\\Q${if (withBulletPoint) failingBulletPoint else ""}$featureArrow${IterableToContainSpecBase.index(index)}: $actual\\E.*$separator" +
+            "\\Q${if (withBulletPoint) failingBulletPoint else ""}$featureArrow${index(elementIndex)}: $actual\\E.*$separator" +
                 "$indentRootBulletPoint$indentFailingBulletPoint$indentFeatureArrow$featureBulletPoint$expected"
         )
     }
@@ -339,7 +340,7 @@ abstract class AbstractIterableToContainInOrderOnlyGroupedEntriesExpectationsTes
     ): Expect<String> {
         return this.toContain.exactly(1).regex(
             "\\Q${if (withBulletPoint) failingBulletPoint else ""}$featureArrow${
-                IterableToContainSpecBase.index(fromIndex, toIndex)
+                index(fromIndex, toIndex)
             }: $actual\\E.*$separator" +
                 (sizeCheck?.let { "$sizeCheck.*$separator" } ?: "") +
                 "$indentRootBulletPoint${if (withBulletPoint) indentFailingBulletPoint else indentListBulletPoint}$indentFeatureArrow$featureBulletPoint$toContainInAnyOrderOnly: $separator" +
@@ -347,9 +348,9 @@ abstract class AbstractIterableToContainInOrderOnlyGroupedEntriesExpectationsTes
         )
     }
 
-    fun Expect<String>.indexNonExisting(index: Int, expected: String, withBulletPoint: Boolean = true): Expect<String> {
+    fun Expect<String>.indexNonExisting(elementIndex: Int, expected: String, withBulletPoint: Boolean = true): Expect<String> {
         return this.toContain.exactly(1).regex(
-            "\\Q${if (withBulletPoint) failingBulletPoint else ""}$featureArrow${IterableToContainSpecBase.index(index)}: $sizeExceeded\\E.*$separator" +
+            "\\Q${if (withBulletPoint) failingBulletPoint else ""}$featureArrow${index(elementIndex)}: $sizeExceeded\\E.*$separator" +
                 "$afterFail$explanatoryBulletPoint$expected"
         )
     }
@@ -362,7 +363,7 @@ abstract class AbstractIterableToContainInOrderOnlyGroupedEntriesExpectationsTes
     ): Expect<String> {
         return this.toContain.exactly(1).regex(
             "\\Q${if (withBulletPoint) failingBulletPoint else ""}$featureArrow${
-                IterableToContainSpecBase.index(fromIndex, toIndex)
+                index(fromIndex, toIndex)
             }: $sizeExceeded\\E.*$separator" +
                 "$afterFail$sizeCheck.*$separator" +
                 "$indentRootBulletPoint${if (withBulletPoint) indentFailingBulletPoint else indentListBulletPoint}$indentFeatureArrow$indentFeatureBulletPoint$explanatoryBulletPoint$toContainInAnyOrderOnly: $separator" +
@@ -373,7 +374,7 @@ abstract class AbstractIterableToContainInOrderOnlyGroupedEntriesExpectationsTes
 
 
     @TestFactory
-    fun nonNullableCases() = testFactoryNonNullable(
+    fun illegalState_due_to_empty_group() = testFactoryNonNullable(
         toContainInOrderOnlyGroupedEntriesSpec,
         toContainInOrderOnlyGroupedEntriesNullableSpec
     ) { toContainInOrderOnlyGroupedEntriesFunArr ->
@@ -420,6 +421,20 @@ abstract class AbstractIterableToContainInOrderOnlyGroupedEntriesExpectationsTes
                 )
             }.toThrow<IllegalArgumentException> { messageToContain("a group of values cannot be empty") }
         }
+    }
+
+    @TestFactory
+    fun assertionError_due_to_empty_iterable() = testFactoryNonNullable(
+        toContainInOrderOnlyGroupedEntriesSpec,
+        toContainInOrderOnlyGroupedEntriesNullableSpec
+    ) { toContainInOrderOnlyGroupedEntriesFunArr ->
+        fun Expect<Iterable<Double>>.toContainInOrderOnlyGroupedEntriesFun(
+            t1: Group<(Expect<Double>.() -> Unit)?>,
+            t2: Group<(Expect<Double>.() -> Unit)?>,
+            vararg tX: Group<(Expect<Double>.() -> Unit)?>,
+            report: InOrderOnlyReportingOptions.() -> Unit = emptyInOrderOnlyReportOptions,
+            reportInGroup: InAnyOrderOnlyReportingOptions.() -> Unit = emptyInAnyOrderOnlyReportOptions
+        ) = toContainInOrderOnlyGroupedEntriesFunArr(t1, t2, tX, report, reportInGroup)
 
         it("(1.1), (1.2) throws AssertionError") {
             expect {
@@ -437,7 +452,20 @@ abstract class AbstractIterableToContainInOrderOnlyGroupedEntriesExpectationsTes
                 }
             }
         }
+    }
 
+    @TestFactory
+    fun one_to_four() = testFactoryNonNullable(
+    toContainInOrderOnlyGroupedEntriesSpec,
+    toContainInOrderOnlyGroupedEntriesNullableSpec
+    ) { toContainInOrderOnlyGroupedEntriesFunArr ->
+        fun Expect<Iterable<Double>>.toContainInOrderOnlyGroupedEntriesFun(
+            t1: Group<(Expect<Double>.() -> Unit)?>,
+            t2: Group<(Expect<Double>.() -> Unit)?>,
+            vararg tX: Group<(Expect<Double>.() -> Unit)?>,
+            report: InOrderOnlyReportingOptions.() -> Unit = emptyInOrderOnlyReportOptions,
+            reportInGroup: InAnyOrderOnlyReportingOptions.() -> Unit = emptyInAnyOrderOnlyReportOptions
+        ) = toContainInOrderOnlyGroupedEntriesFunArr(t1, t2, tX, report, reportInGroup)
 
         it("(1.1), (2.1, 3.1), (4.1, 4.1)") {
             expect(oneToFour()).toContainInOrderOnlyGroupedEntriesFun(
@@ -626,6 +654,38 @@ abstract class AbstractIterableToContainInOrderOnlyGroupedEntriesExpectationsTes
                 }
             }
         }
+
+    }
+
+    @TestFactory
+    fun report_options() = testFactoryNonNullable(
+            toContainInOrderOnlyGroupedEntriesSpec,
+            toContainInOrderOnlyGroupedEntriesNullableSpec
+        ) { toContainInOrderOnlyGroupedEntriesFunArr ->
+            fun Expect<Iterable<Double>>.toContainInOrderOnlyGroupedEntriesFun(
+                t1: Group<(Expect<Double>.() -> Unit)?>,
+                t2: Group<(Expect<Double>.() -> Unit)?>,
+                vararg tX: Group<(Expect<Double>.() -> Unit)?>,
+                report: InOrderOnlyReportingOptions.() -> Unit = emptyInOrderOnlyReportOptions,
+                reportInGroup: InAnyOrderOnlyReportingOptions.() -> Unit = emptyInAnyOrderOnlyReportOptions
+            ) = toContainInOrderOnlyGroupedEntriesFunArr(t1, t2, tX, report, reportInGroup)
+
+            it("(1.1), (1.2) throws AssertionError") {
+                expect {
+                    expect(emptyIterable()).toContainInOrderOnlyGroupedEntriesFun(
+                        context({ toEqual(1.1) }),
+                        context({ toEqual(1.2) })
+                    )
+                }.toThrow<AssertionError> {
+                    message {
+                        toContain.exactly(1).value("$rootBulletPoint$toContainInOrderOnlyGrouped:")
+                        indexNonExisting(0, "$toEqualDescr: 1.1")
+                        indexNonExisting(1, "$toEqualDescr: 1.2")
+                        notToContain(additionalElements)
+                        toContainSize(0, 2)
+                    }
+                }
+            }
 
         it("shows only failing indices with report option `showOnlyFailing` but still default behaviour per group (i.e. only failing if more than 10") {
             expect {

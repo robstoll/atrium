@@ -97,97 +97,128 @@ class IterableToContainInOrderOnlyGroupedEntriesExpectationsTest :
     @Suppress("AssignedValueIsNeverRead", "UNUSED_VARIABLE", "UNUSED_VALUE")
     @Test
     fun ambiguityTest() {
-        // This test guards overload resolution at compile time. Some combinations (e.g. duplicate
-        // null entries on a Set subject) cannot be satisfied at runtime, so keep the expressions
-        // in a lambda that is deliberately not invoked.
-        val compileOnly: () -> Unit = {
-            var list: Expect<List<Number>> = expect(listOf(1))
-            var nList: Expect<Set<Number?>> = expect(setOf(1))
-            var subList: Expect<ArrayList<Number>> = expect(arrayListOf(1))
-            var star: Expect<Collection<*>> = expect(listOf(1))
+        var list: Expect<List<Number>> = expect(listOf<Number>(1.0, 2.0, 3.0))
+        var nList: Expect<Set<Number?>> = expect(linkedSetOf<Number?>(1.0, 2.0, 3.0))
+        var subList: Expect<ArrayList<Number>> = expect(arrayListOf<Number>(1.0, 2.0, 3.0))
+        var star: Expect<Collection<*>> = expect<Collection<*>>(listOf<Any?>(1.0, 2.0, 3.0))
 
-            list = list.toContain.inOrder.only.grouped.within.inAnyOrder(Entry {}, Entries({}, {}))
-            nList = nList.toContain.inOrder.only.grouped.within.inAnyOrder(Entry {}, Entries({}, {}))
-            subList = subList.toContain.inOrder.only.grouped.within.inAnyOrder(Entry {}, Entries({}, {}))
-            // TODO type parameter should not be necessary: https://youtrack.jetbrains.com/issue/KT-60976/overload-ambiguity-mismatch-in-case-of-covariance-and-only-in-conjunction-with-Any
-            star = star.toContain.inOrder.only.grouped.within.inAnyOrder<Any, Collection<Any?>>(Entry {}, Entry {})
+        // Default reporting options
+        list = list.toContain.inOrder.only.grouped.within.inAnyOrder(
+            Entry { toEqual(1.0) }, Entries({ toEqual(2.0) }, { toEqual(3.0) })
+        )
+        nList = nList.toContain.inOrder.only.grouped.within.inAnyOrder(
+            Entry { toEqual(1.0) }, Entries({ toEqual(2.0) }, { toEqual(3.0) })
+        )
+        subList = subList.toContain.inOrder.only.grouped.within.inAnyOrder(
+            Entry { toEqual(1.0) }, Entries({ toEqual(2.0) }, { toEqual(3.0) })
+        )
+        // TODO type parameter should not be necessary: https://youtrack.jetbrains.com/issue/KT-60976/overload-ambiguity-mismatch-in-case-of-covariance-and-only-in-conjunction-with-Any
+        star = star.toContain.inOrder.only.grouped.within.inAnyOrder<Any, Collection<Any?>>(
+            Entry { toEqual(1.0) }, Entries({ toEqual(2.0) }, { toEqual(3.0) })
+        )
 
-            list = list.toContain.inOrder.only.grouped.within.inAnyOrder(Entry {}, Entries({}, {}), report = {})
-            nList = nList.toContain.inOrder.only.grouped.within.inAnyOrder(Entry {}, Entries({}, {}), report = {})
-            subList = subList.toContain.inOrder.only.grouped.within.inAnyOrder(Entry {}, Entries({}, {}), report = {})
-            // TODO type parameter should not be necessary: https://youtrack.jetbrains.com/issue/KT-60976/overload-ambiguity-mismatch-in-case-of-covariance-and-only-in-conjunction-with-Any
-            star = star.toContain.inOrder.only.grouped.within.inAnyOrder<Any, Collection<Any?>>(Entry {},
-                Entries({}, {}),
-                report = {})
+        // InOrder reporting options
+        list = list.toContain.inOrder.only.grouped.within.inAnyOrder(
+            Entry { toEqual(1.0) }, Entries({ toEqual(2.0) }, { toEqual(3.0) }), report = {}
+        )
+        nList = nList.toContain.inOrder.only.grouped.within.inAnyOrder(
+            Entry { toEqual(1.0) }, Entries({ toEqual(2.0) }, { toEqual(3.0) }), report = {}
+        )
+        subList = subList.toContain.inOrder.only.grouped.within.inAnyOrder(
+            Entry { toEqual(1.0) }, Entries({ toEqual(2.0) }, { toEqual(3.0) }), report = {}
+        )
+        // TODO type parameter should not be necessary: https://youtrack.jetbrains.com/issue/KT-60976/overload-ambiguity-mismatch-in-case-of-covariance-and-only-in-conjunction-with-Any
+        star = star.toContain.inOrder.only.grouped.within.inAnyOrder<Any, Collection<Any?>>(
+            Entry { toEqual(1.0) }, Entries({ toEqual(2.0) }, { toEqual(3.0) }), report = {}
+        )
 
-            list = list.toContain.inOrder.only.grouped.within.inAnyOrder(Entry {}, Entries({}, {}), reportInGroup = {})
-            nList = nList.toContain.inOrder.only.grouped.within.inAnyOrder(Entry {}, Entries({}, {}), reportInGroup = {})
-            subList = subList.toContain.inOrder.only.grouped.within.inAnyOrder(
-                Entry {}, Entries({}, {}), reportInGroup = {})
-            // TODO type parameter should not be necessary: https://youtrack.jetbrains.com/issue/KT-60976/overload-ambiguity-mismatch-in-case-of-covariance-and-only-in-conjunction-with-Any
-            star = star.toContain.inOrder.only.grouped.within.inAnyOrder<Any, Collection<Any?>>(
-                Entry(null), Entries(null, {}), reportInGroup = {})
+        // InAnyOrder reporting options
+        list = list.toContain.inOrder.only.grouped.within.inAnyOrder(
+            Entry { toEqual(1.0) }, Entries({ toEqual(2.0) }, { toEqual(3.0) }), reportInGroup = {}
+        )
+        nList = nList.toContain.inOrder.only.grouped.within.inAnyOrder(
+            Entry { toEqual(1.0) }, Entries({ toEqual(2.0) }, { toEqual(3.0) }), reportInGroup = {}
+        )
+        subList = subList.toContain.inOrder.only.grouped.within.inAnyOrder(
+            Entry { toEqual(1.0) }, Entries({ toEqual(2.0) }, { toEqual(3.0) }), reportInGroup = {}
+        )
+        // TODO type parameter should not be necessary: https://youtrack.jetbrains.com/issue/KT-60976/overload-ambiguity-mismatch-in-case-of-covariance-and-only-in-conjunction-with-Any
+        star = star.toContain.inOrder.only.grouped.within.inAnyOrder<Any, Collection<Any?>>(
+            Entry { toEqual(1.0) }, Entries({ toEqual(2.0) }, { toEqual(3.0) }), reportInGroup = {}
+        )
 
-            list = list.toContain.inOrder.only.grouped.within.inAnyOrder(
-                Entry {},
-                Entries({}, {}),
-                report = {},
-                reportInGroup = {}
-            )
-            nList = nList.toContain.inOrder.only.grouped.within.inAnyOrder(
-                Entry {},
-                Entries({}, {}),
-                report = {},
-                reportInGroup = {}
-            )
-            subList = subList.toContain.inOrder.only.grouped.within.inAnyOrder(
-                Entry {},
-                Entries({}, {}),
-                report = {},
-                reportInGroup = {}
-            )
-            // TODO type parameter should not be necessary: https://youtrack.jetbrains.com/issue/KT-60976/overload-ambiguity-mismatch-in-case-of-covariance-and-only-in-conjunction-with-Any
-            star = star.toContain.inOrder.only.grouped.within.inAnyOrder<Any, Collection<*>>(
-                Entry {},
-                Entries({}, {}),
-                report = {},
-                reportInGroup = {}
-            )
+        // Both reporting options
+        list = list.toContain.inOrder.only.grouped.within.inAnyOrder(
+            Entry { toEqual(1.0) },
+            Entries({ toEqual(2.0) }, { toEqual(3.0) }),
+            report = {},
+            reportInGroup = {}
+        )
+        nList = nList.toContain.inOrder.only.grouped.within.inAnyOrder(
+            Entry { toEqual(1.0) },
+            Entries({ toEqual(2.0) }, { toEqual(3.0) }),
+            report = {},
+            reportInGroup = {}
+        )
+        subList = subList.toContain.inOrder.only.grouped.within.inAnyOrder(
+            Entry { toEqual(1.0) },
+            Entries({ toEqual(2.0) }, { toEqual(3.0) }),
+            report = {},
+            reportInGroup = {}
+        )
+        // TODO type parameter should not be necessary: https://youtrack.jetbrains.com/issue/KT-60976/overload-ambiguity-mismatch-in-case-of-covariance-and-only-in-conjunction-with-Any
+        star = star.toContain.inOrder.only.grouped.within.inAnyOrder<Any, Collection<*>>(
+            Entry { toEqual(1.0) },
+            Entries({ toEqual(2.0) }, { toEqual(3.0) }),
+            report = {},
+            reportInGroup = {}
+        )
 
-            nList = nList.toContain.inOrder.only.grouped.within.inAnyOrder(Entry(null), Entries({}, null))
-            // TODO type parameter should not be necessary: https://youtrack.jetbrains.com/issue/KT-60976/overload-ambiguity-mismatch-in-case-of-covariance-and-only-in-conjunction-with-Any
-            star = star.toContain.inOrder.only.grouped.within.inAnyOrder(Entry<Number>(null), Entries<Number>(null, {}))
+        // A Set can contain only one null. Use distinct non-null values in the second group.
+        var nListWithNull: Expect<Set<Number?>> = expect(linkedSetOf<Number?>(null, 1.0, 2.0))
+        // Use a List behind the star-projected type so this case can contain two null values.
+        var starNullable: Expect<Collection<*>> = expect<Collection<*>>(listOf<Any?>(null, null, 1.0))
 
-            nList = nList.toContain.inOrder.only.grouped.within.inAnyOrder(Entry(null), Entries({}, null), report = {})
-            // TODO type parameter should not be necessary: https://youtrack.jetbrains.com/issue/KT-60976/overload-ambiguity-mismatch-in-case-of-covariance-and-only-in-conjunction-with-Any
-            star = star.toContain.inOrder.only.grouped.within.inAnyOrder(
-                Entry<Number>(null),
-                Entries<Number>(null, {}),
-                report = {})
+        // Nullable overloads with default reporting options
+        nListWithNull = nListWithNull.toContain.inOrder.only.grouped.within.inAnyOrder(
+            Entry(null), Entries({ toEqual(1.0) }, { toEqual(2.0) })
+        )
+        // TODO type parameter should not be necessary: https://youtrack.jetbrains.com/issue/KT-60976/overload-ambiguity-mismatch-in-case-of-covariance-and-only-in-conjunction-with-Any
+        starNullable = starNullable.toContain.inOrder.only.grouped.within.inAnyOrder<Any, Collection<Any?>>(
+            Entry<Any>(null), Entries<Any>(null, { toEqual(1.0) })
+        )
 
-            nList = nList.toContain.inOrder.only.grouped.within.inAnyOrder(
-                Entry(null),
-                Entries({}, null),
-                reportInGroup = {}
-            )
-            // TODO type parameter should not be necessary: https://youtrack.jetbrains.com/issue/KT-60976/overload-ambiguity-mismatch-in-case-of-covariance-and-only-in-conjunction-with-Any
-            star = star.toContain.inOrder.only.grouped.within.inAnyOrder<Any, Collection<Any?>>(
-                Entry(null),
-                Entries(null, {}),
-                reportInGroup = {})
+        // Nullable overloads with InOrder reporting options
+        nListWithNull = nListWithNull.toContain.inOrder.only.grouped.within.inAnyOrder(
+            Entry(null), Entries({ toEqual(1.0) }, { toEqual(2.0) }), report = {}
+        )
+        // TODO type parameter should not be necessary: https://youtrack.jetbrains.com/issue/KT-60976/overload-ambiguity-mismatch-in-case-of-covariance-and-only-in-conjunction-with-Any
+        starNullable = starNullable.toContain.inOrder.only.grouped.within.inAnyOrder<Any, Collection<Any?>>(
+            Entry<Any>(null), Entries<Any>(null, { toEqual(1.0) }), report = {}
+        )
 
-            nList = nList.toContain.inOrder.only.grouped.within.inAnyOrder(
-                Entry(null),
-                Entries({}, null),
-                report = {},
-                reportInGroup = {})
+        // Nullable overloads with InAnyOrder reporting options
+        nListWithNull = nListWithNull.toContain.inOrder.only.grouped.within.inAnyOrder(
+            Entry(null), Entries({ toEqual(1.0) }, { toEqual(2.0) }), reportInGroup = {}
+        )
+        // TODO type parameter should not be necessary: https://youtrack.jetbrains.com/issue/KT-60976/overload-ambiguity-mismatch-in-case-of-covariance-and-only-in-conjunction-with-Any
+        starNullable = starNullable.toContain.inOrder.only.grouped.within.inAnyOrder<Any, Collection<Any?>>(
+            Entry<Any>(null), Entries<Any>(null, { toEqual(1.0) }), reportInGroup = {}
+        )
 
-            // TODO type parameter should not be necessary: https://youtrack.jetbrains.com/issue/KT-60976/overload-ambiguity-mismatch-in-case-of-covariance-and-only-in-conjunction-with-Any
-            star = star.toContain.inOrder.only.grouped.within.inAnyOrder<Any, Collection<Any?>>(
-                Entry(null),
-                Entries(null, {}),
-                report = {},
-                reportInGroup = {})
-        }
+        // Nullable overloads with both reporting options
+        nListWithNull = nListWithNull.toContain.inOrder.only.grouped.within.inAnyOrder(
+            Entry(null),
+            Entries({ toEqual(1.0) }, { toEqual(2.0) }),
+            report = {},
+            reportInGroup = {}
+        )
+        // TODO type parameter should not be necessary: https://youtrack.jetbrains.com/issue/KT-60976/overload-ambiguity-mismatch-in-case-of-covariance-and-only-in-conjunction-with-Any
+        starNullable = starNullable.toContain.inOrder.only.grouped.within.inAnyOrder<Any, Collection<Any?>>(
+            Entry<Any>(null),
+            Entries<Any>(null, { toEqual(1.0) }),
+            report = {},
+            reportInGroup = {}
+        )
     }
 }
