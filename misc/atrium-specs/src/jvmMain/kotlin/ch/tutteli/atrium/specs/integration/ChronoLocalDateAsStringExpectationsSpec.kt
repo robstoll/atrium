@@ -3,16 +3,13 @@ package ch.tutteli.atrium.specs.integration
 import ch.tutteli.atrium.api.fluent.en_GB.messageToContain
 import ch.tutteli.atrium.api.fluent.en_GB.toThrow
 import ch.tutteli.atrium.api.verbs.internal.expect
-import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.Fun1
-import ch.tutteli.atrium.specs.fun1
 import ch.tutteli.atrium.specs.lambda
 import ch.tutteli.atrium.specs.name
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.describe
 import java.time.LocalDate
 import java.time.chrono.ChronoLocalDate
-import java.time.format.DateTimeFormatter
 import java.time.format.DateTimeParseException
 
 abstract class ChronoLocalDateAsStringExpectationsSpec(
@@ -21,47 +18,8 @@ abstract class ChronoLocalDateAsStringExpectationsSpec(
     toBeAfter: Fun1<ChronoLocalDate, String>,
     toBeAfterOrTheSamePointInTimeAs: Fun1<ChronoLocalDate, String>,
     toBeTheSamePointInTimeAs: Fun1<ChronoLocalDate, String>,
-    describePrefix: String = "[Atrium] "
+    @Suppress("UNUSED_PARAMETER") describePrefix: String = "[Atrium] "
 ) : Spek({
-
-    fun toBeBefore(
-        expect: Expect<ChronoLocalDate>,
-        expected: ChronoLocalDate
-    ): Expect<ChronoLocalDate> =
-        expect.(toBeBefore.lambda)(expected.format(DateTimeFormatter.ISO_LOCAL_DATE))
-
-    fun toBeBeforeOrTheSamePointInTimeAs(
-        expect: Expect<ChronoLocalDate>,
-        expected: ChronoLocalDate
-    ): Expect<ChronoLocalDate> =
-        expect.(toBeBeforeOrTheSamePointInTimeAs.lambda)(expected.format(DateTimeFormatter.ISO_LOCAL_DATE))
-
-    fun toBeAfter(
-        expect: Expect<ChronoLocalDate>,
-        expected: ChronoLocalDate
-    ): Expect<ChronoLocalDate> =
-        expect.(toBeAfter.lambda)(expected.format(DateTimeFormatter.ISO_LOCAL_DATE))
-
-    fun toBeAfterOrTheSamePointInTimeAs(
-        expect: Expect<ChronoLocalDate>,
-        expected: ChronoLocalDate
-    ): Expect<ChronoLocalDate> =
-        expect.(toBeAfterOrTheSamePointInTimeAs.lambda)(expected.format(DateTimeFormatter.ISO_LOCAL_DATE))
-
-    fun toBeTheSamePointInTimeAs(
-        expect: Expect<ChronoLocalDate>,
-        expected: ChronoLocalDate
-    ): Expect<ChronoLocalDate> =
-        expect.(toBeTheSamePointInTimeAs.lambda)(expected.format(DateTimeFormatter.ISO_LOCAL_DATE))
-
-    include(object : ChronoLocalDateExpectationsSpec(
-        fun1(::toBeBefore),
-        fun1(::toBeBeforeOrTheSamePointInTimeAs),
-        fun1(::toBeAfter),
-        fun1(::toBeAfterOrTheSamePointInTimeAs),
-        fun1(::toBeTheSamePointInTimeAs),
-        describePrefix
-    ) {})
 
     val toBeBeforeFun = toBeBefore.lambda
     val toBeBeforeOrTheSamePointInTimeAsFun = toBeBeforeOrTheSamePointInTimeAs.lambda
