@@ -7,7 +7,6 @@ import ch.tutteli.atrium.specs.integration.AbstractChronoLocalDateExpectationsTe
 import java.time.LocalDate
 import java.time.chrono.ChronoLocalDate
 import java.time.chrono.JapaneseDate
-import java.time.format.DateTimeParseException
 import kotlin.test.Test
 
 class ChronoLocalDateExpectationsTest : AbstractChronoLocalDateExpectationsTest(
@@ -63,39 +62,5 @@ class ChronoLocalDateExpectationsTest : AbstractChronoLocalDateExpectationsTest(
         a2 = a2.toBeAfter("2019-12-22")
         a2 = a2.toBeAfterOrTheSamePointInTimeAs("2019-12-23")
         a2 = a2.toBeTheSamePointInTimeAs("2019-12-23")
-    }
-
-    /**
-     * Restores the "wrong format" cases of the previously Spek-based
-     * ChronoLocalDateAsStringExpectationsSpec, which stopped being executed when the
-     * include of the renamed spec was removed; full String coverage comes back with
-     * the migration of that spec (#2271).
-     */
-    @Test
-    fun stringArgumentInWrongFormatThrowsDateTimeParseException() {
-        val now = expect(LocalDate.now() as ChronoLocalDate)
-        listOf(
-            "20200903",
-            "2020-9-03",
-            "2020-09-3",
-            "20-09-3",
-            "2020-09-03T07:14"
-        ).forEach { value ->
-            expect {
-                now.toBeBefore(value)
-            }.toThrow<DateTimeParseException> { messageToContain("could not be parsed") }
-            expect {
-                now.toBeBeforeOrTheSamePointInTimeAs(value)
-            }.toThrow<DateTimeParseException> { messageToContain("could not be parsed") }
-            expect {
-                now.toBeAfter(value)
-            }.toThrow<DateTimeParseException> { messageToContain("could not be parsed") }
-            expect {
-                now.toBeAfterOrTheSamePointInTimeAs(value)
-            }.toThrow<DateTimeParseException> { messageToContain("could not be parsed") }
-            expect {
-                now.toBeTheSamePointInTimeAs(value)
-            }.toThrow<DateTimeParseException> { messageToContain("could not be parsed") }
-        }
     }
 }
