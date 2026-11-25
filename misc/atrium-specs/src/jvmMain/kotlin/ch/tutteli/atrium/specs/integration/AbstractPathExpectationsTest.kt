@@ -21,6 +21,17 @@ import java.nio.file.attribute.AclEntryType.ALLOW
 import java.nio.file.attribute.AclEntryType.DENY
 import java.nio.file.attribute.PosixFilePermission.*
 import java.util.regex.Pattern.quote
+import org.junit.jupiter.api.Assumptions.assumeFalse
+
+/**
+ * A test is skipped via `assumeFalse` in case [skip] is true, stating [reason] as reason why it is skipped.
+ * Replacement for Spek's Skip DSL: [No] means the test is executed, [Yes] skips the test for the given reason.
+ */
+private class Skip(val skip: Boolean, val reason: String)
+
+private val No = Skip(skip = false, reason = "")
+
+private fun Yes(reason: String) = Skip(skip = true, reason = reason)
 
 @Suppress("FunctionName")
 abstract class AbstractPathExpectationsTest(
@@ -61,30 +72,43 @@ abstract class AbstractPathExpectationsTest(
 
     private val tempFolder = SpecTempFolder()
 
-    private val supportsPosixPermissions = fileSystemSupportsPosixPermissions()
-    private val supportsAcls = fileSystemSupportsAcls()
+    // Linux & Mac
+    private val ifAclNotSupported =
+        if (fileSystemSupportsAcls()) No
+        else Yes("ACLs are not supported on this file system")
+
+    // Windows
+    private val ifPosixNotSupported =
+        if (fileSystemSupportsPosixPermissions()) No
+        else Yes("POSIX permissions are not supported on this file system")
+
+    // Windows with neither symlink nor admin privileges
+    private val ifSymlinksNotSupported =
+        if (fileSystemSupportsCreatingSymlinks()) No
+        else Yes("creating symbolic links is not supported on this file system")
+
     private val supportsSymlinks = fileSystemSupportsCreatingSymlinks()
 
     private fun TestFactoryBuilder<ExpectTestExecutableForTests>.itWithAndWithoutSymlink(
         description: String,
-        skip: Boolean = false,
+        skip: Skip = No,
         forceNoLink: Boolean = false,
         body: (MaybeLink) -> Unit
     ) {
+        val skipWithLink = if (skip == No) ifSymlinksNotSupported else skip
+
         it(description) {
-            if (!skip) {
-                val maybeLink = NoLink()
+            assumeFalse(skip.skip, skip.reason)
+            val maybeLink = NoLink()
+            body(maybeLink)
+            maybeLink.confirmCreateWasCalled()
+        }
+        if (forceNoLink.not()) {
+            it("via symbolic link: $description") {
+                assumeFalse(skipWithLink.skip, skipWithLink.reason)
+                val maybeLink = SimpleLink { tempFolder }
                 body(maybeLink)
                 maybeLink.confirmCreateWasCalled()
-            }
-        }
-        if (!forceNoLink) {
-            it("via symbolic link: $description") {
-                if (!skip && supportsSymlinks) {
-                    val maybeLink = SimpleLink { tempFolder }
-                    body(maybeLink)
-                    maybeLink.confirmCreateWasCalled()
-                }
             }
         }
     }
@@ -120,7 +144,9 @@ abstract class AbstractPathExpectationsTest(
         fileNameFeatureSpec.forSubjectLessTest().withFeatureSuffix(),
         fileNameSpec.forSubjectLessTest { },
         fileNameWithoutExtensionFeatureSpec.forSubjectLessTest().withFeatureSuffix(),
-        fileNameWithoutExtensionSpec.forSubjectLessTest { }
+        fileNameWithoutExtensionSpec.forSubjectLessTest { },
+        extensionFeatureSpec.forSubjectLessTest().withFeatureSuffix(),
+        extensionSpec.forSubjectLessTest { }
     )
 
     private val fileNameDescr = FILE_NAME.getDefault()
@@ -132,7 +158,7 @@ abstract class AbstractPathExpectationsTest(
     ) {
         itWithAndWithoutSymlink(
             "POSIX: prints parent permission error details",
-            skip = !supportsPosixPermissions,
+            skip = ifPosixNotSupported,
             forceNoLink = forceNoLink
         ) { maybeLink ->
             // this test case makes only sense on POSIX systems, where a missing execute permission on the parent means
@@ -449,7 +475,7 @@ abstract class AbstractPathExpectationsTest(
 
             itWithAndWithoutSymlink(
                 "throws an AssertionError for a file",
-                skip = !supportsPosixPermissions
+                skip = ifPosixNotSupported
             ) { maybeLink ->
                 val file = maybeLink.create(tempFolder.newFile("not-readable"))
                 file.whileWithPermissions(OWNER_WRITE, OWNER_EXECUTE, GROUP_EXECUTE) {
@@ -469,7 +495,7 @@ abstract class AbstractPathExpectationsTest(
 
             itWithAndWithoutSymlink(
                 "throws an AssertionError for a directory",
-                skip = !supportsPosixPermissions
+                skip = ifPosixNotSupported
             ) { maybeLink ->
                 val folder = maybeLink.create(tempFolder.newDirectory("not-readable"))
                 folder.whileWithPermissions(OWNER_WRITE, OWNER_EXECUTE, GROUP_EXECUTE) {
@@ -491,7 +517,7 @@ abstract class AbstractPathExpectationsTest(
         describe("ACL: not readable") {
             itWithAndWithoutSymlink(
                 "throws an AssertionError for a file",
-                skip = !supportsAcls
+                skip = ifAclNotSupported
             ) { maybeLink ->
                 val file = maybeLink.create(tempFolder.newFile("not-readable"))
                 file.whileWithAcl(TestAcls::ownerNoRead) {
@@ -517,7 +543,7 @@ abstract class AbstractPathExpectationsTest(
 
             itWithAndWithoutSymlink(
                 "throws an AssertionError for a directory",
-                skip = !supportsAcls
+                skip = ifAclNotSupported
             ) { maybeLink ->
                 val folder = maybeLink.create(tempFolder.newDirectory("not-readable"))
                 folder.whileWithAcl(TestAcls::ownerNoRead) {
@@ -572,7 +598,7 @@ abstract class AbstractPathExpectationsTest(
         describe("POSIX: readable") {
             itWithAndWithoutSymlink(
                 "throws an AssertionError for a file",
-                skip = !supportsPosixPermissions
+                skip = ifPosixNotSupported
             ) { maybeLink ->
                 val file = maybeLink.create(tempFolder.newFile("readable"))
 
@@ -587,7 +613,7 @@ abstract class AbstractPathExpectationsTest(
 
             itWithAndWithoutSymlink(
                 "throws an AssertionError for a directory",
-                skip = !supportsPosixPermissions
+                skip = ifPosixNotSupported
             ) { maybeLink ->
                 val folder = maybeLink.create(tempFolder.newDirectory("readable"))
 
@@ -604,7 +630,7 @@ abstract class AbstractPathExpectationsTest(
         describe("POSIX: not readable") {
             itWithAndWithoutSymlink(
                 "does not throw for a file",
-                skip = !supportsPosixPermissions
+                skip = ifPosixNotSupported
             ) { maybeLink ->
                 val file = maybeLink.create(tempFolder.newFile("not-readable"))
                 file.whileWithPermissions(OWNER_WRITE, OWNER_EXECUTE, OTHERS_EXECUTE) {
@@ -614,7 +640,7 @@ abstract class AbstractPathExpectationsTest(
 
             itWithAndWithoutSymlink(
                 "does not throw for a directory",
-                skip = !supportsPosixPermissions
+                skip = ifPosixNotSupported
             ) { maybeLink ->
                 val folder = maybeLink.create(tempFolder.newDirectory("not-readable"))
                 folder.whileWithPermissions(OWNER_WRITE, OWNER_EXECUTE, OTHERS_EXECUTE) {
@@ -626,7 +652,7 @@ abstract class AbstractPathExpectationsTest(
         describe("ACL: not writable") {
             itWithAndWithoutSymlink(
                 "does not throw for a file",
-                skip = !supportsAcls
+                skip = ifAclNotSupported
             ) { maybeLink ->
                 val file = maybeLink.create(tempFolder.newFile("not-readable"))
                 file.whileWithAcl(TestAcls::ownerNoRead) {
@@ -636,7 +662,7 @@ abstract class AbstractPathExpectationsTest(
 
             itWithAndWithoutSymlink(
                 "does not throw for a directory",
-                skip = !supportsAcls
+                skip = ifAclNotSupported
             ) { maybeLink ->
                 val folder = maybeLink.create(tempFolder.newDirectory("not-readable"))
                 folder.whileWithAcl(TestAcls::ownerNoRead) {
@@ -648,7 +674,7 @@ abstract class AbstractPathExpectationsTest(
         describe("ACL: writable") {
             itWithAndWithoutSymlink(
                 "throws an AssertionError for a file",
-                skip = !supportsAcls
+                skip = ifAclNotSupported
             ) { maybeLink ->
                 val file = maybeLink.create(tempFolder.newFile("readable"))
                 file.whileWithAcl(TestAcls::all) {
@@ -662,7 +688,7 @@ abstract class AbstractPathExpectationsTest(
 
             itWithAndWithoutSymlink(
                 "throws an AssertionError for a directory",
-                skip = !supportsAcls
+                skip = ifAclNotSupported
             ) { maybeLink ->
                 val folder = maybeLink.create(tempFolder.newDirectory("readable"))
                 folder.whileWithAcl(TestAcls::all) {
@@ -716,7 +742,7 @@ abstract class AbstractPathExpectationsTest(
 
             itWithAndWithoutSymlink(
                 "throws an AssertionError for a file",
-                skip = !supportsPosixPermissions
+                skip = ifPosixNotSupported
             ) { maybeLink ->
                 val file = maybeLink.create(tempFolder.newFile("not-writable"))
                 file.whileWithPermissions(OWNER_READ, OWNER_EXECUTE, OTHERS_EXECUTE) {
@@ -736,7 +762,7 @@ abstract class AbstractPathExpectationsTest(
 
             itWithAndWithoutSymlink(
                 "throws an AssertionError for a directory",
-                skip = !supportsPosixPermissions
+                skip = ifPosixNotSupported
             ) { maybeLink ->
                 val folder = maybeLink.create(tempFolder.newDirectory("not-writable"))
                 folder.whileWithPermissions(OWNER_READ, OWNER_EXECUTE, OTHERS_EXECUTE) {
@@ -758,7 +784,7 @@ abstract class AbstractPathExpectationsTest(
         describe("ACL: not writable") {
             itWithAndWithoutSymlink(
                 "throws an AssertionError for a file",
-                skip = !supportsAcls
+                skip = ifAclNotSupported
             ) { maybeLink ->
                 val file = maybeLink.create(tempFolder.newFile("not-writable"))
                 file.whileWithAcl(TestAcls::ownerNoWrite) {
@@ -782,7 +808,7 @@ abstract class AbstractPathExpectationsTest(
 
             itWithAndWithoutSymlink(
                 "throws an AssertionError for a directory",
-                skip = !supportsAcls
+                skip = ifAclNotSupported
             ) { maybeLink ->
                 val folder = maybeLink.create(tempFolder.newDirectory("not-writable"))
                 folder.whileWithAcl(TestAcls::ownerNoWrite) {
@@ -835,7 +861,7 @@ abstract class AbstractPathExpectationsTest(
         describe("POSIX: writable") {
             itWithAndWithoutSymlink(
                 "throws an AssertionError for a file",
-                skip = !supportsPosixPermissions
+                skip = ifPosixNotSupported
             ) { maybeLink ->
                 val file = maybeLink.create(tempFolder.newFile("writable"))
 
@@ -850,7 +876,7 @@ abstract class AbstractPathExpectationsTest(
 
             itWithAndWithoutSymlink(
                 "throws an AssertionError for a directory",
-                skip = !supportsPosixPermissions
+                skip = ifPosixNotSupported
             ) { maybeLink ->
                 val folder = maybeLink.create(tempFolder.newDirectory("writable"))
 
@@ -867,7 +893,7 @@ abstract class AbstractPathExpectationsTest(
         describe("POSIX: not writable") {
             itWithAndWithoutSymlink(
                 "does not throw for a file",
-                skip = !supportsPosixPermissions
+                skip = ifPosixNotSupported
             ) { maybeLink ->
                 val file = maybeLink.create(tempFolder.newFile("not-writable"))
                 file.whileWithPermissions(OWNER_READ, OWNER_EXECUTE, OTHERS_EXECUTE) {
@@ -877,7 +903,7 @@ abstract class AbstractPathExpectationsTest(
 
             itWithAndWithoutSymlink(
                 "does not throw for a directory",
-                skip = !supportsPosixPermissions
+                skip = ifPosixNotSupported
             ) { maybeLink ->
                 val folder = maybeLink.create(tempFolder.newDirectory("not-writable"))
                 folder.whileWithPermissions(OWNER_READ, OWNER_EXECUTE, OTHERS_EXECUTE) {
@@ -889,7 +915,7 @@ abstract class AbstractPathExpectationsTest(
         describe("ACL: not writable") {
             itWithAndWithoutSymlink(
                 "does not throw for a file",
-                skip = !supportsAcls
+                skip = ifAclNotSupported
             ) { maybeLink ->
                 val file = maybeLink.create(tempFolder.newFile("not-writable"))
                 file.whileWithAcl(TestAcls::ownerNoWrite) {
@@ -899,7 +925,7 @@ abstract class AbstractPathExpectationsTest(
 
             itWithAndWithoutSymlink(
                 "does not throw for a directory",
-                skip = !supportsAcls
+                skip = ifAclNotSupported
             ) { maybeLink ->
                 val folder = maybeLink.create(tempFolder.newDirectory("not-writable"))
                 folder.whileWithAcl(TestAcls::ownerNoWrite) {
@@ -911,7 +937,7 @@ abstract class AbstractPathExpectationsTest(
         describe("ACL: writable") {
             itWithAndWithoutSymlink(
                 "throws an AssertionError for a file",
-                skip = !supportsAcls
+                skip = ifAclNotSupported
             ) { maybeLink ->
                 val file = maybeLink.create(tempFolder.newFile("writable"))
                 file.whileWithAcl(TestAcls::all) {
@@ -925,7 +951,7 @@ abstract class AbstractPathExpectationsTest(
 
             itWithAndWithoutSymlink(
                 "throws an AssertionError for a directory",
-                skip = !supportsAcls
+                skip = ifAclNotSupported
             ) { maybeLink ->
                 val folder = maybeLink.create(tempFolder.newDirectory("writable"))
                 folder.whileWithAcl(TestAcls::all) {
@@ -962,7 +988,7 @@ abstract class AbstractPathExpectationsTest(
         describe("POSIX: executable") {
             itWithAndWithoutSymlink(
                 "does not throw for file",
-                skip = !supportsPosixPermissions
+                skip = ifPosixNotSupported
             ) { maybeLink ->
                 val file = maybeLink.create(tempFolder.newFile("executable"))
                 file.whileWithPermissions(OWNER_READ, OWNER_WRITE, OWNER_EXECUTE) {
@@ -972,7 +998,7 @@ abstract class AbstractPathExpectationsTest(
 
             itWithAndWithoutSymlink(
                 "does not throw for directory",
-                skip = !supportsPosixPermissions
+                skip = ifPosixNotSupported
             ) { maybeLink ->
                 val folder = maybeLink.create(tempFolder.newDirectory("executable"))
                 folder.whileWithPermissions(OWNER_READ, OWNER_WRITE, OWNER_EXECUTE) {
@@ -984,7 +1010,7 @@ abstract class AbstractPathExpectationsTest(
         describe("ACL: executable") {
             itWithAndWithoutSymlink(
                 "does not throw for file",
-                skip = !supportsAcls
+                skip = ifAclNotSupported
             ) { maybeLink ->
                 val file = maybeLink.create(tempFolder.newFile("executable"))
                 file.whileWithAcl(TestAcls::all) {
@@ -994,7 +1020,7 @@ abstract class AbstractPathExpectationsTest(
 
             itWithAndWithoutSymlink(
                 "does not throw for directory",
-                skip = !supportsAcls
+                skip = ifAclNotSupported
             ) { maybeLink ->
                 val folder = maybeLink.create(tempFolder.newDirectory("executable"))
                 folder.whileWithAcl(TestAcls::all) {
@@ -1008,7 +1034,7 @@ abstract class AbstractPathExpectationsTest(
 
             itWithAndWithoutSymlink(
                 "throws an AssertionError for a file",
-                skip = !supportsPosixPermissions
+                skip = ifPosixNotSupported
             ) { maybeLink ->
                 val file = maybeLink.create(tempFolder.newFile("not-executable"))
                 file.whileWithPermissions(OWNER_WRITE, OWNER_READ, GROUP_READ) {
@@ -1028,7 +1054,7 @@ abstract class AbstractPathExpectationsTest(
 
             itWithAndWithoutSymlink(
                 "throws an AssertionError for a directory",
-                skip = !supportsPosixPermissions
+                skip = ifPosixNotSupported
             ) { maybeLink ->
                 val folder = maybeLink.create(tempFolder.newDirectory("not-executable"))
                 folder.whileWithPermissions(OWNER_WRITE, OWNER_READ, GROUP_READ) {
@@ -1050,7 +1076,7 @@ abstract class AbstractPathExpectationsTest(
         describe("ACL: not executable") {
             itWithAndWithoutSymlink(
                 "throws an AssertionError for a file",
-                skip = !supportsAcls
+                skip = ifAclNotSupported
             ) { maybeLink ->
                 val file = maybeLink.create(tempFolder.newFile("not-executable"))
                 file.whileWithAcl(TestAcls::ownerNoExecute) {
@@ -1076,7 +1102,7 @@ abstract class AbstractPathExpectationsTest(
 
             itWithAndWithoutSymlink(
                 "throws an AssertionError for a directory",
-                skip = !supportsAcls
+                skip = ifAclNotSupported
             ) { maybeLink ->
                 val folder = maybeLink.create(tempFolder.newDirectory("not-readable"))
                 folder.whileWithAcl(TestAcls::ownerNoExecute) {
@@ -1131,7 +1157,7 @@ abstract class AbstractPathExpectationsTest(
         describe("POSIX: executable") {
             itWithAndWithoutSymlink(
                 "throws an AssertionError for a file",
-                skip = !supportsPosixPermissions
+                skip = ifPosixNotSupported
             ) { maybeLink ->
                 val file = maybeLink.create(tempFolder.newFile("executable"))
 
@@ -1146,7 +1172,7 @@ abstract class AbstractPathExpectationsTest(
 
             itWithAndWithoutSymlink(
                 "throws an AssertionError for a directory",
-                skip = !supportsPosixPermissions
+                skip = ifPosixNotSupported
             ) { maybeLink ->
                 val folder = maybeLink.create(tempFolder.newDirectory("executable"))
 
@@ -1163,7 +1189,7 @@ abstract class AbstractPathExpectationsTest(
         describe("POSIX: not executable") {
             itWithAndWithoutSymlink(
                 "does not throw for a file",
-                skip = !supportsPosixPermissions
+                skip = ifPosixNotSupported
             ) { maybeLink ->
                 val file = maybeLink.create(tempFolder.newFile("not-executable"))
                 file.whileWithPermissions(OWNER_READ, OTHERS_EXECUTE) {
@@ -1173,7 +1199,7 @@ abstract class AbstractPathExpectationsTest(
 
             itWithAndWithoutSymlink(
                 "does not throw for a directory",
-                skip = !supportsPosixPermissions
+                skip = ifPosixNotSupported
             ) { maybeLink ->
                 val folder = maybeLink.create(tempFolder.newDirectory("not-executable"))
                 folder.whileWithPermissions(OWNER_READ, OTHERS_EXECUTE) {
@@ -1185,7 +1211,7 @@ abstract class AbstractPathExpectationsTest(
         describe("ACL: not executable") {
             itWithAndWithoutSymlink(
                 "does not throw for a file",
-                skip = !supportsAcls
+                skip = ifAclNotSupported
             ) { maybeLink ->
                 val file = maybeLink.create(tempFolder.newFile("not-executable"))
                 file.whileWithAcl(TestAcls::ownerNoExecute) {
@@ -1195,7 +1221,7 @@ abstract class AbstractPathExpectationsTest(
 
             itWithAndWithoutSymlink(
                 "does not throw for a directory",
-                skip = !supportsAcls
+                skip = ifAclNotSupported
             ) { maybeLink ->
                 val folder = maybeLink.create(tempFolder.newDirectory("not-executable"))
                 folder.whileWithAcl(TestAcls::ownerNoExecute) {
@@ -1207,7 +1233,7 @@ abstract class AbstractPathExpectationsTest(
         describe("ACL: executable") {
             itWithAndWithoutSymlink(
                 "throws an AssertionError for a file",
-                skip = !supportsAcls
+                skip = ifAclNotSupported
             ) { maybeLink ->
                 val file = maybeLink.create(tempFolder.newFile("executable"))
                 file.whileWithAcl(TestAcls::all) {
@@ -1221,7 +1247,7 @@ abstract class AbstractPathExpectationsTest(
 
             itWithAndWithoutSymlink(
                 "throws an AssertionError for a directory",
-                skip = !supportsAcls
+                skip = ifAclNotSupported
             ) { maybeLink ->
                 val folder = maybeLink.create(tempFolder.newDirectory("executable"))
                 folder.whileWithAcl(TestAcls::all) {
@@ -1501,7 +1527,7 @@ abstract class AbstractPathExpectationsTest(
         hasDirectoryEntryVariations.forEach { (singleName, _, requiresSymlinks, createEntry) ->
             itWithAndWithoutSymlink(
                 "does not throw if the parameter is a child $singleName",
-                skip = requiresSymlinks && !supportsSymlinks
+                skip = if (requiresSymlinks) ifSymlinksNotSupported else No
             ) { maybeLink ->
                 val folder = maybeLink.create(tempFolder.newDirectory("startDir"))
                 folder.createEntry("a")
@@ -1523,7 +1549,7 @@ abstract class AbstractPathExpectationsTest(
     @TestFactory
     fun toHaveTheDirectoryEntries() = testFactory(toHaveTheDirectoryEntriesSpec) { hasDirectoryEntryFun ->
         hasDirectoryEntryVariations.forEach { (singleName, multiName, requiresSymlinks, createEntry) ->
-            val skipDueToSymlinks = requiresSymlinks && !supportsSymlinks
+            val skipDueToSymlinks = if (requiresSymlinks) ifSymlinksNotSupported else No
 
             itWithAndWithoutSymlink(
                 "does not throw if the single parameter is a child $singleName",
@@ -1625,7 +1651,7 @@ abstract class AbstractPathExpectationsTest(
 
         itWithAndWithoutSymlink(
             "does not throw when using all entry types",
-            skip = !supportsSymlinks
+            skip = ifSymlinksNotSupported
         ) { maybeLink ->
             val folder = maybeLink.create(tempFolder.newDirectory("startDir"))
             hasDirectoryEntryVariations.first().createEntry(folder, "file1")
