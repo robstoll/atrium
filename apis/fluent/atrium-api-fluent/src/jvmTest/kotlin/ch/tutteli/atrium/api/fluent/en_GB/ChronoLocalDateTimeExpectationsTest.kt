@@ -1,113 +1,61 @@
 package ch.tutteli.atrium.api.fluent.en_GB
 
+import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.fun1
-import ch.tutteli.atrium.specs.notImplemented
-import org.spekframework.spek2.Spek
-import java.time.LocalDate
+import ch.tutteli.atrium.specs.integration.AbstractChronoLocalDateTimeExpectationsTest
 import java.time.LocalDateTime
-import java.time.chrono.ChronoLocalDate
+import java.time.LocalTime
 import java.time.chrono.ChronoLocalDateTime
+import java.time.chrono.JapaneseDate
+import kotlin.test.Test
 
-class ChronoLocalDateTimeExpectationsSpec : Spek({
-    include(ChronoLocalDateTimeSpec)
-    include(ChronoLocalDateTimeAsStringSpec)
-}) {
-    object ChronoLocalDateTimeSpec : ch.tutteli.atrium.specs.integration.ChronoLocalDateTimeExpectationsSpec(
-        fun1<ChronoLocalDateTime<*>, ChronoLocalDateTime<*>>(Expect<ChronoLocalDateTime<*>>::toBeBefore),
-        fun1<ChronoLocalDateTime<*>, ChronoLocalDateTime<*>>(Expect<ChronoLocalDateTime<*>>::toBeBeforeOrTheSamePointInTimeAs),
-        fun1<ChronoLocalDateTime<*>, ChronoLocalDateTime<*>>(Expect<ChronoLocalDateTime<*>>::toBeAfter),
-        fun1<ChronoLocalDateTime<*>, ChronoLocalDateTime<*>>(Expect<ChronoLocalDateTime<*>>::toBeAfterOrTheSamePointInTimeAs),
-        fun1<ChronoLocalDateTime<*>, ChronoLocalDateTime<*>>(Expect<ChronoLocalDateTime<*>>::toBeTheSamePointInTimeAs)
-    )
-
-    object ChronoLocalDateTimeAsStringSpec :
-        ch.tutteli.atrium.specs.integration.ChronoLocalDateTimeAsStringExpectationsSpec(
-            fun1<ChronoLocalDateTime<*>, String>(Expect<ChronoLocalDateTime<*>>::toBeBefore),
-            fun1<ChronoLocalDateTime<*>, String>(Expect<ChronoLocalDateTime<*>>::toBeBeforeOrTheSamePointInTimeAs),
-            fun1<ChronoLocalDateTime<*>, String>(Expect<ChronoLocalDateTime<*>>::toBeAfter),
-            fun1<ChronoLocalDateTime<*>, String>(Expect<ChronoLocalDateTime<*>>::toBeAfterOrTheSamePointInTimeAs),
-            fun1<ChronoLocalDateTime<*>, String>(Expect<ChronoLocalDateTime<*>>::toBeTheSamePointInTimeAs)
-        )
-
+class ChronoLocalDateTimeExpectationsTest : AbstractChronoLocalDateTimeExpectationsTest(
+    fun1(Expect<ChronoLocalDateTime<*>>::toBeBefore),
+    fun1(Expect<ChronoLocalDateTime<*>>::toBeBeforeOrTheSamePointInTimeAs),
+    fun1(Expect<ChronoLocalDateTime<*>>::toBeAfter),
+    fun1(Expect<ChronoLocalDateTime<*>>::toBeAfterOrTheSamePointInTimeAs),
+    fun1(Expect<ChronoLocalDateTime<*>>::toBeTheSamePointInTimeAs)
+) {
     @Suppress("unused", "UNUSED_VALUE")
-    private fun ambiguityTest() {
-        val chronoLocalDateTime: ChronoLocalDateTime<*> = notImplemented()
-        var a1: Expect<ChronoLocalDateTime<ChronoLocalDate>> = notImplemented()
-        var a2: Expect<ChronoLocalDateTime<LocalDate>> = notImplemented()
-        var a3: Expect<ChronoLocalDateTime<*>> = notImplemented()
-        var a4: Expect<LocalDateTime> = notImplemented()
+    @Test
+    fun ambiguityTest() {
+        val ten = LocalDateTime.of(2019, 12, 24, 10, 15, 30)
+        val eleven = LocalDateTime.of(2019, 12, 24, 11, 15, 30)
+        val twelve = LocalDateTime.of(2019, 12, 24, 12, 15, 30)
 
-        a1 = a1.toBeBefore(LocalDateTime.now())
-        a1 = a1.toBeBeforeOrTheSamePointInTimeAs(LocalDateTime.now())
-        a1 = a1.toBeAfter(LocalDateTime.now())
-        a1 = a1.toBeAfterOrTheSamePointInTimeAs(LocalDateTime.now())
-        a1 = a1.toBeTheSamePointInTimeAs(LocalDateTime.now())
+        var a1: Expect<ChronoLocalDateTime<*>> = expect(eleven)
+        var a2: Expect<LocalDateTime> = expect(eleven)
 
-        a2 = a2.toBeBefore(LocalDateTime.now())
-        a2 = a2.toBeBeforeOrTheSamePointInTimeAs(LocalDateTime.now())
-        a2 = a2.toBeAfter(LocalDateTime.now())
-        a2 = a2.toBeAfterOrTheSamePointInTimeAs(LocalDateTime.now())
-        a2 = a2.toBeTheSamePointInTimeAs(LocalDateTime.now())
+        a1 = a1.toBeBefore(twelve)
+        a1 = a1.toBeBeforeOrTheSamePointInTimeAs(eleven)
+        a1 = a1.toBeAfter(ten)
+        a1 = a1.toBeAfterOrTheSamePointInTimeAs(eleven)
+        a1 = a1.toBeTheSamePointInTimeAs(eleven)
 
-        a3 = a3.toBeBefore(LocalDateTime.now())
-        a3 = a3.toBeBeforeOrTheSamePointInTimeAs(LocalDateTime.now())
-        a3 = a3.toBeAfter(LocalDateTime.now())
-        a3 = a3.toBeAfterOrTheSamePointInTimeAs(LocalDateTime.now())
-        a3 = a3.toBeTheSamePointInTimeAs(LocalDateTime.now())
+        a2 = a2.toBeBefore(twelve)
+        a2 = a2.toBeBeforeOrTheSamePointInTimeAs(eleven)
+        a2 = a2.toBeAfter(ten)
+        a2 = a2.toBeAfterOrTheSamePointInTimeAs(eleven)
+        a2 = a2.toBeTheSamePointInTimeAs(eleven)
 
-        a4 = a4.toBeBefore(LocalDateTime.now())
-        a4 = a4.toBeBeforeOrTheSamePointInTimeAs(LocalDateTime.now())
-        a4 = a4.toBeAfter(LocalDateTime.now())
-        a4 = a4.toBeAfterOrTheSamePointInTimeAs(LocalDateTime.now())
-        a4 = a4.toBeTheSamePointInTimeAs(LocalDateTime.now())
+        val japaneseTen = JapaneseDate.of(2019, 12, 24).atTime(LocalTime.of(10, 15, 30))
+        val japaneseTwelve = JapaneseDate.of(2019, 12, 24).atTime(LocalTime.of(12, 15, 30))
 
-        a1 = a1.toBeBefore(chronoLocalDateTime)
-        a1 = a1.toBeBeforeOrTheSamePointInTimeAs(chronoLocalDateTime)
-        a1 = a1.toBeAfter(chronoLocalDateTime)
-        a1 = a1.toBeAfterOrTheSamePointInTimeAs(chronoLocalDateTime)
-        a1 = a1.toBeTheSamePointInTimeAs(chronoLocalDateTime)
+        a1 = a1.toBeBefore(japaneseTwelve)
+        a1 = a1.toBeAfter(japaneseTen)
+        a1 = a1.toBeTheSamePointInTimeAs(JapaneseDate.of(2019, 12, 24).atTime(LocalTime.of(11, 15, 30)))
 
-        a2 = a2.toBeBefore(chronoLocalDateTime)
-        a2 = a2.toBeBeforeOrTheSamePointInTimeAs(chronoLocalDateTime)
-        a2 = a2.toBeAfter(chronoLocalDateTime)
-        a2 = a2.toBeAfterOrTheSamePointInTimeAs(chronoLocalDateTime)
-        a2 = a2.toBeTheSamePointInTimeAs(chronoLocalDateTime)
+        a1 = a1.toBeBefore("2019-12-24T12:15:30")
+        a1 = a1.toBeBeforeOrTheSamePointInTimeAs("2019-12-24T11:15:30")
+        a1 = a1.toBeAfter("2019-12-24T10:15:30")
+        a1 = a1.toBeAfterOrTheSamePointInTimeAs("2019-12-24T11:15:30")
+        a1 = a1.toBeTheSamePointInTimeAs("2019-12-24T11:15:30")
 
-        a3 = a3.toBeBefore(chronoLocalDateTime)
-        a3 = a3.toBeBeforeOrTheSamePointInTimeAs(chronoLocalDateTime)
-        a3 = a3.toBeAfter(chronoLocalDateTime)
-        a3 = a3.toBeAfterOrTheSamePointInTimeAs(chronoLocalDateTime)
-        a3 = a3.toBeTheSamePointInTimeAs(chronoLocalDateTime)
-
-        a4 = a4.toBeBefore(chronoLocalDateTime)
-        a4 = a4.toBeBeforeOrTheSamePointInTimeAs(chronoLocalDateTime)
-        a4 = a4.toBeAfter(chronoLocalDateTime)
-        a4 = a4.toBeAfterOrTheSamePointInTimeAs(chronoLocalDateTime)
-        a4 = a4.toBeTheSamePointInTimeAs(chronoLocalDateTime)
-
-        a1 = a1.toBeBefore("also not ambiguous if string is passed")
-        a1 = a1.toBeBeforeOrTheSamePointInTimeAs("also not ambiguous if string is passed")
-        a1 = a1.toBeAfter("also not ambiguous if string is passed")
-        a1 = a1.toBeAfterOrTheSamePointInTimeAs("also not ambiguous if string is passed")
-        a1 = a1.toBeTheSamePointInTimeAs("also not ambiguous if string is passed")
-
-        a2 = a2.toBeBefore("also not ambiguous if string is passed")
-        a2 = a2.toBeBeforeOrTheSamePointInTimeAs("also not ambiguous if string is passed")
-        a2 = a2.toBeAfter("also not ambiguous if string is passed")
-        a2 = a2.toBeAfterOrTheSamePointInTimeAs("also not ambiguous if string is passed")
-        a2 = a2.toBeTheSamePointInTimeAs("also not ambiguous if string is passed")
-
-        a3 = a3.toBeBefore("also not ambiguous if string is passed")
-        a3 = a3.toBeBeforeOrTheSamePointInTimeAs("also not ambiguous if string is passed")
-        a3 = a3.toBeAfter("also not ambiguous if string is passed")
-        a3 = a3.toBeAfterOrTheSamePointInTimeAs("also not ambiguous if string is passed")
-        a3 = a3.toBeTheSamePointInTimeAs("also not ambiguous if string is passed")
-
-        a4 = a4.toBeBefore("also not ambiguous if string is passed")
-        a4 = a4.toBeBeforeOrTheSamePointInTimeAs("also not ambiguous if string is passed")
-        a4 = a4.toBeAfter("also not ambiguous if string is passed")
-        a4 = a4.toBeAfterOrTheSamePointInTimeAs("also not ambiguous if string is passed")
-        a4 = a4.toBeTheSamePointInTimeAs("also not ambiguous if string is passed")
+        a2 = a2.toBeBefore("2019-12-24T12:15:30")
+        a2 = a2.toBeBeforeOrTheSamePointInTimeAs("2019-12-24T11:15:30")
+        a2 = a2.toBeAfter("2019-12-24T10:15:30")
+        a2 = a2.toBeAfterOrTheSamePointInTimeAs("2019-12-24T11:15:30")
+        a2 = a2.toBeTheSamePointInTimeAs("2019-12-24T11:15:30")
     }
 }
