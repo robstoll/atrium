@@ -1,113 +1,55 @@
 package ch.tutteli.atrium.api.fluent.en_GB
 
+import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.fun1
-import ch.tutteli.atrium.specs.notImplemented
-import org.spekframework.spek2.Spek
-import java.time.LocalDate
+import ch.tutteli.atrium.specs.integration.AbstractChronoZonedDateTimeExpectationsTest
+import java.time.ZoneOffset
 import java.time.ZonedDateTime
-import java.time.chrono.ChronoLocalDate
 import java.time.chrono.ChronoZonedDateTime
+import kotlin.test.Test
 
-class ChronoZonedDateTimeExpectationsSpec : Spek({
-}) {
-    object ChronoZonedDateTimeSpec : ch.tutteli.atrium.specs.integration.ChronoZonedDateTimeExpectationsSpec(
-        fun1<ChronoZonedDateTime<*>, ChronoZonedDateTime<*>>(Expect<ChronoZonedDateTime<*>>::toBeBefore),
-        fun1<ChronoZonedDateTime<*>, ChronoZonedDateTime<*>>(Expect<ChronoZonedDateTime<*>>::toBeBeforeOrTheSamePointInTimeAs),
-        fun1<ChronoZonedDateTime<*>, ChronoZonedDateTime<*>>(Expect<ChronoZonedDateTime<*>>::toBeAfter),
-        fun1<ChronoZonedDateTime<*>, ChronoZonedDateTime<*>>(Expect<ChronoZonedDateTime<*>>::toBeAfterOrTheSamePointInTimeAs),
-        fun1<ChronoZonedDateTime<*>, ChronoZonedDateTime<*>>(Expect<ChronoZonedDateTime<*>>::toBeTheSamePointInTimeAs)
-    )
-
-    object ChronoZonedDateTimeAsStringSpec :
-        ch.tutteli.atrium.specs.integration.ChronoZonedDateTimeAsStringExpectationsSpec(
-            fun1<ChronoZonedDateTime<*>, String>(Expect<ChronoZonedDateTime<*>>::toBeBefore),
-            fun1<ChronoZonedDateTime<*>, String>(Expect<ChronoZonedDateTime<*>>::toBeBeforeOrTheSamePointInTimeAs),
-            fun1<ChronoZonedDateTime<*>, String>(Expect<ChronoZonedDateTime<*>>::toBeAfter),
-            fun1<ChronoZonedDateTime<*>, String>(Expect<ChronoZonedDateTime<*>>::toBeAfterOrTheSamePointInTimeAs),
-            fun1<ChronoZonedDateTime<*>, String>(Expect<ChronoZonedDateTime<*>>::toBeTheSamePointInTimeAs)
-        )
-
+class ChronoZonedDateTimeExpectationsTest : AbstractChronoZonedDateTimeExpectationsTest(
+    fun1(Expect<ChronoZonedDateTime<*>>::toBeBefore),
+    fun1(Expect<ChronoZonedDateTime<*>>::toBeBeforeOrTheSamePointInTimeAs),
+    fun1(Expect<ChronoZonedDateTime<*>>::toBeAfter),
+    fun1(Expect<ChronoZonedDateTime<*>>::toBeAfterOrTheSamePointInTimeAs),
+    fun1(Expect<ChronoZonedDateTime<*>>::toBeTheSamePointInTimeAs)
+) {
     @Suppress("unused", "UNUSED_VALUE")
-    private fun ambiguityTest() {
-        val chronoZonedDateTime: ChronoZonedDateTime<*> = notImplemented()
-        var a1: Expect<ChronoZonedDateTime<ChronoLocalDate>> = notImplemented()
-        var a2: Expect<ChronoZonedDateTime<LocalDate>> = notImplemented()
-        var a3: Expect<ChronoZonedDateTime<*>> = notImplemented()
-        var a4: Expect<ZonedDateTime> = notImplemented()
+    @Test
+    fun ambiguityTest() {
+        val ten = ZonedDateTime.of(2019, 12, 24, 10, 15, 30, 0, ZoneOffset.UTC)
+        val eleven = ZonedDateTime.of(2019, 12, 24, 11, 15, 30, 0, ZoneOffset.UTC)
+        val twelve = ZonedDateTime.of(2019, 12, 24, 12, 15, 30, 0, ZoneOffset.UTC)
 
+        var a1: Expect<ChronoZonedDateTime<*>> = expect(eleven)
+        var a2: Expect<ZonedDateTime> = expect(eleven)
 
-        a1 = a1.toBeBefore(ZonedDateTime.now())
-        a1 = a1.toBeBeforeOrTheSamePointInTimeAs(ZonedDateTime.now())
-        a1 = a1.toBeAfter(ZonedDateTime.now())
-        a1 = a1.toBeAfterOrTheSamePointInTimeAs(ZonedDateTime.now())
-        a1 = a1.toBeTheSamePointInTimeAs(ZonedDateTime.now())
+        a1 = a1.toBeBefore(twelve)
+        a1 = a1.toBeBeforeOrTheSamePointInTimeAs(eleven)
+        a1 = a1.toBeAfter(ten)
+        a1 = a1.toBeAfterOrTheSamePointInTimeAs(eleven)
+        a1 = a1.toBeTheSamePointInTimeAs(eleven)
 
-        a2 = a2.toBeBefore(ZonedDateTime.now())
-        a2 = a2.toBeBeforeOrTheSamePointInTimeAs(ZonedDateTime.now())
-        a2 = a2.toBeAfter(ZonedDateTime.now())
-        a2 = a2.toBeAfterOrTheSamePointInTimeAs(ZonedDateTime.now())
-        a2 = a2.toBeTheSamePointInTimeAs(ZonedDateTime.now())
+        a2 = a2.toBeBefore(twelve)
+        a2 = a2.toBeBeforeOrTheSamePointInTimeAs(eleven)
+        a2 = a2.toBeAfter(ten)
+        a2 = a2.toBeAfterOrTheSamePointInTimeAs(eleven)
+        a2 = a2.toBeTheSamePointInTimeAs(eleven)
 
-        a3 = a3.toBeBefore(ZonedDateTime.now())
-        a3 = a3.toBeBeforeOrTheSamePointInTimeAs(ZonedDateTime.now())
-        a3 = a3.toBeAfter(ZonedDateTime.now())
-        a3 = a3.toBeAfterOrTheSamePointInTimeAs(ZonedDateTime.now())
-        a3 = a3.toBeTheSamePointInTimeAs(ZonedDateTime.now())
+        a1 = a1.toBeTheSamePointInTimeAs(eleven.withZoneSameInstant(ZoneOffset.of("+01:30")))
 
-        a4 = a4.toBeBefore(ZonedDateTime.now())
-        a4 = a4.toBeBeforeOrTheSamePointInTimeAs(ZonedDateTime.now())
-        a4 = a4.toBeAfter(ZonedDateTime.now())
-        a4 = a4.toBeAfterOrTheSamePointInTimeAs(ZonedDateTime.now())
-        a4 = a4.toBeTheSamePointInTimeAs(ZonedDateTime.now())
+        a1 = a1.toBeBefore("2019-12-24T12:15:30Z")
+        a1 = a1.toBeBeforeOrTheSamePointInTimeAs("2019-12-24T11:15:30Z")
+        a1 = a1.toBeAfter("2019-12-24T10:15:30Z")
+        a1 = a1.toBeAfterOrTheSamePointInTimeAs("2019-12-24T11:15:30Z")
+        a1 = a1.toBeTheSamePointInTimeAs("2019-12-24T11:15:30Z")
 
-
-        a1 = a1.toBeBefore(chronoZonedDateTime)
-        a1 = a1.toBeBeforeOrTheSamePointInTimeAs(chronoZonedDateTime)
-        a1 = a1.toBeAfter(chronoZonedDateTime)
-        a1 = a1.toBeAfterOrTheSamePointInTimeAs(chronoZonedDateTime)
-        a1 = a1.toBeTheSamePointInTimeAs(chronoZonedDateTime)
-
-        a2 = a2.toBeBefore(chronoZonedDateTime)
-        a2 = a2.toBeBeforeOrTheSamePointInTimeAs(chronoZonedDateTime)
-        a2 = a2.toBeAfter(chronoZonedDateTime)
-        a2 = a2.toBeAfterOrTheSamePointInTimeAs(chronoZonedDateTime)
-        a2 = a2.toBeTheSamePointInTimeAs(chronoZonedDateTime)
-
-        a3 = a3.toBeBefore(chronoZonedDateTime)
-        a3 = a3.toBeBeforeOrTheSamePointInTimeAs(chronoZonedDateTime)
-        a3 = a3.toBeAfter(chronoZonedDateTime)
-        a3 = a3.toBeAfterOrTheSamePointInTimeAs(chronoZonedDateTime)
-        a3 = a3.toBeTheSamePointInTimeAs(chronoZonedDateTime)
-
-        a4 = a4.toBeBefore(chronoZonedDateTime)
-        a4 = a4.toBeBeforeOrTheSamePointInTimeAs(chronoZonedDateTime)
-        a4 = a4.toBeAfter(chronoZonedDateTime)
-        a4 = a4.toBeAfterOrTheSamePointInTimeAs(chronoZonedDateTime)
-        a4 = a4.toBeTheSamePointInTimeAs(chronoZonedDateTime)
-
-        a1 = a1.toBeBefore("also not ambiguous if string is passed")
-        a1 = a1.toBeBeforeOrTheSamePointInTimeAs("also not ambiguous if string is passed")
-        a1 = a1.toBeAfter("also not ambiguous if string is passed")
-        a1 = a1.toBeAfterOrTheSamePointInTimeAs("also not ambiguous if string is passed")
-        a1 = a1.toBeTheSamePointInTimeAs("also not ambiguous if string is passed")
-
-        a2 = a2.toBeBefore("also not ambiguous if string is passed")
-        a2 = a2.toBeBeforeOrTheSamePointInTimeAs("also not ambiguous if string is passed")
-        a2 = a2.toBeAfter("also not ambiguous if string is passed")
-        a2 = a2.toBeAfterOrTheSamePointInTimeAs("also not ambiguous if string is passed")
-        a2 = a2.toBeTheSamePointInTimeAs("also not ambiguous if string is passed")
-
-        a3 = a3.toBeBefore("also not ambiguous if string is passed")
-        a3 = a3.toBeBeforeOrTheSamePointInTimeAs("also not ambiguous if string is passed")
-        a3 = a3.toBeAfter("also not ambiguous if string is passed")
-        a3 = a3.toBeAfterOrTheSamePointInTimeAs("also not ambiguous if string is passed")
-        a3 = a3.toBeTheSamePointInTimeAs("also not ambiguous if string is passed")
-
-        a4 = a4.toBeBefore("also not ambiguous if string is passed")
-        a4 = a4.toBeBeforeOrTheSamePointInTimeAs("also not ambiguous if string is passed")
-        a4 = a4.toBeAfter("also not ambiguous if string is passed")
-        a4 = a4.toBeAfterOrTheSamePointInTimeAs("also not ambiguous if string is passed")
-        a4 = a4.toBeTheSamePointInTimeAs("also not ambiguous if string is passed")
+        a2 = a2.toBeBefore("2019-12-24T12:15:30Z")
+        a2 = a2.toBeBeforeOrTheSamePointInTimeAs("2019-12-24T11:15:30Z")
+        a2 = a2.toBeAfter("2019-12-24T10:15:30Z")
+        a2 = a2.toBeAfterOrTheSamePointInTimeAs("2019-12-24T11:15:30Z")
+        a2 = a2.toBeTheSamePointInTimeAs("2019-12-24T11:15:30Z")
     }
 }

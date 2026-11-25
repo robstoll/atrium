@@ -3,9 +3,7 @@ package ch.tutteli.atrium.specs.integration
 import ch.tutteli.atrium.api.fluent.en_GB.messageToContain
 import ch.tutteli.atrium.api.fluent.en_GB.toThrow
 import ch.tutteli.atrium.api.verbs.internal.expect
-import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.Fun1
-import ch.tutteli.atrium.specs.fun1
 import ch.tutteli.atrium.specs.lambda
 import ch.tutteli.atrium.specs.name
 import ch.tutteli.atrium.translations.DescriptionDateTimeLikeExpectation
@@ -15,7 +13,6 @@ import java.time.Duration
 import java.time.ZoneOffset
 import java.time.ZonedDateTime
 import java.time.chrono.ChronoZonedDateTime
-import java.time.format.DateTimeFormatter
 import java.time.format.DateTimeParseException
 
 abstract class ChronoZonedDateTimeAsStringExpectationsSpec(
@@ -24,47 +21,8 @@ abstract class ChronoZonedDateTimeAsStringExpectationsSpec(
     toBeAfter: Fun1<ChronoZonedDateTime<*>, String>,
     toBeAfterOrTheSamePointInTimeAs: Fun1<ChronoZonedDateTime<*>, String>,
     toBeTheSamePointInTimeAs: Fun1<ChronoZonedDateTime<*>, String>,
-    describePrefix: String = "[Atrium] "
+    @Suppress("UNUSED_PARAMETER") describePrefix: String = "[Atrium] "
 ) : Spek({
-
-    fun toBeBefore(
-        expect: Expect<ChronoZonedDateTime<*>>,
-        expected: ChronoZonedDateTime<*>
-    ): Expect<ChronoZonedDateTime<*>> =
-        expect.(toBeBefore.lambda)(expected.format(DateTimeFormatter.ISO_ZONED_DATE_TIME))
-
-    fun toBeBeforeOrTheSamePointInTimeAs(
-        expect: Expect<ChronoZonedDateTime<*>>,
-        expected: ChronoZonedDateTime<*>
-    ): Expect<ChronoZonedDateTime<*>> =
-        expect.(toBeBeforeOrTheSamePointInTimeAs.lambda)(expected.format(DateTimeFormatter.ISO_ZONED_DATE_TIME))
-
-    fun toBeAfter(
-        expect: Expect<ChronoZonedDateTime<*>>,
-        expected: ChronoZonedDateTime<*>
-    ): Expect<ChronoZonedDateTime<*>> =
-        expect.(toBeAfter.lambda)(expected.format(DateTimeFormatter.ISO_ZONED_DATE_TIME))
-
-    fun toBeAfterOrTheSamePointInTimeAs(
-        expect: Expect<ChronoZonedDateTime<*>>,
-        expected: ChronoZonedDateTime<*>
-    ): Expect<ChronoZonedDateTime<*>> =
-        expect.(toBeAfterOrTheSamePointInTimeAs.lambda)(expected.format(DateTimeFormatter.ISO_ZONED_DATE_TIME))
-
-    fun toBeTheSamePointInTimeAs(
-        expect: Expect<ChronoZonedDateTime<*>>,
-        expected: ChronoZonedDateTime<*>
-    ): Expect<ChronoZonedDateTime<*>> =
-        expect.(toBeTheSamePointInTimeAs.lambda)(expected.format(DateTimeFormatter.ISO_ZONED_DATE_TIME))
-
-    include(object : ChronoZonedDateTimeExpectationsSpec(
-        fun1(::toBeBefore),
-        fun1(::toBeBeforeOrTheSamePointInTimeAs),
-        fun1(::toBeAfter),
-        fun1(::toBeAfterOrTheSamePointInTimeAs),
-        fun1(::toBeTheSamePointInTimeAs),
-        describePrefix
-    ) {})
 
     val toBeBeforeFun = toBeBefore.lambda
     val toBeBeforeOrTheSamePointInTimeAsFun = toBeBeforeOrTheSamePointInTimeAs.lambda
