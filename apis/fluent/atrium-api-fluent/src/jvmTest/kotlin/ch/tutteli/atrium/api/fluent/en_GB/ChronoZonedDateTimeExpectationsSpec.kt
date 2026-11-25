@@ -10,7 +10,6 @@ import java.time.chrono.ChronoLocalDate
 import java.time.chrono.ChronoZonedDateTime
 
 class ChronoZonedDateTimeExpectationsSpec : Spek({
-    include(ChronoLocalDateTimeExpectationsSpec.ChronoLocalDateTimeSpec)
 }) {
     object ChronoZonedDateTimeSpec : ch.tutteli.atrium.specs.integration.ChronoZonedDateTimeExpectationsSpec(
         fun1<ChronoZonedDateTime<*>, ChronoZonedDateTime<*>>(Expect<ChronoZonedDateTime<*>>::toBeBefore),
