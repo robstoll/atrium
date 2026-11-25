@@ -5,46 +5,44 @@ import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.creating.PleaseUseReplacementException
 import ch.tutteli.atrium.specs.*
+import ch.tutteli.atrium.testfactories.TestFactory
 import ch.tutteli.atrium.translations.DescriptionAnyExpectation.NOT_TO_EQUAL
 import ch.tutteli.atrium.translations.DescriptionBigDecimalAssertion
-import org.spekframework.spek2.Spek
-import org.spekframework.spek2.style.specification.Suite
 import java.math.BigDecimal
 
-abstract class BigDecimalExpectationsSpec(
-    toEqualDontUse: Fun1<BigDecimal, BigDecimal>,
-    toEqualNullableDontUse: Fun1<BigDecimal?, BigDecimal?>,
-    toEqualNull: Fun1<BigDecimal?, Nothing?>,
-    toEqualAnyFun: Expect<Any>.(Any) -> Expect<Any>,
-    notToEqual: Fun1<BigDecimal, BigDecimal>,
-    notToEqualAnyFun: Expect<Any>.(Any) -> Expect<Any>,
-    toEqualNumerically: Fun1<BigDecimal, BigDecimal>,
-    notToEqualNumerically: Fun1<BigDecimal, BigDecimal>,
-    toEqualIncludingScale: Fun1<BigDecimal, BigDecimal>,
-    notToEqualIncludingScale: Fun1<BigDecimal, BigDecimal>,
-    describePrefix: String = "[Atrium] "
-) : Spek({
+@Suppress("FunctionName")
+abstract class AbstractBigDecimalExpectationsTest(
+    private val toEqualDontUseSpec: Fun1<BigDecimal, BigDecimal>,
+    private val toEqualNullableDontUseSpec: Fun1<BigDecimal?, BigDecimal?>,
+    private val toEqualNullSpec: Fun1<BigDecimal?, Nothing?>,
+    private val toEqualAnyFun: Expect<Any>.(Any) -> Expect<Any>,
+    private val notToEqualSpec: Fun1<BigDecimal, BigDecimal>,
+    private val notToEqualAnyFun: Expect<Any>.(Any) -> Expect<Any>,
+    private val toEqualNumericallySpec: Fun1<BigDecimal, BigDecimal>,
+    private val notToEqualNumericallySpec: Fun1<BigDecimal, BigDecimal>,
+    private val toEqualIncludingScaleSpec: Fun1<BigDecimal, BigDecimal>,
+    private val notToEqualIncludingScaleSpec: Fun1<BigDecimal, BigDecimal>
+) : ExpectationFunctionBaseTest() {
 
-    include(object : SubjectLessSpec<BigDecimal>(
-        describePrefix,
-        toEqualNumerically.forSubjectLessTest(BigDecimal.TEN),
-        notToEqualNumerically.forSubjectLessTest(BigDecimal.TEN),
-        toEqualIncludingScale.forSubjectLessTest(BigDecimal.TEN),
-        notToEqualIncludingScale.forSubjectLessTest(BigDecimal.TEN)
-    ) {})
+    @TestFactory
+    fun subjectLessTest() = subjectLessTestFactory(
+        toEqualNumericallySpec.forSubjectLessTest(BigDecimal.TEN),
+        notToEqualNumericallySpec.forSubjectLessTest(BigDecimal.TEN),
+        toEqualIncludingScaleSpec.forSubjectLessTest(BigDecimal.TEN),
+        notToEqualIncludingScaleSpec.forSubjectLessTest(BigDecimal.TEN)
+    )
 
-    include(object : SubjectLessSpec<BigDecimal?>(
-        "$describePrefix[nullable] ",
-        toEqualNull.forSubjectLessTest(null)
-    ) {})
+    @TestFactory
+    fun nullableSubjectLessTest() = subjectLessTestFactory(
+        toEqualNullSpec.forSubjectLessTest(null),
+        groupPrefix = "[nullable] "
+    )
 
-    fun describeFun(vararg pairs: SpecPair<*>, body: Suite.() -> Unit) =
-        describeFunTemplate(describePrefix, pairs.map { it.name }.toTypedArray(), body = body)
-
-    describeFun(toEqualNumerically, notToEqualNumerically) {
-        val toEqualNumericallyFun = toEqualNumerically.lambda
-        val notToEqualNumericallyFun = notToEqualNumerically.lambda
-
+    @TestFactory
+    fun toEqualNumerically_notToEqualNumerically() = testFactory(
+        toEqualNumericallySpec,
+        notToEqualNumericallySpec
+    ) { toEqualNumericallyFun, notToEqualNumericallyFun ->
         mapOf(
             BigDecimal.TEN to BigDecimal("10.00"),
             BigDecimal.ZERO to BigDecimal("0.0"),
@@ -52,11 +50,11 @@ abstract class BigDecimalExpectationsSpec(
             BigDecimal.ZERO to BigDecimal("0.00"),
             BigDecimal.ZERO to BigDecimal("00.0")
         ).forEach { (subject, expected) ->
-            context("subject $subject and expected $expected") {
-                it("`${toEqualNumerically.name}` does not throw") {
+            describe("subject $subject and expected $expected") {
+                it("`${toEqualNumericallySpec.name}` does not throw") {
                     expect(subject).toEqualNumericallyFun(expected)
                 }
-                it("`${notToEqualNumerically.name}` throws AssertionError") {
+                it("`${notToEqualNumericallySpec.name}` throws AssertionError") {
                     expect {
                         expect(subject).notToEqualNumericallyFun(expected)
                     }.toThrow<AssertionError> {
@@ -73,8 +71,8 @@ abstract class BigDecimalExpectationsSpec(
             BigDecimal.TEN to BigDecimal("10.00000001"),
             BigDecimal.ZERO to BigDecimal("0.0000001")
         ).forEach { (subject, expected) ->
-            context("subject $subject and expected $expected") {
-                it("`${toEqualNumerically.name}` throws AssertionError") {
+            describe("subject $subject and expected $expected") {
+                it("`${toEqualNumericallySpec.name}` throws AssertionError") {
                     expect {
                         expect(subject).toEqualNumericallyFun(expected)
                     }.toThrow<AssertionError> {
@@ -84,57 +82,58 @@ abstract class BigDecimalExpectationsSpec(
                         )
                     }
                 }
-                it("`$notToEqualNumerically` does not throw") {
+                it("`${notToEqualNumericallySpec.name}` does not throw") {
                     expect(subject).notToEqualNumericallyFun(expected)
                 }
             }
         }
     }
 
-    describeFun(
-        toEqualDontUse,
-        toEqualNullableDontUse,
-        toEqualIncludingScale,
-        notToEqual,
-        notToEqualIncludingScale
+    @TestFactory
+    fun toEqual_overloads() = testFactory(
+        toEqualDontUseSpec,
+        toEqualNullableDontUseSpec,
+        toEqualIncludingScaleSpec,
+        notToEqualSpec,
+        notToEqualIncludingScaleSpec
     ) {
-        val toEqualFun = toEqualDontUse.lambda
-        val toEqualNullableFun = toEqualNullableDontUse.lambda
-        val toEqualIncludingScaleFun = toEqualIncludingScale.lambda
-        val notToEqualFun = notToEqual.lambda
-        val notToEqualIncludingScaleFun = notToEqualIncludingScale.lambda
+        val toEqualFun = toEqualDontUseSpec.lambda
+        val toEqualNullableFun = toEqualNullableDontUseSpec.lambda
+        val toEqualIncludingScaleFun = toEqualIncludingScaleSpec.lambda
+        val notToEqualFun = notToEqualSpec.lambda
+        val notToEqualIncludingScaleFun = notToEqualIncludingScaleSpec.lambda
 
         val failureHintNotNumerically = String.format(
             DescriptionBigDecimalAssertion.FAILURE_IS_EQUAL_INCLUDING_SCALE_BUT_NUMERICALLY_EQUAL.getDefault(),
-            notToEqualNumerically.name
+            notToEqualNumericallySpec.name
         )
-        context("subject is 10 and expected is 10") {
+        describe("subject is 10 and expected is 10") {
             val expected = BigDecimal("10")
-            it("${toEqualDontUse.name} with BigDecimal overload throws ${PleaseUseReplacementException::class.simpleName}") {
+            it("${toEqualDontUseSpec.name} with BigDecimal overload throws ${PleaseUseReplacementException::class.simpleName}") {
                 expect {
                     expect(BigDecimal.TEN as BigDecimal).toEqualFun(expected)
                 }.toThrow<PleaseUseReplacementException>()
             }
-            it("${toEqualDontUse.name} with BigDecimal? overload throws ${PleaseUseReplacementException::class.simpleName}") {
+            it("${toEqualDontUseSpec.name} with BigDecimal? overload throws ${PleaseUseReplacementException::class.simpleName}") {
                 expect {
                     @Suppress("USELESS_CAST")
                     expect(BigDecimal.TEN as BigDecimal?).toEqualNullableFun(expected)
                 }.toThrow<PleaseUseReplacementException>()
             }
-            it("${notToEqual.name} with BigDecimal overload throws ${PleaseUseReplacementException::class.simpleName}") {
+            it("${notToEqualSpec.name} with BigDecimal overload throws ${PleaseUseReplacementException::class.simpleName}") {
                 expect {
                     expect(BigDecimal.TEN as BigDecimal).notToEqualFun(expected)
                 }.toThrow<PleaseUseReplacementException>()
             }
 
-            it("${toEqualDontUse.name} with Any overload does not throw") {
+            it("${toEqualDontUseSpec.name} with Any overload does not throw") {
                 expect(BigDecimal.TEN as Any).toEqualAnyFun(expected)
             }
-            it("$toEqualIncludingScale does not throw") {
+            it("${toEqualIncludingScaleSpec.name} does not throw") {
                 expect(BigDecimal.TEN as BigDecimal).toEqualIncludingScaleFun(expected)
             }
 
-            it("${notToEqual.name} with Any overload throws an AssertionError and does not contain the hint") {
+            it("${notToEqualSpec.name} with Any overload throws an AssertionError and does not contain the hint") {
                 expect {
                     expect(BigDecimal.TEN as Any).notToEqualAnyFun(expected)
                 }.toThrow<AssertionError> {
@@ -144,7 +143,7 @@ abstract class BigDecimalExpectationsSpec(
                     }
                 }
             }
-            it("${notToEqualIncludingScale.name} throws an AssertionError and does not contain the hint") {
+            it("${notToEqualIncludingScaleSpec.name} throws an AssertionError and does not contain the hint") {
                 expect {
                     expect(BigDecimal.TEN as BigDecimal).notToEqualIncludingScaleFun(expected)
                 }.toThrow<AssertionError> {
@@ -161,25 +160,25 @@ abstract class BigDecimalExpectationsSpec(
 
         val failureHintNumerically = String.format(
             DescriptionBigDecimalAssertion.FAILURE_IS_EQUAL_INCLUDING_SCALE_BUT_NUMERICALLY_EQUAL.getDefault(),
-            toEqualNumerically.name
+            toEqualNumericallySpec.name
         )
         listOf(
             BigDecimal("10.0"),
             BigDecimal("10.00")
         ).forEach { expected ->
-            context("subject is 10 and expected is $expected") {
-                it("${toEqualDontUse.name} with BigDecimal overload throws ${PleaseUseReplacementException::class.simpleName}") {
+            describe("subject is 10 and expected is $expected") {
+                it("${toEqualDontUseSpec.name} with BigDecimal overload throws ${PleaseUseReplacementException::class.simpleName}") {
                     expect {
                         expect(BigDecimal.TEN as BigDecimal).toEqualFun(expected)
                     }.toThrow<PleaseUseReplacementException>()
                 }
-                it("${notToEqual.name} with BigDecimal overload throws ${PleaseUseReplacementException::class.simpleName}") {
+                it("${notToEqualSpec.name} with BigDecimal overload throws ${PleaseUseReplacementException::class.simpleName}") {
                     expect {
                         expect(BigDecimal.TEN as BigDecimal).notToEqualFun(expected)
                     }.toThrow<PleaseUseReplacementException>()
                 }
 
-                it("${toEqualDontUse.name} with Any overload throws an AssertionError and does not contain the hint") {
+                it("${toEqualDontUseSpec.name} with Any overload throws an AssertionError and does not contain the hint") {
                     expect {
                         expect(BigDecimal.TEN as Any).toEqualAnyFun(expected)
                     }.toThrow<AssertionError> {
@@ -189,7 +188,7 @@ abstract class BigDecimalExpectationsSpec(
                         }
                     }
                 }
-                it("${toEqualIncludingScale.name} throws an AssertionError mentioning that ${toEqualNumerically.name} could have been used") {
+                it("${toEqualIncludingScaleSpec.name} throws an AssertionError mentioning that ${toEqualNumericallySpec.name} could have been used") {
                     expect {
                         expect(BigDecimal.TEN as BigDecimal).toEqualIncludingScaleFun(expected)
                     }.toThrow<AssertionError> {
@@ -201,29 +200,29 @@ abstract class BigDecimalExpectationsSpec(
                     }
                 }
 
-                it("${notToEqual.name} with Any overload does not throw") {
+                it("${notToEqualSpec.name} with Any overload does not throw") {
                     expect(BigDecimal.TEN as Any).notToEqualAnyFun(expected)
                 }
-                it("${toEqualIncludingScale.name} does not throw") {
+                it("${toEqualIncludingScaleSpec.name} does not throw") {
                     expect(BigDecimal.TEN as BigDecimal).notToEqualIncludingScaleFun(expected)
                 }
             }
         }
 
-        context("subject is 10 and expected is 9") {
+        describe("subject is 10 and expected is 9") {
             val expected = BigDecimal("9.999999999999")
-            it("${toEqualDontUse.name} with BigDecimal overload throws ${PleaseUseReplacementException::class.simpleName}") {
+            it("${toEqualDontUseSpec.name} with BigDecimal overload throws ${PleaseUseReplacementException::class.simpleName}") {
                 expect {
                     expect(BigDecimal.TEN as BigDecimal).toEqualFun(expected)
                 }.toThrow<PleaseUseReplacementException>()
             }
-            it("${notToEqual.name} with BigDecimal overload throws ${PleaseUseReplacementException::class.simpleName}") {
+            it("${notToEqualSpec.name} with BigDecimal overload throws ${PleaseUseReplacementException::class.simpleName}") {
                 expect {
                     expect(BigDecimal.TEN as BigDecimal).notToEqualFun(expected)
                 }.toThrow<PleaseUseReplacementException>()
             }
 
-            it("${toEqualDontUse.name} with Any overload throws an AssertionError and does not contain the hint") {
+            it("${toEqualDontUseSpec.name} with Any overload throws an AssertionError and does not contain the hint") {
                 expect {
                     expect(BigDecimal.TEN as Any).toEqualAnyFun(expected)
                 }.toThrow<AssertionError> {
@@ -233,7 +232,7 @@ abstract class BigDecimalExpectationsSpec(
                     }
                 }
             }
-            it("${toEqualIncludingScale.name} throws an AssertionError and does not contain the hint") {
+            it("${toEqualIncludingScaleSpec.name} throws an AssertionError and does not contain the hint") {
                 expect {
                     expect(BigDecimal.TEN as BigDecimal).toEqualIncludingScaleFun(expected)
                 }.toThrow<AssertionError> {
@@ -247,20 +246,19 @@ abstract class BigDecimalExpectationsSpec(
                 }
             }
 
-            it("${notToEqual.name} with Any overload does not throw") {
+            it("${notToEqualSpec.name} with Any overload does not throw") {
                 expect(BigDecimal.TEN as Any).notToEqualAnyFun(expected)
             }
-            it("${toEqualIncludingScale.name} does not throw") {
+            it("${toEqualIncludingScaleSpec.name} does not throw") {
                 expect(BigDecimal.TEN as BigDecimal).notToEqualIncludingScaleFun(expected)
             }
         }
     }
 
-    describeFun(toEqualNull) {
-        val toEqualFun = toEqualNull.lambda
+    @TestFactory
+    fun toEqualNull() = testFactory(toEqualNullSpec) { toEqualFun ->
         it("does not throw if subject is null") {
             expect(null as BigDecimal?).toEqualFun(null)
         }
     }
-})
-
+}
