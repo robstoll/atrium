@@ -1,13 +1,14 @@
 package ch.tutteli.atrium.api.fluent.en_GB
 
+import ch.tutteli.atrium.api.verbs.internal.expect
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.fun1
-import ch.tutteli.atrium.specs.notImplemented
 import ch.tutteli.atrium.specs.property
 import java.time.DayOfWeek
 import java.time.LocalDate
+import kotlin.test.Test
 
-class LocalDateExpectationsSpec : ch.tutteli.atrium.specs.integration.LocalDateExpectationsSpec(
+class LocalDateExpectationsTest : ch.tutteli.atrium.specs.integration.AbstractLocalDateExpectationsTest(
     property<LocalDate, Int>(Expect<LocalDate>::year),
     fun1<LocalDate, Expect<Int>.() -> Unit>(Expect<LocalDate>::year),
     property<LocalDate, Int>(Expect<LocalDate>::month),
@@ -18,20 +19,20 @@ class LocalDateExpectationsSpec : ch.tutteli.atrium.specs.integration.LocalDateE
     fun1<LocalDate, Expect<DayOfWeek>.() -> Unit>(Expect<LocalDate>::dayOfWeek)
 ) {
     @Suppress("unused", "UNUSED_VALUE")
-    private fun ambiguityTest() {
-        var a1: Expect<LocalDate> = notImplemented()
+    @Test
+    fun ambiguityTest() {
+        var a1: Expect<LocalDate> = expect(LocalDate.of(2009, 3, 13))
 
         a1.year
-        a1 = a1.year { }
+        a1 = a1.year { toEqual(2009) }
 
         a1.month
-        a1 = a1.month { }
-
-        a1.dayOfWeek
-        a1 = a1.dayOfWeek { }
+        a1 = a1.month { toEqual(3) }
 
         a1.day
-        a1 = a1.day { }
+        a1 = a1.day { toEqual(13) }
+
+        a1.dayOfWeek
+        a1 = a1.dayOfWeek { toEqual(DayOfWeek.FRIDAY) }
     }
 }
-
