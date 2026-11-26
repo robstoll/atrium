@@ -11,16 +11,11 @@ import org.spekframework.spek2.dsl.Root
 abstract class IterableToContainEntriesSpecBase(
     spec: Root.() -> Unit
 ) : IterableToContainSpecBase(spec) {
-    init {
-        toBeLessThanFun = Expect<Double>::toBeLessThan.name
-        toBeGreaterThanFun = Expect<Double>::toBeGreaterThan.name
-        toEqualFun = fun1<Double, Double>(Expect<Double>::toEqual).name
-    }
 
     companion object {
-        var toBeLessThanFun = ""
-        var toBeGreaterThanFun = ""
-        var toEqualFun = ""
+        val toBeLessThanFun = Expect<Double>::toBeLessThan.name
+        val toBeGreaterThanFun = Expect<Double>::toBeGreaterThan.name
+        val toEqualFun = fun1<Double, Double>(Expect<Double>::toEqual).name
         val anElementWhichNeedsDescr = DescriptionIterableLikeExpectation.AN_ELEMENT_WHICH_NEEDS.getDefault()
         val toBeLessThanDescr = DescriptionComparableExpectation.TO_BE_LESS_THAN.getDefault()
         val toBeGreaterThanDescr = DescriptionComparableExpectation.TO_BE_GREATER_THAN.getDefault()

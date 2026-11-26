@@ -6,81 +6,107 @@ import ch.tutteli.atrium.core.polyfills.format
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.logic.utils.expectLambda
 import ch.tutteli.atrium.specs.*
+import ch.tutteli.atrium.specs.integration.IterableToContainEntriesSpecBase.Companion.afterExplanatory
+import ch.tutteli.atrium.specs.integration.IterableToContainEntriesSpecBase.Companion.afterExplanatoryIndent
+import ch.tutteli.atrium.specs.integration.IterableToContainEntriesSpecBase.Companion.afterMismatchedWarning
+import ch.tutteli.atrium.specs.integration.IterableToContainEntriesSpecBase.Companion.anElementWhichNeedsDescr
+import ch.tutteli.atrium.specs.integration.IterableToContainEntriesSpecBase.Companion.hasANextElement
+import ch.tutteli.atrium.specs.integration.IterableToContainEntriesSpecBase.Companion.index
+import ch.tutteli.atrium.specs.integration.IterableToContainEntriesSpecBase.Companion.mismatchedIndex
+import ch.tutteli.atrium.specs.integration.IterableToContainEntriesSpecBase.Companion.toBeGreaterThanDescr
+import ch.tutteli.atrium.specs.integration.IterableToContainEntriesSpecBase.Companion.toBeGreaterThanFun
+import ch.tutteli.atrium.specs.integration.IterableToContainEntriesSpecBase.Companion.toBeLessThanDescr
+import ch.tutteli.atrium.specs.integration.IterableToContainEntriesSpecBase.Companion.toBeLessThanFun
+import ch.tutteli.atrium.specs.integration.IterableToContainEntriesSpecBase.Companion.toEqualFun
+import ch.tutteli.atrium.specs.integration.IterableToContainSpecBase.Companion.mismatches
+import ch.tutteli.atrium.specs.integration.IterableToContainSpecBase.Companion.notToContainDescr
+import ch.tutteli.atrium.specs.integration.IterableToContainSpecBase.Companion.oneToSeven
+import ch.tutteli.atrium.specs.integration.IterableToContainSpecBase.Companion.oneToSevenNullable
+import ch.tutteli.atrium.specs.integration.IterableToContainSpecBase.Companion.separator
+import ch.tutteli.atrium.specs.integration.utils.ExpectationCreatorTestData
+import ch.tutteli.atrium.specs.integration.utils.SubjectLessTestData
+import ch.tutteli.atrium.testfactories.TestFactory
 import ch.tutteli.atrium.translations.DescriptionIterableLikeExpectation
 
-abstract class IterableNotToContainEntriesExpectationsSpec(
-    notToContainEntries: Fun2<Iterable<Double>, Expect<Double>.() -> Unit, Array<out Expect<Double>.() -> Unit>>,
-    notToContainNullableEntries: Fun2<Iterable<Double?>, (Expect<Double>.() -> Unit)?, Array<out (Expect<Double>.() -> Unit)?>>,
-    notToHaveElementsOrNoneFunName: String,
-    describePrefix: String = "[Atrium] "
-) : IterableToContainEntriesSpecBase({
+@Suppress("FunctionName")
+abstract class AbstractIterableNotToContainEntriesExpectationsTest(
+    private val notToContainEntriesSpec: Fun2<Iterable<Double>, Expect<Double>.() -> Unit, Array<out Expect<Double>.() -> Unit>>,
+    private val notToContainNullableEntriesSpec: Fun2<Iterable<Double?>, (Expect<Double>.() -> Unit)?, Array<out (Expect<Double>.() -> Unit)?>>,
+    private val notToHaveElementsOrNoneFunNameSpec: String,
+) : ExpectationFunctionBaseTest() {
 
-    include(object : SubjectLessSpec<Iterable<Double>>(
-        describePrefix,
-        notToContainEntries.forSubjectLessTest({ toEqual(2.3) }, arrayOf())
-    ) {})
-    include(object : SubjectLessSpec<Iterable<Double?>>(
-        describePrefix,
-        notToContainNullableEntries.forSubjectLessTest({ toEqual(2.3) }, arrayOf())
-    ) {})
-
-    include(object : AssertionCreatorSpec<Iterable<Double>>(
-        describePrefix, oneToSeven().toList().asIterable(),
-        notToContainEntries.forExpectationCreatorTest(
-            "$toBeGreaterThanDescr: 8.1",
-            "$toBeGreaterThanDescr: 10.1",
-            { toBeGreaterThan(8.1) }, arrayOf(expectLambda { toBeGreaterThan(10.1) })
+    @TestFactory
+    fun subjectLessTest() = subjectLessTestFactory(
+        SubjectLessTestData(
+            notToContainEntriesSpec.forSubjectLessTest({ toEqual(2.3) }, arrayOf())
+        ),
+        SubjectLessTestData(
+            notToContainNullableEntriesSpec.forSubjectLessTest({ toEqual(2.3) }, arrayOf())
         )
-    ) {})
-    include(object : AssertionCreatorSpec<Iterable<Double?>>(
-        "$describePrefix[nullable Element] ", oneToSeven().toList().asIterable(),
-        notToContainNullableEntries.forExpectationCreatorTest(
-            "$toBeGreaterThanDescr: 8.1",
-            "$toBeGreaterThanDescr: 10.1",
-            { toBeGreaterThan(8.1) }, arrayOf(expectLambda { toBeGreaterThan(10.1) })
+    )
+
+    @TestFactory
+    fun expectationCreatorTest() = expectationCreatorTestFactory(
+        ExpectationCreatorTestData(
+            oneToSeven().toList(),
+            notToContainEntriesSpec.forExpectationCreatorTest(
+                "$toBeGreaterThanDescr: 8.1",
+                "$toBeGreaterThanDescr: 10.1",
+                { toBeGreaterThan(8.1) },
+                arrayOf(expectLambda { toBeGreaterThan(10.1) })
+            )
+        ),
+        ExpectationCreatorTestData(
+            oneToSeven().toList(),
+            notToContainNullableEntriesSpec.forExpectationCreatorTest(
+                "$toBeGreaterThanDescr: 8.1",
+                "$toBeGreaterThanDescr: 10.1",
+                { toBeGreaterThan(8.1) },
+                arrayOf(expectLambda { toBeGreaterThan(10.1) })
+            )
         )
-    ) {})
+    )
 
-    fun Expect<Iterable<Double?>>.notToContainNullableFun(
-        a: (Expect<Double>.() -> Unit)?,
-        vararg aX: (Expect<Double>.() -> Unit)?
-    ) = notToContainNullableEntries(this, a, aX)
-
-    val notToContainDescr = DescriptionIterableLikeExpectation.NOT_TO_CONTAIN.getDefault()
-
-    nonNullableCases(
-        describePrefix,
-        notToContainEntries,
-        notToContainNullableEntries
-    ) { notToContainFunArr ->
-
+    @TestFactory
+    fun empty_iterable__throws() = testFactoryNonNullable(
+        notToContainEntriesSpec, notToContainNullableEntriesSpec
+    ) { notToContainEntriesFunArr ->
         fun Expect<Iterable<Double>>.notToContainFun(
             a: Expect<Double>.() -> Unit,
             vararg aX: Expect<Double>.() -> Unit
-        ) = notToContainFunArr(a, aX)
+        ) = notToContainEntriesFunArr(a, aX)
 
-        context("empty iterable") {
-
-            it("$toEqualFun(4.1) throws AssertionError") {
-                expect {
-                    expect(setOf<Double>().asIterable()).notToContainFun({ toEqual(4.1) })
-                }.toThrow<AssertionError> {
-                    message {
-                        toContainRegex(
-                            "$hasANextElement$separator" +
-                                "$indentRootBulletPoint\\Q$explanatoryBulletPoint\\E$notToContainDescr: $separator" +
-                                "$indentRootBulletPoint$indentListBulletPoint\\Q$listBulletPoint\\E$anElementWhichNeedsDescr: $separator" +
-                                "$indentListBulletPoint$afterExplanatory$toEqualDescr: 4.1.*",
-                                "$hintBulletPoint${DescriptionIterableLikeExpectation.USE_NOT_TO_HAVE_ELEMENTS_OR_NONE.getDefault().format(notToHaveElementsOrNoneFunName)}"
-                        )
-                    }
+        it("$toEqualFun(4.1) throws AssertionError") {
+            expect {
+                expect(setOf<Double>().asIterable()).notToContainFun({ toEqual(4.1) })
+            }.toThrow<AssertionError> {
+                message {
+                    toContainRegex(
+                        "$hasANextElement$separator" +
+                            "$indentRootBulletPoint\\Q$explanatoryBulletPoint\\E$notToContainDescr: $separator" +
+                            "$indentRootBulletPoint$indentListBulletPoint\\Q$listBulletPoint\\E$anElementWhichNeedsDescr: $separator" +
+                            "$indentListBulletPoint$afterExplanatory$toEqualDescr: 4.1.*",
+                        "$hintBulletPoint${
+                            DescriptionIterableLikeExpectation.USE_NOT_TO_HAVE_ELEMENTS_OR_NONE.getDefault()
+                                .format(notToHaveElementsOrNoneFunNameSpec)
+                        }"
+                    )
                 }
             }
         }
+    }
 
-        context("iterable ${oneToSeven().toList()}") {
+    @TestFactory
+    fun one_to_seven() = testFactoryNonNullable(
+        notToContainEntriesSpec, notToContainNullableEntriesSpec
+    ) { notToContainEntriesFunArr ->
+        fun Expect<Iterable<Double>>.notToContainFun(
+            a: Expect<Double>.() -> Unit,
+            vararg aX: Expect<Double>.() -> Unit
+        ) = notToContainEntriesFunArr(a, aX)
 
-            context("happy case") {
+        describeIterable(::oneToSeven) {
+            describe("happy cases") {
                 it("$toBeGreaterThanFun(1.2) and $toBeLessThanFun(2.1) does not throw") {
                     expect(oneToSeven()).notToContainFun({ toBeGreaterThan(1.2); toBeLessThan(2.1) })
                 }
@@ -92,7 +118,7 @@ abstract class IterableNotToContainEntriesExpectationsSpec(
                 }
             }
 
-            context("failing cases; search string at different positions") {
+            describe("failing cases") {
                 it("$toBeLessThanFun(4.1) throws AssertionError") {
                     expect {
                         expect(oneToSeven()).notToContainFun({ toBeLessThan(4.1) })
@@ -142,53 +168,56 @@ abstract class IterableNotToContainEntriesExpectationsSpec(
                     }
                 }
             }
-
         }
     }
 
-    nullableCases(describePrefix) {
-        describeFun(notToContainNullableEntries) {
-            context("iterable ${oneToSeven().toList()}") {
-                it("null does not throw") {
-                    expect(oneToSeven() as Iterable<Double?>).notToContainNullableFun(null)
-                }
+    @TestFactory
+    fun nullable_cases() = testFactory(notToContainNullableEntriesSpec) { notToContainNullableEntriesFunArr ->
+        fun Expect<Iterable<Double?>>.notToContainNullableFun(
+            a: (Expect<Double>.() -> Unit)?,
+            vararg aX: (Expect<Double>.() -> Unit)?
+        ) = notToContainNullableEntriesFunArr(this, a, aX)
+
+        describeIterable(::oneToSeven) {
+            it("null does not throw") {
+                expect(oneToSeven() as Iterable<Double?>).notToContainNullableFun(null)
             }
-            context("iterable ${oneToSevenNullable().toList()}") {
-                it("null throws AssertionError") {
-                    expect {
-                        expect(oneToSevenNullable()).notToContainNullableFun(null)
-                    }.toThrow<AssertionError> {
-                        message {
-                            toContainRegex(
-                                "\\Q$rootBulletPoint\\E$notToContainDescr: $separator" +
-                                    "$indentRootBulletPoint\\Q$listBulletPoint\\E$anElementWhichNeedsDescr: $separator" +
-                                    "$afterExplanatory$toEqualDescr: null$separator" +
-                                    "$afterExplanatoryIndent\\Q$warningBulletPoint$mismatches:\\E $separator" +
-                                    "$afterMismatchedWarning${mismatchedIndex(1, "null")}.*$separator" +
-                                    "$afterMismatchedWarning${mismatchedIndex(5, "null")}.*"
-                            )
-                        }
+        }
+        describeIterable(::oneToSevenNullable) {
+            it("null throws AssertionError") {
+                expect {
+                    expect(oneToSevenNullable()).notToContainNullableFun(null)
+                }.toThrow<AssertionError> {
+                    message {
+                        toContainRegex(
+                            "\\Q$rootBulletPoint\\E$notToContainDescr: $separator" +
+                                "$indentRootBulletPoint\\Q$listBulletPoint\\E$anElementWhichNeedsDescr: $separator" +
+                                "$afterExplanatory$toEqualDescr: null$separator" +
+                                "$afterExplanatoryIndent\\Q$warningBulletPoint$mismatches:\\E $separator" +
+                                "$afterMismatchedWarning${mismatchedIndex(1, "null")}.*$separator" +
+                                "$afterMismatchedWarning${mismatchedIndex(5, "null")}.*"
+                        )
                     }
                 }
+            }
 
-                it("1.2, null throws AssertionError mentioning only null") {
-                    expect {
-                        expect(oneToSevenNullable()).notToContainNullableFun({ toEqual(1.2) }, null)
-                    }.toThrow<AssertionError> {
-                        message {
-                            toContainRegex(
-                                "\\Q$rootBulletPoint\\E$notToContainDescr: $separator" +
-                                    "$indentRootBulletPoint\\Q$listBulletPoint\\E$anElementWhichNeedsDescr: $separator" +
-                                    "$afterExplanatory$toEqualDescr: null$separator" +
-                                    "$afterExplanatoryIndent\\Q$warningBulletPoint$mismatches:\\E $separator" +
-                                    "$afterMismatchedWarning${index(1)}: null.*$separator" +
-                                    "$afterMismatchedWarning${index(5)}: null.*"
-                            )
-                            this.notToContain("$notToContainDescr: 1.2")
-                        }
+            it("1.2, null throws AssertionError mentioning only null") {
+                expect {
+                    expect(oneToSevenNullable()).notToContainNullableFun({ toEqual(1.2) }, null)
+                }.toThrow<AssertionError> {
+                    message {
+                        toContainRegex(
+                            "\\Q$rootBulletPoint\\E$notToContainDescr: $separator" +
+                                "$indentRootBulletPoint\\Q$listBulletPoint\\E$anElementWhichNeedsDescr: $separator" +
+                                "$afterExplanatory$toEqualDescr: null$separator" +
+                                "$afterExplanatoryIndent\\Q$warningBulletPoint$mismatches:\\E $separator" +
+                                "$afterMismatchedWarning${index(1)}: null.*$separator" +
+                                "$afterMismatchedWarning${index(5)}: null.*"
+                        )
+                        this.notToContain("$notToContainDescr: 1.2")
                     }
                 }
             }
         }
     }
-})
+}
