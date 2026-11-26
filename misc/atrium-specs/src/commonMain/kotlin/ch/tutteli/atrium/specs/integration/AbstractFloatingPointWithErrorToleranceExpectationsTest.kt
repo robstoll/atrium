@@ -68,12 +68,12 @@ abstract class AbstractFloatingPointWithErrorToleranceExpectationsTest(
 
         testData.forEachIndexed { caseIndex, (subject, tolerance, holding, failing) ->
             describe("case ${caseIndex + 1}: $subject / $tolerance") {
-                it("subject") {
+                it("... compare to $subject does not throw") {
                     expect(subject).toEqualWithErrorTolerance(subject, tolerance)
                 }
 
                 holding.forEachIndexed { numberIndex, num ->
-                    it("within ${numberIndex + 1}") {
+                    it(".. compare to $num does not throw") {
                         expect(subject).toEqualWithErrorTolerance(num, tolerance)
                     }
                 }
@@ -81,11 +81,12 @@ abstract class AbstractFloatingPointWithErrorToleranceExpectationsTest(
                 val toEqualInclErrorToleranceDescr = TO_EQUAL_WITH_ERROR_TOLERANCE.getDefault().format(tolerance)
                 val failureNoticePrefix = FAILURE_DUE_TO_FLOATING_POINT_NUMBER
                     .getDefault()
-                    .format("__TYPE__")
-                    .substringBefore("__TYPE__")
-
+                    // should be
+                    // .format(subject::class.fullName)
+                    // but because of  https://youtrack.jetbrains.com/issue/KT-32484 we only check if the prefix is in there
+                    .format("__TYPE__").substringBefore("__TYPE__")
                 failing.forEachIndexed { numberIndex, num ->
-                    it("outside ${numberIndex + 1}") {
+                    it("... compare to $num throws AssertionError") {
                         expect {
                             expect(subject).toEqualWithErrorTolerance(num, tolerance)
                         }.toThrow<AssertionError> {
@@ -135,12 +136,12 @@ abstract class AbstractFloatingPointWithErrorToleranceExpectationsTest(
 
         testData.forEachIndexed { caseIndex, (subject, tolerance, holding, failing) ->
             describe("case ${caseIndex + 1}: $subject / $tolerance") {
-                it("subject") {
+                it("... compare to $subject does not throw") {
                     expect(subject).toEqualWithErrorTolerance(subject, tolerance)
                 }
 
                 holding.forEachIndexed { numberIndex, num ->
-                    it("within ${numberIndex + 1}") {
+                    it(".. compare to $num does not throw") {
                         expect(subject).toEqualWithErrorTolerance(num, tolerance)
                     }
                 }
@@ -148,11 +149,13 @@ abstract class AbstractFloatingPointWithErrorToleranceExpectationsTest(
                 val toEqualInclErrorToleranceDescr = TO_EQUAL_WITH_ERROR_TOLERANCE.getDefault().format(tolerance)
                 val failureNoticePrefix = FAILURE_DUE_TO_FLOATING_POINT_NUMBER
                     .getDefault()
-                    .format("__TYPE__")
-                    .substringBefore("__TYPE__")
+                    // should be
+                    // .format(subject::class.fullName)
+                    // but because of  https://youtrack.jetbrains.com/issue/KT-32484 we only check if the prefix is in there
+                    .format("__TYPE__").substringBefore("__TYPE__")
 
                 failing.forEachIndexed { numberIndex, num ->
-                    it("outside ${numberIndex + 1}") {
+                    it("... compare to $num throws AssertionError") {
                         expect {
                             expect(subject).toEqualWithErrorTolerance(num, tolerance)
                         }.toThrow<AssertionError> {
