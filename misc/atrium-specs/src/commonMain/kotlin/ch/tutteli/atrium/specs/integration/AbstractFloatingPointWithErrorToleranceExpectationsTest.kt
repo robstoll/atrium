@@ -5,7 +5,6 @@ import ch.tutteli.atrium.api.fluent.en_GB.toContain
 import ch.tutteli.atrium.api.fluent.en_GB.toThrow
 import ch.tutteli.atrium.core.polyfills.format
 import ch.tutteli.atrium.core.polyfills.formatFloatingPointNumber
-import ch.tutteli.atrium.core.polyfills.fullName
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.specs.*
 import ch.tutteli.atrium.specs.integration.utils.SubjectLessTestData
@@ -67,26 +66,25 @@ abstract class AbstractFloatingPointWithErrorToleranceExpectationsTest(
         )
 
         testData.forEachIndexed { caseIndex, (subject, tolerance, holding, failing) ->
-            describe("case ${caseIndex + 1}: $subject / $tolerance") {
-                it("... compare to $subject does not throw") {
+            // Keep generated test names short: Gradle uses them as part of report file paths.
+            describe("case ${caseIndex + 1}") {
+                it("subject does not throw") {
                     expect(subject).toEqualWithErrorTolerance(subject, tolerance)
                 }
-
                 holding.forEachIndexed { numberIndex, num ->
-                    it(".. compare to $num does not throw") {
+                    it("holding value ${numberIndex + 1} does not throw") {
                         expect(subject).toEqualWithErrorTolerance(num, tolerance)
                     }
                 }
-
                 val toEqualInclErrorToleranceDescr = TO_EQUAL_WITH_ERROR_TOLERANCE.getDefault().format(tolerance)
                 val failureNoticePrefix = FAILURE_DUE_TO_FLOATING_POINT_NUMBER
                     .getDefault()
                     // should be
                     // .format(subject::class.fullName)
-                    // but because of  https://youtrack.jetbrains.com/issue/KT-32484 we only check if the prefix is in there
+                    // but because of https://youtrack.jetbrains.com/issue/KT-32484 we only check if the prefix is in there
                     .format("__TYPE__").substringBefore("__TYPE__")
                 failing.forEachIndexed { numberIndex, num ->
-                    it("... compare to $num throws AssertionError") {
+                    it("failing value ${numberIndex + 1} throws AssertionError") {
                         expect {
                             expect(subject).toEqualWithErrorTolerance(num, tolerance)
                         }.toThrow<AssertionError> {
@@ -135,27 +133,26 @@ abstract class AbstractFloatingPointWithErrorToleranceExpectationsTest(
         )
 
         testData.forEachIndexed { caseIndex, (subject, tolerance, holding, failing) ->
-            describe("case ${caseIndex + 1}: $subject / $tolerance") {
-                it("... compare to $subject does not throw") {
+            // Keep generated test names short: Gradle uses them as part of report file paths.
+            describe("case ${caseIndex + 1}") {
+                it("subject does not throw") {
                     expect(subject).toEqualWithErrorTolerance(subject, tolerance)
                 }
-
                 holding.forEachIndexed { numberIndex, num ->
-                    it(".. compare to $num does not throw") {
+                    it("holding value ${numberIndex + 1} does not throw") {
                         expect(subject).toEqualWithErrorTolerance(num, tolerance)
                     }
                 }
-
                 val toEqualInclErrorToleranceDescr = TO_EQUAL_WITH_ERROR_TOLERANCE.getDefault().format(tolerance)
                 val failureNoticePrefix = FAILURE_DUE_TO_FLOATING_POINT_NUMBER
                     .getDefault()
                     // should be
                     // .format(subject::class.fullName)
-                    // but because of  https://youtrack.jetbrains.com/issue/KT-32484 we only check if the prefix is in there
+                    // but because of https://youtrack.jetbrains.com/issue/KT-32484 we only check if the prefix is in there
                     .format("__TYPE__").substringBefore("__TYPE__")
 
                 failing.forEachIndexed { numberIndex, num ->
-                    it("... compare to $num throws AssertionError") {
+                    it("failing value ${numberIndex + 1} throws AssertionError") {
                         expect {
                             expect(subject).toEqualWithErrorTolerance(num, tolerance)
                         }.toThrow<AssertionError> {
