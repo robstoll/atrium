@@ -52,7 +52,8 @@ fun <SubjectT> mapLikeToIterablePairTestFactory(
                     messageToContain(
                         "MapLikeToIterablePairTransformer accepts arguments of types:",
                         "Map as well as IterableLike with an element type `Pair<*, *>` and `Map.Entry<*, *>`",
-                        "\ngiven: kotlin.String"
+                        "given:",
+                        "String"
                     )
                     cause<IllegalArgumentException> {
                         messageToContain("IterableLikeToIterableTransformer accepts arguments of types:")
