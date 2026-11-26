@@ -2,21 +2,16 @@ package ch.tutteli.atrium.specs.integration
 
 import ch.tutteli.atrium.api.fluent.en_GB.*
 import ch.tutteli.atrium.api.verbs.internal.expect
+import ch.tutteli.atrium.api.verbs.internal.testfactories.ExpectTestExecutableForTests
 import ch.tutteli.atrium.creating.Expect
 import ch.tutteli.atrium.reporting.translating.Translatable
 import ch.tutteli.atrium.reporting.translating.TranslatableWithArgs
 import ch.tutteli.atrium.specs.*
+import ch.tutteli.atrium.testfactories.TestFactory
+import ch.tutteli.atrium.testfactories.TestFactoryBuilder
 import ch.tutteli.atrium.translations.DescriptionBasic.*
 import ch.tutteli.atrium.translations.DescriptionPathAssertion.*
 import ch.tutteli.niok.*
-import ch.tutteli.spek.extensions.MemoizedTempFolder
-import ch.tutteli.spek.extensions.memoizedTempFolder
-import org.spekframework.spek2.Spek
-import org.spekframework.spek2.dsl.Skip
-import org.spekframework.spek2.dsl.Skip.No
-import org.spekframework.spek2.dsl.Skip.Yes
-import org.spekframework.spek2.dsl.TestBody
-import org.spekframework.spek2.style.specification.Suite
 import java.io.IOException
 import java.nio.charset.Charset
 import java.nio.file.*
@@ -26,126 +21,149 @@ import java.nio.file.attribute.AclEntryType.ALLOW
 import java.nio.file.attribute.AclEntryType.DENY
 import java.nio.file.attribute.PosixFilePermission.*
 import java.util.regex.Pattern.quote
+import org.junit.jupiter.api.Assumptions.assumeFalse
 
-abstract class PathExpectationsSpec(
-    toExist: Fun0<Path>,
-    notToExist: Fun0<Path>,
-    toStartWith: Fun1<Path, Path>,
-    notToStartWith: Fun1<Path, Path>,
-    toEndWith: Fun1<Path, Path>,
-    notToEndWith: Fun1<Path, Path>,
-    toBeReadable: Fun0<Path>,
-    notToBeReadable: Fun0<Path>,
-    toBeWritable: Fun0<Path>,
-    notToBeWritable: Fun0<Path>,
-    toBeExecutable: Fun0<Path>,
-    notToBeExecutable: Fun0<Path>,
-    toBeRegularFile: Fun0<Path>,
-    toBeADirectory: Fun0<Path>,
-    toBeASymbolicLink: Fun0<Path>,
-    toBeAbsolute: Fun0<Path>,
-    toBeRelative: Fun0<Path>,
-    toBeAnEmptyDirectory: Fun0<Path>,
-    toHaveTheDirectoryEntry: Fun1<Path, String>,
-    toHaveTheDirectoryEntries: Fun2<Path, String, Array<out String>>,
-    toHaveTheSameBinaryContentAs: Fun1<Path, Path>,
-    toHaveTheSameTextualContentAs: Fun3<Path, Path, Charset, Charset>,
-    toHaveTheSameTextualContentAsDefaultArgs: Fun1<Path, Path>,
-    parentFeature: Feature0<Path, Path>,
-    parent: Fun1<Path, Expect<Path>.() -> Unit>,
-    resolveFeature: Feature1<Path, String, Path>,
-    resolve: Fun2<Path, String, Expect<Path>.() -> Unit>,
-    fileNameFeature: Feature0<Path, String>,
-    fileName: Fun1<Path, Expect<String>.() -> Unit>,
-    fileNameWithoutExtensionFeature: Feature0<Path, String>,
-    fileNameWithoutExtension: Fun1<Path, Expect<String>.() -> Unit>,
-    extensionFeature: Feature0<Path, String>,
-    extension: Fun1<Path, Expect<String>.() -> Unit>,
-    describePrefix: String = "[Atrium] "
-) : Spek({
+/**
+ * A test is skipped via `assumeFalse` in case [skip] is true, stating [reason] as reason why it is skipped.
+ * Replacement for Spek's Skip DSL: [No] means the test is executed, [Yes] skips the test for the given reason.
+ */
+private class Skip(val skip: Boolean, val reason: String)
 
-    include(object : SubjectLessSpec<Path>(
-        "$describePrefix[Path] ",
-        toExist.forSubjectLessTest(),
-        notToExist.forSubjectLessTest(),
-        toStartWith.forSubjectLessTest(Paths.get("a")),
-        notToStartWith.forSubjectLessTest(Paths.get("a")),
-        toEndWith.forSubjectLessTest(Paths.get("a")),
-        notToEndWith.forSubjectLessTest(Paths.get("a")),
-        toBeReadable.forSubjectLessTest(),
-        notToBeReadable.forSubjectLessTest(),
-        toBeWritable.forSubjectLessTest(),
-        notToBeWritable.forSubjectLessTest(),
-        toBeExecutable.forSubjectLessTest(),
-        toBeRegularFile.forSubjectLessTest(),
-        toBeADirectory.forSubjectLessTest(),
-        toBeASymbolicLink.forSubjectLessTest(),
-        toBeAbsolute.forSubjectLessTest(),
-        toBeRelative.forSubjectLessTest(),
-        toBeAnEmptyDirectory.forSubjectLessTest(),
-        toHaveTheDirectoryEntry.forSubjectLessTest("a"),
-        toHaveTheDirectoryEntries.forSubjectLessTest("a", arrayOf("b", "c")),
-        toHaveTheSameBinaryContentAs.forSubjectLessTest(Paths.get("a")),
-        toHaveTheSameTextualContentAs.forSubjectLessTest(Paths.get("a"), Charsets.ISO_8859_1, Charsets.ISO_8859_1),
-        toHaveTheSameTextualContentAsDefaultArgs.forSubjectLessTest(Paths.get("a")),
-        parentFeature.forSubjectLessTest(),
-        parent.forSubjectLessTest { },
-        resolveFeature.forSubjectLessTest("test"),
-        resolve.forSubjectLessTest("test") { toEqual(Paths.get("a/my.txt")) },
-        fileNameFeature.forSubjectLessTest(),
-        fileName.forSubjectLessTest { },
-        fileNameWithoutExtensionFeature.forSubjectLessTest(),
-        fileNameWithoutExtension.forSubjectLessTest { }
-    ) {})
+private val No = Skip(skip = false, reason = "")
 
-    val tempFolder by memoizedTempFolder()
+private fun Yes(reason: String) = Skip(skip = true, reason = reason)
+
+@Suppress("FunctionName")
+abstract class AbstractPathExpectationsTest(
+    private val toExistSpec: Fun0<Path>,
+    private val notToExistSpec: Fun0<Path>,
+    private val toStartWithSpec: Fun1<Path, Path>,
+    private val notToStartWithSpec: Fun1<Path, Path>,
+    private val toEndWithSpec: Fun1<Path, Path>,
+    private val notToEndWithSpec: Fun1<Path, Path>,
+    private val toBeReadableSpec: Fun0<Path>,
+    private val notToBeReadableSpec: Fun0<Path>,
+    private val toBeWritableSpec: Fun0<Path>,
+    private val notToBeWritableSpec: Fun0<Path>,
+    private val toBeExecutableSpec: Fun0<Path>,
+    private val notToBeExecutableSpec: Fun0<Path>,
+    private val toBeRegularFileSpec: Fun0<Path>,
+    private val toBeADirectorySpec: Fun0<Path>,
+    private val toBeASymbolicLinkSpec: Fun0<Path>,
+    private val toBeAbsoluteSpec: Fun0<Path>,
+    private val toBeRelativeSpec: Fun0<Path>,
+    private val toBeAnEmptyDirectorySpec: Fun0<Path>,
+    private val toHaveTheDirectoryEntrySpec: Fun1<Path, String>,
+    private val toHaveTheDirectoryEntriesSpec: Fun2<Path, String, Array<out String>>,
+    private val toHaveTheSameBinaryContentAsSpec: Fun1<Path, Path>,
+    private val toHaveTheSameTextualContentAsSpec: Fun3<Path, Path, Charset, Charset>,
+    private val toHaveTheSameTextualContentAsDefaultArgsSpec: Fun1<Path, Path>,
+    private val parentFeatureSpec: Feature0<Path, Path>,
+    private val parentSpec: Fun1<Path, Expect<Path>.() -> Unit>,
+    private val resolveFeatureSpec: Feature1<Path, String, Path>,
+    private val resolveSpec: Fun2<Path, String, Expect<Path>.() -> Unit>,
+    private val fileNameFeatureSpec: Feature0<Path, String>,
+    private val fileNameSpec: Fun1<Path, Expect<String>.() -> Unit>,
+    private val fileNameWithoutExtensionFeatureSpec: Feature0<Path, String>,
+    private val fileNameWithoutExtensionSpec: Fun1<Path, Expect<String>.() -> Unit>,
+    private val extensionFeatureSpec: Feature0<Path, String>,
+    private val extensionSpec: Fun1<Path, Expect<String>.() -> Unit>
+) : ExpectationFunctionBaseTest() {
+
+    private val tempFolder = SpecTempFolder()
 
     // Linux & Mac
-    val ifAclNotSupported =
+    private val ifAclNotSupported =
         if (fileSystemSupportsAcls()) No
         else Yes("ACLs are not supported on this file system")
 
     // Windows
-    val ifPosixNotSupported =
+    private val ifPosixNotSupported =
         if (fileSystemSupportsPosixPermissions()) No
         else Yes("POSIX permissions are not supported on this file system")
 
     // Windows with neither symlink nor admin privileges
-    val ifSymlinksNotSupported =
+    private val ifSymlinksNotSupported =
         if (fileSystemSupportsCreatingSymlinks()) No
         else Yes("creating symbolic links is not supported on this file system")
 
-    fun describeFun(vararg pairs: SpecPair<*>, body: Suite.() -> Unit) =
-        describeFunTemplate(describePrefix, pairs.map { it.name }.toTypedArray(), body = body)
+    private val supportsSymlinks = fileSystemSupportsCreatingSymlinks()
 
-    val fileNameDescr = FILE_NAME.getDefault()
-    val fileNameWithoutExtensionDescr = FILE_NAME_WITHOUT_EXTENSION.getDefault()
-
-    fun Suite.it(
+    private fun TestFactoryBuilder<ExpectTestExecutableForTests>.itWithAndWithoutSymlink(
         description: String,
         skip: Skip = No,
-        forceNoLink: Skip = No,
-        timeout: Long = delegate.defaultTimeout
-    ): SymlinkTestBuilder {
-        val skipWithLink = if (forceNoLink == No) ifSymlinksNotSupported else forceNoLink
-        return SymlinkTestBuilder({ tempFolder }, skipWithLink) { prefix, innerSkip, body ->
-            val skipToUse = if (skip == No) innerSkip else skip
-            it(prefix + description, skipToUse, timeout, body)
+        forceNoLink: Boolean = false,
+        body: (MaybeLink) -> Unit
+    ) {
+        val skipWithLink = if (skip == No) ifSymlinksNotSupported else skip
+
+        it(description) {
+            assumeFalse(skip.skip, skip.reason)
+            val maybeLink = NoLink()
+            body(maybeLink)
+            maybeLink.confirmCreateWasCalled()
+        }
+        if (forceNoLink.not()) {
+            it("via symbolic link: $description") {
+                assumeFalse(skipWithLink.skip, skipWithLink.reason)
+                val maybeLink = SimpleLink { tempFolder }
+                body(maybeLink)
+                maybeLink.confirmCreateWasCalled()
+            }
         }
     }
 
-    fun Suite.itPrintsParentAccessDeniedDetails(
-        forceNoLinks: Skip = No,
+    @TestFactory
+    fun subjectLessTest() = subjectLessTestFactory(
+        toExistSpec.forSubjectLessTest(),
+        notToExistSpec.forSubjectLessTest(),
+        toStartWithSpec.forSubjectLessTest(Paths.get("a")),
+        notToStartWithSpec.forSubjectLessTest(Paths.get("a")),
+        toEndWithSpec.forSubjectLessTest(Paths.get("a")),
+        notToEndWithSpec.forSubjectLessTest(Paths.get("a")),
+        toBeReadableSpec.forSubjectLessTest(),
+        notToBeReadableSpec.forSubjectLessTest(),
+        toBeWritableSpec.forSubjectLessTest(),
+        notToBeWritableSpec.forSubjectLessTest(),
+        toBeExecutableSpec.forSubjectLessTest(),
+        toBeRegularFileSpec.forSubjectLessTest(),
+        toBeADirectorySpec.forSubjectLessTest(),
+        toBeASymbolicLinkSpec.forSubjectLessTest(),
+        toBeAbsoluteSpec.forSubjectLessTest(),
+        toBeRelativeSpec.forSubjectLessTest(),
+        toBeAnEmptyDirectorySpec.forSubjectLessTest(),
+        toHaveTheDirectoryEntrySpec.forSubjectLessTest("a"),
+        toHaveTheDirectoryEntriesSpec.forSubjectLessTest("a", arrayOf("b", "c")),
+        toHaveTheSameBinaryContentAsSpec.forSubjectLessTest(Paths.get("a")),
+        toHaveTheSameTextualContentAsSpec.forSubjectLessTest(Paths.get("a"), Charsets.ISO_8859_1, Charsets.ISO_8859_1),
+        toHaveTheSameTextualContentAsDefaultArgsSpec.forSubjectLessTest(Paths.get("a")),
+        parentFeatureSpec.forSubjectLessTest().withFeatureSuffix(),
+        parentSpec.forSubjectLessTest { },
+        resolveFeatureSpec.forSubjectLessTest("test").withFeatureSuffix(),
+        resolveSpec.forSubjectLessTest("test") { toEqual(Paths.get("a/my.txt")) },
+        fileNameFeatureSpec.forSubjectLessTest().withFeatureSuffix(),
+        fileNameSpec.forSubjectLessTest { },
+        fileNameWithoutExtensionFeatureSpec.forSubjectLessTest().withFeatureSuffix(),
+        fileNameWithoutExtensionSpec.forSubjectLessTest { },
+        extensionFeatureSpec.forSubjectLessTest().withFeatureSuffix(),
+        extensionSpec.forSubjectLessTest { }
+    )
+
+    private val fileNameDescr = FILE_NAME.getDefault()
+    private val fileNameWithoutExtensionDescr = FILE_NAME_WITHOUT_EXTENSION.getDefault()
+
+    private fun TestFactoryBuilder<ExpectTestExecutableForTests>.itPrintsParentAccessDeniedDetails(
+        forceNoLink: Boolean = false,
         block: (Path) -> Unit
     ) {
-        // this test case makes only sense on POSIX systems, where a missing execute permission on the parent means
-        // that children cannot be accessed. On Windows, for example, one can still access children without any
-        // permissions on the parent.
-        it(
+        itWithAndWithoutSymlink(
             "POSIX: prints parent permission error details",
             skip = ifPosixNotSupported,
-            forceNoLink = forceNoLinks
-        ) withAndWithoutSymlink { maybeLink ->
+            forceNoLink = forceNoLink
+        ) { maybeLink ->
+            // this test case makes only sense on POSIX systems, where a missing execute permission on the parent means
+            // that children cannot be accessed. On Windows, for example, one can still access children without any
+            // permissions on the parent.
             val start = tempFolder.newDirectory("startDir")
             val doesNotExist = maybeLink.create(start.resolve("i").resolve("dont").resolve("exist"))
 
@@ -165,7 +183,7 @@ abstract class PathExpectationsSpec(
         }
     }
 
-    fun throwingPath(): Path {
+    private fun throwingPath(): Path {
         val baseFile = tempFolder.tmpDir.resolve("throwing")
 
         // using spyk on baseFile and mocking #getFileSystem does not work on Java 8 on Linux (but everywhere else).
@@ -175,7 +193,7 @@ abstract class PathExpectationsSpec(
         }
     }
 
-    fun Suite.itPrintsFileAccessExceptionDetails(block: (Path) -> Unit) {
+    private fun TestFactoryBuilder<ExpectTestExecutableForTests>.itPrintsFileAccessExceptionDetails(block: (Path) -> Unit) {
         it("prints details if an unknown IoException is thrown") {
             expect {
                 block(throwingPath())
@@ -186,15 +204,15 @@ abstract class PathExpectationsSpec(
         }
     }
 
-    fun Suite.itPrintsFileAccessProblemDetails(
-        forceNoLinks: Skip = No,
+    private fun TestFactoryBuilder<ExpectTestExecutableForTests>.itPrintsFileAccessProblemDetails(
+        forceNoLink: Boolean = false,
         checkParentHints: Boolean = true,
         block: (Path) -> Unit
     ) {
-        it(
+        itWithAndWithoutSymlink(
             "prints the closest existing parent if it is a directory",
-            forceNoLink = forceNoLinks
-        ) withAndWithoutSymlink { maybeLink ->
+            forceNoLink = forceNoLink
+        ) { maybeLink ->
             val start = tempFolder.newDirectory("startDir").toRealPath()
             val doesNotExist = maybeLink.create(start.resolve("i").resolve("dont").resolve("exist"))
             val existingParentHintMessage =
@@ -207,7 +225,10 @@ abstract class PathExpectationsSpec(
             }
         }
 
-        it("explains if a parent is a file", forceNoLink = forceNoLinks) withAndWithoutSymlink { maybeLink ->
+        itWithAndWithoutSymlink(
+            "explains if a parent is a file",
+            forceNoLink = forceNoLink
+        ) { maybeLink ->
             val start = tempFolder.newFile("startFile")
             val doesNotExist = maybeLink.create(start.resolve("i").resolve("dont").resolve("exist"))
             val parentErrorMessage = String.format(FAILURE_DUE_TO_PARENT.getDefault(), start)
@@ -225,35 +246,32 @@ abstract class PathExpectationsSpec(
             }
         }
 
-        it(
-            "prints an explanation for link loops",
-            skip = if (forceNoLinks == No) ifSymlinksNotSupported else forceNoLinks
-        ) {
-            val testDir = tempFolder.newDirectory("loop").toRealPath()
-            val a = testDir.resolve("a")
-            val b = a.createSymbolicLink(testDir.resolve("b"))
-            b.createSymbolicLink(a)
+        it("prints an explanation for link loops") {
+            if (!forceNoLink && supportsSymlinks) {
+                val testDir = tempFolder.newDirectory("loop").toRealPath()
+                val a = testDir.resolve("a")
+                val b = a.createSymbolicLink(testDir.resolve("b"))
+                b.createSymbolicLink(a)
 
-            expect {
-                block(a)
-            }.toThrow<AssertionError> {
-                messageToContain(String.format(FAILURE_DUE_TO_LINK_LOOP.getDefault(), "$a -> $b -> $a"))
+                expect {
+                    block(a)
+                }.toThrow<AssertionError> {
+                    messageToContain(String.format(FAILURE_DUE_TO_LINK_LOOP.getDefault(), "$a -> $b -> $a"))
+                }
             }
         }
 
         if (checkParentHints) {
-            itPrintsParentAccessDeniedDetails(forceNoLinks, block)
+            itPrintsParentAccessDeniedDetails(forceNoLink, block)
         }
         itPrintsFileAccessExceptionDetails(block)
     }
 
-    describeFun(toExist, notToExist) {
-        val toExistFun = toExist.lambda
-        val notToExistFun = notToExist.lambda
-
-        context("not accessible") {
-            context("non-existent path") {
-                it("${toExist.name} - throws an AssertionError") withAndWithoutSymlink { maybeLink ->
+    @TestFactory
+    fun toExist_notToExist() = testFactory(toExistSpec, notToExistSpec) { toExistFun, notToExistFun ->
+        describe("not accessible") {
+            describe("non-existent path") {
+                itWithAndWithoutSymlink("${toExistSpec.name} - throws an AssertionError") { maybeLink ->
                     val notExisting = maybeLink.create(tempFolder.tmpDir.resolve("nonExistingFile"))
                     expect {
                         expect(notExisting).toExistFun()
@@ -262,19 +280,19 @@ abstract class PathExpectationsSpec(
                         containsExplanationFor(maybeLink)
                     }
                 }
-                it("${notToExist.name} - does not throw") withAndWithoutSymlink { maybeLink ->
+                itWithAndWithoutSymlink("${notToExistSpec.name} - does not throw") { maybeLink ->
                     val notExisting = maybeLink.create(tempFolder.tmpDir.resolve("nonExistingFile"))
                     expect(notExisting).notToExistFun()
                 }
             }
 
-            context("${toExist.name} has failure hints") {
+            describe("${toExistSpec.name} has failure hints") {
                 itPrintsFileAccessProblemDetails { testFile ->
                     expect(testFile).toExistFun()
                 }
             }
 
-            context("${notToExist.name} has failure hints") {
+            describe("${notToExistSpec.name} has failure hints") {
                 itPrintsParentAccessDeniedDetails { testFile ->
                     expect(testFile).notToExistFun()
                 }
@@ -285,13 +303,13 @@ abstract class PathExpectationsSpec(
             }
         }
 
-        context("existing") {
-            context("file") {
-                it("${toExist.name} - does not throw") withAndWithoutSymlink { maybeLink ->
+        describe("existing") {
+            describe("file") {
+                itWithAndWithoutSymlink("${toExistSpec.name} - does not throw") { maybeLink ->
                     val file = maybeLink.create(tempFolder.newFile("test"))
                     expect(file).toExistFun()
                 }
-                it("${notToExist.name} - throws an AssertionError") withAndWithoutSymlink { maybeLink ->
+                itWithAndWithoutSymlink("${notToExistSpec.name} - throws an AssertionError") { maybeLink ->
                     val file = maybeLink.create(tempFolder.newFile("toExist-though-shouldnt"))
                     expect {
                         expect(file).notToExistFun()
@@ -304,13 +322,13 @@ abstract class PathExpectationsSpec(
                     }
                 }
             }
-            context("directory") {
-                it("${toExist.name} - does not throw") withAndWithoutSymlink { maybeLink ->
+            describe("directory") {
+                itWithAndWithoutSymlink("${toExistSpec.name} - does not throw") { maybeLink ->
                     val file = maybeLink.create(tempFolder.newDirectory("test"))
                     expect(file).toExistFun()
                 }
 
-                it("${notToExist.name} - throws an AssertionError") withAndWithoutSymlink { maybeLink ->
+                itWithAndWithoutSymlink("${notToExistSpec.name} - throws an AssertionError") { maybeLink ->
                     val folder = maybeLink.create(tempFolder.newDirectory("toExist-though-shouldnt"))
                     expect {
                         expect(folder).notToExistFun()
@@ -326,13 +344,11 @@ abstract class PathExpectationsSpec(
         }
     }
 
-    describeFun(toStartWith, notToStartWith) {
-        val toStartWithFun = toStartWith.lambda
-        val notToStartWithFun = notToStartWith.lambda
-
+    @TestFactory
+    fun toStartWith_notToStartWith() = testFactory(toStartWithSpec, notToStartWithSpec) { toStartWithFun, notToStartWithFun ->
         val path = "/some/path/for/test"
         val expectPath = expect(Paths.get(path))
-        context("path '$path'") {
+        describe("path '$path'") {
             mapOf(
                 "/some/pa" to false,
                 "/some/path" to true,
@@ -344,12 +360,12 @@ abstract class PathExpectationsSpec(
                 "/some/other" to false,
                 "/some/path/other" to false
             ).forEach { (path, toStartWithHolds) ->
-                context("compare against $path") {
+                describe("compare against $path") {
                     if (toStartWithHolds) {
-                        it("${toStartWith.name} - does not throw") {
+                        it("${toStartWithSpec.name} - does not throw") {
                             expectPath.toStartWithFun(Paths.get(path))
                         }
-                        it("${notToStartWith.name} - throws an AssertionError") {
+                        it("${notToStartWithSpec.name} - throws an AssertionError") {
                             expect {
                                 expectPath.notToStartWithFun(Paths.get(path))
                             }.toThrow<AssertionError> {
@@ -357,14 +373,14 @@ abstract class PathExpectationsSpec(
                             }
                         }
                     } else {
-                        it("${toStartWith.name} - throws an AssertionError") {
+                        it("${toStartWithSpec.name} - throws an AssertionError") {
                             expect {
                                 expectPath.toStartWithFun(Paths.get(path))
                             }.toThrow<AssertionError> {
                                 messageToContain("${STARTS_WITH.getDefault()}:")
                             }
                         }
-                        it("${notToStartWith.name} - does not throw") {
+                        it("${notToStartWithSpec.name} - does not throw") {
                             expectPath.notToStartWithFun(Paths.get(path))
                         }
                     }
@@ -373,13 +389,11 @@ abstract class PathExpectationsSpec(
         }
     }
 
-    describeFun(toEndWith, notToEndWith) {
-        val toEndWithFun = toEndWith.lambda
-        val notToEndWithFun = notToEndWith.lambda
-
+    @TestFactory
+    fun toEndWith_notToEndWith() = testFactory(toEndWithSpec, notToEndWithSpec) { toEndWithFun, notToEndWithFun ->
         val path = "/some/path/for/test"
         val expectPath = expect(Paths.get(path))
-        context("path '$path'") {
+        describe("path '$path'") {
             mapOf(
                 "/some/path/for/test" to true,
                 "some/path/for/test" to true,
@@ -395,12 +409,12 @@ abstract class PathExpectationsSpec(
                 "other/test" to false,
                 "other/for/test" to false
             ).forEach { (path, toEndWithHolds) ->
-                context("compare against $path") {
+                describe("compare against $path") {
                     if (toEndWithHolds) {
-                        it("${toEndWith.name} - does not throw") {
+                        it("${toEndWithSpec.name} - does not throw") {
                             expectPath.toEndWithFun(Paths.get(path))
                         }
-                        it("${notToEndWith.name} - throws an AssertionError") {
+                        it("${notToEndWithSpec.name} - throws an AssertionError") {
                             expect {
                                 expectPath.notToEndWithFun(Paths.get(path))
                             }.toThrow<AssertionError> {
@@ -408,14 +422,14 @@ abstract class PathExpectationsSpec(
                             }
                         }
                     } else {
-                        it("${toEndWith.name} - throws an AssertionError") {
+                        it("${toEndWithSpec.name} - throws an AssertionError") {
                             expect {
                                 expectPath.toEndWithFun(Paths.get(path))
                             }.toThrow<AssertionError> {
                                 messageToContain("${ENDS_WITH.getDefault()}:")
                             }
                         }
-                        it("${notToEndWith.name} - does not throw") {
+                        it("${notToEndWithSpec.name} - does not throw") {
                             expectPath.notToEndWithFun(Paths.get(path))
                         }
                     }
@@ -424,12 +438,12 @@ abstract class PathExpectationsSpec(
         }
     }
 
-    describeFun(toBeReadable) {
-        val toBeReadableFun = toBeReadable.lambda
+    @TestFactory
+    fun toBeReadable() = testFactory(toBeReadableSpec) { toBeReadableFun ->
         val expectedMessage = "$toBeDescr: ${READABLE.getDefault()}"
 
-        context("not accessible") {
-            it("throws an AssertionError for non-existent path") withAndWithoutSymlink { maybeLink ->
+        describe("not accessible") {
+            itWithAndWithoutSymlink("throws an AssertionError for non-existent path") { maybeLink ->
                 val file = maybeLink.create(tempFolder.tmpDir.resolve("nonExistent"))
                 expect {
                     expect(file).toBeReadableFun()
@@ -444,22 +458,25 @@ abstract class PathExpectationsSpec(
             }
         }
 
-        context("readable") {
-            it("does not throw for file") withAndWithoutSymlink { maybeLink ->
+        describe("readable") {
+            itWithAndWithoutSymlink("does not throw for file") { maybeLink ->
                 val file = maybeLink.create(tempFolder.newFile("readable"))
                 expect(file).toBeReadableFun()
             }
 
-            it("does not throw for directory") withAndWithoutSymlink { maybeLink ->
+            itWithAndWithoutSymlink("does not throw for directory") { maybeLink ->
                 val folder = maybeLink.create(tempFolder.newDirectory("readable"))
                 expect(folder).toBeReadableFun()
             }
         }
 
-        context("POSIX: not readable", skip = ifPosixNotSupported) {
+        describe("POSIX: not readable") {
             val expectedPermissionHint = String.format(HINT_ACTUAL_POSIX_PERMISSIONS.getDefault(), "u=wx g=x o=")
 
-            it("throws an AssertionError for a file") withAndWithoutSymlink { maybeLink ->
+            itWithAndWithoutSymlink(
+                "throws an AssertionError for a file",
+                skip = ifPosixNotSupported
+            ) { maybeLink ->
                 val file = maybeLink.create(tempFolder.newFile("not-readable"))
                 file.whileWithPermissions(OWNER_WRITE, OWNER_EXECUTE, GROUP_EXECUTE) {
                     expect {
@@ -476,7 +493,10 @@ abstract class PathExpectationsSpec(
                 }
             }
 
-            it("throws an AssertionError for a directory") withAndWithoutSymlink { maybeLink ->
+            itWithAndWithoutSymlink(
+                "throws an AssertionError for a directory",
+                skip = ifPosixNotSupported
+            ) { maybeLink ->
                 val folder = maybeLink.create(tempFolder.newDirectory("not-readable"))
                 folder.whileWithPermissions(OWNER_WRITE, OWNER_EXECUTE, GROUP_EXECUTE) {
                     expect {
@@ -494,8 +514,11 @@ abstract class PathExpectationsSpec(
             }
         }
 
-        context("ACL: not readable", skip = ifAclNotSupported) {
-            it("throws an AssertionError for a file") withAndWithoutSymlink { maybeLink ->
+        describe("ACL: not readable") {
+            itWithAndWithoutSymlink(
+                "throws an AssertionError for a file",
+                skip = ifAclNotSupported
+            ) { maybeLink ->
                 val file = maybeLink.create(tempFolder.newFile("not-readable"))
                 file.whileWithAcl(TestAcls::ownerNoRead) {
                     expect {
@@ -518,7 +541,10 @@ abstract class PathExpectationsSpec(
                 }
             }
 
-            it("throws an AssertionError for a directory") withAndWithoutSymlink { maybeLink ->
+            itWithAndWithoutSymlink(
+                "throws an AssertionError for a directory",
+                skip = ifAclNotSupported
+            ) { maybeLink ->
                 val folder = maybeLink.create(tempFolder.newDirectory("not-readable"))
                 folder.whileWithAcl(TestAcls::ownerNoRead) {
                     expect {
@@ -543,12 +569,12 @@ abstract class PathExpectationsSpec(
         }
     }
 
-    describeFun(notToBeReadable) {
-        val notToBeReadableFun = notToBeReadable.lambda
+    @TestFactory
+    fun notToBeReadable() = testFactory(notToBeReadableSpec) { notToBeReadableFun ->
         val expectedMessage = "$notToBeDescr: ${READABLE.getDefault()}"
 
-        context("not accessible") {
-            it("throws an AssertionError for a non-existent path") withAndWithoutSymlink { maybeLink ->
+        describe("not accessible") {
+            itWithAndWithoutSymlink("throws an AssertionError for a non-existent path") { maybeLink ->
                 val file = maybeLink.create(tempFolder.tmpDir.resolve("nonExistent"))
                 expect {
                     expect(file).notToBeReadableFun()
@@ -569,8 +595,11 @@ abstract class PathExpectationsSpec(
             }
         }
 
-        context("POSIX: readable", skip = ifPosixNotSupported) {
-            it("throws an AssertionError for a file") withAndWithoutSymlink { maybeLink ->
+        describe("POSIX: readable") {
+            itWithAndWithoutSymlink(
+                "throws an AssertionError for a file",
+                skip = ifPosixNotSupported
+            ) { maybeLink ->
                 val file = maybeLink.create(tempFolder.newFile("readable"))
 
                 file.whileWithPermissions(OWNER_READ, OWNER_WRITE, OWNER_EXECUTE, OTHERS_EXECUTE) {
@@ -582,7 +611,10 @@ abstract class PathExpectationsSpec(
                 }
             }
 
-            it("throws an AssertionError for a directory") withAndWithoutSymlink { maybeLink ->
+            itWithAndWithoutSymlink(
+                "throws an AssertionError for a directory",
+                skip = ifPosixNotSupported
+            ) { maybeLink ->
                 val folder = maybeLink.create(tempFolder.newDirectory("readable"))
 
                 folder.whileWithPermissions(OWNER_READ, OWNER_WRITE, OWNER_EXECUTE, OTHERS_EXECUTE) {
@@ -595,15 +627,21 @@ abstract class PathExpectationsSpec(
             }
         }
 
-        context("POSIX: not readable", skip = ifPosixNotSupported) {
-            it("does not throw for a file") withAndWithoutSymlink { maybeLink ->
+        describe("POSIX: not readable") {
+            itWithAndWithoutSymlink(
+                "does not throw for a file",
+                skip = ifPosixNotSupported
+            ) { maybeLink ->
                 val file = maybeLink.create(tempFolder.newFile("not-readable"))
                 file.whileWithPermissions(OWNER_WRITE, OWNER_EXECUTE, OTHERS_EXECUTE) {
                     expect(file).notToBeReadableFun()
                 }
             }
 
-            it("does not throw for a directory") withAndWithoutSymlink { maybeLink ->
+            itWithAndWithoutSymlink(
+                "does not throw for a directory",
+                skip = ifPosixNotSupported
+            ) { maybeLink ->
                 val folder = maybeLink.create(tempFolder.newDirectory("not-readable"))
                 folder.whileWithPermissions(OWNER_WRITE, OWNER_EXECUTE, OTHERS_EXECUTE) {
                     expect(folder).notToBeReadableFun()
@@ -611,15 +649,21 @@ abstract class PathExpectationsSpec(
             }
         }
 
-        context("ACL: not writable", skip = ifAclNotSupported) {
-            it("does not throw for a file") withAndWithoutSymlink { maybeLink ->
+        describe("ACL: not writable") {
+            itWithAndWithoutSymlink(
+                "does not throw for a file",
+                skip = ifAclNotSupported
+            ) { maybeLink ->
                 val file = maybeLink.create(tempFolder.newFile("not-readable"))
                 file.whileWithAcl(TestAcls::ownerNoRead) {
                     expect(file).notToBeReadableFun()
                 }
             }
 
-            it("does not throw for a directory") withAndWithoutSymlink { maybeLink ->
+            itWithAndWithoutSymlink(
+                "does not throw for a directory",
+                skip = ifAclNotSupported
+            ) { maybeLink ->
                 val folder = maybeLink.create(tempFolder.newDirectory("not-readable"))
                 folder.whileWithAcl(TestAcls::ownerNoRead) {
                     expect(folder).notToBeReadableFun()
@@ -627,8 +671,11 @@ abstract class PathExpectationsSpec(
             }
         }
 
-        context("ACL: writable", skip = ifAclNotSupported) {
-            it("throws an AssertionError for a file") withAndWithoutSymlink { maybeLink ->
+        describe("ACL: writable") {
+            itWithAndWithoutSymlink(
+                "throws an AssertionError for a file",
+                skip = ifAclNotSupported
+            ) { maybeLink ->
                 val file = maybeLink.create(tempFolder.newFile("readable"))
                 file.whileWithAcl(TestAcls::all) {
                     expect {
@@ -639,7 +686,10 @@ abstract class PathExpectationsSpec(
                 }
             }
 
-            it("throws an AssertionError for a directory") withAndWithoutSymlink { maybeLink ->
+            itWithAndWithoutSymlink(
+                "throws an AssertionError for a directory",
+                skip = ifAclNotSupported
+            ) { maybeLink ->
                 val folder = maybeLink.create(tempFolder.newDirectory("readable"))
                 folder.whileWithAcl(TestAcls::all) {
                     expect {
@@ -652,12 +702,12 @@ abstract class PathExpectationsSpec(
         }
     }
 
-    describeFun(toBeWritable) {
-        val toBeWritableFun = toBeWritable.lambda
+    @TestFactory
+    fun toBeWritable() = testFactory(toBeWritableSpec) { toBeWritableFun ->
         val expectedMessage = "$toBeDescr: ${WRITABLE.getDefault()}"
 
-        context("not accessible") {
-            it("throws an AssertionError for a non-existent path") withAndWithoutSymlink { maybeLink ->
+        describe("not accessible") {
+            itWithAndWithoutSymlink("throws an AssertionError for a non-existent path") { maybeLink ->
                 val file = maybeLink.create(tempFolder.tmpDir.resolve("nonExistent"))
                 expect {
                     expect(file).toBeWritableFun()
@@ -675,22 +725,25 @@ abstract class PathExpectationsSpec(
             }
         }
 
-        context("writable") {
-            it("does not throw for file") withAndWithoutSymlink { maybeLink ->
+        describe("writable") {
+            itWithAndWithoutSymlink("does not throw for file") { maybeLink ->
                 val file = maybeLink.create(tempFolder.newFile("writable"))
                 expect(file).toBeWritableFun()
             }
 
-            it("does not throw for directory") withAndWithoutSymlink { maybeLink ->
+            itWithAndWithoutSymlink("does not throw for directory") { maybeLink ->
                 val folder = maybeLink.create(tempFolder.newDirectory("writable"))
                 expect(folder).toBeWritableFun()
             }
         }
 
-        context("POSIX: not writable", skip = ifPosixNotSupported) {
+        describe("POSIX: not writable") {
             val expectedPermissionHint = String.format(HINT_ACTUAL_POSIX_PERMISSIONS.getDefault(), "u=rx g= o=x")
 
-            it("throws an AssertionError for a file") withAndWithoutSymlink { maybeLink ->
+            itWithAndWithoutSymlink(
+                "throws an AssertionError for a file",
+                skip = ifPosixNotSupported
+            ) { maybeLink ->
                 val file = maybeLink.create(tempFolder.newFile("not-writable"))
                 file.whileWithPermissions(OWNER_READ, OWNER_EXECUTE, OTHERS_EXECUTE) {
                     expect {
@@ -707,7 +760,10 @@ abstract class PathExpectationsSpec(
                 }
             }
 
-            it("throws an AssertionError for a directory") withAndWithoutSymlink { maybeLink ->
+            itWithAndWithoutSymlink(
+                "throws an AssertionError for a directory",
+                skip = ifPosixNotSupported
+            ) { maybeLink ->
                 val folder = maybeLink.create(tempFolder.newDirectory("not-writable"))
                 folder.whileWithPermissions(OWNER_READ, OWNER_EXECUTE, OTHERS_EXECUTE) {
                     expect {
@@ -725,8 +781,11 @@ abstract class PathExpectationsSpec(
             }
         }
 
-        context("ACL: not writable", skip = ifAclNotSupported) {
-            it("throws an AssertionError for a file") withAndWithoutSymlink { maybeLink ->
+        describe("ACL: not writable") {
+            itWithAndWithoutSymlink(
+                "throws an AssertionError for a file",
+                skip = ifAclNotSupported
+            ) { maybeLink ->
                 val file = maybeLink.create(tempFolder.newFile("not-writable"))
                 file.whileWithAcl(TestAcls::ownerNoWrite) {
                     expect {
@@ -747,7 +806,10 @@ abstract class PathExpectationsSpec(
                 }
             }
 
-            it("throws an AssertionError for a directory") withAndWithoutSymlink { maybeLink ->
+            itWithAndWithoutSymlink(
+                "throws an AssertionError for a directory",
+                skip = ifAclNotSupported
+            ) { maybeLink ->
                 val folder = maybeLink.create(tempFolder.newDirectory("not-writable"))
                 folder.whileWithAcl(TestAcls::ownerNoWrite) {
                     expect {
@@ -770,12 +832,12 @@ abstract class PathExpectationsSpec(
         }
     }
 
-    describeFun(notToBeWritable) {
-        val notToBeWritableFun = notToBeWritable.lambda
+    @TestFactory
+    fun notToBeWritable() = testFactory(notToBeWritableSpec) { notToBeWritableFun ->
         val expectedMessage = "$notToBeDescr: ${WRITABLE.getDefault()}"
 
-        context("not accessible") {
-            it("throws an AssertionError for a non-existent path") withAndWithoutSymlink { maybeLink ->
+        describe("not accessible") {
+            itWithAndWithoutSymlink("throws an AssertionError for a non-existent path") { maybeLink ->
                 val file = maybeLink.create(tempFolder.tmpDir.resolve("nonExistent"))
                 expect {
                     expect(file).notToBeWritableFun()
@@ -792,12 +854,15 @@ abstract class PathExpectationsSpec(
                 // because if we cannot access parent then it is still not writeable
                 checkParentHints = false
             ) { testFile ->
-                expect(testFile).notToBeWritable()
+                expect(testFile).notToBeWritableFun()
             }
         }
 
-        context("POSIX: writable", skip = ifPosixNotSupported) {
-            it("throws an AssertionError for a file") withAndWithoutSymlink { maybeLink ->
+        describe("POSIX: writable") {
+            itWithAndWithoutSymlink(
+                "throws an AssertionError for a file",
+                skip = ifPosixNotSupported
+            ) { maybeLink ->
                 val file = maybeLink.create(tempFolder.newFile("writable"))
 
                 file.whileWithPermissions(OWNER_READ, OWNER_WRITE, OWNER_EXECUTE, OTHERS_EXECUTE) {
@@ -809,7 +874,10 @@ abstract class PathExpectationsSpec(
                 }
             }
 
-            it("throws an AssertionError for a directory") withAndWithoutSymlink { maybeLink ->
+            itWithAndWithoutSymlink(
+                "throws an AssertionError for a directory",
+                skip = ifPosixNotSupported
+            ) { maybeLink ->
                 val folder = maybeLink.create(tempFolder.newDirectory("writable"))
 
                 folder.whileWithPermissions(OWNER_READ, OWNER_WRITE, OWNER_EXECUTE, OTHERS_EXECUTE) {
@@ -822,51 +890,69 @@ abstract class PathExpectationsSpec(
             }
         }
 
-        context("POSIX: not writable", skip = ifPosixNotSupported) {
-            it("does not throw for a file") withAndWithoutSymlink { maybeLink ->
+        describe("POSIX: not writable") {
+            itWithAndWithoutSymlink(
+                "does not throw for a file",
+                skip = ifPosixNotSupported
+            ) { maybeLink ->
                 val file = maybeLink.create(tempFolder.newFile("not-writable"))
                 file.whileWithPermissions(OWNER_READ, OWNER_EXECUTE, OTHERS_EXECUTE) {
-                    expect(file).notToBeWritable()
+                    expect(file).notToBeWritableFun()
                 }
             }
 
-            it("does not throw for a directory") withAndWithoutSymlink { maybeLink ->
+            itWithAndWithoutSymlink(
+                "does not throw for a directory",
+                skip = ifPosixNotSupported
+            ) { maybeLink ->
                 val folder = maybeLink.create(tempFolder.newDirectory("not-writable"))
                 folder.whileWithPermissions(OWNER_READ, OWNER_EXECUTE, OTHERS_EXECUTE) {
-                    expect(folder).notToBeWritable()
+                    expect(folder).notToBeWritableFun()
                 }
             }
         }
 
-        context("ACL: not writable", skip = ifAclNotSupported) {
-            it("does not throw for a file") withAndWithoutSymlink { maybeLink ->
+        describe("ACL: not writable") {
+            itWithAndWithoutSymlink(
+                "does not throw for a file",
+                skip = ifAclNotSupported
+            ) { maybeLink ->
                 val file = maybeLink.create(tempFolder.newFile("not-writable"))
                 file.whileWithAcl(TestAcls::ownerNoWrite) {
-                    expect(file).notToBeWritable()
+                    expect(file).notToBeWritableFun()
                 }
             }
 
-            it("does not throw for a directory") withAndWithoutSymlink { maybeLink ->
+            itWithAndWithoutSymlink(
+                "does not throw for a directory",
+                skip = ifAclNotSupported
+            ) { maybeLink ->
                 val folder = maybeLink.create(tempFolder.newDirectory("not-writable"))
                 folder.whileWithAcl(TestAcls::ownerNoWrite) {
-                    expect(folder).notToBeWritable()
+                    expect(folder).notToBeWritableFun()
                 }
             }
         }
 
-        context("ACL: writable", skip = ifAclNotSupported) {
-            it("throws an AssertionError for a file") withAndWithoutSymlink { maybeLink ->
+        describe("ACL: writable") {
+            itWithAndWithoutSymlink(
+                "throws an AssertionError for a file",
+                skip = ifAclNotSupported
+            ) { maybeLink ->
                 val file = maybeLink.create(tempFolder.newFile("writable"))
                 file.whileWithAcl(TestAcls::all) {
                     expect {
-                        expect(file).notToBeWritable()
+                        expect(file).notToBeWritableFun()
                     }.toThrow<AssertionError>().message {
                         toContain(expectedMessage)
                     }
                 }
             }
 
-            it("throws an AssertionError for a directory") withAndWithoutSymlink { maybeLink ->
+            itWithAndWithoutSymlink(
+                "throws an AssertionError for a directory",
+                skip = ifAclNotSupported
+            ) { maybeLink ->
                 val folder = maybeLink.create(tempFolder.newDirectory("writable"))
                 folder.whileWithAcl(TestAcls::all) {
                     expect {
@@ -879,12 +965,12 @@ abstract class PathExpectationsSpec(
         }
     }
 
-    describeFun(toBeExecutable) {
-        val toBeExecutableFun = toBeExecutable.lambda
+    @TestFactory
+    fun toBeExecutable() = testFactory(toBeExecutableSpec) { toBeExecutableFun ->
         val expectedMessage = "$toBeDescr: ${EXECUTABLE.getDefault()}"
 
-        context("not accessible") {
-            it("throws an AssertionError for non-existent path") withAndWithoutSymlink { maybeLink ->
+        describe("not accessible") {
+            itWithAndWithoutSymlink("throws an AssertionError for non-existent path") { maybeLink ->
                 val file = maybeLink.create(tempFolder.tmpDir.resolve("nonExistent"))
                 expect {
                     expect(file).toBeExecutableFun()
@@ -899,15 +985,21 @@ abstract class PathExpectationsSpec(
             }
         }
 
-        context("POSIX: executable", skip = ifPosixNotSupported) {
-            it("does not throw for file") withAndWithoutSymlink { maybeLink ->
+        describe("POSIX: executable") {
+            itWithAndWithoutSymlink(
+                "does not throw for file",
+                skip = ifPosixNotSupported
+            ) { maybeLink ->
                 val file = maybeLink.create(tempFolder.newFile("executable"))
                 file.whileWithPermissions(OWNER_READ, OWNER_WRITE, OWNER_EXECUTE) {
                     expect(file).toBeExecutableFun()
                 }
             }
 
-            it("does not throw for directory") withAndWithoutSymlink { maybeLink ->
+            itWithAndWithoutSymlink(
+                "does not throw for directory",
+                skip = ifPosixNotSupported
+            ) { maybeLink ->
                 val folder = maybeLink.create(tempFolder.newDirectory("executable"))
                 folder.whileWithPermissions(OWNER_READ, OWNER_WRITE, OWNER_EXECUTE) {
                     expect(folder).toBeExecutableFun()
@@ -915,15 +1007,21 @@ abstract class PathExpectationsSpec(
             }
         }
 
-        context("ACL: executable", skip = ifAclNotSupported) {
-            it("does not throw for file") withAndWithoutSymlink { maybeLink ->
+        describe("ACL: executable") {
+            itWithAndWithoutSymlink(
+                "does not throw for file",
+                skip = ifAclNotSupported
+            ) { maybeLink ->
                 val file = maybeLink.create(tempFolder.newFile("executable"))
                 file.whileWithAcl(TestAcls::all) {
                     expect(file).toBeExecutableFun()
                 }
             }
 
-            it("does not throw for directory") withAndWithoutSymlink { maybeLink ->
+            itWithAndWithoutSymlink(
+                "does not throw for directory",
+                skip = ifAclNotSupported
+            ) { maybeLink ->
                 val folder = maybeLink.create(tempFolder.newDirectory("executable"))
                 folder.whileWithAcl(TestAcls::all) {
                     expect(folder).toBeExecutableFun()
@@ -931,10 +1029,13 @@ abstract class PathExpectationsSpec(
             }
         }
 
-        context("POSIX: not executable", skip = ifPosixNotSupported) {
+        describe("POSIX: not executable") {
             val expectedPermissionHint = String.format(HINT_ACTUAL_POSIX_PERMISSIONS.getDefault(), "u=rw g=r o=")
 
-            it("throws an AssertionError for a file") withAndWithoutSymlink { maybeLink ->
+            itWithAndWithoutSymlink(
+                "throws an AssertionError for a file",
+                skip = ifPosixNotSupported
+            ) { maybeLink ->
                 val file = maybeLink.create(tempFolder.newFile("not-executable"))
                 file.whileWithPermissions(OWNER_WRITE, OWNER_READ, GROUP_READ) {
                     expect {
@@ -951,7 +1052,10 @@ abstract class PathExpectationsSpec(
                 }
             }
 
-            it("throws an AssertionError for a directory") withAndWithoutSymlink { maybeLink ->
+            itWithAndWithoutSymlink(
+                "throws an AssertionError for a directory",
+                skip = ifPosixNotSupported
+            ) { maybeLink ->
                 val folder = maybeLink.create(tempFolder.newDirectory("not-executable"))
                 folder.whileWithPermissions(OWNER_WRITE, OWNER_READ, GROUP_READ) {
                     expect {
@@ -969,8 +1073,11 @@ abstract class PathExpectationsSpec(
             }
         }
 
-        context("ACL: not executable", skip = ifAclNotSupported) {
-            it("throws an AssertionError for a file") withAndWithoutSymlink { maybeLink ->
+        describe("ACL: not executable") {
+            itWithAndWithoutSymlink(
+                "throws an AssertionError for a file",
+                skip = ifAclNotSupported
+            ) { maybeLink ->
                 val file = maybeLink.create(tempFolder.newFile("not-executable"))
                 file.whileWithAcl(TestAcls::ownerNoExecute) {
                     expect {
@@ -993,7 +1100,10 @@ abstract class PathExpectationsSpec(
                 }
             }
 
-            it("throws an AssertionError for a directory") withAndWithoutSymlink { maybeLink ->
+            itWithAndWithoutSymlink(
+                "throws an AssertionError for a directory",
+                skip = ifAclNotSupported
+            ) { maybeLink ->
                 val folder = maybeLink.create(tempFolder.newDirectory("not-readable"))
                 folder.whileWithAcl(TestAcls::ownerNoExecute) {
                     expect {
@@ -1018,12 +1128,12 @@ abstract class PathExpectationsSpec(
         }
     }
 
-    describeFun(notToBeExecutable) {
-        val notToBeExecutableFun = notToBeExecutable.lambda
+    @TestFactory
+    fun notToBeExecutable() = testFactory(notToBeExecutableSpec) { notToBeExecutableFun ->
         val expectedMessage = "$notToBeDescr: ${EXECUTABLE.getDefault()}"
 
-        context("not accessible") {
-            it("throws an AssertionError for a non-existent path") withAndWithoutSymlink { maybeLink ->
+        describe("not accessible") {
+            itWithAndWithoutSymlink("throws an AssertionError for a non-existent path") { maybeLink ->
                 val file = maybeLink.create(tempFolder.tmpDir.resolve("nonExistent"))
                 expect {
                     expect(file).notToBeExecutableFun()
@@ -1040,12 +1150,15 @@ abstract class PathExpectationsSpec(
                 // because if we cannot access parent then it is still not executable
                 checkParentHints = false
             ) { testFile ->
-                expect(testFile).notToBeExecutable()
+                expect(testFile).notToBeExecutableFun()
             }
         }
 
-        context("POSIX: executable", skip = ifPosixNotSupported) {
-            it("throws an AssertionError for a file") withAndWithoutSymlink { maybeLink ->
+        describe("POSIX: executable") {
+            itWithAndWithoutSymlink(
+                "throws an AssertionError for a file",
+                skip = ifPosixNotSupported
+            ) { maybeLink ->
                 val file = maybeLink.create(tempFolder.newFile("executable"))
 
                 file.whileWithPermissions(OWNER_READ, OWNER_WRITE, OWNER_EXECUTE, OTHERS_EXECUTE) {
@@ -1057,7 +1170,10 @@ abstract class PathExpectationsSpec(
                 }
             }
 
-            it("throws an AssertionError for a directory") withAndWithoutSymlink { maybeLink ->
+            itWithAndWithoutSymlink(
+                "throws an AssertionError for a directory",
+                skip = ifPosixNotSupported
+            ) { maybeLink ->
                 val folder = maybeLink.create(tempFolder.newDirectory("executable"))
 
                 folder.whileWithPermissions(OWNER_READ, OWNER_WRITE, OWNER_EXECUTE, OTHERS_EXECUTE) {
@@ -1070,55 +1186,73 @@ abstract class PathExpectationsSpec(
             }
         }
 
-        context("POSIX: not executable", skip = ifPosixNotSupported) {
-            it("does not throw for a file") withAndWithoutSymlink { maybeLink ->
+        describe("POSIX: not executable") {
+            itWithAndWithoutSymlink(
+                "does not throw for a file",
+                skip = ifPosixNotSupported
+            ) { maybeLink ->
                 val file = maybeLink.create(tempFolder.newFile("not-executable"))
                 file.whileWithPermissions(OWNER_READ, OTHERS_EXECUTE) {
-                    expect(file).notToBeExecutable()
+                    expect(file).notToBeExecutableFun()
                 }
             }
 
-            it("does not throw for a directory") withAndWithoutSymlink { maybeLink ->
+            itWithAndWithoutSymlink(
+                "does not throw for a directory",
+                skip = ifPosixNotSupported
+            ) { maybeLink ->
                 val folder = maybeLink.create(tempFolder.newDirectory("not-executable"))
                 folder.whileWithPermissions(OWNER_READ, OTHERS_EXECUTE) {
-                    expect(folder).notToBeExecutable()
+                    expect(folder).notToBeExecutableFun()
                 }
             }
         }
 
-        context("ACL: not executable", skip = ifAclNotSupported) {
-            it("does not throw for a file") withAndWithoutSymlink { maybeLink ->
+        describe("ACL: not executable") {
+            itWithAndWithoutSymlink(
+                "does not throw for a file",
+                skip = ifAclNotSupported
+            ) { maybeLink ->
                 val file = maybeLink.create(tempFolder.newFile("not-executable"))
                 file.whileWithAcl(TestAcls::ownerNoExecute) {
-                    expect(file).notToBeExecutable()
+                    expect(file).notToBeExecutableFun()
                 }
             }
 
-            it("does not throw for a directory") withAndWithoutSymlink { maybeLink ->
+            itWithAndWithoutSymlink(
+                "does not throw for a directory",
+                skip = ifAclNotSupported
+            ) { maybeLink ->
                 val folder = maybeLink.create(tempFolder.newDirectory("not-executable"))
                 folder.whileWithAcl(TestAcls::ownerNoExecute) {
-                    expect(folder).notToBeExecutable()
+                    expect(folder).notToBeExecutableFun()
                 }
             }
         }
 
-        context("ACL: executable", skip = ifAclNotSupported) {
-            it("throws an AssertionError for a file") withAndWithoutSymlink { maybeLink ->
+        describe("ACL: executable") {
+            itWithAndWithoutSymlink(
+                "throws an AssertionError for a file",
+                skip = ifAclNotSupported
+            ) { maybeLink ->
                 val file = maybeLink.create(tempFolder.newFile("executable"))
                 file.whileWithAcl(TestAcls::all) {
                     expect {
-                        expect(file).notToBeExecutable()
+                        expect(file).notToBeExecutableFun()
                     }.toThrow<AssertionError>().message {
                         toContain(expectedMessage)
                     }
                 }
             }
 
-            it("throws an AssertionError for a directory") withAndWithoutSymlink { maybeLink ->
+            itWithAndWithoutSymlink(
+                "throws an AssertionError for a directory",
+                skip = ifAclNotSupported
+            ) { maybeLink ->
                 val folder = maybeLink.create(tempFolder.newDirectory("executable"))
                 folder.whileWithAcl(TestAcls::all) {
                     expect {
-                        expect(folder).notToBeExecutable()
+                        expect(folder).notToBeExecutableFun()
                     }.toThrow<AssertionError>().message {
                         toContain(expectedMessage)
                     }
@@ -1127,12 +1261,12 @@ abstract class PathExpectationsSpec(
         }
     }
 
-    describeFun(toBeRegularFile) {
-        val toBeRegularFileFun = toBeRegularFile.lambda
+    @TestFactory
+    fun toBeRegularFile() = testFactory(toBeRegularFileSpec) { toBeRegularFileFun ->
         val expectedMessage = "$toBeDescr: ${A_FILE.getDefault()}"
 
-        context("not accessible") {
-            it("throws an AssertionError for a non-existent path") withAndWithoutSymlink { maybeLink ->
+        describe("not accessible") {
+            itWithAndWithoutSymlink("throws an AssertionError for a non-existent path") { maybeLink ->
                 val file = maybeLink.create(tempFolder.tmpDir.resolve("nonExistent"))
                 expect {
                     expect(file).toBeRegularFileFun()
@@ -1150,12 +1284,12 @@ abstract class PathExpectationsSpec(
             }
         }
 
-        it("does not throw for a file") withAndWithoutSymlink { maybeLink ->
+        itWithAndWithoutSymlink("does not throw for a file") { maybeLink ->
             val file = maybeLink.create(tempFolder.newFile("test"))
             expect(file).toBeRegularFileFun()
         }
 
-        it("throws an AssertionError for a directory") withAndWithoutSymlink { maybeLink ->
+        itWithAndWithoutSymlink("throws an AssertionError for a directory") { maybeLink ->
             val folder = maybeLink.create(tempFolder.newDirectory("test"))
             expect {
                 expect(folder).toBeRegularFileFun()
@@ -1169,11 +1303,11 @@ abstract class PathExpectationsSpec(
         }
     }
 
-    describeFun(toBeASymbolicLink) {
-        val toBeASymbolicLinkFun = toBeASymbolicLink.lambda
+    @TestFactory
+    fun toBeASymbolicLink() = testFactory(toBeASymbolicLinkSpec) { toBeASymbolicLinkFun ->
         val expectedMessage = "$toBeDescr: ${A_SYMBOLIC_LINK.getDefault()}"
 
-        context("not accessible") {
+        describe("not accessible") {
             it("throws an AssertionError for a non-existent path") {
                 val path = tempFolder.resolve("nonExistent")
                 expect {
@@ -1186,7 +1320,7 @@ abstract class PathExpectationsSpec(
                 }
             }
 
-            itPrintsFileAccessProblemDetails(Yes("link resolution will not be triggered")) { testFile ->
+            itPrintsFileAccessProblemDetails(forceNoLink = true) { testFile ->
                 expect(testFile).toBeASymbolicLinkFun()
             }
         }
@@ -1216,18 +1350,20 @@ abstract class PathExpectationsSpec(
         }
 
         it("does not throw for a symbolic link") {
-            val target = tempFolder.resolve("target")
-            val link = tempFolder.newSymbolicLink("link", target)
-            expect(link).toBeASymbolicLinkFun()
+            if (supportsSymlinks) {
+                val target = tempFolder.resolve("target")
+                val link = Files.createSymbolicLink(tempFolder.resolve("link"), target)
+                expect(link).toBeASymbolicLinkFun()
+            }
         }
     }
 
-    describeFun(toBeADirectory) {
-        val toBeADirectoryFun = toBeADirectory.lambda
+    @TestFactory
+    fun toBeADirectory() = testFactory(toBeADirectorySpec) { toBeADirectoryFun ->
         val expectedMessage = "$toBeDescr: ${A_DIRECTORY.getDefault()}"
 
-        context("not accessible") {
-            it("throws an AssertionError for a non-existent path") withAndWithoutSymlink { maybeLink ->
+        describe("not accessible") {
+            itWithAndWithoutSymlink("throws an AssertionError for a non-existent path") { maybeLink ->
                 val file = maybeLink.create(tempFolder.tmpDir.resolve("nonExistent"))
                 expect {
                     expect(file).toBeADirectoryFun()
@@ -1242,7 +1378,7 @@ abstract class PathExpectationsSpec(
             }
         }
 
-        it("throws an AssertionError for a file") withAndWithoutSymlink { maybeLink ->
+        itWithAndWithoutSymlink("throws an AssertionError for a file") { maybeLink ->
             val file = maybeLink.create(tempFolder.newFile("test"))
             expect {
                 expect(file).toBeADirectoryFun()
@@ -1252,15 +1388,14 @@ abstract class PathExpectationsSpec(
             }
         }
 
-        it("does not throw for a directory") withAndWithoutSymlink { maybeLink ->
+        itWithAndWithoutSymlink("does not throw for a directory") { maybeLink ->
             val folder = maybeLink.create(tempFolder.newDirectory("test"))
             expect(folder).toBeADirectoryFun()
         }
     }
 
-    describeFun(toBeAbsolute) {
-        val toBeAbsoluteFun = toBeAbsolute.lambda
-
+    @TestFactory
+    fun toBeAbsolute() = testFactory(toBeAbsoluteSpec) { toBeAbsoluteFun ->
         it("throws an AssertionError for relative path") {
             val path = Paths.get("test/bla.txt")
             expect {
@@ -1276,9 +1411,8 @@ abstract class PathExpectationsSpec(
         }
     }
 
-    describeFun(toBeRelative) {
-        val toBeRelativeFun = toBeRelative.lambda
-
+    @TestFactory
+    fun toBeRelative() = testFactory(toBeRelativeSpec) { toBeRelativeFun ->
         it("throws an AssertionError for absolute path") {
             val path = tempFolder.newFile("test")
             expect {
@@ -1294,13 +1428,13 @@ abstract class PathExpectationsSpec(
         }
     }
 
-    describeFun(toBeAnEmptyDirectory) {
-        val toBeAnEmptyDirectoryFun = toBeAnEmptyDirectory.lambda
+    @TestFactory
+    fun toBeAnEmptyDirectory() = testFactory(toBeAnEmptyDirectorySpec) { toBeAnEmptyDirectoryFun ->
         val expectedMessage = "$toBeDescr: ${A_DIRECTORY.getDefault()}"
         val expectedEmptyMessage = "$toBeDescr: ${AN_EMPTY_DIRECTORY.getDefault()}"
 
-        context("not accessible") {
-            it("throws an AssertionError for a non-existent path") withAndWithoutSymlink { maybeLink ->
+        describe("not accessible") {
+            itWithAndWithoutSymlink("throws an AssertionError for a non-existent path") { maybeLink ->
                 val file = maybeLink.create(tempFolder.tmpDir.resolve("nonExistent"))
                 expect {
                     expect(file).toBeAnEmptyDirectoryFun()
@@ -1315,7 +1449,7 @@ abstract class PathExpectationsSpec(
             }
         }
 
-        it("throws an AssertionError for a file") withAndWithoutSymlink { maybeLink ->
+        itWithAndWithoutSymlink("throws an AssertionError for a file") { maybeLink ->
             val file = maybeLink.create(tempFolder.newFile("test"))
             expect {
                 expect(file).toBeAnEmptyDirectoryFun()
@@ -1325,7 +1459,7 @@ abstract class PathExpectationsSpec(
             }
         }
 
-        it("throws an AssertionError for a non-empty directory") withAndWithoutSymlink { maybeLink ->
+        itWithAndWithoutSymlink("throws an AssertionError for a non-empty directory") { maybeLink ->
             val dir = tempFolder.newDirectory("notEmpty")
             val showMax = 10
             (0 until showMax + 1).forEach {
@@ -1349,50 +1483,59 @@ abstract class PathExpectationsSpec(
             }
         }
 
-        it("throws an AssertionError for a directory that contains an empty directory") withAndWithoutSymlink
-            { maybeLink ->
-                val dir = tempFolder.newDirectory("notEmpty")
-                dir.newDirectory("a")
-                val folder = maybeLink.create(dir)
-                expect {
-                    expect(folder).toBeAnEmptyDirectoryFun()
-                }.toThrow<AssertionError>().message {
-                    toContain(expectedEmptyMessage)
-                    containsExplanationFor(maybeLink)
-                    toContain("a")
-                    notToContain("$listBulletPoint...")
-                }
+        itWithAndWithoutSymlink("throws an AssertionError for a directory that contains an empty directory") { maybeLink ->
+            val dir = tempFolder.newDirectory("notEmpty")
+            dir.newDirectory("a")
+            val folder = maybeLink.create(dir)
+            expect {
+                expect(folder).toBeAnEmptyDirectoryFun()
+            }.toThrow<AssertionError>().message {
+                toContain(expectedEmptyMessage)
+                containsExplanationFor(maybeLink)
+                toContain("a")
+                notToContain("$listBulletPoint...")
             }
+        }
 
-        it("does not throw for an empty directory") withAndWithoutSymlink { maybeLink ->
+        itWithAndWithoutSymlink("does not throw for an empty directory") { maybeLink ->
             val folder = maybeLink.create(tempFolder.newDirectory("test"))
             expect(folder).toBeAnEmptyDirectoryFun()
         }
     }
 
-    val hasDirectoryEntryVariations = listOf(
-        DirectoryEntryVariation("directory", "directories") { entry -> newDirectory(entry) },
-        DirectoryEntryVariation("file", "files") { entry -> newFile(entry) },
-        DirectoryEntryVariation("symlink with existing target", "symlinks with existing targets") { entry ->
+    private val hasDirectoryEntryVariations = listOf(
+        DirectoryEntryVariation("directory", "directories", requiresSymlinks = false) { entry -> newDirectory(entry) },
+        DirectoryEntryVariation("file", "files", requiresSymlinks = false) { entry -> newFile(entry) },
+        DirectoryEntryVariation(
+            "symlink with existing target",
+            "symlinks with existing targets",
+            requiresSymlinks = true
+        ) { entry ->
             newFile("$entry-target").createSymbolicLink(resolve(entry))
         },
-        DirectoryEntryVariation("symlink with non-existing target", "symlinks with non-existing targets") { entry ->
+        DirectoryEntryVariation(
+            "symlink with non-existing target",
+            "symlinks with non-existing targets",
+            requiresSymlinks = true
+        ) { entry ->
             resolve("$entry-not-existing-target").createSymbolicLink(resolve(entry))
         }
     )
 
-    describeFun(toHaveTheDirectoryEntry) {
-        val hasDirectoryEntryFun = toHaveTheDirectoryEntry.lambda
-
-        hasDirectoryEntryVariations.forEach { (singleName, _, createEntry) ->
-            it("does not throw if the parameter is a child $singleName") withAndWithoutSymlink { maybeLink ->
+    @TestFactory
+    fun toHaveTheDirectoryEntry() = testFactory(toHaveTheDirectoryEntrySpec) { hasDirectoryEntryFun ->
+        hasDirectoryEntryVariations.forEach { (singleName, _, requiresSymlinks, createEntry) ->
+            itWithAndWithoutSymlink(
+                "does not throw if the parameter is a child $singleName",
+                skip = if (requiresSymlinks) ifSymlinksNotSupported else No
+            ) { maybeLink ->
                 val folder = maybeLink.create(tempFolder.newDirectory("startDir"))
                 folder.createEntry("a")
                 expect(folder).hasDirectoryEntryFun("a")
             }
         }
 
-        it("throws if the parameter does not exist") withAndWithoutSymlink { maybeLink ->
+        itWithAndWithoutSymlink("throws if the parameter does not exist") { maybeLink ->
             val folder = maybeLink.create(tempFolder.newDirectory("startDir"))
             expect {
                 expect(folder).hasDirectoryEntryFun("fileA")
@@ -1403,24 +1546,34 @@ abstract class PathExpectationsSpec(
         }
     }
 
-    describeFun(toHaveTheDirectoryEntries) {
-        val hasDirectoryEntryFun = toHaveTheDirectoryEntries.lambda
+    @TestFactory
+    fun toHaveTheDirectoryEntries() = testFactory(toHaveTheDirectoryEntriesSpec) { hasDirectoryEntryFun ->
+        hasDirectoryEntryVariations.forEach { (singleName, multiName, requiresSymlinks, createEntry) ->
+            val skipDueToSymlinks = if (requiresSymlinks) ifSymlinksNotSupported else No
 
-        hasDirectoryEntryVariations.forEach { (singleName, multiName, createEntry) ->
-            it("does not throw if the single parameter is a child $singleName") withAndWithoutSymlink { maybeLink ->
+            itWithAndWithoutSymlink(
+                "does not throw if the single parameter is a child $singleName",
+                skip = skipDueToSymlinks
+            ) { maybeLink ->
                 val folder = maybeLink.create(tempFolder.newDirectory("startDir"))
                 folder.createEntry("a")
                 expect(folder).hasDirectoryEntryFun("a", emptyArray())
             }
 
-            it("does not throw if two parameters are child $multiName") withAndWithoutSymlink { maybeLink ->
+            itWithAndWithoutSymlink(
+                "does not throw if two parameters are child $multiName",
+                skip = skipDueToSymlinks
+            ) { maybeLink ->
                 val folder = maybeLink.create(tempFolder.newDirectory("startDir"))
                 folder.createEntry("a")
                 folder.createEntry("b")
                 expect(folder).hasDirectoryEntryFun("a", arrayOf("b"))
             }
 
-            it("does not throw if three parameters are child $multiName") withAndWithoutSymlink { maybeLink ->
+            itWithAndWithoutSymlink(
+                "does not throw if three parameters are child $multiName",
+                skip = skipDueToSymlinks
+            ) { maybeLink ->
                 val folder = maybeLink.create(tempFolder.newDirectory("startDir"))
                 folder.createEntry("a")
                 folder.createEntry("b")
@@ -1428,7 +1581,10 @@ abstract class PathExpectationsSpec(
                 expect(folder).hasDirectoryEntryFun("a", arrayOf("b", "c"))
             }
 
-            it("it throws if the first $singleName does not exist") withAndWithoutSymlink { maybeLink ->
+            itWithAndWithoutSymlink(
+                "it throws if the first $singleName does not exist",
+                skip = skipDueToSymlinks
+            ) { maybeLink ->
                 val folder = maybeLink.create(tempFolder.newDirectory("startDir"))
                 folder.createEntry("file2")
                 folder.createEntry("file3")
@@ -1442,7 +1598,10 @@ abstract class PathExpectationsSpec(
                 }
             }
 
-            it("it throws if the second $singleName does not exist") withAndWithoutSymlink { maybeLink ->
+            itWithAndWithoutSymlink(
+                "it throws if the second $singleName does not exist",
+                skip = skipDueToSymlinks
+            ) { maybeLink ->
                 val folder = maybeLink.create(tempFolder.newDirectory("startDir"))
                 folder.createEntry("file1")
                 folder.createEntry("file3")
@@ -1456,7 +1615,10 @@ abstract class PathExpectationsSpec(
                 }
             }
 
-            it("it throws if the third $singleName does not exist") withAndWithoutSymlink { maybeLink ->
+            itWithAndWithoutSymlink(
+                "it throws if the third $singleName does not exist",
+                skip = skipDueToSymlinks
+            ) { maybeLink ->
                 val folder = maybeLink.create(tempFolder.newDirectory("startDir"))
                 folder.createEntry("file1")
                 folder.createEntry("file2")
@@ -1464,27 +1626,33 @@ abstract class PathExpectationsSpec(
                     expect(folder).hasDirectoryEntryFun("file1", arrayOf("file2", "file3"))
                 }.toThrow<AssertionError>().message {
                     toContain("${TO.getDefault()}: ${EXIST.getDefault()}")
+                    toContain("file3")
                     notToContain("file2")
                     notToContain("file1")
-                    toContain("file3")
                 }
             }
 
-            it("it throws if the first and third $multiName do not exist") withAndWithoutSymlink { maybeLink ->
+            itWithAndWithoutSymlink(
+                "it throws if the first and third $multiName do not exist",
+                skip = skipDueToSymlinks
+            ) { maybeLink ->
                 val folder = maybeLink.create(tempFolder.newDirectory("startDir"))
                 folder.createEntry("file2")
                 expect {
                     expect(folder).hasDirectoryEntryFun("file1", arrayOf("file2", "file3"))
                 }.toThrow<AssertionError>().message {
                     toContain("${TO.getDefault()}: ${EXIST.getDefault()}")
-                    notToContain("file2")
                     toContain("file1")
                     toContain("file3")
+                    notToContain("file2")
                 }
             }
         }
 
-        it("does not throw when using all entry types") withAndWithoutSymlink { maybeLink ->
+        itWithAndWithoutSymlink(
+            "does not throw when using all entry types",
+            skip = ifSymlinksNotSupported
+        ) { maybeLink ->
             val folder = maybeLink.create(tempFolder.newDirectory("startDir"))
             hasDirectoryEntryVariations.first().createEntry(folder, "file1")
             hasDirectoryEntryVariations.drop(1).forEachIndexed { index, variation ->
@@ -1494,7 +1662,7 @@ abstract class PathExpectationsSpec(
             expect(folder).hasDirectoryEntryFun("file1", otherEntries)
         }
 
-        it("it throws if the directory does not exist") withAndWithoutSymlink { maybeLink ->
+        itWithAndWithoutSymlink("it throws if the directory does not exist") { maybeLink ->
             val folder = maybeLink.create(tempFolder.tmpDir.resolve("nonExistent"))
             val expectedMessage = "$toBeDescr: ${A_DIRECTORY.getDefault()}"
 
@@ -1507,27 +1675,32 @@ abstract class PathExpectationsSpec(
         }
     }
 
-    describeFun(toHaveTheSameBinaryContentAs, toHaveTheSameTextualContentAs, toHaveTheSameTextualContentAsDefaultArgs) {
-        val toHaveTheSameBinaryContentAsFun = toHaveTheSameBinaryContentAs.lambda
-        val toHaveTheSameTextualContentAsFun = toHaveTheSameTextualContentAs.lambda
-        val toHaveTheSameTextualContentAsDefaultArgsAsFun = toHaveTheSameTextualContentAsDefaultArgs.lambda
+    @TestFactory
+    fun toHaveTheSameBinaryContentAs_toHaveTheSameTextualContentAs() = testFactory(
+        toHaveTheSameBinaryContentAsSpec,
+        toHaveTheSameTextualContentAsSpec,
+        toHaveTheSameTextualContentAsDefaultArgsSpec
+    ) {
+        val toHaveTheSameBinaryContentAsFun = toHaveTheSameBinaryContentAsSpec.lambda
+        val toHaveTheSameTextualContentAsFun = toHaveTheSameTextualContentAsSpec.lambda
+        val toHaveTheSameTextualContentAsDefaultArgsAsFun = toHaveTheSameTextualContentAsDefaultArgsSpec.lambda
 
         fun errortoHaveTheSameTextualContentAs(sourceEncoding: Charset, targetEncoding: Charset) =
             TranslatableWithArgs(HAS_SAME_TEXTUAL_CONTENT, sourceEncoding, targetEncoding).getDefault()
 
-        context("empty content") {
+        describe("empty content") {
             fun createFiles(maybeLink: MaybeLink): Pair<Path, Path> {
                 val sourcePath = maybeLink.create(tempFolder.newFile("text1"))
                 val targetPath = maybeLink.create(tempFolder.newFile("text2"))
                 return sourcePath to targetPath
             }
 
-            it("${toHaveTheSameBinaryContentAs.name} - does not throw") withAndWithoutSymlink { maybeLink ->
+            itWithAndWithoutSymlink("${toHaveTheSameBinaryContentAsSpec.name} - does not throw") { maybeLink ->
                 val (sourcePath, targetPath) = createFiles(maybeLink)
                 expect(sourcePath).toHaveTheSameBinaryContentAsFun(targetPath)
             }
 
-            it("${toHaveTheSameTextualContentAs.name} - does not throw if ISO_8859_1, ISO_8859_1 is used") withAndWithoutSymlink { maybeLink ->
+            itWithAndWithoutSymlink("${toHaveTheSameTextualContentAsSpec.name} - does not throw if ISO_8859_1, ISO_8859_1 is used") { maybeLink ->
                 val (sourcePath, targetPath) = createFiles(maybeLink)
                 expect(sourcePath).toHaveTheSameTextualContentAsFun(
                     targetPath,
@@ -1536,28 +1709,28 @@ abstract class PathExpectationsSpec(
                 )
             }
 
-            it("${toHaveTheSameTextualContentAs.name} - does not throw if UTF-16, UTF-16 is used") withAndWithoutSymlink { maybeLink ->
+            itWithAndWithoutSymlink("${toHaveTheSameTextualContentAsSpec.name} - does not throw if UTF-16, UTF-16 is used") { maybeLink ->
                 val (sourcePath, targetPath) = createFiles(maybeLink)
                 expect(sourcePath).toHaveTheSameTextualContentAsFun(targetPath, Charsets.UTF_16, Charsets.UTF_16)
             }
 
-            it("${toHaveTheSameTextualContentAs.name} - does not throw if UTF-8, UTF-16 is used") withAndWithoutSymlink { maybeLink ->
+            itWithAndWithoutSymlink("${toHaveTheSameTextualContentAsSpec.name} - does not throw if UTF-8, UTF-16 is used") { maybeLink ->
                 val (sourcePath, targetPath) = createFiles(maybeLink)
                 expect(sourcePath).toHaveTheSameTextualContentAsFun(targetPath, Charsets.UTF_8, Charsets.UTF_16)
             }
 
-            it("${toHaveTheSameTextualContentAs.name} - does not throw if UTF-16, ISO_8859_1 is used") withAndWithoutSymlink { maybeLink ->
+            itWithAndWithoutSymlink("${toHaveTheSameTextualContentAsSpec.name} - does not throw if UTF-16, ISO_8859_1 is used") { maybeLink ->
                 val (sourcePath, targetPath) = createFiles(maybeLink)
                 expect(sourcePath).toHaveTheSameTextualContentAsFun(targetPath, Charsets.UTF_16, Charsets.ISO_8859_1)
             }
 
-            it("${toHaveTheSameTextualContentAsDefaultArgs.name} - does not throw") withAndWithoutSymlink { maybeLink ->
+            itWithAndWithoutSymlink("${toHaveTheSameTextualContentAsDefaultArgsSpec.name} - does not throw") { maybeLink ->
                 val (sourcePath, targetPath) = createFiles(maybeLink)
                 expect(sourcePath).toHaveTheSameTextualContentAsDefaultArgsAsFun(targetPath)
             }
         }
 
-        context("has same binary content") {
+        describe("has same binary content") {
             fun createFiles(maybeLink: MaybeLink): Pair<Path, Path> {
                 val sourcePath = maybeLink.create(tempFolder.newFile("text3"))
                 val targetPath = maybeLink.create(tempFolder.newFile("text4"))
@@ -1566,22 +1739,22 @@ abstract class PathExpectationsSpec(
                 return sourcePath to targetPath
             }
 
-            it("${toHaveTheSameBinaryContentAs.name} - does not throw") withAndWithoutSymlink { maybeLink ->
+            itWithAndWithoutSymlink("${toHaveTheSameBinaryContentAsSpec.name} - does not throw") { maybeLink ->
                 val (sourcePath, targetPath) = createFiles(maybeLink)
                 expect(sourcePath).toHaveTheSameBinaryContentAsFun(targetPath)
             }
 
-            it("${toHaveTheSameTextualContentAs.name} - does not throw if UTF-8, UTF-8 is used") withAndWithoutSymlink { maybeLink ->
+            itWithAndWithoutSymlink("${toHaveTheSameTextualContentAsSpec.name} - does not throw if UTF-8, UTF-8 is used") { maybeLink ->
                 val (sourcePath, targetPath) = createFiles(maybeLink)
                 expect(sourcePath).toHaveTheSameTextualContentAsFun(targetPath, Charsets.UTF_8, Charsets.UTF_8)
             }
 
-            it("${toHaveTheSameTextualContentAs.name} - does not throw if UTF-16, UTF-16 is used") withAndWithoutSymlink { maybeLink ->
+            itWithAndWithoutSymlink("${toHaveTheSameTextualContentAsSpec.name} - does not throw if UTF-16, UTF-16 is used") { maybeLink ->
                 val (sourcePath, targetPath) = createFiles(maybeLink)
                 expect(sourcePath).toHaveTheSameTextualContentAsFun(targetPath, Charsets.UTF_16, Charsets.UTF_16)
             }
 
-            it("${toHaveTheSameTextualContentAs.name} - throws AssertionError if UTF-8, UTF-16 is used") withAndWithoutSymlink { maybeLink ->
+            itWithAndWithoutSymlink("${toHaveTheSameTextualContentAsSpec.name} - throws AssertionError if UTF-8, UTF-16 is used") { maybeLink ->
                 val (sourcePath, targetPath) = createFiles(maybeLink)
                 expect {
                     expect(sourcePath).toHaveTheSameTextualContentAsFun(targetPath, Charsets.UTF_8, Charsets.UTF_16)
@@ -1590,7 +1763,7 @@ abstract class PathExpectationsSpec(
                 }
             }
 
-            it("${toHaveTheSameTextualContentAs.name} - throws AssertionError if UTF-16, ISO_8859_1 is used") withAndWithoutSymlink { maybeLink ->
+            itWithAndWithoutSymlink("${toHaveTheSameTextualContentAsSpec.name} - throws AssertionError if UTF-16, ISO_8859_1 is used") { maybeLink ->
                 val (sourcePath, targetPath) = createFiles(maybeLink)
                 expect {
                     expect(sourcePath).toHaveTheSameTextualContentAsFun(
@@ -1603,13 +1776,13 @@ abstract class PathExpectationsSpec(
                 }
             }
 
-            it("${toHaveTheSameTextualContentAsDefaultArgs.name} - does not throw if UTF-8, UTF-8 is used") withAndWithoutSymlink { maybeLink ->
+            itWithAndWithoutSymlink("${toHaveTheSameTextualContentAsDefaultArgsSpec.name} - does not throw if UTF-8, UTF-8 is used") { maybeLink ->
                 val (sourcePath, targetPath) = createFiles(maybeLink)
                 expect(sourcePath).toHaveTheSameTextualContentAsDefaultArgsAsFun(targetPath)
             }
         }
 
-        context("has same textual content in UTF-8 and UTF-16") {
+        describe("has same textual content in UTF-8 and UTF-16") {
             fun createFiles(maybeLink: MaybeLink): Pair<Path, Path> {
                 val sourcePath = maybeLink.create(tempFolder.newFile("text5"))
                 val targetPath = maybeLink.create(tempFolder.newFile("text6"))
@@ -1618,7 +1791,7 @@ abstract class PathExpectationsSpec(
                 return sourcePath to targetPath
             }
 
-            it("${toHaveTheSameBinaryContentAs.name} - throws AssertionError") withAndWithoutSymlink { maybeLink ->
+            itWithAndWithoutSymlink("${toHaveTheSameBinaryContentAsSpec.name} - throws AssertionError") { maybeLink ->
                 val (sourcePath, targetPath) = createFiles(maybeLink)
                 expect {
                     expect(sourcePath).toHaveTheSameBinaryContentAsFun(targetPath)
@@ -1627,12 +1800,12 @@ abstract class PathExpectationsSpec(
                 }
             }
 
-            it("${toHaveTheSameTextualContentAs.name} - does not throw if UTF-8, UTF-16 is used") withAndWithoutSymlink { maybeLink ->
+            itWithAndWithoutSymlink("${toHaveTheSameTextualContentAsSpec.name} - does not throw if UTF-8, UTF-16 is used") { maybeLink ->
                 val (sourcePath, targetPath) = createFiles(maybeLink)
                 expect(sourcePath).toHaveTheSameTextualContentAsFun(targetPath, Charsets.UTF_8, Charsets.UTF_16)
             }
 
-            it("${toHaveTheSameTextualContentAs.name} - throws AssertionError if UTF-8, UTF-8 is used") withAndWithoutSymlink { maybeLink ->
+            itWithAndWithoutSymlink("${toHaveTheSameTextualContentAsSpec.name} - throws AssertionError if UTF-8, UTF-8 is used") { maybeLink ->
                 val (sourcePath, targetPath) = createFiles(maybeLink)
                 expect {
                     expect(sourcePath).toHaveTheSameTextualContentAsFun(targetPath, Charsets.UTF_8, Charsets.UTF_8)
@@ -1641,7 +1814,7 @@ abstract class PathExpectationsSpec(
                 }
             }
 
-            it("${toHaveTheSameTextualContentAs.name} - throws AssertionError if UTF-16, UTF-8 is used") withAndWithoutSymlink { maybeLink ->
+            itWithAndWithoutSymlink("${toHaveTheSameTextualContentAsSpec.name} - throws AssertionError if UTF-16, UTF-8 is used") { maybeLink ->
                 val (sourcePath, targetPath) = createFiles(maybeLink)
                 expect {
                     expect(sourcePath).toHaveTheSameTextualContentAsFun(targetPath, Charsets.UTF_16, Charsets.UTF_8)
@@ -1650,7 +1823,7 @@ abstract class PathExpectationsSpec(
                 }
             }
 
-            it("${toHaveTheSameTextualContentAsDefaultArgs.name} - throws AssertionError if UTF-8, UTF-8 is used") withAndWithoutSymlink { maybeLink ->
+            itWithAndWithoutSymlink("${toHaveTheSameTextualContentAsDefaultArgsSpec.name} - throws AssertionError if UTF-8, UTF-8 is used") { maybeLink ->
                 val (sourcePath, targetPath) = createFiles(maybeLink)
                 expect {
                     expect(sourcePath).toHaveTheSameTextualContentAsDefaultArgsAsFun(targetPath)
@@ -1660,7 +1833,7 @@ abstract class PathExpectationsSpec(
             }
         }
 
-        context("has different textual content") {
+        describe("has different textual content") {
             fun createFiles(maybeLink: MaybeLink): Pair<Path, Path> {
                 val sourcePath = maybeLink.create(tempFolder.newFile("text5"))
                 val targetPath = maybeLink.create(tempFolder.newFile("text6"))
@@ -1669,7 +1842,7 @@ abstract class PathExpectationsSpec(
                 return sourcePath to targetPath
             }
 
-            it("${toHaveTheSameBinaryContentAs.name} - throws AssertionError") withAndWithoutSymlink { maybeLink ->
+            itWithAndWithoutSymlink("${toHaveTheSameBinaryContentAsSpec.name} - throws AssertionError") { maybeLink ->
                 val (sourcePath, targetPath) = createFiles(maybeLink)
                 expect {
                     expect(sourcePath).toHaveTheSameBinaryContentAsFun(targetPath)
@@ -1678,7 +1851,7 @@ abstract class PathExpectationsSpec(
                 }
             }
 
-            it("${toHaveTheSameTextualContentAs.name} - throws AssertionError if UTF-8, UTF-8 is used") withAndWithoutSymlink { maybeLink ->
+            itWithAndWithoutSymlink("${toHaveTheSameTextualContentAsSpec.name} - throws AssertionError if UTF-8, UTF-8 is used") { maybeLink ->
                 val (sourcePath, targetPath) = createFiles(maybeLink)
                 expect {
                     expect(sourcePath).toHaveTheSameTextualContentAsFun(targetPath, Charsets.UTF_8, Charsets.UTF_8)
@@ -1687,7 +1860,7 @@ abstract class PathExpectationsSpec(
                 }
             }
 
-            it("${toHaveTheSameTextualContentAs.name} - throws AssertionError if UTF-16, UTF-16 is used") withAndWithoutSymlink { maybeLink ->
+            itWithAndWithoutSymlink("${toHaveTheSameTextualContentAsSpec.name} - throws AssertionError if UTF-16, UTF-16 is used") { maybeLink ->
                 val (sourcePath, targetPath) = createFiles(maybeLink)
                 expect {
                     expect(sourcePath).toHaveTheSameTextualContentAsFun(targetPath, Charsets.UTF_16, Charsets.UTF_16)
@@ -1696,7 +1869,7 @@ abstract class PathExpectationsSpec(
                 }
             }
 
-            it("${toHaveTheSameTextualContentAsDefaultArgs.name} - throws AssertionError if UTF-8, UTF-8 is used") withAndWithoutSymlink { maybeLink ->
+            itWithAndWithoutSymlink("${toHaveTheSameTextualContentAsDefaultArgsSpec.name} - throws AssertionError if UTF-8, UTF-8 is used") { maybeLink ->
                 val (sourcePath, targetPath) = createFiles(maybeLink)
                 expect {
                     expect(sourcePath).toHaveTheSameTextualContentAsDefaultArgsAsFun(targetPath)
@@ -1707,10 +1880,11 @@ abstract class PathExpectationsSpec(
         }
     }
 
-    describeFun(parentFeature, parent) {
-        val parentFunctions = unifySignatures(parentFeature, parent)
+    @TestFactory
+    fun parent() = testFactory(parentFeatureSpec, parentSpec) {
+        val parentFunctions = unifySignatures(parentFeatureSpec, parentSpec)
 
-        context("folder with parent") {
+        describe("folder with parent") {
             parentFunctions.forEach { (name, parentFun, _) ->
                 it("$name - toBe(folder.parent) holds") {
                     val childFolder = tempFolder.newDirectory("child")
@@ -1728,7 +1902,7 @@ abstract class PathExpectationsSpec(
             }
         }
 
-        context("folder without parent") {
+        describe("folder without parent") {
             parentFunctions.forEach { (name, parentFun, hasExtraHint) ->
                 it("$name - toBe(folder.parent) fails" + showsSubExpectationIf(hasExtraHint)) {
                     expect {
@@ -1743,20 +1917,21 @@ abstract class PathExpectationsSpec(
         }
     }
 
-    describeFun(resolveFeature, resolve) {
-        val resolveFunctions = unifySignatures(resolveFeature, resolve)
+    @TestFactory
+    fun resolve() = testFactory(resolveFeatureSpec, resolveSpec) {
+        val resolveFunctions = unifySignatures(resolveFeatureSpec, resolveSpec)
 
-        context("resolve child") {
+        describe("resolve child") {
             resolveFunctions.forEach { (name, resolveFun, _) ->
                 it("$name - toBe(child) holds") {
                     val resolvedFolder = tempFolder.newDirectory("child")
                     val rootFolder = resolvedFolder.parent
-                    expect(rootFolder).resolveFun("child") { toEqual(resolvedFolder) }
+                    expect(rootFolder).resolveFun(resolvedFolder.fileName.toString()) { toEqual(resolvedFolder) }
                 }
             }
         }
 
-        context("resolve non-existing") {
+        describe("resolve non-existing") {
             resolveFunctions.forEach { (name, resolveFun, hasExtraHint) ->
                 it("$name - toBe(folder) fails" + showsSubExpectationIf(hasExtraHint)) {
                     expect {
@@ -1772,98 +1947,87 @@ abstract class PathExpectationsSpec(
         }
     }
 
-    describeFun(fileNameFeature, fileName) {
-        val fileNameFunctions = unifySignatures(fileNameFeature, fileName)
-
-        context("path a/my.txt") {
-            fileNameFunctions.forEach { (name, fileNameFun, _) ->
-                it("$name - toBe(my.txt) holds") {
-                    expect(Paths.get("a/my.txt")).fileNameFun { toEqual("my.txt") }
-                }
-                it("$name - toBe(my.txt) fails") {
-                    expect {
-                        expect(Paths.get("a/my")).fileNameFun { toEqual("my.txt") }
-                    }.toThrow<AssertionError> {
-                        messageToContain("$fileNameDescr: \"my\"")
-                    }
+    @TestFactory
+    fun fileName() = testFactoryForFeatureNonFeature(fileNameFeatureSpec, fileNameSpec) { name, fileNameFun, _ ->
+        describe("path a/my.txt") {
+            it("$name - toBe(my.txt) holds") {
+                expect(Paths.get("a/my.txt")).fileNameFun { toEqual("my.txt") }
+            }
+            it("$name - toBe(my.txt) fails") {
+                expect {
+                    expect(Paths.get("a/my")).fileNameFun { toEqual("my.txt") }
+                }.toThrow<AssertionError> {
+                    messageToContain("$fileNameDescr: \"my\"")
                 }
             }
         }
     }
 
-    describeFun(fileNameWithoutExtensionFeature, fileNameWithoutExtension) {
-        val fileNameWithoutExtensionFunctions =
-            unifySignatures(fileNameWithoutExtensionFeature, fileNameWithoutExtension)
-
-        context("File with extension") {
-            fileNameWithoutExtensionFunctions.forEach { (name, fileNameWithoutExtensionFun, _) ->
-                it("$name - toBe(my) holds") {
-                    expect(Paths.get("a/my.txt")).fileNameWithoutExtensionFun { toEqual("my") }
-                }
-                it("$name - toBe(my.txt) fails") {
-                    expect {
-                        expect(Paths.get("a/my.txt")).fileNameWithoutExtensionFun { toEqual("my.txt") }
-                    }.toThrow<AssertionError> {
-                        messageToContain("$fileNameWithoutExtensionDescr: \"my\"")
-                    }
+    @TestFactory
+    fun fileNameWithoutExtension() = testFactoryForFeatureNonFeature(
+        fileNameWithoutExtensionFeatureSpec,
+        fileNameWithoutExtensionSpec
+    ) { name, fileNameWithoutExtensionFun, _ ->
+        describe("File with extension") {
+            it("$name - toBe(my) holds") {
+                expect(Paths.get("a/my.txt")).fileNameWithoutExtensionFun { toEqual("my") }
+            }
+            it("$name - toBe(my.txt) fails") {
+                expect {
+                    expect(Paths.get("a/my.txt")).fileNameWithoutExtensionFun { toEqual("my.txt") }
+                }.toThrow<AssertionError> {
+                    messageToContain("$fileNameWithoutExtensionDescr: \"my\"")
                 }
             }
         }
 
         val directory = "a/my/"
-        context("directory $directory") {
-            fileNameWithoutExtensionFunctions.forEach { (name, fileNameWithoutExtensionFun, _) ->
-                it("$name - toBe(my) holds") {
-                    expect(Paths.get(directory)).fileNameWithoutExtensionFun { toEqual("my") }
-                }
-                it("$name - toBe(my.txt) fails") {
-                    expect {
-                        expect(Paths.get("a/my/")).fileNameWithoutExtensionFun { toEqual("my.txt") }
-                    }.toThrow<AssertionError> {
-                        messageToContain("$fileNameWithoutExtensionDescr: \"my\"")
-                    }
+        describe("directory $directory") {
+            it("$name - toBe(my) holds") {
+                expect(Paths.get(directory)).fileNameWithoutExtensionFun { toEqual("my") }
+            }
+            it("$name - toBe(my.txt) fails") {
+                expect {
+                    expect(Paths.get("a/my/")).fileNameWithoutExtensionFun { toEqual("my.txt") }
+                }.toThrow<AssertionError> {
+                    messageToContain("$fileNameWithoutExtensionDescr: \"my\"")
                 }
             }
         }
 
-        context("path with double extension") {
-            fileNameWithoutExtensionFunctions.forEach { (name, fileNameWithoutExtensionFun, _) ->
-                it("$name - toBe(my.tar) holds") {
-                    expect(Paths.get("a/my.tar.gz")).fileNameWithoutExtensionFun { toEqual("my.tar") }
-                }
-                it("$name - toBe(my) fails") {
-                    expect {
-                        expect(Paths.get("a/my.tar.gz")).fileNameWithoutExtensionFun { toEqual("my") }
-                    }.toThrow<AssertionError> {
-                        messageToContain("$fileNameWithoutExtensionDescr: \"my.tar\"")
-                    }
+        describe("path with double extension") {
+            it("$name - toBe(my.tar) holds") {
+                expect(Paths.get("a/my.tar.gz")).fileNameWithoutExtensionFun { toEqual("my.tar") }
+            }
+            it("$name - toBe(my) fails") {
+                expect {
+                    expect(Paths.get("a/my.tar.gz")).fileNameWithoutExtensionFun { toEqual("my") }
+                }.toThrow<AssertionError> {
+                    messageToContain("$fileNameWithoutExtensionDescr: \"my.tar\"")
                 }
             }
         }
     }
 
-    describeFun(extensionFeature, extension) {
-        val extensionFunctions = unifySignatures(extensionFeature, extension)
-
-        context("Path without extension") {
-            extensionFunctions.forEach { (name, extensionFun, _) ->
-                it("$name - returns empty extension") {
-                    expect(Paths.get("/foo/no-extension-here")).extensionFun { toEqual("") }
-                }
+    @TestFactory
+    fun extension() = testFactoryForFeatureNonFeature(extensionFeatureSpec, extensionSpec) { name, extensionFun, _ ->
+        describe("Path without extension") {
+            it("$name - returns empty expectation") {
+                expect(Paths.get("/foo/no-extension-here")).extensionFun { toEqual("") }
             }
         }
 
-        context("Path with extension") {
-            extensionFunctions.forEach { (name, extensionFun, _) ->
-                it("$name - returns the extension") {
-                    expect(Paths.get("/foo/something.txt")).extensionFun { toEqual("txt") }
-                }
+        describe("Path with extension") {
+            it("$name - returns the extension") {
+                expect(Paths.get("/foo/something.txt")).extensionFun { toEqual("txt") }
             }
         }
     }
-})
+}
 
 private const val TEST_IO_EXCEPTION_MESSAGE = "unknown test error"
+
+private val symlinkCounter = java.util.concurrent.atomic.AtomicInteger()
 
 internal object TestAcls {
     // although counter-intuitive, the entries must be in this order!
@@ -1919,7 +2083,7 @@ private inline fun Path.whileWithPermissions(
 /**
  * Sets the provided [aclToUse] on `this` path, executes the [block], and restores the permissions afterwards.
  *
- * @param aclToUse A function that gets passed the [UserPrincipal] for this file’s owner and returns an access control list
+ * @param aclToUse A function that gets passed the [UserPrincipal] for this file's owner and returns an access control list
  */
 private inline fun Path.whileWithAcl(aclToUse: (owner: UserPrincipal) -> List<AclEntry>, block: () -> Unit) {
     val aclView = this.getFileAttributeView<AclFileAttributeView>()
@@ -1930,39 +2094,6 @@ private inline fun Path.whileWithAcl(aclToUse: (owner: UserPrincipal) -> List<Ac
         block()
     } finally {
         aclView.acl = oldAcl
-    }
-}
-
-class SymlinkTestBuilder(
-    private val tempFolderProvider: () -> MemoizedTempFolder,
-    private val skipWithLink: Skip,
-    private val testBodyConsumer: (testPrefix: String, skip: Skip, testBody: TestBody.() -> Unit) -> Unit
-) {
-    /**
-     * Allows to run the provided test body multiple times in order to check proper symbolic link handling:
-     *  * On the first invocation of [body], the `maybeLink` parameter will be [NoLink], i.e., the test run will not use symbolic links.
-     *  * On the second invocation of [body], the `maybeLink` parameter will be [SimpleLink], i.e., the test run will use a symbolic link that points to the actual subject.
-     *
-     *  In effect, the test body will be executed once “directly”, and once via a symbolic link to the tested path.
-     *  The test body is expected to:
-     *   * pass the test subject (a [Path]) through [MaybeLink.create]
-     *   * call [containsExplanationFor] when checking an assertion error
-     */
-    internal infix fun withAndWithoutSymlink(body: TestBody.(maybeLink: MaybeLink) -> Unit) {
-        callWith(NoLink(), No, body)
-        callWith(SimpleLink(tempFolderProvider), skipWithLink, body)
-    }
-
-    private inline fun callWith(
-        maybeLink: InternalMaybeLink,
-        skip: Skip,
-        crossinline body: TestBody.(MaybeLink) -> Unit
-    ) {
-        val prefix = maybeLink.description.run { if (length > 0) "$this: " else "" }
-        testBodyConsumer(prefix, skip) {
-            body(maybeLink)
-            maybeLink.confirmCreateWasCalled()
-        }
     }
 }
 
@@ -1989,6 +2120,7 @@ internal fun Path.expectedAclEntryPartFor(type: String, permission: String) =
 internal interface MaybeLink {
     fun create(path: Path): Path
     fun <T : CharSequence> checkAssertionErrorMessage(expect: Expect<T>)
+    fun confirmCreateWasCalled()
 }
 
 internal abstract class InternalMaybeLink(internal val description: String) : MaybeLink {
@@ -2005,7 +2137,7 @@ internal abstract class InternalMaybeLink(internal val description: String) : Ma
     }
 
     internal abstract fun <T : CharSequence> callCheckedCheckAssertionErrorMessage(expect: Expect<T>)
-    internal fun confirmCreateWasCalled() {
+    final override fun confirmCreateWasCalled() {
         check(createWasCalled) { "Expected the symbolic link creator function to have been called!" }
     }
 }
@@ -2015,7 +2147,7 @@ internal class NoLink : InternalMaybeLink("") {
     override fun <T : CharSequence> callCheckedCheckAssertionErrorMessage(expect: Expect<T>) {}
 }
 
-internal class SimpleLink(private val tempFolderProvider: () -> MemoizedTempFolder) :
+internal class SimpleLink(private val tempFolderProvider: () -> SpecTempFolder) :
     InternalMaybeLink("via symbolic link") {
     private var link: Path? = null
     private var path: Path? = null
@@ -2023,7 +2155,10 @@ internal class SimpleLink(private val tempFolderProvider: () -> MemoizedTempFold
         this.path = path
         val tempFolder = tempFolderProvider()
         // we assume in the tests that the temporary directory does not contain symlinks, thus we resolve them here.
-        val link = Files.createSymbolicLink(tempFolder.tmpDir.toRealPath().resolve("__linkTo_" + path.fileName), path)
+        val link = Files.createSymbolicLink(
+            tempFolder.tmpDir.toRealPath().resolve("__linkTo_" + symlinkCounter.incrementAndGet() + "_" + path.fileName),
+            path
+        )
         this.link = link
         return link
     }
@@ -2045,5 +2180,24 @@ private fun expectedPermissionTypeHintFor(type: Translatable, being: Translatabl
 internal data class DirectoryEntryVariation(
     val singleName: String,
     val multipleName: String,
+    val requiresSymlinks: Boolean,
     val createEntry: Path.(entry: String) -> Path
 )
+
+/**
+ * Minimal replacement for the former MemoizedTempFolder spek extension: creates a unique temporary directory
+ * which is deleted on JVM shutdown and creates uniquely named files/directories within it.
+ */
+internal class SpecTempFolder {
+    val tmpDir: Path = Files.createTempDirectory("atrium-path-expectations-test")
+
+    init {
+        Runtime.getRuntime().addShutdownHook(Thread { tmpDir.toFile().deleteRecursively() })
+    }
+
+    fun newFile(name: String): Path = Files.createTempFile(tmpDir, name, ".tmp")
+
+    fun newDirectory(name: String): Path = Files.createTempDirectory(tmpDir, name)
+
+    fun resolve(name: String): Path = tmpDir.resolve(name)
+}
